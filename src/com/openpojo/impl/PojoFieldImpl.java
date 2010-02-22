@@ -19,13 +19,13 @@ import com.openpojo.exception.ReflectionException;
  *
  * @author oshoukry
  */
-final class PojoFieldImpl implements PojoField {
+public class PojoFieldImpl implements PojoField {
 
     private final Field field;
     private final Method fieldGetter;
     private final Method fieldSetter;
 
-    PojoFieldImpl(final Field field, final Method fieldGetter, final Method fieldSetter) {
+    public PojoFieldImpl(final Field field, final Method fieldGetter, final Method fieldSetter) {
         this.field = field;
         this.field.setAccessible(true);
         this.fieldGetter = fieldGetter;

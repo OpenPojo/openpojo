@@ -4,13 +4,19 @@
 package com.openpojo.utils;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.PojoClass;
+import com.openpojo.PojoField;
+import com.openpojo.cache.PojoCache;
 import com.openpojo.exception.ReflectionException;
-import com.openpojo.impl.PojoClassFactory;
+import com.openpojo.impl.PojoClassImpl;
+import com.openpojo.impl.PojoFieldImpl;
 
 /**
  * This is a utility class to help enumerate and generate PojoClasses for specific pacakge.
@@ -36,10 +42,48 @@ public class PojoPackageHelper {
             // we are only interested in .class files
             if (isClass(files[i])) {
                 Class<?> clazz = Class.forName(getFQClassName(files[i]));
-                pojoClasses.add(PojoClassFactory.buildPojoClass(clazz));
+                pojoClasses.add(buildPojoClass(clazz));
             }
         }
         return pojoClasses;
+    }
+
+    /**
+     * @param clazz
+     * @return
+     */
+    public static PojoClass buildPojoClass(final Class<?> clazz) {
+
+        PojoClass returnPojo = PojoCache.getPojoClass(clazz.getName());
+
+        if (returnPojo == null) {
+            List<PojoField> pojoFields = new LinkedList<PojoField>();
+            for (Field field : getDeclaredFields(clazz)) {
+                if (!field.isSynthetic()) { // inner instance classes are synthetic skip those
+                    pojoFields.add(new PojoFieldImpl(field, MethodLookup.getGetter(clazz, field), MethodLookup
+                            .getSetter(clazz, field)));
+                }
+            }
+            returnPojo = new PojoClassImpl(clazz, pojoFields);
+            PojoCache.addPojoClass(returnPojo.getName(), returnPojo);
+        }
+        return returnPojo;
+    }
+
+    /**
+     * Returns all declared fields on a given class.
+     * 
+     * @param clazz
+     *            The class to generate fields for.
+     * @return
+     *         List containing the fields of the class.
+     */
+    private static List<Field> getDeclaredFields(final Class<?> clazz) {
+        LinkedList<Field> fields = new LinkedList<Field>();
+        for (Field field : clazz.getDeclaredFields()) {
+            fields.add(field);
+        }
+        return Collections.unmodifiableList(fields);
     }
 
     /**
