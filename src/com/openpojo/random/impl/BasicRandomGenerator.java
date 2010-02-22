@@ -1,13 +1,15 @@
 /**
  * 2010 Copyright Osman Shoukry.
  */
-package com.openpojo.random;
+package com.openpojo.random.impl;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
+
+import com.openpojo.random.RandomGenerator;
 
 /**
  * This is the most basic random generator, it handles all basic java types.

@@ -6,6 +6,9 @@ package com.openpojo.random;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.openpojo.random.impl.BasicRandomGenerator;
+import com.openpojo.random.impl.TimestampRandomGenerator;
+
 /**
  * @author oshoukry
  */
