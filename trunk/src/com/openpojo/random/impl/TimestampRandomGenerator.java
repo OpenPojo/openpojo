@@ -1,11 +1,14 @@
 /**
  * 2010 Copyright Osman Shoukry.
  */
-package com.openpojo.random;
+package com.openpojo.random.impl;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Collection;
+
+import com.openpojo.random.RandomFactory;
+import com.openpojo.random.RandomGenerator;
 
 /**
  * @author oshoukry
