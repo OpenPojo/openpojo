@@ -1,13 +1,11 @@
 /**
  * 2010 Copyright Osman Shoukry.
  */
-package com.openpojo.reflection.impl;
+package com.openpojo.reflection;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.utils.PojoPackageHelper;
 
 /**

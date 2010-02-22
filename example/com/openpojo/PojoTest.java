@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoClassFactory;
 import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * @author oshoukry
