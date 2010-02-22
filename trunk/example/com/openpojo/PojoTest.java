@@ -9,10 +9,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.openpojo.PojoClass;
-import com.openpojo.PojoField;
-import com.openpojo.impl.PojoClassFactory;
 import com.openpojo.random.RandomFactory;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * @author oshoukry
