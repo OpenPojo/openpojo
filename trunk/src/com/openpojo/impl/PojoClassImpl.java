@@ -14,7 +14,7 @@ import com.openpojo.exception.ReflectionException;
  * This class is the default implementation for the PojoClass Interface, created through the PojoClassFactory.
  * @author oshoukry
  */
-final class PojoClassImpl implements PojoClass {
+public class PojoClassImpl implements PojoClass {
     private final Class<?> clazz;
     private final List<PojoField> pojoFields;
     private static final String NESTED_CLASS_TOKEN = "$";
@@ -28,7 +28,7 @@ final class PojoClassImpl implements PojoClass {
      * @param pojoFieldImpls
      *            The PojoFields that make up that class.
      */
-    PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields) {
+    public PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields) {
         this.clazz = clazz;
         this.pojoFields = Collections.unmodifiableList(pojoFields);
     }
