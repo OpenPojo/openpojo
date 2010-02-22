@@ -10,8 +10,9 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
- * @author oshoukry
+ * This is the most basic random generator, it handles all basic java types.
  * 
+ * @author oshoukry
  */
 public final class BasicRandomGenerator implements RandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
