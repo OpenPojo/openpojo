@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import com.openpojo.reflection.PojoClassFactory;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.exception.ReflectionException;
 
