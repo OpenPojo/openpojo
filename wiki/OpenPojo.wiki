@@ -2,10 +2,8 @@
 
 = Introduction =
 
+This project abstracts the reflection package in Java to provide a way to create a "Meta" representation for Pojo's developed in any code.
 
-= Details =
+The main entry point is the "PojoClassFactory" class which enumerates and creates PojoClass-es mapping for the classes in your package.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+There is a sample on how to utilize this in your poject under "example/com/openpojo", see how Person class was tested.
