@@ -19,6 +19,11 @@ public class RandomFactory {
         RandomFactory.addRandomGenerator(new TimestampRandomGenerator());
     }
 
+    /**
+     * Add a random generator to the list of available generators.
+     * @param generator
+     *          The generator to add.
+     */
     public static synchronized void addRandomGenerator(final RandomGenerator generator) {
         for (Class<?> type : generator.getTypes()) {
             if (RandomFactory.generators.get(type) != null) {
@@ -30,6 +35,13 @@ public class RandomFactory {
         }
     }
 
+    /**
+     * Get a random value for a given type.
+     * @param type
+     *          The type to get a random value of.
+     * @return
+     *          Randomly created value.
+     */
     public static final Object getRandomValue(Class<?> type) {
         RandomGenerator randomGenerator = RandomFactory.generators.get(type);
         if (randomGenerator == null) {
