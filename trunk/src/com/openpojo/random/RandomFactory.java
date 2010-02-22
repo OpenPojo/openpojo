@@ -24,16 +24,12 @@ public class RandomFactory {
 
     /**
      * Add a random generator to the list of available generators.
+     * The latest random generator registered wins.
      * @param generator
      *          The generator to add.
      */
     public static synchronized void addRandomGenerator(final RandomGenerator generator) {
         for (Class<?> type : generator.getTypes()) {
-            if (RandomFactory.generators.get(type) != null) {
-                throw new IllegalStateException(String.format(
-                        "[%s AND %s] attempting to register random generators for type=[%s]", RandomFactory.generators
-                                .get(type).getClass(), generator.getClass(), type.getName()));
-            }
             RandomFactory.generators.put(type, generator);
         }
     }
