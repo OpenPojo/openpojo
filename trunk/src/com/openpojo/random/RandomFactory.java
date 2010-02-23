@@ -10,6 +10,7 @@ import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
 
 /**
+ * This factory is responsible for generating the random values using the registered RandomGenerator implementations.
  * @author oshoukry
  */
 public class RandomFactory {
@@ -17,7 +18,7 @@ public class RandomFactory {
     private static final Map<Class<?>, RandomGenerator> generators = new HashMap<Class<?>, RandomGenerator>();
 
     static {
-        // register with Factory.
+        // register defaults with Factory.
         RandomFactory.addRandomGenerator(new BasicRandomGenerator());
         RandomFactory.addRandomGenerator(new TimestampRandomGenerator());
     }

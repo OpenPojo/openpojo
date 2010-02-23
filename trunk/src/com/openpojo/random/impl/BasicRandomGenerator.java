@@ -19,7 +19,7 @@ import com.openpojo.random.RandomGenerator;
 public final class BasicRandomGenerator implements RandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
 
-    private static final Class<?>[] TYPES = new Class<?>[] { 
+    private static final Class<?>[] TYPES = new Class<?>[] {
                                     boolean.class, Boolean.class,
                                     int.class, Integer.class,
                                     float.class, Float.class,
@@ -28,6 +28,7 @@ public final class BasicRandomGenerator implements RandomGenerator {
                                     short.class, Short.class,
                                     byte.class, Byte.class,
                                     char.class, String.class };
+
     private static final char[] CHARACTERS = new char[] {
                                     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
                                     'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
@@ -63,7 +64,9 @@ public final class BasicRandomGenerator implements RandomGenerator {
         }
 
         if (type == byte.class || type == Byte.class) {
-            return RANDOM.nextInt(Byte.MAX_VALUE + 1) * (RANDOM.nextBoolean() ? 1 : -1);
+            byte[] randombyte = new byte[1];
+            RANDOM.nextBytes(randombyte);
+            return randombyte[0];
         }
 
         if (type == char.class) {
