@@ -2,6 +2,11 @@ package com.openpojo.reflection;
 
 import java.util.List;
 
+/**
+ * This Interface defines the contract published by PojoClass implementations.
+ * The idea is to give an easy and flexible way to work with application pojo classes.
+ * @author oshoukry
+ */
 public interface PojoClass {
 
     /**

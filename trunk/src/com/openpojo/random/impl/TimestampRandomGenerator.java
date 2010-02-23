@@ -1,6 +1,3 @@
-/**
- * 2010 Copyright Osman Shoukry.
- */
 package com.openpojo.random.impl;
 
 import java.sql.Timestamp;
@@ -11,6 +8,7 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
+ * TimeStamp random generator.
  * @author oshoukry
  * 
  */

@@ -1,6 +1,3 @@
-/**
- * 2010 Copyright Osman Shoukry.
- */
 package com.openpojo.reflection.utils;
 
 import java.lang.reflect.Field;
@@ -12,20 +9,19 @@ import java.util.List;
  * @author oshoukry
  *
  */
-public final class MethodLookup {
+public final class MethodHelper {
     /**
      * Returns the Setter Method for a field.
-     * @param clazz
-     *          The class to lookup the method on.
      * @param field
      *          The field to lookup the setter on.
      * @return
      *          The setter method or null if none exist.
      */
-    public static Method getSetter(final Class<?> clazz, final Field field) {
+    public static Method getSetter(final Field field) {
         Method method;
         for (String candidateName : generateSetMethodNames(field)) {
             try {
+                Class<?> clazz = field.getDeclaringClass();
                 method = clazz.getDeclaredMethod(candidateName, field.getType());
                 if (method != null) {
                     return method;
@@ -51,17 +47,16 @@ public final class MethodLookup {
 
     /**
      * Returns the Getter Method for a field.
-     * @param clazz
-     *          The class to lookup the method on.
      * @param field
      *          The field to lookup the getter on.
      * @return
      *          The getter method or null if none exist.
      */
-    public static Method getGetter(final Class<?> clazz, final Field field) {
+    public static Method getGetter(final Field field) {
         Method method;
         for (String candidateName : generateGetMethodNames(field)) {
             try {
+                Class<?> clazz = field.getDeclaringClass();
                 method = clazz.getDeclaredMethod(candidateName);
                 if (method != null) {
                     return method;
@@ -89,7 +84,7 @@ public final class MethodLookup {
     }
 
     /**
-     * Properly format the field name as expected "first Letter is uppercase, rest is unchanged".
+     * Properly CamelCased the field name as expected "first Letter is uppercase, rest is unchanged".
      * 
      * @param field
      *            The field to proper case.

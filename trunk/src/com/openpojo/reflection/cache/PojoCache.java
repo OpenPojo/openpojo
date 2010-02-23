@@ -1,6 +1,3 @@
-/**
- * 2010 Copyright Osman Shoukry.
- */
 package com.openpojo.reflection.cache;
 
 import java.util.Map;
@@ -35,7 +32,7 @@ public class PojoCache {
      *            The entry to add to the cache.
      */
     public static void addPojoClass(String name, PojoClass pojoClass) {
-        // Ensure that we don't have a reference to the key in the map, otherwise no cleanup will occur.
+        // Ensure that we don't have a "Strong" reference to the key in the map, otherwise no cleanup will occur.
         pojoClassCache.put(new String(name), pojoClass);
     }
 }

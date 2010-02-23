@@ -1,10 +1,7 @@
-/**
- * 2010 Copyright Osman Shoukry.
- */
 package com.openpojo.reflection.exception;
 
 /**
- * 
+ * This exception will be thrown whenever a problem while introspecting occurs.
  * @author oshoukry
  */
 public class ReflectionException extends RuntimeException {

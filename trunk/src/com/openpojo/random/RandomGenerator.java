@@ -1,11 +1,9 @@
-/**
- * 2010 Copyright Osman Shoukry.
- */
 package com.openpojo.random;
 
 import java.util.Collection;
 
 /**
+ * Random Generator interface, this is the contract the {@link RandomFactory} expects.
  * @author oshoukry
  */
 public interface RandomGenerator {

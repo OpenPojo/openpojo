@@ -1,6 +1,3 @@
-/**
- * 2010 Copyright Osman Shoukry.
- */
 package com.openpojo.reflection.impl;
 
 import java.util.Collections;
@@ -11,10 +8,10 @@ import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.exception.ReflectionException;
 
 /**
- * This class is the default implementation for the PojoClass Interface, created through the PojoClassFactory.
+ * This class is the default implementation for the PojoClass Interface, created through the PojoClassFactoryImpl.
  * @author oshoukry
  */
-public class PojoClassImpl implements PojoClass {
+class PojoClassImpl implements PojoClass {
     private final Class<?> clazz;
     private final List<PojoField> pojoFields;
     private static final String NESTED_CLASS_TOKEN = "$";
@@ -28,7 +25,7 @@ public class PojoClassImpl implements PojoClass {
      * @param pojoFieldImpls
      *            The PojoFields that make up that class.
      */
-    public PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields) {
+    PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields) {
         this.clazz = clazz;
         this.pojoFields = Collections.unmodifiableList(pojoFields);
     }
@@ -60,10 +57,10 @@ public class PojoClassImpl implements PojoClass {
     }
 
     public void copy(final Object from, final Object to) {
-        for (PojoField pojoFieldImpl : pojoFields) {
-            if (pojoFieldImpl.hasGetter()) {
-                Object value = pojoFieldImpl.invokeGetter(from);
-                pojoFieldImpl.inovkeSetter(to, value);
+        for (PojoField pojoField : pojoFields) {
+            if (pojoField.hasGetter() && pojoField.hasSetter()) {
+                Object value = pojoField.invokeGetter(from);
+                pojoField.inovkeSetter(to, value);
             }
         }
     }
