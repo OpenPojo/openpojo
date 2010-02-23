@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
-import java.util.UUID;
 
+import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
@@ -17,25 +17,17 @@ import com.openpojo.random.RandomGenerator;
  */
 public final class BasicRandomGenerator implements RandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
+    private static final int MAX_RANDOM_STRING_LENGTH = 32;
 
-    private static final Class<?>[] TYPES = new Class<?>[] {
-                                    boolean.class, Boolean.class,
-                                    int.class, Integer.class,
-                                    float.class, Float.class,
-                                    double.class, Double.class,
-                                    long.class, Long.class,
-                                    short.class, Short.class,
-                                    byte.class, Byte.class,
-                                    char.class, String.class };
+    private static final Class<?>[] TYPES = new Class<?>[] { boolean.class, Boolean.class, int.class, Integer.class,
+            float.class, Float.class, double.class, Double.class, long.class, Long.class, short.class, Short.class,
+            byte.class, Byte.class, char.class, Character.class, String.class };
 
-    private static final char[] CHARACTERS = new char[] {
-                                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-                                    'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-                                    'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-                                    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                                    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-                                    's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-    
+    private static final char[] CHARACTERS = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+            'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+            'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1',
+            '2', '3', '4', '5', '6', '7', '8', '9' };
+
     public Object doGenerate(Class<?> type) {
         if (type == boolean.class || type == Boolean.class) {
             return RANDOM.nextBoolean();
@@ -59,7 +51,7 @@ public final class BasicRandomGenerator implements RandomGenerator {
 
         if (type == short.class || type == Short.class) {
 
-            return (short)(RANDOM.nextInt(Short.MAX_VALUE + 1) * (RANDOM.nextBoolean() ? 1 : -1));
+            return (short) (RANDOM.nextInt(Short.MAX_VALUE + 1) * (RANDOM.nextBoolean() ? 1 : -1));
         }
 
         if (type == byte.class || type == Byte.class) {
@@ -68,12 +60,19 @@ public final class BasicRandomGenerator implements RandomGenerator {
             return randombyte[0];
         }
 
-        if (type == char.class) {
+        if (type == char.class || type == Character.class) {
             return CHARACTERS[RANDOM.nextInt(CHARACTERS.length)];
         }
 
         if (type == String.class) {
-            return UUID.randomUUID().toString();
+            StringBuffer randomString = new StringBuffer(MAX_RANDOM_STRING_LENGTH);
+            for (int count = 0;
+                    /* prevent zero length string lengths */
+                    count < RANDOM.nextInt(MAX_RANDOM_STRING_LENGTH + 1) + 1;
+                    count++) {
+                randomString.append((Character) RandomFactory.getRandomValue(Character.class));
+            }
+            return randomString.toString();
         }
 
         return null;

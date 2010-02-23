@@ -17,15 +17,9 @@ import org.junit.Test;
 public class RandomFactoryTest {
     private final String randomString = (String) RandomFactory.getRandomValue(String.class);
 
-    private static final Class<?>[] BASIC_TYPES = new Class<?>[] {
-                                                    boolean.class, Boolean.class,
-                                                    int.class, Integer.class,
-                                                    float.class, Float.class,
-                                                    double.class, Double.class,
-                                                    long.class, Long.class,
-                                                    short.class, Short.class,
-                                                    byte.class, Byte.class,
-                                                    char.class, String.class };
+    private static final Class<?>[] BASIC_TYPES = new Class<?>[] { boolean.class, Boolean.class, int.class,
+            Integer.class, float.class, Float.class, double.class, Double.class, long.class, Long.class, short.class,
+            Short.class, byte.class, Byte.class, char.class, Character.class, String.class };
 
     /**
      * Test method for {@link com.openpojo.random.RandomFactory#addRandomGenerator(com.openpojo.random.RandomGenerator)}
@@ -60,14 +54,14 @@ public class RandomFactoryTest {
             Assert.assertNotNull(RandomFactory.getRandomValue(clazz));
             if (clazz.isPrimitive()) {
                 Object returned = RandomFactory.getRandomValue(clazz);
-                Assert.assertTrue((clazz == java.lang.Boolean.TYPE && returned instanceof java.lang.Boolean) ||
-                                  (clazz == java.lang.Character.TYPE && returned instanceof java.lang.Character) ||
-                                  (clazz == java.lang.Byte.TYPE && returned instanceof java.lang.Byte) ||
-                                  (clazz == java.lang.Short.TYPE && returned instanceof java.lang.Short) ||
-                                  (clazz == java.lang.Integer.TYPE && returned instanceof java.lang.Integer) ||
-                                  (clazz == java.lang.Long.TYPE && returned instanceof java.lang.Long) ||
-                                  (clazz == java.lang.Float.TYPE && returned instanceof java.lang.Float) ||
-                                  (clazz == java.lang.Double.TYPE && returned instanceof java.lang.Double) );
+                Assert.assertTrue((clazz == java.lang.Boolean.TYPE && returned instanceof java.lang.Boolean)
+                        || (clazz == java.lang.Character.TYPE && returned instanceof java.lang.Character)
+                        || (clazz == java.lang.Byte.TYPE && returned instanceof java.lang.Byte)
+                        || (clazz == java.lang.Short.TYPE && returned instanceof java.lang.Short)
+                        || (clazz == java.lang.Integer.TYPE && returned instanceof java.lang.Integer)
+                        || (clazz == java.lang.Long.TYPE && returned instanceof java.lang.Long)
+                        || (clazz == java.lang.Float.TYPE && returned instanceof java.lang.Float)
+                        || (clazz == java.lang.Double.TYPE && returned instanceof java.lang.Double));
             } else { // make sure we got the right type returned.
                 Assert.assertEquals(clazz, (RandomFactory.getRandomValue(clazz)).getClass());
             }
@@ -91,7 +85,7 @@ public class RandomFactoryTest {
             return value;
         }
     }
-    
+
     private class UnRegisteredDummy {
     }
 }
