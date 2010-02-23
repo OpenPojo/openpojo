@@ -19,11 +19,6 @@ class PojoClassImpl implements PojoClass {
     /**
      * Prevent direct construction.
      * Use the factory method.
-     * 
-     * @param clazz
-     *            The class to wrapp in a PojoClassImpl.
-     * @param pojoFieldImpls
-     *            The PojoFields that make up that class.
      */
     PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields) {
         this.clazz = clazz;
@@ -45,9 +40,7 @@ class PojoClassImpl implements PojoClass {
     public Object newInstance() {
         try {
             return clazz.newInstance();
-        } catch (InstantiationException e) {
-            throw new ReflectionException(e);
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) { // InstantiationException Or IllegalAccessException
             throw new ReflectionException(e);
         }
     }
@@ -71,7 +64,7 @@ class PojoClassImpl implements PojoClass {
 
     @Override
     public String toString() {
-        return String.format("PojoClassImpl [clazz=%s, pojoFieldImpls=%s]", clazz, pojoFields);
+        return String.format("PojoClassImpl [clazz=%s, pojoFields=%s]", clazz, pojoFields);
     }
 
 

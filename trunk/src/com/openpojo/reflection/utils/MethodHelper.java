@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * This Class is responsible for helping get the getters/setters for a given field.
  * @author oshoukry
  *
  */
@@ -72,7 +73,9 @@ public final class MethodHelper {
      * Returns a list for candidate getter names.
      * 
      * @param field
+     *          Field to generate the candidate getter names for.
      * @return
+     *          List of candidate method names.
      */
     private static List<String> generateGetMethodNames(final Field field) {
         List<String> prefix = new LinkedList<String>();

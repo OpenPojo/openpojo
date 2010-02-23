@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * This class is a utility class to aid with getting all declared fields for a given class.
  * @author oshoukry
  *
  */
