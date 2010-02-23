@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+
+<project basedir="." default="jar" name="OpenPojo">
+
+    <property name="target" value="1.6" />
+    <property name="source" value="1.6" />
+
+    <property name="dir.src" value="src" />
+    <property name="dir.testsrc" value="test" />
+
+    <property name="dir.out" value="dist" />
+    <property name="dist.jar" value="${dir.out}/openpojo.jar" />
+    <property name="dir.out.classes" value="${dir.out}/classes" />
+
+    <target name="clean">
+        <delete dir="${dir.out}" />
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${dir.out.classes}" />
+        <javac destdir="${dir.out.classes}" source="${source}" target="${target}" debug="true">
+            <src path="${dir.src}" />
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${dist.jar}" basedir="${dir.out.classes}"/>
+    </target>
+
+</project>
