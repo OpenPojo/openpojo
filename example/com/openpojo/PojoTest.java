@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoClassFactory;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.impl.PojoClassFactoryImpl;
 
 /**
  * @author oshoukry
@@ -26,7 +26,7 @@ public class PojoTest {
     
     @Before
     public void setup() throws ClassNotFoundException {
-        pojoClasses = PojoClassFactory.getPojoClasses(DB_PACKAGE);
+        pojoClasses = PojoClassFactoryImpl.getPojoClasses(DB_PACKAGE);
     }
     
     @Test

@@ -1,6 +1,3 @@
-/**
- * 2010 Copyright Osman Shoukry.
- */
 package com.openpojo.random.impl;
 
 import java.util.Arrays;
@@ -13,6 +10,8 @@ import com.openpojo.random.RandomGenerator;
 
 /**
  * This is the most basic random generator, it handles all basic java types.
+ * You can overwrite any of those types with your own generator and register it with
+ * the RandomFactory.
  * 
  * @author oshoukry
  */

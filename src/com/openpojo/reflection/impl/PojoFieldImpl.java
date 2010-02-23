@@ -1,6 +1,3 @@
-/**
- * 2010 Copyright Osman Shoukry.
- */
 package com.openpojo.reflection.impl;
 
 import java.lang.annotation.Annotation;
@@ -8,7 +5,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import com.openpojo.reflection.PojoClassFactory;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.exception.ReflectionException;
 
@@ -16,17 +12,17 @@ import com.openpojo.reflection.exception.ReflectionException;
 /**
  * This is the default implementation for PojoField Interface.
  * This is an immutable object and is not supposed to be created directly.
- * see {@link PojoClassFactory}
+ * see {@link PojoClassFactoryImpl}
  *
  * @author oshoukry
  */
-public class PojoFieldImpl implements PojoField {
+class PojoFieldImpl implements PojoField {
 
     private final Field field;
     private final Method fieldGetter;
     private final Method fieldSetter;
 
-    public PojoFieldImpl(final Field field, final Method fieldGetter, final Method fieldSetter) {
+    PojoFieldImpl(final Field field, final Method fieldGetter, final Method fieldSetter) {
         this.field = field;
         this.field.setAccessible(true);
         this.fieldGetter = fieldGetter;
