@@ -32,10 +32,8 @@ public final class PojoClassFactoryImpl {
      *            Package to introspect (eg. com.mypackage.pojo).
      * @return
      *         A list of PojoClasses.
-     * @throws ClassNotFoundException
-     *             If this package is invalid a ClassNotFoundException gets thrown.
      */
-    public static List<PojoClass> getPojoClasses(final String packagename) throws ClassNotFoundException {
+    public static List<PojoClass> getPojoClasses(final String packagename) {
         return getPojoClasses(packagename, null);
     }
 
@@ -48,22 +46,17 @@ public final class PojoClassFactoryImpl {
      *            The filter to apply to the list of PojoClasses.
      * @return
      *         A list of PojoClasses.
-     * @throws ClassNotFoundException
-     *             If this package is invalid a ClassNotFoundException gets thrown.
      */
-    public static List<PojoClass> getPojoClasses(final String packagename, PojoClassFilter filter)
-            throws ClassNotFoundException {
+    public static List<PojoClass> getPojoClasses(final String packagename, PojoClassFilter filter) {
         List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
-        
-        PackageHelper pkg = new PackageHelper(packagename);
-        
-        for (Class<?> clazz : pkg.getClasses()) {
+
+        for (Class<?> clazz : PackageHelper.getClasses(packagename)) {
             PojoClass pojoClass = getPojoClass(clazz);
             if (filter == null || filter.include(pojoClass)) {
                 pojoClasses.add(pojoClass);
             }
         }
-        
+
         return pojoClasses;
     }
 }

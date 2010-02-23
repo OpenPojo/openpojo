@@ -13,7 +13,7 @@ import com.openpojo.reflection.utils.MethodHelper;
  * This Field Factory returns a list of PojoFields for a given Class.
  * @author oshoukry
  */
-public class PojoFieldFactoryImpl {
+class PojoFieldFactoryImpl {
     /**
      * Get all PojoFields in a given Class.
      * @param clazz

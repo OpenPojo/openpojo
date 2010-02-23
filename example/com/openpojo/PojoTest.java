@@ -15,17 +15,21 @@ import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactoryImpl;
 
 /**
+ * This example demonstrates what you can do to utilize this utility to test your own pojos.
+ * This class will test all getters and setters to ensure they are working correctly.
  * @author oshoukry
- *         This class will test all getters and setters to ensure they are working correctly.
  */
 public class PojoTest {
+    // Configured for expectation, so we know when a class gets added or removed.
     private static final int EXPECTED_CLASS_COUNT = 1;
+
+    // The package to test
     private static final String DB_PACKAGE = "com.openpojo.samplepojo";
 
     private List<PojoClass> pojoClasses;
     
     @Before
-    public void setup() throws ClassNotFoundException {
+    public void setup() {
         pojoClasses = PojoClassFactoryImpl.getPojoClasses(DB_PACKAGE);
     }
     
@@ -36,7 +40,6 @@ public class PojoTest {
 
     /**
      * This method tests getters / setters vs. direct access for all fields in a class.
-     * 
      */
     @Test
     public void testPojoStructure() {
@@ -76,12 +79,10 @@ public class PojoTest {
 
     /**
      * Fail if initial value for a field is not null.
-     * 
-     * @throws IllegalAccessException
-     * @throws InstantiationException
+     * This is applicable only if you always use "Object" decendants for fields on your pojos (a best practice).
      */
     @Test
-    public void failIfDefaultFieldValueIsNotNull() throws InstantiationException, IllegalAccessException {
+    public void failIfDefaultFieldValueIsNotNull() {
         Object classInstance = null;
 
         for (PojoClass classEntry : pojoClasses) {
@@ -97,11 +98,10 @@ public class PojoTest {
     }
 
     /**
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * Test PojoField getter make sure it gets values correctly from pojo
      */
     @Test
-    public void testPojoFieldGetter() throws InstantiationException, IllegalAccessException {
+    public void testPojoFieldGetter() {
         Object classInstance = null;
 
         for (PojoClass classEntry : pojoClasses) {
@@ -118,11 +118,10 @@ public class PojoTest {
     }
 
     /**
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * Test PojoFieldSetter make sure it tests the field correctly.
      */
     @Test
-    public void testPojoFieldSetter() throws InstantiationException, IllegalAccessException {
+    public void testPojoFieldSetter() {
         Object classInstance = null;
 
         for (PojoClass classEntry : pojoClasses) {
