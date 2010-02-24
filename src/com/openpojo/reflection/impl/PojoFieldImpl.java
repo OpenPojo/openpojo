@@ -80,6 +80,10 @@ class PojoFieldImpl implements PojoField {
     public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
         return field.getAnnotation(annotationClass);
     }
+    
+    public boolean isPrimitive() {
+        return getType().isPrimitive();
+    }
 
     public boolean isFinal() {
         return Modifier.isFinal(field.getModifiers());

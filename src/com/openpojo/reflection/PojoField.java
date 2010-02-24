@@ -91,6 +91,12 @@ public interface PojoField {
 
     /**
      * @return
+     *      True if the field is of primitive type.
+     */
+    public boolean isPrimitive();
+    
+    /**
+     * @return
      *      True if this PojoField is final-ly defined on the enclosing class.
      */
     public boolean isFinal();
