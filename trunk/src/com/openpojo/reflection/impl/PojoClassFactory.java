@@ -12,7 +12,7 @@ import com.openpojo.reflection.utils.PackageHelper;
  * 
  * @author oshoukry
  */
-public final class PojoClassFactoryImpl {
+public final class PojoClassFactory {
     
     /**
      * Create a PojoClass for a given application Class.

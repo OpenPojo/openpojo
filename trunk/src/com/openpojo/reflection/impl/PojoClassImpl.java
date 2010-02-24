@@ -8,7 +8,7 @@ import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.exception.ReflectionException;
 
 /**
- * This class is the default implementation for the PojoClass Interface, created through the PojoClassFactoryImpl.
+ * This class is the default implementation for the PojoClass Interface, created through the PojoClassFactory.
  * @author oshoukry
  */
 class PojoClassImpl implements PojoClass {

@@ -12,7 +12,7 @@ import com.openpojo.reflection.exception.ReflectionException;
 /**
  * This is the default implementation for PojoField Interface.
  * This is an immutable object and is not supposed to be created directly.
- * see {@link PojoClassFactoryImpl}
+ * see {@link PojoClassFactory}
  *
  * @author oshoukry
  */
