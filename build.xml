@@ -12,6 +12,13 @@
     <property name="dir.out" value="dist" />
     <property name="dist.jar" value="${dir.out}/openpojo.jar" />
     <property name="dir.out.classes" value="${dir.out}/classes" />
+    <property name="lib" value="lib" />
+
+    <fileset id="project.libs" dir="lib" includes="*.jar" />
+
+    <path id="project.classpath">
+        <fileset refid="project.libs" />
+    </path>
 
     <target name="clean">
         <delete dir="${dir.out}" />
@@ -20,12 +27,16 @@
     <target name="compile" depends="clean">
         <mkdir dir="${dir.out.classes}" />
         <javac destdir="${dir.out.classes}" source="${source}" target="${target}" debug="true">
+            <classpath refid="project.classpath" />
             <src path="${dir.src}" />
         </javac>
     </target>
 
     <target name="jar" depends="compile">
-        <jar destfile="${dist.jar}" basedir="${dir.out.classes}"/>
+        <jar destfile="${dist.jar}" basedir="${dir.out.classes}" manifest="${dir.src}/META-INF/MANIFEST.MF" />
+        <copy todir="${dir.out}">
+            <fileset refid="project.libs" />
+        </copy>
     </target>
 
 </project>
