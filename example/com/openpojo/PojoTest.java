@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.impl.PojoClassFactoryImpl;
+import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This example demonstrates what you can do to utilize this utility to test your own pojos.
@@ -30,7 +30,7 @@ public class PojoTest {
     
     @Before
     public void setup() {
-        pojoClasses = PojoClassFactoryImpl.getPojoClasses(DB_PACKAGE);
+        pojoClasses = PojoClassFactory.getPojoClasses(DB_PACKAGE);
     }
     
     @Test
