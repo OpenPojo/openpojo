@@ -28,14 +28,14 @@ public class PojoTest {
     private static final int EXPECTED_CLASS_COUNT = 1;
 
     // The package to test
-    private static final String DB_PACKAGE = "com.openpojo.samplepojo";
+    private static final String POJO_PACKAGE = "com.openpojo.samplepojo";
 
     private List<PojoClass> pojoClasses;
     private PojoValidator pojoValidator;
 
     @Before
     public void setup() {
-        pojoClasses = PojoClassFactory.getPojoClasses(DB_PACKAGE);
+        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE);
 
         pojoValidator = new PojoValidator();
         pojoValidator.add(new NoPublicFieldsRule());
