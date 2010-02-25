@@ -56,15 +56,15 @@ public class PojoTest {
         pojoValidator = new PojoValidator();
 
         // Create Rules to validate structure for POJO_PACKAGE
-        pojoValidator.add(new NoPublicFieldsRule());
-        pojoValidator.add(new DefaultValuesNullRule());
-        pojoValidator.add(new NoPrimitivesRule());
-        pojoValidator.add(new NoStaticExceptFinalRule());
-        pojoValidator.add(new GetterSetterMustExistRule());
+        pojoValidator.addRule(new NoPublicFieldsRule());
+        pojoValidator.addRule(new DefaultValuesNullRule());
+        pojoValidator.addRule(new NoPrimitivesRule());
+        pojoValidator.addRule(new NoStaticExceptFinalRule());
+        pojoValidator.addRule(new GetterSetterMustExistRule());
 
         // Create Testers to validate behaviour for POJO_PACKAGE
-        pojoValidator.add(new SetterTester());
-        pojoValidator.add(new GetterTester());
+        pojoValidator.addTester(new SetterTester());
+        pojoValidator.addTester(new GetterTester());
     }
 
     @Test
