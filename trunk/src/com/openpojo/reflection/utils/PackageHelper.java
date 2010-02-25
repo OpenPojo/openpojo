@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2010 Osman Shoukry
+ * 
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.openpojo.reflection.utils;
 
 import java.io.File;
@@ -16,8 +32,9 @@ public class PackageHelper {
 
     /**
      * Get a list of all classes in the package.
+     * 
      * @return
-     *      List of all classes in the package.
+     *         List of all classes in the package.
      */
     public static List<Class<?>> getClasses(String packagename) {
         List<Class<?>> classes = new LinkedList<Class<?>>();
@@ -75,10 +92,11 @@ public class PackageHelper {
 
     /**
      * Returns true if the string refers to a class entry (i.e. ends with .class).
+     * 
      * @param entry
-     *          The class name.
+     *            The class name.
      * @return
-     *          True if the className ends with CLASS_SUFFIX.
+     *         True if the className ends with CLASS_SUFFIX.
      */
     private static boolean isClass(String entry) {
         if (entry.endsWith(CLASS_SUFFIX)) {
@@ -89,10 +107,11 @@ public class PackageHelper {
 
     /**
      * Return a fully qualified class name given the fileEntry for the classname, and package this helper represents.
+     * 
      * @param fileEntry
-     *          The classname to qualify.
+     *            The classname to qualify.
      * @return
-     *          The fully qualifed package name and classname.
+     *         The fully qualifed package name and classname.
      */
     private static String getFQClassName(String packagename, String fileEntry) {
         String className = packagename + '.' + fileEntry.substring(0, fileEntry.length() - CLASS_SUFFIX.length());

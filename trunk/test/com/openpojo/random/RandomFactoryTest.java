@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2010 Osman Shoukry
+ * 
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.openpojo.random;
 
 import java.util.Arrays;
@@ -9,14 +25,13 @@ import org.junit.Test;
 
 /**
  * @author oshoukry
- * 
  */
 public class RandomFactoryTest {
     private final String randomString = (String) RandomFactory.getRandomValue(String.class);
 
-    private static final Class<?>[] BASIC_TYPES = new Class<?>[] { boolean.class, Boolean.class, int.class,
+    private static final Class<?>[] BASIC_TYPES = new Class<?>[]{boolean.class, Boolean.class, int.class,
             Integer.class, float.class, Float.class, double.class, Double.class, long.class, Long.class, short.class,
-            Short.class, byte.class, Byte.class, char.class, Character.class, String.class };
+            Short.class, byte.class, Byte.class, char.class, Character.class, String.class};
 
     /**
      * Test method for {@link com.openpojo.random.RandomFactory#addRandomGenerator(com.openpojo.random.RandomGenerator)}
@@ -33,7 +48,7 @@ public class RandomFactoryTest {
 
             @Override
             public Collection<Class<?>> getTypes() {
-                return Arrays.asList(new Class<?>[] { RegisteredDummy.class });
+                return Arrays.asList(new Class<?>[]{RegisteredDummy.class});
             }
 
         });
