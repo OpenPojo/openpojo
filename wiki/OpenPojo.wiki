@@ -1,9 +1,0 @@
-#summary This Project was created to help others test specifically Pojo's getters and setters.
-
-= Introduction =
-
-This project abstracts the reflection package in Java to provide a way to create a "Meta" representation for Pojo's developed in any code.
-
-The main entry point is the "PojoClassFactory" class which enumerates and creates PojoClass-es mapping for the classes in your package.
-
-There is a sample on how to utilize this in your poject under "example/com/openpojo", see how Person class was tested.
