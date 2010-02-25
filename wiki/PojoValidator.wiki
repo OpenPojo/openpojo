@@ -6,6 +6,6 @@ PojoValidator is a class that is used to hold all the "boundaries" you want to t
 
 = Details =
 
-Working with this class is very simple, first create an instance of the class, and then configure the instance with the Rule(s) and/or Tester(s) you want to run your Pojo's through.
+Working with this class is very simple, first create an instance of the class, and then configure the instance with the [Rule](s) and/or [Tester](s) you want to run your Pojo's through.
 
 == Example of configuration ==
