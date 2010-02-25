@@ -38,12 +38,15 @@ public class PojoTest {
         pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE);
 
         pojoValidator = new PojoValidator();
+
+        // Create Rules to validate structure for POJO_PACKAGE
         pojoValidator.add(new NoPublicFieldsRule());
         pojoValidator.add(new DefaultValuesNullRule());
         pojoValidator.add(new NoPrimitivesRule());
         pojoValidator.add(new NoStaticExceptFinalRule());
         pojoValidator.add(new GetterSetterMustExistRule());
 
+        // Create Testers to validate behaviour for POJO_PACKAGE
         pojoValidator.add(new SetterTester());
         pojoValidator.add(new GetterTester());
     }
