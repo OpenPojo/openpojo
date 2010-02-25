@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project>
 
-<project basedir="." default="jar" name="OpenPojo">
+<project basedir="." default="generate_zip" name="OpenPojo">
 
     <property name="target" value="1.6" />
     <property name="source" value="1.6" />
@@ -34,9 +34,16 @@
 
     <target name="jar" depends="compile">
         <jar destfile="${dist.jar}" basedir="${dir.out.classes}" manifest="${dir.src}/META-INF/MANIFEST.MF" />
+        <delete dir="${dir.out.classes}"/>
         <copy todir="${dir.out}">
             <fileset refid="project.libs" />
         </copy>
+    </target>
+    
+    <target name="generate_zip" depends="jar">
+        <zip destfile="${dir.out}/OpenPojo-build-20100224-01.zip">
+            <fileset dir="${dir.out}" includes="*.jar"/>
+        </zip>
     </target>
 
 </project>
