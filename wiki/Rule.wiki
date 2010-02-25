@@ -1,6 +1,6 @@
 Rule defines checks to be done on structure of the Pojo
 
-== Introduction ==
+=== Introduction ===
 Rule is an interface used to hold a structural check you want to perform on a Pojo.
 
 === Details ===
