@@ -36,7 +36,7 @@ public class PojoValidator {
      * @param rule
      *            The rule to Add.
      */
-    public void add(Rule rule) {
+    public void addRule(Rule rule) {
         rules.add(rule);
     }
 
@@ -46,7 +46,7 @@ public class PojoValidator {
      * @param tester
      *            The Tester to Add.
      */
-    public void add(Tester tester) {
+    public void addTester(Tester tester) {
 
         testers.add(tester);
     }
