@@ -1,6 +1,3 @@
-/**
- * 2010 Copyright Osman Shoukry.
- */
 package com.openpojo;
 
 import java.util.List;
