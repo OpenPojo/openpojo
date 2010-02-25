@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project>
+<!--
+   - Copyright (C) 2010 Osman Shoukry
+   - 
+   -   This program is free software: you can redistribute it and/or modify
+   -   it under the terms of the GNU General Public License as published by
+   -   the Free Software Foundation, either version 3 of the License, or
+   -   (at your option) any later version.
+   -
+   -   This program is distributed in the hope that it will be useful,
+   -   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   -   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   -   GNU General Public License for more details.
+   -
+   -   You should have received a copy of the GNU General Public License
+   -   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+   -->
 
 <project basedir="." default="generate_zip" name="OpenPojo">
 
@@ -15,6 +31,7 @@
     <property name="lib" value="lib" />
 
     <fileset id="project.libs" dir="lib" includes="*.jar" />
+    <fileset id="project.docs" dir="doc" includes="*" />
 
     <path id="project.classpath">
         <fileset refid="project.libs" />
@@ -34,15 +51,13 @@
 
     <target name="jar" depends="compile">
         <jar destfile="${dist.jar}" basedir="${dir.out.classes}" manifest="${dir.src}/META-INF/MANIFEST.MF" />
-        <delete dir="${dir.out.classes}"/>
-        <copy todir="${dir.out}">
-            <fileset refid="project.libs" />
-        </copy>
+        <delete dir="${dir.out.classes}" />
     </target>
-    
+
     <target name="generate_zip" depends="jar">
-        <zip destfile="${dir.out}/OpenPojo-build-20100224-01.zip">
-            <fileset dir="${dir.out}" includes="*.jar"/>
+        <zip destfile="${dir.out}/OpenPojo-build-20100225-01.zip" whenempty="skip">
+            <fileset dir="${dir.out}" includes="*.jar" />
+            <fileset refid="project.docs" />
         </zip>
     </target>
 
