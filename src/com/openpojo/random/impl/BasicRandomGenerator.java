@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2010 Osman Shoukry
+ * 
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.openpojo.random.impl;
 
 import java.util.Arrays;
@@ -19,14 +35,14 @@ public final class BasicRandomGenerator implements RandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
     private static final int MAX_RANDOM_STRING_LENGTH = 32;
 
-    private static final Class<?>[] TYPES = new Class<?>[] { boolean.class, Boolean.class, int.class, Integer.class,
+    private static final Class<?>[] TYPES = new Class<?>[]{boolean.class, Boolean.class, int.class, Integer.class,
             float.class, Float.class, double.class, Double.class, long.class, Long.class, short.class, Short.class,
-            byte.class, Byte.class, char.class, Character.class, String.class };
+            byte.class, Byte.class, char.class, Character.class, String.class};
 
-    private static final char[] CHARACTERS = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+    private static final char[] CHARACTERS = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
             'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
             'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1',
-            '2', '3', '4', '5', '6', '7', '8', '9' };
+            '2', '3', '4', '5', '6', '7', '8', '9'};
 
     public Object doGenerate(Class<?> type) {
         if (type == boolean.class || type == Boolean.class) {
@@ -66,10 +82,9 @@ public final class BasicRandomGenerator implements RandomGenerator {
 
         if (type == String.class) {
             StringBuffer randomString = new StringBuffer(MAX_RANDOM_STRING_LENGTH);
-            for (int count = 0;
-                    /* prevent zero length string lengths */
-                    count < RANDOM.nextInt(MAX_RANDOM_STRING_LENGTH + 1) + 1;
-                    count++) {
+
+            /* prevent zero length string lengths */
+            for (int count = 0; count < RANDOM.nextInt(MAX_RANDOM_STRING_LENGTH + 1) + 1; count++) {
                 randomString.append((Character) RandomFactory.getRandomValue(Character.class));
             }
             return randomString.toString();

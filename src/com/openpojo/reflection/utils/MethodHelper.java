@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2010 Osman Shoukry
+ * 
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.openpojo.reflection.utils;
 
 import java.lang.reflect.Field;
@@ -7,16 +23,17 @@ import java.util.List;
 
 /**
  * This Class is responsible for helping get the getters/setters for a given field.
+ * 
  * @author oshoukry
- *
  */
 public final class MethodHelper {
     /**
      * Returns the Setter Method for a field.
+     * 
      * @param field
-     *          The field to lookup the setter on.
+     *            The field to lookup the setter on.
      * @return
-     *          The setter method or null if none exist.
+     *         The setter method or null if none exist.
      */
     public static Method getSetter(final Field field) {
         Method method;
@@ -28,7 +45,7 @@ public final class MethodHelper {
                     return method;
                 }
             } catch (NoSuchMethodException nsme) {
-            }            
+            }
         }
         return null;
     }
@@ -48,10 +65,11 @@ public final class MethodHelper {
 
     /**
      * Returns the Getter Method for a field.
+     * 
      * @param field
-     *          The field to lookup the getter on.
+     *            The field to lookup the getter on.
      * @return
-     *          The getter method or null if none exist.
+     *         The getter method or null if none exist.
      */
     public static Method getGetter(final Field field) {
         Method method;
@@ -64,7 +82,7 @@ public final class MethodHelper {
                 }
             } catch (NoSuchMethodException nsme) {
             }
-            
+
         }
         return null;
     }
@@ -73,9 +91,9 @@ public final class MethodHelper {
      * Returns a list for candidate getter names.
      * 
      * @param field
-     *          Field to generate the candidate getter names for.
+     *            Field to generate the candidate getter names for.
      * @return
-     *          List of candidate method names.
+     *         List of candidate method names.
      */
     private static List<String> generateGetMethodNames(final Field field) {
         List<String> prefix = new LinkedList<String>();

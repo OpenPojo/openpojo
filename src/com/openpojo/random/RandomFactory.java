@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2010 Osman Shoukry
+ * 
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.openpojo.random;
 
 import java.util.HashMap;
@@ -8,6 +24,7 @@ import com.openpojo.random.impl.TimestampRandomGenerator;
 
 /**
  * This factory is responsible for generating the random values using the registered RandomGenerator implementations.
+ * 
  * @author oshoukry
  */
 public class RandomFactory {
@@ -23,8 +40,9 @@ public class RandomFactory {
     /**
      * Add a random generator to the list of available generators.
      * The latest random generator registered wins.
+     * 
      * @param generator
-     *          The generator to add.
+     *            The generator to add.
      */
     public static synchronized void addRandomGenerator(final RandomGenerator generator) {
         for (Class<?> type : generator.getTypes()) {
@@ -34,10 +52,11 @@ public class RandomFactory {
 
     /**
      * Get a random value for a given type.
+     * 
      * @param type
-     *          The type to get a random value of.
+     *            The type to get a random value of.
      * @return
-     *          Randomly created value.
+     *         Randomly created value.
      */
     public static final Object getRandomValue(Class<?> type) {
         RandomGenerator randomGenerator = RandomFactory.generators.get(type);

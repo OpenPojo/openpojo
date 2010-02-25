@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2010 Osman Shoukry
+ * 
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.openpojo.reflection;
 
 import java.util.List;
@@ -5,6 +21,7 @@ import java.util.List;
 /**
  * This Interface defines the contract published by PojoClass implementations.
  * The idea is to give an easy and flexible way to work with application pojo classes.
+ * 
  * @author oshoukry
  */
 public interface PojoClass {
@@ -33,11 +50,12 @@ public interface PojoClass {
      *         True if class is subclass or implements an interface, otherwise false.
      */
     public boolean extendz(final Class<?> type);
-    
+
     /**
      * This method returns the underlying class represented by this instance.
+     * 
      * @return
-     *      The class type wrapped by this PojoClass.
+     *         The class type wrapped by this PojoClass.
      */
     public Class<?> getClazz();
 
@@ -59,10 +77,11 @@ public interface PojoClass {
 
     /**
      * Copy all contents from one Instance represented by this PojoClass to another.
+     * 
      * @param from
-     *          The Instance to copy from.
+     *            The Instance to copy from.
      * @param to
-     *          The Instance to copy to.
+     *            The Instance to copy to.
      */
     public void copy(final Object from, final Object to);
 
