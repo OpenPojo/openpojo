@@ -13,7 +13,7 @@ import com.openpojo.validation.rule.impl.DefaultValuesNullRule;
 import com.openpojo.validation.rule.impl.GetterSetterMustExistRule;
 import com.openpojo.validation.rule.impl.NoPrimitivesRule;
 import com.openpojo.validation.rule.impl.NoPublicFieldsRule;
-import com.openpojo.validation.rule.impl.NoStaticExceptFinal;
+import com.openpojo.validation.rule.impl.NoStaticExceptFinalRule;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 
@@ -41,7 +41,7 @@ public class PojoTest {
         pojoValidator.add(new NoPublicFieldsRule());
         pojoValidator.add(new DefaultValuesNullRule());
         pojoValidator.add(new NoPrimitivesRule());
-        pojoValidator.add(new NoStaticExceptFinal());
+        pojoValidator.add(new NoStaticExceptFinalRule());
         pojoValidator.add(new GetterSetterMustExistRule());
 
         pojoValidator.add(new SetterTester());
@@ -54,7 +54,7 @@ public class PojoTest {
     }
 
     @Test
-    public void testPojoStructure() {
+    public void testPojoStructureAndBehavior() {
         for (PojoClass pojoClass : pojoClasses) {
             pojoValidator.runValidation(pojoClass);
         }

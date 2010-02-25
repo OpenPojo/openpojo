@@ -9,11 +9,12 @@ import com.openpojo.validation.rule.Rule;
 /**
  * This rule ensures that there are no static fields unless they are final.
  * Another best practice, using static fields for memory sharing and allowing read/write
- * should be very tightly controlled.
+ * should be very tightly controlled, and generally don't belong in POJOs or other similar
+ * class of data repositories.
  * 
  * @author oshoukry
  */
-public class NoStaticExceptFinal implements Rule {
+public class NoStaticExceptFinalRule implements Rule {
 
     @Override
     public void evaluate(PojoClass pojoClass) {
