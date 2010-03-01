@@ -42,6 +42,10 @@ class PojoClassImpl implements PojoClass {
         this.pojoFields = Collections.unmodifiableList(pojoFields);
     }
 
+    public boolean isInterface() {
+        return clazz.isInterface();
+    }
+    
     public List<PojoField> getPojoFields() {
         return pojoFields;
     }
@@ -55,6 +59,9 @@ class PojoClassImpl implements PojoClass {
     }
 
     public Object newInstance() {
+        if (clazz.isInterface()) {
+            throw new ReflectionException("This PojoClass is an interface, can't create new instance");
+        }
         try {
             return clazz.newInstance();
         } catch (Exception e) { // InstantiationException Or IllegalAccessException

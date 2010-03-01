@@ -27,6 +27,11 @@ import java.util.List;
 public interface PojoClass {
 
     /**
+     * Check if Class is a class or interface.
+     */
+    public boolean isInterface();
+    
+    /**
      * Get all PojoFields defined in the class.
      * 
      * @return the pojoFields
