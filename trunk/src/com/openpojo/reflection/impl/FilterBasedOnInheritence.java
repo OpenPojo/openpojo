@@ -14,24 +14,28 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.reflection.utils;
 
-import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+package com.openpojo.reflection.impl;
+
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoClassFilter;
 
 /**
- * This class is a utility class to aid with getting all declared fields for a given class.
- * 
  * @author oshoukry
  */
-public final class FieldHelper {
-    public static List<Field> getDeclaredFields(final Class<?> clazz) {
-        List<Field> fields = new LinkedList<Field>();
-        for (Field field : clazz.getDeclaredFields()) {
-            fields.add(field);
-        }
-        return Collections.unmodifiableList(fields);
+public class FilterBasedOnInheritence implements PojoClassFilter {
+    private final Class<?> type;
+    private final PojoClassFilter filter;
+    
+    public FilterBasedOnInheritence(final Class<?> type, final PojoClassFilter filter) {
+        this.type = type;
+        this.filter = filter;
+    }
+
+    @Override
+    public boolean include(final PojoClass pojoClass) {
+        if ((pojoClass.getName() != type.getName()) && (filter == null || filter.include(pojoClass)))
+            return pojoClass.extendz(type);
+        return false;
     }
 }

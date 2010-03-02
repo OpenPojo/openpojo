@@ -16,20 +16,38 @@
  */
 package com.openpojo.reflection;
 
+import java.util.List;
+
 /**
+ * This class encapsulates the meta data definition of a Java Package.
+ *
  * @author oshoukry
- *         This Interface will serve as a way to exclude pojoClasses from the factory.
- *         If the filter returns true, the class will be included, otherwise it will be excluded.
  */
-public interface PojoClassFilter {
+public interface PojoPackage {
 
     /**
-     * This Method determines whether to include a PojoClass or not.
+     * Get all PojoClasses in current package.
      *
-     * @param pojoClass
-     *            The pojoclass in question.
      * @return
-     *         True if it should be included, false otherwise.
+     *         Return a list of all classes as PojoClasses in a given package.
      */
-    public boolean include(final PojoClass pojoClass);
+    List<PojoClass> getPojoClasses();
+
+    /**
+     * Get all Classes in this PojoPackageImpl using defined filter.
+     *
+     * @param filter
+     *            Filter to apply while enumerating;
+     * @return
+     *         List of PojoClasses in package.
+     */
+    List<PojoClass> getPojoClasses(final PojoClassFilter filter);
+
+    /**
+     * Get all child Packages for current Pacakge.
+     *
+     * @return
+     *         A list containing PojoPackages for all sub packages.
+     */
+    List<PojoPackage> getPojoSubPackages();
 }
