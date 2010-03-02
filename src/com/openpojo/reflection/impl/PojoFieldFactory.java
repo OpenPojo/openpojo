@@ -30,7 +30,7 @@ import com.openpojo.reflection.utils.MethodHelper;
  * 
  * @author oshoukry
  */
-class PojoFieldFactoryImpl {
+final class PojoFieldFactory {
     /**
      * Get all PojoFields in a given Class.
      * 
@@ -39,7 +39,7 @@ class PojoFieldFactoryImpl {
      * @return
      *         List of All Fields as PojoFields in that class.
      */
-    public static List<PojoField> getPojoFields(Class<?> clazz) {
+    public static List<PojoField> getPojoFields(final Class<?> clazz) {
         List<PojoField> pojoFields = new LinkedList<PojoField>();
         for (Field field : FieldHelper.getDeclaredFields(clazz)) {
             pojoFields.add(new PojoFieldImpl(field, MethodHelper.getGetter(field), MethodHelper.getSetter(field)));

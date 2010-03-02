@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -20,14 +20,14 @@ import java.lang.annotation.Annotation;
 
 /**
  * This class encapsulates the meta data definition of a field on a class.
- * 
+ *
  * @author oshoukry
  */
 public interface PojoField {
 
     /**
      * This method gets the value of the field.
-     * 
+     *
      * @param instance
      *            The instance to extract the value out of.
      * @return
@@ -37,7 +37,7 @@ public interface PojoField {
 
     /**
      * Get the String representation of the field name.
-     * 
+     *
      * @return
      *         Return the name of the field.
      */
@@ -45,7 +45,7 @@ public interface PojoField {
 
     /**
      * This method sets the value of the field.
-     * 
+     *
      * @param instance
      *            The instance to set the value on.
      * @param value
@@ -55,7 +55,7 @@ public interface PojoField {
 
     /**
      * Returns true if this field has a getter method.
-     * 
+     *
      * @return
      *         Returns true if the getter is set.
      */
@@ -63,7 +63,7 @@ public interface PojoField {
 
     /**
      * This method will invoke the getter method.
-     * 
+     *
      * @param instance
      *            The instance of the class to invoke the getter on.
      * @return
@@ -73,7 +73,7 @@ public interface PojoField {
 
     /**
      * Returns true if this field has a setter method.
-     * 
+     *
      * @return
      *         Returns true if the setter is set.
      */
@@ -81,7 +81,7 @@ public interface PojoField {
 
     /**
      * This method will invoke the setter method.
-     * 
+     *
      * @param instance
      *            The instance of the class to invoke the setter on.
      * @param value
@@ -91,7 +91,7 @@ public interface PojoField {
 
     /**
      * Return the type of field encapsulated.
-     * 
+     *
      * @return
      *         The type of the Field the PojoField is set to.
      */
@@ -99,7 +99,7 @@ public interface PojoField {
 
     /**
      * Get instance of the annotation on the PojoField.
-     * 
+     *
      * @param <T>
      *            Class Type of annotation.
      * @param annotationClass
@@ -149,7 +149,7 @@ public interface PojoField {
      * Perform Equality between two PojoFields' instances.
      * This is different from regular equals implementation that it will return true
      * if both fields are null.
-     * 
+     *
      * @param first
      *            The first instance that contains this PojoField.
      * @param second

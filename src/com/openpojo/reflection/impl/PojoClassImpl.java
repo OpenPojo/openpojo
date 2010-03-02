@@ -16,6 +16,7 @@
  */
 package com.openpojo.reflection.impl;
 
+import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,8 +35,7 @@ class PojoClassImpl implements PojoClass {
     private static final String NESTED_CLASS_TOKEN = "$";
 
     /**
-     * Prevent direct construction.
-     * Use the factory method.
+     * Minimum constructor.
      */
     PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields) {
         this.clazz = clazz;
@@ -46,6 +46,10 @@ class PojoClassImpl implements PojoClass {
         return clazz.isInterface();
     }
     
+    public boolean isAbstract() {
+        return Modifier.isAbstract(clazz.getModifiers());
+    }
+
     public List<PojoField> getPojoFields() {
         return pojoFields;
     }
@@ -59,8 +63,8 @@ class PojoClassImpl implements PojoClass {
     }
 
     public Object newInstance() {
-        if (clazz.isInterface()) {
-            throw new ReflectionException("This PojoClass is an interface, can't create new instance");
+        if (isInterface() || isAbstract()) {
+            throw new ReflectionException("This PojoClass is an interface/abstract, can't create new instance");
         }
         try {
             return clazz.newInstance();

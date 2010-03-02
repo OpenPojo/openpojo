@@ -41,9 +41,7 @@ public final class MethodHelper {
             try {
                 Class<?> clazz = field.getDeclaringClass();
                 method = clazz.getDeclaredMethod(candidateName, field.getType());
-                if (method != null) {
-                    return method;
-                }
+                return method;
             } catch (NoSuchMethodException nsme) {
             }
         }
@@ -77,9 +75,7 @@ public final class MethodHelper {
             try {
                 Class<?> clazz = field.getDeclaringClass();
                 method = clazz.getDeclaredMethod(candidateName);
-                if (method != null) {
-                    return method;
-                }
+                return method;
             } catch (NoSuchMethodException nsme) {
             }
 
@@ -112,7 +108,7 @@ public final class MethodHelper {
      * @return
      *         Formatted field name.
      */
-    private static String formattedFieldName(Field field) {
+    private static String formattedFieldName(final Field field) {
         return field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1, field.getName().length());
     }
 }

@@ -28,7 +28,9 @@ import com.openpojo.reflection.exception.ReflectionException;
  * 
  * @author oshoukry
  */
-public class PackageHelper {
+public final class PackageHelper {
+    public static final char PATH_SEPERATOR = '/';
+    public static final char PACKAGE_SEPERATOR = '.';
 
     /**
      * Get a list of all classes in the package.
@@ -36,12 +38,12 @@ public class PackageHelper {
      * @return
      *         List of all classes in the package.
      */
-    public static List<Class<?>> getClasses(String packagename) {
+    public static List<Class<?>> getClasses(final String packageName) {
         List<Class<?>> classes = new LinkedList<Class<?>>();
 
         // Get a File object for the package
         File directory;
-        directory = getPackageAsDirectory(packagename);
+        directory = getPackageAsDirectory(packageName);
 
         // Get the list of the files contained in the package
         String[] files = directory.list();
@@ -49,7 +51,7 @@ public class PackageHelper {
         for (int i = 0; i < files.length; i++) {
             if (isClass(files[i])) {
                 try {
-                    classes.add(Class.forName(getFQClassName(packagename, files[i])));
+                    classes.add(Class.forName(getFQClassName(packageName, files[i])));
                 } catch (ClassNotFoundException e) {
                     // this should never happen since we get the entry from directory listing.
                     throw new ReflectionException(e);
@@ -63,17 +65,19 @@ public class PackageHelper {
     /**
      * Turn a java package into a directory listing.
      * 
+     * @param packageName
+     *          String path of the package to turn into a directoy.
      * @return
-     *         Return a file representation of the directory.
+     *          Return a file representation of the directory.
      */
-    private static File getPackageAsDirectory(String packagename) {
+    public static File getPackageAsDirectory(final String packageName) {
 
         ClassLoader cld = Thread.currentThread().getContextClassLoader();
         if (cld == null) {
             throw new ReflectionException("Can't get class loader.");
         }
 
-        String path = packagename.replace('.', '/');
+        String path = packageName.replace('.', '/');
         URL resource = cld.getResource(path);
         if (resource == null) {
             throw new ReflectionException("No resource for " + path);
@@ -82,7 +86,7 @@ public class PackageHelper {
         File directory = null;
         directory = new File(resource.getFile());
         if (!directory.exists()) {
-            throw new ReflectionException(packagename + " does not appear to be a valid package");
+            throw new ReflectionException(packageName + " does not appear to be a valid package");
         }
 
         return directory;
@@ -98,7 +102,7 @@ public class PackageHelper {
      * @return
      *         True if the className ends with CLASS_SUFFIX.
      */
-    private static boolean isClass(String entry) {
+    private static boolean isClass(final String entry) {
         if (entry.endsWith(CLASS_SUFFIX)) {
             return true;
         }
@@ -113,7 +117,7 @@ public class PackageHelper {
      * @return
      *         The fully qualifed package name and classname.
      */
-    private static String getFQClassName(String packagename, String fileEntry) {
+    private static String getFQClassName(final String packagename, final String fileEntry) {
         String className = packagename + '.' + fileEntry.substring(0, fileEntry.length() - CLASS_SUFFIX.length());
         return className;
     }

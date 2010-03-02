@@ -27,6 +27,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
 import com.openpojo.validation.rule.impl.DefaultValuesNullRule;
 import com.openpojo.validation.rule.impl.GetterSetterMustExistRule;
+import com.openpojo.validation.rule.impl.NoNestedClassRule;
 import com.openpojo.validation.rule.impl.NoPrimitivesRule;
 import com.openpojo.validation.rule.impl.NoPublicFieldsRule;
 import com.openpojo.validation.rule.impl.NoStaticExceptFinalRule;
@@ -61,6 +62,7 @@ public class PojoTest {
         pojoValidator.addRule(new NoPrimitivesRule());
         pojoValidator.addRule(new NoStaticExceptFinalRule());
         pojoValidator.addRule(new GetterSetterMustExistRule());
+        pojoValidator.addRule(new NoNestedClassRule());
 
         // Create Testers to validate behaviour for POJO_PACKAGE
         pojoValidator.addTester(new SetterTester());
