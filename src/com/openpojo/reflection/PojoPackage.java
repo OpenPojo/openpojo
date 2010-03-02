@@ -31,7 +31,7 @@ public interface PojoPackage {
      * @return
      *         Return a list of all classes as PojoClasses in a given package.
      */
-    List<PojoClass> getPojoClasses();
+    public List<PojoClass> getPojoClasses();
 
     /**
      * Get all Classes in this PojoPackageImpl using defined filter.
@@ -41,7 +41,7 @@ public interface PojoPackage {
      * @return
      *         List of PojoClasses in package.
      */
-    List<PojoClass> getPojoClasses(final PojoClassFilter filter);
+    public List<PojoClass> getPojoClasses(final PojoClassFilter filter);
 
     /**
      * Get all child Packages for current Pacakge.
@@ -49,5 +49,5 @@ public interface PojoPackage {
      * @return
      *         A list containing PojoPackages for all sub packages.
      */
-    List<PojoPackage> getPojoSubPackages();
+    public List<PojoPackage> getPojoSubPackages();
 }
