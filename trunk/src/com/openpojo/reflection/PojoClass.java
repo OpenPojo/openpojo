@@ -31,21 +31,21 @@ public interface PojoClass {
      * 
      * @return true if this PojoClass wrapps an interface.
      */
-    boolean isInterface();
+    public boolean isInterface();
 
     /**
      * Check if Class is complete or abstract.
      * 
      * @return true if this PojoClass wrapps an abstract class.
      */
-    boolean isAbstract();
+    public boolean isAbstract();
 
     /**
      * Get all PojoFields defined in the class.
      * 
      * @return the pojoFields
      */
-    List<PojoField> getPojoFields();
+    public List<PojoField> getPojoFields();
 
     /**
      * Returns the fully qualified class name.
@@ -53,7 +53,7 @@ public interface PojoClass {
      * @return
      *         The String fully qualified class name.
      */
-    String getName();
+    public String getName();
 
     /**
      * Checks to see if class extends a certain type.
@@ -63,7 +63,7 @@ public interface PojoClass {
      * @return
      *         True if class is subclass or implements an interface, otherwise false.
      */
-    boolean extendz(final Class<?> type);
+    public boolean extendz(final Class<?> type);
 
     /**
      * This method returns the underlying class represented by this instance.
@@ -71,7 +71,7 @@ public interface PojoClass {
      * @return
      *         The class type wrapped by this PojoClass.
      */
-    Class<?> getClazz();
+    public Class<?> getClazz();
 
     /**
      * This method creates a new instance.
@@ -79,7 +79,7 @@ public interface PojoClass {
      * @return
      *         new instance of clazz.
      */
-    Object newInstance();
+    public Object newInstance();
 
     /**
      * Checks to see if this class is a nested subclass.
@@ -87,7 +87,7 @@ public interface PojoClass {
      * @return
      *         True if it is a subclass, false otherwise.
      */
-    boolean isNestedClass();
+    public boolean isNestedClass();
 
     /**
      * Copy all contents from one Instance represented by this PojoClass to another.
@@ -97,6 +97,6 @@ public interface PojoClass {
      * @param to
      *            The Instance to copy to.
      */
-    void copy(final Object from, final Object to);
+    public void copy(final Object from, final Object to);
 
 }
