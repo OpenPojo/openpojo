@@ -43,6 +43,8 @@ public class BasicRandomGeneratorTest {
     @Test
     public void testCharacter() {
         // Character.
+        
+        @SuppressWarnings("unused")
         char primitiveChar = (Character) basicRandomGenerator.doGenerate(char.class);
         testDoGenerateForClass(Character.class);
     }
@@ -53,6 +55,7 @@ public class BasicRandomGeneratorTest {
     @Test
     public void testByte() {
         // Byte
+        @SuppressWarnings("unused")
         byte primitiveByte = (Byte) basicRandomGenerator.doGenerate(byte.class);
         testDoGenerateForClass(Byte.class);
     }
@@ -62,6 +65,7 @@ public class BasicRandomGeneratorTest {
      */
     public void testShort() {
         // Short
+        @SuppressWarnings("unused")
         short primitiveShort = (Short) basicRandomGenerator.doGenerate(short.class);
         testDoGenerateForClass(Short.class);
     }
@@ -71,6 +75,7 @@ public class BasicRandomGeneratorTest {
      */
     public void testLong() {
         // Long.
+        @SuppressWarnings("unused")
         long primitiveLong = (Long) basicRandomGenerator.doGenerate(long.class);
         testDoGenerateForClass(Long.class);
     }
@@ -80,6 +85,7 @@ public class BasicRandomGeneratorTest {
      */
     public void testDouble() {
         // Double.
+        @SuppressWarnings("unused")
         double primitiveDouble = (Double) basicRandomGenerator.doGenerate(double.class);
         testDoGenerateForClass(Double.class);
     }
@@ -90,6 +96,7 @@ public class BasicRandomGeneratorTest {
     @Test
     public void testFloat() {
         // Float.
+        @SuppressWarnings("unused")
         float primitiveFloat = (Float) basicRandomGenerator.doGenerate(float.class);
         testDoGenerateForClass(Float.class);
     }
@@ -100,6 +107,7 @@ public class BasicRandomGeneratorTest {
     @Test
     public void testInteger() {
         // Integer.
+        @SuppressWarnings("unused")
         int primitiveInt = (Integer) basicRandomGenerator.doGenerate(int.class);
         testDoGenerateForClass(Integer.class);
     }
@@ -110,6 +118,7 @@ public class BasicRandomGeneratorTest {
     @Test
     public void testBoolean() {
         // Boolean.
+        @SuppressWarnings("unused")
         boolean primitiveBoolean = (Boolean) basicRandomGenerator.doGenerate(boolean.class);
         testDoGenerateForClass(Boolean.class);
     }
