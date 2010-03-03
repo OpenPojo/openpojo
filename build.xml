@@ -54,11 +54,16 @@
         <delete dir="${dir.out.classes}" />
     </target>
 
+    <tstamp>
+        <format property="DATETIME" pattern="yyyyMMdd-HHmm"/>
+    </tstamp>
+
     <target name="generate_zip" depends="jar">
-        <zip destfile="${dir.out}/OpenPojo-build-20100225-01.zip" whenempty="skip">
+        <zip destfile="${dir.out}/OpenPojo-build-${DATETIME}.zip" whenempty="skip">
             <fileset dir="${dir.out}" includes="*.jar" />
             <fileset refid="project.docs" />
         </zip>
     </target>
 
 </project>
+
