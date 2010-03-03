@@ -19,8 +19,10 @@ package com.openpojo.random;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
+import com.openpojo.random.thread.GeneratedRandomValues;
 
 /**
  * This factory is responsible for generating the random values using the registered RandomGenerator implementations.
@@ -59,10 +61,18 @@ public class RandomFactory {
      *         Randomly created value.
      */
     public static final Object getRandomValue(Class<?> type) {
+        if (GeneratedRandomValues.contains(type)) {
+            return null; // seen before, break loop.
+        }
         RandomGenerator randomGenerator = RandomFactory.generators.get(type);
         if (randomGenerator == null) {
-            throw new RuntimeException("No Random Generators registered for type " + type.getName());
+            throw new RandomGeneratorException("No Random Generators registered for type " + type.getName());
         }
-        return randomGenerator.doGenerate(type);
+        GeneratedRandomValues.add(type);
+        Object randomValue;
+        randomValue = randomGenerator.doGenerate(type);
+        GeneratedRandomValues.remove(type);
+
+        return randomValue;
     }
 }

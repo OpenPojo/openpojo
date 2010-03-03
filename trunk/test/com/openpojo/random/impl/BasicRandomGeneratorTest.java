@@ -63,6 +63,7 @@ public class BasicRandomGeneratorTest {
     /**
      * Test random Short.
      */
+    @Test
     public void testShort() {
         // Short
         @SuppressWarnings("unused")
@@ -73,6 +74,7 @@ public class BasicRandomGeneratorTest {
     /**
      * Test random Long.
      */
+    @Test
     public void testLong() {
         // Long.
         @SuppressWarnings("unused")
@@ -83,6 +85,7 @@ public class BasicRandomGeneratorTest {
     /**
      * Test random Double.
      */
+    @Test
     public void testDouble() {
         // Double.
         @SuppressWarnings("unused")
