@@ -90,7 +90,9 @@ public final class PojoClassFactory {
         List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
 
         PojoPackage pojoPackage = new PojoPackageImpl(packageName);
-        List<PojoPackage> packages = pojoPackage.getPojoSubPackages();
+        List<PojoPackage> packages = new LinkedList<PojoPackage>();
+        packages.add(pojoPackage);
+
         for (int counter = 0; counter < packages.size(); counter++) {
             PojoPackage entry = packages.get(counter);
 
