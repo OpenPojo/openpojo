@@ -17,6 +17,8 @@
 package com.openpojo.reflection.utils;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -33,7 +35,7 @@ public class PackageHelperTest {
 
     @Before
     public final void setUp() {
-        packageName = "dummypackage";
+        packageName = "utils.dummypackage";
     }
 
     @Test
@@ -41,16 +43,20 @@ public class PackageHelperTest {
         Assert.assertEquals(2, PackageHelper.getClasses(packageName).size());
     }
 
+    /**
+     * Test that getPackageAsDirectory returns all contents of a package.
+     */
     @Test
     public final void testGetPackageAsDirectory() {
         File directory = PackageHelper.getPackageAsDirectory(packageName);
         Assert.assertNotNull(directory);
-        String[] list = directory.list();
-        Assert.assertEquals(3, list.length);
-        Assert.assertTrue(list[0].contains("Person.class") || list[0].contains("Persistable.class")
-                || list[0].contains("dummy.txt"));
-        Assert.assertTrue(list[1].contains("Person.class") || list[1].contains("Persistable.class")
-                || list[0].contains("dummy.txt"));
+        List<String> list = Arrays.asList(directory.list());
+
+        Assert.assertEquals(list.toString(), 4, list.size());
+        Assert.assertTrue(list.contains("Person.class"));
+        Assert.assertTrue(list.contains("Persistable.class"));
+        Assert.assertTrue(list.contains("dummy.txt"));
+        Assert.assertTrue(list.contains("level2"));
     }
 
 }

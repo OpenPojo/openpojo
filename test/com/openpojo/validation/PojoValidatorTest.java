@@ -17,19 +17,17 @@
 
 package com.openpojo.validation;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.openpojo.reflection.PojoClass;
+import utils.validation.LoggingRule;
+import utils.validation.LoggingTester;
+
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.rule.Rule;
-import com.openpojo.validation.test.Tester;
 
 /**
+ * This is a logging tester used for testing.
  * @author oshoukry
  */
 public class PojoValidatorTest {
@@ -37,40 +35,20 @@ public class PojoValidatorTest {
     @Test
     public void testRunValidation() {
         PojoValidator pojoValidator = new PojoValidator();
+        
         LoggingRule loggingRule = new LoggingRule();
-        pojoValidator.addRule(loggingRule);
-
         LoggingTester loggingTester = new LoggingTester();
+
+        pojoValidator.addRule(loggingRule);
         pojoValidator.addTester(loggingTester);
+
+        Assert.assertEquals(0, loggingRule.getLogs().size());
+        Assert.assertEquals(0, loggingTester.getLogs().size());
+
         pojoValidator.runValidation(PojoClassFactory.getPojoClass(PojoValidatorTest.class));
+
         Assert.assertEquals(1, loggingRule.getLogs().size());
         Assert.assertEquals(1, loggingTester.getLogs().size());
     }
-
-    class LoggingRule implements Rule {
-        private List<PojoClass> callLogs = new LinkedList<PojoClass>();
-
-        @Override
-        public void evaluate(PojoClass pojoClass) {
-            callLogs.add(pojoClass);
-        }
-
-        public List<PojoClass> getLogs() {
-            return callLogs;
-        }
-    }
-
-    class LoggingTester implements Tester {
-        private List<PojoClass> callLogs = new LinkedList<PojoClass>();
-
-        @Override
-        public void run(PojoClass pojoClass) {
-            callLogs.add(pojoClass);
-        }
-
-        public List<PojoClass> getLogs() {
-            return callLogs;
-        }
-
-    }
 }
+
