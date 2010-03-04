@@ -14,12 +14,13 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package dummypackage.level2;
+package utils.dummypackage.level2;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import dummypackage.Persistable;
+import utils.dummypackage.Persistable;
+
 
 public final class AnotherPerson implements Serializable, Persistable {
 

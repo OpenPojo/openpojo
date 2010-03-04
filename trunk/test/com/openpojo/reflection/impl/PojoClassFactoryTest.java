@@ -16,23 +16,23 @@
  */
 package com.openpojo.reflection.impl;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoClassFilter;
+import utils.dummypackage.Persistable;
+import utils.dummypackage.Person;
+import utils.filter.LoggingPojoClassFilter;
 
-import dummypackage.Persistable;
-import dummypackage.Person;
+import com.openpojo.reflection.PojoClass;
 
 /**
  * @author oshoukry
  */
 public class PojoClassFactoryTest {
-    private static final String DUMMY_PACKAGE = "dummypackage";
+    private static final String DUMMY_PACKAGE = "utils.dummypackage";
+    private static final Class<?>[] DUMMY_PACKAGE_CLASSES = new Class<?>[]{Persistable.class, Person.class};
 
     /**
      * Test that the factory is able to create a pojoClass correctly mapping back to PojoClassFactoryTest.
@@ -52,8 +52,8 @@ public class PojoClassFactoryTest {
         List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(DUMMY_PACKAGE);
         Assert.assertNotNull(pojoClasses);
         Assert.assertEquals(2, pojoClasses.size());
-        for (PojoClass pojoClass : pojoClasses) {
-            Assert.assertTrue(pojoClass.getClazz() == Persistable.class || pojoClass.getClazz() == Person.class);
+        for (Class<?> clazz : DUMMY_PACKAGE_CLASSES) {
+            Assert.assertTrue(pojoClasses.contains(PojoClassFactory.getPojoClass(clazz)));
         }
     }
 
@@ -64,19 +64,19 @@ public class PojoClassFactoryTest {
     public void testGetFilteredPojoClasses() {
         LoggingPojoClassFilter loggingPojoClassFilter = new LoggingPojoClassFilter();
         // Set Filter to reject all
-        loggingPojoClassFilter.returnValue = false;
+        loggingPojoClassFilter.setReturnValue(false);
         List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(DUMMY_PACKAGE, loggingPojoClassFilter);
         Assert.assertNotNull(pojoClasses);
         Assert.assertEquals(0, pojoClasses.size());
 
-        Assert.assertEquals(2, loggingPojoClassFilter.pojoClassCallLogs.size());
+        Assert.assertEquals(2, loggingPojoClassFilter.getPojoClassCallLogs().size());
 
         for (PojoClass pojoClass : pojoClasses) {
-            Assert.assertTrue(loggingPojoClassFilter.pojoClassCallLogs.contains(pojoClass));
+            Assert.assertTrue(loggingPojoClassFilter.getPojoClassCallLogs().contains(pojoClass));
         }
 
         // Set Filter to allow all
-        loggingPojoClassFilter.returnValue = true;
+        loggingPojoClassFilter.setReturnValue(true);
         pojoClasses = PojoClassFactory.getPojoClasses(DUMMY_PACKAGE, loggingPojoClassFilter);
         Assert.assertNotNull(pojoClasses);
         Assert.assertEquals(2, pojoClasses.size());
@@ -96,23 +96,9 @@ public class PojoClassFactoryTest {
      */
     @Test
     public void testEnumerateClassesByExtendingType() {
-        List<PojoClass> pojoClasses = PojoClassFactory.enumerateClassesByExtendingType(DUMMY_PACKAGE, Persistable.class, null);
+        List<PojoClass> pojoClasses = PojoClassFactory.enumerateClassesByExtendingType(DUMMY_PACKAGE,
+                Persistable.class, null);
         Assert.assertEquals(pojoClasses.toString(), 2, pojoClasses.size());
     }
 
-    /**
-     * Mock filter to be used for testing.
-     * 
-     * @author oshoukry
-     */
-    private class LoggingPojoClassFilter implements PojoClassFilter {
-        private List<PojoClass> pojoClassCallLogs = new LinkedList<PojoClass>();
-        private boolean returnValue;
-
-        @Override
-        public boolean include(PojoClass pojoClass) {
-            pojoClassCallLogs.add(pojoClass);
-            return returnValue;
-        }
-    }
 }
