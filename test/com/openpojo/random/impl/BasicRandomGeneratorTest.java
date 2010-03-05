@@ -43,7 +43,7 @@ public class BasicRandomGeneratorTest {
     @Test
     public void testCharacter() {
         // Character.
-        
+
         @SuppressWarnings("unused")
         char primitiveChar = (Character) basicRandomGenerator.doGenerate(char.class);
         testDoGenerateForClass(Character.class);
@@ -149,11 +149,12 @@ public class BasicRandomGeneratorTest {
         Object anotherObject = basicRandomGenerator.doGenerate(type);
         if (object.equals(anotherObject)) { // Just incase they are the same
             anotherObject = basicRandomGenerator.doGenerate(type);
-            // if Boolean, run for 10 times.
+            // if Boolean, try for 20 times, since there is a 50% chance we land on the same value.
             if (object.equals(anotherObject) && type == Boolean.class) {
-                for (int counter = 0; counter < 10; counter++) {
-                    if (!object.equals(basicRandomGenerator.doGenerate(type))) {
-                        return;
+                for (int counter = 0; counter < 20; counter++) {
+                    anotherObject = basicRandomGenerator.doGenerate(type);
+                    if (!object.equals(anotherObject)) {
+                        break;
                     }
                 }
             }

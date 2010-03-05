@@ -22,7 +22,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -31,16 +30,12 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class PackageHelperTest {
-    private String packageName;
-
-    @Before
-    public final void setUp() {
-        packageName = "utils.dummypackage";
-    }
+    private static final String PACKAGE_NAME = "utils.dummypackage";
+    private static final String[] CLASSES = new String[]{ "Person.class", "Persistable.class", "dummy.txt", "level2" };
 
     @Test
     public final void testGetClasses() {
-        Assert.assertEquals(2, PackageHelper.getClasses(packageName).size());
+        Assert.assertEquals(2, PackageHelper.getClasses(PACKAGE_NAME).size());
     }
 
     /**
@@ -48,15 +43,15 @@ public class PackageHelperTest {
      */
     @Test
     public final void testGetPackageAsDirectory() {
-        File directory = PackageHelper.getPackageAsDirectory(packageName);
+        File directory = PackageHelper.getPackageAsDirectory(PACKAGE_NAME);
         Assert.assertNotNull(directory);
         List<String> list = Arrays.asList(directory.list());
 
-        Assert.assertEquals(list.toString(), 4, list.size());
-        Assert.assertTrue(list.contains("Person.class"));
-        Assert.assertTrue(list.contains("Persistable.class"));
-        Assert.assertTrue(list.contains("dummy.txt"));
-        Assert.assertTrue(list.contains("level2"));
+        Assert.assertEquals(list.toString(), CLASSES.length, list.size());
+        for (String entry : CLASSES) {
+            Assert.assertTrue(String.format("expected entry=[%s] in package=[%s] but was not found", entry,
+                    PACKAGE_NAME), list.contains(entry));
+        }
     }
 
 }

@@ -28,6 +28,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This is a logging tester used for testing.
+ * 
  * @author oshoukry
  */
 public class PojoValidatorTest {
@@ -35,7 +36,7 @@ public class PojoValidatorTest {
     @Test
     public void testRunValidation() {
         PojoValidator pojoValidator = new PojoValidator();
-        
+
         LoggingRule loggingRule = new LoggingRule();
         LoggingTester loggingTester = new LoggingTester();
 
@@ -51,4 +52,3 @@ public class PojoValidatorTest {
         Assert.assertEquals(1, loggingTester.getLogs().size());
     }
 }
-

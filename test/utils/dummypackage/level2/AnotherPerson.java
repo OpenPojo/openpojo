@@ -21,7 +21,6 @@ import java.sql.Timestamp;
 
 import utils.dummypackage.Persistable;
 
-
 public final class AnotherPerson implements Serializable, Persistable {
 
     private static final long serialVersionUID = 1L;

@@ -41,7 +41,7 @@ public class LoggingPojoClassFilter implements PojoClassFilter {
     public boolean getReturnValue() {
         return returnValue;
     }
-    
+
     public List<PojoClass> getPojoClassCallLogs() {
         return Collections.unmodifiableList(pojoClassCallLogs);
     }
