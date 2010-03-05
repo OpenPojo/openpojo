@@ -21,9 +21,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This class holds generated random values.
+ * This class holds random generated types on current thread.
+ * 
  * @author oshoukry
- *
  */
 public class GeneratedRandomValues {
     private static ThreadLocal<Set<Class<?>>> threadLocal = new ThreadLocal<Set<Class<?>>>() {
@@ -32,16 +32,16 @@ public class GeneratedRandomValues {
             return new HashSet<Class<?>>();
         }
     };
-    
+
     public static void add(Class<?> type) {
         threadLocal.get().add(type);
     }
-    
+
     public static boolean contains(Class<?> type) {
         Set<Class<?>> generatedValues = threadLocal.get();
         return generatedValues.contains(type);
     }
-    
+
     public static void remove(Class<?> type) {
         threadLocal.get().remove(type);
     }
