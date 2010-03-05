@@ -27,7 +27,7 @@ import com.openpojo.random.RandomGenerator;
  * @author oshoukry
  */
 public class RandomEmployee implements RandomGenerator {
-    private static final Class<?>[] TYPES = {Employee.class};
+    private static final Class<?>[] TYPES = { Employee.class };
 
     @Override
     public Object doGenerate(Class<?> type) {

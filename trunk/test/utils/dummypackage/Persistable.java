@@ -20,7 +20,6 @@ import java.sql.Timestamp;
 
 /**
  * @author oshoukry
- * 
  */
 public interface Persistable {
     /**

@@ -32,7 +32,7 @@ import com.openpojo.reflection.PojoClass;
  */
 public class PojoClassFactoryTest {
     private static final String DUMMY_PACKAGE = "utils.dummypackage";
-    private static final Class<?>[] DUMMY_PACKAGE_CLASSES = new Class<?>[]{Persistable.class, Person.class};
+    private static final Class<?>[] DUMMY_PACKAGE_CLASSES = new Class<?>[]{ Persistable.class, Person.class };
 
     /**
      * Test that the factory is able to create a pojoClass correctly mapping back to PojoClassFactoryTest.

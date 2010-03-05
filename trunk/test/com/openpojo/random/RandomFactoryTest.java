@@ -48,7 +48,7 @@ public class RandomFactoryTest {
 
             @Override
             public Collection<Class<?>> getTypes() {
-                return Arrays.asList(new Class<?>[]{RegisteredDummy.class});
+                return Arrays.asList(new Class<?>[]{ RegisteredDummy.class });
             }
 
         });
