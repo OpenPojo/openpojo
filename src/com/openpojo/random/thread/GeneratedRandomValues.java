@@ -33,16 +33,34 @@ public class GeneratedRandomValues {
         }
     };
 
+    /**
+     * Add type to the thread list of types generated.
+     * @param type
+     *          The type to add.
+     */
     public static void add(Class<?> type) {
         threadLocal.get().add(type);
     }
 
+    /**
+     * Check if this type was added by this thread already.
+     * @param type
+     *          The type to check for.
+     * @return
+     *          Returns true if the type has been added by this thread already.
+     */
     public static boolean contains(Class<?> type) {
         Set<Class<?>> generatedValues = threadLocal.get();
         return generatedValues.contains(type);
     }
 
+    /**
+     * Remove a specific type from the list.
+     * @param type
+     *          The type to remove.
+     */
     public static void remove(Class<?> type) {
         threadLocal.get().remove(type);
     }
+
 }
