@@ -39,7 +39,7 @@ public @interface BusinessKey {
      * 
      * @return
      */
-    boolean isRequired() default true;
+    boolean required() default true;
 
     /**
      * Set to true if this key is part of a group where any one of the group needs to be not null.

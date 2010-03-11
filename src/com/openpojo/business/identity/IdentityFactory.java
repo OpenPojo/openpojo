@@ -25,10 +25,16 @@ import com.openpojo.business.identity.impl.DefaultHashCodeGenerator;
  */
 public final class IdentityFactory {
 
-    private static IdentityEvaluator identityEvaluator = new DefaultEvaluator();
-    private static HashCodeGenerator hashCodeGenerator = new DefaultHashCodeGenerator();
-    private static BusinessValidator businessValidator = new DefaultBusinessValidator();
+    private static IdentityEvaluator identityEvaluator;
+    private static HashCodeGenerator hashCodeGenerator;
+    private static BusinessValidator businessValidator;
 
+    static {
+        // Initialize the Factory with default implementations.
+        IdentityFactory.setBusinessValidator(new DefaultBusinessValidator());
+        IdentityFactory.setHashCodeGenerator(new DefaultHashCodeGenerator());
+        IdentityFactory.setIdentityEvaluator(new DefaultEvaluator());
+    }
     /**
      * @return the identityEvaluator
      */

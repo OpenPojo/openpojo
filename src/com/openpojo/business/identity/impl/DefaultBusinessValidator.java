@@ -28,6 +28,10 @@ import com.openpojo.reflection.PojoField;
 public class DefaultBusinessValidator implements BusinessValidator {
 
     public void validate(Object object) {
+        if (object == null) {
+            return;
+        }
+
         boolean compositeGroupPassed = false;
         boolean hasCompositeGroup = false;
         boolean hasBusinessKey = false;
@@ -40,7 +44,7 @@ public class DefaultBusinessValidator implements BusinessValidator {
                 }
                 hasCompositeGroup = true;
             } else {
-                if (businessKey.isRequired() && pojoField.get(object) == null) {
+                if (businessKey.required() && pojoField.get(object) == null) {
                     throw new BusinessException(String.format("Field required and can't be null [%s]", pojoField));
                 }
             }
