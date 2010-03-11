@@ -17,6 +17,7 @@
 package com.openpojo.business.identity.impl;
 
 import com.openpojo.business.annotation.BusinessKey;
+import com.openpojo.business.exception.BusinessException;
 import com.openpojo.business.identity.HashCodeGenerator;
 import com.openpojo.business.utils.BusinessIdentityUtils;
 import com.openpojo.business.utils.BusinessPojoHelper;
@@ -31,7 +32,7 @@ public class DefaultHashCodeGenerator implements HashCodeGenerator {
 
     public int doGenerate(Object object) {
         if (object == null) {
-            throw new IllegalArgumentException("null parameter passed object=[null]");
+            throw new BusinessException("null parameter passed object=[null]");
         }
 
         final int prime = 31;

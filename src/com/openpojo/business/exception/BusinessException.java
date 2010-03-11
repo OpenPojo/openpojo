@@ -30,7 +30,7 @@ public class BusinessException extends RuntimeException {
      * @param message
      *          The description of the exception.
      */
-    public BusinessException(String message) {
+    public BusinessException(final String message) {
         super(message);
     }
     
@@ -39,7 +39,7 @@ public class BusinessException extends RuntimeException {
      * @param cause
      *          The root cause of this business exception.
      */
-    public BusinessException(Throwable cause) {
+    public BusinessException(final Throwable cause) {
         super(cause);
     }
 
@@ -50,7 +50,7 @@ public class BusinessException extends RuntimeException {
      * @param cause
      *          The root cause of this business exception.
      */
-    public BusinessException(String message, Throwable cause) {
+    public BusinessException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }
