@@ -71,7 +71,7 @@ public final class Employee implements Serializable {
     @Override
     public String toString() {
         return String
-                .format("Employee [id=%s, fullName=%s, middlename=%s, lastname=%s, manager=%s]", fullName, manager);
+                .format("Employee [fullName=%s, manager=%s]", fullName, manager);
     }
 
 }

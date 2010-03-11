@@ -28,10 +28,10 @@ import com.openpojo.validation.rule.Rule;
  * @author oshoukry
  */
 public class LoggingRule implements Rule {
-    private List<PojoClass> callLogs = new LinkedList<PojoClass>();
+    private transient final List<PojoClass> callLogs = new LinkedList<PojoClass>();
 
     @Override
-    public void evaluate(PojoClass pojoClass) {
+    public void evaluate(final PojoClass pojoClass) {
         callLogs.add(pojoClass);
     }
 

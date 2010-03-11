@@ -34,7 +34,7 @@ public class FilterBasedOnInheritence implements PojoClassFilter {
 
     @Override
     public boolean include(final PojoClass pojoClass) {
-        if ((pojoClass.getName() != type.getName()) && (filter == null || filter.include(pojoClass)))
+        if (!pojoClass.getName().equals(type.getName()) && (filter == null || filter.include(pojoClass)))
             return pojoClass.extendz(type);
         return false;
     }

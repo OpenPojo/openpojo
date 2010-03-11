@@ -27,7 +27,7 @@ import com.openpojo.reflection.PojoField;
  */
 public class DefaultBusinessValidator implements BusinessValidator {
 
-    public void validate(Object object) {
+    public void validate(final Object object) {
         if (object == null) {
             return;
         }
@@ -36,7 +36,7 @@ public class DefaultBusinessValidator implements BusinessValidator {
         boolean hasCompositeGroup = false;
         boolean hasBusinessKey = false;
         for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(object.getClass())) {
-            BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
+            final BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
             hasBusinessKey = true;
             if (businessKey.composite()) {
                 if (pojoField.get(object) != null) {

@@ -16,6 +16,7 @@
  */
 package com.openpojo.business.utils;
 
+import com.openpojo.business.exception.BusinessException;
 import com.openpojo.reflection.PojoField;
 
 /**
@@ -28,7 +29,7 @@ public class BusinessIdentityUtils {
      */
     public static boolean anyNull(Object... objects) {
         if (objects == null) {
-            throw new IllegalArgumentException("objects parameter cannot be null");
+            throw new BusinessException("objects parameter cannot be null");
         }
         for (Object o : objects) {
             if (o == null) {

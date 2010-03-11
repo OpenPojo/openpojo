@@ -26,7 +26,7 @@ public class ValidationHelperTest {
                 Assert.assertTrue("Not static OR final test failed!!", !fieldEntry.isStatic() && !fieldEntry.isFinal()
                         && !ValidationHelper.isStaticFinal(fieldEntry));
             }
-            if (fieldEntry.getName() == "staticAndFinal") {
+            if (fieldEntry.getName() == "STATICANDFINAL") {
                 Assert.assertTrue("Static AND Final test failed!!!", fieldEntry.isStatic() && fieldEntry.isFinal()
                         && ValidationHelper.isStaticFinal(fieldEntry));
             }
@@ -46,7 +46,7 @@ public class ValidationHelperTest {
         private int notStaticAndNotFinal;
 
         @SuppressWarnings("unused")
-        private static final int staticAndFinal = 0;
+        private static final int STATICANDFINAL = 0;
 
         @SuppressWarnings("unused")
         private final int finalAndNotStatic = 0;
