@@ -1,0 +1,23 @@
+This page holds the top level documentation.
+
+= Important Classes/Interfaces =
+ * PojoClassFactory
+  This factory is responsible for constructing PojoClasses.  It can do so using a package name (i.e. com.mypackage), has the ability to recurse into sub-packages, as well as enumerate classes based on implementing a given interface / class.
+
+ * PojoClass
+  This interface abstracts all meta-data about a given class, once a concrete implementation is retrieved by the PojoClassFactory, it can be examined for various properties about a given class, as well as can be used to construct new instances of the enclosed class.
+
+ * RandomFactory
+  This factory is very handy and heavily used when creating random instances of a given class.  Register your own RandomGenerator into it and it will be called every time a random object of that type is needed.
+
+ * RandomGenerator
+  This interface defines the contract needed to be implemented so you can register your own custom types into the RandomFacotory.  Feel free to over-ride the default implementations provided for random generation of all the basic java types including Timestamp.
+
+*  BusinessIdentity
+  This class exposes two basic methods that you can use in your Pojos to generate hashcode and equals.  The hashcode and equals are performed annotation based.
+
+* BusinessKey
+  Use this annotation to highlight what fields in your Pojo are to be used for hashcode generation and equality.  Possible configuration parameters on this annotation are
+    # ignoreCase (used to indicate to ignore case when comparing CharacterSequence classes).
+    # required (used to indicate don't allow field to be null upon equality or hashcode generation).
+    # composite (used to indicate this field is part of a group that can have null fields, as long as one member of the group isn't null).
