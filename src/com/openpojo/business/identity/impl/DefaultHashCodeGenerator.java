@@ -16,7 +16,9 @@
  */
 package com.openpojo.business.identity.impl;
 
+import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.business.identity.HashCodeGenerator;
+import com.openpojo.business.utils.BusinessIdentityUtils;
 import com.openpojo.business.utils.BusinessPojoHelper;
 import com.openpojo.reflection.PojoField;
 
@@ -36,7 +38,8 @@ public class DefaultHashCodeGenerator implements HashCodeGenerator {
         int result = 1;
 
         for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(object.getClass())) {
-            result = prime * result + (pojoField.get(object) == null ? 0 : pojoField.get(object).hashCode());
+            BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
+            result = prime * result + BusinessIdentityUtils.getHashCode(pojoField, object, businessKey.ignoreCase());
         }
         return result;
     }

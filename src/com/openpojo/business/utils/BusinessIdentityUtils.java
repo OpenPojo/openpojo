@@ -16,6 +16,8 @@
  */
 package com.openpojo.business.utils;
 
+import com.openpojo.reflection.PojoField;
+
 /**
  * @author oshoukry
  */
@@ -54,4 +56,52 @@ public class BusinessIdentityUtils {
         return first == second;
     }
 
+    /**
+     * Perform Equality between two PojoFields' instances.
+     * This is different from regular equals implementation that it will return true
+     * if both fields are null, as well as it takes into account case based equality for character sequences.
+     *
+     * @param first
+     *            The first instance that contains this PojoField.
+     * @param second
+     *            The second instance that contains this PojoField.
+     * @param ignoreCase
+     *            Whether or not to compare ignoring case.
+     * @return
+     *         True if they are equal or if they are both null.
+     */
+     public static boolean areEqual(final PojoField pojoField, final Object first, final Object second, final boolean ignoreCase) {
+        Object firstField = pojoField.get(first);
+        Object secondField = pojoField.get(second);
+        if (firstField == null) {
+            return secondField == null;
+        }
+
+        if (ignoreCase && (firstField instanceof Character || firstField instanceof CharSequence)) {
+            return firstField.toString().equalsIgnoreCase(secondField.toString());
+        }
+
+        return firstField.equals(secondField);
+    }
+    
+    /**
+     * Generate HashCode on field value.
+     * @param instance
+     *          The instance to pull the field value out of.
+     * @param ignoreCase
+     *          Whether or not to ignore case while generating hash code.
+     * @return
+     *          The generated HashCode.
+     */
+    public static int getHashCode(final PojoField pojoField, final Object instance, final boolean ignoreCase) {
+        Object data = pojoField.get(instance);
+        if (data == null) {
+            return 0;
+        }
+        if (ignoreCase && (data instanceof Character || data instanceof CharSequence)) {
+            return data.toString().toLowerCase().hashCode();
+        }
+        
+        return data.hashCode();
+    }
 }

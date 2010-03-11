@@ -120,14 +120,6 @@ class PojoFieldImpl implements PojoField {
         return Modifier.isPublic(field.getModifiers());
     }
 
-    public boolean areEqual(final Object first, final Object second) {
-        if (get(first) == null) {
-            return get(second) == null;
-        }
-
-        return get(first).equals(get(second));
-    }
-
     @Override
     public String toString() {
         return String.format("PojoFieldImpl [field=%s, fieldGetter=%s, fieldSetter=%s]", field, fieldGetter,

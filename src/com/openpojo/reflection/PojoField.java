@@ -144,19 +144,4 @@ public interface PojoField {
      *         True if this PojoField is public-ly defined on the enclosing class.
      */
     public boolean isPublic();
-
-    /**
-     * Perform Equality between two PojoFields' instances.
-     * This is different from regular equals implementation that it will return true
-     * if both fields are null.
-     *
-     * @param first
-     *            The first instance that contains this PojoField.
-     * @param second
-     *            The second instance that contains this PojoField.
-     * @return
-     *         True if they are equal or if they are both null.
-     */
-    public boolean areEqual(final Object first, final Object second);
-
 }
