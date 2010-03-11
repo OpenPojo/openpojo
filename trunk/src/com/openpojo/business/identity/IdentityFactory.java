@@ -19,7 +19,6 @@ package com.openpojo.business.identity;
 import com.openpojo.business.identity.impl.DefaultBusinessValidator;
 import com.openpojo.business.identity.impl.DefaultEvaluator;
 import com.openpojo.business.identity.impl.DefaultHashCodeGenerator;
-import com.osmanshoukry.business.validate.BusinessValidator;
 
 /**
  * @author oshoukry
