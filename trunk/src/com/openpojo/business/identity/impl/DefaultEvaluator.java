@@ -16,6 +16,7 @@
  */
 package com.openpojo.business.identity.impl;
 
+import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.business.identity.IdentityEvaluator;
 import com.openpojo.business.utils.BusinessIdentityUtils;
 import com.openpojo.business.utils.BusinessPojoHelper;
@@ -37,9 +38,11 @@ public class DefaultEvaluator implements IdentityEvaluator {
 
         boolean runningEquality = true;
         for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(first.getClass())) {
-            runningEquality = runningEquality && pojoField.areEqual(first, second);
+            BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
+            runningEquality = runningEquality && BusinessIdentityUtils.areEqual(pojoField, first, second, businessKey.ignoreCase());
         }
 
         return runningEquality;
     }
+
 }
