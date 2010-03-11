@@ -18,9 +18,9 @@ package com.openpojo.business.identity.impl;
 
 import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.business.exception.BusinessException;
+import com.openpojo.business.identity.BusinessValidator;
 import com.openpojo.business.utils.BusinessPojoHelper;
 import com.openpojo.reflection.PojoField;
-import com.osmanshoukry.business.validate.BusinessValidator;
 
 /**
  * @author oshoukry
