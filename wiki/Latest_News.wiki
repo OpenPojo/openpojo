@@ -1,5 +1,5 @@
 = Latest news rolling here = 
 
-* 2010-03-11 Now fully tested and certified the code is pretty stable main features include
+ * 2010-03-11 Now fully tested and certified the code is pretty stable main features include
   # HashCode & Equals can now be done using the BusinessKey annotation, just include the openpojo.jar in your runtime environement.
   # Testing done using Rules, and Testers easily.
