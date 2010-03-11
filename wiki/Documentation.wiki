@@ -13,10 +13,10 @@ This page holds the top level documentation.
  * RandomGenerator
   This interface defines the contract needed to be implemented so you can register your own custom types into the RandomFacotory.  Feel free to over-ride the default implementations provided for random generation of all the basic java types including Timestamp.
 
-*  BusinessIdentity
+ * BusinessIdentity
   This class exposes two basic methods that you can use in your Pojos to generate hashcode and equals.  The hashcode and equals are performed annotation based.
 
-* BusinessKey
+ * BusinessKey
   Use this annotation to highlight what fields in your Pojo are to be used for hashcode generation and equality.  Possible configuration parameters on this annotation are
     # ignoreCase (used to indicate to ignore case when comparing CharacterSequence classes).
     # required (used to indicate don't allow field to be null upon equality or hashcode generation).
