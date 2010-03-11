@@ -1,0 +1,60 @@
+This page is the top level on the tutorial
+
+= Quick HowTo =
+
+== Requirements ==
+  # Java 5 or above.
+  # JUnit 4 or above.
+== Setup ==
+  # Add the openpojo.jar to your classpath.
+  # Identify the list of packages that have the POJOs you want to test.
+  # Define classes to implement rules you want evaluate against see built in set in "com.openpojo.validation.rule" package under src folder.
+  # Define Testers to implement the behaviors you want to run your POJOs through see the built in set in "com.openpojo.validation.test" package under src folder.
+  # In your "setup" method in your JUnit class, create and instance of PojoValidator class and add all the rules and testers to it.
+  # For each PojoClass run your PojoValidator against it.
+ 
+== Example ==
+See com.openpojo.samplepojo.Person for a sample POJO and com.openpojo.samplepojo.PojoTest under example folder for a sample implementation.  Here is what the code looks like:
+
+{{{
+public class PojoTest {
+    // Configured for expectation, so we know when a class gets added or removed.
+    private static final int EXPECTED_CLASS_COUNT = 1;
+
+    // The package to test
+    private static final String POJO_PACKAGE = "com.openpojo.samplepojo";
+
+    private List<PojoClass> pojoClasses;
+    private PojoValidator pojoValidator;
+
+    @Before
+    public void setup() {
+        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE);
+
+        pojoValidator = new PojoValidator();
+
+        // Create Rules to validate structure for POJO_PACKAGE
+        pojoValidator.addRule(new NoPublicFieldsRule());
+        pojoValidator.addRule(new DefaultValuesNullRule());
+        pojoValidator.addRule(new NoPrimitivesRule());
+        pojoValidator.addRule(new NoStaticExceptFinalRule());
+        pojoValidator.addRule(new GetterSetterMustExistRule());
+
+        // Create Testers to validate behaviour for POJO_PACKAGE
+        pojoValidator.addTester(new SetterTester());
+        pojoValidator.addTester(new GetterTester());
+    }
+
+    @Test
+    public void ensureExpectedPojoCount() {
+        Assert.assertEquals("Classes added / removed?", EXPECTED_CLASS_COUNT, pojoClasses.size());
+    }
+
+    @Test
+    public void testPojoStructureAndBehavior() {
+        for (PojoClass pojoClass : pojoClasses) {
+            pojoValidator.runValidation(pojoClass);
+        }
+    }
+}
+}}}
