@@ -17,8 +17,9 @@
 package com.openpojo.business.exception;
 
 /**
- * This is the ONLY exception thrown out of the com.osmanshoukry.business package.
- * It will wrapp any other exceptions that may occur to turn them into RunTimeException.
+ * This is the ONLY exception thrown out of the com.openpojo.business package.
+ * It will wrapp any other exceptions that may occur to turn them into RunTimeException base.
+ * 
  * @author oshoukry
  */
 public class BusinessException extends RuntimeException {
@@ -27,30 +28,12 @@ public class BusinessException extends RuntimeException {
 
     /**
      * Business Exception with message constructor
+     * 
      * @param message
-     *          The description of the exception.
+     *            The description of the exception.
      */
     public BusinessException(final String message) {
         super(message);
     }
-    
-    /**
-     * Business Exception with throwable constructor.
-     * @param cause
-     *          The root cause of this business exception.
-     */
-    public BusinessException(final Throwable cause) {
-        super(cause);
-    }
 
-    /**
-     * Business Exception with message & throwable constructor
-     * @param message
-     *          The description of the exception.
-     * @param cause
-     *          The root cause of this business exception.
-     */
-    public BusinessException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
 }
