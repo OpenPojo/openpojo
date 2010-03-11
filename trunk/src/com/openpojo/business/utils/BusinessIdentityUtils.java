@@ -76,6 +76,10 @@ public class BusinessIdentityUtils {
         if (firstField == null) {
             return secondField == null;
         }
+        
+        if (secondField == null) {
+            return false;
+        }
 
         if (ignoreCase && (firstField instanceof Character || firstField instanceof CharSequence)) {
             return firstField.toString().equalsIgnoreCase(secondField.toString());
