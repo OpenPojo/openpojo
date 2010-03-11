@@ -19,6 +19,8 @@ package utils.dummypackage;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.openpojo.business.annotation.BusinessKey;
+
 public final class Person implements Serializable, Persistable {
 
     private static final long serialVersionUID = 1L;
@@ -27,6 +29,26 @@ public final class Person implements Serializable, Persistable {
      * Default constructor for persistence service loading.
      */
     public Person() {
+    }
+
+    /**
+     * @param id
+     * @param firstname
+     * @param middlename
+     * @param lastname
+     * @param password
+     * @param created
+     * @param lastupdated
+     */
+    public Person(String id, String firstname, String middlename, String lastname, String password, Timestamp created,
+            Timestamp lastupdated) {
+        this.id = id;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.password = password;
+        this.created = created;
+        this.lastupdated = lastupdated;
     }
 
     /**
@@ -52,11 +74,17 @@ public final class Person implements Serializable, Persistable {
         this.id = id;
     }
 
+    @BusinessKey(composite = true, ignoreCase = true)
     private String firstname;
 
+    @BusinessKey(composite = true, ignoreCase = true)
     private String middlename;
 
+    @BusinessKey(ignoreCase = true)
     private String lastname;
+
+    @BusinessKey(required = false, ignoreCase = false)
+    private String password;
 
     private Timestamp created;
     private Timestamp lastupdated;
@@ -106,6 +134,21 @@ public final class Person implements Serializable, Persistable {
         this.lastname = lastname;
     }
 
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password
+     *            the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Timestamp getCreated() {
         return created;
     }
@@ -122,4 +165,9 @@ public final class Person implements Serializable, Persistable {
         this.lastupdated = lastupdated;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Person [id=%s, firstname=%s, middlename=%s, lastname=%s, created=%s, lastupdated=%s]",
+                this.getId(), firstname, middlename, lastname, created, lastupdated);
+    }
 }
