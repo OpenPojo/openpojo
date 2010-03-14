@@ -1,3 +1,68 @@
-= Introduction =
+= Simplifying Identity =
 
-== Coming soon ==
+Say you have a Person domain entity that has a lastname private field.  You have the following rule:
+  * lastname is required for this entity to be valid.
+  * lastname is case insensitive so if you have two instances (Person1.lastname = "TWAIN" and Person2.lastname = "Twain") they should be equal on Person1.equals(Person2).
+
+Which could look something like this:
+{{{
+public class Person {
+    ...
+    private String lastname;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Person other = (Person) obj;
+        if (lastname == null) {
+            if (other.lastname != null)
+                return false;
+        } else if (!lastname.equalsIgnoreCase(other.lastname))
+            return false;
+        return true;
+    }
+}
+}}}
+
+and if you do that, you mush over write hashCode too.
+
+Or you can simplify your code by doing the following
+{{{
+public class Person {
+    
+    @BusinessKey(caseSensitive = false)
+    private String lastname;
+
+    @Override
+    public boolean equals(Object obj) {
+        return BusinessIdentity.areEqual(this, obj);
+
+    }
+}
+}}}
+
+=== The same goes for hashCode ===
+
+Do this:
+{{{
+    @Override
+    public int hashCode() {
+        return BusinessIdentity.getHashCode(this);
+    }
+}}}
+
+Instead of this:
+{{{
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((lastname == null) ? 0 : lastname.toLowerCase().hashCode());
+        return result;
+    }
+}}}
