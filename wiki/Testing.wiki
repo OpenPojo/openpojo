@@ -8,13 +8,19 @@ You've used your IDE to generate setters and getters on those, so you're 100% su
 
 Now you start saving Person to the database, so typically you just create a table with those fields mapped to columns.
 
-And then it hits you, Person.lastname = "Twain" should match Person.lastname = "twain", they should both be equal.
+And then it hits you keep getting the following for lastname
+  * Person.lastname = "twain"
+  * Person.lastname = "Twain"
+  * Person.lastname = "TWAIN"
+  * ...etc.
 
+So you decide the lastname needs to be normalized...
+ 
 So now you have the ability to put this logic in the service layer where comparisons take place (best option), but you don't, because the service logic would take too much time.
+
 So due to various external forces you (well not really you) decide to just modify Person.setLastname to have it lower the string before holding on to it, problem solved (or is it?!).
 
-Now if you had a way to test EVERY POJO you have for how they should behave, you'd increase your coverage dramatically, as well as ensure that this kind of code never creeps into your code base.
-
+Now if you had a way to test EVERY POJO you have for how they should behave, you'd increase your coverage dramatically, as well as ensure that this kind of code plaque never creeps into your code base.
 
 = So how is testing easier? =
 
