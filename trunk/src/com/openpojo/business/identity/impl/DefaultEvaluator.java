@@ -39,7 +39,7 @@ public class DefaultEvaluator implements IdentityEvaluator {
         boolean runningEquality = true;
         for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(first.getClass())) {
             BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
-            runningEquality = runningEquality && BusinessIdentityUtils.areEqual(pojoField, first, second, businessKey.ignoreCase());
+            runningEquality = runningEquality && BusinessIdentityUtils.areEqual(pojoField, first, second, businessKey.caseSensitive());
         }
 
         return runningEquality;

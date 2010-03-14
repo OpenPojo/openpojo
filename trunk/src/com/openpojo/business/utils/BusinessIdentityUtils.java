@@ -66,12 +66,12 @@ public class BusinessIdentityUtils {
      *            The first instance that contains this PojoField.
      * @param second
      *            The second instance that contains this PojoField.
-     * @param ignoreCase
+     * @param caseSensitive
      *            Whether or not to compare ignoring case.
      * @return
      *         True if they are equal or if they are both null.
      */
-     public static boolean areEqual(final PojoField pojoField, final Object first, final Object second, final boolean ignoreCase) {
+     public static boolean areEqual(final PojoField pojoField, final Object first, final Object second, final boolean caseSensitive) {
         Object firstField = pojoField.get(first);
         Object secondField = pojoField.get(second);
         if (firstField == null) {
@@ -82,7 +82,7 @@ public class BusinessIdentityUtils {
             return false;
         }
 
-        if (ignoreCase && (firstField instanceof Character || firstField instanceof CharSequence)) {
+        if (!caseSensitive && (firstField instanceof Character || firstField instanceof CharSequence)) {
             return firstField.toString().equalsIgnoreCase(secondField.toString());
         }
 
@@ -93,17 +93,17 @@ public class BusinessIdentityUtils {
      * Generate HashCode on field value.
      * @param instance
      *          The instance to pull the field value out of.
-     * @param ignoreCase
+     * @param caseSensitive
      *          Whether or not to ignore case while generating hash code.
      * @return
      *          The generated HashCode.
      */
-    public static int getHashCode(final PojoField pojoField, final Object instance, final boolean ignoreCase) {
+    public static int getHashCode(final PojoField pojoField, final Object instance, final boolean caseSensitive) {
         Object data = pojoField.get(instance);
         if (data == null) {
             return 0;
         }
-        if (ignoreCase && (data instanceof Character || data instanceof CharSequence)) {
+        if (!caseSensitive && (data instanceof Character || data instanceof CharSequence)) {
             return data.toString().toLowerCase().hashCode();
         }
         

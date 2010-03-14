@@ -74,16 +74,16 @@ public final class Person implements Serializable, Persistable {
         this.id = id;
     }
 
-    @BusinessKey(composite = true, ignoreCase = true)
+    @BusinessKey(composite = true, caseSensitive = false)
     private String firstname;
 
-    @BusinessKey(composite = true, ignoreCase = true)
+    @BusinessKey(composite = true, caseSensitive = false)
     private String middlename;
 
-    @BusinessKey(ignoreCase = true)
+    @BusinessKey(caseSensitive = false)
     private String lastname;
 
-    @BusinessKey(required = false, ignoreCase = false)
+    @BusinessKey(required = false, caseSensitive = true)
     private String password;
 
     private Timestamp created;
