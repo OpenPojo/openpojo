@@ -133,7 +133,7 @@ public class BusinessIdentityTest {
         @BusinessKey
         private String id;
         
-        @BusinessKey(required = false, ignoreCase = true)
+        @BusinessKey(required = false, caseSensitive = false)
         private String name;
         
         @BusinessKey(composite = true)

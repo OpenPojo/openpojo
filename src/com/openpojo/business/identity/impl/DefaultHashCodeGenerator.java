@@ -40,7 +40,7 @@ public class DefaultHashCodeGenerator implements HashCodeGenerator {
 
         for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(object.getClass())) {
             BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
-            result = prime * result + BusinessIdentityUtils.getHashCode(pojoField, object, businessKey.ignoreCase());
+            result = prime * result + BusinessIdentityUtils.getHashCode(pojoField, object, businessKey.caseSensitive());
         }
         return result;
     }

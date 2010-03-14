@@ -23,27 +23,28 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * This annotation is used to determine what part of a POJO participates in a business key.
+ * This annotation is used to indicate a field is part of the business identity.
+ * Fields tagged with BusinessKey annotation will be part of the equals / hashcode.
+ * 
  * @author oshoukry
  */
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface BusinessKey {
     /**
-     * In case this is a string key and we need to ignore case.
+     * Set to true if the field is of type Character or CharSequence to ignore case when comparing.
      */
-    boolean ignoreCase() default false;
+    boolean caseSensitive() default true;
 
     /**
-     * Is this field required to be populated.
-     * 
-     * @return
+     * Set to True to indicate field required to be populated.
      */
     boolean required() default true;
 
     /**
      * Set to true if this key is part of a group where any one of the group needs to be not null.
-     * Setting Composite to true, shadows the "isRequired" since composite is OR-ing against any that are populated.
+     * Setting Composite to true, shadows the "required" above, since composite is OR-ing against any that are
+     * populated.
      */
     boolean composite() default false;
 }
