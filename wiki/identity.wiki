@@ -1,4 +1,4 @@
-= Simplifying Identity =
+= Simplifying Identity management =
 
 Say you have a Person domain entity that has a lastname private field.  You have the following rule:
   * lastname is required for this entity to be valid.
