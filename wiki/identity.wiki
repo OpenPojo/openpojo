@@ -29,13 +29,14 @@ public class Person {
 }
 }}}
 
-and if you do that, you mush over write hashCode too.
+oh and don't forget to fix your *hashCode* too...
 
-Or you can simplify your code by doing the following
+== Alternatively ==
+You can simplify your code by doing the following
 {{{
 public class Person {
     
-    @BusinessKey(caseSensitive = false)
+    @BusinessKey(caseSensitive = false)  //Configure your field(s)
     private String lastname;
 
     @Override
@@ -46,23 +47,12 @@ public class Person {
 }
 }}}
 
-=== The same goes for hashCode ===
+=== What about hashCode you ask? ===
 
 Do this:
 {{{
     @Override
     public int hashCode() {
         return BusinessIdentity.getHashCode(this);
-    }
-}}}
-
-Instead of this:
-{{{
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((lastname == null) ? 0 : lastname.toLowerCase().hashCode());
-        return result;
     }
 }}}
