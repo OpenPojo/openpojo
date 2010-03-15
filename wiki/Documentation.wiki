@@ -18,6 +18,6 @@ This page holds the top level documentation.
 
  * BusinessKey
   Use this annotation to highlight what fields in your Pojo are to be used for hashcode generation and equality.  Possible configuration parameters on this annotation are
-    # ignoreCase (used to indicate to ignore case when comparing CharacterSequence classes).
+    # caseSensitive (used to indicate to ignore case when comparing CharacterSequence classes).
     # required (used to indicate don't allow field to be null upon equality or hashcode generation).
     # composite (used to indicate this field is part of a group that can have null fields, as long as one member of the group isn't null).
