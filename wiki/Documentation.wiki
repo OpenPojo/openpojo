@@ -14,7 +14,9 @@ This page holds the top level documentation.
   This interface defines the contract needed to be implemented so you can register your own custom types into the RandomFacotory.  Feel free to over-ride the default implementations provided for random generation of all the basic java types including Timestamp.
 
  * BusinessIdentity
-  This class exposes two basic methods that you can use in your Pojos to generate hashcode and equals.  The hashcode and equals are performed annotation based.
+  This class exposes three basic methods that you can use in your Pojos to generate hashcode, equals and toString.
+   # hashCode & areEqual are used as a pair and both get their queue off of the @BusinessKey annotation.
+   # toString, is unique as it just prints out all variables and their content for a PojoClass.
 
  * BusinessKey
   Use this annotation to highlight what fields in your Pojo are to be used for hashcode generation and equality.  Possible configuration parameters on this annotation are
