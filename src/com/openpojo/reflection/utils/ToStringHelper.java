@@ -31,16 +31,43 @@ public final class ToStringHelper {
     public static final String LIST_TOKEN_SEPERATOR = ", ";
     public static final String POJOCLASS_TOSTRING_FORMAT = "%s [%s]";
 
+    /**
+     * This method formats name value pairs into the proper string format.
+     * @param name
+     *          The name to format.
+     * @param value
+     *          The value to format.
+     * @return
+     *          String formatted, human readable name/value pair. 
+     */
     public static String nameValuePair(Object name, Object value) {
         return String.format(NAME_VALUE_TOKEN_FORMAT, name, value);
     }
 
+    /**
+     * This method takes an object instance for a pojoClass and flattens it into a properly formated string.
+     * @param pojoClass
+     *          The meta representation of the instance class.
+     * @param instance
+     *          The instance to format.
+     * @return
+     *          String formatted, human readable class.
+     */
     public static String PojoClassToString(PojoClass pojoClass, Object instance) {
         return String.format(POJOCLASS_TOSTRING_FORMAT,
                                 pojoClass.getClazz().getName(),
                                 PojoFieldsToString(pojoClass.getPojoFields(), instance));
     }
 
+    /**
+     * This method takes a list of PojoFields and turns them into token seperated name-value pairs.
+     * @param pojoFields
+     *          The list of pojofields to render.
+     * @param instance
+     *          The object instance to get the values out of.
+     * @return
+     *          String formatted, human readable list of pojoFields.
+     */
     private static String PojoFieldsToString(List<PojoField> pojoFields, Object instance) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int index = 0; index < pojoFields.size(); index++) {
