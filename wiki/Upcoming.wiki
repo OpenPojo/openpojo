@@ -2,7 +2,6 @@ Ramblings about what I think I want to add next...
 
 == Up Coming features ==
  * *In no particular order*
-  * Add toString method to the business package to allow to return string representation for business objects.
   * *DONE* Add toString method to any class to call which would return string representation for all fields.
    * Will add documentation on usage soon.
   * Add support for constructing objects using parameter list (revamp PojoClass.newInstance()).
