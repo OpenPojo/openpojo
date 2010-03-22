@@ -23,6 +23,7 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
  * This class is the default implementation for the PojoClass Interface, created through the PojoClassFactory.
@@ -51,7 +52,7 @@ class PojoClassImpl implements PojoClass {
     }
 
     public List<PojoField> getPojoFields() {
-        return Collections.unmodifiableList(pojoFields);
+        return pojoFields;
     }
 
     public String getName() {
@@ -105,16 +106,6 @@ class PojoClassImpl implements PojoClass {
     }
     
     public String toString(Object instance) {
-        StringBuilder returnString = new StringBuilder();
-        returnString.append(instance.getClass().getName());
-        returnString.append(" [");
-        for (int i=0; i < pojoFields.size(); i++) {
-            returnString.append(pojoFields.get(i).toString(instance));
-            if (i < (pojoFields.size() - 1)) {
-                returnString.append(", ");
-            }
-        }
-        returnString.append("]");
-        return returnString.toString();
+        return ToStringHelper.PojoClassToString(this, instance);
     }
 }

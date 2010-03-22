@@ -23,6 +23,7 @@ import java.lang.reflect.Modifier;
 
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
  * This is the default implementation for PojoField Interface.
@@ -127,6 +128,6 @@ class PojoFieldImpl implements PojoField {
     }
     
     public String toString(Object instance) {
-        return String.format("%s=%s", getName(), get(instance));
+        return ToStringHelper.nameValuePair(getName(), get(instance));
     }
 }
