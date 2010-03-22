@@ -18,6 +18,7 @@
 package com.openpojo.business;
 
 import com.openpojo.business.identity.IdentityFactory;
+import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * @author oshoukry
@@ -33,5 +34,9 @@ public final class BusinessIdentity {
     public static int getHashCode(Object object) {
         IdentityFactory.getBusinessValidator().validate(object);
         return IdentityFactory.getHashCodeGenerator().doGenerate(object);        
+    }
+    
+    public static String toString(Object instance) {
+        return PojoClassFactory.getPojoClass(instance.getClass()).toString(instance);
     }
 }
