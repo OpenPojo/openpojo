@@ -144,4 +144,13 @@ public interface PojoField {
      *         True if this PojoField is public-ly defined on the enclosing class.
      */
     public boolean isPublic();
+    
+    /**
+     * Returns properly formated field=value string from instance.
+     * @param instance
+     *          The instance to pull the field value off of.
+     * @return
+     *          A string representation of the field and value.
+     */
+    public String toString(Object instance);
 }

@@ -51,7 +51,7 @@ class PojoClassImpl implements PojoClass {
     }
 
     public List<PojoField> getPojoFields() {
-        return pojoFields;
+        return Collections.unmodifiableList(pojoFields);
     }
 
     public String getName() {
@@ -62,10 +62,19 @@ class PojoClassImpl implements PojoClass {
         return type.isAssignableFrom(clazz);
     }
 
-    public Object newInstance() {
+    public void validateBeforeNewInstance() {
         if (isInterface() || isAbstract()) {
             throw new ReflectionException("This PojoClass is an interface/abstract, can't create new instance");
         }
+    }
+
+    public Object newInstance(Object ...objects) {
+        throw new ReflectionException("Unimplemented method [newInstance(Object ...objects)] called" );
+    }
+
+    public Object newInstance() {
+        validateBeforeNewInstance();
+
         try {
             return clazz.newInstance();
         } catch (Exception e) { // InstantiationException Or IllegalAccessException
@@ -94,5 +103,18 @@ class PojoClassImpl implements PojoClass {
     public String toString() {
         return String.format("PojoClassImpl [clazz=%s, pojoFields=%s]", clazz, pojoFields);
     }
-
+    
+    public String toString(Object instance) {
+        StringBuilder returnString = new StringBuilder();
+        returnString.append(instance.getClass().getName());
+        returnString.append(" [");
+        for (int i=0; i < pojoFields.size(); i++) {
+            returnString.append(pojoFields.get(i).toString(instance));
+            if (i < (pojoFields.size() - 1)) {
+                returnString.append(", ");
+            }
+        }
+        returnString.append("]");
+        return returnString.toString();
+    }
 }

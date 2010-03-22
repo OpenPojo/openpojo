@@ -77,9 +77,17 @@ public interface PojoClass {
      * This method creates a new instance.
      * 
      * @return
-     *         new instance of clazz.
+     *         New instance of clazz.
      */
     public Object newInstance();
+
+    /**
+     * This method creates a new instance given argument list.
+     * 
+     * @return
+     *         New instance of clazz.
+     */
+    public Object newInstance(final Object... objects);
 
     /**
      * Checks to see if this class is a nested subclass.
@@ -99,4 +107,13 @@ public interface PojoClass {
      */
     public void copy(final Object from, final Object to);
 
+    /**
+     * This method converts a pojoClass instance's contents to a string.
+     * This method can serve as a good delegate for all toString().
+     * @param instance
+     *          The instance to print the contents out of.
+     * @return
+     *          String representation of the instance.
+     */
+    public String toString(Object instance);
 }

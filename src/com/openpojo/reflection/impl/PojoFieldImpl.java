@@ -125,4 +125,8 @@ class PojoFieldImpl implements PojoField {
         return String.format("PojoFieldImpl [field=%s, fieldGetter=%s, fieldSetter=%s]", field, fieldGetter,
                 fieldSetter);
     }
+    
+    public String toString(Object instance) {
+        return String.format("%s=%s", getName(), get(instance));
+    }
 }
