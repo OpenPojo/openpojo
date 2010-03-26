@@ -129,7 +129,7 @@ public class BusinessIdentityTest {
         }
     }
 
-    private class HashCodeTestData {
+    private static class HashCodeTestData {
         @BusinessKey
         private String id;
         
