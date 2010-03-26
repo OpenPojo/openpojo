@@ -53,7 +53,7 @@ public final class ToStringHelper {
      * @return
      *          String formatted, human readable class.
      */
-    public static String PojoClassToString(PojoClass pojoClass, Object instance) {
+    public static String pojoClassToString(PojoClass pojoClass, Object instance) {
         return String.format(POJOCLASS_TOSTRING_FORMAT,
                                 pojoClass.getClazz().getName(),
                                 Integer.toHexString(System.identityHashCode(instance)),

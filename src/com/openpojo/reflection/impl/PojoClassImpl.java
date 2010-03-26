@@ -106,6 +106,6 @@ class PojoClassImpl implements PojoClass {
     }
     
     public String toString(Object instance) {
-        return ToStringHelper.PojoClassToString(this, instance);
+        return ToStringHelper.pojoClassToString(this, instance);
     }
 }
