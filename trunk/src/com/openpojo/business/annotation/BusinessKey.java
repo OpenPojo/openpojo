@@ -25,7 +25,10 @@ import java.lang.annotation.Target;
 /**
  * This annotation is used to indicate a field is part of the business identity.
  * Fields tagged with BusinessKey annotation will be part of the equals / hashcode.
- * 
+ * Key fields are: <br>
+ *  1. caseSensitive (default is true) <br>
+ *  2. required (default is true) <br>
+ *  3. composite (default is false) <br>
  * @author oshoukry
  */
 @Retention(RUNTIME)

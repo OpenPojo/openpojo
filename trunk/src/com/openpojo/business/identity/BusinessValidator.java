@@ -17,8 +17,8 @@
 package com.openpojo.business.identity;
 
 /**
+ * This Interface defines the contract for business validation on an object.
  * @author oshoukry
- *
  */
 public interface BusinessValidator {
     /**
@@ -26,8 +26,6 @@ public interface BusinessValidator {
      * If an object fails the validation, a BusinessException will be thrown.
      * @param object
      *          The Business Object to be validated.
-     * @return
-     *          Returns True
      */
     public void validate(Object object);
 }

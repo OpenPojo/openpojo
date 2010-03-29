@@ -17,15 +17,17 @@
 package com.openpojo.business.identity;
 
 /**
+ * This interface defines the contract for hash code generation handlers.
  * @author oshoukry
- *
  */
 public interface HashCodeGenerator {
 
     /**
      * This method will calculate BusinessKey based hashcode.
-     * @param persistable
+     * @param object
+     *          Object to generate hashCode for.
      * @return
+     *          generated hash code.
      */
     public int doGenerate(Object object);
 }

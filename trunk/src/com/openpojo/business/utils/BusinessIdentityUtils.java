@@ -25,7 +25,9 @@ import com.openpojo.reflection.PojoField;
 public class BusinessIdentityUtils {
     /**
      * @param objects
+     *          List of objects to check if any are null.
      * @return
+     *          True if any of the objects passed is null, false otherwise.
      */
     public static boolean anyNull(Object... objects) {
         if (objects == null) {
@@ -40,18 +42,26 @@ public class BusinessIdentityUtils {
     }
 
     /**
+     * This method checks if two objects are of the same class.
      * @param first
+     *          First object to check.
      * @param second
+     *          Second object to check.
      * @return
+     *          True if both have the same class, false otherwise.
      */
     public static boolean sameClass(Object first, Object second) {
         return first.getClass() == second.getClass();
     }
 
     /**
+     * This method checks if two object point to the same instance.
      * @param first
+     *          First object to check.
      * @param second
+     *          Second object to check.
      * @return
+     *          True if both first and second point to the same instance, false otherwise.
      */
     public static boolean sameInstance(Object first, Object second) {
         return first == second;
