@@ -27,6 +27,7 @@
 
     <property name="dir.out" value="dist" />
     <property name="dist.jar" value="${dir.out}/openpojo.jar" />
+    <property name="dir.out.doc" value="dist/doc" />
     <property name="dir.out.classes" value="${dir.out}/classes" />
     <property name="lib" value="lib" />
 
@@ -49,18 +50,26 @@
         </javac>
     </target>
 
+    <target name="javadoc">
+        <mkdir dir="${dir.out.doc}/javadoc" />
+        <javadoc destdir="${dir.out.doc}/javadoc">
+            <fileset dir="${dir.src}" includes="**/*.java" />
+        </javadoc>
+    </target>
+
     <target name="jar" depends="compile">
         <jar destfile="${dist.jar}" basedir="${dir.out.classes}" manifest="${dir.src}/META-INF/MANIFEST.MF" />
         <delete dir="${dir.out.classes}" />
     </target>
 
     <tstamp>
-        <format property="DATETIME" pattern="yyyyMMdd-HHmm"/>
+        <format property="DATETIME" pattern="yyyyMMdd-HHmm" />
     </tstamp>
 
-    <target name="generate_zip" depends="jar">
+    <target name="generate_zip" depends="jar, javadoc">
         <zip destfile="${dir.out}/OpenPojo-build-${DATETIME}.zip" whenempty="skip">
             <fileset dir="${dir.out}" includes="*.jar" />
+            <fileset dir="${dir.out.doc}"/>
             <fileset refid="project.docs" />
         </zip>
     </target>
