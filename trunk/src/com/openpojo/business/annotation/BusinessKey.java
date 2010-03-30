@@ -26,9 +26,31 @@ import java.lang.annotation.Target;
  * This annotation is used to indicate a field is part of the business identity.
  * Fields tagged with BusinessKey annotation will be part of the equals / hashcode.
  * Key fields are: <br>
- *  1. caseSensitive (default is true) <br>
- *  2. required (default is true) <br>
- *  3. composite (default is false) <br>
+ * 1. caseSensitive (default is true) <br>
+ * 2. required (default is true) <br>
+ * 3. composite (default is false) <br>
+ * <br>
+ * <strong>caseSensitive usage:</strong><br>
+ * If a field tagged with caseSensitive=false (i.e. not case sensitive) AND the field is of type
+ * Character or CharacterSequence, the field must be normalized and then hashcode/equality is performed. <br>
+ * <br>
+ * <strong>Example:</strong> {@link BusinessKey}(caseSensitive = false)
+ * String one = "hello world" <br>
+ * must have the same hashcode & equality as:<br>
+ * one = "HELLO WORLD" <br>
+ * <strong>required usage:</strong><br>
+ * If a field is tagged with required = false, then the field will only be used in equality only if its populated.
+ * Two null fields tagged with required = false are equal. <br>
+ * <br>
+ * <strong>composite usage:</strong><br>
+ * If a field is tagged with composite = true, then two things happen, first, required configuration is ignored,
+ * and this field is treated as optional part of a group. This also means that one of the fields tagged with composite
+ * MUST have a value.<br>
+ * <strong>Example:</strong>
+ * If you had a POJO called Person, that had a FirstName & LastName fields, and you want to set a rule that is for this
+ * POJO to be complete, one of the names MUST be populated, but its not important which one. <br>
+ * This is typical composite key usage.
+ * 
  * @author oshoukry
  */
 @Retention(RUNTIME)

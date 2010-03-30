@@ -21,6 +21,11 @@ import com.openpojo.business.identity.impl.DefaultEvaluator;
 import com.openpojo.business.identity.impl.DefaultHashCodeGenerator;
 
 /**
+ * This is the Default factory that holds the default implementation of
+ * {@link IdentityEvaluator}, {@link HashCodeGenerator} and {@link BusinessValidator}.
+ * <br>
+ * This IdentityFactory can be reconfigured with any other implementation using the "set" methods.
+ * 
  * @author oshoukry
  */
 public final class IdentityFactory {

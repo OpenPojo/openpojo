@@ -20,6 +20,7 @@ import com.openpojo.business.exception.BusinessException;
 import com.openpojo.reflection.PojoField;
 
 /**
+ * This class is just a utility class that holds a few utilities needed by various classes in the business package.
  * @author oshoukry
  */
 public class BusinessIdentityUtils {
@@ -92,7 +93,7 @@ public class BusinessIdentityUtils {
             return false;
         }
 
-        if (!caseSensitive && (firstField instanceof Character || firstField instanceof CharSequence)) {
+        if (!caseSensitive && isCharacterBased(firstField)) {
             return firstField.toString().equalsIgnoreCase(secondField.toString());
         }
 
@@ -113,10 +114,22 @@ public class BusinessIdentityUtils {
         if (data == null) {
             return 0;
         }
-        if (!caseSensitive && (data instanceof Character || data instanceof CharSequence)) {
+        if (!caseSensitive && isCharacterBased(data)) {
             return data.toString().toLowerCase().hashCode();
         }
         
         return data.hashCode();
+    }
+    
+    /**
+     * This method holds the logic needed to determine that a type is of character
+     * (i.e. its contents can be pulled out using toString)
+     * @param data
+     *          The data to be checked.
+     * @return
+     *          True if data is of type Character or CharSequence, false otherwise.
+     */
+    private static boolean isCharacterBased(Object data) {
+        return (data instanceof Character || data instanceof CharSequence);
     }
 }
