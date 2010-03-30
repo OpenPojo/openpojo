@@ -25,7 +25,7 @@ import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
- * This Utility helper class parses wrapps needed behaviour for classes annotated with @BusinessKey.
+ * This Utility helper class that holds the logic of extracting the {@link BusinessKey} fields from a Class.
  * 
  * @author oshoukry
  */

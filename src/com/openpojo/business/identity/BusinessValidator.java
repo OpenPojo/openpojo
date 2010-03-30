@@ -18,6 +18,7 @@ package com.openpojo.business.identity;
 
 /**
  * This Interface defines the contract for business validation on an object.
+ * Business validation ensures that objects is a valid business object for use.
  * @author oshoukry
  */
 public interface BusinessValidator {

@@ -16,22 +16,25 @@
  */
 package com.openpojo.business.identity;
 
+import com.openpojo.business.annotation.BusinessKey;
+
 /**
- * This interface defines the business equality contract between two POJOs
+ * This interface defines the business equality contract between two POJOs.
+ * Two POJOs are defined to be the same if all their {@link BusinessKey}s are equal.
  * 
  * @author oshoukry
  */
 public interface IdentityEvaluator {
-    
+
     /**
      * This method is responsible for evaluating two objects as equal using the identity.
      * 
      * @param first
-     *          First object in the equality.
+     *            First object in the equality.
      * @param second
-     *          Second object in the equality.
+     *            Second object in the equality.
      * @return
-     *          True if both objects are equal.
+     *         True if both objects are equal.
      */
     public boolean areEqual(final Object first, final Object second);
 }
