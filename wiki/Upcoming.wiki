@@ -4,5 +4,7 @@ Ramblings about what I think I want to add next...
  * *In no particular order*
   # *DONE* Add toString method to any class to call which would return string representation for all fields.
    # Will add documentation on usage soon.
+ # *In Progress* Improve the JavaDocs and make them more complete.
   # Add support for constructing objects using parameter list (revamp PojoClass.newInstance()).
+
 *Note:* If there is something you'd like to see that isn't listed please drop me a line or open a ticket in the Issues section.
