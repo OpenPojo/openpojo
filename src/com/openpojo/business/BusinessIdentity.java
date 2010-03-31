@@ -59,7 +59,9 @@ public final class BusinessIdentity {
     /**
      * This method handles generation of the hashCode for a given object.
      * @param object
+     *          Object to generate hashCode for.
      * @return
+     *          Generated hash code.
      */
     public static int getHashCode(Object object) {
         IdentityFactory.getBusinessValidator().validate(object);
