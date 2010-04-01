@@ -24,12 +24,12 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
- * TimeStamp random generator.
+ * This RandomGenerator is responsible for generating random values for java.sql.Timestamp class.
  * 
  * @author oshoukry
  */
 public final class TimestampRandomGenerator implements RandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[]{Timestamp.class};
+    private static final Class<?>[] TYPES = new Class<?>[]{ Timestamp.class };
 
     public Object doGenerate(Class<?> type) {
         return new Timestamp((Long) RandomFactory.getRandomValue(Long.class));
