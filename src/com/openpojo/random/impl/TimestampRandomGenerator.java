@@ -25,7 +25,7 @@ import com.openpojo.random.RandomGenerator;
 
 /**
  * This RandomGenerator is responsible for generating random values for java.sql.Timestamp class.
- * 
+ *
  * @author oshoukry
  */
 public final class TimestampRandomGenerator implements RandomGenerator {

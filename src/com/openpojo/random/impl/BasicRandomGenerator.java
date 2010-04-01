@@ -37,15 +37,12 @@ import com.openpojo.random.RandomGenerator;
  * 8. char & Character <br>
  * 9. And String<br>
  * <br>
- * You can overwrite any of those types with your own generator and register it with the RandomFactory.
- * 
- * <br>
+ * You can overwrite any of those types with your own generator and register it with the RandomFactory. <br>
  * <strong>Note:</strong><br>
- * 1. char & Character random generation is <i>currently</i> limited to the following set of 
- * characters A-Z, a-z and 0-9.
- * <br>
- * 2. String random generation relies on the Character random generation, all strings are generated as random sequence 
- * of characters with length between 1 and 32 inclusive.  So If you over-write the Character generator, 
+ * 1. char & Character random generation is <i>currently</i> limited to the following set of
+ * characters A-Z, a-z and 0-9. <br>
+ * 2. String random generation relies on the Character random generation, all strings are generated as random sequence
+ * of characters with length between 1 and 32 inclusive. So If you over-write the Character generator,
  * you will implicitly be modifying the types of character the random characters a random String is made of.
  * 
  * @author oshoukry
@@ -54,14 +51,14 @@ public final class BasicRandomGenerator implements RandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
     private static final int MAX_RANDOM_STRING_LENGTH = 32;
 
-    private static final Class<?>[] TYPES = new Class<?>[]{boolean.class, Boolean.class, int.class, Integer.class,
+    private static final Class<?>[] TYPES = new Class<?>[]{ boolean.class, Boolean.class, int.class, Integer.class,
             float.class, Float.class, double.class, Double.class, long.class, Long.class, short.class, Short.class,
-            byte.class, Byte.class, char.class, Character.class, String.class};
+            byte.class, Byte.class, char.class, Character.class, String.class };
 
-    private static final char[] CHARACTERS = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+    private static final char[] CHARACTERS = new char[]{ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
             'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
             'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1',
-            '2', '3', '4', '5', '6', '7', '8', '9'};
+            '2', '3', '4', '5', '6', '7', '8', '9' };
 
     public Object doGenerate(Class<?> type) {
         if (type == boolean.class || type == Boolean.class) {
