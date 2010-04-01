@@ -16,6 +16,7 @@
  */
 package com.openpojo.reflection.impl;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +47,7 @@ class PojoClassImpl implements PojoClass {
     public boolean isInterface() {
         return clazz.isInterface();
     }
-    
+
     public boolean isAbstract() {
         return Modifier.isAbstract(clazz.getModifiers());
     }
@@ -63,23 +64,27 @@ class PojoClassImpl implements PojoClass {
         return type.isAssignableFrom(clazz);
     }
 
-    public void validateBeforeNewInstance() {
+    private void validateBeforeNewInstance() {
         if (isInterface() || isAbstract()) {
             throw new ReflectionException("This PojoClass is an interface/abstract, can't create new instance");
         }
     }
 
-    public Object newInstance(Object ...objects) {
-        throw new ReflectionException("Unimplemented method [newInstance(Object ...objects)] called" );
+    public Object newInstance(Object... objects) {
+        throw new ReflectionException("Unimplemented method [newInstance(Object ...objects)] called");
     }
 
     public Object newInstance() {
         validateBeforeNewInstance();
 
         try {
-            return clazz.newInstance();
-        } catch (Exception e) { // InstantiationException Or IllegalAccessException
-            throw new ReflectionException(e);
+            @SuppressWarnings("unchecked")
+            Constructor c = clazz.getDeclaredConstructor(); // NoSuchMethodException, SecurityException
+            c.setAccessible(true); // SecurityException
+            return c.newInstance(); // InstantiationException, IllegalAccessException, IllegalArgumentException,
+                                    // InvocationTargetException
+        } catch (Exception e) {
+            throw new ReflectionException(e.getMessage(), e);
         }
     }
 
@@ -104,7 +109,7 @@ class PojoClassImpl implements PojoClass {
     public String toString() {
         return String.format("PojoClassImpl [clazz=%s, pojoFields=%s]", clazz, pojoFields);
     }
-    
+
     public String toString(Object instance) {
         return ToStringHelper.pojoClassToString(this, instance);
     }
