@@ -28,18 +28,22 @@ import com.openpojo.random.thread.GeneratedRandomValues;
  * This factory is responsible for generating the random values using the registered RandomGenerator(s). <br>
  * This Factory will automatically detect cyclic dependency and return null for the second time around.<br>
  * For example:<br>
- * If you have an Employee class that has the following constructor:<br><br>
+ * If you have an Employee class that has the following constructor:<br>
+ * <br>
  * <code>
  *     public Employee(final String fullName, final Employee manager) { 
  *       ... 
  *     }
- * </code> <br><br>
- * And you created the random generator as follows:<br><br>
+ * </code> <br>
+ * <br>
+ * And you created the random generator as follows:<br>
+ * <br>
  * <code>
  *   public Object doGenerate(Class<?> type) {<br>
  *       return new Employee(RandomFactory.getRandomValue(String.class), (Employee) RandomFactory.getRandomValue(Employee.class));<br>
  *   }
- * </code><br><br>
+ * </code><br>
+ * <br>
  * So to prevent stack over-flow (which would occur by trying to create a manager for every manager), this Factory has
  * built in protection to prevent such a thing by recording for a current recursive call if it's seen this type before,
  * if so, it will return null the second time around.
@@ -72,6 +76,7 @@ public class RandomFactory {
     /**
      * This method generates a random value of the requested type.<br>
      * If the requested type isn't registerd in the factory, an RandomGeneratorException will be thrown.
+     * 
      * @param type
      *            The type to get a random value of.
      * @return

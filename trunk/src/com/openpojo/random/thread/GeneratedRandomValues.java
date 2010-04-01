@@ -22,7 +22,7 @@ import java.util.Set;
 
 /**
  * This class holds random generated types on current thread.
- * 
+ *
  * @author oshoukry
  */
 public class GeneratedRandomValues {

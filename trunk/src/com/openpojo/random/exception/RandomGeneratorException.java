@@ -28,8 +28,9 @@ public class RandomGeneratorException extends RuntimeException {
 
     /**
      * Constructor using the message that describes the failure.
+     * 
      * @param message
-     *          String message of the error that occured.
+     *            String message of the error that occured.
      */
     public RandomGeneratorException(final String message) {
         super(message);
