@@ -18,13 +18,19 @@
 package com.openpojo.random.exception;
 
 /**
+ * This Exception is thrown by the random package if an error occurs during random generation/handling.
+ * 
  * @author oshoukry
- *
  */
 public class RandomGeneratorException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constructor using the message that describes the failure.
+     * @param message
+     *          String message of the error that occured.
+     */
     public RandomGeneratorException(final String message) {
         super(message);
     }

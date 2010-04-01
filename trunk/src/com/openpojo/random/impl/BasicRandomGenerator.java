@@ -25,9 +25,28 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
- * This is the most basic random generator, it handles all basic java types.
- * You can overwrite any of those types with your own generator and register it with
- * the RandomFactory.
+ * This is the most basic random generator, it handles all basic java types (17 in total).<br>
+ * <strong>Namely:</strong><br>
+ * 1. boolean & Boolean<br>
+ * 2. int & Integer <br>
+ * 3. float & Float <br>
+ * 4. double & Double <br>
+ * 5. long & Long <br>
+ * 6. short & Short <br>
+ * 7. byte & Byte <br>
+ * 8. char & Character <br>
+ * 9. And String<br>
+ * <br>
+ * You can overwrite any of those types with your own generator and register it with the RandomFactory.
+ * 
+ * <br>
+ * <strong>Note:</strong><br>
+ * 1. char & Character random generation is <i>currently</i> limited to the following set of 
+ * characters A-Z, a-z and 0-9.
+ * <br>
+ * 2. String random generation relies on the Character random generation, all strings are generated as random sequence 
+ * of characters with length between 1 and 32 inclusive.  So If you over-write the Character generator, 
+ * you will implicitly be modifying the types of character the random characters a random String is made of.
  * 
  * @author oshoukry
  */
