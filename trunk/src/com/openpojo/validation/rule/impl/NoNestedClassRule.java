@@ -16,9 +16,8 @@
  */
 package com.openpojo.validation.rule.impl;
 
-import org.junit.Assert;
-
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
 
 /**
@@ -31,7 +30,7 @@ public class NoNestedClassRule implements Rule {
     @Override
     public void evaluate(PojoClass pojoClass) {
         if (pojoClass.isNestedClass()) {
-            Assert.fail(String.format("Nested Classes not allowed please refactor out to a seperate class [%s]",
+            Affirm.fail(String.format("Nested Classes not allowed please refactor out to a seperate class [%s]",
                     pojoClass));
         }
     }

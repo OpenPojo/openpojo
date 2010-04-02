@@ -16,9 +16,10 @@
  */
 package com.openpojo.random.impl;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.openpojo.validation.affirm.Affirm;
 
 public class BasicRandomGeneratorTest {
     private BasicRandomGenerator basicRandomGenerator;
@@ -131,7 +132,8 @@ public class BasicRandomGeneratorTest {
      */
     @Test
     public void testUnregisteredType() {
-        Assert.assertNull(basicRandomGenerator.doGenerate(this.getClass()));
+        Affirm.affirmNull(String.format("Request to non-registered type [%s] must return null!!", this.getClass()),
+                basicRandomGenerator.doGenerate(this.getClass()));
 
     }
 
@@ -142,9 +144,9 @@ public class BasicRandomGeneratorTest {
      *            The class type to test.
      */
     private void testDoGenerateForClass(Class<? extends Object> type) {
-        Assert.assertTrue(basicRandomGenerator.doGenerate(type).getClass() == type);
+        Affirm.affirmTrue(basicRandomGenerator.doGenerate(type).getClass() == type);
         Object object = type.cast(basicRandomGenerator.doGenerate(type));
-        Assert.assertNotNull(object);
+        Affirm.affirmNotNull(String.format("Request to registered type [%s] must return non-null value!!", type), object);
 
         Object anotherObject = basicRandomGenerator.doGenerate(type);
         if (object.equals(anotherObject)) { // Just incase they are the same
@@ -159,7 +161,7 @@ public class BasicRandomGeneratorTest {
                 }
             }
         }
-        Assert.assertFalse(object.equals(anotherObject));
+        Affirm.affirmFalse(object.equals(anotherObject));
     }
 
     /**
@@ -167,7 +169,7 @@ public class BasicRandomGeneratorTest {
      */
     @Test
     public final void testGetTypes() {
-        Assert.assertEquals("New Types added/removed to BasicRandomGenerator?", EXPECTED_BASIC_TYPES,
+        Affirm.affirmEquals("New Types added/removed to BasicRandomGenerator?", EXPECTED_BASIC_TYPES,
                 basicRandomGenerator.getTypes().size());
     }
 

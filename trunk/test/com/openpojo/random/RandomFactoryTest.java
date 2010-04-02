@@ -70,6 +70,9 @@ public class RandomFactoryTest {
         }
     }
 
+    /**
+     * Test that the RandomFactory detects and breaks cyclic dependencies.
+     */
     @Test
     public void testRandomLoop() {
         RandomFactory.addRandomGenerator(new RandomEmployee());

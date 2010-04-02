@@ -16,10 +16,9 @@
  */
 package com.openpojo.validation.rule.impl;
 
-import junit.framework.Assert;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.utils.ValidationHelper;
 
@@ -35,7 +34,7 @@ public class NoPrimitivesRule implements Rule {
     public void evaluate(PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.isPrimitive() && !ValidationHelper.isStaticFinal(fieldEntry)) {
-                Assert.fail("Primitive fields (byte, short, int, long, float, double, boolean, char) not allowed "
+                Affirm.fail("Primitive fields (byte, short, int, long, float, double, boolean, char) not allowed "
                         + fieldEntry);
             }
         }
