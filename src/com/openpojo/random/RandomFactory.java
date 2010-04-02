@@ -48,7 +48,7 @@ import com.openpojo.random.thread.GeneratedRandomValues;
  * This would potentially cause a stack over-flow since there is a cyclic dependency of Employee on itself.
  * 
  * So to prevent stack over-flow (which would occur by trying to create a manager for every manager), this Factory has
- * built in protection (using {@see GeneratedRandomValues}) to prevent such a thing by recording for a current 
+ * built in protection (using {@link GeneratedRandomValues}) to prevent such a thing by recording for a current 
  * recursive call if it's seen this type before, if so, it will return null the second time around.
  * 
  * @author oshoukry
