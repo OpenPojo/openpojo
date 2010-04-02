@@ -16,7 +16,6 @@
  */
 package com.openpojo.validation.rule.impl;
 
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
@@ -24,25 +23,19 @@ import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.utils.ValidationHelper;
 
 /**
- * This Rule ensures that all Fields are initialized to Null.<br>
- * This rule ignores fields that are marked as static final or primitive types since neither can be 
- * initialized to null. <br>
+ * This rule ensures that all Fields have a getter associated with them.
+ * Exception are fields defined static final since those are usually constants.
  * 
  * @author oshoukry
  */
-public class DefaultValuesNullRule implements Rule {
+public class GetterMustExistRule implements Rule {
 
     @Override
     public void evaluate(PojoClass pojoClass) {
-        Object classInstance = null;
-
-        classInstance = pojoClass.newInstance();
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (!fieldEntry.isPrimitive() && !ValidationHelper.isStaticFinal(fieldEntry)) {
-                Affirm.affirmNull("Expected null value for for field=[" + fieldEntry + "]", fieldEntry
-                        .get(classInstance));
+            if (!ValidationHelper.isStaticFinal(fieldEntry) && !fieldEntry.hasGetter()) {
+                Affirm.fail(fieldEntry + " is missing a getter");
             }
         }
     }
-
 }

@@ -16,10 +16,9 @@
  */
 package com.openpojo.validation.rule.impl;
 
-import junit.framework.Assert;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
 
 /**
@@ -33,7 +32,7 @@ public final class NoPublicFieldsRule implements Rule {
     public void evaluate(PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.isPublic()) {
-                Assert.fail("Public fields not allowed " + fieldEntry);
+                Affirm.fail("Public fields not allowed " + fieldEntry);
             }
         }
     }

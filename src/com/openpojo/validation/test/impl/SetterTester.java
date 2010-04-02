@@ -16,11 +16,10 @@
  */
 package com.openpojo.validation.test.impl;
 
-import org.junit.Assert;
-
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.utils.ValidationHelper;
 
@@ -41,7 +40,7 @@ public class SetterTester implements Tester {
             if (!ValidationHelper.isStaticFinal(fieldEntry)) {
                 Object value = RandomFactory.getRandomValue(fieldEntry.getType());
                 fieldEntry.inovkeSetter(classInstance, value);
-                Assert.assertEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
+                Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
                         fieldEntry.get(classInstance));
             }
         }

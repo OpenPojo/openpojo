@@ -26,7 +26,7 @@ import com.openpojo.reflection.PojoClass;
 public interface Tester {
     /**
      * This method starts the test, and has no return value.
-     * Every test should perform its own "Assert"ions and fail accordingly.
+     * Every test should perform its own "Affirm"ions and fail accordingly.
      * 
      * @param pojoClass
      *            The PojoClass being tested.
