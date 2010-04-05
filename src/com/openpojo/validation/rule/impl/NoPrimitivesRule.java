@@ -34,8 +34,9 @@ public class NoPrimitivesRule implements Rule {
     public void evaluate(PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.isPrimitive() && !ValidationHelper.isStaticFinal(fieldEntry)) {
-                Affirm.fail("Primitive fields (byte, short, int, long, float, double, boolean, char) not allowed "
-                        + fieldEntry);
+                Affirm.fail(String.format(
+                        "Primitive fields (byte, short, int, long, float, double, boolean, char) not allowed [%s]",
+                        fieldEntry));
             }
         }
     }

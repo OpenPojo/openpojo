@@ -35,7 +35,7 @@ public class NoStaticExceptFinalRule implements Rule {
     public void evaluate(PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.isStatic() && !fieldEntry.isFinal()) {
-                Affirm.fail("Static fields not marked final are not allowed " + fieldEntry);
+                Affirm.fail(String.format("Static fields=[%s] not marked final are not allowed", fieldEntry));
             }
         }
     }

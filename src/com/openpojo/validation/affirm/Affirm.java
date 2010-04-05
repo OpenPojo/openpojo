@@ -14,36 +14,58 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- package com.openpojo.validation.affirm;
+package com.openpojo.validation.affirm;
 
 /**
- * This class acts as a façade to JUnit, to enforce that all calls to simplify & enforce how Assert gets called.
+ * This class acts as a façade to JUnit Assert-ions.<br>
+ * Written to mainly facilitate:<br>
+ * 1. To enforce how the Assert is to be used.<br>
+ * 2. To simplify available Assert calls.<br>
+ * 
+ * <br>
+ * In a nutshell all Affirmations must include a message describing the Affirm being performed.
  * 
  * @author oshoukry
  */
-public class Affirm {
-    public static void fail(String message) {
-        org.junit.Assert.fail(message);
+public abstract class Affirm {
+    private static Affirmation getAffirmation() {
+        return AffirmationFactory.getInstance().getAffirmation();
     }
 
-    public static void affirmNull(String message, Object object) {
-        org.junit.Assert.assertNull(message, object);
+    /**
+     * Fail with a message.
+     * @param message
+     *          The message describing the failure.
+     */
+    public static void fail(final String message) {
+        getAffirmation().fail(message);
     }
 
-    public static void affirmEquals(String message, Object first, Object second) {
-        org.junit.Assert.assertEquals(message, first, second);
+    /**
+     * This method will only affirm failure if the condition is false.
+     * @param message
+     *          The message describing the affirmation being performed.
+     * @param condition
+     *          The condition being affirmed.
+     */
+    public static void affirmTrue(final String message, final boolean condition) {
+        getAffirmation().affirmTrue(message, condition);
     }
 
-    public static void affirmTrue(boolean condition) {
-        org.junit.Assert.assertTrue(condition);
+    public static void affirmFalse(final String message, final boolean condition) {
+        getAffirmation().affirmFalse(message, condition);
     }
 
-    public static void affirmFalse(boolean condition) {
-        org.junit.Assert.assertFalse(condition);
+    public static void affirmNotNull(final String message, final Object object) {
+        getAffirmation().affirmNotNull(message, object);
     }
 
-    public static void affirmNotNull(String message, Object object) {
-        org.junit.Assert.assertNotNull(message, object);
+    public static void affirmNull(final String message, final Object object) {
+        getAffirmation().affirmNull(message, object);
+    }
+
+    public static void affirmEquals(final String message, final Object first, final Object second) {
+        getAffirmation().affirmEquals(message, first, second);
     }
 
 }

@@ -144,9 +144,11 @@ public class BasicRandomGeneratorTest {
      *            The class type to test.
      */
     private void testDoGenerateForClass(Class<? extends Object> type) {
-        Affirm.affirmTrue(basicRandomGenerator.doGenerate(type).getClass() == type);
+        Affirm.affirmTrue(String.format("Failed to get the requested type=[%s] from BasicRandomGenerator", type),
+                basicRandomGenerator.doGenerate(type).getClass() == type);
         Object object = type.cast(basicRandomGenerator.doGenerate(type));
-        Affirm.affirmNotNull(String.format("Request to registered type [%s] must return non-null value!!", type), object);
+        Affirm.affirmNotNull(String.format("Request to registered type [%s] must return non-null value!!", type),
+                object);
 
         Object anotherObject = basicRandomGenerator.doGenerate(type);
         if (object.equals(anotherObject)) { // Just incase they are the same
@@ -161,7 +163,8 @@ public class BasicRandomGeneratorTest {
                 }
             }
         }
-        Affirm.affirmFalse(object.equals(anotherObject));
+        Affirm.affirmFalse(String.format("BasicRandomGenerator generating the same values for type=[%s]", type), object
+                .equals(anotherObject));
     }
 
     /**
