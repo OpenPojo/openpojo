@@ -32,7 +32,7 @@ public final class NoPublicFieldsRule implements Rule {
     public void evaluate(PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.isPublic()) {
-                Affirm.fail("Public fields not allowed " + fieldEntry);
+                Affirm.fail(String.format("Public fields=[%s] not allowed", fieldEntry));
             }
         }
     }

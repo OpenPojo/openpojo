@@ -14,28 +14,23 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.validation.rule.impl;
 
-
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoField;
-import com.openpojo.validation.affirm.Affirm;
-import com.openpojo.validation.rule.Rule;
+package com.openpojo.validation.affirm;
 
 /**
- * This rule ensures that all Fields have a setter associated with them.
- * Exception are fields defined static final since those are usually constants.
- * 
  * @author oshoukry
+ *
  */
-public class SetterMustExistRule implements Rule {
+public interface Affirmation {
+    public void fail(final String message);
 
-    @Override
-    public void evaluate(PojoClass pojoClass) {
-        for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (!fieldEntry.isFinal() && !fieldEntry.hasSetter()) {
-                Affirm.fail(String.format("[%s] is missing a setter", fieldEntry));
-            }
-        }
-    }
+    public void affirmTrue(final String message, final boolean condition);
+
+    public void affirmFalse(final String message, final boolean condition);
+
+    public void affirmNotNull(final String message, final Object object);
+
+    public void affirmNull(final String message, final Object object);
+
+    public void affirmEquals(final String message, final Object first, final Object second);
 }

@@ -53,7 +53,7 @@ public class PojoClassFactoryTest {
         Affirm.affirmNotNull(String.format("PojoClassFactory returned null list while getting list for package=[%s]", DUMMY_PACKAGE), pojoClasses);
         Affirm.affirmEquals(String.format("Classes added/removed from [%s]?", DUMMY_PACKAGE), 2, pojoClasses.size());
         for (Class<?> clazz : DUMMY_PACKAGE_CLASSES) {
-            Affirm.affirmTrue(pojoClasses.contains(PojoClassFactory.getPojoClass(clazz)));
+            Affirm.affirmTrue(String.format("Unexpected class=[%s] retrieved from package=[%s], ",clazz, DUMMY_PACKAGE), pojoClasses.contains(PojoClassFactory.getPojoClass(clazz)));
         }
     }
 
@@ -72,7 +72,7 @@ public class PojoClassFactoryTest {
         Affirm.affirmEquals(String.format("Wrong number of times filter was triggered while in filter-out all mode!! Classes added/removed from package=[%s]?", DUMMY_PACKAGE), 2, loggingPojoClassFilter.getPojoClassCallLogs().size());
 
         for (PojoClass pojoClass : pojoClasses) {
-            Affirm.affirmTrue(loggingPojoClassFilter.getPojoClassCallLogs().contains(pojoClass));
+            Affirm.affirmTrue(String.format("blah blah"), loggingPojoClassFilter.getPojoClassCallLogs().contains(pojoClass));
         }
 
         // Set Filter to allow all

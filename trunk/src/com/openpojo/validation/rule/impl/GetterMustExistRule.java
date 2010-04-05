@@ -34,7 +34,7 @@ public class GetterMustExistRule implements Rule {
     public void evaluate(PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (!ValidationHelper.isStaticFinal(fieldEntry) && !fieldEntry.hasGetter()) {
-                Affirm.fail(fieldEntry + " is missing a getter");
+                Affirm.fail(String.format("[%s] is missing a getter", fieldEntry));
             }
         }
     }

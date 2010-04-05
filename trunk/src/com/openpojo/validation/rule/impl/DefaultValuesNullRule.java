@@ -16,17 +16,14 @@
  */
 package com.openpojo.validation.rule.impl;
 
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
-import com.openpojo.validation.utils.ValidationHelper;
 
 /**
- * This Rule ensures that all Fields are initialized to Null.<br>
- * This rule ignores fields that are marked as static final or primitive types since neither can be 
- * initialized to null. <br>
+ * This Rule ensures that all Fields are initialized to null.<br>
+ * This rule ignores fields that are marked as final or primitive types since neither can be initialized to null.<br>
  * 
  * @author oshoukry
  */
@@ -38,9 +35,9 @@ public class DefaultValuesNullRule implements Rule {
 
         classInstance = pojoClass.newInstance();
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (!fieldEntry.isPrimitive() && !ValidationHelper.isStaticFinal(fieldEntry)) {
-                Affirm.affirmNull("Expected null value for for field=[" + fieldEntry + "]", fieldEntry
-                        .get(classInstance));
+            if (!fieldEntry.isPrimitive() && !fieldEntry.isFinal()) {
+                Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry), 
+                        fieldEntry.get(classInstance));
             }
         }
     }

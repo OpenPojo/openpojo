@@ -37,7 +37,7 @@ public class SetterTester implements Tester {
 
         classInstance = pojoClass.newInstance();
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (!ValidationHelper.isStaticFinal(fieldEntry)) {
+            if (!fieldEntry.isFinal()) {
                 Object value = RandomFactory.getRandomValue(fieldEntry.getType());
                 fieldEntry.inovkeSetter(classInstance, value);
                 Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
