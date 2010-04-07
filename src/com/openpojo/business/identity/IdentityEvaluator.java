@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -21,14 +21,14 @@ import com.openpojo.business.annotation.BusinessKey;
 /**
  * This interface defines the business equality contract between two POJOs.
  * Two POJOs are defined to be the same if all their {@link BusinessKey}s are equal.
- * 
+ *
  * @author oshoukry
  */
 public interface IdentityEvaluator {
 
     /**
      * This method is responsible for evaluating two objects as equal using the identity.
-     * 
+     *
      * @param first
      *            First object in the equality.
      * @param second

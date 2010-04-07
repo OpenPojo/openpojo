@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 /**
  * This is the entry point and the main class to use for all your business evaluation, hashCode generation,
  * as well as toString rendering.
- * 
+ *
  * <br>
  * This class was created to simplify the entry into the business package and is ready for use without writing any code.
  * Simply configure your POJOs with {@link com.openpojo.business.annotation.BusinessKey} annotation, and then deligate your equals and hashCode methods.
@@ -31,16 +31,16 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * The toString method can be called even if your POJOs aren't configured with a BusinessKey, it is simply an easy way
  * to print in clean normalized way ALL contents of a Java Class.
  * <br>
- * 
+ *
  * <strong>Note:</strong><br>
  * All calls to areEqual & getHashCode will result in a call to {@link com.openpojo.business.identity.BusinessValidator}.validate(Object).<br>
  * A {@link com.openpojo.business.exception.BusinessException} will be thrown if the objects don't pass business validation.
- * 
+ *
  * @author oshoukry
  *
  */
 public final class BusinessIdentity {
-    
+
     /**
      * This method is responsibly for handling equality between two objects.
      * @param first
@@ -50,7 +50,7 @@ public final class BusinessIdentity {
      * @return
      *          True if both objects are equal, false otherwise.  if either of those objects is null, equality is false.
      */
-    public static boolean areEqual(Object first, Object second) {
+    public static boolean areEqual(final Object first, final Object second) {
         IdentityFactory.getBusinessValidator().validate(first);
         IdentityFactory.getBusinessValidator().validate(second);
         return IdentityFactory.getIdentityEvaluator().areEqual(first, second);
@@ -63,12 +63,12 @@ public final class BusinessIdentity {
      * @return
      *          Generated hash code.
      */
-    public static int getHashCode(Object object) {
+    public static int getHashCode(final Object object) {
         IdentityFactory.getBusinessValidator().validate(object);
-        return IdentityFactory.getHashCodeGenerator().doGenerate(object);        
+        return IdentityFactory.getHashCodeGenerator().doGenerate(object);
     }
-    
-    public static String toString(Object instance) {
+
+    public static String toString(final Object instance) {
         return PojoClassFactory.getPojoClass(instance.getClass()).toString(instance);
     }
 }

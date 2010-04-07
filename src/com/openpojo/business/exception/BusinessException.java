@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -22,7 +22,7 @@ package com.openpojo.business.exception;
  * <br>
  * This is the ONLY exception thrown out of the com.openpojo.business package.
  * It will wrapp any other exceptions that may occur to turn them into RunTimeException base.
- * 
+ *
  * @author oshoukry
  */
 public class BusinessException extends RuntimeException {
@@ -31,7 +31,7 @@ public class BusinessException extends RuntimeException {
 
     /**
      * Business Exception with message constructor
-     * 
+     *
      * @param message
      *            The description of the exception.
      */

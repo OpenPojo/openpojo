@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -19,12 +19,14 @@ package com.openpojo.business.identity;
 /**
  * This Interface defines the contract for business validation on an object.
  * Business validation ensures that objects is a valid business object for use.
+ *
  * @author oshoukry
  */
 public interface BusinessValidator {
     /**
      * This method validates an object to comply with the BusinessKey annotation rules.
      * If an object fails the validation, a BusinessException will be thrown.
+     *
      * @param object
      *          The Business Object to be validated.
      */
