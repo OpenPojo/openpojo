@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -31,7 +31,7 @@ import com.openpojo.random.RandomGenerator;
 public final class TimestampRandomGenerator implements RandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[]{ Timestamp.class };
 
-    public Object doGenerate(Class<?> type) {
+    public Object doGenerate(final Class<?> type) {
         return new Timestamp((Long) RandomFactory.getRandomValue(Long.class));
     }
 

@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +18,7 @@ package com.openpojo.reflection.exception;
 
 /**
  * This exception will be thrown whenever a problem while introspecting occurs.
- * 
+ *
  * @author oshoukry
  */
 public class ReflectionException extends RuntimeException {
@@ -27,33 +27,33 @@ public class ReflectionException extends RuntimeException {
 
     /**
      * Reflection Exception with message constructor
-     * 
+     *
      * @param message
      *            The description of the exception.
      */
-    public ReflectionException(String message) {
+    public ReflectionException(final String message) {
         super(message);
     }
 
     /**
      * Reflection Exception with throwable constructor.
-     * 
+     *
      * @param cause
      *            The root cause of this reflection exception.
      */
-    public ReflectionException(Throwable cause) {
+    public ReflectionException(final Throwable cause) {
         super(cause);
     }
 
     /**
      * Reflection Exception with message & throwable constructor
-     * 
+     *
      * @param message
      *            The description of the exception.
      * @param cause
      *            The root cause of this reflection exception.
      */
-    public ReflectionException(String message, Throwable cause) {
+    public ReflectionException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -28,7 +28,7 @@ import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
  * This class is the default implementation for the PojoClass Interface, created through the PojoClassFactory.
- * 
+ *
  * @author oshoukry
  */
 class PojoClassImpl implements PojoClass {
@@ -70,7 +70,12 @@ class PojoClassImpl implements PojoClass {
         }
     }
 
-    public Object newInstance(Object... objects) {
+    public Object newInstance(final Object... objects) {
+        if (objects == null) {
+            return newInstance();
+        }
+        validateBeforeNewInstance();
+
         throw new ReflectionException("Unimplemented method [newInstance(Object ...objects)] called");
     }
 
@@ -110,7 +115,7 @@ class PojoClassImpl implements PojoClass {
         return String.format("PojoClassImpl [clazz=%s, pojoFields=%s]", clazz, pojoFields);
     }
 
-    public String toString(Object instance) {
+    public String toString(final Object instance) {
         return ToStringHelper.pojoClassToString(this, instance);
     }
 }

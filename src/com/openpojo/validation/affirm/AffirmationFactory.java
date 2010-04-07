@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -19,6 +19,7 @@ package com.openpojo.validation.affirm;
 
 /**
  * This Affirmation factory is responsible to return affirmation implementation.<br>
+ *
  * @author oshoukry
  */
 public final class AffirmationFactory {
@@ -26,7 +27,7 @@ public final class AffirmationFactory {
     /**
      * The only affimation implemented so far, so default to that.
      */
-    private Affirmation affirmation = new JUnitAssertAffirmation();
+    private final Affirmation affirmation = new JUnitAssertAffirmation();
 
     private AffirmationFactory() {
     }
@@ -43,7 +44,7 @@ public final class AffirmationFactory {
      * This inner static class holds an instance of the holding class.<br>
      * This allows to have lazy instantiation on singleton and not need any
      * synchronization delays.
-     * 
+     *
      * @author oshoukry
      */
     private static class Instance {

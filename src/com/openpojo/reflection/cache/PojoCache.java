@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@ import com.openpojo.reflection.PojoClass;
 
 /**
  * This is the Cache to hold references for PojoClasses, to prevent looking them up over and over.
- * 
+ *
  * @author oshoukry
  */
 public class PojoCache {
@@ -31,24 +31,24 @@ public class PojoCache {
 
     /**
      * Retrieve an implementation from Cache.
-     * 
+     *
      * @param name
      *            Fully Qualified Class Name.
      * @return
      *         Cached PojoReference, or null if none found.
      */
-    public static PojoClass getPojoClass(String name) {
+    public static PojoClass getPojoClass(final String name) {
         return pojoClassCache.get(name);
     }
 
     /**
      * Add a PojoClass definition to the Cache.
-     * 
+     *
      * @param name
      * @param pojoClass
      *            The entry to add to the cache.
      */
-    public static void addPojoClass(String name, PojoClass pojoClass) {
+    public static void addPojoClass(final String name, final PojoClass pojoClass) {
         // Ensure that we don't have a "Strong" reference to the key in the map, otherwise no cleanup will occur.
         pojoClassCache.put(new String(name), pojoClass);
     }

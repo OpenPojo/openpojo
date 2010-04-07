@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -22,13 +22,12 @@ import com.openpojo.validation.rule.Rule;
 
 /**
  * This Rule checks for classes being "nested".
- * 
+ *
  * @author oshoukry
  */
 public class NoNestedClassRule implements Rule {
 
-    @Override
-    public void evaluate(PojoClass pojoClass) {
+    public void evaluate(final PojoClass pojoClass) {
         if (pojoClass.isNestedClass()) {
             Affirm.fail(String.format("Nested Classes not allowed please refactor out to a seperate class [%s]",
                     pojoClass));

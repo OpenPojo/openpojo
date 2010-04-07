@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -25,13 +25,12 @@ import com.openpojo.validation.utils.ValidationHelper;
 /**
  * This Rule ensures that you aren't using any primitive type fields.
  * This is a best practice, ideally, you want to know the difference between "set/unset" and value.
- * 
+ *
  * @author oshoukry
  */
 public class NoPrimitivesRule implements Rule {
 
-    @Override
-    public void evaluate(PojoClass pojoClass) {
+    public void evaluate(final PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.isPrimitive() && !ValidationHelper.isStaticFinal(fieldEntry)) {
                 Affirm.fail(String.format(

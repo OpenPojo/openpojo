@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -44,7 +44,7 @@ import com.openpojo.random.RandomGenerator;
  * 2. String random generation relies on the Character random generation, all strings are generated as random sequence
  * of characters with length between 1 and 32 inclusive. So If you over-write the Character generator,
  * you will implicitly be modifying the types of character the random characters a random String is made of.
- * 
+ *
  * @author oshoukry
  */
 public final class BasicRandomGenerator implements RandomGenerator {
@@ -60,7 +60,7 @@ public final class BasicRandomGenerator implements RandomGenerator {
             'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1',
             '2', '3', '4', '5', '6', '7', '8', '9' };
 
-    public Object doGenerate(Class<?> type) {
+    public Object doGenerate(final Class<?> type) {
         if (type == boolean.class || type == Boolean.class) {
             return RANDOM.nextBoolean();
         }
@@ -101,7 +101,7 @@ public final class BasicRandomGenerator implements RandomGenerator {
 
             /* prevent zero length string lengths */
             for (int count = 0; count < RANDOM.nextInt(MAX_RANDOM_STRING_LENGTH + 1) + 1; count++) {
-                randomString.append((Character) RandomFactory.getRandomValue(Character.class));
+                randomString.append(RandomFactory.getRandomValue(Character.class));
             }
             return randomString.toString();
         }

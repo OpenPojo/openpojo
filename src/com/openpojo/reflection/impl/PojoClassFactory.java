@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -26,14 +26,14 @@ import com.openpojo.reflection.cache.PojoCache;
 
 /**
  * This is a factory class that builds PojoClassImpl representation given a class.
- * 
+ *
  * @author oshoukry
  */
 public final class PojoClassFactory {
 
     /**
      * Create a PojoClass for a given application Class.
-     * 
+     *
      * @param clazz
      *            Class to introspect.
      * @return
@@ -50,7 +50,7 @@ public final class PojoClassFactory {
 
     /**
      * This method returns a list of PojoClasses in a package representation.
-     * 
+     *
      * @param packageName
      *            Package to introspect (eg. com.mypackage.pojo).
      * @return
@@ -62,7 +62,7 @@ public final class PojoClassFactory {
 
     /**
      * This method returns a list of PojoClasses in a package representation with filtering cababilities.
-     * 
+     *
      * @param packageName
      *            Package to introspect (eg. com.mypackage.pojo).
      * @param filter
@@ -78,7 +78,7 @@ public final class PojoClassFactory {
      * This method enumerates all classes in a package path.
      * This method will enumerate using the class loader, so if you're tests live in the same package as your code, make
      * sure you pass in a filter that can weed those out for testing.
-     * 
+     *
      * @param packageName
      *            The package name in question.
      * @param filter
@@ -87,10 +87,10 @@ public final class PojoClassFactory {
      *         List of PojoClasses enumerated.
      */
     public static List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter filter) {
-        List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
+        final List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
 
-        PojoPackage pojoPackage = new PojoPackageImpl(packageName);
-        List<PojoPackage> packages = new LinkedList<PojoPackage>();
+        final PojoPackage pojoPackage = new PojoPackageImpl(packageName);
+        final List<PojoPackage> packages = new LinkedList<PojoPackage>();
         packages.add(pojoPackage);
 
         for (int counter = 0; counter < packages.size(); counter++) {

@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -26,13 +26,12 @@ import com.openpojo.reflection.PojoClassFilter;
 public class FilterBasedOnInheritence implements PojoClassFilter {
     private final Class<?> type;
     private final PojoClassFilter filter;
-    
+
     public FilterBasedOnInheritence(final Class<?> type, final PojoClassFilter filter) {
         this.type = type;
         this.filter = filter;
     }
 
-    @Override
     public boolean include(final PojoClass pojoClass) {
         if (!pojoClass.getName().equals(type.getName()) && (filter == null || filter.include(pojoClass)))
             return pojoClass.extendz(type);

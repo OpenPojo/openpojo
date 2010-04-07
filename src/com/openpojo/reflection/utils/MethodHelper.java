@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -23,13 +23,13 @@ import java.util.List;
 
 /**
  * This Class is responsible for helping get the getters/setters for a given field.
- * 
+ *
  * @author oshoukry
  */
 public final class MethodHelper {
     /**
      * Returns the Setter Method for a field.
-     * 
+     *
      * @param field
      *            The field to lookup the setter on.
      * @return
@@ -50,7 +50,7 @@ public final class MethodHelper {
 
     /**
      * Returns a list for candidate setter names.
-     * 
+     *
      * @param field
      *            The field to generate for.
      * @return
@@ -63,7 +63,7 @@ public final class MethodHelper {
 
     /**
      * Returns the Getter Method for a field.
-     * 
+     *
      * @param field
      *            The field to lookup the getter on.
      * @return
@@ -85,7 +85,7 @@ public final class MethodHelper {
 
     /**
      * Returns a list for candidate getter names.
-     * 
+     *
      * @param field
      *            Field to generate the candidate getter names for.
      * @return
@@ -102,7 +102,7 @@ public final class MethodHelper {
 
     /**
      * Properly CamelCased the field name as expected "first Letter is uppercase, rest is unchanged".
-     * 
+     *
      * @param field
      *            The field to proper case.
      * @return

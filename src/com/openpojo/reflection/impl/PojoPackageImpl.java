@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -28,6 +28,7 @@ import com.openpojo.reflection.utils.PackageHelper;
 
 /**
  * This class represents the abstraction of a JAVA Package as PojoPackageImpl.
+ *
  * @author oshoukry
  */
 public class PojoPackageImpl implements PojoPackage {

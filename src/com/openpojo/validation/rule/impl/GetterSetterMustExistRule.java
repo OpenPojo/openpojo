@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -22,15 +22,14 @@ import com.openpojo.validation.rule.Rule;
 /**
  * This rule ensures that all Fields have a getter and setter associated with them.
  * Exception are fields defined static final since those are usually constants.
- * 
+ *
  * @author oshoukry
  * @deprecated Please use individual {@link GetterMustExistRule} & {@link SetterMustExistRule} instead.
  */
 @Deprecated
 public class GetterSetterMustExistRule implements Rule {
 
-    @Override
-    public void evaluate(PojoClass pojoClass) {
+    public void evaluate(final PojoClass pojoClass) {
         new GetterMustExistRule().evaluate(pojoClass);
         new SetterMustExistRule().evaluate(pojoClass);
     }

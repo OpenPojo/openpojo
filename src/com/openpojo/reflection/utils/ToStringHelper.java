@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -38,14 +38,15 @@ public final class ToStringHelper {
      * @param value
      *          The value to format.
      * @return
-     *          String formatted, human readable name/value pair. 
+     *          String formatted, human readable name/value pair.
      */
-    public static String nameValuePair(Object name, Object value) {
+    public static String nameValuePair(final Object name, final Object value) {
         return String.format(NAME_VALUE_TOKEN_FORMAT, name, value);
     }
 
     /**
      * This method takes an object instance for a pojoClass and flattens it into a properly formated string.
+     *
      * @param pojoClass
      *          The meta representation of the instance class.
      * @param instance
@@ -53,7 +54,7 @@ public final class ToStringHelper {
      * @return
      *          String formatted, human readable class.
      */
-    public static String pojoClassToString(PojoClass pojoClass, Object instance) {
+    public static String pojoClassToString(final PojoClass pojoClass, final Object instance) {
         return String.format(POJOCLASS_TOSTRING_FORMAT,
                                 pojoClass.getClazz().getName(),
                                 Integer.toHexString(System.identityHashCode(instance)),
@@ -69,7 +70,7 @@ public final class ToStringHelper {
      * @return
      *          String formatted, human readable list of pojoFields.
      */
-    private static String PojoFieldsToString(List<PojoField> pojoFields, Object instance) {
+    private static String PojoFieldsToString(final List<PojoField> pojoFields, final Object instance) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int index = 0; index < pojoFields.size(); index++) {
             stringBuilder.append(pojoFields.get(index).toString(instance));

@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -27,21 +27,21 @@ import com.openpojo.reflection.utils.MethodHelper;
 
 /**
  * This Field Factory returns a list of PojoFields for a given Class.
- * 
+ *
  * @author oshoukry
  */
 final class PojoFieldFactory {
     /**
      * Get all PojoFields in a given Class.
-     * 
+     *
      * @param clazz
      *            The class to Introspect.
      * @return
      *         List of All Fields as PojoFields in that class.
      */
     public static List<PojoField> getPojoFields(final Class<?> clazz) {
-        List<PojoField> pojoFields = new LinkedList<PojoField>();
-        for (Field field : FieldHelper.getDeclaredFields(clazz)) {
+        final List<PojoField> pojoFields = new LinkedList<PojoField>();
+        for (final Field field : FieldHelper.getDeclaredFields(clazz)) {
             pojoFields.add(new PojoFieldImpl(field, MethodHelper.getGetter(field), MethodHelper.getSetter(field)));
         }
         return Collections.unmodifiableList(pojoFields);

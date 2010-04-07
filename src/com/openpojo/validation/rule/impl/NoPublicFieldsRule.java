@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -23,13 +23,12 @@ import com.openpojo.validation.rule.Rule;
 
 /**
  * This rule ensures that no fields declared with public visibility.
- * 
+ *
  * @author oshoukry
  */
 public final class NoPublicFieldsRule implements Rule {
 
-    @Override
-    public void evaluate(PojoClass pojoClass) {
+    public void evaluate(final PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.isPublic()) {
                 Affirm.fail(String.format("Public fields=[%s] not allowed", fieldEntry));
