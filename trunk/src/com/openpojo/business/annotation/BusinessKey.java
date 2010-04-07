@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -50,7 +50,7 @@ import java.lang.annotation.Target;
  * If you had a POJO called Person, that had a FirstName & LastName fields, and you want to set a rule that is for this
  * POJO to be complete, one of the names MUST be populated, but its not important which one. <br>
  * This is typical composite key usage.
- * 
+ *
  * @author oshoukry
  */
 @Retention(RUNTIME)

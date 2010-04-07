@@ -17,9 +17,10 @@
 package com.openpojo.reflection;
 
 /**
+ * This Interface will serve as a way to exclude pojoClasses from the factory.
+ * If the filter returns true, the class will be included, otherwise it will be excluded.
+ *
  * @author oshoukry
- *         This Interface will serve as a way to exclude pojoClasses from the factory.
- *         If the filter returns true, the class will be included, otherwise it will be excluded.
  */
 public interface PojoClassFilter {
 

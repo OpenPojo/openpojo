@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -27,37 +27,37 @@ import com.openpojo.validation.test.Tester;
  * @author oshoukry
  */
 public class PojoValidator {
-    private List<Rule> rules = new LinkedList<Rule>();
-    private List<Tester> testers = new LinkedList<Tester>();
+    private final List<Rule> rules = new LinkedList<Rule>();
+    private final List<Tester> testers = new LinkedList<Tester>();
 
     /**
      * Add Rule to use for validation.
-     * 
+     *
      * @param rule
      *            The rule to Add.
      */
-    public void addRule(Rule rule) {
+    public void addRule(final Rule rule) {
         rules.add(rule);
     }
 
     /**
      * Add Tester to use for validation.
-     * 
+     *
      * @param tester
      *            The Tester to Add.
      */
-    public void addTester(Tester tester) {
+    public void addTester(final Tester tester) {
 
         testers.add(tester);
     }
 
     /**
      * Run the validation, this will invoke all the rule.evaluate as well as tester.run.
-     * 
+     *
      * @param pojoClass
      *            The PojoClass to validate.
      */
-    public void runValidation(PojoClass pojoClass) {
+    public void runValidation(final PojoClass pojoClass) {
         for (Rule rule : rules) {
             rule.evaluate(pojoClass);
         }

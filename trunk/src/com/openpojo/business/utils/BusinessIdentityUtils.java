@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -21,6 +21,7 @@ import com.openpojo.reflection.PojoField;
 
 /**
  * This class is just a utility class that holds a few utilities needed by various classes in the business package.
+ *
  * @author oshoukry
  */
 public class BusinessIdentityUtils {
@@ -30,7 +31,7 @@ public class BusinessIdentityUtils {
      * @return
      *          True if any of the objects passed is null, false otherwise.
      */
-    public static boolean anyNull(Object... objects) {
+    public static boolean anyNull(final Object... objects) {
         if (objects == null) {
             throw new BusinessException("objects parameter cannot be null");
         }
@@ -51,7 +52,7 @@ public class BusinessIdentityUtils {
      * @return
      *          True if both have the same class, false otherwise.
      */
-    public static boolean sameClass(Object first, Object second) {
+    public static boolean sameClass(final Object first, final Object second) {
         return first.getClass() == second.getClass();
     }
 
@@ -64,7 +65,7 @@ public class BusinessIdentityUtils {
      * @return
      *          True if both first and second point to the same instance, false otherwise.
      */
-    public static boolean sameInstance(Object first, Object second) {
+    public static boolean sameInstance(final Object first, final Object second) {
         return first == second;
     }
 
@@ -88,7 +89,7 @@ public class BusinessIdentityUtils {
         if (firstField == null) {
             return secondField == null;
         }
-        
+
         if (secondField == null) {
             return false;
         }
@@ -99,7 +100,7 @@ public class BusinessIdentityUtils {
 
         return firstField.equals(secondField);
     }
-    
+
     /**
      * Generate HashCode on field value.
      * @param instance
@@ -117,10 +118,10 @@ public class BusinessIdentityUtils {
         if (!caseSensitive && isCharacterBased(data)) {
             return data.toString().toLowerCase().hashCode();
         }
-        
+
         return data.hashCode();
     }
-    
+
     /**
      * This method holds the logic needed to determine that a type is of character
      * (i.e. its contents can be pulled out using toString)
@@ -129,7 +130,7 @@ public class BusinessIdentityUtils {
      * @return
      *          True if data is of type Character or CharSequence, false otherwise.
      */
-    private static boolean isCharacterBased(Object data) {
+    private static boolean isCharacterBased(final Object data) {
         return (data instanceof Character || data instanceof CharSequence);
     }
 }

@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -31,8 +31,8 @@ import com.openpojo.random.thread.GeneratedRandomValues;
  * If you have an Employee class that has the following constructor:
  * <pre>
  * {@code
- * public Employee(final String fullName, final Employee manager) { 
- *   ... 
+ * public Employee(final String fullName, final Employee manager) {
+ *   ...
  * }
  * }
  * </pre>
@@ -40,17 +40,17 @@ import com.openpojo.random.thread.GeneratedRandomValues;
  * <pre>
  * {@code
  * public Object doGenerate(Class<?> type) {
- *     return new Employee(RandomFactory.getRandomValue(String.class), 
+ *     return new Employee(RandomFactory.getRandomValue(String.class),
  *                          (Employee) RandomFactory.getRandomValue(Employee.class));
  * }
  * }
  * </pre>
  * This would potentially cause a stack over-flow since there is a cyclic dependency of Employee on itself.
- * 
+ *
  * So to prevent stack over-flow (which would occur by trying to create a manager for every manager), this Factory has
- * built in protection (using {@link GeneratedRandomValues}) to prevent such a thing by recording for a current 
+ * built in protection (using {@link GeneratedRandomValues}) to prevent such a thing by recording for a current
  * recursive call if it's seen this type before, if so, it will return null the second time around.
- * 
+ *
  * @author oshoukry
  */
 public class RandomFactory {
@@ -66,7 +66,7 @@ public class RandomFactory {
     /**
      * Add a random generator to the list of available generators.
      * The latest random generator registered wins.
-     * 
+     *
      * @param generator
      *            The generator to add.
      */
@@ -79,13 +79,13 @@ public class RandomFactory {
     /**
      * This method generates a random value of the requested type.<br>
      * If the requested type isn't registerd in the factory, an RandomGeneratorException will be thrown.
-     * 
+     *
      * @param type
      *            The type to get a random value of.
      * @return
      *         Randomly created value.
      */
-    public static final Object getRandomValue(Class<?> type) {
+    public static final Object getRandomValue(final Class<?> type) {
         if (GeneratedRandomValues.contains(type)) {
             return null; // seen before, break loop.
         }

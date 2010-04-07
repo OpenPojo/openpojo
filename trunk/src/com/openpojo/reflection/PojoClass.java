@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -21,35 +21,35 @@ import java.util.List;
 /**
  * This Interface defines the contract published by PojoClass implementations.
  * The idea is to give an easy and flexible way to work with application pojo classes.
- * 
+ *
  * @author oshoukry
  */
 public interface PojoClass {
 
     /**
      * Check if Class is a class or interface.
-     * 
+     *
      * @return true if this PojoClass wrapps an interface.
      */
     public boolean isInterface();
 
     /**
      * Check if Class is complete or abstract.
-     * 
+     *
      * @return true if this PojoClass wrapps an abstract class.
      */
     public boolean isAbstract();
 
     /**
      * Get all PojoFields defined in the class.
-     * 
+     *
      * @return the pojoFields
      */
     public List<PojoField> getPojoFields();
 
     /**
      * Returns the fully qualified class name.
-     * 
+     *
      * @return
      *         The String fully qualified class name.
      */
@@ -57,7 +57,7 @@ public interface PojoClass {
 
     /**
      * Checks to see if class extends a certain type.
-     * 
+     *
      * @param type
      *            The type in question.
      * @return
@@ -67,7 +67,7 @@ public interface PojoClass {
 
     /**
      * This method returns the underlying class represented by this instance.
-     * 
+     *
      * @return
      *         The class type wrapped by this PojoClass.
      */
@@ -75,7 +75,7 @@ public interface PojoClass {
 
     /**
      * This method creates a new instance.
-     * 
+     *
      * @return
      *         New instance of clazz.
      */
@@ -83,7 +83,7 @@ public interface PojoClass {
 
     /**
      * This method creates a new instance given argument list.
-     * 
+     *
      * @return
      *         New instance of clazz.
      */
@@ -91,7 +91,7 @@ public interface PojoClass {
 
     /**
      * Checks to see if this class is a nested subclass.
-     * 
+     *
      * @return
      *         True if it is a subclass, false otherwise.
      */
@@ -99,7 +99,7 @@ public interface PojoClass {
 
     /**
      * Copy all contents from one Instance represented by this PojoClass to another.
-     * 
+     *
      * @param from
      *            The Instance to copy from.
      * @param to

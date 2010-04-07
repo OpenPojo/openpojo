@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -26,20 +26,20 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This Utility helper class that holds the logic of extracting the {@link BusinessKey} fields from a Class.
- * 
+ *
  * @author oshoukry
  */
 public class BusinessPojoHelper {
 
     /**
      * Get all business keys declared on a class.
-     * 
+     *
      * @param clazz
      *            The class to introspect.
      * @return
      *         The list of fields that are annotated with @BusinessKey, will return an empty list if none are found.
      */
-    public static List<PojoField> getBusinessKeyFields(Class<?> clazz) {
+    public static List<PojoField> getBusinessKeyFields(final Class<?> clazz) {
         List<PojoField> businessFields = new LinkedList<PojoField>();
         PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
         for (PojoField pojoField : pojoClass.getPojoFields()) {

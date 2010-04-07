@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@ import java.util.Collection;
 public interface RandomGenerator {
     /**
      * This method is used to get the types that this RandomGenerator is responsible for.
-     * 
+     *
      * @return
      *         A collection with a list of Types this Random Generator can handle.
      */
@@ -34,7 +34,7 @@ public interface RandomGenerator {
 
     /**
      * Perform random generation.
-     * 
+     *
      * @param type
      *            The type to generate for.
      * @return
