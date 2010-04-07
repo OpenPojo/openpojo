@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -29,7 +29,7 @@ import com.openpojo.reflection.utils.ToStringHelper;
  * This is the default implementation for PojoField Interface.
  * This is an immutable object and is not supposed to be created directly.
  * see {@link PojoClassFactory}
- * 
+ *
  * @author oshoukry
  */
 class PojoFieldImpl implements PojoField {
@@ -126,8 +126,8 @@ class PojoFieldImpl implements PojoField {
         return String.format("PojoFieldImpl [field=%s, fieldGetter=%s, fieldSetter=%s]", field, fieldGetter,
                 fieldSetter);
     }
-    
-    public String toString(Object instance) {
+
+    public String toString(final Object instance) {
         return ToStringHelper.nameValuePair(getName(), get(instance));
     }
 }

@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -23,10 +23,11 @@ import java.util.List;
 
 /**
  * This class is a utility class to aid with getting all declared fields for a given class.
- * 
+ *
  * @author oshoukry
  */
 public final class FieldHelper {
+
     public static List<Field> getDeclaredFields(final Class<?> clazz) {
         List<Field> fields = new LinkedList<Field>();
         for (Field field : clazz.getDeclaredFields()) {

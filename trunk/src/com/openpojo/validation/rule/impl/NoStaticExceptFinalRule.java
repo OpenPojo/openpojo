@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -26,13 +26,12 @@ import com.openpojo.validation.rule.Rule;
  * Another best practice, using static fields for memory sharing and allowing read/write
  * should be very tightly controlled, and generally don't belong in POJOs or other similar
  * class of data repositories.
- * 
+ *
  * @author oshoukry
  */
 public class NoStaticExceptFinalRule implements Rule {
 
-    @Override
-    public void evaluate(PojoClass pojoClass) {
+    public void evaluate(final PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.isStatic() && !fieldEntry.isFinal()) {
                 Affirm.fail(String.format("Static fields=[%s] not marked final are not allowed", fieldEntry));

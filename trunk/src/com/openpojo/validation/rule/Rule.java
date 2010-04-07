@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -21,15 +21,13 @@ import com.openpojo.reflection.PojoClass;
 /**
  * This Class handles applying rules to PojoClass-es for testing.
  * A rule will return True or False weather
- * 
+ *
  * @author oshoukry
  */
 public interface Rule {
     /**
      * @param pojoClass
      *            The PojoClass to evaluate that rule on.
-     * @throws RuleViolationException
-     *             if the rule was violated.
      */
     public void evaluate(PojoClass pojoClass);
 }

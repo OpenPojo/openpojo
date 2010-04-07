@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -20,14 +20,14 @@ import com.openpojo.reflection.PojoClass;
 
 /**
  * This interface defines how tests should be run.
- * 
+ *
  * @author oshoukry
  */
 public interface Tester {
     /**
      * This method starts the test, and has no return value.
      * Every test should perform its own "Affirm"ions and fail accordingly.
-     * 
+     *
      * @param pojoClass
      *            The PojoClass being tested.
      */

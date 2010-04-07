@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -25,13 +25,12 @@ import com.openpojo.validation.utils.ValidationHelper;
 /**
  * This rule ensures that all Fields have a getter associated with them.
  * Exception are fields defined static final since those are usually constants.
- * 
+ *
  * @author oshoukry
  */
 public class GetterMustExistRule implements Rule {
 
-    @Override
-    public void evaluate(PojoClass pojoClass) {
+    public void evaluate(final PojoClass pojoClass) {
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (!ValidationHelper.isStaticFinal(fieldEntry) && !fieldEntry.hasGetter()) {
                 Affirm.fail(String.format("[%s] is missing a getter", fieldEntry));

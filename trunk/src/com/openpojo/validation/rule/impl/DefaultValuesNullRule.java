@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -24,19 +24,18 @@ import com.openpojo.validation.rule.Rule;
 /**
  * This Rule ensures that all Fields are initialized to null.<br>
  * This rule ignores fields that are marked as final or primitive types since neither can be initialized to null.<br>
- * 
+ *
  * @author oshoukry
  */
 public class DefaultValuesNullRule implements Rule {
 
-    @Override
-    public void evaluate(PojoClass pojoClass) {
+    public void evaluate(final PojoClass pojoClass) {
         Object classInstance = null;
 
         classInstance = pojoClass.newInstance();
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (!fieldEntry.isPrimitive() && !fieldEntry.isFinal()) {
-                Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry), 
+                Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry),
                         fieldEntry.get(classInstance));
             }
         }

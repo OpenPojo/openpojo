@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@ import com.openpojo.reflection.exception.ReflectionException;
 
 /**
  * This is a utility class to help enumerate and generate PojoClasses for specific pacakge.
- * 
+ *
  * @author oshoukry
  */
 public final class PackageHelper {
@@ -34,7 +34,7 @@ public final class PackageHelper {
 
     /**
      * Get a list of all classes in the package.
-     * 
+     *
      * @return
      *         List of all classes in the package.
      */
@@ -64,7 +64,7 @@ public final class PackageHelper {
 
     /**
      * Turn a java package into a directory listing.
-     * 
+     *
      * @param packageName
      *          String path of the package to turn into a directoy.
      * @return
@@ -96,7 +96,7 @@ public final class PackageHelper {
 
     /**
      * Returns true if the string refers to a class entry (i.e. ends with .class).
-     * 
+     *
      * @param entry
      *            The class name.
      * @return
@@ -111,7 +111,7 @@ public final class PackageHelper {
 
     /**
      * Return a fully qualified class name given the fileEntry for the classname, and package this helper represents.
-     * 
+     *
      * @param fileEntry
      *            The classname to qualify.
      * @return

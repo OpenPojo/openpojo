@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -21,10 +21,10 @@ package com.openpojo.validation.affirm;
  * Written to mainly facilitate:<br>
  * 1. To enforce how the Assert is to be used.<br>
  * 2. To simplify available Assert calls.<br>
- * 
+ *
  * <br>
  * In a nutshell all Affirmations must include a message describing the Affirm being performed.
- * 
+ *
  * @author oshoukry
  */
 public abstract class Affirm {
