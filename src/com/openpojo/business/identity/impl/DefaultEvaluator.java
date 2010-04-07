@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -30,7 +30,7 @@ import com.openpojo.reflection.PojoField;
  * Note:
  * if two business fields are defined as optional (aka required = false) and both are set to null,
  * they are considered equal.
- * 
+ *
  * @author oshoukry
  */
 public class DefaultEvaluator implements IdentityEvaluator {

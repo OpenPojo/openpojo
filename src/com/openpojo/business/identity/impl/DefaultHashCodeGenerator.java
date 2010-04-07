@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -30,13 +30,13 @@ import com.openpojo.reflection.PojoField;
  * Please note that as per spec, two equal hash codes don't mean that objects are equal,
  * while two un-equal hash codes DO mean that the objects are not equal.
  * <br>
-
+ *
  * @author oshoukry
  */
 
 public class DefaultHashCodeGenerator implements HashCodeGenerator {
 
-    public int doGenerate(Object object) {
+    public int doGenerate(final Object object) {
         if (object == null) {
             throw new BusinessException("null parameter passed object=[null]");
         }
