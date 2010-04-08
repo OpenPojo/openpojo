@@ -66,7 +66,7 @@ class PojoClassImpl implements PojoClass {
 
     private void validateBeforeNewInstance() {
         if (isInterface() || isAbstract()) {
-            throw new ReflectionException("This PojoClass is an interface/abstract, can't create new instance");
+            throw ReflectionException.getInstance("This PojoClass is an interface/abstract, can't create new instance");
         }
     }
 
@@ -76,7 +76,7 @@ class PojoClassImpl implements PojoClass {
         }
         validateBeforeNewInstance();
 
-        throw new ReflectionException("Unimplemented method [newInstance(Object ...objects)] called");
+        throw ReflectionException.getInstance("Unimplemented method [newInstance(Object ...objects)] called");
     }
 
     public Object newInstance() {
@@ -89,7 +89,7 @@ class PojoClassImpl implements PojoClass {
             return c.newInstance(); // InstantiationException, IllegalAccessException, IllegalArgumentException,
                                     // InvocationTargetException
         } catch (Exception e) {
-            throw new ReflectionException(e.getMessage(), e);
+            throw ReflectionException.getInstance(e.getMessage(), e);
         }
     }
 

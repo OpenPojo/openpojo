@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -41,12 +41,10 @@ public class RandomFactoryTest {
     public void testAddRandomGenerator() {
         RandomFactory.addRandomGenerator(new RandomGenerator() {
 
-            @Override
-            public Object doGenerate(Class<?> type) {
+            public Object doGenerate(final Class<?> type) {
                 return new RegisteredDummy(randomString);
             }
 
-            @Override
             public Collection<Class<?>> getTypes() {
                 return Arrays.asList(new Class<?>[]{ RegisteredDummy.class });
             }
@@ -82,7 +80,7 @@ public class RandomFactoryTest {
     }
 
     private class RegisteredDummy {
-        private String value;
+        private final String value;
 
         public RegisteredDummy(final String value) {
             this.value = value;

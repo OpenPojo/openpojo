@@ -49,7 +49,7 @@ class PojoFieldImpl implements PojoField {
         try {
             return field.get(instance);
         } catch (Exception e) {
-            throw new ReflectionException(e);
+            throw ReflectionException.getInstance(e);
         }
     }
 
@@ -61,7 +61,7 @@ class PojoFieldImpl implements PojoField {
         try {
             field.set(instance, value);
         } catch (Exception e) {
-            throw new ReflectionException(e);
+            throw ReflectionException.getInstance(e);
         }
     }
 
@@ -73,7 +73,7 @@ class PojoFieldImpl implements PojoField {
         try {
             return fieldGetter.invoke(instance);
         } catch (Exception e) {
-            throw new ReflectionException(e);
+            throw ReflectionException.getInstance(e);
         }
     }
 
@@ -85,7 +85,7 @@ class PojoFieldImpl implements PojoField {
         try {
             fieldSetter.invoke(instance, value);
         } catch (Exception e) {
-            throw new ReflectionException(e);
+            throw ReflectionException.getInstance(e);
         }
     }
 

@@ -27,13 +27,13 @@ public final class AffirmationFactory {
     /**
      * The only affimation implemented so far, so default to that.
      */
-    private final Affirmation affirmation = new JUnitAssertAffirmation();
+    private final Affirmation affirmation = JUnitAssertAffirmation.getInstance();
 
     private AffirmationFactory() {
     }
 
     public static AffirmationFactory getInstance() {
-        return Instance.instance;
+        return Instance.INSTANCE;
     }
 
     public Affirmation getAffirmation() {
@@ -48,6 +48,6 @@ public final class AffirmationFactory {
      * @author oshoukry
      */
     private static class Instance {
-        private static AffirmationFactory instance = new AffirmationFactory();
+        private static final AffirmationFactory INSTANCE = new AffirmationFactory();
     }
 }

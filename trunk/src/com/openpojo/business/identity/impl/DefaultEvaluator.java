@@ -35,6 +35,14 @@ import com.openpojo.reflection.PojoField;
  */
 public class DefaultEvaluator implements IdentityEvaluator {
 
+    private DefaultEvaluator() {
+
+    }
+
+    public static IdentityEvaluator getInstance() {
+        return Instance.INSTANCE;
+    }
+
     public boolean areEqual(final Object first, final Object second) {
         if (BusinessIdentityUtils.anyNull(first, second) || !BusinessIdentityUtils.sameClass(first, second)) {
             return false;
@@ -51,6 +59,10 @@ public class DefaultEvaluator implements IdentityEvaluator {
         }
 
         return runningEquality;
+    }
+
+    private static class Instance {
+        static final IdentityEvaluator INSTANCE = new DefaultEvaluator();
     }
 
 }
