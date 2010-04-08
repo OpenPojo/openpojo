@@ -22,6 +22,15 @@ package com.openpojo.validation.affirm;
  *
  */
 public class JUnitAssertAffirmation implements Affirmation {
+
+    private JUnitAssertAffirmation() {
+
+    }
+
+    public static Affirmation getInstance() {
+        return Instance.INSTANCE;
+    }
+
     public void fail(final String message) {
         org.junit.Assert.fail(message);
     }
@@ -46,4 +55,7 @@ public class JUnitAssertAffirmation implements Affirmation {
         org.junit.Assert.assertEquals(message, first, second);
     }
 
+    private static class Instance {
+        private static final Affirmation INSTANCE = new JUnitAssertAffirmation();
+    }
 }

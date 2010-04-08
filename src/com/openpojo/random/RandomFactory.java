@@ -59,8 +59,8 @@ public class RandomFactory {
 
     static {
         // register defaults with Factory.
-        RandomFactory.addRandomGenerator(new BasicRandomGenerator());
-        RandomFactory.addRandomGenerator(new TimestampRandomGenerator());
+        RandomFactory.addRandomGenerator(BasicRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(TimestampRandomGenerator.getInstance());
     }
 
     /**
@@ -91,7 +91,7 @@ public class RandomFactory {
         }
         RandomGenerator randomGenerator = RandomFactory.generators.get(type);
         if (randomGenerator == null) {
-            throw new RandomGeneratorException("No Random Generators registered for type " + type.getName());
+            throw RandomGeneratorException.getInstance(String.format("No Random Generators registered for type=[%s]", type.getName()));
         }
         GeneratedRandomValues.add(type);
         Object randomValue;

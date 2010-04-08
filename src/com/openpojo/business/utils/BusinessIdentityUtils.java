@@ -33,7 +33,7 @@ public class BusinessIdentityUtils {
      */
     public static boolean anyNull(final Object... objects) {
         if (objects == null) {
-            throw new BusinessException("objects parameter cannot be null");
+            throw BusinessException.getInstance("objects parameter cannot be null");
         }
         for (Object o : objects) {
             if (o == null) {

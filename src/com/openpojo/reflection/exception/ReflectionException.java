@@ -25,13 +25,29 @@ public class ReflectionException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    private ReflectionException() {
+
+    }
+
+    public static ReflectionException getInstance(final String message) {
+        return new ReflectionException(message);
+    }
+
+    public static ReflectionException getInstance(final Throwable cause) {
+        return new ReflectionException(cause);
+    }
+
+    public static ReflectionException getInstance(final String message, final Throwable cause) {
+        return new ReflectionException(message, cause);
+    }
+
     /**
      * Reflection Exception with message constructor
      *
      * @param message
      *            The description of the exception.
      */
-    public ReflectionException(final String message) {
+    private ReflectionException(final String message) {
         super(message);
     }
 
@@ -41,7 +57,7 @@ public class ReflectionException extends RuntimeException {
      * @param cause
      *            The root cause of this reflection exception.
      */
-    public ReflectionException(final Throwable cause) {
+    private ReflectionException(final Throwable cause) {
         super(cause);
     }
 
@@ -53,7 +69,7 @@ public class ReflectionException extends RuntimeException {
      * @param cause
      *            The root cause of this reflection exception.
      */
-    public ReflectionException(final String message, final Throwable cause) {
+    private ReflectionException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

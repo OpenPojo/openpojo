@@ -36,9 +36,9 @@ public final class IdentityFactory {
 
     static {
         // Initialize the Factory with default implementations.
-        IdentityFactory.setBusinessValidator(new DefaultBusinessValidator());
-        IdentityFactory.setHashCodeGenerator(new DefaultHashCodeGenerator());
-        IdentityFactory.setIdentityEvaluator(new DefaultEvaluator());
+        IdentityFactory.setBusinessValidator(DefaultBusinessValidator.getInstance());
+        IdentityFactory.setHashCodeGenerator(DefaultHashCodeGenerator.getInstance());
+        IdentityFactory.setIdentityEvaluator(DefaultEvaluator.getInstance());
     }
     /**
      * @return the identityEvaluator

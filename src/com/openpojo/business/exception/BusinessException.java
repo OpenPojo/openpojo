@@ -29,14 +29,18 @@ public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    private BusinessException(final String message) {
+        super(message);
+    }
+
     /**
-     * Business Exception with message constructor
+     * Construct a Business Exception with message.
      *
      * @param message
      *            The description of the exception.
      */
-    public BusinessException(final String message) {
-        super(message);
+    public static BusinessException getInstance(final String message) {
+        return new BusinessException(message);
     }
 
 }

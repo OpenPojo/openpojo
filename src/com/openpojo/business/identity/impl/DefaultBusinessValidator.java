@@ -32,6 +32,14 @@ import com.openpojo.reflection.PojoField;
  */
 public class DefaultBusinessValidator implements BusinessValidator {
 
+    private DefaultBusinessValidator() {
+
+    }
+
+    public static BusinessValidator getInstance() {
+        return DefaultBusinessValidator.Instance.INSTANCE;
+    }
+
     public void validate(final Object object) {
         if (object == null) {
             return;
@@ -50,18 +58,21 @@ public class DefaultBusinessValidator implements BusinessValidator {
                 hasCompositeGroup = true;
             } else {
                 if (businessKey.required() && pojoField.get(object) == null) {
-                    throw new BusinessException(String.format("Field required and can't be null [%s]", pojoField));
+                    throw BusinessException.getInstance((String.format("Field required and can't be null [%s]", pojoField)));
                 }
             }
         }
         if (!hasBusinessKey) {
-            throw new BusinessException(String.format("No business Keys defined on class=[%s]", object.getClass()));
+            throw BusinessException.getInstance(String.format("No business Keys defined on class=[%s]", object.getClass()));
         }
 
         if (!compositeGroupPassed && hasCompositeGroup) {
-            throw new BusinessException(String.format("Non of the fields in the composite group were populated [%s]",
+            throw BusinessException.getInstance(String.format("Non of the fields in the composite group were populated [%s]",
                     object.getClass()));
         }
     }
 
+    private static class Instance {
+        static final BusinessValidator INSTANCE = new DefaultBusinessValidator();
+    }
 }

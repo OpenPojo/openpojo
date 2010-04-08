@@ -51,6 +51,14 @@ public final class BasicRandomGenerator implements RandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
     private static final int MAX_RANDOM_STRING_LENGTH = 32;
 
+    private BasicRandomGenerator() {
+
+    }
+
+    public static RandomGenerator getInstance() {
+        return Instance.INSTANCE;
+    }
+
     private static final Class<?>[] TYPES = new Class<?>[]{ boolean.class, Boolean.class, int.class, Integer.class,
             float.class, Float.class, double.class, Double.class, long.class, Long.class, short.class, Short.class,
             byte.class, Byte.class, char.class, Character.class, String.class };
@@ -111,5 +119,9 @@ public final class BasicRandomGenerator implements RandomGenerator {
 
     public Collection<Class<?>> getTypes() {
         return Arrays.asList(TYPES);
+    }
+
+    private static class Instance {
+        private static final RandomGenerator INSTANCE = new BasicRandomGenerator();
     }
 }

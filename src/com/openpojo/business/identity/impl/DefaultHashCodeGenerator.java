@@ -36,9 +36,17 @@ import com.openpojo.reflection.PojoField;
 
 public class DefaultHashCodeGenerator implements HashCodeGenerator {
 
+    private DefaultHashCodeGenerator() {
+    }
+
+    public static HashCodeGenerator getInstance() {
+        return Instance.INSTANCE;
+    }
+
+
     public int doGenerate(final Object object) {
         if (object == null) {
-            throw new BusinessException("null parameter passed object=[null]");
+            throw BusinessException.getInstance("null parameter passed object=[null]");
         }
 
         final int prime = 31;
@@ -49,5 +57,9 @@ public class DefaultHashCodeGenerator implements HashCodeGenerator {
             result = prime * result + BusinessIdentityUtils.getHashCode(pojoField, object, businessKey.caseSensitive());
         }
         return result;
+    }
+
+    private static class Instance {
+        static final HashCodeGenerator INSTANCE = new DefaultHashCodeGenerator();
     }
 }

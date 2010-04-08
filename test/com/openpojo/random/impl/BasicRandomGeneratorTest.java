@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -19,15 +19,16 @@ package com.openpojo.random.impl;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.openpojo.random.RandomGenerator;
 import com.openpojo.validation.affirm.Affirm;
 
 public class BasicRandomGeneratorTest {
-    private BasicRandomGenerator basicRandomGenerator;
+    private RandomGenerator basicRandomGenerator;
     private static final int EXPECTED_BASIC_TYPES = 17;
 
     @Before
     public void setUp() throws Exception {
-        basicRandomGenerator = new BasicRandomGenerator();
+        basicRandomGenerator = BasicRandomGenerator.getInstance();
     }
 
     /**
@@ -139,11 +140,11 @@ public class BasicRandomGeneratorTest {
 
     /**
      * Utility method to assist with testing all non-Primitive classes.
-     * 
+     *
      * @param type
      *            The class type to test.
      */
-    private void testDoGenerateForClass(Class<? extends Object> type) {
+    private void testDoGenerateForClass(final Class<? extends Object> type) {
         Affirm.affirmTrue(String.format("Failed to get the requested type=[%s] from BasicRandomGenerator", type),
                 basicRandomGenerator.doGenerate(type).getClass() == type);
         Object object = type.cast(basicRandomGenerator.doGenerate(type));

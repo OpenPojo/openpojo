@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -23,16 +23,18 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.openpojo.random.RandomGenerator;
+
 /**
  * @author oshoukry
  */
 public class TimestampRandomGeneratorTest {
-    TimestampRandomGenerator timestampRandomGenerator;
+    private RandomGenerator timestampRandomGenerator;
     private static final int EXPECTED_TYPES = 1;
 
     @Before
     public void setUp() {
-        timestampRandomGenerator = new TimestampRandomGenerator();
+        timestampRandomGenerator = TimestampRandomGenerator.getInstance();
     }
 
     /**

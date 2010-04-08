@@ -54,7 +54,7 @@ public final class PackageHelper {
                     classes.add(Class.forName(getFQClassName(packageName, files[i])));
                 } catch (ClassNotFoundException e) {
                     // this should never happen since we get the entry from directory listing.
-                    throw new ReflectionException(e);
+                    throw ReflectionException.getInstance(e);
                 }
             }
         }
@@ -74,19 +74,19 @@ public final class PackageHelper {
 
         ClassLoader cld = Thread.currentThread().getContextClassLoader();
         if (cld == null) {
-            throw new ReflectionException("Can't get class loader.");
+            throw ReflectionException.getInstance("Can't get class loader.");
         }
 
         String path = packageName.replace('.', '/');
         URL resource = cld.getResource(path);
         if (resource == null) {
-            throw new ReflectionException("No resource for " + path);
+            throw ReflectionException.getInstance("No resource for " + path);
         }
 
         File directory = null;
         directory = new File(resource.getFile());
         if (!directory.exists()) {
-            throw new ReflectionException(packageName + " does not appear to be a valid package");
+            throw ReflectionException.getInstance(packageName + " does not appear to be a valid package");
         }
 
         return directory;

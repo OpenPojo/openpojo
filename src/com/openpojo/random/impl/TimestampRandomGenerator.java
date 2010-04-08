@@ -31,11 +31,23 @@ import com.openpojo.random.RandomGenerator;
 public final class TimestampRandomGenerator implements RandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[]{ Timestamp.class };
 
+    private TimestampRandomGenerator() {
+
+    }
+
+    public static RandomGenerator getInstance() {
+        return Instance.INSTANCE;
+    }
+
     public Object doGenerate(final Class<?> type) {
         return new Timestamp((Long) RandomFactory.getRandomValue(Long.class));
     }
 
     public Collection<Class<?>> getTypes() {
         return Arrays.asList(TYPES);
+    }
+
+    private static class Instance {
+        private static final RandomGenerator INSTANCE = new TimestampRandomGenerator();
     }
 }
