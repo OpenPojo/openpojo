@@ -38,7 +38,8 @@ public class PojoTest {
         pojoValidator.addRule(new DefaultValuesNullRule());
         pojoValidator.addRule(new NoPrimitivesRule());
         pojoValidator.addRule(new NoStaticExceptFinalRule());
-        pojoValidator.addRule(new GetterSetterMustExistRule());
+        pojoValidator.addRule(new GetterMustExistRule());
+        pojoValidator.addRule(new SetterMustExistRule());
 
         // Create Testers to validate behaviour for POJO_PACKAGE
         pojoValidator.addTester(new SetterTester());
