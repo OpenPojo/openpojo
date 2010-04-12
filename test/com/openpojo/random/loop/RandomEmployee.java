@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -29,13 +29,11 @@ import com.openpojo.random.RandomGenerator;
 public class RandomEmployee implements RandomGenerator {
     private static final Class<?>[] TYPES = { Employee.class };
 
-    @Override
-    public Object doGenerate(Class<?> type) {
+    public Object doGenerate(final Class<?> type) {
         return new Employee("fullName-" + RandomFactory.getRandomValue(String.class), (Employee) RandomFactory
                 .getRandomValue(Employee.class));
     }
 
-    @Override
     public Collection<Class<?>> getTypes() {
         return Arrays.asList(TYPES);
     }

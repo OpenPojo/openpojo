@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -27,11 +27,11 @@ import com.openpojo.reflection.PojoClassFilter;
 /**
  * This class is a utility class to help with testing.
  * It will log every filter call for later validation.
- * 
+ *
  * @author oshoukry
  */
 public class LoggingPojoClassFilter implements PojoClassFilter {
-    private List<PojoClass> pojoClassCallLogs = new LinkedList<PojoClass>();
+    private final List<PojoClass> pojoClassCallLogs = new LinkedList<PojoClass>();
     private boolean returnValue;
 
     public void setReturnValue(final boolean returnValue) {
@@ -46,8 +46,7 @@ public class LoggingPojoClassFilter implements PojoClassFilter {
         return Collections.unmodifiableList(pojoClassCallLogs);
     }
 
-    @Override
-    public boolean include(PojoClass pojoClass) {
+    public boolean include(final PojoClass pojoClass) {
         pojoClassCallLogs.add(pojoClass);
         return returnValue;
     }
