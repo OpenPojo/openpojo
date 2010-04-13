@@ -23,13 +23,18 @@
     <property name="source" value="1.6" />
 
     <property name="dir.src" value="src" />
-    <property name="dir.testsrc" value="test" />
+    <property name="dir.junit.tests" value="test" />
 
     <property name="dir.out" value="dist" />
     <property name="dist.jar" value="${dir.out}/openpojo.jar" />
+    <property name="dist.src.jar" value="${dir.out}/openpojo-src.jar" />
     <property name="dir.out.doc" value="dist/doc" />
     <property name="dir.out.classes" value="${dir.out}/classes" />
+    <property name="dir.out.test.classes" value="${dir.out}/test_classes" />
     <property name="lib" value="lib" />
+
+    <property name="manifest.file" value="${dir.out}/MANIFEST.MF" />
+    <property name="version" value="0.0.1" />
 
     <fileset id="project.libs" dir="lib" includes="*.jar" />
     <fileset id="project.docs" dir="doc" includes="*" />
@@ -50,6 +55,35 @@
         </javac>
     </target>
 
+    <target name="compile-test">
+        <mkdir dir="${dir.out.test.classes}" />
+        <javac destdir="${dir.out.test.classes}" source="${source}" target="${target}" debug="true">
+            <classpath refid="project.classpath" />
+            <classpath path="${dir.out.classes}"/>
+            <src path="${dir.junit.tests}"/>
+        </javac>
+        <copy todir="${dir.out.test.classes}">
+            <fileset dir="test" excludes="**/*.java"/>
+        </copy>
+    </target>
+
+    <target name="test" depends="compile, compile-test">
+        <junit printsummary="yes" haltonfailure="yes" showoutput="yes" >
+            <classpath>
+                <pathelement path="${dir.out.classes}" />
+                <pathelement path="${dir.out.test.classes}" />
+                <pathelement path="${lib}/junit-4.8.2.jar" />
+            </classpath>
+            <formatter type="plain" usefile="no"/>
+            <batchtest>
+                <fileset dir="${dir.junit.tests}">
+                    <include name="**/*Test*.java" />
+                    <exclude name="**/LoggingTester.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
     <target name="javadoc">
         <mkdir dir="${dir.out.doc}/javadoc" />
         <javadoc destdir="${dir.out.doc}/javadoc">
@@ -57,19 +91,33 @@
         </javadoc>
     </target>
 
-    <target name="jar" depends="compile">
-        <jar destfile="${dist.jar}" basedir="${dir.out.classes}" manifest="${dir.src}/META-INF/MANIFEST.MF" />
-        <delete dir="${dir.out.classes}" />
-    </target>
-
     <tstamp>
         <format property="DATETIME" pattern="yyyyMMdd-HHmm" />
     </tstamp>
 
-    <target name="generate_zip" depends="jar, javadoc">
+    <target name="manifest">
+        <manifest file="${manifest.file}">
+            <attribute name="Built-By" value="${user.name}" />
+            <attribute name="Specification-Title" value="OpenPojo - A Testing and Identity management." />
+            <attribute name="Specification-Version" value="${version}" />
+            <attribute name="Implementation-Title" value="OpenPojo" />
+            <attribute name="Implementation-Version" value="${version} ${DATETIME}" />
+        </manifest>
+    </target>
+
+    <target name="jar-src" depends="manifest">
+        <jar destfile="${dist.src.jar}" basedir="${dir.src}" manifest="${manifest.file}" />
+    </target>
+
+    <target name="jar" depends="compile, test, manifest">
+        <jar destfile="${dist.jar}" basedir="${dir.out.classes}" manifest="${manifest.file}" />
+        <delete dir="${dir.out.classes}" />
+    </target>
+
+    <target name="generate_zip" depends="jar, jar-src, javadoc">
         <zip destfile="${dir.out}/OpenPojo-build-${DATETIME}.zip" whenempty="skip">
             <fileset dir="${dir.out}" includes="*.jar" />
-            <fileset dir="${dir.out.doc}"/>
+            <fileset dir="${dir.out.doc}" />
             <fileset refid="project.docs" />
         </zip>
     </target>
