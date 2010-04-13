@@ -25,7 +25,7 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
- * This is the most basic random generator, it handles all basic java types (17 in total).<br>
+ * This is the most basic random generator, it handles all basic java types (18 in total).<br>
  * <strong>Namely:</strong><br>
  * 1. boolean & Boolean<br>
  * 2. int & Integer <br>
@@ -35,7 +35,8 @@ import com.openpojo.random.RandomGenerator;
  * 6. short & Short <br>
  * 7. byte & Byte <br>
  * 8. char & Character <br>
- * 9. And String<br>
+ * 9. String <br>
+ * 10. Date<br>
  * <br>
  * You can overwrite any of those types with your own generator and register it with the RandomFactory. <br>
  * <strong>Note:</strong><br>
@@ -61,7 +62,7 @@ public final class BasicRandomGenerator implements RandomGenerator {
 
     private static final Class<?>[] TYPES = new Class<?>[]{ boolean.class, Boolean.class, int.class, Integer.class,
             float.class, Float.class, double.class, Double.class, long.class, Long.class, short.class, Short.class,
-            byte.class, Byte.class, char.class, Character.class, String.class };
+            byte.class, Byte.class, char.class, Character.class, String.class, Date.class };
 
     private static final char[] CHARACTERS = new char[]{ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
             'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
@@ -112,6 +113,10 @@ public final class BasicRandomGenerator implements RandomGenerator {
                 randomString.append(RandomFactory.getRandomValue(Character.class));
             }
             return randomString.toString();
+        }
+
+        if (type == Date.class) {
+            return new Date((Long) RandomFactory.getRandomValue(Long.class));
         }
 
         return null;
