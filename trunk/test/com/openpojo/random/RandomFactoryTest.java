@@ -58,14 +58,10 @@ public class RandomFactoryTest {
     /**
      * Test unregistered value
      */
-    @Test
+    @Test(expected = RandomGeneratorException.class)
     public void testUnregisteredDummy() {
-        try {
-            RandomFactory.getRandomValue(UnRegisteredDummy.class);
-            Assert.fail("Exception not thrown while trying to generated for unknown type!!");
-        } catch (RandomGeneratorException rge) {
-            // test passes.
-        }
+        RandomFactory.getRandomValue(UnRegisteredDummy.class);
+        Assert.fail("Exception not thrown while trying to generated for unknown type!!");
     }
 
     /**
