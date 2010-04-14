@@ -18,12 +18,14 @@ package com.openpojo.reflection.impl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.utils.ConstructionHelper;
 import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
@@ -75,8 +77,31 @@ class PojoClassImpl implements PojoClass {
             return newInstance();
         }
         validateBeforeNewInstance();
+        List<Constructor<?>> constructors = ConstructionHelper.getConstructorsByParamCount(clazz, objects.length);
+        validateCandidateConstructors(constructors, objects);
+        Constructor<?> constructor = constructors.get(0);
+        try {
+            constructor.setAccessible(true);
+            return constructor.newInstance(objects);
+        } catch (Exception e) {
+            // IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException
+            throw ReflectionException.getInstance(e.getMessage(), e);
+        }
+    }
 
-        throw ReflectionException.getInstance("Unimplemented method [newInstance(Object ...objects)] called");
+    private void validateCandidateConstructors(final List<Constructor<?>> constructors, final Object... objects) {
+        if (constructors.size() == 0) {
+            throw ReflectionException.getInstance(String.format(
+                    "Unable to locate an appropriate constructor for class=[%s], given args=[%s]", clazz, Arrays
+                            .toString(objects)));
+        }
+        if (constructors.size() > 1) {
+            // need to filter down the list by arg types
+            throw ReflectionException.getInstance(String.format(
+                    "Unable to locate an appropriate constructor for class=[%s],"
+                            + " [%s] constructor(s) found that take [%s] arguments, "
+                            + "filter down by arg type not implemented", clazz, constructors.size(), objects.length));
+        }
     }
 
     public Object newInstance() {
@@ -87,7 +112,7 @@ class PojoClassImpl implements PojoClass {
             Constructor c = clazz.getDeclaredConstructor(); // NoSuchMethodException, SecurityException
             c.setAccessible(true); // SecurityException
             return c.newInstance(); // InstantiationException, IllegalAccessException, IllegalArgumentException,
-                                    // InvocationTargetException
+            // InvocationTargetException
         } catch (Exception e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
         }
