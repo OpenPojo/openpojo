@@ -73,16 +73,19 @@ class PojoClassImpl implements PojoClass {
     }
 
     public Object newInstance(final Object... objects) {
-        if (objects == null) {
-            return newInstance();
+        Object[] parameters = objects;
+        if (parameters == null) {
+            // newInstance(null) assumes you're calling the constructor that takes
+            // no params... to pass null to the first parameter, need a valid array.
+            parameters = new Object[] { null };
         }
         validateBeforeNewInstance();
-        List<Constructor<?>> constructors = ConstructionHelper.getConstructorsByParamCount(clazz, objects.length);
+        List<Constructor<?>> constructors = ConstructionHelper.getConstructorsByParamCount(clazz, parameters.length);
         validateCandidateConstructors(constructors, objects);
         Constructor<?> constructor = constructors.get(0);
         try {
             constructor.setAccessible(true);
-            return constructor.newInstance(objects);
+            return constructor.newInstance(parameters);
         } catch (Exception e) {
             // IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException
             throw ReflectionException.getInstance(e.getMessage(), e);
