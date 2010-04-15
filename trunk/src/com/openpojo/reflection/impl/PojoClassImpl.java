@@ -111,8 +111,7 @@ class PojoClassImpl implements PojoClass {
         validateBeforeNewInstance();
 
         try {
-            @SuppressWarnings("unchecked")
-            Constructor c = clazz.getDeclaredConstructor(); // NoSuchMethodException, SecurityException
+            Constructor<?> c = clazz.getDeclaredConstructor(); // NoSuchMethodException, SecurityException
             c.setAccessible(true); // SecurityException
             return c.newInstance(); // InstantiationException, IllegalAccessException, IllegalArgumentException,
             // InvocationTargetException
