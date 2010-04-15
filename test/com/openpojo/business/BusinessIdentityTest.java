@@ -86,7 +86,7 @@ public class BusinessIdentityTest {
         } catch (BusinessException be) {
             // expected
         }
-        
+
         try {
             BusinessIdentity.getHashCode(null);
             Assert.fail("Expected Exception due to null object");
@@ -112,10 +112,17 @@ public class BusinessIdentityTest {
 
     }
 
+    @Test
+    public void testToString() {
+        ToStringTestData toStringTestData = new ToStringTestData();
+        String toString = BusinessIdentity.toString(toStringTestData);
+        Assert.assertTrue("BusinessIdentity.toString() failed!!", toString.startsWith("com.openpojo.business.BusinessIdentityTest$ToStringTestData [@") && toString.endsWith(": instance_name=Instance Name, static_name=Static Name, STATIC_FINAL_NAME=Static Final Name]"));
+    }
+
     private static class PersonEqualityPairTestData {
-        private Person left;
-        private Person right;
-        private boolean expectedEqualityResult;
+        private final Person left;
+        private final Person right;
+        private final boolean expectedEqualityResult;
 
         /**
          * @param left
@@ -125,25 +132,25 @@ public class BusinessIdentityTest {
         public PersonEqualityPairTestData(final Person left, final Person right, final boolean expected) {
             this.left = left;
             this.right = right;
-            this.expectedEqualityResult = expected;
+            expectedEqualityResult = expected;
         }
     }
 
     private static class HashCodeTestData {
         @BusinessKey
-        private String id;
-        
+        private final String id;
+
         @BusinessKey(required = false, caseSensitive = false)
-        private String name;
-        
-        @BusinessKey(composite = true)
-        private String optionalPart1;
+        private final String name;
 
         @BusinessKey(composite = true)
-        private String optionalPart2;
+        private final String optionalPart1;
 
-        private String nonBusinessKey;
-        
+        @BusinessKey(composite = true)
+        private final String optionalPart2;
+
+        private final String nonBusinessKey;
+
         private int expectedHashCode = 1;
         /**
          * @param id
@@ -160,6 +167,12 @@ public class BusinessIdentityTest {
             expectedHashCode = 31 * expectedHashCode + (optionalPart1 == null ? 0 : optionalPart1.hashCode());
             expectedHashCode = 31 * expectedHashCode + (optionalPart2 == null ? 0 : optionalPart2.hashCode());
          }
+    }
 
+
+    private static class ToStringTestData {
+        private final String instance_name="Instance Name";
+        private static String static_name = "Static Name";
+        private static final String STATIC_FINAL_NAME = "Static Final Name";
     }
 }
