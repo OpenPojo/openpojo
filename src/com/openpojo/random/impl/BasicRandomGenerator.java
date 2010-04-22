@@ -16,6 +16,8 @@
  */
 package com.openpojo.random.impl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -25,18 +27,20 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
- * This is the most basic random generator, it handles all basic java types (18 in total).<br>
+ * This is the most basic random generator, it handles all basic java types (20 in total).<br>
  * <strong>Namely:</strong><br>
- * 1. boolean & Boolean<br>
- * 2. int & Integer <br>
- * 3. float & Float <br>
- * 4. double & Double <br>
- * 5. long & Long <br>
- * 6. short & Short <br>
- * 7. byte & Byte <br>
- * 8. char & Character <br>
- * 9. String <br>
+ *  1. boolean & Boolean<br>
+ *  2. int & Integer <br>
+ *  3. float & Float <br>
+ *  4. double & Double <br>
+ *  5. long & Long <br>
+ *  6. short & Short <br>
+ *  7. byte & Byte <br>
+ *  8. char & Character <br>
+ *  9. String <br>
  * 10. Date<br>
+ * 11. java.math.BigDecimal <br>
+ * 12. java.math.BigInteger <br>
  * <br>
  * You can overwrite any of those types with your own generator and register it with the RandomFactory. <br>
  * <strong>Note:</strong><br>
@@ -62,7 +66,8 @@ public final class BasicRandomGenerator implements RandomGenerator {
 
     private static final Class<?>[] TYPES = new Class<?>[]{ boolean.class, Boolean.class, int.class, Integer.class,
             float.class, Float.class, double.class, Double.class, long.class, Long.class, short.class, Short.class,
-            byte.class, Byte.class, char.class, Character.class, String.class, Date.class };
+            byte.class, Byte.class, char.class, Character.class, String.class, Date.class, BigDecimal.class,
+            BigInteger.class };
 
     private static final char[] CHARACTERS = new char[]{ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
             'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
@@ -78,6 +83,10 @@ public final class BasicRandomGenerator implements RandomGenerator {
             return RANDOM.nextInt();
         }
 
+        if (type == BigInteger.class) {
+            return BigInteger.valueOf(RANDOM.nextLong());
+        }
+
         if (type == float.class || type == Float.class) {
             return RANDOM.nextFloat();
         }
@@ -86,12 +95,15 @@ public final class BasicRandomGenerator implements RandomGenerator {
             return RANDOM.nextDouble();
         }
 
+        if (type == BigDecimal.class) {
+            return BigDecimal.valueOf(RANDOM.nextDouble());
+        }
+
         if (type == long.class || type == Long.class) {
             return RANDOM.nextLong();
         }
 
         if (type == short.class || type == Short.class) {
-
             return (short) (RANDOM.nextInt(Short.MAX_VALUE + 1) * (RANDOM.nextBoolean() ? 1 : -1));
         }
 
