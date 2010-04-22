@@ -16,6 +16,8 @@
  */
 package com.openpojo.random.impl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 import org.junit.Before;
@@ -26,7 +28,7 @@ import com.openpojo.validation.affirm.Affirm;
 
 public class BasicRandomGeneratorTest {
     private RandomGenerator basicRandomGenerator;
-    private static final int EXPECTED_BASIC_TYPES = 18;
+    private static final int EXPECTED_BASIC_TYPES = 20;
 
     @Before
     public void setUp() throws Exception {
@@ -47,6 +49,22 @@ public class BasicRandomGeneratorTest {
     @Test
     public void testDate() {
         testDoGenerateForClass(Date.class);
+    }
+
+    /**
+     * Test random BigDecimal.
+     */
+    @Test
+    public void testBigDecimal() {
+        testDoGenerateForClass(BigDecimal.class);
+    }
+
+    /**
+     * Test random BigInteger.
+     */
+    @Test
+    public void testBigInteger() {
+        testDoGenerateForClass(BigInteger.class);
     }
 
     /**
