@@ -136,6 +136,7 @@ public class BusinessIdentityTest {
         }
     }
 
+    @SuppressWarnings("unused")
     private static class HashCodeTestData {
         @BusinessKey
         private final String id;
@@ -170,6 +171,7 @@ public class BusinessIdentityTest {
     }
 
 
+    @SuppressWarnings("unused")
     private static class ToStringTestData {
         private final String instance_name="Instance Name";
         private static String static_name = "Static Name";
