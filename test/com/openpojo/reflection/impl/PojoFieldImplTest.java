@@ -22,14 +22,14 @@ import org.junit.Test;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.impl.sampleclasses.PojoFieldImplTestClass;
+import com.openpojo.reflection.impl.sampleclasses.PojoFieldImplClass;
 import com.openpojo.validation.affirm.Affirm;
 
 /**
  * @author oshoukry
  */
 public class PojoFieldImplTest {
-    PojoClass pojoClass = PojoClassFactory.getPojoClass(PojoFieldImplTestClass.class);
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(PojoFieldImplClass.class);
     Object pojoClassInstance;
 
     /**
