@@ -18,10 +18,10 @@ package com.openpojo.reflection.impl;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.utils.ToStringHelper;
 
@@ -35,10 +35,10 @@ import com.openpojo.reflection.utils.ToStringHelper;
 class PojoFieldImpl implements PojoField {
 
     private final Field field;
-    private final Method fieldGetter;
-    private final Method fieldSetter;
+    private final PojoMethod fieldGetter;
+    private final PojoMethod fieldSetter;
 
-    PojoFieldImpl(final Field field, final Method fieldGetter, final Method fieldSetter) {
+    PojoFieldImpl(final Field field, final PojoMethod fieldGetter, final PojoMethod fieldSetter) {
         this.field = field;
         this.field.setAccessible(true);
         this.fieldGetter = fieldGetter;
@@ -71,7 +71,7 @@ class PojoFieldImpl implements PojoField {
 
     public Object invokeGetter(final Object instance) {
         try {
-            return fieldGetter.invoke(instance);
+            return fieldGetter.invoke(instance, (Object[])null);
         } catch (Exception e) {
             throw ReflectionException.getInstance(e);
         }

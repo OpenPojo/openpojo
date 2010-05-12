@@ -42,7 +42,8 @@ public final class PojoClassFactory {
     public static PojoClass getPojoClass(final Class<?> clazz) {
         PojoClass pojoClass = PojoCache.getPojoClass(clazz.getName());
         if (pojoClass == null) {
-            pojoClass = new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz));
+            pojoClass = new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz),
+                    PojoMethodFactory.getPojoMethods(clazz));
             PojoCache.addPojoClass(clazz.getName(), pojoClass);
         }
         return pojoClass;

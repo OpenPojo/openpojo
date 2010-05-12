@@ -25,6 +25,9 @@ import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleclasses.AClassExtendingAnInterface;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithEquality;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass;
+import com.openpojo.reflection.impl.sampleclasses.AConcreteClass;
+import com.openpojo.reflection.impl.sampleclasses.AFinalClass;
+import com.openpojo.reflection.impl.sampleclasses.ANonFinalClass;
 import com.openpojo.reflection.impl.sampleclasses.AnAbstractClass;
 import com.openpojo.reflection.impl.sampleclasses.AnInterfaceClass;
 import com.openpojo.reflection.impl.sampleclasses.MultiplePublicAndPrivateWithManyParamsConstructor;
@@ -57,6 +60,44 @@ public class PojoClassTest {
         Affirm.affirmTrue(String.format(
                 "IsAbstract on abstract=[%s] returned false for PojoClass implementation=[%s]!!", anAbstractClass,
                 pojoClass), pojoClass.isAbstract());
+    }
+
+    @Test
+    public void testIsFinalOnFinalClass() {
+        Class<?> aFinalClass = AFinalClass.class;
+        PojoClass pojoClass = getPojoClassImplForClass(aFinalClass);
+        Affirm.affirmTrue(String.format("IsFinal on final=[%s] returned false for PojoClass implementation=[%s]!!",
+                aFinalClass, pojoClass), pojoClass.isFinal());
+    }
+
+    @Test
+    public void testIsFinalOnNonFinalClass() {
+        Class<?> aNonFinalClass = ANonFinalClass.class;
+        PojoClass pojoClass = getPojoClassImplForClass(aNonFinalClass);
+        Affirm.affirmFalse(String.format("IsFinal on non-final=[%s] returned true for PojoClass implementation=[%s]!!",
+                aNonFinalClass, pojoClass), pojoClass.isFinal());
+    }
+
+    @Test
+    public void testIsConcreteOnNonConcrete() {
+        Class<?>[] nonConcreteClasses = { AnInterfaceClass.class, AnAbstractClass.class };
+        for (Class<?> nonConcreteClass : nonConcreteClasses) {
+            PojoClass pojoClass = getPojoClassImplForClass(nonConcreteClass);
+            Affirm.affirmFalse(String.format(
+                    "IsConcrete on non-concrete=[%s] returned true for PojoClass implementation=[%s]!!",
+                    nonConcreteClass, pojoClass), pojoClass.isConcrete());
+        }
+    }
+
+    @Test
+    public void testIsConcreteOnConcrete() {
+        Class<?>[] concreteClasses = { AConcreteClass.class };
+        for (Class<?> concreteClass : concreteClasses) {
+            PojoClass pojoClass = getPojoClassImplForClass(concreteClass);
+            Affirm.affirmTrue(String.format(
+                    "IsConcrete on concrete=[%s] returned false for PojoClass implementation=[%s]!!", concreteClass,
+                    pojoClass), pojoClass.isConcrete());
+        }
     }
 
     // @Test
@@ -214,6 +255,6 @@ public class PojoClassTest {
     }
 
     private PojoClassImpl getPojoClassImplForClass(final Class<?> clazz) {
-        return new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz));
+        return new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz), PojoMethodFactory.getPojoMethods(clazz));
     }
 }

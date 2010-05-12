@@ -24,6 +24,7 @@ import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.utils.ConstructionHelper;
 import com.openpojo.reflection.utils.ToStringHelper;
@@ -36,14 +37,16 @@ import com.openpojo.reflection.utils.ToStringHelper;
 class PojoClassImpl implements PojoClass {
     private final Class<?> clazz;
     private final List<PojoField> pojoFields;
+    private final List<PojoMethod> pojoMethods;
     private static final String NESTED_CLASS_TOKEN = "$";
 
     /**
      * Minimum constructor.
      */
-    PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields) {
+    PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields, final List<PojoMethod> pojoMethods) {
         this.clazz = clazz;
         this.pojoFields = Collections.unmodifiableList(pojoFields);
+        this.pojoMethods = Collections.unmodifiableList(pojoMethods);
     }
 
     public boolean isInterface() {
@@ -54,8 +57,20 @@ class PojoClassImpl implements PojoClass {
         return Modifier.isAbstract(clazz.getModifiers());
     }
 
+    public boolean isConcrete() {
+        return !(isAbstract() || isInterface());
+    }
+
+    public boolean isFinal() {
+        return Modifier.isFinal(clazz.getModifiers());
+    }
+
     public List<PojoField> getPojoFields() {
         return pojoFields;
+    }
+
+    public List<PojoMethod> getPojoMethods() {
+        return pojoMethods;
     }
 
     public String getName() {
