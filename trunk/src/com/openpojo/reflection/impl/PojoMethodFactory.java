@@ -17,11 +17,10 @@
 package com.openpojo.reflection.impl;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
-import clover.retrotranslator.edu.emory.mathcs.backport.java.util.Arrays;
 
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.utils.MethodHelper;
