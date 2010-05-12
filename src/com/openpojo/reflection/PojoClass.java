@@ -27,18 +27,32 @@ import java.util.List;
 public interface PojoClass {
 
     /**
-     * Check if Class is a class or interface.
+     * Check if PojoClass wrapps an interface.
      *
      * @return true if this PojoClass wrapps an interface.
      */
     public boolean isInterface();
 
     /**
-     * Check if Class is complete or abstract.
+     * Check if PojoClass wrapps an abstract.
      *
      * @return true if this PojoClass wrapps an abstract class.
      */
     public boolean isAbstract();
+
+    /**
+     * Check if PojoClass wrapps a concrete (i.e. can be instantiated).
+     *
+     * @return true if this PojoClass wrapps a concrete class.
+     */
+    public boolean isConcrete();
+
+    /**
+     * Check if PojoClass wrapps a final class.
+     *
+     * @return true if this PojoClass wrapps a final class.
+     */
+    public boolean isFinal();
 
     /**
      * Get all PojoFields defined in the class.
@@ -46,6 +60,11 @@ public interface PojoClass {
      * @return the pojoFields
      */
     public List<PojoField> getPojoFields();
+
+    /**
+     * Get all PojoMethods defined in the class;
+     */
+    public List<PojoMethod> getPojoMethods();
 
     /**
      * Returns the fully qualified class name.
@@ -110,10 +129,11 @@ public interface PojoClass {
     /**
      * This method converts a pojoClass instance's contents to a string.
      * This method can serve as a good delegate for all toString().
+     *
      * @param instance
-     *          The instance to print the contents out of.
+     *            The instance to print the contents out of.
      * @return
-     *          String representation of the instance.
+     *         String representation of the instance.
      */
     public String toString(Object instance);
 }
