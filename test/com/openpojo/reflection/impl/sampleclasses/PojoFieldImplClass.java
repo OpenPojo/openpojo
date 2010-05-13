@@ -22,10 +22,14 @@ package com.openpojo.reflection.impl.sampleclasses;
  */
 public class PojoFieldImplClass {
 
+    @SuppressWarnings("unused")
     private static final String STATICFINALFIELD = "Static Final Field";
     private String nonStaticNonFinal;
+
+    @SuppressWarnings("unused")
     private int primitiveIntField;
 
+    @SuppressWarnings("unused")
     private int privateIntField;
     protected int protectedIntField;
     public int publicIntField;
