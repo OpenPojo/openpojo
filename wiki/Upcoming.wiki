@@ -1,7 +1,6 @@
 Ramblings about what I think I want to add next...
 
 == Up Coming features ==
- * *In no particular order*
   # Add a way to on the fly create random objects without needing to populate the RandomFactory.
 
 
