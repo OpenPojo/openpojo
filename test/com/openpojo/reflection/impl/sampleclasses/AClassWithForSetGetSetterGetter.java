@@ -18,58 +18,36 @@ package com.openpojo.reflection.impl.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
-public class PojoFieldImplClass {
-
-    @SuppressWarnings("unused")
-    private static final String STATICFINALFIELD = "Static Final Field";
-    private String nonStaticNonFinal;
-
-    @SuppressWarnings("unused")
-    private int primitiveIntField;
-
-    @SuppressWarnings("unused")
-    private int privateIntField;
-    protected int protectedIntField;
-    public int publicIntField;
-
-    private Boolean booleanField;
-
+public class AClassWithForSetGetSetterGetter {
+    private int privateInt;
     private String privateString;
 
     /**
-     * @return the nonStaticNonFinal
+     * @return the privateInt
      */
-    public String getNonStaticNonFinal() {
-        return nonStaticNonFinal;
+    public int getPrivateInt() {
+        return privateInt;
     }
+
     /**
-     * @param nonStaticNonFinal the nonStaticNonFinal to set
+     * @param privateInt
+     *            the privateInt to set
      */
-    public void setNonStaticNonFinal(final String nonStaticNonFinal) {
-        this.nonStaticNonFinal = nonStaticNonFinal;
+    public void setPrivateInt(final int privateInt) {
+        this.privateInt = privateInt;
     }
-    /**
-     * @return the booleanField
-     */
-    public Boolean isBooleanField() {
-        return booleanField;
-    }
-    /**
-     * @param booleanField the booleanField to set
-     */
-    public void setBooleanField(final Boolean booleanField) {
-        this.booleanField = booleanField;
-    }
+
     /**
      * @return the privateString
      */
     public String getPrivateString() {
         return privateString;
     }
+
     /**
-     * @param privateString the privateString to set
+     * @param privateString
+     *            the privateString to set
      */
     public void setPrivateString(final String privateString) {
         this.privateString = privateString;
