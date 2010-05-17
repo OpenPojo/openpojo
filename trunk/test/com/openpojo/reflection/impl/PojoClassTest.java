@@ -24,7 +24,10 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleclasses.AClassExtendingAnInterface;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithEquality;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithExceptionalConstructors;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithSixMethods;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithoutMethods;
 import com.openpojo.reflection.impl.sampleclasses.AConcreteClass;
 import com.openpojo.reflection.impl.sampleclasses.AFinalClass;
 import com.openpojo.reflection.impl.sampleclasses.ANonFinalClass;
@@ -105,6 +108,17 @@ public class PojoClassTest {
         Affirm.fail("Not yet implemented");
     }
 
+    @Test
+    public void testGetPojoMethods() {
+        PojoClass pojoClass = getPojoClassImplForClass(AClassWithSixMethods.class);
+        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()), 6, pojoClass
+                .getPojoMethods().size());
+
+        pojoClass = getPojoClassImplForClass(AClassWithoutMethods.class);
+        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()), 0, pojoClass
+                .getPojoMethods().size());
+    }
+
     // @Test
     public void testGetName() {
         Affirm.fail("Not yet implemented");
@@ -121,14 +135,34 @@ public class PojoClassTest {
                 pojoClass.extendz(anInterface));
     }
 
-    // @Test
-    public void testValidateBeforeNewInstance() {
-        Affirm.fail("Not yet implemented");
+    @Test(expected = ReflectionException.class)
+    public void shouldFailToCreateInstanceOnInterface() {
+        PojoClass pojoClass = getPojoClassImplForClass(AnInterfaceClass.class);
+        pojoClass.newInstance();
     }
 
-    // @Test
-    public void testNewInstanceObjectArray() {
-        Affirm.fail("Not yet implemented");
+    @Test(expected = ReflectionException.class)
+    public void shouldFailToCreateInstanceOnAbstract() {
+        PojoClass pojoClass = getPojoClassImplForClass(AnAbstractClass.class);
+        pojoClass.newInstance();
+    }
+
+    @Test(expected = ReflectionException.class)
+    public void shouldFailToFindAppropriateConstructor() {
+        PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
+        pojoClass.newInstance(new Object[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+    }
+
+    @Test(expected = ReflectionException.class)
+    public void shouldFailToConstructBasedOnExcpetionalConstructorWithNoParam() {
+        PojoClass pojoClass = getPojoClassImplForClass(AClassWithExceptionalConstructors.class);
+        pojoClass.newInstance();
+    }
+
+    @Test(expected = ReflectionException.class)
+    public void shouldFailToConstructBasedOnExcpetionalConstructorWithParam() {
+        PojoClass pojoClass = getPojoClassImplForClass(AClassWithExceptionalConstructors.class);
+        pojoClass.newInstance("OneStringParam");
     }
 
     @Test

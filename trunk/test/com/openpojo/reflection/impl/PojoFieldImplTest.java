@@ -22,6 +22,7 @@ import org.junit.Test;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleclasses.PojoFieldImplClass;
 import com.openpojo.validation.affirm.Affirm;
 
@@ -59,6 +60,41 @@ public class PojoFieldImplTest {
             }
         }
     }
+
+    private PojoField getPrivateStringField() {
+        for (PojoField pojoField : pojoClass.getPojoFields()) {
+            if (pojoField.getName() == "privateString") {
+                return pojoField;
+            }
+        }
+        Affirm.fail("Field with name 'privateString' removed from class" + pojoClass.getName());
+        return null;
+    }
+
+    @Test (expected = ReflectionException.class)
+    public void shouldFailSet() {
+        PojoField pojoField = getPrivateStringField();
+        pojoField.set(null, RandomFactory.getRandomValue(pojoField.getType()));
+    }
+
+    @Test (expected = ReflectionException.class)
+    public void shouldFailGet() {
+        PojoField pojoField = getPrivateStringField();
+        pojoField.get(null);
+    }
+
+    @Test (expected = ReflectionException.class)
+    public void shouldFailSetter() {
+        PojoField pojoField = getPrivateStringField();
+        pojoField.inovkeSetter(null, RandomFactory.getRandomValue(pojoField.getType()));
+    }
+
+    @Test (expected = ReflectionException.class)
+    public void shouldFailGetter() {
+        PojoField pojoField = getPrivateStringField();
+        pojoField.invokeGetter(null);
+    }
+
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#getName()}.

@@ -24,6 +24,9 @@ public class AClassWithEquality {
 
     private String name;
     private Integer age;
+    @SuppressWarnings("unused")
+    private Boolean noGetterBoolean;
+    public Boolean noSetterBoolean;
 
     public AClassWithEquality() {
 
@@ -93,6 +96,20 @@ public class AClassWithEquality {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the noSetterBoolean
+     */
+    public Boolean getNoSetterBoolean() {
+        return noSetterBoolean;
+    }
+
+    /**
+     * @param noGetterBoolean the noGetterBoolean to set
+     */
+    public void setNoGetterBoolean(final Boolean noGetterBoolean) {
+        this.noGetterBoolean = noGetterBoolean;
     }
 
 }
