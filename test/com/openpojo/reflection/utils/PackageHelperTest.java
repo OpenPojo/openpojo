@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -24,9 +24,15 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.openpojo.random.RandomFactory;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.impl.PojoClassFactory;
+
 /**
  * Test PackageHelper.
- * 
+ *
  * @author oshoukry
  */
 public class PackageHelperTest {
@@ -51,6 +57,27 @@ public class PackageHelperTest {
         for (String entry : CLASSES) {
             Assert.assertTrue(String.format("expected entry=[%s] in package=[%s] but was not found", entry,
                     PACKAGE_NAME), list.contains(entry));
+        }
+    }
+
+    @Test
+    public final void testClassNotFoundOnClassLoading() {
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(PackageHelper.class);
+        PojoMethod loadClassPojoMethod = null;
+        for(PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
+            if (pojoMethod.getName().equals("loadClass")) {
+            loadClassPojoMethod = pojoMethod;
+            }
+        }
+        Assert.assertNotNull("loadClass method removed from class PackageHelper.class?", loadClassPojoMethod);
+        //ClassLoader classLoader, final String className
+        loadClassPojoMethod.invoke(null, Thread.currentThread().getContextClassLoader(), this.getClass().getName());
+
+        // now invoke on non existing class.
+        try {
+            loadClassPojoMethod.invoke(null, Thread.currentThread().getContextClassLoader(),
+                    RandomFactory.getRandomValue(String.class));
+        } catch (ReflectionException e) {
         }
     }
 
