@@ -18,6 +18,7 @@ package com.openpojo.random.impl;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Before;
@@ -28,7 +29,7 @@ import com.openpojo.validation.affirm.Affirm;
 
 public class BasicRandomGeneratorTest {
     private RandomGenerator basicRandomGenerator;
-    private static final int EXPECTED_BASIC_TYPES = 20;
+    private static final int EXPECTED_BASIC_TYPES = 21;
 
     @Before
     public void setUp() throws Exception {
@@ -49,6 +50,14 @@ public class BasicRandomGeneratorTest {
     @Test
     public void testDate() {
         testDoGenerateForClass(Date.class);
+    }
+
+    /**
+     * Test random Calendar.
+     */
+    @Test
+    public void testCalendar() {
+        testDoGenerateForClass(Calendar.class);
     }
 
     /**
@@ -156,7 +165,6 @@ public class BasicRandomGeneratorTest {
         testDoGenerateForClass(Boolean.class);
     }
 
-
     /**
      * Test unregisterd type.
      */
@@ -174,9 +182,11 @@ public class BasicRandomGeneratorTest {
      *            The class type to test.
      */
     private void testDoGenerateForClass(final Class<? extends Object> type) {
-        Affirm.affirmTrue(String.format("Failed to get the requested type=[%s] from BasicRandomGenerator", type),
-                basicRandomGenerator.doGenerate(type).getClass() == type);
+        Affirm.affirmTrue(String.format(
+                "Failed to get the requested type=[%s] from BasicRandomGenerator recieved=[%s] instead", type,
+                basicRandomGenerator.doGenerate(type)), type.isInstance(basicRandomGenerator.doGenerate(type)));
         Object object = type.cast(basicRandomGenerator.doGenerate(type));
+
         Affirm.affirmNotNull(String.format("Request to registered type [%s] must return non-null value!!", type),
                 object);
 
