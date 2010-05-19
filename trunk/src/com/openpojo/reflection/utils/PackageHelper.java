@@ -32,6 +32,8 @@ public final class PackageHelper {
     public static final char PATH_SEPERATOR = '/';
     public static final char PACKAGE_SEPERATOR = '.';
 
+    private static final String CLASS_SUFFIX = ".class";
+
     /**
      * Get a list of all classes in the package.
      *
@@ -41,21 +43,12 @@ public final class PackageHelper {
     public static List<Class<?>> getClasses(final String packageName) {
         List<Class<?>> classes = new LinkedList<Class<?>>();
 
-        // Get a File object for the package
-        File directory;
-        directory = getPackageAsDirectory(packageName);
+        File directory = getPackageAsDirectory(packageName);
 
-        // Get the list of the files contained in the package
-        String[] files = directory.list();
-
-        for (int i = 0; i < files.length; i++) {
-            if (isClass(files[i])) {
-                try {
-                    classes.add(Class.forName(getFQClassName(packageName, files[i])));
-                } catch (ClassNotFoundException e) {
-                    // this should never happen since we get the entry from directory listing.
-                    throw ReflectionException.getInstance(e);
-                }
+        for (File entry : directory.listFiles()) {
+            if (isClass(entry.getName())) {
+                Class<?> clazz = getPathEntryAsClass(packageName, entry.getName());
+                classes.add(clazz);
             }
         }
 
@@ -66,33 +59,49 @@ public final class PackageHelper {
      * Turn a java package into a directory listing.
      *
      * @param packageName
-     *          String path of the package to turn into a directoy.
+     *            String path of the package to turn into a directoy.
      * @return
-     *          Return a file representation of the directory.
+     *         Return a file representation of the directory.
      */
     public static File getPackageAsDirectory(final String packageName) {
 
-        ClassLoader cld = Thread.currentThread().getContextClassLoader();
-        if (cld == null) {
-            throw ReflectionException.getInstance("Can't get class loader.");
-        }
-
-        String path = packageName.replace('.', '/');
-        URL resource = cld.getResource(path);
-        if (resource == null) {
-            throw ReflectionException.getInstance("No resource for " + path);
-        }
-
-        File directory = null;
-        directory = new File(resource.getFile());
-        if (!directory.exists()) {
-            throw ReflectionException.getInstance(packageName + " does not appear to be a valid package");
-        }
-
+        String path = getFullyQualifiedPathForPackage(packageName);
+        File directory = new File(path);
         return directory;
     }
 
-    private static final String CLASS_SUFFIX = ".class";
+    private static Class<?> getPathEntryAsClass(final String packageName, final String entry) {
+        return loadClass(getClassLoader(), getFQClassName(packageName, entry));
+    }
+
+    private static String getFullyQualifiedPathForPackage(final String packageName) {
+        String packageAsPath = convertPackageToPath(packageName);
+        URL resource = getResource(getClassLoader(), packageAsPath);
+        return resource.getFile();
+    }
+
+
+    private static Class<?> loadClass(final ClassLoader classLoader, final String className) {
+        try {
+            return classLoader.loadClass(className);
+        } catch (ClassNotFoundException e) {
+            throw ReflectionException.getInstance(e);
+        }
+    }
+
+    private static ClassLoader getClassLoader() {
+        return Thread.currentThread().getContextClassLoader();
+    }
+
+    private static URL getResource(final ClassLoader classLoader, final String path) {
+        return classLoader.getResource(path);
+    }
+
+
+
+    private static String convertPackageToPath(final String packageName) {
+        return packageName.replace(PACKAGE_SEPERATOR, PATH_SEPERATOR);
+    }
 
     /**
      * Returns true if the string refers to a class entry (i.e. ends with .class).
@@ -117,8 +126,8 @@ public final class PackageHelper {
      * @return
      *         The fully qualifed package name and classname.
      */
-    private static String getFQClassName(final String packagename, final String fileEntry) {
-        String className = packagename + '.' + fileEntry.substring(0, fileEntry.length() - CLASS_SUFFIX.length());
+    private static String getFQClassName(final String packageName, final String fileEntry) {
+        String className = packageName + '.' + fileEntry.substring(0, fileEntry.length() - CLASS_SUFFIX.length());
         return className;
     }
 }
