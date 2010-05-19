@@ -25,40 +25,20 @@ public class ReflectionException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    private ReflectionException() {
-
-    }
-
     public static ReflectionException getInstance(final String message) {
-        return new ReflectionException(message);
+        return new ReflectionException(message, null);
     }
 
     public static ReflectionException getInstance(final Throwable cause) {
-        return new ReflectionException(cause);
+        String message = null;
+        if (cause != null) {
+            message = cause.getMessage();
+        }
+        return new ReflectionException(message, cause);
     }
 
     public static ReflectionException getInstance(final String message, final Throwable cause) {
         return new ReflectionException(message, cause);
-    }
-
-    /**
-     * Reflection Exception with message constructor
-     *
-     * @param message
-     *            The description of the exception.
-     */
-    private ReflectionException(final String message) {
-        super(message);
-    }
-
-    /**
-     * Reflection Exception with throwable constructor.
-     *
-     * @param cause
-     *            The root cause of this reflection exception.
-     */
-    private ReflectionException(final Throwable cause) {
-        super(cause);
     }
 
     /**
