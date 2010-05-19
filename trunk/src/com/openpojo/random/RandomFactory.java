@@ -22,6 +22,7 @@ import java.util.Map;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
+import com.openpojo.random.impl.VoidRandomGenerator;
 import com.openpojo.random.thread.GeneratedRandomValues;
 
 /**
@@ -59,6 +60,7 @@ public class RandomFactory {
 
     static {
         // register defaults with Factory.
+        RandomFactory.addRandomGenerator(VoidRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(BasicRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(TimestampRandomGenerator.getInstance());
     }
