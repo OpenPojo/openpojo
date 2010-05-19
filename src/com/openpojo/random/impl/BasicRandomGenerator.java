@@ -19,6 +19,7 @@ package com.openpojo.random.impl;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
@@ -39,8 +40,9 @@ import com.openpojo.random.RandomGenerator;
  *  8. char & Character <br>
  *  9. String <br>
  * 10. Date<br>
- * 11. java.math.BigDecimal <br>
- * 12. java.math.BigInteger <br>
+ * 11. Calendar<br>
+ * 12. java.math.BigDecimal <br>
+ * 13. java.math.BigInteger <br>
  * <br>
  * You can overwrite any of those types with your own generator and register it with the RandomFactory. <br>
  * <strong>Note:</strong><br>
@@ -66,7 +68,7 @@ public final class BasicRandomGenerator implements RandomGenerator {
 
     private static final Class<?>[] TYPES = new Class<?>[]{ boolean.class, Boolean.class, int.class, Integer.class,
             float.class, Float.class, double.class, Double.class, long.class, Long.class, short.class, Short.class,
-            byte.class, Byte.class, char.class, Character.class, String.class, Date.class, BigDecimal.class,
+            byte.class, Byte.class, char.class, Character.class, String.class, Date.class, Calendar.class, BigDecimal.class,
             BigInteger.class };
 
     private static final char[] CHARACTERS = new char[]{ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -129,6 +131,12 @@ public final class BasicRandomGenerator implements RandomGenerator {
 
         if (type == Date.class) {
             return new Date((Long) RandomFactory.getRandomValue(Long.class));
+        }
+
+        if (type == Calendar.class) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis((Long) RandomFactory.getRandomValue(Long.class));
+            return calendar;
         }
 
         return null;
