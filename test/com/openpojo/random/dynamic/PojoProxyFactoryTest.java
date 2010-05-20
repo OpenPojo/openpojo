@@ -18,28 +18,28 @@ public class PojoProxyFactoryTest {
 
     @Test
     public void testGetProxyPojoFor() {
-        ASimpleInterface aSimpleInterface = (ASimpleInterface) PojoProxyFactory.getRandomReturnProxyPojoForInterface(ASimpleInterface.class);
+        ASimpleInterface aSimpleInterface = PojoProxyFactory
+                .getRandomReturnProxyPojoForInterface(ASimpleInterface.class);
 
         Assert.assertNotNull(aSimpleInterface.getName());
 
         String name = aSimpleInterface.getName();
         String otherName = aSimpleInterface.getName();
         if (name.equals(otherName)) { // Just incase they are the same
-            Assert.assertFalse(String.format("RandomProxyFactory=[%s] returned a non-Random Pojo Proxy"),
-                    name.equals(aSimpleInterface.getName()));
+            Assert.assertFalse(String.format("RandomProxyFactory=[%s] returned a non-Random Pojo Proxy"), name
+                    .equals(aSimpleInterface.getName()));
         }
 
         // now invoke a method that returns void.
         aSimpleInterface.doSomethingUseful();
     }
 
-
-    @Test (expected = ReflectionException.class)
+    @Test(expected = ReflectionException.class)
     public void shouldFailAbstractClass() {
         PojoProxyFactory.getRandomReturnProxyPojoForInterface(AnAbstractClass.class);
     }
 
-    @Test (expected = ReflectionException.class)
+    @Test(expected = ReflectionException.class)
     public void shouldFailConcreteClass() {
         PojoProxyFactory.getRandomReturnProxyPojoForInterface(AConcreteClass.class);
     }

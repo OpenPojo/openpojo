@@ -30,14 +30,15 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  */
 public class PojoProxyFactory {
 
-    public static Object getRandomReturnProxyPojoForInterface(final Class<?> clazz) {
+    @SuppressWarnings("unchecked")
+    public static <T> T getRandomReturnProxyPojoForInterface(final Class<T> clazz) {
         PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
         if (!pojoClass.isInterface()) {
             throw ReflectionException.getInstance(String.format(
                     "[%s] is not an interface, can't create a proxy for concrete or abstract types.", pojoClass
                             .getName()));
         }
-        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{ pojoClass
+        return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{ pojoClass
                 .getClazz() }, RandomReturnInvocationHandler.getInstance());
     }
 }
