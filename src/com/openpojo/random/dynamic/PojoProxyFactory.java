@@ -30,8 +30,19 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  */
 public class PojoProxyFactory {
 
+    /**
+     * This method returns a random instance for a given interface.
+     * The instance will return random values upon method invocations.
+     *
+     * @param <T>
+     *          The templated type to generate an instance of.
+     * @param clazz
+     *          The interface to generate the implementations on.
+     * @return
+     *          An instance of the interface.
+     */
     @SuppressWarnings("unchecked")
-    public static <T> T getRandomPojoProxyInstanceForInterface(final Class<T> clazz) {
+    public static <T> T getRandomInstance(final Class<T> clazz) {
         PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
         if (!pojoClass.isInterface()) {
             throw ReflectionException.getInstance(String.format(

@@ -16,6 +16,8 @@
  */
 package com.openpojo.random.impl;
 
+import static com.openpojo.random.impl.CommonCode.testDoGenerateForClass;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
@@ -41,7 +43,7 @@ public class BasicRandomGeneratorTest {
      */
     @Test
     public void testString() {
-        testDoGenerateForClass(String.class);
+        testDoGenerateForClass(basicRandomGenerator, String.class);
     }
 
     /**
@@ -49,7 +51,7 @@ public class BasicRandomGeneratorTest {
      */
     @Test
     public void testDate() {
-        testDoGenerateForClass(Date.class);
+        testDoGenerateForClass(basicRandomGenerator, Date.class);
     }
 
     /**
@@ -57,7 +59,7 @@ public class BasicRandomGeneratorTest {
      */
     @Test
     public void testCalendar() {
-        testDoGenerateForClass(Calendar.class);
+        testDoGenerateForClass(basicRandomGenerator, Calendar.class);
     }
 
     /**
@@ -65,7 +67,7 @@ public class BasicRandomGeneratorTest {
      */
     @Test
     public void testBigDecimal() {
-        testDoGenerateForClass(BigDecimal.class);
+        testDoGenerateForClass(basicRandomGenerator, BigDecimal.class);
     }
 
     /**
@@ -73,7 +75,7 @@ public class BasicRandomGeneratorTest {
      */
     @Test
     public void testBigInteger() {
-        testDoGenerateForClass(BigInteger.class);
+        testDoGenerateForClass(basicRandomGenerator, BigInteger.class);
     }
 
     /**
@@ -85,7 +87,7 @@ public class BasicRandomGeneratorTest {
 
         @SuppressWarnings("unused")
         char primitiveChar = (Character) basicRandomGenerator.doGenerate(char.class);
-        testDoGenerateForClass(Character.class);
+        testDoGenerateForClass(basicRandomGenerator, Character.class);
     }
 
     /**
@@ -96,7 +98,7 @@ public class BasicRandomGeneratorTest {
         // Byte
         @SuppressWarnings("unused")
         byte primitiveByte = (Byte) basicRandomGenerator.doGenerate(byte.class);
-        testDoGenerateForClass(Byte.class);
+        testDoGenerateForClass(basicRandomGenerator, Byte.class);
     }
 
     /**
@@ -107,7 +109,7 @@ public class BasicRandomGeneratorTest {
         // Short
         @SuppressWarnings("unused")
         short primitiveShort = (Short) basicRandomGenerator.doGenerate(short.class);
-        testDoGenerateForClass(Short.class);
+        testDoGenerateForClass(basicRandomGenerator, Short.class);
     }
 
     /**
@@ -118,7 +120,7 @@ public class BasicRandomGeneratorTest {
         // Long.
         @SuppressWarnings("unused")
         long primitiveLong = (Long) basicRandomGenerator.doGenerate(long.class);
-        testDoGenerateForClass(Long.class);
+        testDoGenerateForClass(basicRandomGenerator, Long.class);
     }
 
     /**
@@ -129,7 +131,7 @@ public class BasicRandomGeneratorTest {
         // Double.
         @SuppressWarnings("unused")
         double primitiveDouble = (Double) basicRandomGenerator.doGenerate(double.class);
-        testDoGenerateForClass(Double.class);
+        testDoGenerateForClass(basicRandomGenerator, Double.class);
     }
 
     /**
@@ -140,7 +142,7 @@ public class BasicRandomGeneratorTest {
         // Float.
         @SuppressWarnings("unused")
         float primitiveFloat = (Float) basicRandomGenerator.doGenerate(float.class);
-        testDoGenerateForClass(Float.class);
+        testDoGenerateForClass(basicRandomGenerator, Float.class);
     }
 
     /**
@@ -151,7 +153,7 @@ public class BasicRandomGeneratorTest {
         // Integer.
         @SuppressWarnings("unused")
         int primitiveInt = (Integer) basicRandomGenerator.doGenerate(int.class);
-        testDoGenerateForClass(Integer.class);
+        testDoGenerateForClass(basicRandomGenerator, Integer.class);
     }
 
     /**
@@ -162,7 +164,7 @@ public class BasicRandomGeneratorTest {
         // Boolean.
         @SuppressWarnings("unused")
         boolean primitiveBoolean = (Boolean) basicRandomGenerator.doGenerate(boolean.class);
-        testDoGenerateForClass(Boolean.class);
+        testDoGenerateForClass(basicRandomGenerator, Boolean.class);
     }
 
     /**
@@ -173,38 +175,6 @@ public class BasicRandomGeneratorTest {
         Affirm.affirmNull(String.format("Request to non-registered type [%s] must return null!!", this.getClass()),
                 basicRandomGenerator.doGenerate(this.getClass()));
 
-    }
-
-    /**
-     * Utility method to assist with testing all non-Primitive classes.
-     *
-     * @param type
-     *            The class type to test.
-     */
-    private void testDoGenerateForClass(final Class<? extends Object> type) {
-        Affirm.affirmTrue(String.format(
-                "Failed to get the requested type=[%s] from BasicRandomGenerator recieved=[%s] instead", type,
-                basicRandomGenerator.doGenerate(type)), type.isInstance(basicRandomGenerator.doGenerate(type)));
-        Object object = type.cast(basicRandomGenerator.doGenerate(type));
-
-        Affirm.affirmNotNull(String.format("Request to registered type [%s] must return non-null value!!", type),
-                object);
-
-        Object anotherObject = basicRandomGenerator.doGenerate(type);
-        if (object.equals(anotherObject)) { // Just incase they are the same
-            anotherObject = basicRandomGenerator.doGenerate(type);
-            // if Boolean, try for 20 times, since there is a 50% chance we land on the same value.
-            if (object.equals(anotherObject) && type == Boolean.class) {
-                for (int counter = 0; counter < 20; counter++) {
-                    anotherObject = basicRandomGenerator.doGenerate(type);
-                    if (!object.equals(anotherObject)) {
-                        break;
-                    }
-                }
-            }
-        }
-        Affirm.affirmFalse(String.format("BasicRandomGenerator generating the same values for type=[%s]", type), object
-                .equals(anotherObject));
     }
 
     /**
