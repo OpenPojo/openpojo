@@ -18,8 +18,6 @@ package com.openpojo.random.impl;
 
 import java.sql.Timestamp;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +28,7 @@ import com.openpojo.random.RandomGenerator;
  */
 public class TimestampRandomGeneratorTest {
     private RandomGenerator timestampRandomGenerator;
+    Class<?> timestampClass = Timestamp.class;
     private static final int EXPECTED_TYPES = 1;
 
     @Before
@@ -42,15 +41,7 @@ public class TimestampRandomGeneratorTest {
      */
     @Test
     public final void testDoGenerate() {
-        Assert.assertEquals(timestampRandomGenerator.doGenerate(Timestamp.class).getClass(), Timestamp.class);
-
-        Timestamp timestamp = (Timestamp) timestampRandomGenerator.doGenerate(Timestamp.class);
-        Assert.assertNotNull(timestamp);
-        Timestamp anotherTimestamp = (Timestamp) timestampRandomGenerator.doGenerate(Timestamp.class);
-        if (timestamp.equals(anotherTimestamp)) { // Just incase they are equal
-            anotherTimestamp = (Timestamp) timestampRandomGenerator.doGenerate(Timestamp.class);
-        }
-        Assert.assertFalse(timestamp.equals(anotherTimestamp));
+        CommonCode.testDoGenerateForClass(timestampRandomGenerator, timestampClass);
     }
 
     /**
@@ -58,8 +49,7 @@ public class TimestampRandomGeneratorTest {
      */
     @Test
     public final void testGetTypes() {
-        Assert.assertEquals("New Types added/removed to TimestampRandomGenerator?", EXPECTED_TYPES,
-                timestampRandomGenerator.getTypes().size());
+        CommonCode.testGetType(timestampRandomGenerator, timestampClass, EXPECTED_TYPES);
     }
 
 }
