@@ -31,7 +31,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 public class PojoProxyFactory {
 
     @SuppressWarnings("unchecked")
-    public static <T> T getRandomReturnProxyPojoForInterface(final Class<T> clazz) {
+    public static <T> T getRandomPojoProxyInstanceForInterface(final Class<T> clazz) {
         PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
         if (!pojoClass.isInterface()) {
             throw ReflectionException.getInstance(String.format(
