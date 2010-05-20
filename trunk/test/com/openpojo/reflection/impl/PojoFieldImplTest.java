@@ -17,6 +17,7 @@
 package com.openpojo.reflection.impl;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
@@ -98,36 +99,36 @@ public class PojoFieldImplTest {
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#getName()}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testGetName() {
         Affirm.fail("Not yet implemented");
     }
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#hasGetter()}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testHasGetter() {
         Affirm.fail("Not yet implemented");
     }
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#invokeGetter(java.lang.Object)}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testInvokeGetter() {
         Affirm.fail("Not yet implemented");
     }
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#hasSetter()}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testHasSetter() {
         Affirm.fail("Not yet implemented");
     }
@@ -135,27 +136,27 @@ public class PojoFieldImplTest {
     /**
      * Test method for
      * {@link com.openpojo.reflection.impl.PojoFieldImpl#inovkeSetter(java.lang.Object, java.lang.Object)}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testInovkeSetter() {
         Affirm.fail("Not yet implemented");
     }
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#getType()}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testGetType() {
         Affirm.fail("Not yet implemented");
     }
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#getAnnotation(java.lang.Class)}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testGetAnnotation() {
         Affirm.fail("Not yet implemented");
     }
@@ -175,9 +176,9 @@ public class PojoFieldImplTest {
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#isFinal()}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testIsFinal() {
         Affirm.fail("Not yet implemented");
     }
@@ -237,18 +238,18 @@ public class PojoFieldImplTest {
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#toString()}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testToString() {
         Affirm.fail("Not yet implemented");
     }
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#toString(java.lang.Object)}.
-     * TODO:
      */
-    //@Test
+    @Test
+    @Ignore("unimplemented")
     public void testToStringObject() {
         Affirm.fail("Not yet implemented");
     }

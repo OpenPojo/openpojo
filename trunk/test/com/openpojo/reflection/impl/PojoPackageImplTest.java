@@ -23,25 +23,34 @@ import org.junit.Test;
 
 /**
  * @author oshoukry
- *
  */
 public class PojoPackageImplTest {
+
+    private static final int EXPECTED_CLASSES = 19;
+
+    private String packageName;
+    private String expectedToString;
+
+    private PojoPackageImpl pojoPackageImpl;
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
+        packageName = this.getClass().getPackage().getName() + ".sampleclasses";
+        expectedToString = "PojoPackageImpl [packageName=" + packageName + "]";
+        pojoPackageImpl = new PojoPackageImpl(packageName);
     }
 
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoPackageImpl#getPojoClasses()}.
-     */
     @Test
     public void testGetPojoClasses() {
-        String packageName = this.getClass().getPackage().getName() + ".sampleclasses";
-        PojoPackageImpl pojoPackageImpl = new PojoPackageImpl(packageName);
-        Assert.assertEquals(String.format("classes added/removoed to package=[%s]?", packageName), 18, pojoPackageImpl.getPojoClasses().size());
+        Assert.assertEquals(String.format("classes added/removoed to package=[%s]?", packageName), EXPECTED_CLASSES,
+                pojoPackageImpl.getPojoClasses().size());
     }
 
+    @Test
+    public void testtoString() {
+        Assert.assertEquals("toString format changed?!", expectedToString, pojoPackageImpl.toString());
+    }
 }

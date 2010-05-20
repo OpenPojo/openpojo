@@ -16,6 +16,7 @@
  */
 package com.openpojo.reflection.impl;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.openpojo.business.BusinessIdentity;
@@ -42,7 +43,8 @@ import com.openpojo.validation.affirm.Affirm;
 
 public class PojoClassTest {
 
-    // @Test
+    @Test
+    @Ignore("unimplemented")
     public void testPojoClassImpl() {
         Affirm.fail("Not yet implemented");
     }
@@ -103,7 +105,8 @@ public class PojoClassTest {
         }
     }
 
-    // @Test
+    @Test
+    @Ignore("unimplemented")
     public void testGetPojoFields() {
         Affirm.fail("Not yet implemented");
     }
@@ -119,7 +122,8 @@ public class PojoClassTest {
                 .getPojoMethods().size());
     }
 
-    // @Test
+    @Test
+    @Ignore("unimplemented")
     public void testGetName() {
         Affirm.fail("Not yet implemented");
     }
@@ -278,12 +282,14 @@ public class PojoClassTest {
                 .getClazz()));
     }
 
-    // @Test
+    @Test
+    @Ignore("unimplemented")
     public void testToString() {
         Affirm.fail("Not yet implemented");
     }
 
-    // @Test
+    @Test
+    @Ignore("unimplemented")
     public void testToStringObject() {
         Affirm.fail("Not yet implemented");
     }
