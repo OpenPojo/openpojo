@@ -93,6 +93,7 @@ public class RandomFactory {
         }
         RandomGenerator randomGenerator = RandomFactory.generators.get(type);
         if (randomGenerator == null) {
+            //TODO: get random instance if its an interface?
             throw RandomGeneratorException.getInstance(String.format("No Random Generators registered for type=[%s]", type.getName()));
         }
         GeneratedRandomValues.add(type);
