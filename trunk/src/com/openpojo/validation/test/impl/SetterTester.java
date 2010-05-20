@@ -23,8 +23,7 @@ import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.Tester;
 
 /**
- * Test the setter and ensure it sets the field being tested.
- * Exception are any fields defined as "static final"
+ * Test the setter and ensure it sets the field being tested if and only if a Setter method was defined.
  *
  * @author oshoukry
  */
@@ -35,7 +34,7 @@ public class SetterTester implements Tester {
 
         classInstance = pojoClass.newInstance();
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (!fieldEntry.isFinal()) {
+            if (fieldEntry.hasSetter()) {
                 Object value = RandomFactory.getRandomValue(fieldEntry.getType());
                 fieldEntry.inovkeSetter(classInstance, value);
                 Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
