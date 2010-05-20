@@ -19,7 +19,7 @@ public class PojoProxyFactoryTest {
     @Test
     public void testGetProxyPojoFor() {
         ASimpleInterface aSimpleInterface = PojoProxyFactory
-                .getRandomPojoProxyInstanceForInterface(ASimpleInterface.class);
+                .getRandomInstance(ASimpleInterface.class);
 
         Assert.assertNotNull(aSimpleInterface.getName());
 
@@ -36,12 +36,12 @@ public class PojoProxyFactoryTest {
 
     @Test(expected = ReflectionException.class)
     public void shouldFailAbstractClass() {
-        PojoProxyFactory.getRandomPojoProxyInstanceForInterface(AnAbstractClass.class);
+        PojoProxyFactory.getRandomInstance(AnAbstractClass.class);
     }
 
     @Test(expected = ReflectionException.class)
     public void shouldFailConcreteClass() {
-        PojoProxyFactory.getRandomPojoProxyInstanceForInterface(AConcreteClass.class);
+        PojoProxyFactory.getRandomInstance(AConcreteClass.class);
     }
 
 }
