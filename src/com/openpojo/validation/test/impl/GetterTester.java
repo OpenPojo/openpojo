@@ -21,11 +21,9 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.Tester;
-import com.openpojo.validation.utils.ValidationHelper;
 
 /**
- * Test the getter and ensure it retrieves from the field being tested.
- * Exception are any fields defined as "static final"
+ * Test the getter and ensure it retrieves from the field being tested if and only if it has a getter defined.
  *
  * @author oshoukry
  */
@@ -36,9 +34,15 @@ public class GetterTester implements Tester {
 
         classInstance = pojoClass.newInstance();
         for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (!ValidationHelper.isStaticFinal(fieldEntry)) {
-                Object value = RandomFactory.getRandomValue(fieldEntry.getType());
-                fieldEntry.set(classInstance, value);
+            if (fieldEntry.hasGetter()) {
+                Object value;
+                if (fieldEntry.isFinal()) {
+                    // get default value
+                    value = fieldEntry.get(classInstance);
+                } else {
+                    value = RandomFactory.getRandomValue(fieldEntry.getType());
+                    fieldEntry.set(classInstance, value);
+                }
                 Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value, fieldEntry
                         .invokeGetter(classInstance));
             }
