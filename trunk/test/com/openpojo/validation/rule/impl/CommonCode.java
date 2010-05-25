@@ -36,9 +36,11 @@ public final class CommonCode {
             try {
                 rule.evaluate(PojoClassFactory.getPojoClass(clazz));
                 Affirm.fail(String
-                        .format("Rule = [%s] failed to detect error while evaluating class=[%s]", rule, clazz));
+                        .format("Rule = [%s] failed to detect error while evaluating class= [%s]", rule, clazz));
             } catch (AssertionError ae) {
-                // expected
+                if (ae.getMessage().contains("Rule = [")) {
+                    throw ae;
+                }
             }
         }
     }

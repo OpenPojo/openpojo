@@ -19,6 +19,7 @@ package com.openpojo.random;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.openpojo.log.Logger;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.ObjectRandomGenerator;
@@ -29,8 +30,10 @@ import com.openpojo.random.thread.GeneratedRandomValues;
 /**
  * This factory is responsible for generating the random values using the registered RandomGenerator(s). <br>
  * This Factory will automatically detect cyclic dependency and return null for the second time around.<br>
- * <br><i>Simple Example</i><br>
+ * <br>
+ * <i>Simple Example</i><br>
  * If you have an Employee class that has the following constructor:
+ *
  * <pre>
  * {@code
  * public Employee(final String fullName, final Employee manager) {
@@ -38,7 +41,9 @@ import com.openpojo.random.thread.GeneratedRandomValues;
  * }
  * }
  * </pre>
+ *
  * And you created the random generator as follows:
+ *
  * <pre>
  * {@code
  * public Object doGenerate(Class<?> type) {
@@ -47,8 +52,8 @@ import com.openpojo.random.thread.GeneratedRandomValues;
  * }
  * }
  * </pre>
- * This would potentially cause a stack over-flow since there is a cyclic dependency of Employee on itself.
  *
+ * This would potentially cause a stack over-flow since there is a cyclic dependency of Employee on itself.
  * So to prevent stack over-flow (which would occur by trying to create a manager for every manager), this Factory has
  * built in protection (using {@link GeneratedRandomValues}) to prevent such a thing by recording for a current
  * recursive call if it's seen this type before, if so, it will return null the second time around.
@@ -56,6 +61,7 @@ import com.openpojo.random.thread.GeneratedRandomValues;
  * @author oshoukry
  */
 public class RandomFactory {
+    private static final Logger logger = Logger.getLog(RandomFactory.class);
 
     private static final Map<Class<?>, RandomGenerator> generators = new HashMap<Class<?>, RandomGenerator>();
 
@@ -91,12 +97,14 @@ public class RandomFactory {
      */
     public static final Object getRandomValue(final Class<?> type) {
         if (GeneratedRandomValues.contains(type)) {
+            logger.warn("Cyclic dependency on random generator for type=[{0}] detected, returning null", type);
             return null; // seen before, break loop.
         }
         RandomGenerator randomGenerator = RandomFactory.generators.get(type);
         if (randomGenerator == null) {
-            //TODO: get random instance if its an interface?
-            throw RandomGeneratorException.getInstance(String.format("No Random Generators registered for type=[%s]", type.getName()));
+            // TODO: get random instance if its an interface?
+            throw RandomGeneratorException.getInstance(String.format("No Random Generators registered for type=[%s]",
+                    type.getName()));
         }
         GeneratedRandomValues.add(type);
         Object randomValue;
