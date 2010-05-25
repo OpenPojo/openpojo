@@ -28,9 +28,9 @@ import com.openpojo.reflection.facade.FacadeFactory;
  * 2. org.apache.log4j.Logger
  * 3. java.util.logging.Logger.
  */
-public final class LogFactory {
+public final class LoggerFactory {
 
-    private LogFactory() {
+    private LoggerFactory() {
     }
 
     /**
@@ -41,7 +41,7 @@ public final class LogFactory {
      * @return
      *         returns an instance of the Logger.
      */
-    public static Logger getLog(final Class<?> clazz) {
+    public static Logger getLogger(final Class<?> clazz) {
         return (Logger) ActiveLogger.activeLoggerPojoClass.newInstance(getLoggerCategory(clazz));
     }
 
@@ -53,7 +53,7 @@ public final class LogFactory {
      * @return
      *         returns and instance of the logger.
      */
-    public static Logger getLog(final String category) {
+    public static Logger getLogger(final String category) {
         return (Logger) ActiveLogger.activeLoggerPojoClass.newInstance(getLoggerCategory(category));
     }
 
@@ -74,8 +74,8 @@ public final class LogFactory {
      * @author oshoukry
      */
     private static class ActiveLogger {
-        private static final String[] SUPPORTED_LOGGERS = new String[]{ "com.openpojo.log.SLF4JLogger",
-                "com.openpojo.log.Log4JLogger", "com.openpojo.log.JavaLogger" };
+        private static final String[] SUPPORTED_LOGGERS = new String[]{ "com.openpojo.log.impl.SLF4JLogger",
+                "com.openpojo.log.impl.Log4JLogger", "com.openpojo.log.impl.JavaLogger" };
 
         private final static PojoClass activeLoggerPojoClass = FacadeFactory
                 .getLoadedFacadePojoClass(SUPPORTED_LOGGERS);

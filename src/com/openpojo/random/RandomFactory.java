@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.ObjectRandomGenerator;
@@ -61,7 +62,7 @@ import com.openpojo.random.thread.GeneratedRandomValues;
  * @author oshoukry
  */
 public class RandomFactory {
-    private static final Logger logger = Logger.getLog(RandomFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(RandomFactory.class);
 
     private static final Map<Class<?>, RandomGenerator> generators = new HashMap<Class<?>, RandomGenerator>();
 

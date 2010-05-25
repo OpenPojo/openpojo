@@ -1,17 +1,18 @@
 /**
  * 2010 Copyright Osman Shoukry.
  */
-package com.openpojo.log;
+package com.openpojo.log.impl;
 
 import org.apache.log4j.Level;
 
 import com.openpojo.business.BusinessIdentity;
+import com.openpojo.log.Logger;
 
 /**
  * This class wrapps the Log4J underlying layer.
  * It will also configure Log4J with the most basic configuration if no configuration has been specified already.
  */
-final class Log4JLogger extends Logger {
+public final class Log4JLogger extends Logger {
 
     private final org.apache.log4j.Logger logger;
 
@@ -26,7 +27,7 @@ final class Log4JLogger extends Logger {
         return org.apache.log4j.Logger.getRootLogger().getAllAppenders().hasMoreElements();
     }
 
-    Log4JLogger(final String category) {
+    private Log4JLogger(final String category) {
         logger = org.apache.log4j.Logger.getLogger(category);
     }
 

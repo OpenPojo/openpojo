@@ -14,7 +14,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.log;
+package com.openpojo.log.utils;
 
 import java.text.FieldPosition;
 import java.text.MessageFormat;
@@ -24,7 +24,7 @@ import java.util.Arrays;
  * This utility class is used by the logger to format log messages.
  * @author oshoukry
  */
-final class MessageFormatter {
+public final class MessageFormatter {
     private static final FieldPosition POSITION = new FieldPosition(0);
     private static final int BUFFER_FACTOR = 8;
 
@@ -48,7 +48,7 @@ final class MessageFormatter {
      * @return
      *              A formatted string ready for logging.
      */
-    static String format(final String message, final Object ...args) {
+    public static String format(final String message, final Object ...args) {
         if (message == null) {
             return usingCurlyBrackets(DEFAULT_MESSAGE
                     + generateCurlyBracketTokens(args == null ? 0 : args.length), args);
