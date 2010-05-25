@@ -27,8 +27,7 @@ public class TestNGAssertAffirmation implements Affirmation {
 
     static {
         // check that TestNG is loaded
-        @SuppressWarnings("unused")
-        org.testng.Assert Assert;
+        org.testng.Assert.assertTrue(true);
     }
 
     private TestNGAssertAffirmation() {

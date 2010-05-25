@@ -30,7 +30,7 @@ public final class FacadeFactory {
         for (String facadeName : facadeNames) {
             try {
                 return PojoClassFactory.getPojoClass(Class.forName(facadeName));
-            } catch (Exception e) {
+            } catch (Throwable t) {
                 // this class not found, lets try the next one in the list.
             }
         }

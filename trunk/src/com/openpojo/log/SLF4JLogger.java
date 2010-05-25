@@ -22,9 +22,10 @@ final class SLF4JLogger extends Logger {
         try {
             PojoClassFactory.getPojoClass(Class.forName("com.openpojo.log.Log4JLogger")).newInstance(
                     SLF4JLogger.class.getName());
-        } catch (ClassNotFoundException e) {
-
+        } catch (Throwable ex) {
+            //Not Log4J underlying perhaps.
         }
+
     }
 
     SLF4JLogger(final String category) {
