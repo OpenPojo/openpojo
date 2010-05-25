@@ -18,6 +18,7 @@
 package com.openpojo.validation.affirm;
 
 import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.facade.FacadeFactory;
 
@@ -31,7 +32,7 @@ public final class AffirmationFactory {
             "com.openpojo.validation.affirm.TestNGAssertAffirmation",
             "com.openpojo.validation.affirm.JUnitAssertAffirmation" };
 
-    private static final Logger log = Logger.getLog(Affirmation.class);
+    private static final Logger log = LoggerFactory.getLogger(Affirmation.class);
 
     /**
      * The only affimation implemented so far, so default to that.

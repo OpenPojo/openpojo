@@ -14,11 +14,12 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.log;
+package com.openpojo.log.impl;
 
 import java.util.logging.Level;
 
 import com.openpojo.business.BusinessIdentity;
+import com.openpojo.log.Logger;
 
 /**
  * Our own JavaLogger adapter.<br>
@@ -30,7 +31,7 @@ import com.openpojo.business.BusinessIdentity;
  * - Error = Level.WARNING<br>
  * - Fatal = Level.SEVERE<br>
  */
-final class JavaLogger extends Logger {
+public final class JavaLogger extends Logger {
 
     private final java.util.logging.Logger logger;
 

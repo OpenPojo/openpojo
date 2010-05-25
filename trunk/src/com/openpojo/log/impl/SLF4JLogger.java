@@ -1,16 +1,17 @@
 /**
  * 2010 Copyright Osman Shoukry.
  */
-package com.openpojo.log;
+package com.openpojo.log.impl;
 
 import com.openpojo.business.BusinessIdentity;
+import com.openpojo.log.Logger;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This class wrapps the Log4J underlying layer.
  * It will also configure Log4J with the most basic configuration if no configuration has been specified already.
  */
-final class SLF4JLogger extends Logger {
+public final class SLF4JLogger extends Logger {
 
     private final org.slf4j.Logger logger;
 
@@ -20,7 +21,7 @@ final class SLF4JLogger extends Logger {
 
     private static void configureUnderlyingLayer() {
         try {
-            PojoClassFactory.getPojoClass(Class.forName("com.openpojo.log.Log4JLogger")).newInstance(
+            PojoClassFactory.getPojoClass(Class.forName("com.openpojo.logger.impl.Log4JLogger")).newInstance(
                     SLF4JLogger.class.getName());
         } catch (Throwable ex) {
             //Not Log4J underlying perhaps.
@@ -28,7 +29,7 @@ final class SLF4JLogger extends Logger {
 
     }
 
-    SLF4JLogger(final String category) {
+    private SLF4JLogger(final String category) {
         logger = org.slf4j.LoggerFactory.getLogger(category);
     }
 

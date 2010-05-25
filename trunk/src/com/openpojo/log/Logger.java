@@ -16,6 +16,8 @@
  */
 package com.openpojo.log;
 
+import com.openpojo.log.utils.MessageFormatter;
+
 /**
  * The main logger interface that all code should use to communicate log messages. See java.text.MessageFormat <br>
  * For example:
@@ -32,28 +34,6 @@ package com.openpojo.log;
  * </pre>
  */
 public abstract class Logger {
-
-    /**
-     * This method returns an instance of Logger class for logging.
-     *
-     * @param clazz
-     *            The Class you are using to log through.
-     * @return returns an instance of the Logger.
-     */
-    public static Logger getLog(final Class<?> clazz) {
-        return LogFactory.getLog(clazz);
-    }
-
-    /**
-     * This method returns an instance of Logger class for logging.
-     *
-     * @param catagory
-     *            The category you want your logs to go through.
-     * @return returns and instance of the logger.
-     */
-    public static Logger getLog(final String catagory) {
-        return LogFactory.getLog(catagory);
-    }
 
     /**
      * Returns true if the underlying log API's trace is enabled.
