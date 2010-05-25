@@ -14,26 +14,21 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.validation.rule.impl;
-
-import org.junit.Test;
-
-import com.openpojo.validation.rule.Rule;
-import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsDoesClass;
-import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsDoesntClass;
+package com.openpojo.log.exception;
 
 /**
  * @author oshoukry
+ *
  */
-public class NoPublicFieldsRuleTest {
-    Class<?>[] failClasses = new Class<?>[]{ NoPublicFieldsDoesntClass.class };
-    Class<?>[] passClasses = new Class<?>[]{ NoPublicFieldsDoesClass.class };
-    Rule rule = new NoPublicFieldsRule();
+public class LoggingException extends RuntimeException {
 
-    @Test
-    public void testEvaluate() {
-        CommonCode.shouldPassRuleValidation(rule, passClasses);
-        CommonCode.shouldFailRuleValidation(rule, failClasses);
+    private static final long serialVersionUID = 1L;
+
+    public LoggingException(final String message) {
+        super(message);
     }
 
+    public static LoggingException getInstance(final String message) {
+        return new LoggingException(message);
+    }
 }

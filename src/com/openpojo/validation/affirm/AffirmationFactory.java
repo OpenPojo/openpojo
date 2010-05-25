@@ -17,19 +17,30 @@
 
 package com.openpojo.validation.affirm;
 
+import com.openpojo.log.Logger;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.facade.FacadeFactory;
+
 /**
  * This Affirmation factory is responsible to return affirmation implementation.<br>
  *
  * @author oshoukry
  */
 public final class AffirmationFactory {
+    private static final String[] SUPPORTED_ASSERTIONS = new String[]{
+            "com.openpojo.validation.affirm.TestNGAssertAffirmation",
+            "com.openpojo.validation.affirm.JUnitAssertAffirmation" };
+
+    private static final Logger log = Logger.getLog(Affirmation.class);
 
     /**
      * The only affimation implemented so far, so default to that.
      */
-    private final Affirmation affirmation = JUnitAssertAffirmation.getInstance();
+    private final Affirmation affirmation;
 
     private AffirmationFactory() {
+        affirmation = getActiveAffirmation();
+        log.info("Dynamically setting affirmation implementation = [{0}]", affirmation);
     }
 
     public static AffirmationFactory getInstance() {
@@ -38,6 +49,11 @@ public final class AffirmationFactory {
 
     public Affirmation getAffirmation() {
         return affirmation;
+    }
+
+    private static Affirmation getActiveAffirmation() {
+        PojoClass loggerPojoClass = FacadeFactory.getLoadedFacadePojoClass(SUPPORTED_ASSERTIONS);
+        return (Affirmation) loggerPojoClass.newInstance();
     }
 
     /**

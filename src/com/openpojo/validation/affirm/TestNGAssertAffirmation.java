@@ -23,33 +23,39 @@ import com.openpojo.business.BusinessIdentity;
  * @author oshoukry
  *
  */
-public class JUnitAssertAffirmation implements Affirmation {
+public class TestNGAssertAffirmation implements Affirmation {
 
-    private JUnitAssertAffirmation() {
+    static {
+        // check that TestNG is loaded
+        @SuppressWarnings("unused")
+        org.testng.Assert Assert;
+    }
+
+    private TestNGAssertAffirmation() {
     }
 
     public void fail(final String message) {
-        org.junit.Assert.fail(message);
+        org.testng.Assert.fail(message);
     }
 
     public void affirmTrue(final String message, final boolean condition) {
-        org.junit.Assert.assertTrue(message, condition);
+        org.testng.Assert.assertTrue(condition, message);
     }
 
     public void affirmFalse(final String message, final boolean condition) {
-        org.junit.Assert.assertFalse(message, condition);
+        org.testng.Assert.assertFalse(condition, message);
     }
 
     public void affirmNotNull(final String message, final Object object) {
-        org.junit.Assert.assertNotNull(message, object);
+        org.testng.Assert.assertNotNull(object, message);
     }
 
     public void affirmNull(final String message, final Object object) {
-        org.junit.Assert.assertNull(message, object);
+        org.testng.Assert.assertNull(object, message);
     }
 
     public void affirmEquals(final String message, final Object first, final Object second) {
-        org.junit.Assert.assertEquals(message, first, second);
+        org.testng.Assert.assertEquals(first, second, message);
     }
 
     @Override
