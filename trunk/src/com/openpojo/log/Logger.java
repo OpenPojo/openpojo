@@ -128,7 +128,9 @@ public abstract class Logger {
      *            The arguments to use in text replacement.
      */
     public final void warn(final String message, final Object... args) {
-        warn(format(message, args));
+        if (isWarnEnabled()) {
+            warn(format(message, args));
+        }
     }
 
     /**
@@ -140,7 +142,9 @@ public abstract class Logger {
      *            The arguments to use in text replacement.
      */
     public final void error(final String message, final Object... args) {
-        error(format(message, args));
+        if (isErrorEnabled()) {
+            error(format(message, args));
+        }
     }
 
     /**
@@ -152,7 +156,9 @@ public abstract class Logger {
      *            The arguments to use in text replacement.
      */
     public final void fatal(final String message, final Object... args) {
-        fatal(format(message, args));
+        if (isFatalEnabled()) {
+            fatal(format(message, args));
+        }
     }
 
     /**
