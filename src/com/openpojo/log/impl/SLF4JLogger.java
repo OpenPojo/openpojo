@@ -24,7 +24,7 @@ public final class SLF4JLogger extends Logger {
             PojoClassFactory.getPojoClass(Class.forName("com.openpojo.logger.impl.Log4JLogger")).newInstance(
                     SLF4JLogger.class.getName());
         } catch (Throwable ex) {
-            //Not Log4J underlying perhaps.
+            // Not Log4J underlying perhaps.
         }
 
     }
@@ -65,33 +65,53 @@ public final class SLF4JLogger extends Logger {
 
     @Override
     public void trace(final Object message) {
-        logger.trace(toString(message));
+        if (message instanceof Throwable) {
+            logger.trace(((Throwable) message).getMessage(), (Throwable) message);
+        } else {
+            logger.trace(toString(message));
+        }
     }
 
     @Override
     public void debug(final Object message) {
-        logger.debug(toString(message));
+        if (message instanceof Throwable) {
+            logger.debug(((Throwable) message).getMessage(), (Throwable) message);
+        } else {
+            logger.debug(toString(message));
+        }
     }
 
     @Override
     public void info(final Object message) {
-        logger.info(toString(message));
+        if (message instanceof Throwable) {
+            logger.info(((Throwable) message).getMessage(), (Throwable) message);
+        } else {
+            logger.info(toString(message));
+        }
     }
 
     @Override
     public void warn(final Object message) {
-        logger.warn(toString(message));
+        if (message instanceof Throwable) {
+            logger.warn(((Throwable) message).getMessage(), (Throwable) message);
+        } else {
+            logger.warn(toString(message));
+        }
     }
 
     @Override
     public void error(final Object message) {
-        logger.error(toString(message));
+        if (message instanceof Throwable) {
+            logger.error(((Throwable) message).getMessage(), (Throwable) message);
+        } else {
+            logger.error(toString(message));
+        }
     }
 
     @Override
     public void fatal(final Object message) {
         // SLF4J has no fatal level, so we're marking this as error
-        logger.error(toString(message));
+        this.error(message);
     }
 
     private String toString(final Object message) {
