@@ -1,0 +1,25 @@
+#summary One-sentence summary of this page.
+
+= News =
+ * *2010-05-26:*
+  * Added support for dynamically creating random instance for any Interface reference.
+  * Added support for dynamically creating random enum for any custom enum.
+  * Added support for TestNG (auto detect and select the routing for Asserts, TestNG then JUnit).
+  * Added a facade for logging with auto-select based on user env (auto detect and select routing for logs, SLF4J, Log4J then Java Logger).
+ * *2010-05-20:*
+  * All code is now being tested using unit tests. 100% code coverage.
+ * *2010-05-12:*
+  * Added PojoClass.getMethods call that returns a list of all PojoMethods adding more control on methods introspection and invocation.
+ * *2010-04-22:*
+  * Added java.math.BigDecimal to BasicRandomGenerator (Thanks to Arun S.).
+  * Added java.math.BigInteger to BasicRandomGenerator.
+ * *2010-04-16:*
+  * Test coverage is > 80%.
+  * Added java.util.Date to BasicRandomGenerator (Thanks to Arun S.).
+  * PojoClassImpl.newInstance(Object[]) now works matching argument count.
+ * *2010-04-12:* Added source jar to the downloadable zip file.
+ * *2010-03-29:* Added Javadoc to the package zip file.
+ * *2010-03-22:* Added *toString* implementation that allows you to just delegate using BusinessIdentity.toString(this) calls, will String-inize all contents of your Class.
+ * *2010-03-11:* Now fully tested and certified the code is pretty stable main features include
+  # *HashCode* & *Equals* can now be done using the *BusinessKey* annotation, just include the openpojo.jar in your runtime environment.
+  # Testing done using Rules, and Testers easily.
