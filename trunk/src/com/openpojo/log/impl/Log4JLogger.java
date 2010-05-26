@@ -3,8 +3,6 @@
  */
 package com.openpojo.log.impl;
 
-import org.apache.log4j.Level;
-
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.log.Logger;
 
@@ -33,32 +31,32 @@ public final class Log4JLogger extends Logger {
 
     @Override
     public boolean isTraceEnabled() {
-        return logger.isEnabledFor(Level.TRACE);
+        return logger.isEnabledFor(org.apache.log4j.Level.TRACE);
     }
 
     @Override
     public boolean isDebugEnabled() {
-        return logger.isEnabledFor(Level.DEBUG);
+        return logger.isEnabledFor(org.apache.log4j.Level.DEBUG);
     }
 
     @Override
     public boolean isInfoEnabled() {
-        return logger.isEnabledFor(Level.INFO);
+        return logger.isEnabledFor(org.apache.log4j.Level.INFO);
     }
 
     @Override
     public boolean isErrorEnabled() {
-        return logger.isEnabledFor(Level.ERROR);
+        return logger.isEnabledFor(org.apache.log4j.Level.ERROR);
     }
 
     @Override
     public boolean isFatalEnabled() {
-        return logger.isEnabledFor(Level.FATAL);
+        return logger.isEnabledFor(org.apache.log4j.Level.FATAL);
     }
 
     @Override
     public boolean isWarnEnabled() {
-        return logger.isEnabledFor(Level.WARN);
+        return logger.isEnabledFor(org.apache.log4j.Level.WARN);
     }
 
     @Override

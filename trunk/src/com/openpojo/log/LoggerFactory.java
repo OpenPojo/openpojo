@@ -16,8 +16,7 @@
  */
 package com.openpojo.log;
 
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.facade.FacadeFactory;
+import com.openpojo.log.utils.ActiveLogger;
 
 /**
  * This Factory will create and return a logger based on the current availability of the underlying logger.
@@ -48,7 +47,7 @@ public final class LoggerFactory {
     /**
      * This method returns an instance of Logger class for logging.
      *
-     * @param catagory
+     * @param category
      *            The category you want your logs to go through.
      * @return
      *         returns and instance of the logger.
@@ -65,25 +64,5 @@ public final class LoggerFactory {
         return clazz == null ? getLoggerCategory((String) null) : clazz.getName();
     }
 
-    /**
-     * This ActiveLogger class is a container that holds the active logging underlying framework for
-     * the current instance of the VM.
-     * The reason this is in a seperate class is to enable lazy loading, the resolution of the active logging mechanism
-     * won't happen until the first call to get the logging framework.
-     *
-     * @author oshoukry
-     */
-    private static class ActiveLogger {
-        private static final String[] SUPPORTED_LOGGERS = new String[]{ "com.openpojo.log.impl.SLF4JLogger",
-                "com.openpojo.log.impl.Log4JLogger", "com.openpojo.log.impl.JavaLogger" };
 
-        private final static PojoClass activeLoggerPojoClass = FacadeFactory
-                .getLoadedFacadePojoClass(SUPPORTED_LOGGERS);
-
-        static {
-            ((Logger) activeLoggerPojoClass.newInstance(ActiveLogger.class.getName())).info(
-                    "Logging subsystem initialized to utilized to [{0}]", activeLoggerPojoClass.getClazz());
-        }
-
-    }
 }
