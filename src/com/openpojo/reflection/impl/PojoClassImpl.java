@@ -58,7 +58,11 @@ class PojoClassImpl implements PojoClass {
     }
 
     public boolean isConcrete() {
-        return !(isAbstract() || isInterface());
+        return !(isAbstract() || isInterface() || isEnum());
+    }
+
+    public boolean isEnum() {
+        return clazz.isEnum();
     }
 
     public boolean isFinal() {
