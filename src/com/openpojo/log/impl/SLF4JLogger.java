@@ -21,7 +21,8 @@ public final class SLF4JLogger extends Logger {
 
     private static void configureUnderlyingLayer() {
         try {
-            PojoClassFactory.getPojoClass(Class.forName("com.openpojo.logger.impl.Log4JLogger")).newInstance(
+
+            PojoClassFactory.getPojoClass(Class.forName("com.openpojo.log.impl.Log4JLogger")).newInstance(
                     SLF4JLogger.class.getName());
         } catch (Throwable ex) {
             // Not Log4J underlying perhaps.
