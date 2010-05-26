@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#Latest news on what is happening in OpenPojo.
 
 = News =
  * *2010-05-26:*
