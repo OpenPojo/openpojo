@@ -16,6 +16,8 @@
  */
 package com.openpojo.validation.test.impl.sampleclasses;
 
+import java.util.Map;
+
 /**
  * @author oshoukry
  *
@@ -24,6 +26,25 @@ public final class ABadGetterAndSetterClass {
     private String attribute;
     private final String stringAttribute = "a String that is Final";
     public String stringNoGetterOrSetterAttribute;
+
+    @SuppressWarnings("unchecked")
+    private Map myMap;
+
+    /**
+     * @return the myMap
+     */
+    @SuppressWarnings("unchecked")
+    public Map getMyMap() {
+        return myMap;
+    }
+
+    /**
+     * @param myMap the myMap to set
+     */
+    @SuppressWarnings("unchecked")
+    public void setMyMap(final Map myMap) {
+        this.myMap = myMap;
+    }
 
     /**
      * @return the stringAttribute

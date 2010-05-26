@@ -28,21 +28,25 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  *
  * @author oshoukry
  */
-public class PojoProxyFactory {
+public class RandomInstanceFromInterfaceRandomGenerator {
+
+    public static RandomInstanceFromInterfaceRandomGenerator getInstance() {
+        return Instance.INSTANCE;
+    }
 
     /**
      * This method returns a random instance for a given interface.
      * The instance will return random values upon method invocations.
      *
      * @param <T>
-     *          The templated type to generate an instance of.
+     *            The templated type to generate an instance of.
      * @param clazz
-     *          The interface to generate the implementations on.
+     *            The interface to generate the implementations on.
      * @return
-     *          An instance of the interface.
+     *         An instance of the interface.
      */
     @SuppressWarnings("unchecked")
-    public static <T> T getRandomInstance(final Class<T> clazz) {
+    public <T> T doGenerate(final Class<T> clazz) {
         PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
         if (!pojoClass.isInterface()) {
             throw ReflectionException.getInstance(String.format(
@@ -52,4 +56,9 @@ public class PojoProxyFactory {
         return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{ pojoClass
                 .getClazz() }, RandomReturnInvocationHandler.getInstance());
     }
+
+    private static class Instance {
+        private static final RandomInstanceFromInterfaceRandomGenerator INSTANCE = new RandomInstanceFromInterfaceRandomGenerator();
+    }
+
 }

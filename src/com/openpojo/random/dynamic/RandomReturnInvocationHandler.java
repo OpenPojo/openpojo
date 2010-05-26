@@ -34,7 +34,31 @@ public class RandomReturnInvocationHandler implements InvocationHandler {
     }
 
     public Object invoke(final Object proxy, final Method method, final Object[] args) {
+        if (method.getName().equals("toString")) {
+            return objectToString(proxy);
+        }
+
+        if (method.getName().equals("equals")) {
+            return objectEquals(proxy, args[0]);
+        }
+
+        if (method.getName().equals("hashCode")) {
+            return objectHashCode(proxy);
+        }
+
         return RandomFactory.getRandomValue(method.getReturnType());
+    }
+
+    private String objectToString(final Object proxy) {
+        return proxy.getClass().getName() + System.identityHashCode(proxy);
+    }
+
+    private int objectHashCode(final Object proxy) {
+        return System.identityHashCode(proxy);
+    }
+
+    private boolean objectEquals(final Object proxy, final Object other) {
+        return System.identityHashCode(proxy) == System.identityHashCode(other);
     }
 
     private static class Instance {

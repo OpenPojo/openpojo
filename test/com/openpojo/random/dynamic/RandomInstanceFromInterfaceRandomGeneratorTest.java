@@ -10,7 +10,7 @@ import com.openpojo.random.dynamic.sampleclasses.ASimpleInterface;
 import com.openpojo.random.dynamic.sampleclasses.AnAbstractClass;
 import com.openpojo.reflection.exception.ReflectionException;
 
-public class PojoProxyFactoryTest {
+public class RandomInstanceFromInterfaceRandomGeneratorTest {
 
     @Before
     public void setUp() throws Exception {
@@ -18,8 +18,8 @@ public class PojoProxyFactoryTest {
 
     @Test
     public void testGetProxyPojoFor() {
-        ASimpleInterface aSimpleInterface = PojoProxyFactory
-                .getRandomInstance(ASimpleInterface.class);
+        ASimpleInterface aSimpleInterface = RandomInstanceFromInterfaceRandomGenerator.getInstance().doGenerate(
+                ASimpleInterface.class);
 
         Assert.assertNotNull(aSimpleInterface.getName());
 
@@ -36,12 +36,12 @@ public class PojoProxyFactoryTest {
 
     @Test(expected = ReflectionException.class)
     public void shouldFailAbstractClass() {
-        PojoProxyFactory.getRandomInstance(AnAbstractClass.class);
+        RandomInstanceFromInterfaceRandomGenerator.getInstance().doGenerate(AnAbstractClass.class);
     }
 
     @Test(expected = ReflectionException.class)
     public void shouldFailConcreteClass() {
-        PojoProxyFactory.getRandomInstance(AConcreteClass.class);
+        RandomInstanceFromInterfaceRandomGenerator.getInstance().doGenerate(AConcreteClass.class);
     }
 
 }
