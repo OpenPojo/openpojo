@@ -48,6 +48,13 @@ public interface PojoClass {
     public boolean isConcrete();
 
     /**
+     * Check if PojoClass wrapps an enum.
+     *
+     * @return true if this PojoClass wraps an enum type.
+     */
+    public boolean isEnum();
+
+    /**
      * Check if PojoClass wrapps a final class.
      *
      * @return true if this PojoClass wrapps a final class.

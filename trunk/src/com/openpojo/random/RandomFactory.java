@@ -21,12 +21,16 @@ import java.util.Map;
 
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
+import com.openpojo.random.dynamic.EnumRandomGenerator;
+import com.openpojo.random.dynamic.RandomInstanceFromInterfaceRandomGenerator;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.ObjectRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
 import com.openpojo.random.impl.VoidRandomGenerator;
 import com.openpojo.random.thread.GeneratedRandomValues;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This factory is responsible for generating the random values using the registered RandomGenerator(s). <br>
@@ -66,6 +70,7 @@ public class RandomFactory {
 
     private static final Map<Class<?>, RandomGenerator> generators = new HashMap<Class<?>, RandomGenerator>();
 
+
     static {
         // register defaults with Factory.
         RandomFactory.addRandomGenerator(VoidRandomGenerator.getInstance());
@@ -101,9 +106,18 @@ public class RandomFactory {
             logger.warn("Cyclic dependency on random generator for type=[{0}] detected, returning null", type);
             return null; // seen before, break loop.
         }
+
         RandomGenerator randomGenerator = RandomFactory.generators.get(type);
         if (randomGenerator == null) {
-            // TODO: get random instance if its an interface?
+            PojoClass typeClass = PojoClassFactory.getPojoClass(type);
+            if (typeClass.isInterface()) {
+                return RandomInstanceFromInterfaceRandomGenerator.getInstance().doGenerate(type);
+            }
+
+            if (typeClass.isEnum()) {
+                return EnumRandomGenerator.getInstance().doGenerate(type);
+            }
+
             throw RandomGeneratorException.getInstance(String.format("No Random Generators registered for type=[%s]",
                     type.getName()));
         }

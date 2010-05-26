@@ -16,6 +16,8 @@
  */
 package com.openpojo.reflection.impl;
 
+import java.lang.reflect.Modifier;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -29,7 +31,6 @@ import com.openpojo.reflection.impl.sampleclasses.AClassWithExceptionalConstruct
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithSixMethods;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithoutMethods;
-import com.openpojo.reflection.impl.sampleclasses.AConcreteClass;
 import com.openpojo.reflection.impl.sampleclasses.AFinalClass;
 import com.openpojo.reflection.impl.sampleclasses.ANonFinalClass;
 import com.openpojo.reflection.impl.sampleclasses.AnAbstractClass;
@@ -42,6 +43,7 @@ import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedCl
 import com.openpojo.validation.affirm.Affirm;
 
 public class PojoClassTest {
+    private static final String SAMPLE_CLASSES_PKG = PojoClassTest.class.getPackage().getName() + ".sampleclasses";
 
     @Test
     @Ignore("unimplemented")
@@ -50,21 +52,22 @@ public class PojoClassTest {
     }
 
     @Test
-    public void testIsInterface() {
-        Class<?> anInterfaceClass = AnInterfaceClass.class;
-        PojoClass pojoClass = getPojoClassImplForClass(anInterfaceClass);
-        Affirm.affirmTrue(String.format(
-                "IsInterface on interface=[%s] returned false for PojoClass implementation=[%s]!!", anInterfaceClass,
-                pojoClass), pojoClass.isInterface());
-    }
+    public void testIsInterfaceIsAbstractIsConcrete() {
+        String message = "Class type check failed on [%s], actual class returned [%s], PojoClass returned [%s]!!";
+        for (PojoClass pojoClass : PojoClassFactory.getPojoClassesRecursively(SAMPLE_CLASSES_PKG, null)) {
+            Class<?> actualClass = pojoClass.getClazz();
+            Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isInterface()", actualClass
+                    .isInterface(), pojoClass.isInterface()), pojoClass.isInterface() == actualClass.isInterface());
+            Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isAbstract()", Modifier
+                    .isAbstract(actualClass.getModifiers()), pojoClass.isAbstract()),
+                    pojoClass.isAbstract() == Modifier.isAbstract(actualClass.getModifiers()));
 
-    @Test
-    public void testIsAbstract() {
-        Class<?> anAbstractClass = AnAbstractClass.class;
-        PojoClass pojoClass = getPojoClassImplForClass(anAbstractClass);
-        Affirm.affirmTrue(String.format(
-                "IsAbstract on abstract=[%s] returned false for PojoClass implementation=[%s]!!", anAbstractClass,
-                pojoClass), pojoClass.isAbstract());
+            boolean expectedValue = !(Modifier.isAbstract(actualClass.getModifiers()) || actualClass.isInterface() || actualClass
+                    .isEnum());
+            boolean actualValue = pojoClass.isConcrete();
+            Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isConcrete()", expectedValue,
+                    actualValue), actualValue == expectedValue);
+        }
     }
 
     @Test
@@ -81,28 +84,6 @@ public class PojoClassTest {
         PojoClass pojoClass = getPojoClassImplForClass(aNonFinalClass);
         Affirm.affirmFalse(String.format("IsFinal on non-final=[%s] returned true for PojoClass implementation=[%s]!!",
                 aNonFinalClass, pojoClass), pojoClass.isFinal());
-    }
-
-    @Test
-    public void testIsConcreteOnNonConcrete() {
-        Class<?>[] nonConcreteClasses = { AnInterfaceClass.class, AnAbstractClass.class };
-        for (Class<?> nonConcreteClass : nonConcreteClasses) {
-            PojoClass pojoClass = getPojoClassImplForClass(nonConcreteClass);
-            Affirm.affirmFalse(String.format(
-                    "IsConcrete on non-concrete=[%s] returned true for PojoClass implementation=[%s]!!",
-                    nonConcreteClass, pojoClass), pojoClass.isConcrete());
-        }
-    }
-
-    @Test
-    public void testIsConcreteOnConcrete() {
-        Class<?>[] concreteClasses = { AConcreteClass.class };
-        for (Class<?> concreteClass : concreteClasses) {
-            PojoClass pojoClass = getPojoClassImplForClass(concreteClass);
-            Affirm.affirmTrue(String.format(
-                    "IsConcrete on concrete=[%s] returned false for PojoClass implementation=[%s]!!", concreteClass,
-                    pojoClass), pojoClass.isConcrete());
-        }
     }
 
     @Test
