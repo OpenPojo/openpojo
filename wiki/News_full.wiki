@@ -4,8 +4,8 @@
  * *2010-05-26:*
   * Added support for dynamically creating random instance for any Interface reference.
   * Added support for dynamically creating random enum for any custom enum.
-  * Added support for TestNG (auto detect and select the routing for Asserts, TestNG then JUnit).
-  * Added a facade for logging with auto-select based on user env (auto detect and select routing for logs, SLF4J, Log4J then Java Logger).
+  * Added a facade for Asserts with auto-select based on user env (auto detect and select routing for Asserts, TestNG then JUnit).
+  * Added a facade for logging with auto-select based on user env (auto detect and select routing for logs, SLF4J, Log4J then Java Logger)
  * *2010-05-20:*
   * All code is now being tested using unit tests. 100% code coverage.
  * *2010-05-12:*
