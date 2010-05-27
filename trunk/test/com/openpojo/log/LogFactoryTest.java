@@ -23,13 +23,13 @@ public class LogFactoryTest {
     public final void shouldReturnSLF4JLoggerByClass() {
         Logger log = LoggerFactory.getLogger(LogFactoryTest.class);
         Assert.assertNotNull(log);
-        Assert.assertEquals("blah", log.getClass().toString());
+        Assert.assertEquals("com.openpojo.log.impl.SLF4JLogger", log.getClass().getName());
     }
 
     @Test
     public final void shouldReturnSLF4JLoggerByCategory() {
         Logger log = LoggerFactory.getLogger("TestLogger");
         Assert.assertNotNull(log);
-        Assert.assertEquals("blah", log.getClass().toString());
+        Assert.assertEquals("com.openpojo.log.impl.SLF4JLogger", log.getClass().getName());
     }
 }
