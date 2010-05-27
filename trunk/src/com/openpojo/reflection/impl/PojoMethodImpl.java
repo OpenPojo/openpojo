@@ -75,4 +75,11 @@ public class PojoMethodImpl implements PojoMethod {
         return method.getParameterTypes();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return String.format("PojoMethodImpl [method=%s]", method);
+    }
 }
