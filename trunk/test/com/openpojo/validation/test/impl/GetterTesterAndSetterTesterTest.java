@@ -1,38 +1,59 @@
 package com.openpojo.validation.test.impl;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.test.Tester;
-import com.openpojo.validation.test.impl.sampleclasses.ABadGetterAndSetterClass;
-import com.openpojo.validation.test.impl.sampleclasses.AGoodGetterAndSetterClass;
 
 public class GetterTesterAndSetterTesterTest {
+    private static final String TESTPACKAGE = GetterTesterAndSetterTesterTest.class.getPackage().getName() + ".sampleclasses";
+
+    public List<PojoClass> getGoodPojoClasses() {
+        return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
+
+            public boolean include(final PojoClass pojoClass) {
+                return !pojoClass.getClazz().getName().toLowerCase().contains("bad");
+            }
+        });
+    }
+
+    public List<PojoClass> getBadPojoClasses() {
+        return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
+
+            public boolean include(final PojoClass pojoClass) {
+                return pojoClass.getClazz().getName().toLowerCase().contains("bad");
+            }
+        });
+    }
 
     @Test
     public void shouldPassSetterTest() {
-        invokeRun(AGoodGetterAndSetterClass.class, new SetterTester());
+        for (PojoClass pojoClass : getGoodPojoClasses()) {
+            invokeRun(pojoClass, new SetterTester());
+            invokeRun(pojoClass, new GetterTester());
+        }
     }
 
-    @Test (expected = AssertionError.class)
+    @Test(expected = AssertionError.class)
     public void shouldFailSetterTest() {
-        invokeRun(ABadGetterAndSetterClass.class, new SetterTester());
+        for (PojoClass pojoClass : getBadPojoClasses()) {
+            invokeRun(pojoClass, new SetterTester());
+        }
     }
 
-    @Test
-    public void shouldPassGetterTest() {
-        invokeRun(AGoodGetterAndSetterClass.class, new GetterTester());
-    }
-
-    @Test (expected = AssertionError.class)
+    @Test(expected = AssertionError.class)
     public void shouldFailGetterTest() {
-        invokeRun(ABadGetterAndSetterClass.class, new GetterTester());
+        for (PojoClass pojoClass : getBadPojoClasses()) {
+            invokeRun(pojoClass, new GetterTester());
+        }
     }
 
-    private void invokeRun(final Class<?> classToTest, final Tester tester) {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(classToTest);
-        tester.run(pojoClass);
+    private void invokeRun(final PojoClass classToTest, final Tester tester) {
+        tester.run(classToTest);
     }
 
 }
