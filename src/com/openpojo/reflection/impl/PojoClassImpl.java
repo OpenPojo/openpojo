@@ -87,7 +87,8 @@ class PojoClassImpl implements PojoClass {
 
     private void validateBeforeNewInstance() {
         if (isInterface() || isAbstract()) {
-            throw ReflectionException.getInstance("This PojoClass is an interface/abstract, can't create new instance");
+            throw ReflectionException.getInstance(String.format(
+                    "[%s] is an interface/abstract, can't create new instance", this));
         }
     }
 
@@ -96,7 +97,7 @@ class PojoClassImpl implements PojoClass {
         if (parameters == null) {
             // newInstance(null) assumes you're calling the constructor that takes
             // no params... to pass null to the first parameter, need a valid array.
-            parameters = new Object[] { null };
+            parameters = new Object[]{ null };
         }
         validateBeforeNewInstance();
         List<Constructor<?>> constructors = ConstructionHelper.getConstructorsByParamCount(clazz, parameters.length);
