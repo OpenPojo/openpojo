@@ -16,6 +16,7 @@
  */
 package com.openpojo.validation.utils;
 
+import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 
 /**
@@ -37,4 +38,16 @@ public final class ValidationHelper {
         return fieldEntry.isFinal() && fieldEntry.isStatic();
     }
 
+    /**
+     * This helper method is responsible for creating an instance of a PojoClass.
+     * Currently only supports having default blank constructor.
+     *
+     * @param pojoClass
+     *          The class to instantiate.
+     * @return
+     *          An Instance of the class.
+     */
+    public static Object getNewInstance(final PojoClass pojoClass) {
+        return pojoClass.newInstance();
+    }
 }

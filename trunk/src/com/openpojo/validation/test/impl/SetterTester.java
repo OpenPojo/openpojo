@@ -16,11 +16,13 @@
  */
 package com.openpojo.validation.test.impl;
 
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.Tester;
+import com.openpojo.validation.utils.ValidationHelper;
 
 /**
  * Test the setter and ensure it sets the field being tested if and only if a Setter method was defined.
@@ -30,15 +32,21 @@ import com.openpojo.validation.test.Tester;
 public class SetterTester implements Tester {
 
     public void run(final PojoClass pojoClass) {
-        Object classInstance = null;
+        if (!pojoClass.isConcrete()) {
+            LoggerFactory.getLogger(this.getClass()).warn(
+                    "Attempt to execute behavioural test on non-concrete class=[{0}] ignored,"
+                            + " consider using FilterNonConcrete class when calling PojoClassFactory", pojoClass);
+        } else {
+            Object classInstance = null;
 
-        classInstance = pojoClass.newInstance();
-        for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (fieldEntry.hasSetter()) {
-                Object value = RandomFactory.getRandomValue(fieldEntry.getType());
-                fieldEntry.inovkeSetter(classInstance, value);
-                Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
-                        fieldEntry.get(classInstance));
+            classInstance = ValidationHelper.getNewInstance(pojoClass);
+            for (PojoField fieldEntry : pojoClass.getPojoFields()) {
+                if (fieldEntry.hasSetter()) {
+                    Object value = RandomFactory.getRandomValue(fieldEntry.getType());
+                    fieldEntry.inovkeSetter(classInstance, value);
+                    Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
+                            fieldEntry.get(classInstance));
+                }
             }
         }
     }
