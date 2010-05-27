@@ -16,7 +16,6 @@
  */
 package com.openpojo.validation.rule.impl;
 
-import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.test.impl.DefaultValuesNullTester;
@@ -36,13 +35,7 @@ import com.openpojo.validation.test.impl.DefaultValuesNullTester;
 public class DefaultValuesNullRule implements Rule {
 
     public void evaluate(final PojoClass pojoClass) {
-        if (!pojoClass.isConcrete()) {
-            LoggerFactory.getLogger(this.getClass()).warn(
-                    "Attempt to execute behavioural test on non-concrete class=[{0}] ignored,"
-                            + " consider using FilterNonConcrete class when calling PojoClassFactory", pojoClass);
-        } else {
-            (new DefaultValuesNullTester()).run(pojoClass);
-        }
+        (new DefaultValuesNullTester()).run(pojoClass);
     }
 
 }

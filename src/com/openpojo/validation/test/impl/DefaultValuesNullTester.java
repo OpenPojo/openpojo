@@ -16,6 +16,7 @@
  */
 package com.openpojo.validation.test.impl;
 
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
@@ -31,13 +32,19 @@ import com.openpojo.validation.utils.ValidationHelper;
 public class DefaultValuesNullTester implements Tester {
 
     public void run(final PojoClass pojoClass) {
-        Object classInstance = null;
+        if (!pojoClass.isConcrete()) {
+            LoggerFactory.getLogger(this.getClass()).warn(
+                    "Attempt to execute behavioural test on non-concrete class=[{0}] ignored,"
+                            + " consider using FilterNonConcrete class when calling PojoClassFactory", pojoClass);
+        } else {
+            Object classInstance = null;
 
-        classInstance = ValidationHelper.getNewInstance(pojoClass);
-        for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (!fieldEntry.isPrimitive() && !fieldEntry.isFinal()) {
-                Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry),
-                        fieldEntry.get(classInstance));
+            classInstance = ValidationHelper.getNewInstance(pojoClass);
+            for (PojoField fieldEntry : pojoClass.getPojoFields()) {
+                if (!fieldEntry.isPrimitive() && !fieldEntry.isFinal()) {
+                    Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry), fieldEntry
+                            .get(classInstance));
+                }
             }
         }
     }
