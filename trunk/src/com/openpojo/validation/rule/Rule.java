@@ -19,8 +19,8 @@ package com.openpojo.validation.rule;
 import com.openpojo.reflection.PojoClass;
 
 /**
- * This Class handles applying rules to PojoClass-es for testing.
- * A rule will return True or False weather
+ * This interface is to be implemented by all Rule.
+ * Rules should check for structural concerns on a Pojo (i.e. public fields, nested classes, etc).
  *
  * @author oshoukry
  */

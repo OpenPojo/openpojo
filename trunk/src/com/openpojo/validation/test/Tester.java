@@ -19,7 +19,7 @@ package com.openpojo.validation.test;
 import com.openpojo.reflection.PojoClass;
 
 /**
- * This interface defines how tests should be run.
+ * This interface is to be implemented by all testers that will check for behavioural concerns on a Pojo.
  *
  * @author oshoukry
  */
