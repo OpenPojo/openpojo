@@ -23,6 +23,7 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.cache.PojoCache;
+import com.openpojo.reflection.filters.FilterBasedOnInheritence;
 
 /**
  * This is a factory class that builds PojoClassImpl representation given a class.

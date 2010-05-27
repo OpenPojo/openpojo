@@ -14,8 +14,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package com.openpojo.reflection.impl;
+package com.openpojo.reflection.filters;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
@@ -23,18 +22,19 @@ import com.openpojo.reflection.PojoClassFilter;
 /**
  * @author oshoukry
  */
-public class FilterBasedOnInheritence implements PojoClassFilter {
-    private final Class<?> type;
-    private final PojoClassFilter filter;
+public class FilterNonConcrete implements PojoClassFilter {
 
-    public FilterBasedOnInheritence(final Class<?> type, final PojoClassFilter filter) {
-        this.type = type;
-        this.filter = filter;
+    private PojoClassFilter nextFilter;
+
+    public FilterNonConcrete() {
+    }
+
+    public FilterNonConcrete(final PojoClassFilter nextFilter) {
+        this.nextFilter = nextFilter;
     }
 
     public boolean include(final PojoClass pojoClass) {
-        if (!pojoClass.getName().equals(type.getName()) && (filter == null || filter.include(pojoClass)))
-            return pojoClass.extendz(type);
-        return false;
+        return !pojoClass.isConcrete() && (nextFilter == null || nextFilter.include(pojoClass));
     }
+
 }
