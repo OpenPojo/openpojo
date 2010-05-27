@@ -73,6 +73,10 @@
                 <pathelement path="${dir.out.classes}" />
                 <pathelement path="${dir.out.test.classes}" />
                 <pathelement path="${lib}/junit-4.8.2.jar" />
+                <pathelement path="${lib}/testng-5.12.1.jar" />
+                <pathelement path="${lib}/log4j-1.2.15.jar" />
+                <pathelement path="${lib}/slf4j-api-1.5.0.jar" />
+                <pathelement path="${lib}/slf4j-log4j12-1.5.0.jar" />
             </classpath>
             <formatter type="plain" usefile="no"/>
             <batchtest>
@@ -103,8 +107,7 @@
             <attribute name="Implementation-Title" value="OpenPojo" />
             <attribute name="Implementation-Version" value="${version} ${DATETIME}" />
         </manifest>
-    </target>
-
+    </target> 
     <target name="jar-src" depends="manifest">
         <jar destfile="${dist.src.jar}" basedir="${dir.src}" manifest="${manifest.file}" />
     </target>
