@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -38,12 +38,12 @@ import com.openpojo.validation.test.impl.SetterTester;
 /**
  * This example demonstrates what you can do to utilize this utility to test your own pojos.
  * This class will test all getters and setters to ensure they are working correctly.
- * 
+ *
  * @author oshoukry
  */
 public class PojoTest {
     // Configured for expectation, so we know when a class gets added or removed.
-    private static final int EXPECTED_CLASS_COUNT = 1;
+    private static final int EXPECTED_CLASS_COUNT = 2;
 
     // The package to test
     private static final String POJO_PACKAGE = "com.openpojo.samplepojo";

@@ -14,14 +14,27 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.validation.rule;
+package com.openpojo.validation.exception;
 
 /**
  * @author oshoukry
  *
  */
-public class RuleViolationException extends RuntimeException {
-
+public class ValidationException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * @param message
+     * @param cause
+     */
+    public ValidationException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
+    /**
+     * @param message
+     */
+    public ValidationException(final String message) {
+        super(message);
+    }
 }
