@@ -14,34 +14,31 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.validation.rule.impl;
+package com.openpojo.validation.test.impl;
 
-import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.validation.rule.Rule;
-import com.openpojo.validation.test.impl.DefaultValuesNullTester;
+import com.openpojo.reflection.PojoField;
+import com.openpojo.validation.affirm.Affirm;
+import com.openpojo.validation.test.Tester;
+import com.openpojo.validation.utils.ValidationHelper;
 
 /**
  * This Rule ensures that all Fields are initialized to null.<br>
  * This rule ignores fields that are marked as final or primitive types since neither can be initialized to null.<br>
- * <br>
- * Note:<br>
- * This logic belongs in the Tester side not the Rule side, so I am deprecating this one, and will be removing soon.<br>
- * Please switch to DefaultValuesNullTester Tester instead.<br>
  *
- * @deprecated Please use DefaultValuesNullTester instead.
  * @author oshoukry
  */
-@Deprecated
-public class DefaultValuesNullRule implements Rule {
+public class DefaultValuesNullTester implements Tester {
 
-    public void evaluate(final PojoClass pojoClass) {
-        if (!pojoClass.isConcrete()) {
-            LoggerFactory.getLogger(this.getClass()).warn(
-                    "Attempt to execute behavioural test on non-concrete class=[{0}] ignored,"
-                            + " consider using FilterNonConcrete class when calling PojoClassFactory", pojoClass);
-        } else {
-            (new DefaultValuesNullTester()).run(pojoClass);
+    public void run(final PojoClass pojoClass) {
+        Object classInstance = null;
+
+        classInstance = ValidationHelper.getNewInstance(pojoClass);
+        for (PojoField fieldEntry : pojoClass.getPojoFields()) {
+            if (!fieldEntry.isPrimitive() && !fieldEntry.isFinal()) {
+                Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry),
+                        fieldEntry.get(classInstance));
+            }
         }
     }
 
