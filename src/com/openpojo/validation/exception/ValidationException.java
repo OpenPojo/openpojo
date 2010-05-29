@@ -17,24 +17,33 @@
 package com.openpojo.validation.exception;
 
 /**
- * @author oshoukry
+ * This exception will be throw if a Violation exception occurs.
  *
+ * @author oshoukry
  */
 public class ValidationException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Constructor with message of describing the violation.
+     *
      * @param message
+     *            The message describing the violation.
+     */
+    public ValidationException(final String message) {
+        super(message);
+    }
+
+    /**
+     * Complete constructor with message and a cause.
+     *
+     * @param message
+     *            The message describing the violation.
      * @param cause
+     *            The source exception that caused the problem.
      */
     public ValidationException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    /**
-     * @param message
-     */
-    public ValidationException(final String message) {
-        super(message);
-    }
 }
