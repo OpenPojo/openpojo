@@ -24,8 +24,7 @@ import com.openpojo.reflection.PojoField;
 
 /**
  * This class is the default implementation for identity evaluation.
- * The primary function of this class is to evaluate two business entities' equality.
- * <br>
+ * The primary function of this class is to evaluate two business entities' equality. <br>
  * <br>
  * Note:
  * if two business fields are defined as optional (aka required = false) and both are set to null,
@@ -55,9 +54,9 @@ public class DefaultEvaluator implements IdentityEvaluator {
         boolean runningEquality = true;
         for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(first.getClass())) {
             BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
-            runningEquality = runningEquality && BusinessIdentityUtils.areEqual(pojoField, first, second, businessKey.caseSensitive());
+            runningEquality = runningEquality
+                    && BusinessIdentityUtils.areEqual(pojoField, first, second, businessKey.caseSensitive());
         }
-
         return runningEquality;
     }
 
