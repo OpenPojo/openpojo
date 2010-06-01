@@ -42,7 +42,18 @@ public class BusinessPojoHelper {
     public static List<PojoField> getBusinessKeyFields(final Class<?> clazz) {
         List<PojoField> businessFields = new LinkedList<PojoField>();
         PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
-        for (PojoField pojoField : pojoClass.getPojoFields()) {
+
+        List<PojoField> rawFields = new LinkedList<PojoField>();
+        rawFields.addAll(pojoClass.getPojoFields());
+
+
+        PojoClass parent = pojoClass.getSuperClass();
+        while (parent != null) {
+            rawFields.addAll(parent.getPojoFields());
+            parent = parent.getSuperClass();
+        }
+
+        for (PojoField pojoField : rawFields) {
             if (pojoField.getAnnotation(BusinessKey.class) != null) {
                 businessFields.add(pojoField);
             }

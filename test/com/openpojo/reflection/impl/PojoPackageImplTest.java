@@ -21,12 +21,14 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.openpojo.reflection.PojoClass;
+
 /**
  * @author oshoukry
  */
 public class PojoPackageImplTest {
 
-    private static final int EXPECTED_CLASSES = 20;
+    private static final int EXPECTED_CLASSES = 21;
 
     private String packageName;
     private String expectedToString;
@@ -45,6 +47,9 @@ public class PojoPackageImplTest {
 
     @Test
     public void testGetPojoClasses() {
+        for (PojoClass pojoClass : pojoPackageImpl.getPojoClasses()) {
+            System.out.println(pojoClass.getClazz());
+        }
         Assert.assertEquals(String.format("classes added/removoed to package=[%s]?", packageName), EXPECTED_CLASSES,
                 pojoPackageImpl.getPojoClasses().size());
     }

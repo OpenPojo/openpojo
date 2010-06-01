@@ -20,6 +20,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
@@ -164,5 +165,20 @@ class PojoClassImpl implements PojoClass {
 
     public String toString(final Object instance) {
         return ToStringHelper.pojoClassToString(this, instance);
+    }
+
+    public PojoClass getSuperClass() {
+        if (clazz.getSuperclass() != null) {
+            return PojoClassFactory.getPojoClass(clazz.getSuperclass());
+        }
+        return null;
+    }
+
+    public List<PojoClass> getInterfaces() {
+        List<PojoClass> interfaces = new LinkedList<PojoClass>();
+        for (Class<?> interfaze : clazz.getInterfaces()) {
+            interfaces.add(PojoClassFactory.getPojoClass(interfaze));
+        }
+        return interfaces;
     }
 }

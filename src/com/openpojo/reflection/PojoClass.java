@@ -82,7 +82,7 @@ public interface PojoClass {
     public String getName();
 
     /**
-     * Checks to see if class extends a certain type.
+     * Checks to see if class extends/implements a certain type.
      *
      * @param type
      *            The type in question.
@@ -90,6 +90,21 @@ public interface PojoClass {
      *         True if class is subclass or implements an interface, otherwise false.
      */
     public boolean extendz(final Class<?> type);
+
+
+    /**
+     * Return the super class of the class represented by this PojoClass class.
+     * @return
+     *         PojoClass representing the super class of this class or null if none exist.
+     *
+     */
+    public PojoClass getSuperClass();
+
+    /**
+     * Returns a list of all interfaces implemented by the class represented by this PojoClass.
+     * @return
+     */
+    public List<PojoClass> getInterfaces();
 
     /**
      * This method returns the underlying class represented by this instance.
