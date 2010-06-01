@@ -1,6 +1,8 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-06-01:*
+  * @BusinessKey annotation is now inherited to child classes for equality & hash code generation.
  * *2010-05-26:*
   * Added support for dynamically creating random instance for any Interface reference.
   * Added support for dynamically creating random enum for any custom enum.
