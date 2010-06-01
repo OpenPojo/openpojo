@@ -32,7 +32,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 public class BusinessPojoHelper {
 
     /**
-     * Get all business keys declared on a class.
+     * Get all business keys declared on a class and the parent super classes.
      *
      * @param clazz
      *            The class to introspect.
