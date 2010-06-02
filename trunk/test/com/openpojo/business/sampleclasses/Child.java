@@ -40,9 +40,10 @@ public class Child extends Parent {
     /**
      * @param firstName
      */
-    public Child(final String firstName, final String lastName) {
+    public Child(final String firstName, final String lastName, final Character sex) {
         super(lastName);
         this.firstName = firstName;
+        setSex(sex);
     }
 
 
