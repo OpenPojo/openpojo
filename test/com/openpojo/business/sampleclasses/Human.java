@@ -20,36 +20,24 @@ import com.openpojo.business.annotation.BusinessKey;
 
 /**
  * @author oshoukry
+ *
  */
-class Parent extends Human {
+public class Human {
 
     @BusinessKey
-    private String lastName;
+    private Character sex;
 
-    public Parent() {
-
+    /**
+     * @return the sex
+     */
+    public Character getSex() {
+        return sex;
     }
 
     /**
-     * @param lastName
+     * @param sex the sex to set
      */
-    public Parent(final String lastName) {
-        this.lastName = lastName;
+    public void setSex(final Character sex) {
+        this.sex = sex;
     }
-
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * @param lastName
-     *            the lastName to set
-     */
-    public void setLastName(final String lastName) {
-        this.lastName = lastName;
-    }
-
 }
