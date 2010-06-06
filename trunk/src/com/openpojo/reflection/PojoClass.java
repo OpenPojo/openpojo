@@ -91,18 +91,19 @@ public interface PojoClass {
      */
     public boolean extendz(final Class<?> type);
 
-
     /**
      * Return the super class of the class represented by this PojoClass class.
+     *
      * @return
      *         PojoClass representing the super class of this class or null if none exist.
-     *
      */
     public PojoClass getSuperClass();
 
     /**
      * Returns a list of all interfaces implemented by the class represented by this PojoClass.
+     *
      * @return
+     *         The list of interfaces implemented by the class wrapped by this PojoClass.
      */
     public List<PojoClass> getInterfaces();
 
