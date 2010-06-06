@@ -32,9 +32,9 @@ import com.openpojo.reflection.PojoField;
  *
  * @author oshoukry
  */
-public class DefaultEvaluator implements IdentityEvaluator {
+public class DefaultIdentityEvaluator implements IdentityEvaluator {
 
-    private DefaultEvaluator() {
+    private DefaultIdentityEvaluator() {
 
     }
 
@@ -61,7 +61,7 @@ public class DefaultEvaluator implements IdentityEvaluator {
     }
 
     private static class Instance {
-        static final IdentityEvaluator INSTANCE = new DefaultEvaluator();
+        static final IdentityEvaluator INSTANCE = new DefaultIdentityEvaluator();
     }
 
 }
