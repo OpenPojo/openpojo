@@ -17,8 +17,8 @@
 package com.openpojo.business.identity;
 
 import com.openpojo.business.identity.impl.DefaultBusinessValidator;
-import com.openpojo.business.identity.impl.DefaultEvaluator;
 import com.openpojo.business.identity.impl.DefaultHashCodeGenerator;
+import com.openpojo.business.identity.impl.DefaultIdentityEvaluator;
 
 /**
  * This is the Default factory that holds the default implementation of
@@ -38,7 +38,7 @@ public final class IdentityFactory {
         // Initialize the Factory with default implementations.
         IdentityFactory.setBusinessValidator(DefaultBusinessValidator.getInstance());
         IdentityFactory.setHashCodeGenerator(DefaultHashCodeGenerator.getInstance());
-        IdentityFactory.setIdentityEvaluator(DefaultEvaluator.getInstance());
+        IdentityFactory.setIdentityEvaluator(DefaultIdentityEvaluator.getInstance());
     }
     /**
      * @return the identityEvaluator
