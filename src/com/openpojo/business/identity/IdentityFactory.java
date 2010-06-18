@@ -43,7 +43,7 @@ public final class IdentityFactory {
     /**
      * @return the identityEvaluator
      */
-    public static IdentityEvaluator getIdentityEvaluator() {
+    public synchronized static IdentityEvaluator getIdentityEvaluator() {
         return identityEvaluator;
     }
 
@@ -51,14 +51,14 @@ public final class IdentityFactory {
      * @param identityEvaluator
      *            the identityEvaluator to set
      */
-    public static void setIdentityEvaluator(final IdentityEvaluator identityEvaluator) {
+    public synchronized static void setIdentityEvaluator(final IdentityEvaluator identityEvaluator) {
         IdentityFactory.identityEvaluator = identityEvaluator;
     }
 
     /**
      * @return the hashCodeGenerator
      */
-    public static HashCodeGenerator getHashCodeGenerator() {
+    public synchronized static HashCodeGenerator getHashCodeGenerator() {
         return hashCodeGenerator;
     }
 
@@ -66,14 +66,14 @@ public final class IdentityFactory {
      * @param hashCodeGenerator
      *            the hashCodeGenerator to set
      */
-    public static void setHashCodeGenerator(final HashCodeGenerator hashCodeGenerator) {
+    public synchronized static void setHashCodeGenerator(final HashCodeGenerator hashCodeGenerator) {
         IdentityFactory.hashCodeGenerator = hashCodeGenerator;
     }
 
     /**
      * @return the businessValidator
      */
-    public static BusinessValidator getBusinessValidator() {
+    public synchronized static BusinessValidator getBusinessValidator() {
         return businessValidator;
     }
 
@@ -81,7 +81,7 @@ public final class IdentityFactory {
      * @param businessValidator
      *            the businessValidator to set
      */
-    public static void setBusinessValidator(final BusinessValidator businessValidator) {
+    public synchronized static void setBusinessValidator(final BusinessValidator businessValidator) {
         IdentityFactory.businessValidator = businessValidator;
     }
 }
