@@ -16,72 +16,64 @@
  */
 package com.openpojo.business.identity;
 
-import com.openpojo.business.identity.impl.DefaultBusinessValidator;
-import com.openpojo.business.identity.impl.DefaultHashCodeGenerator;
-import com.openpojo.business.identity.impl.DefaultIdentityEvaluator;
+import java.util.LinkedList;
+
+import com.openpojo.business.exception.BusinessException;
+import com.openpojo.business.identity.impl.DefaultIdentityHandler;
 
 /**
- * This is the Default factory that holds the default implementation of
- * {@link IdentityEvaluator}, {@link HashCodeGenerator} and {@link BusinessValidator}.
- * <br>
- * This IdentityFactory can be reconfigured with any other implementation using the "set" methods.
+ * This is the Default factory that holds the default implementation of {@link IdentityEvaluator},
+ * {@link HashCodeGenerator} and {@link BusinessValidator}. <br>
+ * This IdentityFactory can route calls to other IdenityHandlers based on registeration.
  *
  * @author oshoukry
  */
 public final class IdentityFactory {
 
-    private static IdentityEvaluator identityEvaluator;
-    private static HashCodeGenerator hashCodeGenerator;
-    private static BusinessValidator businessValidator;
+    private static LinkedList<IdentityHandler> identityHandlers = new LinkedList<IdentityHandler>();
 
     static {
-        // Initialize the Factory with default implementations.
-        IdentityFactory.setBusinessValidator(DefaultBusinessValidator.getInstance());
-        IdentityFactory.setHashCodeGenerator(DefaultHashCodeGenerator.getInstance());
-        IdentityFactory.setIdentityEvaluator(DefaultIdentityEvaluator.getInstance());
+        registerIdentityHandler(DefaultIdentityHandler.getInstance());
     }
+
     /**
+     * This method looks through the list of registered IdentityHandler(s) and returns the first one that returns true
+     * on handlerFor(Object) call.
+     *
      * @return the identityEvaluator
      */
-    public synchronized static IdentityEvaluator getIdentityEvaluator() {
-        return identityEvaluator;
+    public synchronized static IdentityHandler getIdentityHandler(final Object object) {
+        for (IdentityHandler identityHandler : identityHandlers) {
+            if (identityHandler.handlerFor(object)) {
+                return identityHandler;
+            }
+        }
+        throw BusinessException.getInstance(String.format(
+                "Invalid IdentityFactory state, no IdentityHandler found for object [%s]", object));
     }
 
     /**
-     * @param identityEvaluator
-     *            the identityEvaluator to set
+     * This method registers an IdentityHandler to the list of possible IdentityHandlers.
+     * An IdentityHandler will not be registered more than once.
+     *
+     * @param identityHandler
+     *            The identityHandler to register.
      */
-    public synchronized static void setIdentityEvaluator(final IdentityEvaluator identityEvaluator) {
-        IdentityFactory.identityEvaluator = identityEvaluator;
+    public synchronized static void registerIdentityHandler(final IdentityHandler identityHandler) {
+        if (identityHandler == null) {
+            throw new IllegalArgumentException("Attempt to register null IdentityHandler");
+        }
+        identityHandlers.remove(identityHandler);
+        identityHandlers.addFirst(identityHandler);
     }
 
     /**
-     * @return the hashCodeGenerator
+     * This method unregisters an IdentityHandler.
+     *
+     * @param identityHandler
+     *            The identityHandler to unregister.
      */
-    public synchronized static HashCodeGenerator getHashCodeGenerator() {
-        return hashCodeGenerator;
-    }
-
-    /**
-     * @param hashCodeGenerator
-     *            the hashCodeGenerator to set
-     */
-    public synchronized static void setHashCodeGenerator(final HashCodeGenerator hashCodeGenerator) {
-        IdentityFactory.hashCodeGenerator = hashCodeGenerator;
-    }
-
-    /**
-     * @return the businessValidator
-     */
-    public synchronized static BusinessValidator getBusinessValidator() {
-        return businessValidator;
-    }
-
-    /**
-     * @param businessValidator
-     *            the businessValidator to set
-     */
-    public synchronized static void setBusinessValidator(final BusinessValidator businessValidator) {
-        IdentityFactory.businessValidator = businessValidator;
+    public synchronized static void unregisterIdentityHandler(final IdentityHandler identityHandler) {
+        identityHandlers.remove(identityHandler);
     }
 }
