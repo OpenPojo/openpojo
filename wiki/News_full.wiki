@@ -1,6 +1,10 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+* *2010-06-21:*
+  * Added a BusinessIdentityTester to validate that equals and hashcode calls for a POJO are actually being dispatched to BusinessIdentity facade.
+  * Added BusinessKeyMustExistRule to validate that at least one @BusinessKey has been defined and is set to required.
+  * Also IdentityFactory now can be configured to route calls to custom IdentityHandler using register/unregister allowing interception of equality/hashcode/validate calls for greater flexibility (specially when writing custom Testers).
  * *2010-06-01:*
   * @BusinessKey annotation is now inherited by child classes for equality & hash code generation.
  * *2010-05-26:*
