@@ -57,7 +57,7 @@ public class TestNGAssertAffirmation implements Affirmation {
     }
 
     public void affirmEquals(final String message, final Object first, final Object second) {
-        org.testng.Assert.assertEquals(first, second, message);
+        org.testng.Assert.assertEquals(second, first, message);
     }
 
     @Override
