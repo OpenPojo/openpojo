@@ -30,10 +30,8 @@ public final class FacadeFactory {
         for (String facadeName : facadeNames) {
             try {
                 return PojoClassFactory.getPojoClass(Class.forName(facadeName));
-            } catch (ClassNotFoundException exception) {
+            } catch (Throwable t) {
                 // this class not found, lets try the next one in the list.
-            } catch (NoClassDefFoundError error) {
-                // this class was found, but it has a static block that failed to initialize.
             }
         }
         throw ReflectionException.getInstance(String.format("Unable to find suitable implementation among [%s]", Arrays

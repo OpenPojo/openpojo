@@ -17,6 +17,7 @@
 package com.openpojo.validation.affirm;
 
 import com.openpojo.business.BusinessIdentity;
+import com.openpojo.reflection.exception.ReflectionException;
 
 /**
  *
@@ -24,6 +25,14 @@ import com.openpojo.business.BusinessIdentity;
  *
  */
 public class JUnitAssertAffirmation implements Affirmation {
+    static {
+        try {
+            Class.forName("org.junit.Assert");
+        } catch (ClassNotFoundException e) {
+            throw ReflectionException.getInstance("org.junit.Assert class not found");
+        }
+    }
+
 
     private JUnitAssertAffirmation() {
     }
