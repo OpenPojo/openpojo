@@ -1,6 +1,8 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-06-22:*
+  * Fixed a problem with the wiring of the assertion framework not detecting that TestNG not available and throwing initialization errors.
  * *2010-06-21:*
   * Added a BusinessIdentityTester to validate that equals and hashcode calls for a POJO are actually being dispatched to BusinessIdentity facade.
   * Added BusinessKeyMustExistRule to validate that at least one @BusinessKey has been defined and is set to required.
