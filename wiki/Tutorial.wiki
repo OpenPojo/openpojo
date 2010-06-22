@@ -29,26 +29,29 @@ public class PojoTest {
 
     @Before
     public void setup() {
-        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE);
+        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterPackageInfo());
 
         pojoValidator = new PojoValidator();
 
         // Create Rules to validate structure for POJO_PACKAGE
         pojoValidator.addRule(new NoPublicFieldsRule());
-        pojoValidator.addRule(new DefaultValuesNullRule());
         pojoValidator.addRule(new NoPrimitivesRule());
         pojoValidator.addRule(new NoStaticExceptFinalRule());
         pojoValidator.addRule(new GetterMustExistRule());
         pojoValidator.addRule(new SetterMustExistRule());
+        pojoValidator.addRule(new NoNestedClassRule());
+        pojoValidator.addRule(new BusinessKeyMustExistRule());
 
         // Create Testers to validate behaviour for POJO_PACKAGE
+        pojoValidator.addTester(new DefaultValuesNullTester());
         pojoValidator.addTester(new SetterTester());
         pojoValidator.addTester(new GetterTester());
+        pojoValidator.addTester(new BusinessIdentityTester());
     }
 
     @Test
     public void ensureExpectedPojoCount() {
-        Assert.assertEquals("Classes added / removed?", EXPECTED_CLASS_COUNT, pojoClasses.size());
+        Affirm.affirmEquals("Classes added / removed?", EXPECTED_CLASS_COUNT, pojoClasses.size());
     }
 
     @Test
