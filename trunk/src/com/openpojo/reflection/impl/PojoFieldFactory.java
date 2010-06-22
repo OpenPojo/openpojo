@@ -57,7 +57,7 @@ final class PojoFieldFactory {
      */
     private static PojoMethod getSetter(final Field field) {
         PojoMethod pojoMethod = null;
-        ;
+
         for (String candidateName : generateSetMethodNames(field)) {
             Class<?> clazz = field.getDeclaringClass();
             pojoMethod = PojoMethodFactory.getMethod(clazz, candidateName, field.getType());
