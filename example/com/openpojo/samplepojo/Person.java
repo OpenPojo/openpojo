@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -19,6 +19,9 @@ package com.openpojo.samplepojo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.openpojo.business.BusinessIdentity;
+import com.openpojo.business.annotation.BusinessKey;
+
 public final class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,7 +34,7 @@ public final class Person implements Serializable {
 
     /**
      * Minimal business constructor.
-     * 
+     *
      * @param firstname
      * @param middlename
      * @param lastname
@@ -44,7 +47,7 @@ public final class Person implements Serializable {
 
     /**
      * Full Constructor.
-     * 
+     *
      * @param id
      * @param firstname
      * @param middlename
@@ -71,8 +74,12 @@ public final class Person implements Serializable {
         this.id = id;
     }
 
+    @BusinessKey(caseSensitive = false)
     private String firstname;
+    @BusinessKey(caseSensitive = false, required = false)
+
     private String middlename;
+    @BusinessKey(caseSensitive = false)
     private String lastname;
 
     private Timestamp created;
@@ -147,7 +154,7 @@ public final class Person implements Serializable {
 
     /**
      * Set the last updated time.
-     * 
+     *
      * @param lastupdated
      *            The lastupdated timestamp
      */
@@ -156,9 +163,19 @@ public final class Person implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return BusinessIdentity.getHashCode(this);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return BusinessIdentity.areEqual(this, obj);
+    }
+
+    @Override
     public String toString() {
         return String.format("Person [id=%s, firstname=%s, middlename=%s, lastname=%s, created=%s, lastupdated=%s]",
-                this.getId(), firstname, middlename, lastname, created, lastupdated);
+                getId(), firstname, middlename, lastname, created, lastupdated);
     }
 
 }
