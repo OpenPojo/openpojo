@@ -17,10 +17,8 @@
 package com.openpojo.validation.test.impl;
 
 import com.openpojo.business.BusinessIdentity;
-import com.openpojo.business.identity.BusinessValidator;
-import com.openpojo.business.identity.HashCodeGenerator;
-import com.openpojo.business.identity.IdentityEvaluator;
 import com.openpojo.business.identity.IdentityFactory;
+import com.openpojo.business.identity.IdentityHandler;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.validation.affirm.Affirm;
@@ -42,6 +40,7 @@ public final class BusinessIdentityTester implements Tester {
     private final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
 
     public void run(final PojoClass pojoClass) {
+        IdentityFactory.registerIdentityHandler(identityHandlerStub);
 
         firstPojoClassInstance = ValidationHelper.getNewInstance(pojoClass);
         secondPojoClassInstance = ValidationHelper.getNewInstance(pojoClass);
@@ -60,6 +59,7 @@ public final class BusinessIdentityTester implements Tester {
         identityHandlerStub.areEqualReturn = !identityHandlerStub.areEqualReturn;
         checkHashCode();
 
+        IdentityFactory.unregisterIdentityHandler(identityHandlerStub);
     }
 
     private void checkHashCode() {
@@ -74,51 +74,23 @@ public final class BusinessIdentityTester implements Tester {
                 .equals(secondPojoClassInstance));
     }
 
-    private class IdentityHandlerStub implements IdentityEvaluator, HashCodeGenerator, BusinessValidator {
+    private class IdentityHandlerStub implements IdentityHandler {
         private boolean areEqualReturn;
         private int doGenerateReturn;
 
-        private IdentityEvaluator defaultIdentityEvaluator;
-        private HashCodeGenerator defaultHashCodeGenerator;
-        private BusinessValidator defaultBusinessValidator;
-
-        private IdentityHandlerStub() {
-            register();
-        }
-
-        public void register() {
-            synchronized (IdentityFactory.class) {
-                defaultIdentityEvaluator = IdentityFactory.getIdentityEvaluator();
-                defaultHashCodeGenerator = IdentityFactory.getHashCodeGenerator();
-                defaultBusinessValidator = IdentityFactory.getBusinessValidator();
-                IdentityFactory.setBusinessValidator(this);
-                IdentityFactory.setHashCodeGenerator(this);
-                IdentityFactory.setIdentityEvaluator(this);
-            }
-        }
-
         public boolean areEqual(final Object first, final Object second) {
-            if (alterBehaviour(first)) {
-                return areEqualReturn;
-            }
-            return defaultIdentityEvaluator.areEqual(first, second);
-        }
-
-        public int doGenerate(final Object object) {
-            if (alterBehaviour(object)) {
-                return doGenerateReturn;
-            }
-            return defaultHashCodeGenerator.doGenerate(object);
+            return areEqualReturn;
         }
 
         public void validate(final Object object) {
-            if (alterBehaviour(object)) {
-                return;
-            }
-            defaultBusinessValidator.validate(object);
+            return;
         }
 
-        private boolean alterBehaviour(final Object object) {
+        public int generateHashCode(final Object object) {
+            return doGenerateReturn;
+        }
+
+        public boolean handlerFor(final Object object) {
             return object == firstPojoClassInstance || object == secondPojoClassInstance;
         }
     }

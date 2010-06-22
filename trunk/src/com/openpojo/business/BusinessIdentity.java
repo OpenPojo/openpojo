@@ -51,9 +51,9 @@ public final class BusinessIdentity {
      *          True if both objects are equal, false otherwise.  if either of those objects is null, equality is false.
      */
     public static boolean areEqual(final Object first, final Object second) {
-        IdentityFactory.getBusinessValidator().validate(first);
-        IdentityFactory.getBusinessValidator().validate(second);
-        return IdentityFactory.getIdentityEvaluator().areEqual(first, second);
+        IdentityFactory.getIdentityHandler(first).validate(first);
+        IdentityFactory.getIdentityHandler(second).validate(second);
+        return IdentityFactory.getIdentityHandler(first).areEqual(first, second);
     }
 
     /**
@@ -64,8 +64,8 @@ public final class BusinessIdentity {
      *          Generated hash code.
      */
     public static int getHashCode(final Object object) {
-        IdentityFactory.getBusinessValidator().validate(object);
-        return IdentityFactory.getHashCodeGenerator().doGenerate(object);
+        IdentityFactory.getIdentityHandler(object).validate(object);
+        return IdentityFactory.getIdentityHandler(object).generateHashCode(object);
     }
 
     public static String toString(final Object instance) {
