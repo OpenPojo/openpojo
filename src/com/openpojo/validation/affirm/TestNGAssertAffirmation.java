@@ -17,6 +17,7 @@
 package com.openpojo.validation.affirm;
 
 import com.openpojo.business.BusinessIdentity;
+import com.openpojo.reflection.exception.ReflectionException;
 
 /**
  *
@@ -24,10 +25,12 @@ import com.openpojo.business.BusinessIdentity;
  *
  */
 public class TestNGAssertAffirmation implements Affirmation {
-
     static {
-        // check that TestNG is loaded
-        org.testng.Assert.assertTrue(true);
+        try {
+            Class.forName("org.testng.Assert");
+        } catch (ClassNotFoundException e) {
+            throw ReflectionException.getInstance("org.testng.Assert class not found");
+        }
     }
 
     private TestNGAssertAffirmation() {
