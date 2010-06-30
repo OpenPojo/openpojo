@@ -43,8 +43,8 @@ public class SerializableMustHaveSerialVersionUIDRule implements Rule {
                         Affirm.fail(String.format("[%s] must be defined as [static final] on Serializable class [%s]",
                                 SERIAL_VERSION_UID, pojoClass));
                     }
-                    if (!(pojoField.isPrimitive() && pojoField.getType() == long.class)) {
-                        Affirm.fail(String.format("[%s] must be defined as primitive long on Serializable class [%s]",
+                    if (pojoField.getType() != long.class) {
+                        Affirm.fail(String.format("[%s] must be defined as [long] on Serializable class [%s]",
                                 SERIAL_VERSION_UID, pojoClass));
 
                     }
