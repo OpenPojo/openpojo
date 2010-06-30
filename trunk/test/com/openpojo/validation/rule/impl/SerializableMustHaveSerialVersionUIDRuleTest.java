@@ -23,7 +23,6 @@ import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSeria
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDDoesntClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDInvalidCaseClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotFinalClass;
-import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotPrimitiveClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotSerializableClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotStaticClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotlongClass;
@@ -36,7 +35,6 @@ public class SerializableMustHaveSerialVersionUIDRuleTest {
             SerializableMustHaveSerialVersionUIDInvalidCaseClass.class,
             SerializableMustHaveSerialVersionUIDNotFinalClass.class,
             SerializableMustHaveSerialVersionUIDNotStaticClass.class,
-            SerializableMustHaveSerialVersionUIDNotPrimitiveClass.class,
             SerializableMustHaveSerialVersionUIDNotlongClass.class };
     Class<?>[] passClasses = new Class<?>[]{ SerializableMustHaveSerialVersionUIDDoesClass.class,
             SerializableMustHaveSerialVersionUIDNotSerializableClass.class };
