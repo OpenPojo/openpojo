@@ -24,6 +24,7 @@ import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
 
 /**
+ * This Rule ensures that all Serializable classes define "serialVersionUID".
  * @author oshoukry
  */
 public class SerializableMustHaveSerialVersionUIDRule implements Rule {
@@ -39,7 +40,7 @@ public class SerializableMustHaveSerialVersionUIDRule implements Rule {
                                 SERIAL_VERSION_UID, pojoField.getName());
                     }
                     if (!(pojoField.isStatic() && pojoField.isFinal())) {
-                        Affirm.fail(String.format("[%s] must be defined static final on Serializable class [%s]",
+                        Affirm.fail(String.format("[%s] must be defined as [static final] on Serializable class [%s]",
                                 SERIAL_VERSION_UID, pojoClass));
                     }
                     if (!(pojoField.isPrimitive() && pojoField.getType() == long.class)) {
