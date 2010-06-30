@@ -19,8 +19,8 @@
 
 <project basedir="." default="generate_zip" name="OpenPojo">
 
-    <property name="target" value="1.6" />
-    <property name="source" value="1.6" />
+    <property name="target" value="1.5" />
+    <property name="source" value="1.5" />
 
     <property name="dir.src" value="src" />
     <property name="dir.junit.tests" value="test" />
