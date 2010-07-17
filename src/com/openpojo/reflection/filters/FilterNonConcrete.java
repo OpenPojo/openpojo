@@ -20,6 +20,8 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 
 /**
+ * This filer will filter out any non-concrete classes (i.e. interfaces and abstracts).
+ *
  * @author oshoukry
  */
 public class FilterNonConcrete implements PojoClassFilter {

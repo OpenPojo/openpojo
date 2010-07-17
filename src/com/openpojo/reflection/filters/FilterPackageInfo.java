@@ -20,6 +20,8 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 
 /**
+ * This filter will exclude any "package-info" interface entries.
+ *
  * @author oshoukry
  */
 public class FilterPackageInfo implements PojoClassFilter {
