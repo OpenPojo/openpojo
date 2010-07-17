@@ -22,7 +22,7 @@ package com.openpojo.validation.rule.impl.sampleclasses;
 public final class NoNestedClassDoesntClass {
 
     // Not Okay
-    public class nestedClass {
+    public class NestedClass {
 
     }
 }
