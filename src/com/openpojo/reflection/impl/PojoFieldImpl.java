@@ -38,11 +38,11 @@ class PojoFieldImpl implements PojoField {
     private final PojoMethod fieldGetter;
     private final PojoMethod fieldSetter;
 
-    PojoFieldImpl(final Field field, final PojoMethod fieldGetter, final PojoMethod fieldSetter) {
+    PojoFieldImpl(final Field field) {
         this.field = field;
         this.field.setAccessible(true);
-        this.fieldGetter = fieldGetter;
-        this.fieldSetter = fieldSetter;
+        fieldGetter = PojoMethodFactory.getFieldGetter(field);
+        fieldSetter = PojoMethodFactory.getFieldSetter(field);
     }
 
     public Object get(final Object instance) {

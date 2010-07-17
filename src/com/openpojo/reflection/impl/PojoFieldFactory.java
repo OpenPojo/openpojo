@@ -22,7 +22,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.utils.FieldHelper;
 
 /**
@@ -42,92 +41,8 @@ final class PojoFieldFactory {
     public static List<PojoField> getPojoFields(final Class<?> clazz) {
         final List<PojoField> pojoFields = new LinkedList<PojoField>();
         for (final Field field : FieldHelper.getDeclaredFields(clazz)) {
-            pojoFields.add(new PojoFieldImpl(field, getGetter(field), getSetter(field)));
+            pojoFields.add(new PojoFieldImpl(field));
         }
         return Collections.unmodifiableList(pojoFields);
     }
-
-    /**
-     * Returns the Setter Method for a field.
-     *
-     * @param field
-     *            The field to lookup the setter on.
-     * @return
-     *         The setter method or null if none exist.
-     */
-    private static PojoMethod getSetter(final Field field) {
-        PojoMethod pojoMethod = null;
-
-        for (String candidateName : generateSetMethodNames(field)) {
-            Class<?> clazz = field.getDeclaringClass();
-            pojoMethod = PojoMethodFactory.getMethod(clazz, candidateName, field.getType());
-            if (pojoMethod != null) {
-                break;
-            }
-        }
-        return pojoMethod;
-    }
-
-    /**
-     * Returns the Getter Method for a field.
-     *
-     * @param field
-     *            The field to lookup the getter on.
-     * @return
-     *         The getter method or null if none exist.
-     */
-    public static PojoMethod getGetter(final Field field) {
-        PojoMethod pojoMethod = null;
-        for (String candidateName : generateGetMethodNames(field)) {
-            Class<?> clazz = field.getDeclaringClass();
-            pojoMethod = PojoMethodFactory.getMethod(clazz, candidateName);
-            if (pojoMethod != null) {
-                break;
-            }
-        }
-        return pojoMethod;
-    }
-
-    /**
-     * Returns a list for candidate getter names.
-     *
-     * @param field
-     *            Field to generate the candidate getter names for.
-     * @return
-     *         List of candidate method names.
-     */
-    private static List<String> generateGetMethodNames(final Field field) {
-        List<String> prefix = new LinkedList<String>();
-        prefix.add("get" + formattedFieldName(field));
-        if (field.getType() == boolean.class || field.getType() == Boolean.class) {
-            prefix.add("is" + formattedFieldName(field));
-        }
-        return prefix;
-    }
-
-    /**
-     * Returns a list for candidate setter names.
-     *
-     * @param field
-     *            The field to generate for.
-     * @return
-     */
-    private static List<String> generateSetMethodNames(final Field field) {
-        List<String> prefix = new LinkedList<String>();
-        prefix.add("set" + formattedFieldName(field));
-        return prefix;
-    }
-
-    /**
-     * Properly CamelCased the field name as expected "first Letter is uppercase, rest is unchanged".
-     *
-     * @param field
-     *            The field to proper case.
-     * @return
-     *         Formatted field name.
-     */
-    private static String formattedFieldName(final Field field) {
-        return field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1, field.getName().length());
-    }
-
 }
