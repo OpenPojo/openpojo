@@ -21,6 +21,9 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 
 /**
+ * This filter includes classes that extend/implement a certain type.
+ * Note: This class filters out the extended/implemented class/interface.
+ *
  * @author oshoukry
  */
 public class FilterBasedOnInheritence implements PojoClassFilter {
@@ -33,8 +36,9 @@ public class FilterBasedOnInheritence implements PojoClassFilter {
     }
 
     public boolean include(final PojoClass pojoClass) {
-        if (!pojoClass.getName().equals(type.getName()) && (filter == null || filter.include(pojoClass)))
+        if (!pojoClass.getName().equals(type.getName()) && (filter == null || filter.include(pojoClass))) {
             return pojoClass.extendz(type);
+        }
         return false;
     }
 }
