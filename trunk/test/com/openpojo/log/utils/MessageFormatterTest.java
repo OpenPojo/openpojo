@@ -1,11 +1,12 @@
-package com.openpojo.log;
+package com.openpojo.log.utils;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.junit.Ignore;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -72,10 +73,9 @@ public class MessageFormatterTest {
      * {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}.
      */
     @Test
-    @Ignore
     public final void testUsingCurlyBrackets() {
         for (UsingCurlyBracketsTestData entry : getUsingCurlyBracketsTestData()) {
-            //TODO: Assert.assertEquals(entry.expected, MessageFormatter.usingCurlyBrackets(entry.message, entry.fields));
+            Assert.assertEquals(entry.expected, MessageFormatter.usingCurlyBrackets(entry.message, entry.fields));
         }
     }
 
@@ -83,11 +83,10 @@ public class MessageFormatterTest {
      * Test method for {@link com.cobalt.dap.log.MessageFormatter#flattenArrayElementsToString(java.lang.Object[])}.
      */
     @Test
-    @Ignore
     public final void testFlattenArrayToString() {
         for (FlattenArrayToStringTestData entry : getFlattenArrayToStringTestData()) {
-//TODO:            Assert.assertEquals(entry.expected, Arrays.toString(MessageFormatter
-//                    .flattenArrayElementsToString(entry.array)));
+            Assert.assertEquals(entry.expected, Arrays.toString(MessageFormatter
+                    .flattenArrayElementsToString(entry.array)));
         }
 
     }
@@ -101,14 +100,13 @@ public class MessageFormatterTest {
      * {@link com.cobalt.dap.log.MessageFormatter#generateCurlyBracketTokens(int)}.
      */
     @Test
-    @Ignore
     public final void testBoundaryConditionsOnGenerateCurlyBracketTokens() {
 
-//        Assert.assertEquals("", MessageFormatter.generateCurlyBracketTokens(Integer.MIN_VALUE));
-//        Assert.assertEquals("", MessageFormatter.generateCurlyBracketTokens(-1));
-//        Assert.assertEquals("", MessageFormatter.generateCurlyBracketTokens(0));
-//        Assert.assertEquals(GENERATE_CURLY_BRACKET_TOKEN_PREFIX + TOKEN_COUNTER_START
-//                + GENERATE_CURLY_BRACKET_TOKEN_POSTFIX, MessageFormatter.generateCurlyBracketTokens(1));
+        Assert.assertEquals("", MessageFormatter.generateCurlyBracketTokens(Integer.MIN_VALUE));
+        Assert.assertEquals("", MessageFormatter.generateCurlyBracketTokens(-1));
+        Assert.assertEquals("", MessageFormatter.generateCurlyBracketTokens(0));
+        Assert.assertEquals(GENERATE_CURLY_BRACKET_TOKEN_PREFIX + TOKEN_COUNTER_START
+                + GENERATE_CURLY_BRACKET_TOKEN_POSTFIX, MessageFormatter.generateCurlyBracketTokens(1));
     }
 
     private static final int MAX_NUMBER_OF_RANDOM_TOKENS = 10;
@@ -118,7 +116,6 @@ public class MessageFormatterTest {
      * {@link com.cobalt.dap.log.MessageFormatter#generateCurlyBracketTokens(int)}.
      */
     @Test
-    @Ignore
     public final void testRandomGenerateCurlyBracketTokens() {
         int randomNumberOfTokensBetween0And10 = new Random().nextInt(MAX_NUMBER_OF_RANDOM_TOKENS + 1);
 
@@ -127,8 +124,8 @@ public class MessageFormatterTest {
             assertString.append(GENERATE_CURLY_BRACKET_TOKEN_PREFIX).append(counter).append(
                     GENERATE_CURLY_BRACKET_TOKEN_POSTFIX);
         }
-//TODO:        Assert.assertEquals(assertString.toString(), MessageFormatter
-//                .generateCurlyBracketTokens(randomNumberOfTokensBetween0And10));
+        Assert.assertEquals(assertString.toString(), MessageFormatter
+                .generateCurlyBracketTokens(randomNumberOfTokensBetween0And10));
 
     }
 
