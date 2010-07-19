@@ -24,6 +24,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class SerializableMustHaveSerialVersionUIDNotStaticClass implements Serializable {
 
+    @SuppressWarnings("unused")
     private final long serialVersionUID = 1L;
 
 }

@@ -21,6 +21,7 @@ package com.openpojo.validation.rule.impl.sampleclasses;
  *
  */
 public class SerializableMustHaveSerialVersionUIDNotSerializableClass {
+    @SuppressWarnings("unused")
     private String someField;
 
 }
