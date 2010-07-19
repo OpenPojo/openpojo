@@ -5,19 +5,27 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import utils.log.LogHelper;
 import utils.log.LoggedEvent;
 
+import com.openpojo.log.impl.Log4JLogger;
+import com.openpojo.log.utils.ActiveLogger;
 import com.openpojo.log.utils.MessageFormatter;
 
 /**
  * @author oshoukry
  */
-public class LoggerTest {
-    private static final String LOGCATEGORY = LoggerTest.class.getName();
-    private static final int LOGLEVELS = 5; //TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+public class Log4JLoggerTest {
+    private static final String LOGCATEGORY = Log4JLoggerTest.class.getName();
+    private static final int LOGLEVELS = 6; //TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+
+    @BeforeClass
+    public static final void switchLoggerToLog4J() {
+        ActiveLogger.setActiveLogger(Log4JLogger.class);
+    }
 
     /**
      * This method does the test setup, currently initializes the loggers.
@@ -101,10 +109,10 @@ public class LoggerTest {
             Assert.assertEquals(count + 1, loggedEvents.size());
             Assert.assertEquals(variance.expected, loggedEvents.get(count).message);
 
-            /*
+
             log.fatal(variance.message, variance.params);
             loggedEvents = LogHelper.getFatalEvents(LOGCATEGORY);
-*/
+
             Assert.assertEquals(count + 1, loggedEvents.size());
             Assert.assertEquals(variance.expected, loggedEvents.get(count).message);
 
@@ -116,7 +124,7 @@ public class LoggerTest {
         Assert.assertEquals(count, LogHelper.getDebugCountBySource(LOGCATEGORY).intValue());
         Assert.assertEquals(count, LogHelper.getInfoCountBySource(LOGCATEGORY).intValue());
         Assert.assertEquals(count, LogHelper.getErrorCountBySource(LOGCATEGORY).intValue());
-//        Assert.assertEquals(count, LogHelper.getFatalCountBySource(LOGCATEGORY).intValue());
+        Assert.assertEquals(count, LogHelper.getFatalCountBySource(LOGCATEGORY).intValue());
     }
 
     /**
@@ -161,11 +169,11 @@ public class LoggerTest {
             Assert.assertEquals(count + 1, loggedEvents.size());
             Assert.assertEquals(variance.expected, loggedEvents.get(count).message);
 
-//            log.fatal(variance.message);
-//            loggedEvents = LogHelper.getFatalEvents(LOGCATEGORY);
+            log.fatal(variance.message);
+            loggedEvents = LogHelper.getFatalEvents(LOGCATEGORY);
 
-//            Assert.assertEquals(count + 1, loggedEvents.size());
-//            Assert.assertEquals(variance.expected, loggedEvents.get(count).message);
+            Assert.assertEquals(count + 1, loggedEvents.size());
+            Assert.assertEquals(variance.expected, loggedEvents.get(count).message);
 
             Assert.assertEquals(LOGLEVELS + (LOGLEVELS * count) /* Levels we have */, LogHelper.getCountBySource(
                     LOGCATEGORY).intValue());
@@ -175,7 +183,7 @@ public class LoggerTest {
         Assert.assertEquals(count, LogHelper.getDebugCountBySource(LOGCATEGORY).intValue());
         Assert.assertEquals(count, LogHelper.getInfoCountBySource(LOGCATEGORY).intValue());
         Assert.assertEquals(count, LogHelper.getErrorCountBySource(LOGCATEGORY).intValue());
-//        Assert.assertEquals(count, LogHelper.getFatalCountBySource(LOGCATEGORY).intValue());
+        Assert.assertEquals(count, LogHelper.getFatalCountBySource(LOGCATEGORY).intValue());
 
     }
 
