@@ -41,7 +41,7 @@ public final class LoggerFactory {
      *         returns an instance of the Logger.
      */
     public static Logger getLogger(final Class<?> clazz) {
-        return (Logger) ActiveLogger.activeLoggerPojoClass.newInstance(getLoggerCategory(clazz));
+        return (Logger) ActiveLogger.getInstance(getLoggerCategory(clazz));
     }
 
     /**
@@ -53,15 +53,13 @@ public final class LoggerFactory {
      *         returns and instance of the logger.
      */
     public static Logger getLogger(final String category) {
-        return (Logger) ActiveLogger.activeLoggerPojoClass.newInstance(getLoggerCategory(category));
+        return (Logger) ActiveLogger.getInstance(category);
     }
 
-    private static String getLoggerCategory(final String category) {
-        return category == null ? "NULL_CATEGORY" : category;
-    }
+
 
     private static String getLoggerCategory(final Class<?> clazz) {
-        return clazz == null ? getLoggerCategory((String) null) : clazz.getName();
+        return clazz == null ? (String) null : clazz.getName();
     }
 
 
