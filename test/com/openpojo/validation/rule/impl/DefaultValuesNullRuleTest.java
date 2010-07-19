@@ -25,6 +25,7 @@ import com.openpojo.validation.rule.impl.sampleclasses.DefaultValueNullClass;
 /**
  * @author oshoukry
  */
+@SuppressWarnings("deprecation") // keep this until we rip this class out completely.
 public class DefaultValuesNullRuleTest {
 
     Class<?>[] failClasses = new Class<?>[]{ DefaultValueNotNullClass.class };
