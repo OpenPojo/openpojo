@@ -41,7 +41,7 @@ public class ActiveLogger {
         reportActiveLogger();
     }
 
-    public static synchronized void setActiveLogger(final Class<Logger> loggerClass) {
+    public static synchronized void setActiveLogger(final Class<? extends Logger> loggerClass) {
         activeLoggerPojoClass = PojoClassFactory.getPojoClass(loggerClass);
         reportActiveLogger();
     }
