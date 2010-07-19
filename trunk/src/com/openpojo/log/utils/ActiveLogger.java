@@ -52,7 +52,7 @@ public class ActiveLogger {
     }
 
     private static synchronized void reportActiveLogger() {
-        ((Logger) getInstance(ActiveLogger.class.getName())).info("Logging subsystem initialized to utilized to [{0}]",
+        ((Logger) getInstance(ActiveLogger.class.getName())).info("Logging subsystem initialized to [{0}]",
                 activeLoggerPojoClass.getClazz());
     }
 
