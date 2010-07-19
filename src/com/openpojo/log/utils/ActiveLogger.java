@@ -19,6 +19,7 @@ package com.openpojo.log.utils;
 import com.openpojo.log.Logger;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.facade.FacadeFactory;
+import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This ActiveLogger class is a container that holds the active logging underlying framework for
@@ -32,11 +33,30 @@ public class ActiveLogger {
     public static final String[] SUPPORTED_LOGGERS = new String[]{ "com.openpojo.log.impl.SLF4JLogger",
             "com.openpojo.log.impl.Log4JLogger", "com.openpojo.log.impl.JavaLogger" };
 
-    public final static PojoClass activeLoggerPojoClass = FacadeFactory.getLoadedFacadePojoClass(SUPPORTED_LOGGERS);
+    private static final String NULL_CATEGORY = "NULL_CATEGORY";
+
+    private static PojoClass activeLoggerPojoClass = FacadeFactory.getLoadedFacadePojoClass(SUPPORTED_LOGGERS);
 
     static {
-        ((Logger) activeLoggerPojoClass.newInstance(ActiveLogger.class.getName())).info(
-                "Logging subsystem initialized to utilized to [{0}]", activeLoggerPojoClass.getClazz());
+        reportActiveLogger();
     }
 
+    public static synchronized void setActiveLogger(final Class<Logger> loggerClass) {
+        activeLoggerPojoClass = PojoClassFactory.getPojoClass(loggerClass);
+        reportActiveLogger();
+    }
+
+    public static synchronized Logger getInstance(final String category) {
+
+        return (Logger) activeLoggerPojoClass.newInstance(getLoggerCategory(category));
+    }
+
+    private static synchronized void reportActiveLogger() {
+        ((Logger) getInstance(ActiveLogger.class.getName())).info("Logging subsystem initialized to utilized to [{0}]",
+                activeLoggerPojoClass.getClazz());
+    }
+
+    private static String getLoggerCategory(final String category) {
+        return category == null ? NULL_CATEGORY : category;
+    }
 }
