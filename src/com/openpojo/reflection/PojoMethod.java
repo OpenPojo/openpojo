@@ -111,4 +111,10 @@ public interface PojoMethod {
      */
     public boolean isPublic();
 
+    /**
+     * @return
+     *          True if this method is a constructor method and returns a new instance.
+     */
+    public boolean isConstructor();
+
 }

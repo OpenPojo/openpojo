@@ -95,12 +95,12 @@ public class PojoClassTest {
     @Test
     public void testGetPojoMethods() {
         PojoClass pojoClass = getPojoClassImplForClass(AClassWithSixMethods.class);
-        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()), 6, pojoClass
-                .getPojoMethods().size());
+        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()),
+                6 + 1 /* constructor */, pojoClass.getPojoMethods().size());
 
         pojoClass = getPojoClassImplForClass(AClassWithoutMethods.class);
-        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()), 0, pojoClass
-                .getPojoMethods().size());
+        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()),
+                0 + 1 /* constructor */, pojoClass.getPojoMethods().size());
     }
 
     @Test
