@@ -16,6 +16,7 @@
  */
 package com.openpojo.reflection.impl;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -24,7 +25,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.utils.MethodHelper;
 
 /**
  * @author oshoukry
@@ -32,7 +32,12 @@ import com.openpojo.reflection.utils.MethodHelper;
 public class PojoMethodFactory {
     public static List<PojoMethod> getPojoMethods(final Class<?> clazz) {
         final List<PojoMethod> pojoMethods = new LinkedList<PojoMethod>();
-        for (final Method method : MethodHelper.getDeclaredMethods(clazz)) {
+
+        for (final Constructor<?> constructor : clazz.getDeclaredConstructors()) {
+            pojoMethods.add(new PojoMethodImpl(constructor));
+        }
+
+        for (final Method method : clazz.getDeclaredMethods()) {
             pojoMethods.add(new PojoMethodImpl(method));
         }
         return Collections.unmodifiableList(pojoMethods);

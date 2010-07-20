@@ -17,6 +17,8 @@
 package com.openpojo.reflection.impl;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -25,61 +27,110 @@ import com.openpojo.reflection.exception.ReflectionException;
 
 /**
  * @author oshoukry
- *
  */
 public class PojoMethodImpl implements PojoMethod {
-    private final Method method;
+    private final AccessibleObject accessibleObject;
 
     PojoMethodImpl(final Method method) {
-        this.method = method;
-        this.method.setAccessible(true);
+        accessibleObject = method;
+        allowAccessiblity();
     }
 
-    public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
-        return method.getAnnotation(annotationClass);
+    PojoMethodImpl(final Constructor<?> constructor) {
+        accessibleObject = constructor;
+        allowAccessiblity();
+    }
+
+    private void allowAccessiblity() {
+        accessibleObject.setAccessible(true);
     }
 
     public String getName() {
-        return method.getName();
+        if (isConstructor()) {
+            return getAsConstructor().getName();
+        }
+        return getAsMethod().getName();
+    }
+
+    public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
+        return accessibleObject.getAnnotation(annotationClass);
     }
 
     public Object invoke(final Object instance, final Object... parameters) {
+        if (isConstructor()) {
+            try {
+                return getAsConstructor().newInstance(parameters);
+            } catch (Exception e) {
+                throw ReflectionException.getInstance(e);
+            }
+        }
+
         try {
-            return method.invoke(instance, parameters);
+            return getAsMethod().invoke(instance, parameters);
         } catch (Exception e) {
             throw ReflectionException.getInstance(e);
         }
     }
 
     public boolean isFinal() {
-        return Modifier.isFinal(method.getModifiers());
+        return Modifier.isFinal(getModifiers());
     }
 
     public boolean isPrivate() {
-        return Modifier.isPrivate(method.getModifiers());
+        return Modifier.isPrivate(getModifiers());
     }
 
     public boolean isProtected() {
-        return Modifier.isProtected(method.getModifiers());
+        return Modifier.isProtected(getModifiers());
     }
 
     public boolean isPublic() {
-        return Modifier.isPublic(method.getModifiers());
+        return Modifier.isPublic(getModifiers());
     }
 
     public boolean isStatic() {
-        return Modifier.isStatic(method.getModifiers());
+        return Modifier.isStatic(getModifiers());
+    }
+
+    public boolean isConstructor() {
+        return accessibleObject instanceof Constructor<?>;
     }
 
     public Class<?>[] getParameterTypes() {
-        return method.getParameterTypes();
+        if (isConstructor()) {
+            return getAsConstructor().getParameterTypes();
+        }
+        return getAsMethod().getParameterTypes();
     }
 
-    /* (non-Javadoc)
+    private Method getAsMethod() {
+        if (!isConstructor()) {
+            return (Method) accessibleObject;
+        }
+        throw ReflectionException.getInstance("Attempt to get Constructor as Method!!");
+    }
+
+    private Constructor<?> getAsConstructor() {
+        if (isConstructor()) {
+            return (Constructor<?>) accessibleObject;
+        }
+        throw ReflectionException.getInstance("Attempt to get Method as Constructor!!");
+    }
+
+    private int getModifiers() {
+        if (isConstructor()) {
+            return getAsConstructor().getModifiers();
+        }
+        return getAsMethod().getModifiers();
+    }
+
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return String.format("PojoMethodImpl [method=%s]", method);
+        String tag = isConstructor() ? "constructor" : "method";
+        return String.format("PojoMethodImpl [%s=%s]", tag, getName());
     }
 }
