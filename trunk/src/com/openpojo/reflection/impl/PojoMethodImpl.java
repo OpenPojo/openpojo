@@ -32,12 +32,15 @@ public class PojoMethodImpl implements PojoMethod {
     private final AccessibleObject accessibleObject;
 
     PojoMethodImpl(final Method method) {
-        accessibleObject = method;
-        allowAccessiblity();
+        this((AccessibleObject) method);
     }
 
     PojoMethodImpl(final Constructor<?> constructor) {
-        accessibleObject = constructor;
+       this((AccessibleObject) constructor);
+    }
+
+    private PojoMethodImpl(final AccessibleObject accessibleObject) {
+        this.accessibleObject = accessibleObject;
         allowAccessiblity();
     }
 
