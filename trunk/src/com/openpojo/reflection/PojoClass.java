@@ -74,6 +74,11 @@ public interface PojoClass {
     public List<PojoMethod> getPojoMethods();
 
     /**
+     * Get all Constructors
+     */
+    public List<PojoMethod> getPojoConstructors();
+
+    /**
      * Returns the fully qualified class name.
      *
      * @return
@@ -116,19 +121,23 @@ public interface PojoClass {
     public Class<?> getClazz();
 
     /**
-     * This method creates a new instance.
+     * This method creates a new instance using default / blank constructor.
      *
+     * @deprecated Please utilize the InstanceFactory for construction.
      * @return
      *         New instance of clazz.
      */
+    @Deprecated
     public Object newInstance();
 
     /**
      * This method creates a new instance given argument list.
      *
+     * @deprecated Please utilize the InstanceFactory for construction.
      * @return
      *         New instance of clazz.
      */
+    @Deprecated
     public Object newInstance(final Object... objects);
 
     /**

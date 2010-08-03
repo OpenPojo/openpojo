@@ -18,6 +18,7 @@ package com.openpojo.validation.utils;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.construct.InstanceFactory;
 
 /**
  * This Validation helper utility class will carry the collection of common
@@ -40,14 +41,33 @@ public final class ValidationHelper {
 
     /**
      * This helper method is responsible for creating an instance of a PojoClass.
-     * Currently only supports having default blank constructor.
+     * This method will favor the most basic constructor in terms of parameters.
+     * <br>
+     * Example: if you have two constructors one with no parameters and one with some parameters
+     * This method will invoke the one without parameters.
      *
      * @param pojoClass
-     *          The class to instantiate.
+     *            The class to instantiate.
      * @return
-     *          An Instance of the class.
+     *         An Instance of the class.
      */
-    public static Object getNewInstance(final PojoClass pojoClass) {
-        return pojoClass.newInstance();
+    public static Object getBasicInstance(final PojoClass pojoClass) {
+        return InstanceFactory.getLeastCompleteInstance(pojoClass);
+    }
+
+    /**
+     * This helper method is responsible for creating an instance of a PojoClass.
+     * This method will favor the most complete constructor in terms of parameters.
+     * <br>
+     * Example: if you have two constructors one with no parameters and one with some parameters
+     * This method will invoke the one with some parameters.
+     *
+     * @param pojoClass
+     *            The class to instantiate.
+     * @return
+     *         An Instance of the class.
+     */
+    public static Object getMostCompleteInstance(final PojoClass pojoClass) {
+        return InstanceFactory.getMostCompleteInstance(pojoClass);
     }
 }

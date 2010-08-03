@@ -20,6 +20,7 @@ package com.openpojo.validation.affirm;
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.facade.FacadeFactory;
 
 /**
@@ -54,7 +55,7 @@ public final class AffirmationFactory {
 
     private static Affirmation getActiveAffirmation() {
         PojoClass loggerPojoClass = FacadeFactory.getLoadedFacadePojoClass(SUPPORTED_ASSERTIONS);
-        return (Affirmation) loggerPojoClass.newInstance();
+        return (Affirmation) InstanceFactory.getInstance(loggerPojoClass);
     }
 
     /**

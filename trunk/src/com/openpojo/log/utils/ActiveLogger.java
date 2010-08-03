@@ -18,6 +18,7 @@ package com.openpojo.log.utils;
 
 import com.openpojo.log.Logger;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.facade.FacadeFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
@@ -48,7 +49,7 @@ public class ActiveLogger {
 
     public static synchronized Logger getInstance(final String category) {
 
-        return (Logger) activeLoggerPojoClass.newInstance(getLoggerCategory(category));
+        return (Logger) InstanceFactory.getInstance(activeLoggerPojoClass, getLoggerCategory(category));
     }
 
     private static synchronized void reportActiveLogger() {

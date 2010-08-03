@@ -24,6 +24,7 @@ import org.junit.Test;
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleclasses.AClassExtendingAnInterface;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithEquality;
@@ -123,37 +124,37 @@ public class PojoClassTest {
     @Test(expected = ReflectionException.class)
     public void shouldFailToCreateInstanceOnInterface() {
         PojoClass pojoClass = getPojoClassImplForClass(AnInterfaceClass.class);
-        pojoClass.newInstance();
+        InstanceFactory.getInstance(pojoClass);
     }
 
     @Test(expected = ReflectionException.class)
     public void shouldFailToCreateInstanceOnAbstract() {
         PojoClass pojoClass = getPojoClassImplForClass(AnAbstractClass.class);
-        pojoClass.newInstance();
+        InstanceFactory.getInstance(pojoClass);
     }
 
     @Test(expected = ReflectionException.class)
     public void shouldFailToFindAppropriateConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        pojoClass.newInstance(new Object[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        InstanceFactory.getInstance(pojoClass, (new Object[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
     }
 
     @Test(expected = ReflectionException.class)
     public void shouldFailToConstructBasedOnExcpetionalConstructorWithNoParam() {
         PojoClass pojoClass = getPojoClassImplForClass(AClassWithExceptionalConstructors.class);
-        pojoClass.newInstance();
+        InstanceFactory.getInstance(pojoClass);
     }
 
     @Test(expected = ReflectionException.class)
     public void shouldFailToConstructBasedOnExcpetionalConstructorWithParam() {
         PojoClass pojoClass = getPojoClassImplForClass(AClassWithExceptionalConstructors.class);
-        pojoClass.newInstance("OneStringParam");
+        InstanceFactory.getInstance(pojoClass, ("OneStringParam"));
     }
 
     @Test
     public void shouldCreateInstanceUsingDeclaredPublicConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(OnePublicNoParamConstructor.class);
-        Object instance = pojoClass.newInstance();
+        Object instance = InstanceFactory.getInstance(pojoClass);
         Affirm.affirmNotNull(String.format(
                 "Failed to create a new instance using publicly declared constructor for class=[%s]", pojoClass),
                 instance);
@@ -162,7 +163,7 @@ public class PojoClassTest {
     @Test
     public void shouldCreateInstanceUsingDeclaredPrivateConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(OnePrivateNoParamsConstructor.class);
-        Object instance = pojoClass.newInstance();
+        Object instance = InstanceFactory.getInstance(pojoClass);
         Affirm.affirmNotNull(String.format(
                 "Failed to create a new instance using privately declared constructor for class=[%s]", pojoClass),
                 instance);
@@ -171,7 +172,8 @@ public class PojoClassTest {
     @Test
     public void shouldCreateInstanceUsingImplicitConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(NoDeclaredConstructor.class);
-        Object instance = pojoClass.newInstance();
+        Object instance = InstanceFactory.getInstance(pojoClass);
+
         Affirm.affirmNotNull(String.format(
                 "Failed to create a new instance using compiler auto-generated constructor for class=[%s]", pojoClass),
                 instance);
@@ -180,7 +182,7 @@ public class PojoClassTest {
     @Test
     public void shouldCreateInstanceOneParameterConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        Object instance = pojoClass.newInstance(RandomFactory.getRandomValue(String.class));
+        Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class));
         Affirm.affirmNotNull(String.format(
                 "Failed to create a new instance using single parameter constructor for class=[%s]", pojoClass),
                 instance);
@@ -189,7 +191,7 @@ public class PojoClassTest {
     @Test
     public void shouldCreateInstanceOneNullParameterConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        Object instance = pojoClass.newInstance((Object[]) null);
+        Object instance = InstanceFactory.getInstance(pojoClass, (new Object[]{ null }));
         Affirm.affirmNotNull(String.format(
                 "Failed to create a new instance using single parameter constructor for class=[%s]", pojoClass),
                 instance);
@@ -198,7 +200,7 @@ public class PojoClassTest {
     @Test
     public void shouldCreateInstanceMultipleParameterConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        Object instance = pojoClass.newInstance(RandomFactory.getRandomValue(String.class), RandomFactory
+        Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class), RandomFactory
                 .getRandomValue(Integer.class));
         Affirm.affirmNotNull(String.format(
                 "Failed to create a new instance using multiple parameter constructor for class=[%s]", pojoClass),
@@ -208,18 +210,11 @@ public class PojoClassTest {
     @Test
     public void shouldCreateInstanceMultipleParameterPrivateConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        Object instance = pojoClass.newInstance(RandomFactory.getRandomValue(String.class), RandomFactory
+        Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class), RandomFactory
                 .getRandomValue(Integer.class), RandomFactory.getRandomValue(Character.class));
         Affirm.affirmNotNull(String.format(
                 "Failed to create a new instance using multiple parameter private constructor for class=[%s]",
                 pojoClass), instance);
-    }
-
-    @Test(expected = ReflectionException.class)
-    public void shouldFailToCreateBecauseOfParameterCountConflictMultipleParameterConstructor() {
-        PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        pojoClass.newInstance(null, null, null, null);
-        Affirm.fail("Shouldn't be able to create using constructor when two are candidate based on parameter count");
     }
 
     @Test

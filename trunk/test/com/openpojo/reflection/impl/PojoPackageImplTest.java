@@ -21,8 +21,6 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.openpojo.reflection.PojoClass;
-
 /**
  * @author oshoukry
  */
@@ -47,9 +45,6 @@ public class PojoPackageImplTest {
 
     @Test
     public void testGetPojoClasses() {
-        for (PojoClass pojoClass : pojoPackageImpl.getPojoClasses()) {
-            System.out.println(pojoClass.getClazz());
-        }
         Assert.assertEquals(String.format("classes added/removoed to package=[%s]?", packageName), EXPECTED_CLASSES,
                 pojoPackageImpl.getPojoClasses().size());
     }

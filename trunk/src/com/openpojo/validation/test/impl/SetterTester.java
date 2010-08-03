@@ -39,7 +39,7 @@ public class SetterTester implements Tester {
         } else {
             Object classInstance = null;
 
-            classInstance = ValidationHelper.getNewInstance(pojoClass);
+            classInstance = ValidationHelper.getBasicInstance(pojoClass);
             for (PojoField fieldEntry : pojoClass.getPojoFields()) {
                 if (fieldEntry.hasSetter()) {
                     Object value = RandomFactory.getRandomValue(fieldEntry.getType());

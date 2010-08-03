@@ -39,7 +39,7 @@ public class DefaultValuesNullTester implements Tester {
         } else {
             Object classInstance = null;
 
-            classInstance = ValidationHelper.getNewInstance(pojoClass);
+            classInstance = ValidationHelper.getBasicInstance(pojoClass);
             for (PojoField fieldEntry : pojoClass.getPojoFields()) {
                 if (!fieldEntry.isPrimitive() && !fieldEntry.isFinal()) {
                     Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry), fieldEntry
