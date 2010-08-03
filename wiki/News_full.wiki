@@ -1,6 +1,9 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+* *2010-08-03:*
+  * Added InstanceFactory a new class that can create any PojoClass utilizing one of three ways (Exact argument list, random using minimum available constructor, random using the most complete constructor).
+  * RandomFactory now falls back on InstanceFactory for a given type if it can't find a registered type.
  * *2010-06-22:*
   * Fixed a problem with the wiring of the assertion framework not detecting that TestNG not available and throwing initialization errors.
  * *2010-06-21:*
