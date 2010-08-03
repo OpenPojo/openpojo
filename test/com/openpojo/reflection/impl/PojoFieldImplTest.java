@@ -23,6 +23,7 @@ import org.junit.Test;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleclasses.PojoFieldImplClass;
 import com.openpojo.validation.affirm.Affirm;
@@ -39,7 +40,7 @@ public class PojoFieldImplTest {
      */
     @Before
     public void setUp() throws Exception {
-        pojoClassInstance = pojoClass.newInstance();
+        pojoClassInstance = InstanceFactory.getInstance(pojoClass);
     }
 
     /**
@@ -72,30 +73,29 @@ public class PojoFieldImplTest {
         return null;
     }
 
-    @Test (expected = ReflectionException.class)
+    @Test(expected = ReflectionException.class)
     public void shouldFailSet() {
         PojoField pojoField = getPrivateStringField();
         pojoField.set(null, RandomFactory.getRandomValue(pojoField.getType()));
     }
 
-    @Test (expected = ReflectionException.class)
+    @Test(expected = ReflectionException.class)
     public void shouldFailGet() {
         PojoField pojoField = getPrivateStringField();
         pojoField.get(null);
     }
 
-    @Test (expected = ReflectionException.class)
+    @Test(expected = ReflectionException.class)
     public void shouldFailSetter() {
         PojoField pojoField = getPrivateStringField();
         pojoField.inovkeSetter(null, RandomFactory.getRandomValue(pojoField.getType()));
     }
 
-    @Test (expected = ReflectionException.class)
+    @Test(expected = ReflectionException.class)
     public void shouldFailGetter() {
         PojoField pojoField = getPrivateStringField();
         pojoField.invokeGetter(null);
     }
-
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#getName()}.
@@ -190,8 +190,8 @@ public class PojoFieldImplTest {
     public void testIsStatic() {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().startsWith("static")) {
-                Affirm.affirmTrue(String.format("isStatic() check on field=[%s] returned false!!",
-                        pojoField), pojoField.isStatic());
+                Affirm.affirmTrue(String.format("isStatic() check on field=[%s] returned false!!", pojoField),
+                        pojoField.isStatic());
             }
         }
     }
@@ -203,8 +203,8 @@ public class PojoFieldImplTest {
     public void testIsPrivate() {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().startsWith("private")) {
-                Affirm.affirmTrue(String.format("isPrivate() check on field=[%s] returned false!!",
-                        pojoField), pojoField.isPrivate());
+                Affirm.affirmTrue(String.format("isPrivate() check on field=[%s] returned false!!", pojoField),
+                        pojoField.isPrivate());
             }
         }
 
@@ -217,8 +217,8 @@ public class PojoFieldImplTest {
     public void testIsProtected() {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().startsWith("protected")) {
-                Affirm.affirmTrue(String.format("isProtected() check on field=[%s] returned false!!",
-                        pojoField), pojoField.isProtected());
+                Affirm.affirmTrue(String.format("isProtected() check on field=[%s] returned false!!", pojoField),
+                        pojoField.isProtected());
             }
         }
     }
@@ -230,8 +230,8 @@ public class PojoFieldImplTest {
     public void testIsPublic() {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().startsWith("public")) {
-                Affirm.affirmTrue(String.format("isPublic() check on field=[%s] returned false!!",
-                        pojoField), pojoField.isPublic());
+                Affirm.affirmTrue(String.format("isPublic() check on field=[%s] returned false!!", pojoField),
+                        pojoField.isPublic());
             }
         }
     }

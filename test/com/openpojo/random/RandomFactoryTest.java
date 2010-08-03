@@ -23,7 +23,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.loop.Employee;
 import com.openpojo.random.loop.RandomEmployee;
 
@@ -56,15 +55,6 @@ public class RandomFactoryTest {
     }
 
     /**
-     * Test unregistered value
-     */
-    @Test(expected = RandomGeneratorException.class)
-    public void testUnregisteredDummy() {
-        RandomFactory.getRandomValue(UnRegisteredDummy.class);
-        Assert.fail("Exception not thrown while trying to generated for unknown type!!");
-    }
-
-    /**
      * Test that the RandomFactory detects and breaks cyclic dependencies.
      */
     @Test
@@ -86,8 +76,4 @@ public class RandomFactoryTest {
             return value;
         }
     }
-
-    private class UnRegisteredDummy {
-    }
-
 }

@@ -21,6 +21,7 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
@@ -134,6 +135,6 @@ public class PojoMethodImpl implements PojoMethod {
     @Override
     public String toString() {
         String tag = isConstructor() ? "constructor" : "method";
-        return String.format("PojoMethodImpl [%s=%s]", tag, getName());
+        return String.format("PojoMethodImpl [%s=%s args=%s]", tag, getName(), Arrays.toString(getParameterTypes()));
     }
 }

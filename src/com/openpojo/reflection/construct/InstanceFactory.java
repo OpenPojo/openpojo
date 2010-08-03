@@ -37,6 +37,19 @@ import com.openpojo.reflection.exception.ReflectionException;
 public class InstanceFactory {
 
     /**
+     * This method returns a new instance created using default constructor.
+     * It is identical to calling getInstance(PojoClass, null).
+     *
+     * @param pojoClass
+     *            The PojoClass to instantiate.
+     * @return
+     *         a newly created instance of the class represented in the pojoClass.
+     */
+    public static Object getInstance(final PojoClass pojoClass) {
+        return InstanceFactory.getInstance(pojoClass, (Object[]) null);
+    }
+
+    /**
      * This method returns a new instance created using the parameters given.
      * If parameters array is null or not null but is of length zero, then the getInstance will call
      * the no arg constructor.

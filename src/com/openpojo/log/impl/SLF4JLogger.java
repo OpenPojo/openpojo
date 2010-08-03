@@ -5,6 +5,7 @@ package com.openpojo.log.impl;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.log.Logger;
+import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
@@ -22,8 +23,8 @@ public final class SLF4JLogger extends Logger {
     private static void configureUnderlyingLayer() {
         try {
 
-            PojoClassFactory.getPojoClass(Class.forName("com.openpojo.log.impl.Log4JLogger")).newInstance(
-                    SLF4JLogger.class.getName());
+            InstanceFactory.getInstance(PojoClassFactory.getPojoClass(Class
+                    .forName("com.openpojo.log.impl.Log4JLogger")), SLF4JLogger.class.getName());
         } catch (Throwable ex) {
             // Not Log4J underlying perhaps.
         }

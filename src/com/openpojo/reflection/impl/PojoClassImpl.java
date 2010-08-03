@@ -16,9 +16,7 @@
  */
 package com.openpojo.reflection.impl;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,8 +24,8 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.utils.ConstructionHelper;
 import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
@@ -78,6 +76,16 @@ class PojoClassImpl implements PojoClass {
         return pojoMethods;
     }
 
+    public List<PojoMethod> getPojoConstructors() {
+        List<PojoMethod> constructors = new LinkedList<PojoMethod>();
+        for (PojoMethod pojoMethod : pojoMethods) {
+            if (pojoMethod.isConstructor()) {
+                constructors.add(pojoMethod);
+            }
+        }
+        return constructors;
+    }
+
     public String getName() {
         return clazz.getName();
     }
@@ -94,51 +102,13 @@ class PojoClassImpl implements PojoClass {
     }
 
     public Object newInstance(final Object... objects) {
-        Object[] parameters = objects;
-        if (parameters == null) {
-            // newInstance(null) assumes you're calling the constructor that takes
-            // no params... to pass null to the first parameter, need a valid array.
-            parameters = new Object[]{ null };
-        }
         validateBeforeNewInstance();
-        List<Constructor<?>> constructors = ConstructionHelper.getConstructorsByParamCount(clazz, parameters.length);
-        validateCandidateConstructors(constructors, objects);
-        Constructor<?> constructor = constructors.get(0);
-        try {
-            constructor.setAccessible(true);
-            return constructor.newInstance(parameters);
-        } catch (Exception e) {
-            // IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException
-            throw ReflectionException.getInstance(e.getMessage(), e);
-        }
-    }
-
-    private void validateCandidateConstructors(final List<Constructor<?>> constructors, final Object... objects) {
-        if (constructors.size() == 0) {
-            throw ReflectionException.getInstance(String.format(
-                    "Unable to locate an appropriate constructor for class=[%s], given args=[%s]", clazz, Arrays
-                            .toString(objects)));
-        }
-        if (constructors.size() > 1) {
-            // need to filter down the list by arg types
-            throw ReflectionException.getInstance(String.format(
-                    "Unable to locate an appropriate constructor for class=[%s],"
-                            + " [%s] constructor(s) found that take [%s] arguments, "
-                            + "filter down by arg type not implemented", clazz, constructors.size(), objects.length));
-        }
+        return InstanceFactory.getInstance(this, objects);
     }
 
     public Object newInstance() {
         validateBeforeNewInstance();
-
-        try {
-            Constructor<?> c = clazz.getDeclaredConstructor(); // NoSuchMethodException, SecurityException
-            c.setAccessible(true); // SecurityException
-            return c.newInstance(); // InstantiationException, IllegalAccessException, IllegalArgumentException,
-            // InvocationTargetException
-        } catch (Exception e) {
-            throw ReflectionException.getInstance(e.getMessage(), e);
-        }
+        return InstanceFactory.getInstance(this);
     }
 
     public boolean isNestedClass() {

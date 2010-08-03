@@ -23,13 +23,13 @@ import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.dynamic.EnumRandomGenerator;
 import com.openpojo.random.dynamic.RandomInstanceFromInterfaceRandomGenerator;
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.ObjectRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
 import com.openpojo.random.impl.VoidRandomGenerator;
 import com.openpojo.random.thread.GeneratedRandomValues;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
@@ -118,8 +118,8 @@ public class RandomFactory {
                 return EnumRandomGenerator.getInstance().doGenerate(type);
             }
 
-            throw RandomGeneratorException.getInstance(String.format("No Random Generators registered for type=[%s]",
-                    type.getName()));
+            logger.info("Creating random instance for type=[{0}] since no random generator registered", type);
+            return InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
         }
         GeneratedRandomValues.add(type);
         Object randomValue;
