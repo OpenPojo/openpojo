@@ -42,8 +42,8 @@ public final class BusinessIdentityTester implements Tester {
     public void run(final PojoClass pojoClass) {
         IdentityFactory.registerIdentityHandler(identityHandlerStub);
 
-        firstPojoClassInstance = ValidationHelper.getNewInstance(pojoClass);
-        secondPojoClassInstance = ValidationHelper.getNewInstance(pojoClass);
+        firstPojoClassInstance = ValidationHelper.getMostCompleteInstance(pojoClass);
+        secondPojoClassInstance = ValidationHelper.getMostCompleteInstance(pojoClass);
 
         // check one way
         identityHandlerStub.areEqualReturn = (Boolean) RandomFactory.getRandomValue(Boolean.class);
