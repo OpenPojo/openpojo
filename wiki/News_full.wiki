@@ -2,7 +2,10 @@
 
 = News =
  * *2010-08-03:*
-  * Added InstanceFactory a new class that can create any PojoClass utilizing one of three ways (Exact argument list, random using minimum available constructor, random using the most complete constructor).
+  * Added InstanceFactory a new class that can create any PojoClass utilizing one of three ways
+    * Exact argument list (FactoryInstance.getInstance(PojoClass, Object[] parameters)
+    * Random utilizing the minimal available constructor (i.e. the one with the least number of parameters)
+    * Random utilizing the most complete available constructor (i.e. the one with the most number of parameters).
   * RandomFactory now falls back on InstanceFactory for a given type if it can't find a registered type.
  * *2010-06-22:*
   * Fixed a problem with the wiring of the assertion framework not detecting that TestNG not available and throwing initialization errors.
