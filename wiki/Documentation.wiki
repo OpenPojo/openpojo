@@ -3,7 +3,7 @@ This page holds the top level documentation.
 = Overview of the System =
 OpenPojo has a few important to note components listed bellow.  However, before diving in, here is the big picture on what the system looks like...
 
- http://openpojo.googlecode.com/svn-history/r227/wiki/img/package_overview.png
+ http://openpojo.googlecode.com/svn-history/r233/wiki/img/package_overview.png
 
 == Runtime ==
 Classes considered runtime are designed to help with *identity management* and *logging*.
