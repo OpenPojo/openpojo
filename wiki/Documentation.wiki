@@ -3,10 +3,61 @@ This page holds the top level documentation.
 = Overview of the System =
 OpenPojo has a few important to note components listed bellow.  However, before diving in, here is the big picture on what the system looks like...
 
-    _TBD_
+ http://openpojo.googlecode.com/svn-history/r227/wiki/img/package_overview.png
+
+== Runtime ==
+Classes considered runtime are designed to help with *identity management* and *logging*.
+
+*Identity management* in JAVA takes on three aspects which are:
+ # Equality (Object.equals method)
+ # Hash Code generation (Object.hashCode method)
+ # String-anization (Object.toString method)
+
+*Logging* was introduced just because there is a need to make logging flexible and allow OpenPojo to log to whatever logging framework is available during - primarily - runtime, and/or testing time.<br>
+The framework is clean and is now core to OpenPojo, feel free to utilize it in all your code simplifying your logging and freeing you to plug any third party library underlying without having to worry about how your code will deal with their intricacies. 
+
+=== Business package ===
+The business package is responsible for all identity management aspects.<br>
+This package is the reason why you want to include openpojo.jar in your run time environment to simplify hashcode, equals and toString calls.<br>
+All this can be done through the BusinessIdentity entry point to the package.<br>
+To use the BusinessIdentity class you need to:
+ # Annotate your fields with @BusinessKey
+ # Wire your equals, hashcode and toString straight to its static calls.
+
+ http://openpojo.googlecode.com/svn-history/r231/wiki/img/business_pkg_overview.png
+
+ * BusinessIdentity
+  This class exposes three basic methods that you can use in your Pojos to generate hashcode, equals and toString.
+   # hashCode & areEqual are used as a pair and both get their queue off of the @BusinessKey annotation.
+   # toString, is unique as it just prints out all variables and their content for a PojoClass.
+
+ * BusinessKey
+  Use this annotation to highlight what fields in your Pojo are to be used for hashcode generation and equality.  Possible configuration parameters on this annotation are
+    # caseSensitive (used to indicate to ignore case when comparing CharacterSequence classes).
+    # required (used to indicate don't allow field to be null upon equality or hashcode generation).
+    # composite (used to indicate this field is part of a group that can have null fields, as long as one member of the group isn't null).
+
+=== Log package ===
+The log package is responsible for logging, it was developed so openpojo can log any of its errors/exceptions correctly through whichever framework you have enabled in production, it will detect SLF4J, Log4j and if neither is available it will fall back to Java's built in logging framework.
+
+If you wish to wire your own logging to openpojo for flexibility then you'll need to use the Logger and LoggerFactory classes
+
+ http://openpojo.googlecode.com/svn-history/r230/wiki/img/log_pkg_overview.png
+
+ * LoggerFactory
+  This factory will return an instance of Logger to be used for logging.
+ * Logger
+  This abstract class wraps the underlying layer and simplifies where actual logs go.  The Logger exposes all the needed methods to log in various levels starting from _trace_ all the way to _fatal_ with the corresponding checks to see if a level is open.  The main difference between this logging framework and others is that you have the ability to pass in a message as a string with tokens, and an argument list that gets converted to string and rendered in the message.<br>
+  For example if you call<br>
+    {{{ info("Logging from {0}", this); }}}  <- Same but faster than -> {{{ info("Logging from " + this); }}}
+  An added benefit to logging with tokens is the ability to externalize your messages enabling internationalization.
+  
+
+== Validation ==
+_TODO_
 
 
-= Important Classes/Interfaces =
+== Other Important Classes/Interfaces ==
  * PojoClassFactory
   This factory is responsible for constructing PojoClasses.  It can do so using a package name (i.e. com.mypackage), has the ability to recurse into sub-packages, as well as enumerate classes based on implementing a given interface / class.
 
@@ -20,14 +71,3 @@ OpenPojo has a few important to note components listed bellow.  However, before 
    * Random Complete : which creates an instance using the constructor with the _most_ parameters.
  * RandomGenerator
   This interface defines the contract needed to be implemented so you can register your own custom types into the RandomFacotory.  Feel free to over-ride the default implementations provided for random generation of all the basic java types including Timestamp.
-
- * BusinessIdentity
-  This class exposes three basic methods that you can use in your Pojos to generate hashcode, equals and toString.
-   # hashCode & areEqual are used as a pair and both get their queue off of the @BusinessKey annotation.
-   # toString, is unique as it just prints out all variables and their content for a PojoClass.
-
- * BusinessKey
-  Use this annotation to highlight what fields in your Pojo are to be used for hashcode generation and equality.  Possible configuration parameters on this annotation are
-    # caseSensitive (used to indicate to ignore case when comparing CharacterSequence classes).
-    # required (used to indicate don't allow field to be null upon equality or hashcode generation).
-    # composite (used to indicate this field is part of a group that can have null fields, as long as one member of the group isn't null).
