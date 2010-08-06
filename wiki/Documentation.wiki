@@ -53,8 +53,8 @@ If you wish to wire your own logging to openpojo for flexibility then you'll nee
   An added benefit to logging with tokens is the ability to externalize your messages enabling internationalization.<br>
   The Logger also handles _Arrays_ turning them to strings as well as exceptions etc...
   
-
-== Validation ==
+== Testing ==
+=== Validation ===
 _TODO_
 
 
