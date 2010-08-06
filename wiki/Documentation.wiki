@@ -48,7 +48,8 @@ If you wish to wire your own logging to openpojo for flexibility then you'll nee
   This abstract class wraps the underlying layer and simplifies where actual logs go.  The Logger exposes all the needed methods to log in various levels starting from _trace_ all the way to _fatal_ with the corresponding checks to see if a level is open.  The main difference between this logging framework and others is that you have the ability to pass in a message as a string with tokens, and an argument list that gets converted to string and rendered in the message.<br>
   For example if you call<br>
     {{{ info("Logging from {0}", this); }}}  <- Same but faster than -> {{{ info("Logging from " + this); }}}
-  An added benefit to logging with tokens is the ability to externalize your messages enabling internationalization.
+  An added benefit to logging with tokens is the ability to externalize your messages enabling internationalization.<br>
+  The Logger also handles _Arrays_ turning them to strings as well as exceptions etc...
   
 
 == Validation ==
