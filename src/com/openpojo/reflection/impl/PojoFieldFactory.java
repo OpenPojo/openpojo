@@ -22,7 +22,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.utils.FieldHelper;
 
 /**
  * This Field Factory returns a list of PojoFields for a given Class.
@@ -40,7 +39,7 @@ final class PojoFieldFactory {
      */
     public static List<PojoField> getPojoFields(final Class<?> clazz) {
         final List<PojoField> pojoFields = new LinkedList<PojoField>();
-        for (final Field field : FieldHelper.getDeclaredFields(clazz)) {
+        for (final Field field : clazz.getDeclaredFields()) {
             pojoFields.add(new PojoFieldImpl(field));
         }
         return Collections.unmodifiableList(pojoFields);
