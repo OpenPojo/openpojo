@@ -1,3 +1,5 @@
+<wiki:toc max_depth="5" />
+
 = Overview of the System =
 OpenPojo has a few important to note components listed bellow.  However, before diving in, here is the big picture on what the system looks like...
 
