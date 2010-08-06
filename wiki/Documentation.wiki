@@ -54,7 +54,9 @@ If you wish to wire your own logging to openpojo for flexibility then you'll nee
   The Logger also handles _Arrays_ turning them to strings as well as exceptions etc...
   
 == Testing ==
-_TODO_
+Classes in the Testing domain are used to help you enforce _static_ as well as _behavioral_ rules on your POJOs.<br><br>
+For example if you want to say _"I want anyone implementing this interface to be immutable"_ - meaning no setters, and all fields are final... this is only a simple example and I am sure you can think of even better things you want to enforce in your own code.<br><br>
+I have included some of the common rules / tests that I needed and think most people will want to use those in some combination or another, and am open to extending the rule set based on feedback. 
 
 === Validation package ===
 _TODO_
