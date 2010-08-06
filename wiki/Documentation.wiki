@@ -54,7 +54,15 @@ If you wish to wire your own logging to openpojo for flexibility then you'll nee
   The Logger also handles _Arrays_ turning them to strings as well as exceptions etc...
   
 == Testing ==
-=== Validation ===
+_TODO_
+
+=== Validation package ===
+_TODO_
+
+=== Random package ===
+_TODO_
+
+=== Reflection package ===
 _TODO_
 
 
