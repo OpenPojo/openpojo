@@ -1,5 +1,3 @@
-This page holds the top level documentation.
-
 = Overview of the System =
 OpenPojo has a few important to note components listed bellow.  However, before diving in, here is the big picture on what the system looks like...
 
