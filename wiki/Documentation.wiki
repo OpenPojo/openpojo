@@ -59,7 +59,21 @@ For example if you want to say _"I want anyone implementing this interface to be
 I have included some of the common rules / tests that I needed and think most people will want to use those in some combination or another, and am open to extending the rule set based on feedback. 
 
 === Validation package ===
-_TODO_
+The validation package is responsible for all things related to validation, there is one class and two interfaces that you need to familiarize yourself with.
+
+ http://openpojo.googlecode.com/svn-history/r247/wiki/img/validation_pkg_overview.png
+
+ * PojoValidator
+  This class is the one responsible for executing validations against a PojoClass.  To use it you create your own instance, and configure it (add rules and testers), then run the validation against a PojoClass of choice.
+ * Rule
+  This interface is the parent for all rules.  Rules validate a PojoClass's structure, not behaviour (i.e. no PojoClass instance created for rule's evaluation).  As of writing this documentation there are 9 pre-built rules, feel free to add your own or let me know and I'll add them.
+
+  http://openpojo.googlecode.com/svn-history/r249/wiki/img/Rule_impl.png
+
+ * Tester
+  This interface is the parent for all testers.  Testers validate a PojoClass's behaviour not structure (i.e. a new instance of PojoClass will be created to run test.  Currently, there are 4 pre-build Tester(s), feel free to add your own or let me know and I'll add them.
+
+ http://openpojo.googlecode.com/svn-history/r249/wiki/img/Tester_impl.png
 
 === Random package ===
 _TODO_
