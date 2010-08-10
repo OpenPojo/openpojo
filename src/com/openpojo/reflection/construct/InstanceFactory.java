@@ -165,8 +165,6 @@ public class InstanceFactory {
         for (PojoMethod pojoConstructor : pojoClass.getPojoConstructors()) {
             if (comparator.compare(pojoConstructor.getParameterTypes(), constructor.getParameterTypes())) {
                 constructor = pojoConstructor;
-                System.out.println("Switching constructors from " + pojoConstructor.getParameterTypes().length + " to "
-                        + constructor.getParameterTypes().length);
             }
         }
         return constructor;
