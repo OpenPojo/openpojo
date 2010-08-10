@@ -16,6 +16,9 @@
  */
 package com.openpojo.log;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.openpojo.log.utils.ActiveLogger;
 
 /**
@@ -28,6 +31,8 @@ import com.openpojo.log.utils.ActiveLogger;
  * 3. java.util.logging.Logger.
  */
 public final class LoggerFactory {
+    private static final Map<String, Logger> cache = new HashMap<String, Logger>();
+    private static final String DEFAULT_CATEGORY = null;
 
     private LoggerFactory() {
     }
@@ -41,7 +46,7 @@ public final class LoggerFactory {
      *         returns an instance of the Logger.
      */
     public static Logger getLogger(final Class<?> clazz) {
-        return (Logger) ActiveLogger.getInstance(getLoggerCategory(clazz));
+        return getAndCacheLogger(getLoggerCategory(clazz));
     }
 
     /**
@@ -53,14 +58,24 @@ public final class LoggerFactory {
      *         returns and instance of the logger.
      */
     public static Logger getLogger(final String category) {
-        return (Logger) ActiveLogger.getInstance(category);
+        return getAndCacheLogger(getLoggerCategory(category));
     }
-
-
 
     private static String getLoggerCategory(final Class<?> clazz) {
-        return clazz == null ? (String) null : clazz.getName();
+        return clazz == null ? DEFAULT_CATEGORY : clazz.getName();
     }
 
+    private static String getLoggerCategory(final String category) {
+        return category == null ? DEFAULT_CATEGORY : category;
+    }
+
+    private synchronized static Logger getAndCacheLogger(final String category) {
+        Logger logger = cache.get(category);
+        if (logger == null) {
+            logger = ActiveLogger.getInstance(category);
+            cache.put(category, logger);
+        }
+        return logger;
+    }
 
 }
