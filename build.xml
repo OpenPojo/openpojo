@@ -17,7 +17,7 @@
    -   along with this program.  If not, see <http://www.gnu.org/licenses/>.
    -->
 
-<project basedir="." default="generate_zip" name="OpenPojo">
+<project basedir="." default="jar" name="OpenPojo">
 
     <property name="target" value="1.5" />
     <property name="source" value="1.5" />
@@ -59,16 +59,16 @@
         <mkdir dir="${dir.out.test.classes}" />
         <javac destdir="${dir.out.test.classes}" source="${source}" target="${target}" debug="true">
             <classpath refid="project.classpath" />
-            <classpath path="${dir.out.classes}"/>
-            <src path="${dir.junit.tests}"/>
+            <classpath path="${dir.out.classes}" />
+            <src path="${dir.junit.tests}" />
         </javac>
         <copy todir="${dir.out.test.classes}">
-            <fileset dir="test" excludes="**/*.java"/>
+            <fileset dir="test" excludes="**/*.java" />
         </copy>
     </target>
 
     <target name="test" depends="compile, compile-test">
-        <junit printsummary="yes" haltonfailure="yes" showoutput="yes" >
+        <junit printsummary="yes" haltonfailure="yes" showoutput="yes">
             <classpath>
                 <pathelement path="${dir.out.classes}" />
                 <pathelement path="${dir.out.test.classes}" />
@@ -78,11 +78,11 @@
                 <pathelement path="${lib}/slf4j-api-1.5.0.jar" />
                 <pathelement path="${lib}/slf4j-log4j12-1.5.0.jar" />
             </classpath>
-            <formatter type="plain" usefile="no"/>
+            <formatter type="plain" usefile="no" />
             <batchtest>
                 <fileset dir="${dir.junit.tests}">
                     <include name="**/*Test*.java" />
-                    <exclude name="**/LoggingTester.java"/>
+                    <exclude name="**/LoggingTester.java" />
                 </fileset>
             </batchtest>
         </junit>
@@ -92,6 +92,18 @@
         <mkdir dir="${dir.out.doc}/javadoc" />
         <javadoc destdir="${dir.out.doc}/javadoc">
             <fileset dir="${dir.src}" includes="**/*.java" />
+        </javadoc>
+    </target>
+    
+    <target name="javadoc_with_uml">
+        <mkdir dir="${dir.out.doc}/javadoc" />
+        <javadoc sourcepath="${dir.src}" destdir="${dir.out.doc}/javadoc" packagenames="com.openpojo.*">
+            <doclet name="org.umlgraph.doclet.UmlGraphDoc" path="${lib}/UMLGraph-5.3.jar">
+                <param name="-attributes" />
+                <param name="-operations" />
+                <param name="-types" />
+                <param name="-visibility" />
+            </doclet>
         </javadoc>
     </target>
 
@@ -107,7 +119,7 @@
             <attribute name="Implementation-Title" value="OpenPojo" />
             <attribute name="Implementation-Version" value="${version} ${DATETIME}" />
         </manifest>
-    </target> 
+    </target>
     <target name="jar-src" depends="manifest">
         <jar destfile="${dist.src.jar}" basedir="${dir.src}" manifest="${manifest.file}" />
     </target>
@@ -117,7 +129,7 @@
         <delete dir="${dir.out.classes}" />
     </target>
 
-    <target name="generate_zip" depends="jar, jar-src, javadoc">
+    <target name="package" depends="jar, jar-src, javadoc_with_uml">
         <zip destfile="${dir.out}/OpenPojo-build-${DATETIME}.zip" whenempty="skip">
             <fileset dir="${dir.out}" includes="*.jar" />
             <fileset dir="${dir.out.doc}" />
