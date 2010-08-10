@@ -33,12 +33,12 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 public class ActiveLogger {
     public static final String[] SUPPORTED_LOGGERS = new String[]{ "com.openpojo.log.impl.SLF4JLogger",
             "com.openpojo.log.impl.Log4JLogger", "com.openpojo.log.impl.JavaLogger" };
-
     private static final String NULL_CATEGORY = "NULL_CATEGORY";
 
-    private static PojoClass activeLoggerPojoClass = FacadeFactory.getLoadedFacadePojoClass(SUPPORTED_LOGGERS);
+    private static PojoClass activeLoggerPojoClass;
 
     static {
+        autoDetect();
         reportActiveLogger();
     }
 
@@ -48,7 +48,6 @@ public class ActiveLogger {
     }
 
     public static synchronized Logger getInstance(final String category) {
-
         return (Logger) InstanceFactory.getInstance(activeLoggerPojoClass, getLoggerCategory(category));
     }
 
@@ -59,5 +58,13 @@ public class ActiveLogger {
 
     private static String getLoggerCategory(final String category) {
         return category == null ? NULL_CATEGORY : category;
+    }
+
+    public static synchronized void autoDetect() {
+        PojoClass newActiveLoggerPojoClass = FacadeFactory.getLoadedFacadePojoClass(SUPPORTED_LOGGERS);
+        if (activeLoggerPojoClass == null
+                || newActiveLoggerPojoClass.getClass() != activeLoggerPojoClass.getClass()) {
+            activeLoggerPojoClass = newActiveLoggerPojoClass;
+        }
     }
 }
