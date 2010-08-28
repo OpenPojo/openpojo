@@ -1,6 +1,9 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-08-28:*
+  * Fixed a minor issue (#8) with paths that include spaces on windows (file enumeration was failing).
+  * JavaDocs now includes UML diagram on all classes/interfaces generated via UMLGraphDoc (http://www.umlgraph.org/).
  * *2010-08-03:*
   * Added InstanceFactory a new class that can create any PojoClass utilizing one of three ways
     * Exact argument list (FactoryInstance.getInstance(PojoClass, Object... parameters)
