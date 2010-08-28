@@ -17,6 +17,8 @@
 package com.openpojo.reflection.utils;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -77,9 +79,16 @@ public final class PackageHelper {
     private static String getFullyQualifiedPathForPackage(final String packageName) {
         String packageAsPath = convertPackageToPath(packageName);
         URL resource = getResource(getClassLoader(), packageAsPath);
-        return resource.getFile();
+        try {
+            // work around because of this
+            // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4466485
+            URI uri;
+            uri = new URI(resource.toString());
+            return uri.getPath();
+        } catch (URISyntaxException e) {
+            throw ReflectionException.getInstance(e);
+        }
     }
-
 
     private static Class<?> loadClass(final ClassLoader classLoader, final String className) {
         try {
@@ -96,8 +105,6 @@ public final class PackageHelper {
     private static URL getResource(final ClassLoader classLoader, final String path) {
         return classLoader.getResource(path);
     }
-
-
 
     private static String convertPackageToPath(final String packageName) {
         return packageName.replace(PACKAGE_SEPERATOR, PATH_SEPERATOR);

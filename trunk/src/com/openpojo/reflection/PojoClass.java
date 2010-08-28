@@ -74,7 +74,7 @@ public interface PojoClass {
     public List<PojoMethod> getPojoMethods();
 
     /**
-     * Get all Constructors
+     * Get all Constructors defined in the class.
      */
     public List<PojoMethod> getPojoConstructors();
 
