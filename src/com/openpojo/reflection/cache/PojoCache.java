@@ -52,4 +52,12 @@ public class PojoCache {
         // Ensure that we don't have a "Strong" reference to the key in the map, otherwise no cleanup will occur.
         pojoClassCache.put(new String(name), pojoClass);
     }
+
+    /**
+     * This method will clear the cache, which is only needed when testing.
+     * Note: Calling this under a heavy loads can have negativly impact performance.
+     */
+    public static void clear() {
+        pojoClassCache.clear();
+    }
 }
