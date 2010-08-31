@@ -1,6 +1,8 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-08-31:*
+  * Added support for registering field prefixes. 
  * *2010-08-28:*
   * Fixed a minor issue (#8) with paths that include spaces on windows (file enumeration was failing).
   * JavaDocs now includes UML diagram on all classes/interfaces generated via UMLGraphDoc (http://www.umlgraph.org/).
