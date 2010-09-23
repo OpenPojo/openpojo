@@ -17,6 +17,7 @@
 package com.openpojo.reflection;
 
 import java.lang.annotation.Annotation;
+import java.util.List;
 
 /**
  * This class encapsulates the meta data definition of a field on a class.
@@ -110,6 +111,14 @@ public interface PojoField {
     public <T extends Annotation> T getAnnotation(final Class<T> annotationClass);
 
     /**
+     * Return a list of all the annotations on the PojoField.
+     *
+     * @return
+     *         A non-null list of Annotations.
+     */
+    public List<? extends Annotation> getAnnotations();
+
+    /**
      * @return
      *         True if the field is of primitive type.
      */
@@ -149,9 +158,9 @@ public interface PojoField {
      * Returns properly formated field=value string from instance.
      *
      * @param instance
-     *          The instance to pull the field value off of.
+     *            The instance to pull the field value off of.
      * @return
-     *          A string representation of the field and value.
+     *         A string representation of the field and value.
      */
     public String toString(Object instance);
 }
