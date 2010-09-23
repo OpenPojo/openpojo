@@ -39,32 +39,52 @@ public class ActiveLogger {
 
     static {
         autoDetect();
-        reportActiveLogger();
     }
 
-    public static synchronized void setActiveLogger(final Class<? extends Logger> loggerClass) {
-        activeLoggerPojoClass = PojoClassFactory.getPojoClass(loggerClass);
-        reportActiveLogger();
-    }
-
+    /**
+     * This method returns a Logger instance for use in logging.
+     *
+     * @param category
+     *            The category for the requested logger.
+     * @return
+     *         Instance of a logger for logging usage.
+     */
     public static synchronized Logger getInstance(final String category) {
         return (Logger) InstanceFactory.getInstance(activeLoggerPojoClass, getLoggerCategory(category));
-    }
-
-    private static synchronized void reportActiveLogger() {
-        ((Logger) getInstance(ActiveLogger.class.getName())).info("Logging subsystem initialized to [{0}]",
-                activeLoggerPojoClass.getClazz());
     }
 
     private static String getLoggerCategory(final String category) {
         return category == null ? NULL_CATEGORY : category;
     }
 
-    public static synchronized void autoDetect() {
+    /**
+     * This method allows full control to set the active logger to a specific one.
+     *
+     * @param loggerClass
+     *            The logger class to use.
+     */
+    public static void setActiveLogger(final Class<? extends Logger> loggerClass) {
+        setActiveLoggerPojoClass(PojoClassFactory.getPojoClass(loggerClass));
+    }
+
+    /**
+     * This method will auto detect the underlying logging framework available and set the current active logging
+     * framework accordingly.
+     */
+    public static void autoDetect() {
         PojoClass newActiveLoggerPojoClass = FacadeFactory.getLoadedFacadePojoClass(SUPPORTED_LOGGERS);
-        if (activeLoggerPojoClass == null
-                || newActiveLoggerPojoClass.getClass() != activeLoggerPojoClass.getClass()) {
-            activeLoggerPojoClass = newActiveLoggerPojoClass;
+        if (activeLoggerPojoClass == null || newActiveLoggerPojoClass.getClass() != activeLoggerPojoClass.getClass()) {
+            setActiveLoggerPojoClass(newActiveLoggerPojoClass);
         }
+    }
+
+    private static synchronized void setActiveLoggerPojoClass(final PojoClass activeLoggerPojoClass) {
+        ActiveLogger.activeLoggerPojoClass = activeLoggerPojoClass;
+        reportActiveLogger();
+    }
+
+    private static void reportActiveLogger() {
+        ((Logger) getInstance(ActiveLogger.class.getName())).info("Logging subsystem initialized to [{0}]",
+                activeLoggerPojoClass.getClazz());
     }
 }
