@@ -16,15 +16,22 @@
  */
 package com.openpojo.reflection.impl;
 
+import java.lang.annotation.Annotation;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithVariousAnnotatedFields;
 import com.openpojo.reflection.impl.sampleclasses.PojoFieldImplClass;
 import com.openpojo.validation.affirm.Affirm;
 
@@ -160,6 +167,43 @@ public class PojoFieldImplTest {
     public void testGetAnnotation() {
         Affirm.fail("Not yet implemented");
     }
+
+    @Test
+    public void annotationlessShouldNotReturnNull() {
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithVariousAnnotatedFields.class);
+        List<PojoField> allFields = pojoClass.getPojoFields();
+
+        for (PojoField pojoField : allFields) {
+            if (pojoField.getName().equals("nonAnnotatedField")) {
+                Affirm.affirmNotNull("getAnnotations should not return null.", pojoField.getAnnotations());
+                return;
+            }
+        }
+        Affirm.fail(String.format("nonAnnotatedField renamed? expected in [%s]", pojoClass));
+    }
+
+    @Test
+    public void multipleAnnotationsShouldBeReturned() {
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithVariousAnnotatedFields.class);
+        List<PojoField> allFields = pojoClass.getPojoFields();
+
+        for (PojoField pojoField : allFields) {
+            if (pojoField.getName().equals("multipleAnnotationField")) {
+                Affirm.affirmEquals(String.format("Annotations added/removed from field=[%s]", pojoField),
+                        2, pojoField.getAnnotations().size());
+                List<Class<?>> expectedAnnotations = new LinkedList<Class<?>>();
+                expectedAnnotations.add(SomeAnnotation.class);
+                expectedAnnotations.add(BusinessKey.class);
+                for (Annotation annotation : pojoField.getAnnotations()) {
+                    Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]", expectedAnnotations, annotation.annotationType()), expectedAnnotations.contains(annotation.annotationType()));
+                }
+                return;
+            }
+        }
+        Affirm.fail(String.format("multipleAnnotationField renamed? expected in [%s]", pojoClass));
+    }
+
+
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#isPrimitive()}.

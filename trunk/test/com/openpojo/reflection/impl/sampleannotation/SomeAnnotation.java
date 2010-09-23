@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * @author oshoukry
  *
  */
-@Target({ElementType.METHOD, ElementType.PACKAGE})
+@Target({ElementType.METHOD, ElementType.PACKAGE, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SomeAnnotation {
 

@@ -19,6 +19,8 @@ package com.openpojo.reflection.impl;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.List;
 
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
@@ -71,7 +73,7 @@ class PojoFieldImpl implements PojoField {
 
     public Object invokeGetter(final Object instance) {
         try {
-            return fieldGetter.invoke(instance, (Object[])null);
+            return fieldGetter.invoke(instance, (Object[]) null);
         } catch (Exception e) {
             throw ReflectionException.getInstance(e);
         }
@@ -95,6 +97,10 @@ class PojoFieldImpl implements PojoField {
 
     public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
         return field.getAnnotation(annotationClass);
+    }
+
+    public List<? extends Annotation> getAnnotations() {
+        return Arrays.asList(field.getAnnotations());
     }
 
     public boolean isPrimitive() {
