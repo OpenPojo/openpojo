@@ -23,9 +23,20 @@ import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
+ * This factory is responsible for looking up usable implementations of facade when multiple are possible.
+ *
  * @author oshoukry
  */
 public final class FacadeFactory {
+    /**
+     * This method returns the proper loaded facade PojoClass.
+     * This method will throw a runtime ReflectionException if non of the facades given are active.
+     *
+     * @param facadeNames
+     *            The fully qualified class names of the possible facades.
+     * @return
+     *         A PojoClass wrapper around the correctly identified ClassName.
+     */
     public static PojoClass getLoadedFacadePojoClass(final String[] facadeNames) {
         for (String facadeName : facadeNames) {
             try {
