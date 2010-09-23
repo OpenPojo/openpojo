@@ -1,11 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.googlecode</groupId>
+    <parent>
+      <groupId>org.sonatype.oss</groupId>
+      <artifactId>oss-parent</artifactId>
+      <version>5</version>
+    </parent>
+    <groupId>com.googlecode.openpojo</groupId>
     <artifactId>openpojo</artifactId>
     <version>0.0.2-SNAPSHOT</version>
-    <name>openpojo</name>
+    <name>${project.artifactId}</name>
     <url>http://openpojo.googlecode.com/</url>
     <description>
         This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
@@ -13,6 +17,11 @@
             * Make Testing as easy as possible.
             * Simplifying identity management (hashCode / equals) using annotation. 
     </description>
+    <scm>
+        <connection>scm:svn:http://openpojo.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
+        <url>http://openpojo.googlecode.com/svn/trunk</url>
+    </scm>
     <contributors>
         <contributor>
             <email>davidkarlsen@gmail.com</email>
