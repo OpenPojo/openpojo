@@ -126,33 +126,45 @@ public interface PojoField {
 
     /**
      * @return
-     *         True if this PojoField is final-ly defined on the enclosing class.
+     *         True if this PojoField is defined as final on the enclosing class.
      */
     public boolean isFinal();
 
     /**
      * @return
-     *         True if this PojoField is static-ly defined on the enclosing class.
+     *         True if this PojoField is defined as static on the enclosing class.
      */
     public boolean isStatic();
 
     /**
      * @return
-     *         True if this PojoField is private-ly defined on the enclosing class.
+     *         True if this PojoField is defined as private on the enclosing class.
      */
     public boolean isPrivate();
 
     /**
      * @return
-     *         True if this PojoField is protected-ly defined on the enclosing class.
+     *         True if this PojoField is defined as protected on the enclosing class.
      */
     public boolean isProtected();
 
     /**
      * @return
-     *         True if this PojoField is public-ly defined on the enclosing class.
+     *         True if this PojoField is defined as public on the enclosing class.
      */
     public boolean isPublic();
+
+    /**
+     * @return
+     *         True if this PojoField is defined as transient on the enclosing class.
+     */
+    public boolean isTransient();
+
+    /**
+     * @return
+     *         True if this PojoField is defined as volatile on the enclosing class.
+     */
+    public boolean isVolatile();
 
     /**
      * Returns properly formated field=value string from instance.
@@ -163,4 +175,5 @@ public interface PojoField {
      *         A string representation of the field and value.
      */
     public String toString(Object instance);
+
 }
