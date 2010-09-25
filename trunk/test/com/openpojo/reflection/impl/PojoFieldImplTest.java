@@ -251,6 +251,27 @@ public class PojoFieldImplTest {
                         pojoField.isPrivate());
             }
         }
+    }
+
+    @Test
+    public void testIsTransient() {
+        for (PojoField pojoField : pojoClass.getPojoFields()) {
+            if (pojoField.getName().equals("transientString")) {
+                Affirm.affirmTrue(String.format("isTransient() check on field=[%s] returned false!!", pojoField),
+                        pojoField.isTransient());
+            }
+        }
+
+    }
+
+    @Test
+    public void testIsVolatile() {
+        for (PojoField pojoField : pojoClass.getPojoFields()) {
+            if (pojoField.getName().equals("volatileString")) {
+                Affirm.affirmTrue(String.format("isVolatile() check on field=[%s] returned false!!", pojoField),
+                        pojoField.isVolatile());
+            }
+        }
 
     }
 

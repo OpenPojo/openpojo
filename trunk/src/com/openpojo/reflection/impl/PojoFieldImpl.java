@@ -127,6 +127,14 @@ class PojoFieldImpl implements PojoField {
         return Modifier.isPublic(field.getModifiers());
     }
 
+    public boolean isTransient() {
+        return Modifier.isTransient(field.getModifiers());
+    }
+
+    public boolean isVolatile() {
+        return Modifier.isVolatile(field.getModifiers());
+    }
+
     @Override
     public String toString() {
         return String.format("PojoFieldImpl [field=%s, fieldGetter=%s, fieldSetter=%s]", field, fieldGetter,

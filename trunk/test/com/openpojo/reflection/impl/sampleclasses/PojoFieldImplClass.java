@@ -38,6 +38,10 @@ public class PojoFieldImplClass {
 
     private String privateString;
 
+    public transient String transientString;
+
+    public volatile String volatileString;
+
     /**
      * @return the nonStaticNonFinal
      */
