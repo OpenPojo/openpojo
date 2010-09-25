@@ -2,7 +2,7 @@
 
 = News =
  * *2010-09-25:*
-  * Added support for isTransient() & isVolatile() on PojoField (thanks to Thomas R.).
+  * Added support for isTransient() & isVolatile() on PojoField (thanks Thomas R.).
  * *2010-09-23:*
   * Added support for getAnnotations on PojoField (thanks [http://code.google.com/u/mikro2nd/ Micro2nd])
  * *2010-08-31:*
