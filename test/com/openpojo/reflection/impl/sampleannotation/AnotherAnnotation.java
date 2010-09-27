@@ -23,6 +23,6 @@ import java.lang.annotation.RetentionPolicy;
  * @author oshoukry
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SomeAnnotation {
+public @interface AnotherAnnotation {
 
 }

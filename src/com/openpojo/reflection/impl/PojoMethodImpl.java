@@ -22,6 +22,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.List;
 
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
@@ -58,6 +59,10 @@ public class PojoMethodImpl implements PojoMethod {
 
     public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
         return accessibleObject.getAnnotation(annotationClass);
+    }
+
+    public List<? extends Annotation> getAnnotations() {
+        return Arrays.asList(accessibleObject.getAnnotations());
     }
 
     public Object invoke(final Object instance, final Object... parameters) {

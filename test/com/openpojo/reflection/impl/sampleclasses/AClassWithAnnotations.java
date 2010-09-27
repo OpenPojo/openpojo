@@ -19,66 +19,12 @@ package com.openpojo.reflection.impl.sampleclasses;
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 
-
 /**
  * @author oshoukry
  *
  */
-public final class PojoMethodClass {
+@SomeAnnotation
+@AnotherAnnotation
+public class AClassWithAnnotations {
 
-    @SomeAnnotation
-    public void methodWithAnnotation() {
-    }
-
-    @SomeAnnotation
-    @AnotherAnnotation
-    public void methodWithMultipleAnnotations() {
-
-    }
-
-    public void methodWithoutAnnotation() {
-
-    }
-
-    public final void finalMethod() {
-
-    }
-
-    public void nonFinalMethod() {
-
-    }
-
-    @SuppressWarnings("unused")
-    private void privateMethod() {
-
-    }
-
-    public void nonPrivateMethod() {
-
-    }
-
-    protected void protectedMethod() {
-
-    }
-
-    void nonProtectedMethod() {
-
-    }
-
-    public void publicMethod() {
-
-    }
-
-    void nonPublicMethod() {
-
-    }
-
-
-    public static void staticMethod() {
-
-    }
-
-    public void nonStaticMethod() {
-
-    }
 }

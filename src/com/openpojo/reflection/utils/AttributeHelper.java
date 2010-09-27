@@ -69,7 +69,9 @@ public class AttributeHelper {
      * The field name will get stripped of prefixes
      *
      * @param field
+     *            The field to inspect for attribute name
      * @return
+     *         Normalized attribute name
      */
     public synchronized static String getAttributeName(final Field field) {
         String normalizedFieldName = field.getName();

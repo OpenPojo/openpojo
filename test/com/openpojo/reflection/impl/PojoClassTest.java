@@ -16,7 +16,10 @@
  */
 package com.openpojo.reflection.impl;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,7 +29,10 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
+import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 import com.openpojo.reflection.impl.sampleclasses.AClassExtendingAnInterface;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithAnnotations;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithEquality;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithExceptionalConstructors;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass;
@@ -121,6 +127,33 @@ public class PojoClassTest {
                 pojoClass.extendz(anInterface));
     }
 
+    @Test
+    public void testGetAnnotations() {
+        Class<?> aClassWithAnnotations = AClassWithAnnotations.class;
+
+        PojoClass pojoClass = getPojoClassImplForClass(aClassWithAnnotations);
+        Affirm.affirmEquals(String.format("Annotations added/removed from Class=[%s]", aClassWithAnnotations), 2,
+                pojoClass.getAnnotations().size());
+    }
+
+    @Test
+    public void multipleAnnotationsShouldBeReturned() {
+        Class<?> aClassWithAnnotations = AClassWithAnnotations.class;
+
+        PojoClass pojoClass = getPojoClassImplForClass(aClassWithAnnotations);
+        Affirm.affirmEquals(String.format("Annotations added/removed from Class=[%s]", aClassWithAnnotations), 2,
+                pojoClass.getAnnotations().size());
+
+        List<Class<?>> expectedAnnotations = new LinkedList<Class<?>>();
+        expectedAnnotations.add(SomeAnnotation.class);
+        expectedAnnotations.add(AnotherAnnotation.class);
+        for (Annotation annotation : pojoClass.getAnnotations()) {
+            Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]",
+                    expectedAnnotations, annotation.annotationType()), expectedAnnotations.contains(annotation
+                    .annotationType()));
+        }
+    }
+
     @Test(expected = ReflectionException.class)
     public void shouldFailToCreateInstanceOnInterface() {
         PojoClass pojoClass = getPojoClassImplForClass(AnInterfaceClass.class);
@@ -200,8 +233,8 @@ public class PojoClassTest {
     @Test
     public void shouldCreateInstanceMultipleParameterConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class), RandomFactory
-                .getRandomValue(Integer.class));
+        Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class),
+                RandomFactory.getRandomValue(Integer.class));
         Affirm.affirmNotNull(String.format(
                 "Failed to create a new instance using multiple parameter constructor for class=[%s]", pojoClass),
                 instance);
@@ -210,8 +243,8 @@ public class PojoClassTest {
     @Test
     public void shouldCreateInstanceMultipleParameterPrivateConstructor() {
         PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class), RandomFactory
-                .getRandomValue(Integer.class), RandomFactory.getRandomValue(Character.class));
+        Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class),
+                RandomFactory.getRandomValue(Integer.class), RandomFactory.getRandomValue(Character.class));
         Affirm.affirmNotNull(String.format(
                 "Failed to create a new instance using multiple parameter private constructor for class=[%s]",
                 pojoClass), instance);

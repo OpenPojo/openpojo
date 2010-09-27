@@ -16,15 +16,13 @@
  */
 package com.openpojo.reflection;
 
-import java.lang.annotation.Annotation;
-import java.util.List;
 
 /**
  * This class encapsulates the meta data definition of a field on a class.
  *
  * @author oshoukry
  */
-public interface PojoField {
+public interface PojoField extends PojoElement {
 
     /**
      * This method gets the value of the field.
@@ -35,14 +33,6 @@ public interface PojoField {
      *         The value of the field.
      */
     public Object get(final Object instance);
-
-    /**
-     * Get the String representation of the field name.
-     *
-     * @return
-     *         Return the name of the field.
-     */
-    public String getName();
 
     /**
      * This method sets the value of the field.
@@ -99,26 +89,6 @@ public interface PojoField {
     public Class<?> getType();
 
     /**
-     * Get instance of the annotation on the PojoField.
-     *
-     * @param <T>
-     *            Class Type of annotation.
-     * @param annotationClass
-     *            The annotation class.
-     * @return
-     *         The definition of this annotation on the PojoField.
-     */
-    public <T extends Annotation> T getAnnotation(final Class<T> annotationClass);
-
-    /**
-     * Return a list of all the annotations on the PojoField.
-     *
-     * @return
-     *         A non-null list of Annotations.
-     */
-    public List<? extends Annotation> getAnnotations();
-
-    /**
      * @return
      *         True if the field is of primitive type.
      */
@@ -165,7 +135,7 @@ public interface PojoField {
      *         True if this PojoField is defined as volatile on the enclosing class.
      */
     public boolean isVolatile();
-
+    
     /**
      * Returns properly formated field=value string from instance.
      *
@@ -175,5 +145,5 @@ public interface PojoField {
      *         A string representation of the field and value.
      */
     public String toString(Object instance);
-
+    
 }
