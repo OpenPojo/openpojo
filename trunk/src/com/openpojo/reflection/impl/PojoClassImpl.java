@@ -16,7 +16,9 @@
  */
 package com.openpojo.reflection.impl;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -88,6 +90,14 @@ class PojoClassImpl implements PojoClass {
 
     public String getName() {
         return clazz.getName();
+    }
+
+    public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
+        return clazz.getAnnotation(annotationClass);
+    }
+
+    public List<? extends Annotation> getAnnotations() {
+        return Arrays.asList(clazz.getAnnotations());
     }
 
     public boolean extendz(final Class<?> type) {

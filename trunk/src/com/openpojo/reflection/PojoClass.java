@@ -21,49 +21,49 @@ import java.util.List;
 /**
  * This Interface defines the contract published by PojoClass implementations.
  * The idea is to give an easy and flexible way to work with application pojo classes.
- *
+ * 
  * @author oshoukry
  */
-public interface PojoClass {
+public interface PojoClass extends PojoElement {
 
     /**
      * Check if PojoClass wrapps an interface.
-     *
+     * 
      * @return true if this PojoClass wrapps an interface.
      */
     public boolean isInterface();
 
     /**
      * Check if PojoClass wrapps an abstract.
-     *
+     * 
      * @return true if this PojoClass wrapps an abstract class.
      */
     public boolean isAbstract();
 
     /**
      * Check if PojoClass wrapps a concrete (i.e. can be instantiated).
-     *
+     * 
      * @return true if this PojoClass wrapps a concrete class.
      */
     public boolean isConcrete();
 
     /**
      * Check if PojoClass wrapps an enum.
-     *
+     * 
      * @return true if this PojoClass wraps an enum type.
      */
     public boolean isEnum();
 
     /**
      * Check if PojoClass wrapps a final class.
-     *
+     * 
      * @return true if this PojoClass wrapps a final class.
      */
     public boolean isFinal();
 
     /**
      * Get all PojoFields defined in the class.
-     *
+     * 
      * @return the pojoFields
      */
     public List<PojoField> getPojoFields();
@@ -79,16 +79,8 @@ public interface PojoClass {
     public List<PojoMethod> getPojoConstructors();
 
     /**
-     * Returns the fully qualified class name.
-     *
-     * @return
-     *         The String fully qualified class name.
-     */
-    public String getName();
-
-    /**
      * Checks to see if class extends/implements a certain type.
-     *
+     * 
      * @param type
      *            The type in question.
      * @return
@@ -98,7 +90,7 @@ public interface PojoClass {
 
     /**
      * Return the super class of the class represented by this PojoClass class.
-     *
+     * 
      * @return
      *         PojoClass representing the super class of this class or null if none exist.
      */
@@ -106,7 +98,7 @@ public interface PojoClass {
 
     /**
      * Returns a list of all interfaces implemented by the class represented by this PojoClass.
-     *
+     * 
      * @return
      *         The list of interfaces implemented by the class wrapped by this PojoClass.
      */
@@ -114,7 +106,7 @@ public interface PojoClass {
 
     /**
      * This method returns the underlying class represented by this instance.
-     *
+     * 
      * @return
      *         The class type wrapped by this PojoClass.
      */
@@ -122,7 +114,7 @@ public interface PojoClass {
 
     /**
      * This method creates a new instance using default / blank constructor.
-     *
+     * 
      * @deprecated Please utilize the InstanceFactory for construction.
      * @return
      *         New instance of clazz.
@@ -132,7 +124,7 @@ public interface PojoClass {
 
     /**
      * This method creates a new instance given argument list.
-     *
+     * 
      * @deprecated Please utilize the InstanceFactory for construction.
      * @return
      *         New instance of clazz.
@@ -142,7 +134,7 @@ public interface PojoClass {
 
     /**
      * Checks to see if this class is a nested subclass.
-     *
+     * 
      * @return
      *         True if it is a subclass, false otherwise.
      */
@@ -150,7 +142,7 @@ public interface PojoClass {
 
     /**
      * Copy all contents from one Instance represented by this PojoClass to another.
-     *
+     * 
      * @param from
      *            The Instance to copy from.
      * @param to
@@ -161,11 +153,12 @@ public interface PojoClass {
     /**
      * This method converts a pojoClass instance's contents to a string.
      * This method can serve as a good delegate for all toString().
-     *
+     * 
      * @param instance
      *            The instance to print the contents out of.
      * @return
      *         String representation of the instance.
      */
     public String toString(Object instance);
+
 }

@@ -18,6 +18,8 @@ package com.openpojo.reflection.impl;
 
 import static org.junit.Assert.fail;
 
+import java.lang.annotation.Annotation;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Before;
@@ -26,6 +28,7 @@ import org.junit.Test;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 import com.openpojo.reflection.impl.sampleclasses.PojoMethodClass;
 import com.openpojo.validation.affirm.Affirm;
@@ -61,6 +64,24 @@ public class PojoMethodImplTest {
                         .getAnnotation(SomeAnnotation.class));
             }
         }
+    }
+
+    @Test
+    public void multipleAnnotationsShouldBeReturned() {
+        for (PojoMethod pojoMethod : pojoMethods) {
+            if (pojoMethod.getName().equals("methodWithMultipleAnnotations")) {
+                Affirm.affirmEquals(String.format("Annotations added/removed from method=[%s]", pojoMethod),
+                        2, pojoMethod.getAnnotations().size());
+                List<Class<?>> expectedAnnotations = new LinkedList<Class<?>>();
+                expectedAnnotations.add(SomeAnnotation.class);
+                expectedAnnotations.add(AnotherAnnotation.class);
+                for (Annotation annotation : pojoMethod.getAnnotations()) {
+                    Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]", expectedAnnotations, annotation.annotationType()), expectedAnnotations.contains(annotation.annotationType()));
+                }
+                return;
+            }
+        }
+        Affirm.fail(String.format("methodWithMultipleAnnotations renamed? expected in [%s]", pojoClass));
     }
 
     /**

@@ -23,7 +23,7 @@ import java.lang.annotation.Annotation;
  *
  * @author oshoukry
  */
-public interface PojoMethod {
+public interface PojoMethod extends PojoElement {
     /**
      * Invokes the underlying method represented by this Method object, on the specified object with the specified
      * parameters.
