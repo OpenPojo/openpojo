@@ -1,6 +1,8 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-09-27:*
+  * PojoClass, PojoMethod & PojoField now extend PojoElement, all three now implement getAnnotation(s) api.
  * *2010-09-25:*
   * Added support for isTransient() & isVolatile() on PojoField (thanks Thomas R.).
  * *2010-09-23:*
