@@ -2,9 +2,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-      <groupId>org.sonatype.oss</groupId>
-      <artifactId>oss-parent</artifactId>
-      <version>5</version>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>5</version>
     </parent>
     <groupId>com.googlecode.openpojo</groupId>
     <artifactId>openpojo</artifactId>
@@ -24,8 +24,18 @@
     </scm>
     <contributors>
         <contributor>
-            <email>davidkarlsen@gmail.com</email>
+            <name>Osman Shoukry</name>
+            <email>oshoukry at gmail com</email>
+            <roles>
+                <role>Maintainer</role>
+                <role>Developer</role>
+            </roles>
+            <organization />
+            <timezone>-8</timezone>
+        </contributor>
+        <contributor>
             <name>David J. M. Karlsen</name>
+            <email>davidkarlsen at gmail.com</email>
             <organization>davidkarlsen.com</organization>
             <timezone>1</timezone>
         </contributor>
@@ -66,8 +76,11 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.6</version>
                     <executions>
-                        <!-- see http://stackoverflow.com/questions/1232853/how-to-execute-junit-and-testng-tests-in-same-project-using-maven-surefire-plugin 
-                            for the weird config -->
+                        <!--
+                            see
+                            http://stackoverflow.com/questions/1232853/how-to-execute-junit-and-testng-tests-in-same-project-using-maven-surefire-plugin
+                            for the weird config
+                        -->
                         <execution>
                             <phase>test</phase>
                             <goals>
@@ -174,12 +187,8 @@
                                 <artifactId>UmlGraph</artifactId>
                                 <version>4.6</version>
                             </docletArtifact>
-                            <additionalparam>
-                                -inferrel -inferdep -quiet -hide java.*
-                                -collpackages java.util.* -qualify
-                                -postfixpackage -nodefontsize 9
-                                -nodefontpackagesize 7
-                            </additionalparam>
+                            <additionalparam> -inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify
+                                -postfixpackage -nodefontsize 9 -nodefontpackagesize 7 </additionalparam>
                         </configuration>
                     </plugin>
                 </plugins>
