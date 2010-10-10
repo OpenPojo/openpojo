@@ -37,7 +37,7 @@
             <name>David J. M. Karlsen</name>
             <email>davidkarlsen at gmail.com</email>
             <organization>davidkarlsen.com</organization>
-            <timezone>1</timezone>
+            <timezone>+1</timezone>
         </contributor>
     </contributors>
     <licenses>
