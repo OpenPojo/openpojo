@@ -18,9 +18,9 @@
             * Simplifying identity management (hashCode / equals) using annotation. 
     </description>
     <scm>
-        <connection>scm:svn:http://openpojo.googlecode.com/svn/trunk</connection>
+        <connection>scm:svn:https://openpojo.googlecode.com/svn/trunk</connection>
         <developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
-        <url>http://openpojo.googlecode.com/svn/trunk</url>
+        <url>https://openpojo.googlecode.com/svn/trunk</url>
     </scm>
     <contributors>
         <contributor>
