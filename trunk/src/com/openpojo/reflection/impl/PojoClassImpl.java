@@ -129,7 +129,7 @@ class PojoClassImpl implements PojoClass {
         for (PojoField pojoField : pojoFields) {
             if (pojoField.hasGetter() && pojoField.hasSetter()) {
                 Object value = pojoField.invokeGetter(from);
-                pojoField.inovkeSetter(to, value);
+                pojoField.invokeSetter(to, value);
             }
         }
     }

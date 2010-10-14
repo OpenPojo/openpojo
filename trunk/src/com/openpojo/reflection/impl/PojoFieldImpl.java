@@ -79,16 +79,22 @@ class PojoFieldImpl implements PojoField {
         }
     }
 
+
     public boolean hasSetter() {
         return fieldSetter != null;
     }
 
-    public void inovkeSetter(final Object instance, final Object value) {
+    public void invokeSetter(final Object instance, final Object value) {
         try {
             fieldSetter.invoke(instance, value);
         } catch (Exception e) {
             throw ReflectionException.getInstance(e);
         }
+    }
+
+    @Deprecated
+    public void inovkeSetter(final Object instance, final Object value) {
+        invokeSetter(instance, value);
     }
 
     public Class<?> getType() {
