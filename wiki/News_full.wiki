@@ -4,6 +4,7 @@
  * *2010-10-14:*
   * OpenPojo is now available throw maven (see http://bit.ly/dma1wJ).
   * Moving forward artifacts published here will be just a zip of what gets pushed into Maven central.
+  * Fixed typo on PojoField.invokeSetter was misspelled (inovkeSetter), old method deprecated for now.
  * *2010-09-27:*
   * PojoClass, PojoMethod & PojoField now extend PojoElement, all three now implement getAnnotation(s) api.
  * *2010-09-25:*
