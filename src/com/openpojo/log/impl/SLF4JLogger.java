@@ -9,8 +9,8 @@ import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
- * This class wrapps the Log4J underlying layer.
- * It will also configure Log4J with the most basic configuration if no configuration has been specified already.
+ * This class wrapps the SLF4J underlying layer.
+ * If the underlying layer is Log4J and it has not been configured, it will be set to BasicLogging.
  */
 public final class SLF4JLogger extends Logger {
 
@@ -28,7 +28,6 @@ public final class SLF4JLogger extends Logger {
         } catch (Throwable ex) {
             // Not Log4J underlying perhaps.
         }
-
     }
 
     private SLF4JLogger(final String category) {
