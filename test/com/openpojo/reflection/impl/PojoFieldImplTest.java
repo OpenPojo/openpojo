@@ -95,7 +95,7 @@ public class PojoFieldImplTest {
     @Test(expected = ReflectionException.class)
     public void shouldFailSetter() {
         PojoField pojoField = getPrivateStringField();
-        pojoField.inovkeSetter(null, RandomFactory.getRandomValue(pojoField.getType()));
+        pojoField.invokeSetter(null, RandomFactory.getRandomValue(pojoField.getType()));
     }
 
     @Test(expected = ReflectionException.class)
@@ -142,7 +142,7 @@ public class PojoFieldImplTest {
 
     /**
      * Test method for
-     * {@link com.openpojo.reflection.impl.PojoFieldImpl#inovkeSetter(java.lang.Object, java.lang.Object)}.
+     * {@link com.openpojo.reflection.impl.PojoFieldImpl#invokeSetter(java.lang.Object, java.lang.Object)}.
      */
     @Test
     @Ignore("unimplemented")

@@ -78,6 +78,12 @@ public interface PojoField extends PojoElement {
      * @param value
      *            The value to set the field to.
      */
+    public void invokeSetter(final Object instance, final Object value);
+
+    /**
+     * This method is miss-spelled, and will be removed in the next release.
+     */
+    @Deprecated
     public void inovkeSetter(final Object instance, final Object value);
 
     /**
@@ -135,7 +141,7 @@ public interface PojoField extends PojoElement {
      *         True if this PojoField is defined as volatile on the enclosing class.
      */
     public boolean isVolatile();
-    
+
     /**
      * Returns properly formated field=value string from instance.
      *
@@ -145,5 +151,5 @@ public interface PojoField extends PojoElement {
      *         A string representation of the field and value.
      */
     public String toString(Object instance);
-    
+
 }
