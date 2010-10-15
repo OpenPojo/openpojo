@@ -26,7 +26,6 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
-import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.utils.PackageHelper;
 
 /**
@@ -92,9 +91,6 @@ class PojoPackageImpl implements PojoPackage {
         // otherwise, Package.getPackage will return null
         getPojoClasses();
 
-        if (Package.getPackage(packageName) == null) {
-            throw ReflectionException.getInstance(String.format("Invalid package [%s]?", packageName));
-        }
         return Package.getPackage(packageName);
     }
 
