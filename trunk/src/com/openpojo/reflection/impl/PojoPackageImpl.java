@@ -96,7 +96,7 @@ class PojoPackageImpl implements PojoPackage {
         File directory = PackageHelper.getPackageAsDirectory(packageName);
         for (File entry : directory.listFiles()) {
             if (entry.isDirectory()) {
-                String subPackageName = packageName + PackageHelper.PACKAGE_SEPERATOR + entry.getName();
+                String subPackageName = packageName + PACKAGE_DELIMETER + entry.getName();
                 pojoPackageSubPackages.add(new PojoPackageImpl(subPackageName));
             }
         }
