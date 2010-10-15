@@ -34,7 +34,7 @@ import com.openpojo.reflection.utils.PackageHelper;
  *
  * @author oshoukry
  */
-public class PojoPackageImpl implements PojoPackage {
+class PojoPackageImpl implements PojoPackage {
 
     private final String packageName;
 
