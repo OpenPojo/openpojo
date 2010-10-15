@@ -18,6 +18,7 @@ package com.openpojo.reflection.filters;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
+import com.openpojo.reflection.PojoPackage;
 
 /**
  * This filter will exclude any "package-info" interface entries.
@@ -27,7 +28,7 @@ import com.openpojo.reflection.PojoClassFilter;
 public class FilterPackageInfo implements PojoClassFilter {
 
     public boolean include(final PojoClass pojoClass) {
-        return !pojoClass.getName().endsWith(".package-info");
+        return !pojoClass.getName().endsWith(PojoPackage.PACKAGE_DELIMETER + PojoPackage.PACKAGE_INFO);
     }
 
 }

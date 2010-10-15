@@ -80,7 +80,8 @@ public final class PackageHelper {
         String packageAsPath = convertPackageToPath(packageName);
         URL resource = getResource(getClassLoader(), packageAsPath);
         if (resource == null) {
-            throw ReflectionException.getInstance(String.format("No such package [%s]", packageName));
+            throw ReflectionException.getInstance(String.format("No such package [%s], path [%s] not found",
+                    packageName, packageAsPath));
         }
         try {
             // work around because of this
@@ -110,6 +111,9 @@ public final class PackageHelper {
     }
 
     private static String convertPackageToPath(final String packageName) {
+        if (packageName == null) {
+            System.out.println("package name is null!!");
+        }
         return packageName.replace(PACKAGE_SEPERATOR, PATH_SEPERATOR);
     }
 

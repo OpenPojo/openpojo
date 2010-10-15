@@ -19,13 +19,14 @@ package com.openpojo.reflection.impl;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
+import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.utils.PackageHelper;
 
 /**
@@ -36,13 +37,40 @@ import com.openpojo.reflection.utils.PackageHelper;
 class PojoPackageImpl implements PojoPackage {
 
     private final String packageName;
+    private final PojoClass packageInfoPojoClass;
 
     public String getName() {
         return packageName;
     }
 
     public PojoPackageImpl(final String packageName) {
+
         this.packageName = packageName;
+        if (packageName == null) {
+            throw new IllegalArgumentException("PackageName can not be null");
+        }
+
+        if (!isValid()) {
+            throw ReflectionException.getInstance(String.format("[%s] is not a valid package", packageName));
+        }
+
+        Class<?> infoClass = null;
+        try {
+            infoClass = Class.forName(packageName + PojoPackage.PACKAGE_DELIMETER + PojoPackage.PACKAGE_INFO);
+        } catch (ClassNotFoundException e) {
+        }
+        if (infoClass != null) {
+            packageInfoPojoClass = PojoClassFactory.getPojoClass(infoClass);
+        } else {
+            packageInfoPojoClass = null;
+        }
+    }
+
+    private boolean isValid() {
+        if (PackageHelper.getPackageAsDirectory(packageName) == null) {
+            return false;
+        }
+        return true;
     }
 
     public List<PojoClass> getPojoClasses() {
@@ -77,21 +105,17 @@ class PojoPackageImpl implements PojoPackage {
     }
 
     public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
-        Package pkg = getAsPackage();
-        return pkg.getAnnotation(annotationClass);
+        if (packageInfoPojoClass == null) {
+            return null;
+        }
+        return packageInfoPojoClass.getAnnotation(annotationClass);
     }
 
     public List<? extends Annotation> getAnnotations() {
-        Package pkg = getAsPackage();
-        return Arrays.asList(pkg.getAnnotations());
-    }
-
-    private Package getAsPackage() {
-        // This call will load the package in the class loader,
-        // otherwise, Package.getPackage will return null
-        getPojoClasses();
-
-        return Package.getPackage(packageName);
+        if (packageInfoPojoClass == null) {
+            return Collections.emptyList();
+        }
+        return packageInfoPojoClass.getAnnotations();
     }
 
     @Override
