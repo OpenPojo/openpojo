@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.exception.ReflectionException;
 
 /**
@@ -32,7 +33,6 @@ import com.openpojo.reflection.exception.ReflectionException;
  */
 public final class PackageHelper {
     public static final char PATH_SEPERATOR = '/';
-    public static final char PACKAGE_SEPERATOR = '.';
 
     private static final String CLASS_SUFFIX = ".class";
 
@@ -114,7 +114,7 @@ public final class PackageHelper {
         if (packageName == null) {
             System.out.println("package name is null!!");
         }
-        return packageName.replace(PACKAGE_SEPERATOR, PATH_SEPERATOR);
+        return packageName.replace(PojoPackage.PACKAGE_DELIMETER, PATH_SEPERATOR);
     }
 
     /**
@@ -141,7 +141,7 @@ public final class PackageHelper {
      *         The fully qualifed package name and classname.
      */
     private static String getFQClassName(final String packageName, final String fileEntry) {
-        String className = packageName + '.' + fileEntry.substring(0, fileEntry.length() - CLASS_SUFFIX.length());
+        String className = packageName + PojoPackage.PACKAGE_DELIMETER + fileEntry.substring(0, fileEntry.length() - CLASS_SUFFIX.length());
         return className;
     }
 }

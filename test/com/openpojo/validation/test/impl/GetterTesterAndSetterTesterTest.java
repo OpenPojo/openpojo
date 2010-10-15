@@ -16,7 +16,7 @@ public class GetterTesterAndSetterTesterTest {
         return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
 
             public boolean include(final PojoClass pojoClass) {
-                return !pojoClass.getClazz().getName().toLowerCase().contains("bad");
+                return !pojoClass.getName().toLowerCase().contains("bad");
             }
         });
     }
@@ -25,7 +25,7 @@ public class GetterTesterAndSetterTesterTest {
         return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
 
             public boolean include(final PojoClass pojoClass) {
-                return pojoClass.getClazz().getName().toLowerCase().contains("bad");
+                return pojoClass.getName().toLowerCase().contains("bad");
             }
         });
     }

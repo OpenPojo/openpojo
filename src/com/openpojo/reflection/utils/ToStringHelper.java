@@ -56,7 +56,7 @@ public final class ToStringHelper {
      */
     public static String pojoClassToString(final PojoClass pojoClass, final Object instance) {
         return String.format(POJOCLASS_TOSTRING_FORMAT,
-                                pojoClass.getClazz().getName(),
+                                pojoClass.getName(),
                                 Integer.toHexString(System.identityHashCode(instance)),
                                 PojoFieldsToString(pojoClass.getPojoFields(), instance));
     }
