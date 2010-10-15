@@ -1,6 +1,12 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-10-15:*
+  * Issue 12 is fixed.
+  * All deprecated code has now been removed namely
+   * DefaultValuesNullRule class removed (use DefaultValuesNullTester instead).
+   * GetterSetterMustExistRule class removed (use individual GetterMustExistRule & SetterMustExistRule instead)
+   * PojoField.inovkeSetter method removed (use PojoField.invokeSetter instead).
  * *2010-10-14:*
   * OpenPojo is now available throw maven (see http://bit.ly/dma1wJ).
   * Moving forward artifacts published here will be just a zip of what gets pushed into Maven central.
