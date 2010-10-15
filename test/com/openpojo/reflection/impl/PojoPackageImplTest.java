@@ -23,7 +23,6 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
@@ -62,7 +61,6 @@ public class PojoPackageImplTest {
     }
 
     @Test
-    @Ignore("Failing on Maven, works in ant and eclipse")
     public void shouldReturnEmptyListNoAnnotation() {
         PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName() +".packagenoannotation");
         Affirm.affirmTrue(String.format("Annotations added? expected none [%s]", pojoPackage), pojoPackage.getAnnotations() != null && pojoPackage.getAnnotations().size() == 0);
