@@ -15,3 +15,12 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.openpojo.reflection.impl.packagenoannotation;
+
+/**
+ * @author oshoukry
+ * This class is added just to ensure that Maven creates this package folder.
+ * Since the package-info.java gets removed, and the package doesn't get created for tests.
+ */
+public class PlaceHolderClass {
+
+}
