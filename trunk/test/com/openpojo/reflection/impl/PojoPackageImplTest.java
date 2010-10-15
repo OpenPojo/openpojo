@@ -16,10 +16,21 @@
  */
 package com.openpojo.reflection.impl;
 
+import java.lang.annotation.Annotation;
+import java.util.LinkedList;
+import java.util.List;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.openpojo.random.RandomFactory;
+import com.openpojo.reflection.PojoPackage;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
+import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
+import com.openpojo.validation.affirm.Affirm;
 
 /**
  * @author oshoukry
@@ -31,7 +42,7 @@ public class PojoPackageImplTest {
     private String packageName;
     private String expectedToString;
 
-    private PojoPackageImpl pojoPackageImpl;
+    private PojoPackage pojoPackage;
 
     /**
      * @throws java.lang.Exception
@@ -40,17 +51,51 @@ public class PojoPackageImplTest {
     public void setUp() throws Exception {
         packageName = this.getClass().getPackage().getName() + ".sampleclasses";
         expectedToString = "PojoPackageImpl [packageName=" + packageName + "]";
-        pojoPackageImpl = new PojoPackageImpl(packageName);
+        pojoPackage = PojoPackageFactory.getPojoPackage(packageName);
     }
 
     @Test
     public void testGetPojoClasses() {
         Assert.assertEquals(String.format("classes added/removoed to package=[%s]?", packageName), EXPECTED_CLASSES,
-                pojoPackageImpl.getPojoClasses().size());
+                pojoPackage.getPojoClasses().size());
+    }
+
+    @Test
+    public void shouldReturnEmptyListNoAnnotation() {
+        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName() +".packagenoannotation");
+        Affirm.affirmTrue(String.format("Annotations added? expected none [%s]", pojoPackage), pojoPackage.getAnnotations() != null && pojoPackage.getAnnotations().size() == 0);
+    }
+
+    @Test
+    public void shouldReturnAnAnnotation() {
+        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName() +".packagemanyannotations");
+        Class<? extends Annotation> expectedAnnotationClass = SomeAnnotation.class;
+        Affirm.affirmNotNull(String.format("[%s] removed from package [%s]?", expectedAnnotationClass, pojoPackage), pojoPackage.getAnnotation(expectedAnnotationClass));
+    }
+
+    @Test
+    public void shouldReturnAnnotationList() {
+        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName() +".packagemanyannotations");
+        Affirm.affirmEquals(String.format("Annotations added/removed? [%s]", pojoPackage), 2, pojoPackage.getAnnotations().size());
+
+        List<Class<?>> expectedAnnotations = new LinkedList<Class<?>>();
+        expectedAnnotations.add(SomeAnnotation.class);
+        expectedAnnotations.add(AnotherAnnotation.class);
+        for (Annotation annotation : pojoPackage.getAnnotations()) {
+            Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]",
+                    expectedAnnotations, annotation.annotationType()), expectedAnnotations.contains(annotation
+                    .annotationType()));
+        }
+    }
+
+    @Test(expected=ReflectionException.class)
+    public void shouldFailNoSuchPackage() {
+        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage((String)RandomFactory.getRandomValue(String.class));
+        pojoPackage.getAnnotations();
     }
 
     @Test
     public void testtoString() {
-        Assert.assertEquals("toString format changed?!", expectedToString, pojoPackageImpl.toString());
+        Assert.assertEquals("toString format changed?!", expectedToString, pojoPackage.toString());
     }
 }

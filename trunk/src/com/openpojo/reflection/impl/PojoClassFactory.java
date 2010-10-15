@@ -73,7 +73,7 @@ public final class PojoClassFactory {
      *         A list of PojoClasses.
      */
     public static List<PojoClass> getPojoClasses(final String packageName, final PojoClassFilter filter) {
-        return new PojoPackageImpl(packageName).getPojoClasses(filter);
+        return PojoPackageFactory.getPojoPackage(packageName).getPojoClasses(filter);
     }
 
     /**
@@ -91,7 +91,7 @@ public final class PojoClassFactory {
     public static List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter filter) {
         final List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
 
-        final PojoPackage pojoPackage = new PojoPackageImpl(packageName);
+        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(packageName);
         final List<PojoPackage> packages = new LinkedList<PojoPackage>();
         packages.add(pojoPackage);
 
