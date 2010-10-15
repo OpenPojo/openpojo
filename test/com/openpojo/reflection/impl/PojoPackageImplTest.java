@@ -44,11 +44,8 @@ public class PojoPackageImplTest {
 
     private PojoPackage pojoPackage;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         packageName = this.getClass().getPackage().getName() + ".sampleclasses";
         expectedToString = "PojoPackageImpl [packageName=" + packageName + "]";
         pojoPackage = PojoPackageFactory.getPojoPackage(packageName);
