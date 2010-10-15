@@ -18,12 +18,15 @@
 package com.openpojo.reflection.impl;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
+import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.utils.PackageHelper;
 
 /**
@@ -34,6 +37,10 @@ import com.openpojo.reflection.utils.PackageHelper;
 public class PojoPackageImpl implements PojoPackage {
 
     private final String packageName;
+
+    public String getName() {
+        return packageName;
+    }
 
     public PojoPackageImpl(final String packageName) {
         this.packageName = packageName;
@@ -70,8 +77,30 @@ public class PojoPackageImpl implements PojoPackage {
         return pojoPackageSubPackages;
     }
 
+    public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
+        Package pkg = getAsPackage();
+        return pkg.getAnnotation(annotationClass);
+    }
+
+    public List<? extends Annotation> getAnnotations() {
+        Package pkg = getAsPackage();
+        return Arrays.asList(pkg.getAnnotations());
+    }
+
+    private Package getAsPackage() {
+        // This call will load the package in the class loader,
+        // otherwise, Package.getPackage will return null
+        getPojoClasses();
+
+        if (Package.getPackage(packageName) == null) {
+            throw ReflectionException.getInstance(String.format("Invalid package [%s]?", packageName));
+        }
+        return Package.getPackage(packageName);
+    }
+
     @Override
     public String toString() {
         return String.format("PojoPackageImpl [packageName=%s]", packageName);
     }
+
 }

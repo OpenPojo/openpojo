@@ -79,6 +79,9 @@ public final class PackageHelper {
     private static String getFullyQualifiedPathForPackage(final String packageName) {
         String packageAsPath = convertPackageToPath(packageName);
         URL resource = getResource(getClassLoader(), packageAsPath);
+        if (resource == null) {
+            throw ReflectionException.getInstance(String.format("No such package [%s]", packageName));
+        }
         try {
             // work around because of this
             // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4466485

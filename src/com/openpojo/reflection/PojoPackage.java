@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author oshoukry
  */
-public interface PojoPackage {
+public interface PojoPackage extends PojoElement {
 
     /**
      * Get all PojoClasses in current package.
