@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -17,14 +18,14 @@
             * Simplifying identity management (hashCode / equals) using annotation. 
     </description>
     <scm>
-        <connection>scm:svn:https://openpojo.googlecode.com/svn/trunk</connection>
+        <connection>scm:svn:http://openpojo.googlecode.com/svn/trunk</connection>
         <developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
-        <url>https://openpojo.googlecode.com/svn/trunk</url>
+        <url>http://openpojo.googlecode.com/svn/trunk</url>
     </scm>
     <contributors>
         <contributor>
             <name>Osman Shoukry</name>
-            <email>oshoukry at gmail com</email>
+            <email>oshoukry at gmail</email>
             <roles>
                 <role>Maintainer</role>
                 <role>Developer</role>
@@ -34,9 +35,12 @@
         </contributor>
         <contributor>
             <name>David J. M. Karlsen</name>
-            <email>davidkarlsen at gmail.com</email>
+            <email>davidkarlsen at gmail</email>
             <organization>davidkarlsen.com</organization>
             <timezone>+1</timezone>
+            <properties>
+                <contribution>Created initial pom.xml and provided guidence in how to get openpojo into maven</contribution>
+            </properties>
         </contributor>
     </contributors>
     <licenses>
