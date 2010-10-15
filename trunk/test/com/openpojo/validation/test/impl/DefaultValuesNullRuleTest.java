@@ -14,27 +14,27 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.validation.rule.impl;
+package com.openpojo.validation.test.impl;
 
 import org.junit.Test;
 
-import com.openpojo.validation.rule.Rule;
+import com.openpojo.validation.rule.impl.CommonCode;
 import com.openpojo.validation.rule.impl.sampleclasses.DefaultValueNotNullClass;
 import com.openpojo.validation.rule.impl.sampleclasses.DefaultValueNullClass;
+import com.openpojo.validation.test.Tester;
 
 /**
  * @author oshoukry
  */
-@SuppressWarnings("deprecation") // keep this until we rip this class out completely.
 public class DefaultValuesNullRuleTest {
 
     Class<?>[] failClasses = new Class<?>[]{ DefaultValueNotNullClass.class };
     Class<?>[] passClasses = new Class<?>[]{ DefaultValueNullClass.class };
-    Rule rule = new DefaultValuesNullRule();
+    Tester test = new DefaultValuesNullTester();
 
     @Test
     public void testEvaluate() {
-        CommonCode.shouldPassRuleValidation(rule, passClasses);
-        CommonCode.shouldFailRuleValidation(rule, failClasses);
+        CommonCode.shouldPassTesterValidation(test, passClasses);
+        CommonCode.shouldFailTesterValidation(test, failClasses);
     }
 }

@@ -19,6 +19,7 @@ package com.openpojo.validation.rule.impl;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
+import com.openpojo.validation.test.Tester;
 
 /**
  * @author oshoukry
@@ -28,6 +29,12 @@ public final class CommonCode {
     public static void shouldPassRuleValidation(final Rule rule, final Class<?>[] passClasses) {
         for (Class<?> clazz : passClasses) {
             rule.evaluate(PojoClassFactory.getPojoClass(clazz));
+        }
+    }
+
+    public static void shouldPassTesterValidation(final Tester tester, final Class<?>[] passClasses) {
+        for (Class<?> clazz : passClasses) {
+            tester.run(PojoClassFactory.getPojoClass(clazz));
         }
     }
 
@@ -44,4 +51,19 @@ public final class CommonCode {
             }
         }
     }
+
+    public static void shouldFailTesterValidation(final Tester tester, final Class<?>[] failClasses) {
+        for (Class<?> clazz : failClasses) {
+            try {
+                tester.run(PojoClassFactory.getPojoClass(clazz));
+                Affirm.fail(String
+                        .format("Tester = [%s] failed to detect error while evaluating class= [%s]", tester, clazz));
+            } catch (AssertionError ae) {
+                if (ae.getMessage().contains("Tester = [")) {
+                    throw ae;
+                }
+            }
+        }
+    }
+
 }

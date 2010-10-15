@@ -26,8 +26,6 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.construct.InstanceFactory;
-import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
@@ -102,23 +100,6 @@ class PojoClassImpl implements PojoClass {
 
     public boolean extendz(final Class<?> type) {
         return type.isAssignableFrom(clazz);
-    }
-
-    private void validateBeforeNewInstance() {
-        if (isInterface() || isAbstract()) {
-            throw ReflectionException.getInstance(String.format(
-                    "[%s] is an interface/abstract, can't create new instance", this));
-        }
-    }
-
-    public Object newInstance(final Object... objects) {
-        validateBeforeNewInstance();
-        return InstanceFactory.getInstance(this, objects);
-    }
-
-    public Object newInstance() {
-        validateBeforeNewInstance();
-        return InstanceFactory.getInstance(this);
     }
 
     public boolean isNestedClass() {
