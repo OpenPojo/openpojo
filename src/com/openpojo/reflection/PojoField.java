@@ -81,12 +81,6 @@ public interface PojoField extends PojoElement {
     public void invokeSetter(final Object instance, final Object value);
 
     /**
-     * This method is miss-spelled, and will be removed in the next release.
-     */
-    @Deprecated
-    public void inovkeSetter(final Object instance, final Object value);
-
-    /**
      * Return the type of field encapsulated.
      *
      * @return

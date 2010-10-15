@@ -64,6 +64,11 @@ public class InstanceFactory {
      *         a newly created instance of the class represented in the pojoClass.
      */
     public static Object getInstance(final PojoClass pojoClass, final Object... parameters) {
+        if (!pojoClass.isConcrete()) {
+            throw ReflectionException.getInstance(String.format(
+                    "[%s] is not a concrete class, can't create new instance", pojoClass));
+        }
+
         List<PojoMethod> constructors = pojoClass.getPojoConstructors();
         for (PojoMethod constructor : constructors) {
             if (areEquivalentParameters(constructor.getParameterTypes(), getTypes(parameters))) {
