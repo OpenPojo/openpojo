@@ -24,6 +24,8 @@ import java.util.List;
  * @author oshoukry
  */
 public interface PojoPackage extends PojoElement {
+    public static final String PACKAGE_INFO = "package-info";
+    public static final String PACKAGE_DELIMETER = ".";
 
     /**
      * Get all PojoClasses in current package.
