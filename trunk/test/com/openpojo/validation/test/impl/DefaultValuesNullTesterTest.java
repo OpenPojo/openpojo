@@ -26,7 +26,7 @@ import com.openpojo.validation.test.Tester;
 /**
  * @author oshoukry
  */
-public class DefaultValuesNullRuleTest {
+public class DefaultValuesNullTesterTest {
 
     Class<?>[] failClasses = new Class<?>[]{ DefaultValueNotNullClass.class };
     Class<?>[] passClasses = new Class<?>[]{ DefaultValueNullClass.class };
