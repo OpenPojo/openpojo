@@ -22,6 +22,10 @@ import java.lang.reflect.Method;
 import com.openpojo.random.RandomFactory;
 
 /**
+ * This Class is responsible for creating on the fly random instances from Interfaces.
+ * These random instances will return random data on all invocations for their methods.
+ * equals, hashCode & toString however will behave consistently with java's default behaviour.
+ * 
  * @author oshoukry
  */
 public class RandomReturnInvocationHandler implements InvocationHandler {
@@ -50,7 +54,7 @@ public class RandomReturnInvocationHandler implements InvocationHandler {
     }
 
     private String objectToString(final Object proxy) {
-        return proxy.getClass().getName() + System.identityHashCode(proxy);
+        return proxy.getClass().getName() + '@' + System.identityHashCode(proxy);
     }
 
     private int objectHashCode(final Object proxy) {
@@ -62,6 +66,6 @@ public class RandomReturnInvocationHandler implements InvocationHandler {
     }
 
     private static class Instance {
-        private static final RandomReturnInvocationHandler INSTANCE = new RandomReturnInvocationHandler();
+        private static final InvocationHandler INSTANCE = new RandomReturnInvocationHandler();
     }
 }
