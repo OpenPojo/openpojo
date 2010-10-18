@@ -16,6 +16,10 @@
             * Make Testing as easy as possible.
             * Simplifying identity management (hashCode / equals) using annotation. 
     </description>
+    <issueManagement>
+    	<system>googlecode</system>
+    	<url>http://code.google.com/p/openpojo/issues/</url>
+    </issueManagement>
     <scm>
         <connection>scm:svn:http://openpojo.googlecode.com/svn/trunk</connection>
         <developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
