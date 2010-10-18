@@ -69,7 +69,7 @@ public @interface BusinessKey {
     /**
      * Set to true if this key is part of a group where any one of the group needs to be not null.
      * Setting Composite to true, shadows the "required" above, since composite is OR-ing against any that are
-     * populated.
+     * populated.  With at least one of the composite group being non-null.
      */
     boolean composite() default false;
 }
