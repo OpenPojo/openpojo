@@ -1,6 +1,11 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-10-18:*
+  * OpenPojo-0.1.2 released
+   * New PojoClassFilter added (FilterEnum).
+   * New FilterChain now enables chaining any filters together.
+   * *Note:* please *skip version 0.1.1* on maven central and go straight to 0.1.2.
  * *2010-10-15:*
   * OpenPojo-0.1.0 released
    * Issue 12 is fixed.
