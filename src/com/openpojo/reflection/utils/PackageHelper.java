@@ -111,9 +111,6 @@ public final class PackageHelper {
     }
 
     private static String convertPackageToPath(final String packageName) {
-        if (packageName == null) {
-            System.out.println("package name is null!!");
-        }
         return packageName.replace(PojoPackage.PACKAGE_DELIMETER, PATH_SEPERATOR);
     }
 
