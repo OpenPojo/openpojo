@@ -16,7 +16,6 @@
  */
 package com.openpojo.reflection;
 
-import java.lang.annotation.Annotation;
 
 /**
  * This class encapsulates the meta data definition of a method on a class.
@@ -55,31 +54,11 @@ public interface PojoMethod extends PojoElement {
     public Object invoke(final Object instance, final Object...parameters);
 
     /**
-     * Get the method name.
-     *
-     * @return
-     *      Name of the method.
-     */
-    public String getName();
-
-    /**
      * Get the method parameters.
      * @return
      *      An array of parameterTypes.
      */
     public Class<?>[] getParameterTypes();
-
-    /**
-     * Get instance of the annotation on the PojoMethod.
-     *
-     * @param <T>
-     *            Class Type of annotation.
-     * @param annotationClass
-     *            The annotation class.
-     * @return
-     *         The definition of this annotation on the PojoMethod.
-     */
-    public <T extends Annotation> T getAnnotation(final Class<T> annotationClass);
 
     /**
      * @return
