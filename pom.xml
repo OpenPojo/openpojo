@@ -78,7 +78,7 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.1</version>
                     <configuration>
-                        <releaseProfiles>openpojo-release</releaseProfiles>
+                        <arguments>-Psonatype-oss-release,openpojo-release</arguments>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -235,3 +235,4 @@
         </dependency>
     </dependencies>
 </project>
+
