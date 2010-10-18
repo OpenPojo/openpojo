@@ -24,6 +24,7 @@ import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.cache.PojoCache;
 import com.openpojo.reflection.filters.FilterBasedOnInheritence;
+import com.openpojo.reflection.filters.FilterChain;
 
 /**
  * This is a factory class that builds PojoClassImpl representation given a class.
@@ -122,7 +123,9 @@ public final class PojoClassFactory {
      */
     public static List<PojoClass> enumerateClassesByExtendingType(final String packageName,
             final Class<?> type, final PojoClassFilter filter) {
-        FilterBasedOnInheritence inheritencefilter = new FilterBasedOnInheritence(type, filter);
-        return getPojoClassesRecursively(packageName, inheritencefilter);
+
+        FilterBasedOnInheritence inheritencefilter = new FilterBasedOnInheritence(type);
+        FilterChain filterChain = new FilterChain(inheritencefilter, filter);
+        return getPojoClassesRecursively(packageName, filterChain);
     }
 }

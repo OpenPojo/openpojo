@@ -50,7 +50,8 @@ public class FilterNonConcreteTest {
                 stubPojoClass.isConcrete() == pojoClassFilter.include(stubPojoClass));
 
         StubPojoClassFilter stubPojoClassFilter = new StubPojoClassFilter();
-        pojoClassFilter = new FilterNonConcrete(stubPojoClassFilter);
+        FilterChain filterChain = new FilterChain(new FilterNonConcrete(), stubPojoClassFilter);
+        pojoClassFilter = filterChain;
         stubPojoClass.isConcrete = true;
         pojoClassFilter.include(stubPojoClass);
         Affirm.affirmTrue(String.format("Filter [%s] didn't invoke next in filter chain", pojoClassFilter),

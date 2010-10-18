@@ -16,34 +16,32 @@
  */
 package com.openpojo.reflection.filters;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 
 /**
- * This filter will filter out any non-concrete class (i.e. interface, Enum and Abstract).
- *
  * @author oshoukry
  */
-public class FilterNonConcrete implements PojoClassFilter {
+public class FilterChain implements PojoClassFilter {
+    List<PojoClassFilter> pojoClassFilters = new LinkedList<PojoClassFilter>();
 
-    private PojoClassFilter nextFilter;
-
-    public FilterNonConcrete() {
-    }
-
-    /**
-     * This construtor will is deprecated, please use FilterChain to chain filters together.
-     * @param nextFilter
-     *          The filter that is next to be evaluated.
-     * @deprecated please use {@link FilterChain instead}
-     */
-    @Deprecated
-    public FilterNonConcrete(final PojoClassFilter nextFilter) {
-        this.nextFilter = nextFilter;
+    public FilterChain(final PojoClassFilter... pojoClassFilters) {
+        for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
+            if (pojoClassFilter != null) {
+                this.pojoClassFilters.add(pojoClassFilter);
+            }
+        }
     }
 
     public boolean include(final PojoClass pojoClass) {
-        return pojoClass.isConcrete() && (nextFilter == null || nextFilter.include(pojoClass));
+        boolean returnValue = true;
+        for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
+            returnValue &= pojoClassFilter.include(pojoClass);
+        }
+        return returnValue;
     }
 
 }
