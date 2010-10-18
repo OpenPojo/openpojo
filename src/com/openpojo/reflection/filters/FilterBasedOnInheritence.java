@@ -28,11 +28,22 @@ import com.openpojo.reflection.PojoClassFilter;
  */
 public class FilterBasedOnInheritence implements PojoClassFilter {
     private final Class<?> type;
-    private final PojoClassFilter filter;
+    private PojoClassFilter filter;
 
+    /**
+     * This construtor will is deprecated, please use FilterChain to chain filters together.
+     * @param nextFilter
+     *          The filter that is next to be evaluated.
+     * @deprecated please use {@link FilterChain instead}
+     */
+    @Deprecated
     public FilterBasedOnInheritence(final Class<?> type, final PojoClassFilter filter) {
         this.type = type;
         this.filter = filter;
+    }
+
+    public FilterBasedOnInheritence(final Class<?> type) {
+        this.type = type;
     }
 
     public boolean include(final PojoClass pojoClass) {
