@@ -1,0 +1,10 @@
+= Frequently Asked Questions =
+
+This section is frequently updated based on findings in the community and the most common questions received.
+
+If your question is not answered by the list bellow, please feel free to post an issue under [Issues] section.
+
+
+== Setup ==
+ * How do I configure my eclipse project against the source code of OpenPojo?
+TBD
