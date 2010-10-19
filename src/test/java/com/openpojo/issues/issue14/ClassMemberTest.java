@@ -16,62 +16,60 @@
  */
 package com.openpojo.issues.issue14;
 
-
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import com.openpojo.issues.issue14.sampleclasses.SampleClass;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.filters.FilterPackageInfo;
+import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.impl.SetterTester;
+import com.openpojo.validation.test.impl.GetterTester;
 
 /**
  * @author oshoukry
- *
  */
 public class ClassMemberTest {
-    private static final String POJO_PACKAGE = ClassMemberTest.class.getPackage().getName() + ".sampleclasses";
-    private List<PojoClass> pojoClasses;
+    private PojoClass pojoClass;
     private PojoValidator pojoValidator;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
-        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterPackageInfo());
-
-        for(PojoClass pojoClass : pojoClasses) {
-            System.out.println(pojoClass);
-        }
-
+        pojoClass = PojoClassFactory.getPojoClass(SampleClass.class);
         pojoValidator = new PojoValidator();
 
-        // Create Rules to validate structure for POJO_PACKAGE
-//        pojoValidator.addRule(new NoPublicFieldsRule());
-//        pojoValidator.addRule(new NoPrimitivesRule());
-//        pojoValidator.addRule(new NoStaticExceptFinalRule());
-//        pojoValidator.addRule(new GetterMustExistRule());
-//        pojoValidator.addRule(new SetterMustExistRule());
-//        pojoValidator.addRule(new NoNestedClassRule());
-//        pojoValidator.addRule(new BusinessKeyMustExistRule());
-
-        // Create Testers to validate behaviour for POJO_PACKAGE
-//        pojoValidator.addTester(new DefaultValuesNullTester());
+        // Add Testers to create a new instance on the private variable Class and trigger the problem.
         pojoValidator.addTester(new SetterTester());
-//        pojoValidator.addTester(new GetterTester());
-//        pojoValidator.addTester(new BusinessIdentityTester());
+        pojoValidator.addTester(new GetterTester());
+    }
+
+    @Test
+    public void ensureSampleClassDefinitionIsCorrect() {
+        String fieldName = "someMemberClass";
+        Affirm.affirmEquals(String.format("Fields added/removed to [%s]?", pojoClass), 1, pojoClass.getPojoFields()
+                .size());
+
+        boolean validated = false;
+        for (PojoField pojoField : pojoClass.getPojoFields()) {
+            if (pojoField.getName() == fieldName) {
+                Affirm.affirmEquals("Field type changed?", Class.class.getName(), pojoField.getType().getName());
+                Affirm.affirmTrue(String.format("Getter/Setter removed from field[%s]", pojoField), pojoField
+                        .hasGetter()
+                        && pojoField.hasSetter());
+                validated = true;
+            }
+        }
+        if (!validated) {
+            Affirm.fail(String.format("[%s] field not found on PojoClass [%s]", fieldName, pojoClass));
+        }
     }
 
     @Test
     public void validatePojos() {
-        for (PojoClass pojoClass : pojoClasses) {
-            pojoValidator.runValidation(pojoClass);
-        }
+        pojoValidator.runValidation(pojoClass);
     }
 
 }
