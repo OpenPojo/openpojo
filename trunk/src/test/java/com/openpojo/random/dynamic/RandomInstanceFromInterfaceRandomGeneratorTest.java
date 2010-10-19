@@ -1,0 +1,78 @@
+package com.openpojo.random.dynamic;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.openpojo.random.dynamic.sampleclasses.AConcreteClass;
+import com.openpojo.random.dynamic.sampleclasses.ASimpleInterface;
+import com.openpojo.random.dynamic.sampleclasses.AnAbstractClass;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.validation.affirm.Affirm;
+
+public class RandomInstanceFromInterfaceRandomGeneratorTest {
+
+    RandomInstanceFromInterfaceRandomGenerator proxyGenerator;
+    ASimpleInterface aSimpleInterface;
+
+    @Before
+    public void setup() {
+        proxyGenerator = RandomInstanceFromInterfaceRandomGenerator.getInstance();
+        aSimpleInterface = proxyGenerator.doGenerate(ASimpleInterface.class);
+    }
+
+    @Test
+    public void shouldReturnAProxy() {
+        Affirm.affirmNotNull("Interface instance not generated", aSimpleInterface);
+    }
+
+    @Test
+    public void shouldReturnANewInstanceEveryTime() {
+        Affirm.affirmFalse("Same instance returned or faulty equality implementation on proxy", aSimpleInterface
+                .equals(proxyGenerator.doGenerate(ASimpleInterface.class)));
+    }
+
+    @Test
+    public void shouldReturnRandomNonNullValuesForInterfaceMethods() {
+        ASimpleInterface aSimpleInterface = proxyGenerator.doGenerate(ASimpleInterface.class);
+
+        Affirm.affirmNotNull("Generated proxy getName() returned null", aSimpleInterface.getName());
+
+        String name = aSimpleInterface.getName();
+        String otherName = aSimpleInterface.getName();
+        if (name.equals(otherName)) { // Just incase they are the same by chance.
+            Affirm.affirmFalse(String.format("RandomProxyFactory=[%s] returned a non-Random Pojo Proxy",
+                    RandomInstanceFromInterfaceRandomGenerator.getInstance()), name.equals(aSimpleInterface.getName()));
+        }
+    }
+
+    @Test
+    public void shouldImplementAccuratetoStringAndhashCode() {
+        String toString = aSimpleInterface.toString();
+        Affirm.affirmNotNull("toString() on proxy returned null", toString);
+        Affirm.affirmTrue(String.format("toString returned [%s] expected it to begin with [%s] and contain [@]", toString, "$Proxy"),
+                toString.startsWith("$Proxy") && toString.contains("@"));
+        Affirm.affirmTrue("toString() doesn't end with hashCode()", toString.endsWith(String.valueOf(aSimpleInterface
+                .hashCode())));
+
+        ASimpleInterface anotherSimpleInterface = proxyGenerator.doGenerate(ASimpleInterface.class);
+        Affirm.affirmTrue("Generated Proxy hashCode() should not return equal values across instances",
+                aSimpleInterface.hashCode() != anotherSimpleInterface.hashCode());
+    }
+
+    @Test
+    public void shouldAllowInvokingVoidReturnMethods() {
+        // Just ensuring it doesn't throw some exception/etc.
+        aSimpleInterface.doSomethingUseful();
+    }
+
+    @Test(expected = ReflectionException.class)
+    public void shouldFailAbstractClass() {
+        proxyGenerator.doGenerate(AnAbstractClass.class);
+    }
+
+    @Test(expected = ReflectionException.class)
+    public void shouldFailConcreteClass() {
+        proxyGenerator.doGenerate(AConcreteClass.class);
+    }
+
+}
