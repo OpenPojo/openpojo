@@ -25,6 +25,8 @@ import org.junit.Test;
 
 import com.openpojo.random.loop.Employee;
 import com.openpojo.random.loop.RandomEmployee;
+import com.openpojo.random.sampleclasses.AClassWithNoRegisteredRandomGenerator;
+import com.openpojo.validation.affirm.Affirm;
 
 /**
  * @author oshoukry
@@ -63,6 +65,19 @@ public class RandomFactoryTest {
         Assert.assertNotNull(RandomFactory.getRandomValue(Employee.class));
         Assert.assertNotNull(RandomFactory.getRandomValue(Employee.class));
 
+    }
+
+    @Test
+    public void generateRandomWithNoRegisteredRandomGenerator() {
+        Class<?> clazz = AClassWithNoRegisteredRandomGenerator.class;
+
+        Object someInstance = RandomFactory.getRandomValue(clazz);
+
+        Affirm.affirmNotNull(String.format("Null value returned for random instance of [%s]", clazz.getName()),
+                someInstance);
+
+        Affirm.affirmFalse(String.format("Non randomized instance returned (i.e. same object) for [%s]", clazz
+                .getName()), someInstance.equals(RandomFactory.getRandomValue(clazz)));
     }
 
     private class RegisteredDummy {
