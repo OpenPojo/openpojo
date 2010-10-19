@@ -24,6 +24,7 @@ import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.dynamic.EnumRandomGenerator;
 import com.openpojo.random.dynamic.RandomInstanceFromInterfaceRandomGenerator;
 import com.openpojo.random.impl.BasicRandomGenerator;
+import com.openpojo.random.impl.ClassRandomGenerator;
 import com.openpojo.random.impl.ObjectRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
 import com.openpojo.random.impl.VoidRandomGenerator;
@@ -77,6 +78,7 @@ public class RandomFactory {
         RandomFactory.addRandomGenerator(ObjectRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(BasicRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(TimestampRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(ClassRandomGenerator.getInstance());
     }
 
     /**

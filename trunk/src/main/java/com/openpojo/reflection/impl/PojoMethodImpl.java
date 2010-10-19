@@ -43,7 +43,6 @@ public class PojoMethodImpl implements PojoMethod {
 
     private PojoMethodImpl(final AccessibleObject accessibleObject) {
         this.accessibleObject = accessibleObject;
-        allowAccessiblity();
     }
 
     private void allowAccessiblity() {
@@ -66,6 +65,7 @@ public class PojoMethodImpl implements PojoMethod {
     }
 
     public Object invoke(final Object instance, final Object... parameters) {
+        allowAccessiblity();
         if (isConstructor()) {
             try {
                 return getAsConstructor().newInstance(parameters);
