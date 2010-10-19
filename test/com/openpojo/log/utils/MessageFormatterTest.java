@@ -9,10 +9,24 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.validation.affirm.Affirm;
+
 /**
  * @author oshoukry
  */
 public class MessageFormatterTest {
+
+    @Test
+    public void ensureMessageFormatterConstructorPrivate() {
+        PojoClass messageFormatterPojoClass = PojoClassFactory.getPojoClass(MessageFormatter.class);
+        for (PojoMethod pojoConstructor : messageFormatterPojoClass.getPojoConstructors()) {
+            Affirm.affirmTrue(String.format("Constructor not private [%s]", pojoConstructor), pojoConstructor
+                    .isPrivate());
+        }
+    }
 
     /**
      * Populate and return the input data for testing MessageFormatter.UsingCurlyBrackets(String, Object[]).
@@ -24,31 +38,31 @@ public class MessageFormatterTest {
 
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("SimpleMessage", "SimpleMessage", null));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(null, null,
-                new Object[] { "nothing to format to" }));
+                new Object[]{ "nothing to format to" }));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(
                 "Here is how to put single quotes in messages '[wrapped 'with' quotes]'",
-                "Here is how to put single quotes in messages ''[{0}]''", new Object[] { "wrapped 'with' quotes" }));
+                "Here is how to put single quotes in messages ''[{0}]''", new Object[]{ "wrapped 'with' quotes" }));
 
         Date date = new Date();
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("Two Params a string=[myString] and a date=["
-                + date.toString() + "]", "Two Params a string=[{0}] and a date=[{1}]", new Object[] { "myString",
+                + date.toString() + "]", "Two Params a string=[{0}] and a date=[{1}]", new Object[]{ "myString",
                 date.toString() }));
 
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(
                 "Exception=[java.lang.Exception: This is an exception]", "Exception=[{0}]",
-                new Object[] { new Exception("This is an exception") }));
+                new Object[]{ new Exception("This is an exception") }));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("only one param assigned 1=[1st Param] 2=[{1}]",
-                "only one param assigned 1=[{0}] 2=[{1}]", new Object[] { "1st Param" }));
+                "only one param assigned 1=[{0}] 2=[{1}]", new Object[]{ "1st Param" }));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("only one will print - [extra parameter]",
-                "only one will print - [{0}]", new Object[] { "extra parameter", " should not print" }));
+                "only one will print - [{0}]", new Object[]{ "extra parameter", " should not print" }));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("nothing shows up for null args=[{0}]",
                 "nothing shows up for null args=[{0}]", null));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(
                 "Message and one param [param one] and this one is null=[null]",
-                "Message and one param [{0}] and this one is null=[{1}]", new Object[] { "param one", null }));
+                "Message and one param [{0}] and this one is null=[{1}]", new Object[]{ "param one", null }));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(
-                "Nested Array unfolds [[1, 2, 3], [check, me, out]]", "Nested Array unfolds [{0}, {1}]", new Object[] {
-                        new Integer[] { 1, 2, 3 }, new String[] { "check", "me", "out" } }));
+                "Nested Array unfolds [[1, 2, 3], [check, me, out]]", "Nested Array unfolds [{0}, {1}]", new Object[]{
+                        new Integer[]{ 1, 2, 3 }, new String[]{ "check", "me", "out" } }));
 
         return usingCurlyBracketsTestData;
     }
@@ -60,10 +74,10 @@ public class MessageFormatterTest {
      */
     private List<FlattenArrayToStringTestData> getFlattenArrayToStringTestData() {
         List<FlattenArrayToStringTestData> flattenArrayToStringTestData = new LinkedList<FlattenArrayToStringTestData>();
-        flattenArrayToStringTestData.add(new FlattenArrayToStringTestData("[[1, 2, 3]]", new Object[] { new Integer[] {
+        flattenArrayToStringTestData.add(new FlattenArrayToStringTestData("[[1, 2, 3]]", new Object[]{ new Integer[]{
                 1, 2, 3 } }));
         flattenArrayToStringTestData.add(new FlattenArrayToStringTestData("[[This, is, a string]]",
-                new Object[] { new String[] { "This", "is", "a string" } }));
+                new Object[]{ new String[]{ "This", "is", "a string" } }));
 
         return flattenArrayToStringTestData;
     }
@@ -134,7 +148,6 @@ public class MessageFormatterTest {
      * see {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}
      *
      * @author oshoukry
-     *
      */
     private static final class UsingCurlyBracketsTestData {
         private final String expected;
@@ -163,7 +176,6 @@ public class MessageFormatterTest {
      * see {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}
      *
      * @author oshoukry
-     *
      */
     private static final class FlattenArrayToStringTestData {
         private final String expected;
