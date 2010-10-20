@@ -14,8 +14,10 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.random.dynamic;
+package com.openpojo.random.impl;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.LinkedList;
@@ -25,6 +27,7 @@ import java.util.Random;
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
+import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -34,8 +37,10 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  *
  * @author oshoukry
  */
-public final class EnumSetRandomGenerator {
+public final class EnumSetRandomGenerator implements RandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
+    private static final Class<?>[] TYPES = new Class<?>[]{ EnumSet.class };
+
     private static final Logger log = LoggerFactory.getLogger(EnumSetRandomGenerator.class);
 
     public static EnumSetRandomGenerator getInstance() {
@@ -56,6 +61,10 @@ public final class EnumSetRandomGenerator {
         return EnumSet.copyOf(randomEnumValues);
     }
 
+    public Collection<Class<?>> getTypes() {
+        return Arrays.asList(TYPES);
+    }
+
     private static class Instance {
         private static final EnumSetRandomGenerator INSTANCE = new EnumSetRandomGenerator();
     }
@@ -63,4 +72,5 @@ public final class EnumSetRandomGenerator {
     public enum RandomEnum {
         ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE, THIRTEEN, FOURTEEN, FIFTEEN, SIXTEEN, SEVENTEEN, EIGHTEEN, NINETEEN, TWENTY;
     }
+
 }
