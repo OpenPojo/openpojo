@@ -16,17 +16,16 @@
  */
 package com.openpojo.random;
 
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.dynamic.EnumRandomGenerator;
-import com.openpojo.random.dynamic.EnumSetRandomGenerator;
 import com.openpojo.random.dynamic.RandomInstanceFromInterfaceRandomGenerator;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.ClassRandomGenerator;
+import com.openpojo.random.impl.EnumSetRandomGenerator;
 import com.openpojo.random.impl.ObjectRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
 import com.openpojo.random.impl.VoidRandomGenerator;
@@ -81,6 +80,7 @@ public class RandomFactory {
         RandomFactory.addRandomGenerator(BasicRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(TimestampRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(ClassRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(EnumSetRandomGenerator.getInstance());
     }
 
     /**
@@ -117,10 +117,6 @@ public class RandomFactory {
 
             if (typeClass.isInterface()) {
                 return RandomInstanceFromInterfaceRandomGenerator.getInstance().doGenerate(type);
-            }
-
-            if (typeClass.getClazz().getName() == EnumSet.class.getName()) {
-                return EnumSetRandomGenerator.getInstance().doGenerate(typeClass.getClazz());
             }
 
             if (typeClass.isEnum()) {
