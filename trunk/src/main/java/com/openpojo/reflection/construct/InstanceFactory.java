@@ -166,6 +166,9 @@ public class InstanceFactory {
 
     private static PojoMethod getConstructorByCriteria(final PojoClass pojoClass,
             final ArrayLengthBasedComparator comparator) {
+        if (pojoClass.getPojoConstructors().size() == 0) {
+            throw ReflectionException.getInstance(String.format("No constructors found for pojoClass [%s]", pojoClass));
+        }
         PojoMethod constructor = pojoClass.getPojoConstructors().get(0);
         for (PojoMethod pojoConstructor : pojoClass.getPojoConstructors()) {
             if (comparator.compare(pojoConstructor.getParameterTypes(), constructor.getParameterTypes())) {

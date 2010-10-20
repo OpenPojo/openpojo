@@ -16,12 +16,14 @@
  */
 package com.openpojo.random;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.dynamic.EnumRandomGenerator;
+import com.openpojo.random.dynamic.EnumSetRandomGenerator;
 import com.openpojo.random.dynamic.RandomInstanceFromInterfaceRandomGenerator;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.ClassRandomGenerator;
@@ -31,6 +33,7 @@ import com.openpojo.random.impl.VoidRandomGenerator;
 import com.openpojo.random.thread.GeneratedRandomValues;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.construct.InstanceFactory;
+import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
@@ -70,7 +73,6 @@ public class RandomFactory {
     private static final Logger logger = LoggerFactory.getLogger(RandomFactory.class);
 
     private static final Map<Class<?>, RandomGenerator> generators = new HashMap<Class<?>, RandomGenerator>();
-
 
     static {
         // register defaults with Factory.
@@ -112,12 +114,25 @@ public class RandomFactory {
         RandomGenerator randomGenerator = RandomFactory.generators.get(type);
         if (randomGenerator == null) {
             PojoClass typeClass = PojoClassFactory.getPojoClass(type);
+
             if (typeClass.isInterface()) {
                 return RandomInstanceFromInterfaceRandomGenerator.getInstance().doGenerate(type);
             }
 
+            if (typeClass.getClazz().getName() == EnumSet.class.getName()) {
+                return EnumSetRandomGenerator.getInstance().doGenerate(typeClass.getClazz());
+            }
+
             if (typeClass.isEnum()) {
                 return EnumRandomGenerator.getInstance().doGenerate(type);
+            }
+
+            if (typeClass.isAbstract()) {
+                throw ReflectionException
+                        .getInstance(String
+                                .format(
+                                        "Unable to generate random instance for Abstract class [%s], please register a RandomGenerator and try again",
+                                        typeClass));
             }
 
             logger.info("Creating random instance for type=[{0}] since no random generator registered", type);
