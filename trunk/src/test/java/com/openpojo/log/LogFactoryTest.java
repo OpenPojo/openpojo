@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import com.openpojo.log.impl.Log4JLogger;
 import com.openpojo.log.utils.ActiveLogger;
-import com.openpojo.utils.log.LogHelper;
 
 /**
  * @author oshoukry
