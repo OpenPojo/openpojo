@@ -3,8 +3,8 @@
 = News =
  * *2010-10-20:*
   * OpenPojo-0.1.3 released
-   * New Class<?> RandomGenerator (side issue uncovered due to issue 14.
-   * New EnumSet<?> RandomGenerator. (Solving issue 14 - Thanks to David K. for uncovering this issue).
+   * New Class<?> RandomGenerator (side issue uncovered while working on issue 14).
+   * New EnumSet<?> RandomGenerator. (The fix for issue 14 - Thanks to David K. for uncovering this issue).
   * First performance test done on OpenPojo, 1,000 POJOs tested with all rules including business rules under 3 secs (details soon).
   * UML graphs are back in the javadocs.jar (if you can't see them, just unjar and navigate with browser - and once more Thanks to David K. for helping with the pom.xml).
  * *2010-10-18:*
