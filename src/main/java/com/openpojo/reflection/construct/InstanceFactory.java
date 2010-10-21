@@ -19,8 +19,6 @@ package com.openpojo.reflection.construct;
 import java.util.Arrays;
 import java.util.List;
 
-import com.openpojo.log.Logger;
-import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
@@ -37,8 +35,6 @@ import com.openpojo.reflection.exception.ReflectionException;
  * @author oshoukry
  */
 public class InstanceFactory {
-    private static Logger log = LoggerFactory.getLogger(InstanceFactory.class);
-
     /**
      * This method returns a new instance created using default constructor.
      * It is identical to calling getInstance(PojoClass, null).
@@ -75,8 +71,8 @@ public class InstanceFactory {
         List<PojoMethod> constructors = pojoClass.getPojoConstructors();
         for (PojoMethod constructor : constructors) {
             if (areEquivalentParameters(upcast(constructor.getParameterTypes()), getTypes(parameters))) {
-                log.trace("Constucting [{0}] using parameters[{1}]", pojoClass, parameters);
-                return constructor.invoke(null, parameters);
+                Object returnObject = constructor.invoke(null, parameters);
+                return returnObject;
             }
         }
         throw ReflectionException.getInstance(String.format("No matching constructor found using parameters[%s]",
@@ -87,12 +83,12 @@ public class InstanceFactory {
      * This method will upcast Native parameters to their equivilent Class-es.
      *
      * @param parameterTypes
-     *           The array of parameters needed to be upcast.
+     *            The array of parameters needed to be upcast.
      * @return
-     *           An upcasted array of parameters (i.e. short -> Short, int -> Int, String doesn't change).
+     *         An upcasted array of parameters (i.e. short -> Short, int -> Int, String doesn't change).
      */
     private static Class<?>[] upcast(final Class<?>[] parameterTypes) {
-        Class<?> [] upCastedParameters = new Class[parameterTypes.length];
+        Class<?>[] upCastedParameters = new Class[parameterTypes.length];
         for (int idx = 0; idx < parameterTypes.length; idx++) {
             upCastedParameters[idx] = parameterTypes[idx];
             if (parameterTypes[idx].isPrimitive()) {
