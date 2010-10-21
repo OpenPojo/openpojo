@@ -71,12 +71,57 @@ public class InstanceFactory {
 
         List<PojoMethod> constructors = pojoClass.getPojoConstructors();
         for (PojoMethod constructor : constructors) {
-            if (areEquivalentParameters(constructor.getParameterTypes(), getTypes(parameters))) {
+            if (areEquivalentParameters(upcast(constructor.getParameterTypes()), getTypes(parameters))) {
                 return constructor.invoke(null, parameters);
+            } else {
+                System.out.println("expected = " + Arrays.toString(constructor.getParameterTypes()));
+                System.out.println("Got=" + Arrays.toString(getTypes(parameters)));
             }
         }
         throw ReflectionException.getInstance(String.format("No matching constructor found using parameters[%s]",
                 Arrays.toString(getTypes(parameters))));
+    }
+
+    /**
+     * This method will upcast Native parameters to their equivilent Class-es.
+     *
+     * @param parameterTypes
+     *           The array of parameters needed to be upcast.
+     * @return
+     *           An upcasted array of parameters (i.e. short -> Short, int -> Int, String doesn't change).
+     */
+    private static Class<?>[] upcast(final Class<?>[] parameterTypes) {
+        Class<?> [] upCastedParameters = new Class[parameterTypes.length];
+        for (int idx = 0; idx < parameterTypes.length; idx++) {
+            upCastedParameters[idx] = parameterTypes[idx];
+            if (parameterTypes[idx].isPrimitive()) {
+                if (parameterTypes[idx] == boolean.class) {
+                    upCastedParameters[idx] = Boolean.class;
+                }
+                if (parameterTypes[idx] == int.class) {
+                    upCastedParameters[idx] = Integer.class;
+                }
+                if (parameterTypes[idx] == float.class) {
+                    upCastedParameters[idx] = Float.class;
+                }
+                if (parameterTypes[idx] == double.class) {
+                    upCastedParameters[idx] = Double.class;
+                }
+                if (parameterTypes[idx] == long.class) {
+                    upCastedParameters[idx] = Long.class;
+                }
+                if (parameterTypes[idx] == short.class) {
+                    upCastedParameters[idx] = Short.class;
+                }
+                if (parameterTypes[idx] == byte.class) {
+                    upCastedParameters[idx] = Byte.class;
+                }
+                if (parameterTypes[idx] == char.class) {
+                    upCastedParameters[idx] = Character.class;
+                }
+            }
+        }
+        return upCastedParameters;
     }
 
     /**
