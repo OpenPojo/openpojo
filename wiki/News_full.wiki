@@ -3,7 +3,7 @@
 = News =
  * *2010-10-21:*
   * OpenPojo-0.1.4 released
-   * InstanceFactory is now able to construct classes dynamically that required primitive types.
+   * Fixed minor issue with InstanceFactory failing to construct when constructor utilized primitive type (i.e. int, boolean, short, ...etc).
    * Logger logs have been reworked and cleaned up, formats for Exceptions logging slightly modified to keep all exception log on one line with full stack trace.
  * *2010-10-20:*
   * OpenPojo-0.1.3 released
