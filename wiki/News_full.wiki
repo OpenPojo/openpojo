@@ -1,6 +1,11 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-10-20:*
+  * OpenPojo-0.1.3 released
+   * New Class<?> RandomGenerator (side issue uncovered due to issue 14 - Thanks to David K.).
+   * New EnumSet<?> RandomGenerator. (Solving issue 14 - Again, Thanks to David K.).
+  * First performance test done on OpenPojo, 1,000 POJOs tested with all rules including business rules under 3 secs (details soon).
  * *2010-10-18:*
   * OpenPojo-0.1.2 released
    * New PojoClassFilter added (FilterEnum) (solving issue 12 & issue 13).
