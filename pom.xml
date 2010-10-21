@@ -133,41 +133,6 @@
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>2.2-beta-5</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.apache.resources</groupId>
-                                <artifactId>apache-source-release-assembly-descriptor</artifactId>
-                                <version>1.0.2</version>
-                            </dependency>
-                            <dependency>
-                                <!-- NOTE: The fix for PLXUTILS-120 is crucial for the new assembly 
-                                    descriptor -->
-                                <groupId>org.codehaus.plexus</groupId>
-                                <artifactId>plexus-utils</artifactId>
-                                <version>2.0.1</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <id>attach-source-release-distro</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <configuration>
-                                    <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
-                                    <descriptorRefs>
-                                        <descriptorRef>source-release</descriptorRef>
-                                    </descriptorRefs>
-                                    <tarLongFileFormat>gnu</tarLongFileFormat>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
                         <version>2.5</version>
                         <configuration>
