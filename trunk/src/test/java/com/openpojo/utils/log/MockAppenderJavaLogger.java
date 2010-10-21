@@ -84,8 +84,6 @@ public class MockAppenderJavaLogger extends Handler implements MockAppender {
      */
     @Override
     public void publish(final LogRecord record) {
-        System.out.println("MockAppenderJavaLogger: Recieved Event " + record.getMessage());
-
         LogEvent le = new LogEvent(record.getLoggerName(), extractPriority(record), record.getMessage());
         EventLogger.registerEvent(this.getClass(), le);
     }
