@@ -50,9 +50,7 @@ class PojoPackageImpl implements PojoPackage {
             throw new IllegalArgumentException("PackageName can not be null");
         }
 
-        if (!isValid()) {
-            throw ReflectionException.getInstance(String.format("[%s] is not a valid package", packageName));
-        }
+        validatePackage();
 
         Class<?> infoClass = null;
         try {
@@ -66,11 +64,16 @@ class PojoPackageImpl implements PojoPackage {
         }
     }
 
-    private boolean isValid() {
-        if (PackageHelper.getPackageAsDirectory(packageName) == null) {
-            return false;
+    private void validatePackage() {
+        File packageDirectory;
+        try {
+            packageDirectory = PackageHelper.getPackageAsDirectory(packageName);
+        } catch (ReflectionException re) {
+            throw re;
         }
-        return true;
+        if (packageDirectory == null || !packageDirectory.exists()) {
+            throw ReflectionException.getInstance(String.format("[%s] is not a valid package", packageName));
+        }
     }
 
     public List<PojoClass> getPojoClasses() {

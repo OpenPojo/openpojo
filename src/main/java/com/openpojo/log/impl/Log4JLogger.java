@@ -61,56 +61,32 @@ public final class Log4JLogger extends Logger {
 
     @Override
     public void trace(final Object message) {
-        if (message instanceof Throwable) {
-            logger.trace(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.trace(message);
-        }
+        logger.trace(format(message));
     }
 
     @Override
     public void debug(final Object message) {
-        if (message instanceof Throwable) {
-            logger.debug(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.debug(message);
-        }
+        logger.debug(format(message));
     }
 
     @Override
     public void info(final Object message) {
-        if (message instanceof Throwable) {
-            logger.info(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.info(message);
-        }
+        logger.info(format(message));
     }
 
     @Override
     public void warn(final Object message) {
-        if (message instanceof Throwable) {
-            logger.warn(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.warn(message);
-        }
+        logger.warn(format(message));
     }
 
     @Override
     public void error(final Object message) {
-        if (message instanceof Throwable) {
-            logger.error(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.error(message);
-        }
+        logger.error(format(message));
     }
 
     @Override
     public void fatal(final Object message) {
-        if (message instanceof Throwable) {
-            logger.fatal(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.fatal(message);
-        }
+            logger.fatal(format(message));
     }
 
     @Override

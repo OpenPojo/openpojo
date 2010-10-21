@@ -71,38 +71,22 @@ public final class JavaLogger extends Logger {
 
     @Override
     public void trace(final Object message) {
-        if (message instanceof Throwable) {
-            logger.finest(((Throwable) message).getMessage());
-        } else {
-            logger.finest(toString(message));
-        }
+        logger.finest(format(message));
     }
 
     @Override
     public void debug(final Object message) {
-        if (message instanceof Throwable) {
-            logger.finer(((Throwable) message).getMessage());
-        } else {
-            logger.finer(toString(message));
-        }
+        logger.finer(format(message));
     }
 
     @Override
     public void info(final Object message) {
-        if (message instanceof Throwable) {
-            logger.fine(((Throwable) message).getMessage());
-        } else {
-            logger.fine(toString(message));
-        }
+        logger.fine(format(message));
     }
 
     @Override
     public void warn(final Object message) {
-        if (message instanceof Throwable) {
-            logger.warning(((Throwable) message).getMessage());
-        } else {
-            logger.warning(toString(message));
-        }
+        logger.warning(format(message));
     }
 
     @Override
@@ -113,15 +97,7 @@ public final class JavaLogger extends Logger {
 
     @Override
     public void fatal(final Object message) {
-        if (message instanceof Throwable) {
-            logger.severe(((Throwable) message).getMessage());
-        } else {
-            logger.severe(toString(message));
-        }
-    }
-
-    private String toString(final Object message) {
-        return message == null ? null : message.toString();
+        logger.severe(format(message));
     }
 
     @Override

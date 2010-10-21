@@ -9,8 +9,10 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
 
@@ -39,6 +41,7 @@ public class MessageFormatterTest {
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("SimpleMessage", "SimpleMessage", null));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(null, null,
                 new Object[]{ "nothing to format to" }));
+
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(
                 "Here is how to put single quotes in messages '[wrapped 'with' quotes]'",
                 "Here is how to put single quotes in messages ''[{0}]''", new Object[]{ "wrapped 'with' quotes" }));
@@ -48,9 +51,30 @@ public class MessageFormatterTest {
                 + date.toString() + "]", "Two Params a string=[{0}] and a date=[{1}]", new Object[]{ "myString",
                 date.toString() }));
 
-        usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(
-                "Exception=[java.lang.Exception: This is an exception]", "Exception=[{0}]",
-                new Object[]{ new Exception("This is an exception") }));
+        Exception exception = new Exception("This is an exception");
+
+        StackTraceElement[] fakeStackTraceElements = new StackTraceElement[3];
+        String expectedLog = "Exception=[[java.lang.Exception: This is an exception";
+        for (int idx = 0; idx < 3; idx++) {
+            Integer lineNumber = Integer.valueOf((Short) RandomFactory.getRandomValue(Short.class));
+            if (lineNumber < 0) {
+                lineNumber = lineNumber * -1;
+            }
+
+            fakeStackTraceElements[idx] = (StackTraceElement) InstanceFactory.getInstance(PojoClassFactory
+                    .getPojoClass(StackTraceElement.class), RandomFactory.getRandomValue(String.class), RandomFactory
+                    .getRandomValue(String.class), RandomFactory.getRandomValue(String.class), lineNumber);
+            expectedLog = expectedLog + ", \tat " + fakeStackTraceElements[idx].getClassName() + "."
+                    + fakeStackTraceElements[idx].getMethodName() + "(" + fakeStackTraceElements[idx].getFileName()
+                    + ":" + lineNumber + ")";
+        }
+        expectedLog = expectedLog + "]]";
+
+        exception.setStackTrace(fakeStackTraceElements);
+
+        usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(expectedLog, "Exception=[{0}]",
+                new Object[]{ exception }));
+
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("only one param assigned 1=[1st Param] 2=[{1}]",
                 "only one param assigned 1=[{0}] 2=[{1}]", new Object[]{ "1st Param" }));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("only one will print - [extra parameter]",
@@ -99,8 +123,7 @@ public class MessageFormatterTest {
     @Test
     public final void testFlattenArrayToString() {
         for (FlattenArrayToStringTestData entry : getFlattenArrayToStringTestData()) {
-            Assert.assertEquals(entry.expected, Arrays.toString(MessageFormatter
-                    .flattenArrayElementsToString(entry.array)));
+            Assert.assertEquals(entry.expected, Arrays.toString(MessageFormatter.formatArgsToStrings(entry.array)));
         }
 
     }

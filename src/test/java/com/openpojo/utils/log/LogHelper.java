@@ -38,8 +38,6 @@ public final class LogHelper {
         mockAppenderJavaLogger.setLevel(java.util.logging.Level.ALL);
         java.util.logging.Logger.getLogger("").addHandler(mockAppenderJavaLogger);
         java.util.logging.Logger.getLogger("").setLevel(java.util.logging.Level.ALL);
-
-        java.util.logging.Logger.getLogger("TEST").log(java.util.logging.Level.FINEST, "WHAT!!!");
     }
 
     /**
