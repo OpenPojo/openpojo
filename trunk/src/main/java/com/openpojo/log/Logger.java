@@ -216,8 +216,21 @@ public abstract class Logger {
      * @param message
      * @param args
      * @return
+     *          A string format for message.
      */
     private String format(final String message, final Object... args) {
         return MessageFormatter.format(message, args);
+    }
+
+    /**
+     * Take a simple log message object and turn it into a string.
+     *
+     * @param message
+     *          The message to log.
+     * @return
+     *          A string format for message.
+     */
+    protected String format(final Object message) {
+        return MessageFormatter.format(message);
     }
 }

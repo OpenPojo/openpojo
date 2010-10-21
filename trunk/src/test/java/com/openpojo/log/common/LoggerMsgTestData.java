@@ -16,6 +16,8 @@
  */
 package com.openpojo.log.common;
 
+import com.openpojo.log.utils.MessageFormatter;
+
 /**
  * @author oshoukry
  */
@@ -29,14 +31,9 @@ public class LoggerMsgTestData {
      * @param message
      *            The message to log.
      */
-    public LoggerMsgTestData(final String message) {
+    public LoggerMsgTestData(final Object message) {
         this.message = message;
-        expected = message;
-    }
-
-    public LoggerMsgTestData(final Throwable throwable) {
-        message = throwable;
-        expected = throwable.getMessage();
+        expected = MessageFormatter.format(message);
     }
 
     /**

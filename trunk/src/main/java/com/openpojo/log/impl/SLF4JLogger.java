@@ -66,57 +66,33 @@ public final class SLF4JLogger extends Logger {
 
     @Override
     public void trace(final Object message) {
-        if (message instanceof Throwable) {
-            logger.trace(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.trace(toString(message));
-        }
+            logger.trace(format(message));
     }
 
     @Override
     public void debug(final Object message) {
-        if (message instanceof Throwable) {
-            logger.debug(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.debug(toString(message));
-        }
+            logger.debug(format(message));
     }
 
     @Override
     public void info(final Object message) {
-        if (message instanceof Throwable) {
-            logger.info(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.info(toString(message));
-        }
+            logger.info(format(message));
     }
 
     @Override
     public void warn(final Object message) {
-        if (message instanceof Throwable) {
-            logger.warn(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.warn(toString(message));
-        }
+            logger.warn(format(message));
     }
 
     @Override
     public void error(final Object message) {
-        if (message instanceof Throwable) {
-            logger.error(((Throwable) message).getMessage(), (Throwable) message);
-        } else {
-            logger.error(toString(message));
-        }
+            logger.error(format(message));
     }
 
     @Override
     public void fatal(final Object message) {
         // SLF4J has no fatal level, so we're marking this as error
         this.error(message);
-    }
-
-    private String toString(final Object message) {
-        return message == null ? null : message.toString();
     }
 
     @Override
