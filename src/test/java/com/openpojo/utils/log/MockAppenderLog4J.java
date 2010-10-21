@@ -1,18 +1,39 @@
 package com.openpojo.utils.log;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Priority;
+import org.apache.log4j.Level;
 import org.apache.log4j.WriterAppender;
 import org.apache.log4j.spi.LoggingEvent;
 
+import com.openpojo.utils.log.LogEvent.Priority;
+
 /**
  * @author oshoukry
- *
  */
-public class MockAppenderLog4J extends WriterAppender {
-    private static final List<LoggedEvent> EVENTS = new LinkedList<LoggedEvent>();
+public class MockAppenderLog4J extends WriterAppender implements MockAppender {
+
+    private Priority extractPriority(final LoggingEvent event) {
+        if (event.getLevel().equals(Level.TRACE)) {
+            return Priority.TRACE;
+        }
+        if (event.getLevel().equals(Level.DEBUG)) {
+            return Priority.DEBUG;
+        }
+        if (event.getLevel().equals(Level.INFO)) {
+            return Priority.INFO;
+        }
+        if (event.getLevel().equals(Level.WARN)) {
+            return Priority.WARN;
+        }
+        if (event.getLevel().equals(Level.ERROR)) {
+            return Priority.ERROR;
+        }
+        if (event.getLevel().equals(Level.FATAL)) {
+            return Priority.FATAL;
+        }
+        throw new IllegalArgumentException("Unknown Logged Level" + event.getLevel());
+    }
 
     @Override
     public final boolean requiresLayout() {
@@ -26,15 +47,8 @@ public class MockAppenderLog4J extends WriterAppender {
 
     @Override
     public final synchronized void append(final LoggingEvent event) {
-        LoggedEvent le = new LoggedEvent(event.getLoggerName(), event.getLevel(), event.getRenderedMessage());
-        EVENTS.add(le);
-    }
-
-    /**
-     * This method rests event counts so you can start another test. Call this before testing.
-     */
-    public static synchronized void restEvents() {
-        EVENTS.clear();
+        LogEvent le = new LogEvent(event.getLoggerName(), extractPriority(event), event.getRenderedMessage());
+        EventLogger.registerEvent(this.getClass(), le);
     }
 
     /**
@@ -46,14 +60,8 @@ public class MockAppenderLog4J extends WriterAppender {
      *            The priority at which they were sent in as.
      * @return The total count on recieved events.
      */
-    public static synchronized Integer getCountBySourceByPriority(final String source, final Priority priority) {
-        int count = 0;
-        for (LoggedEvent entry : EVENTS) {
-            if (entry.source.equals(source) && entry.priority.equals(priority)) {
-                count++;
-            }
-        }
-        return count;
+    public synchronized Integer getCountBySourceByPriority(final String source, final Priority priority) {
+        return EventLogger.getCountByAppenderBySourceByPriority(this.getClass(), source, priority);
     }
 
     /**
@@ -63,14 +71,8 @@ public class MockAppenderLog4J extends WriterAppender {
      *            The source of the logs
      * @return The total count on recieved events.
      */
-    public static synchronized Integer getCountBySource(final String source) {
-        int count = 0;
-        for (LoggedEvent entry : EVENTS) {
-            if (entry.source.equals(source)) {
-                count++;
-            }
-        }
-        return count;
+    public synchronized Integer getCountBySource(final String source) {
+        return EventLogger.getCountBySource(this.getClass(), source);
     }
 
     /**
@@ -82,13 +84,11 @@ public class MockAppenderLog4J extends WriterAppender {
      *            The priority at which they were sent in as.
      * @return List of logged events.
      */
-    public static List<LoggedEvent> getLoggedEventsBySourceByPriority(final String source, final Priority priority) {
-        List<LoggedEvent> loggedEvents = new LinkedList<LoggedEvent>();
-        for (LoggedEvent entry : EVENTS) {
-            if (entry.source.equals(source) && entry.priority.equals(priority)) {
-                loggedEvents.add(entry);
-            }
-        }
-        return loggedEvents;
+    public synchronized List<LogEvent> getLoggedEventsBySourceByPriority(final String source, final Priority priority) {
+        return EventLogger.getLoggedEventsByAppenderBySourceByPriority(this.getClass(), source, priority);
+    }
+
+    public void resetAppender() {
+        EventLogger.resetEvents(this.getClass());
     }
 }

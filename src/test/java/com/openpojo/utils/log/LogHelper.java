@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
 import org.apache.log4j.PropertyConfigurator;
+
+import com.openpojo.utils.log.LogEvent.Priority;
 
 /**
  * @author oshoukry
@@ -16,11 +17,8 @@ public final class LogHelper {
     private LogHelper() {
     }
 
-    /**
-     * This method initializes the loggers, currently just reseting the Mock Appender captured events.
-     */
-    public static void initializeLoggers() {
-        MockAppenderLog4J.restEvents();
+    public static void initializeLog4J() {
+        EventLogger.resetEvents(MockAppenderLog4J.class);
         BasicConfigurator.resetConfiguration();
         Properties props = new Properties();
         try {
@@ -31,6 +29,27 @@ public final class LogHelper {
         PropertyConfigurator.configure(props);
     }
 
+    public static void initializeJavaLogger() {
+        EventLogger.resetEvents(MockAppenderJavaLogger.class);
+        // Reset Java Logger
+        java.util.logging.LogManager.getLogManager().reset();
+
+        MockAppenderJavaLogger mockAppenderJavaLogger = new MockAppenderJavaLogger();
+        mockAppenderJavaLogger.setLevel(java.util.logging.Level.ALL);
+        java.util.logging.Logger.getLogger("").addHandler(mockAppenderJavaLogger);
+        java.util.logging.Logger.getLogger("").setLevel(java.util.logging.Level.ALL);
+
+        java.util.logging.Logger.getLogger("TEST").log(java.util.logging.Level.FINEST, "WHAT!!!");
+    }
+
+    /**
+     * This method initializes the loggers, currently just reseting the Mock Appender captured events.
+     */
+    public static void initializeLoggers() {
+        initializeLog4J();
+        initializeJavaLogger();
+    }
+
     /**
      * This method returns the counts on trace events by source.
      *
@@ -38,8 +57,8 @@ public final class LogHelper {
      *            Source of the logs
      * @return Total count recieved
      */
-    public static Integer getTraceCountBySource(final String source) {
-        return MockAppenderLog4J.getCountBySourceByPriority(source, Level.TRACE);
+    public static Integer getTraceCountBySource(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getCountByAppenderBySourceByPriority(appender, source, Priority.TRACE);
     }
 
     /**
@@ -49,8 +68,8 @@ public final class LogHelper {
      *            Source of the logs
      * @return Total count recieved
      */
-    public static Integer getDebugCountBySource(final String source) {
-        return MockAppenderLog4J.getCountBySourceByPriority(source, Level.DEBUG);
+    public static Integer getDebugCountBySource(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getCountByAppenderBySourceByPriority(appender, source, Priority.DEBUG);
     }
 
     /**
@@ -60,8 +79,8 @@ public final class LogHelper {
      *            Source of the logs
      * @return Total count recieved
      */
-    public static Integer getInfoCountBySource(final String source) {
-        return MockAppenderLog4J.getCountBySourceByPriority(source, Level.INFO);
+    public static Integer getInfoCountBySource(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getCountByAppenderBySourceByPriority(appender, source, Priority.INFO);
     }
 
     /**
@@ -71,8 +90,8 @@ public final class LogHelper {
      *            Source of the logs
      * @return Total count recieved
      */
-    public static Integer getWarnCountBySource(final String source) {
-        return MockAppenderLog4J.getCountBySourceByPriority(source, Level.WARN);
+    public static Integer getWarnCountBySource(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getCountByAppenderBySourceByPriority(appender, source, Priority.WARN);
     }
 
     /**
@@ -82,8 +101,8 @@ public final class LogHelper {
      *            Source of the logs
      * @return Total count recieved
      */
-    public static Integer getErrorCountBySource(final String source) {
-        return MockAppenderLog4J.getCountBySourceByPriority(source, Level.ERROR);
+    public static Integer getErrorCountBySource(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getCountByAppenderBySourceByPriority(appender, source, Priority.ERROR);
     }
 
     /**
@@ -93,8 +112,8 @@ public final class LogHelper {
      *            Source of the logs
      * @return Total count recieved
      */
-    public static Integer getFatalCountBySource(final String source) {
-        return MockAppenderLog4J.getCountBySourceByPriority(source, Level.FATAL);
+    public static Integer getFatalCountBySource(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getCountByAppenderBySourceByPriority(appender, source, Priority.FATAL);
     }
 
     /**
@@ -104,8 +123,8 @@ public final class LogHelper {
      *            Source of the logs
      * @return Total count recieved
      */
-    public static Integer getCountBySource(final String source) {
-        return MockAppenderLog4J.getCountBySource(source);
+    public static Integer getCountBySource(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getCountBySource(appender, source);
     }
 
     /**
@@ -115,8 +134,8 @@ public final class LogHelper {
      *            Source of the logs.
      * @return List of logged events recieved.
      */
-    public static List<LoggedEvent> getTraceEvents(final String source) {
-        return MockAppenderLog4J.getLoggedEventsBySourceByPriority(source, Level.TRACE);
+    public static List<LogEvent> getTraceEvents(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getLoggedEventsByAppenderBySourceByPriority(appender, source, Priority.TRACE);
     }
 
     /**
@@ -126,8 +145,8 @@ public final class LogHelper {
      *            Source of the logs.
      * @return List of logged events recieved.
      */
-    public static List<LoggedEvent> getDebugEvents(final String source) {
-        return MockAppenderLog4J.getLoggedEventsBySourceByPriority(source, Level.DEBUG);
+    public static List<LogEvent> getDebugEvents(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getLoggedEventsByAppenderBySourceByPriority(appender, source, Priority.DEBUG);
     }
 
     /**
@@ -137,8 +156,8 @@ public final class LogHelper {
      *            Source of the logs.
      * @return List of logged events recieved.
      */
-    public static List<LoggedEvent> getInfoEvents(final String source) {
-        return MockAppenderLog4J.getLoggedEventsBySourceByPriority(source, Level.INFO);
+    public static List<LogEvent> getInfoEvents(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getLoggedEventsByAppenderBySourceByPriority(appender, source, Priority.INFO);
     }
 
     /**
@@ -148,8 +167,8 @@ public final class LogHelper {
      *            Source of the logs.
      * @return List of logged events recieved.
      */
-    public static List<LoggedEvent> getWarnEvents(final String source) {
-        return MockAppenderLog4J.getLoggedEventsBySourceByPriority(source, Level.WARN);
+    public static List<LogEvent> getWarnEvents(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getLoggedEventsByAppenderBySourceByPriority(appender, source, Priority.WARN);
     }
 
     /**
@@ -159,8 +178,8 @@ public final class LogHelper {
      *            Source of the logs.
      * @return List of logged events recieved.
      */
-    public static List<LoggedEvent> getErrorEvents(final String source) {
-        return MockAppenderLog4J.getLoggedEventsBySourceByPriority(source, Level.ERROR);
+    public static List<LogEvent> getErrorEvents(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getLoggedEventsByAppenderBySourceByPriority(appender, source, Priority.ERROR);
     }
 
     /**
@@ -170,8 +189,17 @@ public final class LogHelper {
      *            Source of the logs.
      * @return List of logged events recieved.
      */
-    public static List<LoggedEvent> getFatalEvents(final String source) {
-        return MockAppenderLog4J.getLoggedEventsBySourceByPriority(source, Level.FATAL);
+    public static List<LogEvent> getFatalEvents(final Class<? extends MockAppender> appender, final String source) {
+        return EventLogger.getLoggedEventsByAppenderBySourceByPriority(appender, source, Priority.FATAL);
+    }
+
+    public static void initialize(final Class<?> mockAppender) {
+        if (mockAppender.getName().equals(MockAppenderLog4J.class.getCanonicalName())) {
+            initializeLog4J();
+        }
+        if (mockAppender.getName().equals(MockAppenderJavaLogger.class.getName())) {
+            initializeJavaLogger();
+        }
     }
 
 }

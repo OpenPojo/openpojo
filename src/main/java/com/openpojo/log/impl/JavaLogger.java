@@ -28,7 +28,7 @@ import com.openpojo.log.Logger;
  * - Debug = Level.FINER<br>
  * - Info = Level.FINE<br>
  * - Warn = Level.WARNING<br>
- * - Error = Level.WARNING<br>
+ * - Error = Level.SEVERE<br>
  * - Fatal = Level.SEVERE<br>
  */
 public final class JavaLogger extends Logger {
@@ -71,33 +71,53 @@ public final class JavaLogger extends Logger {
 
     @Override
     public void trace(final Object message) {
-        logger.finest(toString(message));
+        if (message instanceof Throwable) {
+            logger.finest(((Throwable) message).getMessage());
+        } else {
+            logger.finest(toString(message));
+        }
     }
 
     @Override
     public void debug(final Object message) {
-        logger.finer(toString(message));
+        if (message instanceof Throwable) {
+            logger.finer(((Throwable) message).getMessage());
+        } else {
+            logger.finer(toString(message));
+        }
     }
 
     @Override
     public void info(final Object message) {
-        logger.fine(toString(message));
+        if (message instanceof Throwable) {
+            logger.fine(((Throwable) message).getMessage());
+        } else {
+            logger.fine(toString(message));
+        }
     }
 
     @Override
     public void warn(final Object message) {
-        logger.warning(toString(message));
+        if (message instanceof Throwable) {
+            logger.warning(((Throwable) message).getMessage());
+        } else {
+            logger.warning(toString(message));
+        }
     }
 
     @Override
     public void error(final Object message) {
         // JavaLogging doesn't have error level, so we'll treat it as warning.
-        warn(message);
+        fatal(message);
     }
 
     @Override
     public void fatal(final Object message) {
-        logger.severe(toString(message));
+        if (message instanceof Throwable) {
+            logger.severe(((Throwable) message).getMessage());
+        } else {
+            logger.severe(toString(message));
+        }
     }
 
     private String toString(final Object message) {

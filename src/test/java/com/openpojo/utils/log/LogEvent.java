@@ -1,6 +1,5 @@
 package com.openpojo.utils.log;
 
-import org.apache.log4j.Priority;
 
 /**
  * For testing, this structure holds the logged events.
@@ -8,22 +7,26 @@ import org.apache.log4j.Priority;
  * @author oshoukry
  *
  */
-public final class LoggedEvent {
+public final class LogEvent {
+
+    public enum Priority {
+        TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+    }
 
     /**
      * The source of the event.
      */
-    public final String source;
+    private final String source;
 
     /**
      * The priority of the event.
      */
-    public final Priority priority;
+    private final Priority priority;
 
     /**
      * The message of the event.
      */
-    public final String message;
+    private final String message;
 
     /**
      * Constructor making this class immutable.
@@ -35,10 +38,31 @@ public final class LoggedEvent {
      * @param message
      *            The message of the event.
      */
-    public LoggedEvent(final String source, final Priority priority, final String message) {
+    public LogEvent(final String source, final Priority priority, final String message) {
         this.source = source;
         this.priority = priority;
         this.message = message;
+    }
+
+    /**
+     * @return the source
+     */
+    public String getSource() {
+        return source;
+    }
+
+    /**
+     * @return the priority
+     */
+    public Priority getPriority() {
+        return priority;
+    }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
     }
 
 }

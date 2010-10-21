@@ -20,7 +20,6 @@ public class LogFactoryTest {
     @Before
     public final void setUp() {
         ActiveLogger.setActiveLogger(defaultLoggerClass);
-        LogHelper.initializeLoggers();
     }
 
     @Test
