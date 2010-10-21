@@ -21,6 +21,7 @@ import org.junit.Test;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.construct.sampleclasses.ClassWithLessThanGreaterThanConstructors;
+import com.openpojo.reflection.construct.sampleclasses.ClassWithNativeTypesConstructor;
 import com.openpojo.reflection.construct.sampleclasses.ClassWithNoDeclaredConstructor;
 import com.openpojo.reflection.construct.sampleclasses.ClassWithVariousDeclaredContructorsAndMethods;
 import com.openpojo.reflection.exception.ReflectionException;
@@ -104,4 +105,8 @@ public class InstanceFactoryTest {
                 .getParameterCountUsedForConstruction());
     }
 
+    @Test
+    public void shouldConstructUsingNativeParams() {
+        InstanceFactory.getMostCompleteInstance(PojoClassFactory.getPojoClass(ClassWithNativeTypesConstructor.class));
+    }
 }
