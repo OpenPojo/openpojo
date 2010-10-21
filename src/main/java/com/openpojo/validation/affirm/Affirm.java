@@ -17,7 +17,7 @@
 package com.openpojo.validation.affirm;
 
 /**
- * This class acts as a façade to JUnit Assert-ions.<br>
+ * This class acts as a facade to JUnit Assert-ions.<br>
  * Written to mainly facilitate:<br>
  * 1. To enforce how the Assert is to be used.<br>
  * 2. To simplify available Assert calls.<br>

@@ -32,8 +32,11 @@ public class FilterBasedOnInheritence implements PojoClassFilter {
 
     /**
      * This construtor will is deprecated, please use FilterChain to chain filters together.
-     * @param nextFilter
-     *          The filter that is next to be evaluated.
+     *
+     * @param type
+     *            The type/class to use for inclusion (i.e. the "Class" extends/implements type).
+     * @param filter
+     *            The filter that is next to be evaluated.
      * @deprecated please use {@link FilterChain instead}
      */
     @Deprecated
@@ -42,6 +45,12 @@ public class FilterBasedOnInheritence implements PojoClassFilter {
         this.filter = filter;
     }
 
+    /**
+     * Construtor.
+     *
+     * @param type
+     *            The type/class to use for inclusion (i.e. the "Class" extends/implements type).
+     */
     public FilterBasedOnInheritence(final Class<?> type) {
         this.type = type;
     }
