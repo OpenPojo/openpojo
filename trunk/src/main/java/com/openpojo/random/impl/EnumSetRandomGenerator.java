@@ -24,13 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import com.openpojo.log.Logger;
-import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
-import com.openpojo.random.exception.RandomGeneratorException;
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This random generator generates for EnumSet types.
@@ -41,19 +36,11 @@ public final class EnumSetRandomGenerator implements RandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
     private static final Class<?>[] TYPES = new Class<?>[]{ EnumSet.class };
 
-    private static final Logger log = LoggerFactory.getLogger(EnumSetRandomGenerator.class);
-
     public static EnumSetRandomGenerator getInstance() {
         return Instance.INSTANCE;
     }
 
     public Object doGenerate(final Class<?> type) {
-        log.info("Generating random value for [{0}]", type);
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
-        if (pojoClass.getClazz().getName() != EnumSet.class.getName()) {
-            throw RandomGeneratorException.getInstance(String.format("[%s] is not an EnumSet!!", pojoClass));
-        }
-
         List<RandomEnum> randomEnumValues = new LinkedList<RandomEnum>();
         for (int i = 0; i <= RANDOM.nextInt(RandomEnum.values().length); i++) {
             randomEnumValues.add((RandomEnum) RandomFactory.getRandomValue(RandomEnum.class));
