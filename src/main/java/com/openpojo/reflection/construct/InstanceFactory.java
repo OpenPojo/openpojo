@@ -19,6 +19,8 @@ package com.openpojo.reflection.construct;
 import java.util.Arrays;
 import java.util.List;
 
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
@@ -35,6 +37,7 @@ import com.openpojo.reflection.exception.ReflectionException;
  * @author oshoukry
  */
 public class InstanceFactory {
+    private static Logger log = LoggerFactory.getLogger(InstanceFactory.class);
 
     /**
      * This method returns a new instance created using default constructor.
@@ -72,10 +75,8 @@ public class InstanceFactory {
         List<PojoMethod> constructors = pojoClass.getPojoConstructors();
         for (PojoMethod constructor : constructors) {
             if (areEquivalentParameters(upcast(constructor.getParameterTypes()), getTypes(parameters))) {
+                log.trace("Constucting [{0}] using parameters[{1}]", pojoClass, parameters);
                 return constructor.invoke(null, parameters);
-            } else {
-                System.out.println("expected = " + Arrays.toString(constructor.getParameterTypes()));
-                System.out.println("Got=" + Arrays.toString(getTypes(parameters)));
             }
         }
         throw ReflectionException.getInstance(String.format("No matching constructor found using parameters[%s]",
