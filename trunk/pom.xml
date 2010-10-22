@@ -58,7 +58,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.java.target>1.5</project.build.java.target>
-        <slf4j.version>1.6.1</slf4j.version>
+        <slf4j.version>[1.4.1,1.6.1]</slf4j.version>
+        <junit.version>[4.0,4.8.2]</junit.version>
+        <testng.version>[5.0,5.14.2]</testng.version>
+        <log4j.version>[1.2.12,1.2.16]</log4j.version>
+        <clover.version>3.0.2</clover.version>
     </properties>
     <build>
         <testResources>
@@ -71,23 +75,6 @@
         </testResources>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>com.atlassian.maven.plugins</groupId>
-                    <artifactId>maven-clover2-plugin</artifactId>
-                    <version>3.0.2</version>
-                    <configuration>
-                        <generatePdf>true</generatePdf>
-                        <includesTestSourceRoots>false</includesTestSourceRoots>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <phase>test-compile</phase>
-                            <goals>
-                                <goal>instrument</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-eclipse-plugin</artifactId>
@@ -201,15 +188,9 @@
     </profiles>
     <dependencies>
         <dependency>
-            <groupId>com.atlassian.maven.plugins</groupId>
-            <artifactId>maven-clover2-plugin</artifactId>
-            <version>3.0.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
+            <version>${log4j.version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -230,12 +211,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>${junit.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>5.14.2</version>
+            <version>${testng.version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
