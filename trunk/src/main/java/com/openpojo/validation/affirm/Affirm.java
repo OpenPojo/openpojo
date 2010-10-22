@@ -16,6 +16,8 @@
  */
 package com.openpojo.validation.affirm;
 
+import com.openpojo.validation.exception.ValidationException;
+
 /**
  * This class acts as a facade to JUnit Assert-ions.<br>
  * Written to mainly facilitate:<br>
@@ -28,7 +30,12 @@ package com.openpojo.validation.affirm;
  * @author oshoukry
  */
 public abstract class Affirm {
+
     private static Affirmation getAffirmation() {
+        Affirmation affirmation = AffirmationFactory.getInstance().getAffirmation();
+        if (affirmation == null) {
+            throw new ValidationException("No valid affirmation found");
+        }
         return AffirmationFactory.getInstance().getAffirmation();
     }
 

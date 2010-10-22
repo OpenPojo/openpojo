@@ -31,7 +31,8 @@ import com.openpojo.reflection.facade.FacadeFactory;
 public final class AffirmationFactory {
     private static final String[] SUPPORTED_ASSERTIONS = new String[]{
             "com.openpojo.validation.affirm.TestNGAssertAffirmation",
-            "com.openpojo.validation.affirm.JUnitAssertAffirmation" };
+            "com.openpojo.validation.affirm.JUnitAssertAffirmation",
+            "com.openpojo.validation.affirm.JavaAssertionAffirmation" };
 
     private static final Logger log = LoggerFactory.getLogger(Affirmation.class);
 
