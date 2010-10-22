@@ -6,5 +6,28 @@ If your question is not answered by the list bellow, please feel free to post an
 
 
 == Setup ==
- * How do I configure my eclipse project against the source code of OpenPojo?
-TBD
+ # How do I configure my eclipse project against the source code of OpenPojo?
+  * Checkout the code:
+   * svn checkout http://openpojo.googlecode.com/svn/trunk/ openpojo-read-only
+  * Download and Install maven (http://maven.apache.org/download.html)
+  * Download and install eclipse (http://www.eclipse.org/downloads/)
+  * Open a command prompt and go to the folder where you check'ed out the code.
+   * run mvn eclipse:eclipse
+  * Start eclipse and import the project.
+
+== Usage ==
+ # In my company we use field prefixes so in a class we can have String m_name with getName setName, how do I use OpenPojo to validate getters/setters?
+  * In your test setup method, and before you enumerate any POJOs call AttributeHelper.registerFieldPrefix(String).
+ # We use hungarian notation, what can we do?
+  * You can call AttributeHelper.registerFieldPrefix(String) as many times as you want, they are all stored and used.
+ # How do I filter out all enums as well as package-info?
+  * create a FilterChain and pass in the constructor all the filters that you want to run against your POJOs.
+  * Pass that FilterChain to the PojoClassFactory when you're enumerating - getPojoClasses(packageName, PojoClassFilter).
+
+== Performance ==
+ * How fast is OpenPojo?
+  * The short answer is "VERY" fast, the latest numbers were tested on a 2.4 GHz Core 2 Duo machine and the test was conducted on 1000 POJOs tested with all rule and testers in ~2.2 secs that is over 430 POJOs per second.
+
+
+*Have a question that was not answered?*
+ * Post a comment on this page and I'll answer you.
