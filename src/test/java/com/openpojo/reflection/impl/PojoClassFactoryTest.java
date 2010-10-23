@@ -21,6 +21,8 @@ import java.util.List;
 import org.junit.Test;
 
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.filters.FilterChain;
+import com.openpojo.reflection.filters.FilterCloverClasses;
 import com.openpojo.utils.dummypackage.Persistable;
 import com.openpojo.utils.dummypackage.Person;
 import com.openpojo.utils.filter.LoggingPojoClassFilter;
@@ -48,7 +50,7 @@ public class PojoClassFactoryTest {
      */
     @Test
     public void testGetPojoClasses() {
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(DUMMY_PACKAGE);
+        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(DUMMY_PACKAGE, new FilterCloverClasses());
         Affirm.affirmNotNull(String.format("PojoClassFactory returned null list while getting list for package=[%s]", DUMMY_PACKAGE), pojoClasses);
         Affirm.affirmEquals(String.format("Classes added/removed from [%s]?", DUMMY_PACKAGE), 2, pojoClasses.size());
         for (Class<?> clazz : DUMMY_PACKAGE_CLASSES) {
@@ -64,7 +66,9 @@ public class PojoClassFactoryTest {
         LoggingPojoClassFilter loggingPojoClassFilter = new LoggingPojoClassFilter();
         // Set Filter to reject all
         loggingPojoClassFilter.setReturnValue(false);
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(DUMMY_PACKAGE, loggingPojoClassFilter);
+
+        FilterChain filterChain = new FilterChain(new FilterCloverClasses(), loggingPojoClassFilter);
+        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(DUMMY_PACKAGE, filterChain);
         Affirm.affirmNotNull(String.format("PojoClassFactory returned null list while getting list for package=[%s] using filter=[%s] in filter out all mode!!", DUMMY_PACKAGE, loggingPojoClassFilter.getClass()), pojoClasses);
         Affirm.affirmEquals(String.format("PojoClassFactory returned non-empty list for package=[%s] using filter=[%s] in filter out all mode!!", DUMMY_PACKAGE, loggingPojoClassFilter.getClass()), 0, pojoClasses.size());
 
@@ -76,7 +80,7 @@ public class PojoClassFactoryTest {
 
         // Set Filter to allow all
         loggingPojoClassFilter.setReturnValue(true);
-        pojoClasses = PojoClassFactory.getPojoClasses(DUMMY_PACKAGE, loggingPojoClassFilter);
+        pojoClasses = PojoClassFactory.getPojoClasses(DUMMY_PACKAGE, filterChain);
         Affirm.affirmNotNull(String.format("PojoClassFactory returned null for package=[%s] using filter=[%s] in allow all mode!!", DUMMY_PACKAGE, loggingPojoClassFilter.getClass()), pojoClasses);
         Affirm.affirmEquals(String.format("Wrong number of classes retrieved!! Classes added/removed from package=[%s]?", DUMMY_PACKAGE), 2, pojoClasses.size());
     }
@@ -86,7 +90,7 @@ public class PojoClassFactoryTest {
      */
     @Test
     public void testGetPojoClassesRecursively() {
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(DUMMY_PACKAGE, null);
+        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(DUMMY_PACKAGE, new FilterCloverClasses());
         Affirm.affirmEquals(pojoClasses.toString(), 3, pojoClasses.size());
     }
 
@@ -96,7 +100,7 @@ public class PojoClassFactoryTest {
     @Test
     public void testEnumerateClassesByExtendingType() {
         List<PojoClass> pojoClasses = PojoClassFactory.enumerateClassesByExtendingType(DUMMY_PACKAGE,
-                Persistable.class, null);
+                Persistable.class, new FilterCloverClasses());
         Affirm.affirmEquals(pojoClasses.toString(), 2, pojoClasses.size());
     }
 
