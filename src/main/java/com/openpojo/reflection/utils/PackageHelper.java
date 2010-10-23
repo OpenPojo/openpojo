@@ -62,12 +62,12 @@ public final class PackageHelper {
     }
 
     /**
-     * Turn a java package into a directory listing.
+     * Turn a java package into a list of directories for listing.
      *
      * @param packageName
      *            String path of the package to turn into a directoy.
      * @return
-     *         Return a file representation of the directory.
+     *         Return a list of files representation of the directories.
      */
     public static List<File> getPackageDirectories(final String packageName) {
         List<String> paths = getFullyQualifiedPathsForPackage(packageName);
