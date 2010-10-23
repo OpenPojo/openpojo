@@ -18,6 +18,7 @@ package com.openpojo.reflection.utils;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -49,9 +50,13 @@ public class PackageHelperTest {
      */
     @Test
     public final void testGetPackageAsDirectory() {
-        File directory = PackageHelper.getPackageAsDirectory(PACKAGE_NAME);
-        Assert.assertNotNull(directory);
-        List<String> list = Arrays.asList(directory.list());
+        List<File> directories = PackageHelper.getPackageDirectories(PACKAGE_NAME);
+        Assert.assertNotNull(directories);
+
+        List<String> list = new LinkedList<String>();
+        for (File directory : directories) {
+            list.addAll(Arrays.asList(directory.list()));
+        }
 
         Assert.assertEquals(list.toString(), CLASSES.length, list.size());
         for (String entry : CLASSES) {

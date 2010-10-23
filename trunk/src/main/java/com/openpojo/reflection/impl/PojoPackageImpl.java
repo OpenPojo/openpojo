@@ -26,7 +26,6 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
-import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.utils.PackageHelper;
 
 /**
@@ -65,15 +64,7 @@ class PojoPackageImpl implements PojoPackage {
     }
 
     private void validatePackage() {
-        File packageDirectory;
-        try {
-            packageDirectory = PackageHelper.getPackageAsDirectory(packageName);
-        } catch (ReflectionException re) {
-            throw re;
-        }
-        if (packageDirectory == null || !packageDirectory.exists()) {
-            throw ReflectionException.getInstance(String.format("[%s] is not a valid package", packageName));
-        }
+        PackageHelper.getPackageDirectories(packageName);
     }
 
     public List<PojoClass> getPojoClasses() {
@@ -96,11 +87,13 @@ class PojoPackageImpl implements PojoPackage {
     public List<PojoPackage> getPojoSubPackages() {
         List<PojoPackage> pojoPackageSubPackages = new LinkedList<PojoPackage>();
 
-        File directory = PackageHelper.getPackageAsDirectory(packageName);
-        for (File entry : directory.listFiles()) {
-            if (entry.isDirectory()) {
-                String subPackageName = packageName + PACKAGE_DELIMETER + entry.getName();
-                pojoPackageSubPackages.add(new PojoPackageImpl(subPackageName));
+        List<File> paths = PackageHelper.getPackageDirectories(packageName);
+        for (File path : paths) {
+            for (File entry : path.listFiles()) {
+                if (entry.isDirectory()) {
+                    String subPackageName = packageName + PACKAGE_DELIMETER + entry.getName();
+                    pojoPackageSubPackages.add(new PojoPackageImpl(subPackageName));
+                }
             }
         }
 
