@@ -1,6 +1,11 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-10-22:*
+  * OpenPojo-0.2.0 released
+   * Fixed minor issue with PojoClassFactory when package and system path aren't 1 - 1.
+    * PackageHelper.getPackageAsDirectory() removed.
+    * PackageHelper.getPackageAsDirectories() introduced to replace previous.
  * *2010-10-21:*
   * OpenPojo-0.1.4 released
    * Fixed minor issue with InstanceFactory failing to construct when constructor utilized primitive type (i.e. int, boolean, short, ...etc).
