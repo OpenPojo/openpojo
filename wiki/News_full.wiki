@@ -3,7 +3,7 @@
 = News =
  * *2010-10-22:*
   * OpenPojo-0.2.0 released
-   * Fixed minor issue with PojoClassFactory when package and system path aren't 1 - 1.
+   * Fixed minor issue with PojoClassFactory when package and system path aren't 1 - 1 (one to one).
     * PackageHelper.getPackageAsDirectory() removed.
     * PackageHelper.getPackageAsDirectories() introduced to replace previous.
  * *2010-10-21:*
