@@ -53,7 +53,7 @@ public class PojoPackageImplTest {
 
     @Test
     public void testGetPojoClasses() {
-        Assert.assertEquals(String.format("classes added/removoed to package=[%s]?", packageName), EXPECTED_CLASSES,
+        Assert.assertEquals(String.format("classes added/removed to package=[%s]?", packageName), EXPECTED_CLASSES,
                 pojoPackage.getPojoClasses().size());
     }
 

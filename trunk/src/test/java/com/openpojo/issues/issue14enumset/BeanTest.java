@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.filters.FilterChain;
+import com.openpojo.reflection.filters.FilterCloverClasses;
 import com.openpojo.reflection.filters.FilterEnum;
 import com.openpojo.reflection.filters.FilterPackageInfo;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -28,7 +29,8 @@ public class BeanTest {
     @Before
     public void setup() {
         LogHelper.initializeLoggers();
-        PojoClassFilter pojoClassFilter = new FilterChain(new FilterEnum(), new FilterPackageInfo());
+        FilterChain filterChain = new FilterChain(new FilterPackageInfo(), new FilterCloverClasses());
+        PojoClassFilter pojoClassFilter = new FilterChain(new FilterEnum(), filterChain);
         pojoClasses = PojoClassFactory.getPojoClassesRecursively(this.getClass().getPackage().getName()
                 + ".sampleclasses", pojoClassFilter);
         pojoValidator = new PojoValidator();

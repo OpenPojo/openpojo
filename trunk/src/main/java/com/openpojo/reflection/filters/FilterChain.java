@@ -39,7 +39,9 @@ public class FilterChain implements PojoClassFilter {
     public boolean include(final PojoClass pojoClass) {
         boolean returnValue = true;
         for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
-            returnValue &= pojoClassFilter.include(pojoClass);
+            if (returnValue) { // fail fast
+                returnValue = returnValue && pojoClassFilter.include(pojoClass);
+            }
         }
         return returnValue;
     }
