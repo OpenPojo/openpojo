@@ -17,9 +17,11 @@
 package com.openpojo.reflection.utils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,12 +47,14 @@ public final class PackageHelper {
     public static List<Class<?>> getClasses(final String packageName) {
         List<Class<?>> classes = new LinkedList<Class<?>>();
 
-        File directory = getPackageAsDirectory(packageName);
+        List<File> paths = getPackageDirectories(packageName);
 
-        for (File entry : directory.listFiles()) {
-            if (isClass(entry.getName())) {
-                Class<?> clazz = getPathEntryAsClass(packageName, entry.getName());
-                classes.add(clazz);
+        for (File path : paths) {
+            for (File entry : path.listFiles()) {
+                if (isClass(entry.getName())) {
+                    Class<?> clazz = getPathEntryAsClass(packageName, entry.getName());
+                    classes.add(clazz);
+                }
             }
         }
 
@@ -65,30 +69,37 @@ public final class PackageHelper {
      * @return
      *         Return a file representation of the directory.
      */
-    public static File getPackageAsDirectory(final String packageName) {
+    public static List<File> getPackageDirectories(final String packageName) {
+        List<String> paths = getFullyQualifiedPathsForPackage(packageName);
 
-        String path = getFullyQualifiedPathForPackage(packageName);
-        File directory = new File(path);
-        return directory;
+        List<File> directories = new LinkedList<File>();
+        for (String path : paths) {
+            directories.add(new File(path));
+        }
+        return directories;
     }
 
     private static Class<?> getPathEntryAsClass(final String packageName, final String entry) {
         return loadClass(getClassLoader(), getFQClassName(packageName, entry));
     }
 
-    private static String getFullyQualifiedPathForPackage(final String packageName) {
+    private static List<String> getFullyQualifiedPathsForPackage(final String packageName) {
         String packageAsPath = convertPackageToPath(packageName);
-        URL resource = getResource(getClassLoader(), packageAsPath);
-        if (resource == null) {
+        List<URL> resources = getResources(packageAsPath);
+        if (resources.size() == 0) {
             throw ReflectionException.getInstance(String.format("No such package [%s], path [%s] not found",
                     packageName, packageAsPath));
         }
+        List<String> paths = new LinkedList<String>();
         try {
             // work around because of this
             // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4466485
             URI uri;
-            uri = new URI(resource.toString());
-            return uri.getPath();
+            for (URL resource : resources) {
+                uri = new URI(resource.toString());
+                paths.add(uri.getPath());
+            }
+            return paths;
         } catch (URISyntaxException e) {
             throw ReflectionException.getInstance(e);
         }
@@ -106,8 +117,17 @@ public final class PackageHelper {
         return Thread.currentThread().getContextClassLoader();
     }
 
-    private static URL getResource(final ClassLoader classLoader, final String path) {
-        return classLoader.getResource(path);
+    private static List<URL> getResources(final String path) {
+        List<URL> resources = new LinkedList<URL>();
+        try {
+            Enumeration<URL> enumeration = ClassLoader.getSystemResources(path);
+            while (enumeration.hasMoreElements()) {
+                resources.add(enumeration.nextElement());
+            }
+        } catch (IOException e) {
+            throw ReflectionException.getInstance(e);
+        }
+        return resources;
     }
 
     private static String convertPackageToPath(final String packageName) {
@@ -138,7 +158,8 @@ public final class PackageHelper {
      *         The fully qualifed package name and classname.
      */
     private static String getFQClassName(final String packageName, final String fileEntry) {
-        String className = packageName + PojoPackage.PACKAGE_DELIMETER + fileEntry.substring(0, fileEntry.length() - CLASS_SUFFIX.length());
+        String className = packageName + PojoPackage.PACKAGE_DELIMETER
+                + fileEntry.substring(0, fileEntry.length() - CLASS_SUFFIX.length());
         return className;
     }
 }
