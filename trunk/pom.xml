@@ -26,8 +26,8 @@
         <developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
         <url>http://openpojo.googlecode.com/svn/trunk</url>
     </scm>
-    <contributors>
-        <contributor>
+    <developers>
+        <developer>
             <name>Osman Shoukry</name>
             <email>oshoukry at gmail</email>
             <roles>
@@ -36,6 +36,10 @@
             </roles>
             <organization />
             <timezone>-8</timezone>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
         </contributor>
         <contributor>
             <name>David J. M. Karlsen</name>
