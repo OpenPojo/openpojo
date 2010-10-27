@@ -25,22 +25,34 @@ import com.openpojo.business.BusinessIdentity;
  * @author oshoukry
  */
 public class ServiceRegistrar {
-    private static final Map<String, Service> SERVICES = new ConcurrentHashMap<String, Service>();
+    private final Map<String, Service> SERVICES = new ConcurrentHashMap<String, Service>();
 
-    public static void registerService(final String name, final Service service) {
+    private ServiceRegistrar() {
+
+    }
+
+    public static ServiceRegistrar getInstance() {
+        return Instance.INSTANCE;
+    }
+
+    public void registerService(final String name, final Service service) {
         SERVICES.put(name, service);
     }
 
-    public static void unregisterService(final String name) {
+    public void unregisterService(final String name) {
         SERVICES.remove(name);
     }
 
-    public static Service getServiceByName(final String name) {
+    public Service getServiceByName(final String name) {
         return SERVICES.get(name);
     }
 
     @Override
     public String toString() {
         return BusinessIdentity.toString(this);
+    }
+
+    private static class Instance {
+        private static final ServiceRegistrar INSTANCE = new ServiceRegistrar();
     }
 }

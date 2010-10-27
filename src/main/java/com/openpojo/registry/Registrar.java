@@ -38,7 +38,7 @@ public final class Registrar {
                 new FilterNestedClasses());
         for (PojoClass service : services) {
             Service serviceInstance = (Service) InstanceFactory.getInstance(service);
-            ServiceRegistrar.registerService(serviceInstance.getName(), serviceInstance);
+            ServiceRegistrar.getInstance().registerService(serviceInstance.getName(), serviceInstance);
         }
     }
 }
