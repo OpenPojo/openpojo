@@ -14,33 +14,20 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.registry;
+package com.openpojo.reflection.filters;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import com.openpojo.business.BusinessIdentity;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoClassFilter;
 
 /**
+ * Filter out any nested classes.
+ *
  * @author oshoukry
  */
-public class ServiceRegistrar {
-    private static final Map<String, Service> SERVICES = new ConcurrentHashMap<String, Service>();
+public class FilterNestedClasses implements PojoClassFilter {
 
-    public static void registerService(final String name, final Service service) {
-        SERVICES.put(name, service);
+    public boolean include(final PojoClass pojoClass) {
+        return !pojoClass.isNestedClass();
     }
 
-    public static void unregisterService(final String name) {
-        SERVICES.remove(name);
-    }
-
-    public static Service getServiceByName(final String name) {
-        return SERVICES.get(name);
-    }
-
-    @Override
-    public String toString() {
-        return BusinessIdentity.toString(this);
-    }
 }
