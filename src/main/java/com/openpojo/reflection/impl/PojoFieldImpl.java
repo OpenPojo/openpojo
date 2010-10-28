@@ -19,7 +19,10 @@ package com.openpojo.reflection.impl;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.reflection.PojoField;
@@ -94,6 +97,25 @@ class PojoFieldImpl implements PojoField {
 
     public Class<?> getType() {
         return field.getType();
+    }
+
+    public boolean isParameterized() {
+        Type type = field.getGenericType();
+        if (type instanceof ParameterizedType) {
+            return true;
+        }
+        return false;
+    }
+
+    public List<Type> getParameterTypes() {
+        List<Type> genericTypes = new LinkedList<Type>();
+        if (isParameterized()) {
+            ParameterizedType parameterizedType = (ParameterizedType)field.getGenericType();
+            for (Type actualType : parameterizedType.getActualTypeArguments()) {
+                genericTypes.add(actualType);
+            }
+        }
+        return genericTypes;
     }
 
     public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
