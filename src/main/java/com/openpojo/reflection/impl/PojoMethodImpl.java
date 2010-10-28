@@ -38,7 +38,7 @@ public class PojoMethodImpl implements PojoMethod {
     }
 
     PojoMethodImpl(final Constructor<?> constructor) {
-       this((AccessibleObject) constructor);
+        this((AccessibleObject) constructor);
     }
 
     private PojoMethodImpl(final AccessibleObject accessibleObject) {
@@ -113,17 +113,11 @@ public class PojoMethodImpl implements PojoMethod {
     }
 
     private Method getAsMethod() {
-        if (!isConstructor()) {
-            return (Method) accessibleObject;
-        }
-        throw ReflectionException.getInstance("Attempt to get Constructor as Method!!");
+        return (Method) accessibleObject;
     }
 
     private Constructor<?> getAsConstructor() {
-        if (isConstructor()) {
-            return (Constructor<?>) accessibleObject;
-        }
-        throw ReflectionException.getInstance("Attempt to get Method as Constructor!!");
+        return (Constructor<?>) accessibleObject;
     }
 
     private int getModifiers() {

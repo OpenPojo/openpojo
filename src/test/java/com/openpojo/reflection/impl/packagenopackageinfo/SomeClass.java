@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- *
+ * 
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -14,27 +14,12 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.reflection.impl.sampleclasses;
-
-import java.util.List;
-import java.util.Map;
+package com.openpojo.reflection.impl.packagenopackageinfo;
 
 /**
  * @author oshoukry
+ *
  */
-public class ClassWithGenericTypes {
-
-    @SuppressWarnings("unused")
-    private List<ClassWithGenericTypes> parameterizedChildren;
-
-    @SuppressWarnings("unused")
-    private Map<String, Integer> parameterizedMap;
-
-    @SuppressWarnings({ "unused", "unchecked" })
-    private List nonparameterizedList;
-
-    @SuppressWarnings("unused")
-    private String nonParameterizedString;
-
+public class SomeClass {
 
 }
