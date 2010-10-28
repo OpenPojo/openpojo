@@ -16,6 +16,8 @@
  */
 package com.openpojo.reflection;
 
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * This class encapsulates the meta data definition of a field on a class.
@@ -135,6 +137,22 @@ public interface PojoField extends PojoElement {
      *         True if this PojoField is defined as volatile on the enclosing class.
      */
     public boolean isVolatile();
+
+    /**
+     * @return
+     *         True if this PojoField is defined with parameters (i.e. List<SomeClass>).
+     */
+    public boolean isParameterized();
+
+    /**
+     * Get the generics defined on the field, returns empty list if the field isn't Parameterized.
+     *
+     * @return
+     *         Return a list of Types that are defined parameterized on enclosed field (i.e. will return a list
+     *         containing SomeClass for a field that is defined as List<SomeClass>, or [String, Integer] if field is defined
+     *         as Map<String, Integer>, ...etc).
+     */
+    public List<Type> getParameterTypes();
 
     /**
      * Returns properly formated field=value string from instance.

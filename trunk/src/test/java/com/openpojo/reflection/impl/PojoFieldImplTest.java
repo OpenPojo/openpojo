@@ -32,6 +32,7 @@ import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithVariousAnnotatedFields;
+import com.openpojo.reflection.impl.sampleclasses.ClassWithGenericTypes;
 import com.openpojo.reflection.impl.sampleclasses.PojoFieldImplClass;
 import com.openpojo.validation.affirm.Affirm;
 
@@ -102,6 +103,40 @@ public class PojoFieldImplTest {
     public void shouldFailGetter() {
         PojoField pojoField = getPrivateStringField();
         pojoField.invokeGetter(null);
+    }
+
+    @Test
+    public void shouldGetParameterizedType() {
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithGenericTypes.class);
+        Affirm.affirmEquals("Fields added/removed?!", 4, pojoClass.getPojoFields().size());
+
+        int affirmChecks = 0;
+        for (PojoField pojoField : pojoClass.getPojoFields()) {
+            if (pojoField.getName().equals("parameterizedChildren")) {
+                Affirm.affirmTrue("Not Generic?!", pojoField.isParameterized());
+                Affirm.affirmTrue("Wrong Parameterization!?", pojoField.getParameterTypes().contains(
+                        ClassWithGenericTypes.class));
+                affirmChecks++;
+            }
+
+            if (pojoField.getName().equals("nonparameterizedList")
+                    || pojoField.getName().equals("nonParameterizedString")) {
+                Affirm.affirmFalse("Turned generic?!", pojoField.isParameterized());
+                Affirm.affirmEquals("Returned non-empty list for nonParameterized type!?", 0, pojoField
+                        .getParameterTypes().size());
+                affirmChecks++;
+            }
+
+            if (pojoField.getName().equals("parameterizedMap")) {
+                Affirm.affirmEquals("MultipTypeGeneric failed!!", 2, pojoField.getParameterTypes().size());
+                Affirm.affirmTrue(String.format("Type not found [%s]", String.class), pojoField.getParameterTypes().contains(
+                        String.class));
+                Affirm.affirmTrue(String.format("Type not found [%s]", Integer.class), pojoField.getParameterTypes().contains(
+                        Integer.class));
+                affirmChecks++;
+            }
+        }
+        Affirm.affirmEquals("Fields added/removed/renamed? expected 4 checks!!", 4, affirmChecks);
     }
 
     /**
@@ -189,21 +224,21 @@ public class PojoFieldImplTest {
 
         for (PojoField pojoField : allFields) {
             if (pojoField.getName().equals("multipleAnnotationField")) {
-                Affirm.affirmEquals(String.format("Annotations added/removed from field=[%s]", pojoField),
-                        2, pojoField.getAnnotations().size());
+                Affirm.affirmEquals(String.format("Annotations added/removed from field=[%s]", pojoField), 2, pojoField
+                        .getAnnotations().size());
                 List<Class<?>> expectedAnnotations = new LinkedList<Class<?>>();
                 expectedAnnotations.add(SomeAnnotation.class);
                 expectedAnnotations.add(BusinessKey.class);
                 for (Annotation annotation : pojoField.getAnnotations()) {
-                    Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]", expectedAnnotations, annotation.annotationType()), expectedAnnotations.contains(annotation.annotationType()));
+                    Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]",
+                            expectedAnnotations, annotation.annotationType()), expectedAnnotations.contains(annotation
+                            .annotationType()));
                 }
                 return;
             }
         }
         Affirm.fail(String.format("multipleAnnotationField renamed? expected in [%s]", pojoClass));
     }
-
-
 
     /**
      * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#isPrimitive()}.
