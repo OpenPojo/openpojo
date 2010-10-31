@@ -18,8 +18,7 @@ package com.openpojo.business.exception;
 
 /**
  * This exception is thrown whenever a business exception occurs, i.e. an exception when performing
- * an operation in the business validation, and identity management domains.
- * <br>
+ * an operation in the business validation, and identity management domains. <br>
  * This is the ONLY exception thrown out of the com.openpojo.business package.
  * It will wrapp any other exceptions that may occur to turn them into RunTimeException base.
  *
@@ -33,14 +32,33 @@ public class BusinessException extends RuntimeException {
         super(message);
     }
 
+    private BusinessException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
     /**
-     * Construct a Business Exception with message.
+     * Construct an Exception with message.
      *
      * @param message
      *            The description of the exception.
+     * @return
+     *         An instance of the Exception.
      */
     public static BusinessException getInstance(final String message) {
         return new BusinessException(message);
     }
 
+    /**
+     * Construct an Exception with message and cause.
+     *
+     * @param message
+     *            The description of the exception.
+     * @param cause
+     *            The cause of the exception.
+     * @return
+     *         An instance of the Exception.
+     */
+    public static BusinessException getInstance(final String message, final Throwable cause) {
+        return new BusinessException(message, cause);
+    }
 }

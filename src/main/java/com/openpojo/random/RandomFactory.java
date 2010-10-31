@@ -23,6 +23,7 @@ import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.dynamic.EnumRandomGenerator;
 import com.openpojo.random.dynamic.RandomInstanceFromInterfaceRandomGenerator;
+import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.ClassRandomGenerator;
 import com.openpojo.random.impl.EnumSetRandomGenerator;
@@ -32,7 +33,6 @@ import com.openpojo.random.impl.VoidRandomGenerator;
 import com.openpojo.random.thread.GeneratedRandomValues;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.construct.InstanceFactory;
-import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
@@ -124,7 +124,7 @@ public class RandomFactory {
             }
 
             if (typeClass.isAbstract()) {
-                throw ReflectionException
+                throw RandomGeneratorException
                         .getInstance(String
                                 .format(
                                         "Unable to generate random instance for Abstract class [%s], please register a RandomGenerator and try again",

@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Osman Shoukry
- *
+ * 
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -14,30 +14,12 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.registry.exception;
+package com.openpojo.reflection.construct.sampleclasses;
 
 /**
- * Exception for any errors occuring while handling Services.
- *
  * @author oshoukry
+ *
  */
-public class ServiceException extends RuntimeException {
-    private static final long serialVersionUID = 1L;
-
-    public static ServiceException getInstance(final String message) {
-        return new ServiceException(message);
-    }
-
-    private ServiceException(final String message) {
-        super(message);
-    }
-
-    public static ServiceException getInstance(final String message, final Throwable cause) {
-        return new ServiceException(message, cause);
-    }
-
-    private ServiceException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
+public enum SomeEnum {
 
 }

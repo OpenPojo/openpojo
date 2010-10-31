@@ -24,6 +24,7 @@ import com.openpojo.reflection.construct.sampleclasses.ClassWithLessThanGreaterT
 import com.openpojo.reflection.construct.sampleclasses.ClassWithNativeTypesConstructor;
 import com.openpojo.reflection.construct.sampleclasses.ClassWithNoDeclaredConstructor;
 import com.openpojo.reflection.construct.sampleclasses.ClassWithVariousDeclaredContructorsAndMethods;
+import com.openpojo.reflection.construct.sampleclasses.SomeEnum;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
@@ -109,4 +110,20 @@ public class InstanceFactoryTest {
     public void shouldConstructUsingNativeParams() {
         InstanceFactory.getMostCompleteInstance(PojoClassFactory.getPojoClass(ClassWithNativeTypesConstructor.class));
     }
+
+    @Test(expected = ReflectionException.class)
+    public void shouldFailToConstruct() {
+        InstanceFactory.getInstance(PojoClassFactory.getPojoClass(SomeEnum.class));
+    }
+
+    @Test(expected = ReflectionException.class)
+    public void shouldFailToConstructUsingLeastCompleteInstance() {
+        InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(SomeEnum.class));
+    }
+
+    @Test(expected = ReflectionException.class)
+    public void shouldFailToConstructUsingMostCompleteInstance() {
+        InstanceFactory.getMostCompleteInstance(PojoClassFactory.getPojoClass(SomeEnum.class));
+    }
+
 }
