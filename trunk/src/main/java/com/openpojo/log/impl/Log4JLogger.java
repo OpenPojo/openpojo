@@ -8,22 +8,10 @@ import com.openpojo.log.Logger;
 
 /**
  * This class wrapps the Log4J underlying layer.
- * It will also configure Log4J with the most basic configuration if no configuration has been specified already.
  */
 public final class Log4JLogger extends Logger {
 
     private final org.apache.log4j.Logger logger;
-
-    static {
-        if (!configured()) {
-            // Configure log4J with the basic configuration.
-            org.apache.log4j.BasicConfigurator.configure();
-        }
-    }
-
-    private static boolean configured() {
-        return org.apache.log4j.Logger.getRootLogger().getAllAppenders().hasMoreElements();
-    }
 
     private Log4JLogger(final String category) {
         logger = org.apache.log4j.Logger.getLogger(category);
@@ -86,7 +74,7 @@ public final class Log4JLogger extends Logger {
 
     @Override
     public void fatal(final Object message) {
-            logger.fatal(format(message));
+        logger.fatal(format(message));
     }
 
     @Override
