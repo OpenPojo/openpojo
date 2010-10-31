@@ -101,7 +101,7 @@ public final class PackageHelper {
             }
             return paths;
         } catch (URISyntaxException e) {
-            throw ReflectionException.getInstance(e);
+            throw ReflectionException.getInstance(e.getMessage(), e);
         }
     }
 
@@ -109,7 +109,7 @@ public final class PackageHelper {
         try {
             return classLoader.loadClass(className);
         } catch (ClassNotFoundException e) {
-            throw ReflectionException.getInstance(e);
+            throw ReflectionException.getInstance(e.getMessage(), e);
         }
     }
 
@@ -125,7 +125,7 @@ public final class PackageHelper {
                 resources.add(enumeration.nextElement());
             }
         } catch (IOException e) {
-            throw ReflectionException.getInstance(e);
+            throw ReflectionException.getInstance(e.getMessage(), e);
         }
         return resources;
     }

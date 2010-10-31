@@ -25,24 +25,36 @@ public class ValidationException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor with message of describing the violation.
+     * Construct an Exception with message.
      *
      * @param message
-     *            The message describing the violation.
+     *            The description of the exception.
+     * @return
+     *         An instance of the Exception.
      */
-    public ValidationException(final String message) {
+    public static ValidationException getInstance(final String message) {
+        return new ValidationException(message);
+    }
+
+    private ValidationException(final String message) {
         super(message);
     }
 
     /**
-     * Complete constructor with message and a cause.
+     * Construct an Exception with message and cause.
      *
      * @param message
-     *            The message describing the violation.
+     *            The description of the exception.
      * @param cause
-     *            The source exception that caused the problem.
+     *            The cause of the exception.
+     * @return
+     *         An instance of the Exception.
      */
-    public ValidationException(final String message, final Throwable cause) {
+    public static ValidationException getInstance(final String message, final Throwable cause) {
+        return new ValidationException(message, cause);
+    }
+
+    private ValidationException(final String message, final Throwable cause) {
         super(message, cause);
     }
 

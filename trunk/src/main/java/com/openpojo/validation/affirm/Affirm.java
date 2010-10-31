@@ -23,7 +23,6 @@ import com.openpojo.validation.exception.ValidationException;
  * Written to mainly facilitate:<br>
  * 1. To enforce how the Assert is to be used.<br>
  * 2. To simplify available Assert calls.<br>
- *
  * <br>
  * In a nutshell all Affirmations must include a message describing the Affirm being performed.
  *
@@ -34,15 +33,16 @@ public abstract class Affirm {
     private static Affirmation getAffirmation() {
         Affirmation affirmation = AffirmationFactory.getInstance().getAffirmation();
         if (affirmation == null) {
-            throw new ValidationException("No valid affirmation found");
+            throw ValidationException.getInstance("No valid affirmation found");
         }
         return AffirmationFactory.getInstance().getAffirmation();
     }
 
     /**
      * Fail with a message.
+     *
      * @param message
-     *          The message describing the failure.
+     *            The message describing the failure.
      */
     public static void fail(final String message) {
         getAffirmation().fail(message);
@@ -50,10 +50,11 @@ public abstract class Affirm {
 
     /**
      * This method will only affirm failure if the condition is false.
+     *
      * @param message
-     *          The message describing the affirmation being performed.
+     *            The message describing the affirmation being performed.
      * @param condition
-     *          The condition being affirmed.
+     *            The condition being affirmed.
      */
     public static void affirmTrue(final String message, final boolean condition) {
         getAffirmation().affirmTrue(message, condition);

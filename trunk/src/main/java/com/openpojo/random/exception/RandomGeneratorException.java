@@ -26,18 +26,38 @@ public class RandomGeneratorException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Construct an Exception with message.
+     *
+     * @param message
+     *            The description of the exception.
+     * @return
+     *         An instance of the Exception.
+     */
     public static RandomGeneratorException getInstance(final String message) {
         return new RandomGeneratorException(message);
     }
 
-    /**
-     * Constructor using the message that describes the failure.
-     *
-     * @param message
-     *            String message of the error that occured.
-     */
     private RandomGeneratorException(final String message) {
         super(message);
+    }
+
+    /**
+     * Construct an Exception with message and cause.
+     *
+     * @param message
+     *            The description of the exception.
+     * @param cause
+     *            The cause of the exception.
+     * @return
+     *         An instance of the Exception.
+     */
+    public static RandomGeneratorException getInstance(final String message, final Throwable cause) {
+        return new RandomGeneratorException(message, cause);
+    }
+
+    private RandomGeneratorException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 
 }
