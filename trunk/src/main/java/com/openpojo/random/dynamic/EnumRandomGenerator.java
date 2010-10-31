@@ -19,7 +19,6 @@ package com.openpojo.random.dynamic;
 import java.util.Date;
 import java.util.Random;
 
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -37,18 +36,16 @@ public final class EnumRandomGenerator {
     @SuppressWarnings("unchecked")
     public Object doGenerate(final Class<?> type) {
         PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
-        if (!pojoClass.isEnum()) {
-            throw RandomGeneratorException.getInstance(String.format("[%s] is not an enum!!", pojoClass));
-        }
 
+        PojoMethod valuesPojoMethod = null;
         for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
             if (pojoMethod.getName() == "values") {
-                Enum[] values = (Enum[]) pojoMethod.invoke(null, (Object[]) null);
-                return values[RANDOM.nextInt(values.length)];
+                valuesPojoMethod = pojoMethod;
+                break;
             }
         }
-        throw RandomGeneratorException
-                .getInstance(String.format("values method not found on enum = [%s]!!", pojoClass));
+        Enum[] values = (Enum[]) valuesPojoMethod.invoke(null, (Object[]) null);
+        return values[RANDOM.nextInt(values.length)];
     }
 
     private static class Instance {
