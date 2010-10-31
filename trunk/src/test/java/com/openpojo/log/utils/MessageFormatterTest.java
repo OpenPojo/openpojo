@@ -10,25 +10,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.affirm.Affirm;
 
 /**
  * @author oshoukry
  */
 public class MessageFormatterTest {
-
-    @Test
-    public void ensureMessageFormatterConstructorPrivate() {
-        PojoClass messageFormatterPojoClass = PojoClassFactory.getPojoClass(MessageFormatter.class);
-        for (PojoMethod pojoConstructor : messageFormatterPojoClass.getPojoConstructors()) {
-            Affirm.affirmTrue(String.format("Constructor not private [%s]", pojoConstructor), pojoConstructor
-                    .isPrivate());
-        }
-    }
 
     /**
      * Populate and return the input data for testing MessageFormatter.UsingCurlyBrackets(String, Object[]).

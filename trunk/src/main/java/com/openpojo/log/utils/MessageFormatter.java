@@ -42,12 +42,6 @@ public final class MessageFormatter {
     static final String DEFAULT_MESSAGE = "No message to be logged, here are the arguments passed:";
 
     /**
-     * Blocking the default constructor on this utility class.
-     */
-    private MessageFormatter() {
-    }
-
-    /**
      * This utility method is used by the Logger, and will fall back on a default message if we don't have any.
      *
      * @param message
@@ -60,7 +54,7 @@ public final class MessageFormatter {
     public static String format(final String message, final Object... args) {
         if (message == null) {
             return usingCurlyBrackets(DEFAULT_MESSAGE + generateCurlyBracketTokens(args == null ? 0 : args.length),
-                    args);
+                                      args);
         }
         return usingCurlyBrackets(message, args);
     }
@@ -139,8 +133,8 @@ public final class MessageFormatter {
 
         Class<? extends Object> type = message.getClass();
         if (type.isArray()) {
-            formattedMessage= Arrays.toString((Object[]) message);
-            }
+            formattedMessage = Arrays.toString((Object[]) message);
+        }
         if (message instanceof Throwable) {
             formattedMessage = format((Throwable) message);
         }
@@ -150,10 +144,8 @@ public final class MessageFormatter {
     private static String format(final Throwable throwable) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-        try {
-            throwable.printStackTrace(pw);
-        } catch (RuntimeException ex) {
-        }
+        throwable.printStackTrace(pw);
+
         pw.flush();
         LineNumberReader reader = new LineNumberReader(new StringReader(sw.toString()));
         ArrayList<String> lines = new ArrayList<String>();
@@ -169,8 +161,6 @@ public final class MessageFormatter {
             }
             lines.add(ex.toString());
         }
-        String[] tempRep = new String[lines.size()];
-        lines.toArray(tempRep);
         return lines.toString();
     }
 }

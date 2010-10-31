@@ -24,6 +24,7 @@ import org.junit.Test;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.filters.FilterCloverClasses;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
 
@@ -33,11 +34,12 @@ import com.openpojo.validation.affirm.Affirm;
 public class TestExceptions {
 
     private List<PojoClass> pojoExceptionClasses;
-    private static final int EXPECTED_EXCEPTION_COUNT = 10;
+    private static final int EXPECTED_EXCEPTION_COUNT = 8;
 
     @Before
     public void setUp() {
-        pojoExceptionClasses = PojoClassFactory.enumerateClassesByExtendingType("com.openpojo", Throwable.class, null);
+        pojoExceptionClasses = PojoClassFactory.enumerateClassesByExtendingType("com.openpojo", Throwable.class,
+                                                                                new FilterCloverClasses());
     }
 
     @Test
