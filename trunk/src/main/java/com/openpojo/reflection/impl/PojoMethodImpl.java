@@ -19,6 +19,7 @@ package com.openpojo.reflection.impl;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -69,15 +70,25 @@ public class PojoMethodImpl implements PojoMethod {
         if (isConstructor()) {
             try {
                 return getAsConstructor().newInstance(parameters);
-            } catch (Exception e) {
-                throw ReflectionException.getInstance(e);
+            } catch (IllegalArgumentException e) {
+                throw ReflectionException.getInstance(e.getMessage(), e);
+            } catch (InstantiationException e) {
+                throw ReflectionException.getInstance(e.getMessage(), e);
+            } catch (IllegalAccessException e) {
+                throw ReflectionException.getInstance(e.getMessage(), e);
+            } catch (InvocationTargetException e) {
+                throw ReflectionException.getInstance(e.getMessage(), e);
             }
         }
 
         try {
             return getAsMethod().invoke(instance, parameters);
-        } catch (Exception e) {
-            throw ReflectionException.getInstance(e);
+        } catch (IllegalArgumentException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
+        } catch (IllegalAccessException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
+        } catch (InvocationTargetException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
         }
     }
 

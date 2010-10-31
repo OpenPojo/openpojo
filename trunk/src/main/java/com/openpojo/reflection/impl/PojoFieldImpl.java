@@ -53,8 +53,12 @@ class PojoFieldImpl implements PojoField {
     public Object get(final Object instance) {
         try {
             return field.get(instance);
-        } catch (Exception e) {
-            throw ReflectionException.getInstance(e);
+        } catch (IllegalArgumentException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
+        } catch (IllegalAccessException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
+        } catch (NullPointerException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
         }
     }
 
@@ -65,8 +69,12 @@ class PojoFieldImpl implements PojoField {
     public void set(final Object instance, final Object value) {
         try {
             field.set(instance, value);
-        } catch (Exception e) {
-            throw ReflectionException.getInstance(e);
+        } catch (IllegalArgumentException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
+        } catch (IllegalAccessException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
+        } catch (NullPointerException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
         }
     }
 
@@ -77,11 +85,11 @@ class PojoFieldImpl implements PojoField {
     public Object invokeGetter(final Object instance) {
         try {
             return fieldGetter.invoke(instance, (Object[]) null);
-        } catch (Exception e) {
-            throw ReflectionException.getInstance(e);
+        } catch (NullPointerException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
         }
-    }
 
+    }
 
     public boolean hasSetter() {
         return fieldSetter != null;
@@ -90,9 +98,10 @@ class PojoFieldImpl implements PojoField {
     public void invokeSetter(final Object instance, final Object value) {
         try {
             fieldSetter.invoke(instance, value);
-        } catch (Exception e) {
-            throw ReflectionException.getInstance(e);
+        } catch (NullPointerException e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
         }
+
     }
 
     public Class<?> getType() {
@@ -110,7 +119,7 @@ class PojoFieldImpl implements PojoField {
     public List<Type> getParameterTypes() {
         List<Type> genericTypes = new LinkedList<Type>();
         if (isParameterized()) {
-            ParameterizedType parameterizedType = (ParameterizedType)field.getGenericType();
+            ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
             for (Type actualType : parameterizedType.getActualTypeArguments()) {
                 genericTypes.add(actualType);
             }
