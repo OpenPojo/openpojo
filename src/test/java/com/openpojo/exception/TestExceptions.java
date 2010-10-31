@@ -21,11 +21,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.construct.InstanceFactory;
-import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
 
@@ -37,61 +35,63 @@ public class TestExceptions {
     private List<PojoClass> pojoExceptionClasses;
     private static final int EXPECTED_EXCEPTION_COUNT = 10;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         pojoExceptionClasses = PojoClassFactory.enumerateClassesByExtendingType("com.openpojo", Throwable.class, null);
     }
 
     @Test
     public void checkCount() {
         Affirm.affirmEquals(String.format("Classes added/removed that implement Throwable found[%s]?",
-                pojoExceptionClasses), EXPECTED_EXCEPTION_COUNT, pojoExceptionClasses.size());
+                                          pojoExceptionClasses), EXPECTED_EXCEPTION_COUNT, pojoExceptionClasses.size());
     }
 
     @Test
     public void ValidateConstructors() {
         for (PojoClass pojoExceptionClass : pojoExceptionClasses) {
-            Affirm.affirmEquals(String.format(
-                    "Exception class [%s] must declare 2 constructors [(string), (string, cause)] found [%s]",
-                    pojoExceptionClass, pojoExceptionClass.getPojoConstructors()), 2, pojoExceptionClass
-                    .getPojoConstructors().size());
 
-            String someMessage = (String) RandomFactory.getRandomValue(String.class);
-            Throwable instance = null;
-            try {
-                instance = (Throwable) InstanceFactory.getInstance(pojoExceptionClass, someMessage);
-            } catch (ReflectionException reflectionException) {
-                Affirm.fail(String.format(
-                        "Failed to create Exception[%s] using (String) constructor got ReflectionException[%s]",
-                        pojoExceptionClass, MessageFormatter.format(reflectionException)));
-            }
-            Affirm.affirmNotNull(String.format("Failed to create instance of Exception [%s]", pojoExceptionClass),
-                    instance);
-            Affirm.affirmEquals(String.format("Message changed in Exception[%s] using (String) constructor?!",
-                    pojoExceptionClass), someMessage, instance.getMessage());
-
-            Throwable cause = new Throwable();
-            try {
-                instance = (Throwable) InstanceFactory.getInstance(pojoExceptionClass, someMessage, cause);
-            } catch (ReflectionException reflectionException) {
-                Affirm
-                        .fail(String
-                                .format(
-                                        "Failed to create Exception[%s] using (String, Throwable) constructor got ReflectionException[%s]",
-                                        pojoExceptionClass, MessageFormatter.format(reflectionException)));
-            }
-
-            Affirm.affirmNotNull(String.format("Failed to create instance of Exception [%s]", pojoExceptionClass),
-                    instance);
-            Affirm.affirmEquals(String.format(
-                    "Message changed in Exception[%s] using (String, Throwable) constructor?!", pojoExceptionClass),
-                    someMessage, instance.getMessage());
-
-            Affirm.affirmEquals(String.format("Cause changed in Exception[%s] using (String, Throwable) constructor??",
-                    pojoExceptionClass), cause, instance.getCause());
+            ensureConstructorsPrivate(pojoExceptionClass.getPojoConstructors());
+            testGetInstance(pojoExceptionClass);
         }
     }
+
+    public void ensureConstructorsPrivate(final List<PojoMethod> constructors) {
+
+        for (PojoMethod constructor : constructors) {
+            Affirm
+                    .affirmTrue(String.format("Constructor must be private [%s]!!", constructor), constructor
+                            .isPrivate());
+        }
+    }
+
+    public void testGetInstance(final PojoClass pojoExceptionClass) {
+        int getInstanceCount = 0;
+        String someMessage = (String) RandomFactory.getRandomValue(String.class);
+        Throwable cause = new Throwable();
+
+        for (PojoMethod getInstance : pojoExceptionClass.getPojoMethods()) {
+            if (getInstance.getName().equals("getInstance")) {
+                if (getInstance.getParameterTypes().length == 1) {
+                    Throwable instance = (Throwable) getInstance.invoke(null, someMessage);
+                    Affirm.affirmEquals(String.format("Message changed in Exception[%s] using getInstance(String)?!",
+                                                      pojoExceptionClass), someMessage, instance.getMessage());
+                }
+
+                if (getInstance.getParameterTypes().length == 2) {
+                    Throwable instance = (Throwable) getInstance.invoke(null, someMessage, cause);
+                    Affirm.affirmEquals(String
+                            .format("Message changed in Exception[%s] using getInstance(String, Throwable)?!",
+                                    pojoExceptionClass), someMessage, instance.getMessage());
+                    Affirm.affirmEquals(String
+                            .format("Cause changed in Exception[%s] using getInstance(String, Throwable)?!",
+                                    pojoExceptionClass), cause, instance.getCause());
+                }
+                getInstanceCount++;
+            }
+        }
+        Affirm.affirmEquals(String.format("getInstance methods not in line with constructors count for Exception [%s]",
+                                          pojoExceptionClass), pojoExceptionClass.getPojoConstructors().size(),
+                            getInstanceCount);
+    }
+
 }
