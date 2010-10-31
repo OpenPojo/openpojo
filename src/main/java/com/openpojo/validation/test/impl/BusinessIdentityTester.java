@@ -49,14 +49,13 @@ public final class BusinessIdentityTester implements Tester {
         identityHandlerStub.areEqualReturn = (Boolean) RandomFactory.getRandomValue(Boolean.class);
         checkEquality();
 
+        identityHandlerStub.areEqualReturn = !identityHandlerStub.areEqualReturn;
+        checkEquality();
+
         identityHandlerStub.doGenerateReturn = (Integer) RandomFactory.getRandomValue(Integer.class);
         checkHashCode();
 
-        // reverse and check
         identityHandlerStub.doGenerateReturn = (Integer) RandomFactory.getRandomValue(Integer.class);
-        checkEquality();
-
-        identityHandlerStub.areEqualReturn = !identityHandlerStub.areEqualReturn;
         checkHashCode();
 
         IdentityFactory.unregisterIdentityHandler(identityHandlerStub);
