@@ -38,7 +38,7 @@ import com.openpojo.validation.affirm.Affirm;
  */
 public class PojoPackageImplTest {
 
-    private static final int EXPECTED_CLASSES = 25;
+    private static final int EXPECTED_CLASSES = 29;
 
     private String packageName;
     private String expectedToString;
@@ -83,7 +83,6 @@ public class PojoPackageImplTest {
 
         Affirm.affirmTrue("No classes in package?", pojoClasses.size() > 0);
         for (PojoClass pojoClass : pojoClasses) {
-            System.out.println(pojoClass);
             Affirm.affirmTrue(String.format("package-info added to package [%s]?", packageName), !pojoClass.getName()
                     .endsWith("package-info"));
         }

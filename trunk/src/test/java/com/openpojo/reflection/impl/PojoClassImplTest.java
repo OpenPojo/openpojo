@@ -35,22 +35,26 @@ import com.openpojo.reflection.impl.sampleclasses.AClassExtendingAnInterface;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithAnnotations;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithEquality;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithExceptionalConstructors;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithInterfaces;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithSixMethods;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithoutInterfaces;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithoutMethods;
 import com.openpojo.reflection.impl.sampleclasses.AFinalClass;
 import com.openpojo.reflection.impl.sampleclasses.ANonFinalClass;
 import com.openpojo.reflection.impl.sampleclasses.AnAbstractClass;
 import com.openpojo.reflection.impl.sampleclasses.AnInterfaceClass;
+import com.openpojo.reflection.impl.sampleclasses.FirstInterfaceForAClassWithInterfaces;
 import com.openpojo.reflection.impl.sampleclasses.MultiplePublicAndPrivateWithManyParamsConstructor;
 import com.openpojo.reflection.impl.sampleclasses.NoDeclaredConstructor;
 import com.openpojo.reflection.impl.sampleclasses.OnePrivateNoParamsConstructor;
 import com.openpojo.reflection.impl.sampleclasses.OnePublicNoParamConstructor;
+import com.openpojo.reflection.impl.sampleclasses.SecondInterfaceForAClassWithInterfaces;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedClass;
 import com.openpojo.validation.affirm.Affirm;
 
-public class PojoClassTest {
-    private static final String SAMPLE_CLASSES_PKG = PojoClassTest.class.getPackage().getName() + ".sampleclasses";
+public class PojoClassImplTest {
+    private static final String SAMPLE_CLASSES_PKG = PojoClassImplTest.class.getPackage().getName() + ".sampleclasses";
 
     @Test
     @Ignore("unimplemented")
@@ -108,12 +112,6 @@ public class PojoClassTest {
         pojoClass = getPojoClassImplForClass(AClassWithoutMethods.class);
         Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()),
                 0 + 1 /* constructor */, pojoClass.getPojoMethods().size());
-    }
-
-    @Test
-    @Ignore("unimplemented")
-    public void testGetName() {
-        Affirm.fail("Not yet implemented");
     }
 
     @Test
@@ -283,24 +281,36 @@ public class PojoClassTest {
     }
 
     @Test
+    public void shouldGetEmptyListForGetInterfaces() {
+        PojoClass pojoClass = getPojoClassImplForClass(AClassWithoutInterfaces.class);
+        Affirm.affirmNotNull(String.format("Expected empty list no null for getInterfaces() on [%s]?", pojoClass),
+                pojoClass.getInterfaces());
+        Affirm.affirmEquals(String.format("Interfaces added to [%s]?", pojoClass), 0, pojoClass.getInterfaces().size());
+    }
+
+    @Test
+    public void shouldGetInterfaces() {
+        PojoClass pojoClass = getPojoClassImplForClass(AClassWithInterfaces.class);
+        Affirm.affirmEquals(String.format("Interfaces added/removed from [%s]?", pojoClass), 2, pojoClass
+                .getInterfaces().size());
+
+        List<Class<?>> expectedInterfaces = new LinkedList<Class<?>>();
+        expectedInterfaces.add(FirstInterfaceForAClassWithInterfaces.class);
+        expectedInterfaces.add(SecondInterfaceForAClassWithInterfaces.class);
+        for (PojoClass pojoInterface : pojoClass.getInterfaces()) {
+            Affirm.affirmTrue(String.format("Expected interfaces [%s] not found, instead found [%s]",
+                    expectedInterfaces, pojoInterface.getClazz()), expectedInterfaces
+                    .contains(pojoInterface.getClazz()));
+        }
+    }
+
+    @Test
     public void testGetClazz() {
         Class<?> clazz = this.getClass();
         PojoClass pojoClass = getPojoClassImplForClass(clazz);
         Affirm.affirmTrue(String.format("PojoClass parsing for [%s] returned different class=[%s] in getClazz() call"
                 + " for PojoClass implementation=[%s]", clazz, pojoClass.getClazz(), pojoClass), clazz.equals(pojoClass
                 .getClazz()));
-    }
-
-    @Test
-    @Ignore("unimplemented")
-    public void testToString() {
-        Affirm.fail("Not yet implemented");
-    }
-
-    @Test
-    @Ignore("unimplemented")
-    public void testToStringObject() {
-        Affirm.fail("Not yet implemented");
     }
 
     private PojoClassImpl getPojoClassImplForClass(final Class<?> clazz) {
