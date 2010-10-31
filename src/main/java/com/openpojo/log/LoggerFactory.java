@@ -34,9 +34,6 @@ public final class LoggerFactory {
     private static final Map<String, Logger> cache = new HashMap<String, Logger>();
     private static final String DEFAULT_CATEGORY = null;
 
-    private LoggerFactory() {
-    }
-
     /**
      * This method returns an instance of Logger class for logging.
      *
