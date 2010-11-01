@@ -1,8 +1,8 @@
 package com.openpojo.reflection.facade;
 
-import org.junit.Test;
+import java.util.Arrays;
 
-import clover.retrotranslator.edu.emory.mathcs.backport.java.util.Arrays;
+import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
@@ -23,8 +23,7 @@ public class FacadeFactoryTest {
 
     private final void checkReturnedFacade(final Class<?> expected, final String... facades) {
         PojoClass facade = FacadeFactory.getLoadedFacadePojoClass(facades);
-        Affirm.affirmNotNull(String.format("Failed to load from the valid list of facades [%s]?!", Arrays
-                .toString(facades)), facade);
+        Affirm.affirmNotNull(String.format("Failed to load from the valid list of facades [%s]?!", Arrays.toString(facades)), facade);
 
         Affirm.affirmEquals("Wrong facade returned!!", expected, facade.getClazz());
 
