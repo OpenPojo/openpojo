@@ -39,19 +39,41 @@ public final class AffirmationFactory {
     /**
      * The only affimation implemented so far, so default to that.
      */
-    private final Affirmation affirmation;
+    private Affirmation affirmation;
 
     private AffirmationFactory() {
         affirmation = getActiveAffirmation();
         log.info("Dynamically setting affirmation implementation = [{0}]", affirmation);
     }
 
+    /**
+     * Get the Factory Instance.
+     *
+     * @return
+     *         An AffirmationFactoryInstance.
+     */
     public static AffirmationFactory getInstance() {
         return Instance.INSTANCE;
     }
 
+    /**
+     * Get the underlying currently active Affirmation.
+     *
+     * @return
+     *         The currently active affirmation.
+     */
     public Affirmation getAffirmation() {
         return affirmation;
+    }
+
+    /**
+     * This method allows full control to set the active affirmation to a specific one.
+     *
+     * @param affirmation
+     *            The Affirmation class to use.
+     */
+    public void setActiveAffirmation(final Affirmation affirmation) {
+        this.affirmation = affirmation;
     }
 
     private static Affirmation getActiveAffirmation() {
