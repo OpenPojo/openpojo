@@ -24,13 +24,13 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public class AffirmTest {
+public abstract class AbstractAffirmation {
 
-    /**
-     * @throws java.lang.Exception
-     */
+    public abstract Affirmation getAffirmation();
+
     @Before
-    public void setUp() throws Exception {
+    public void setup() {
+        AffirmationFactory.getInstance().setActiveAffirmation(getAffirmation());
     }
 
     /**
@@ -43,7 +43,17 @@ public class AffirmTest {
         } catch (AssertionError e) {
             return;
         }
-        Assert.fail("Affirm.fail() failed to fail :)!!");
+        Assert.fail("Affirm.fail(String) failed to fail :)!!");
+    }
+
+    @Test
+    public void testFailWithNullMessage() {
+        try {
+            Affirm.fail(null);
+        } catch (AssertionError e) {
+            return;
+        }
+        Assert.fail("Affirm.fail(null) failed to fail :)!!");
     }
 
     /**
@@ -110,11 +120,11 @@ public class AffirmTest {
     public void testAffirmEquals() {
         Affirm.affirmEquals("Affirm.affirmEquals on equal objects failed", Integer.valueOf(5), Integer.valueOf(5));
         try {
-            Affirm.affirmEquals("Affirm.affirmEquals on non-equal objects failed passed!!", Integer.valueOf(5), Integer.valueOf(6));
+            Affirm.affirmEquals("Affirm.affirmEquals on non-equal objects failed passed!!", Integer.valueOf(5), Integer
+                    .valueOf(6));
         } catch (AssertionError e) {
             return;
         }
         Assert.fail("Affirm.affirmEquals call on non-equal objects passed!!");
     }
-
 }
