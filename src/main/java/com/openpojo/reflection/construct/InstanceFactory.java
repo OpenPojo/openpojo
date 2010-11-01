@@ -64,8 +64,8 @@ public class InstanceFactory {
      */
     public static Object getInstance(final PojoClass pojoClass, final Object... parameters) {
         if (!pojoClass.isConcrete()) {
-            throw ReflectionException.getInstance(String.format(
-                    "[%s] is not a concrete class, can't create new instance", pojoClass));
+            throw ReflectionException.getInstance(String
+                    .format("[%s] is not a concrete class, can't create new instance", pojoClass));
         }
 
         List<PojoMethod> constructors = pojoClass.getPojoConstructors();
@@ -76,7 +76,7 @@ public class InstanceFactory {
             }
         }
         throw ReflectionException.getInstance(String.format("No matching constructor found using parameters[%s]",
-                Arrays.toString(getTypes(parameters))));
+                                                            Arrays.toString(getTypes(parameters))));
     }
 
     /**
@@ -173,11 +173,15 @@ public class InstanceFactory {
         }
 
         for (int idx = 0; idx < expectedTypes.length; idx++) {
-            if (givenTypes[idx] != null && !givenTypes[idx].equals(expectedTypes[idx])) {
+            if (!isAssignableFrom(expectedTypes[idx], givenTypes[idx])) {
                 return false;
             }
         }
         return true;
+    }
+
+    private static boolean isAssignableFrom(final Class<?> expectedType, final Class<?> givenType) {
+        return givenType == null || (expectedType.isAssignableFrom(givenType));
     }
 
     private static Class<?>[] getTypes(final Object... parameters) {
