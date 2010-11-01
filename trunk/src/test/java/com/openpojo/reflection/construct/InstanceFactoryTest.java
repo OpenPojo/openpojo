@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.construct.sampleclasses.ClassWithInterfaceBasedConstructor;
 import com.openpojo.reflection.construct.sampleclasses.ClassWithLessThanGreaterThanConstructors;
 import com.openpojo.reflection.construct.sampleclasses.ClassWithNativeTypesConstructor;
 import com.openpojo.reflection.construct.sampleclasses.ClassWithNoDeclaredConstructor;
@@ -49,7 +50,8 @@ public class InstanceFactoryTest {
         Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
         String stringParam = (String) RandomFactory.getRandomValue(String.class);
         ClassWithVariousDeclaredContructorsAndMethods obj1 = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(
-                clazz, stringParam);
+                                                                                                                         clazz,
+                                                                                                                         stringParam);
         Affirm.affirmNotNull("Should have created using String constructor", obj1);
         Affirm.affirmEquals("Incorrect constructor used", stringParam, obj1.singleStringConstructor);
     }
@@ -59,12 +61,15 @@ public class InstanceFactoryTest {
         Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
         String stringParam = (String) RandomFactory.getRandomValue(String.class);
         ClassWithVariousDeclaredContructorsAndMethods obj = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(
-                clazz, new Object[]{ stringParam, null });
+                                                                                                                        clazz,
+                                                                                                                        new Object[]{
+                                                                                                                                stringParam,
+                                                                                                                                null });
 
         Affirm.affirmNotNull("Should have created using two parameter constructor", obj);
         Affirm.affirmNull("Should have called using two parameter constructor", obj.doubleIntegerConstructor);
         Affirm.affirmEquals("Should have called using two parameter constructor", stringParam,
-                obj.doubleStringConstructor);
+                            obj.doubleStringConstructor);
     }
 
     @Test(expected = ReflectionException.class)
@@ -126,4 +131,10 @@ public class InstanceFactoryTest {
         InstanceFactory.getMostCompleteInstance(PojoClassFactory.getPojoClass(SomeEnum.class));
     }
 
+    @Test
+    public void shouldConstructBasedOnDerivedClass() {
+        PojoClass aClassWithInterfaceBasedConstructor = PojoClassFactory
+                .getPojoClass(ClassWithInterfaceBasedConstructor.class);
+        InstanceFactory.getInstance(aClassWithInterfaceBasedConstructor, new String("SomeString"));
+    }
 }
