@@ -20,7 +20,7 @@ package com.openpojo.business.exception;
  * This exception is thrown whenever a business exception occurs, i.e. an exception when performing
  * an operation in the business validation, and identity management domains. <br>
  * This is the ONLY exception thrown out of the com.openpojo.business package.
- * It will wrapp any other exceptions that may occur to turn them into RunTimeException base.
+ * It will wrapp any other exceptions that may occur to turn them into RuntimeException.
  *
  * @author oshoukry
  */
