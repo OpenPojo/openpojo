@@ -26,24 +26,8 @@ import com.openpojo.reflection.PojoClassFilter;
  */
 public class FilterNonConcrete implements PojoClassFilter {
 
-    private PojoClassFilter nextFilter;
-
-    public FilterNonConcrete() {
-    }
-
-    /**
-     * This construtor will is deprecated, please use FilterChain to chain filters together.
-     * @param nextFilter
-     *          The filter that is next to be evaluated.
-     * @deprecated please use {@link FilterChain instead}
-     */
-    @Deprecated
-    public FilterNonConcrete(final PojoClassFilter nextFilter) {
-        this.nextFilter = nextFilter;
-    }
-
     public boolean include(final PojoClass pojoClass) {
-        return pojoClass.isConcrete() && (nextFilter == null || nextFilter.include(pojoClass));
+        return pojoClass.isConcrete();
     }
 
 }
