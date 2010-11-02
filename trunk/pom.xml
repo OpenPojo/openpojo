@@ -8,7 +8,7 @@
     </parent>
     <groupId>com.googlecode.openpojo</groupId>
     <artifactId>openpojo</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.3.1-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <url>http://openpojo.googlecode.com/</url>
     <description>
