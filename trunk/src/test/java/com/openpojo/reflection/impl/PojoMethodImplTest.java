@@ -16,14 +16,11 @@
  */
 package com.openpojo.reflection.impl;
 
-import static org.junit.Assert.fail;
-
 import java.lang.annotation.Annotation;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.openpojo.reflection.PojoClass;
@@ -70,13 +67,15 @@ public class PojoMethodImplTest {
     public void multipleAnnotationsShouldBeReturned() {
         for (PojoMethod pojoMethod : pojoMethods) {
             if (pojoMethod.getName().equals("methodWithMultipleAnnotations")) {
-                Affirm.affirmEquals(String.format("Annotations added/removed from method=[%s]", pojoMethod),
-                        2, pojoMethod.getAnnotations().size());
+                Affirm.affirmEquals(String.format("Annotations added/removed from method=[%s]", pojoMethod), 2,
+                                    pojoMethod.getAnnotations().size());
                 List<Class<?>> expectedAnnotations = new LinkedList<Class<?>>();
                 expectedAnnotations.add(SomeAnnotation.class);
                 expectedAnnotations.add(AnotherAnnotation.class);
                 for (Annotation annotation : pojoMethod.getAnnotations()) {
-                    Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]", expectedAnnotations, annotation.annotationType()), expectedAnnotations.contains(annotation.annotationType()));
+                    Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]",
+                                                    expectedAnnotations, annotation.annotationType()),
+                                      expectedAnnotations.contains(annotation.annotationType()));
                 }
                 return;
             }
@@ -175,7 +174,6 @@ public class PojoMethodImplTest {
         Affirm.fail("nonPublicMethod missing!!");
     }
 
-
     @Test
     public void testIsStatic() {
         for (PojoMethod pojoMethod : pojoMethods) {
@@ -196,15 +194,6 @@ public class PojoMethodImplTest {
             }
         }
         Affirm.fail("nonStaticMethod missing!!");
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoMethodImpl#getParameterTypes()}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testGetParameterTypes() {
-        fail("Not yet implemented");
     }
 
 }
