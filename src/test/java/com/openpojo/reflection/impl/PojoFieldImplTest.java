@@ -21,7 +21,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.openpojo.business.annotation.BusinessKey;
@@ -63,9 +62,9 @@ public class PojoFieldImplTest {
                         .get(pojoClassInstance));
                 Object randomValue = RandomFactory.getRandomValue(pojoField.getType());
                 pojoField.set(pojoClassInstance, randomValue);
-                Affirm.affirmEquals(String.format(
-                        "PojoField.get() result=[%s] different from what was set=[%s] for PojoFieldImpl=[%s]",
-                        pojoField.get(pojoClassInstance), randomValue, pojoField), randomValue, pojoField
+                Affirm.affirmEquals(String
+                        .format("PojoField.get() result=[%s] different from what was set=[%s] for PojoFieldImpl=[%s]",
+                                pojoField.get(pojoClassInstance), randomValue, pojoField), randomValue, pojoField
                         .get(pojoClassInstance));
             }
         }
@@ -114,8 +113,8 @@ public class PojoFieldImplTest {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().equals("parameterizedChildren")) {
                 Affirm.affirmTrue("Not Generic?!", pojoField.isParameterized());
-                Affirm.affirmTrue("Wrong Parameterization!?", pojoField.getParameterTypes().contains(
-                        ClassWithGenericTypes.class));
+                Affirm.affirmTrue("Wrong Parameterization!?", pojoField.getParameterTypes()
+                        .contains(ClassWithGenericTypes.class));
                 affirmChecks++;
             }
 
@@ -129,78 +128,14 @@ public class PojoFieldImplTest {
 
             if (pojoField.getName().equals("parameterizedMap")) {
                 Affirm.affirmEquals("MultipTypeGeneric failed!!", 2, pojoField.getParameterTypes().size());
-                Affirm.affirmTrue(String.format("Type not found [%s]", String.class), pojoField.getParameterTypes().contains(
-                        String.class));
-                Affirm.affirmTrue(String.format("Type not found [%s]", Integer.class), pojoField.getParameterTypes().contains(
-                        Integer.class));
+                Affirm.affirmTrue(String.format("Type not found [%s]", String.class), pojoField.getParameterTypes()
+                        .contains(String.class));
+                Affirm.affirmTrue(String.format("Type not found [%s]", Integer.class), pojoField.getParameterTypes()
+                        .contains(Integer.class));
                 affirmChecks++;
             }
         }
         Affirm.affirmEquals("Fields added/removed/renamed? expected 4 checks!!", 4, affirmChecks);
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#getName()}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testGetName() {
-        Affirm.fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#hasGetter()}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testHasGetter() {
-        Affirm.fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#invokeGetter(java.lang.Object)}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testInvokeGetter() {
-        Affirm.fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#hasSetter()}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testHasSetter() {
-        Affirm.fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for
-     * {@link com.openpojo.reflection.impl.PojoFieldImpl#invokeSetter(java.lang.Object, java.lang.Object)}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testInovkeSetter() {
-        Affirm.fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#getType()}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testGetType() {
-        Affirm.fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#getAnnotation(java.lang.Class)}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testGetAnnotation() {
-        Affirm.fail("Not yet implemented");
     }
 
     @Test
@@ -231,8 +166,8 @@ public class PojoFieldImplTest {
                 expectedAnnotations.add(BusinessKey.class);
                 for (Annotation annotation : pojoField.getAnnotations()) {
                     Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]",
-                            expectedAnnotations, annotation.annotationType()), expectedAnnotations.contains(annotation
-                            .annotationType()));
+                                                    expectedAnnotations, annotation.annotationType()),
+                                      expectedAnnotations.contains(annotation.annotationType()));
                 }
                 return;
             }
@@ -248,18 +183,9 @@ public class PojoFieldImplTest {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().startsWith("primitive")) {
                 Affirm.affirmTrue(String.format("isPrimitive() check on primitive field=[%s] returned false!!",
-                        pojoField), pojoField.isPrimitive());
+                                                pojoField), pojoField.isPrimitive());
             }
         }
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#isFinal()}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testIsFinal() {
-        Affirm.fail("Not yet implemented");
     }
 
     /**
@@ -270,7 +196,7 @@ public class PojoFieldImplTest {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().startsWith("static")) {
                 Affirm.affirmTrue(String.format("isStatic() check on field=[%s] returned false!!", pojoField),
-                        pojoField.isStatic());
+                                  pojoField.isStatic());
             }
         }
     }
@@ -283,7 +209,7 @@ public class PojoFieldImplTest {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().startsWith("private")) {
                 Affirm.affirmTrue(String.format("isPrivate() check on field=[%s] returned false!!", pojoField),
-                        pojoField.isPrivate());
+                                  pojoField.isPrivate());
             }
         }
     }
@@ -293,7 +219,7 @@ public class PojoFieldImplTest {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().equals("transientString")) {
                 Affirm.affirmTrue(String.format("isTransient() check on field=[%s] returned false!!", pojoField),
-                        pojoField.isTransient());
+                                  pojoField.isTransient());
             }
         }
 
@@ -304,7 +230,7 @@ public class PojoFieldImplTest {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().equals("volatileString")) {
                 Affirm.affirmTrue(String.format("isVolatile() check on field=[%s] returned false!!", pojoField),
-                        pojoField.isVolatile());
+                                  pojoField.isVolatile());
             }
         }
 
@@ -318,7 +244,7 @@ public class PojoFieldImplTest {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().startsWith("protected")) {
                 Affirm.affirmTrue(String.format("isProtected() check on field=[%s] returned false!!", pojoField),
-                        pojoField.isProtected());
+                                  pojoField.isProtected());
             }
         }
     }
@@ -331,27 +257,8 @@ public class PojoFieldImplTest {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
             if (pojoField.getName().startsWith("public")) {
                 Affirm.affirmTrue(String.format("isPublic() check on field=[%s] returned false!!", pojoField),
-                        pojoField.isPublic());
+                                  pojoField.isPublic());
             }
         }
     }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#toString()}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testToString() {
-        Affirm.fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#toString(java.lang.Object)}.
-     */
-    @Test
-    @Ignore("unimplemented")
-    public void testToStringObject() {
-        Affirm.fail("Not yet implemented");
-    }
-
 }
