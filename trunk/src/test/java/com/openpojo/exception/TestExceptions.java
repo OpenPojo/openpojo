@@ -34,7 +34,7 @@ import com.openpojo.validation.affirm.Affirm;
 public class TestExceptions {
 
     private List<PojoClass> pojoExceptionClasses;
-    private static final int EXPECTED_EXCEPTION_COUNT = 10;
+    private static final int EXPECTED_EXCEPTION_COUNT = 8;
 
     @Before
     public void setUp() {
