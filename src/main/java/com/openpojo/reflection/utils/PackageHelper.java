@@ -120,7 +120,7 @@ public final class PackageHelper {
     private static List<URL> getResources(final String path) {
         List<URL> resources = new LinkedList<URL>();
         try {
-            Enumeration<URL> enumeration = ClassLoader.getSystemResources(path);
+            Enumeration<URL> enumeration = getClassLoader().getResources(path);
             while (enumeration.hasMoreElements()) {
                 resources.add(enumeration.nextElement());
             }
