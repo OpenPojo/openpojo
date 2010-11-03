@@ -18,6 +18,8 @@ package com.openpojo.reflection.impl;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
+import java.net.URI;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,6 +28,7 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
@@ -141,5 +144,16 @@ class PojoClassImpl implements PojoClass {
             interfaces.add(PojoClassFactory.getPojoClass(interfaze));
         }
         return interfaces;
+    }
+
+    public String getSourcePath() {
+        try {
+            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            URL location = cl.getResource(getClazz().getName().replace('.', '/') + ".class");
+            return new URI(location.toString()).toString();
+
+        } catch (Exception e) {
+            throw ReflectionException.getInstance(e.getMessage(), e);
+        }
     }
 }
