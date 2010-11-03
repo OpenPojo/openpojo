@@ -20,8 +20,10 @@ package com.openpojo.reflection.impl;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
@@ -85,16 +87,21 @@ class PojoPackageImpl implements PojoPackage {
     }
 
     public List<PojoPackage> getPojoSubPackages() {
-        List<PojoPackage> pojoPackageSubPackages = new LinkedList<PojoPackage>();
-
+        // Using a set to de-dupe the entries for package names, since a package can live in multiple paths.
+        Set<String> packageEntries = new LinkedHashSet<String>();
         List<File> paths = PackageHelper.getPackageDirectories(packageName);
         for (File path : paths) {
             for (File entry : path.listFiles()) {
                 if (entry.isDirectory()) {
                     String subPackageName = packageName + PACKAGE_DELIMETER + entry.getName();
-                    pojoPackageSubPackages.add(new PojoPackageImpl(subPackageName));
+                    packageEntries.add(subPackageName);
                 }
             }
+        }
+
+        List<PojoPackage> pojoPackageSubPackages = new LinkedList<PojoPackage>();
+        for (String entry : packageEntries) {
+            pojoPackageSubPackages.add(new PojoPackageImpl(entry));
         }
 
         return pojoPackageSubPackages;

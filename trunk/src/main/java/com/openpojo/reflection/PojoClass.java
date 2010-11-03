@@ -141,4 +141,13 @@ public interface PojoClass extends PojoElement {
      */
     public String toString(Object instance);
 
+    /**
+     * This method returns the location from which this class was loaded.
+     * Note: Do not use, still in experimental mode.
+     *
+     * @return
+     *         String of the PATH of where this class was loaded from.
+     */
+    public String getSourcePath();
+
 }

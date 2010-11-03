@@ -34,7 +34,7 @@ import com.openpojo.validation.affirm.Affirm;
 public class TestExceptions {
 
     private List<PojoClass> pojoExceptionClasses;
-    private static final int EXPECTED_EXCEPTION_COUNT = 8;
+    private static final int EXPECTED_EXCEPTION_COUNT = 3;
 
     @Before
     public void setUp() {
@@ -94,6 +94,13 @@ public class TestExceptions {
         Affirm.affirmEquals(String.format("getInstance methods not in line with constructors count for Exception [%s]",
                                           pojoExceptionClass), pojoExceptionClass.getPojoConstructors().size(),
                             getInstanceCount);
+    }
+
+    @Test
+    public void debugExceptions() {
+        for (PojoClass pojoExceptionClass : pojoExceptionClasses) {
+            System.out.println(pojoExceptionClass.getSourcePath() + ": " + pojoExceptionClass.getClazz().getName());
+        }
     }
 
 }

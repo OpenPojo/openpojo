@@ -43,11 +43,11 @@ public class FilterNonConcreteTest {
 
         stubPojoClass.isConcrete = false;
         Affirm.affirmTrue(String.format("Filter[%s] was supposed to filter OUT non concrete class", pojoClassFilter),
-                stubPojoClass.isConcrete() == pojoClassFilter.include(stubPojoClass));
+                          stubPojoClass.isConcrete() == pojoClassFilter.include(stubPojoClass));
 
         stubPojoClass.isConcrete = true;
         Affirm.affirmTrue(String.format("Filter[%s] was supposed to filter IN concrete class", pojoClassFilter),
-                stubPojoClass.isConcrete() == pojoClassFilter.include(stubPojoClass));
+                          stubPojoClass.isConcrete() == pojoClassFilter.include(stubPojoClass));
 
         StubPojoClassFilter stubPojoClassFilter = new StubPojoClassFilter();
         FilterChain filterChain = new FilterChain(new FilterNonConcrete(), stubPojoClassFilter);
@@ -55,7 +55,7 @@ public class FilterNonConcreteTest {
         stubPojoClass.isConcrete = true;
         pojoClassFilter.include(stubPojoClass);
         Affirm.affirmTrue(String.format("Filter [%s] didn't invoke next in filter chain", pojoClassFilter),
-                stubPojoClassFilter.includeCalled);
+                          stubPojoClassFilter.includeCalled);
     }
 
     private static class StubPojoClassFilter implements PojoClassFilter {
@@ -140,6 +140,10 @@ public class FilterNonConcreteTest {
         }
 
         public String getName() {
+            throw new RuntimeException("Unimplemented!!");
+        }
+
+        public String getSourcePath() {
             throw new RuntimeException("Unimplemented!!");
         }
 
