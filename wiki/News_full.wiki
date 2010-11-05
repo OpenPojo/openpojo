@@ -1,6 +1,21 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-11-05:*
+  * OpenPojo-0.3.1 released
+   * Added
+    * FilterCloverClasses to filter out clover classes while enumerating..
+    * FilterNestedClasses to filter out subclasses while enumerating.
+    * PojoField now has two new methods (isParameterized, and getParameterTypes) for generics support.
+   * Fixed
+    * Issue with PojoClass showing up more than once when a package spans multiple directories.
+    * Issue with InstanceFactory failing to construct if type was not equal to required, now works if type is assignable to required.
+    * Issue with BusinessIdentityTester failing to detect hashCode not being dispatched to BusinessIdentity.
+   * Removed
+    * LoggingException unused.
+    * ValidationException unused.
+    * Log4JLogger and SLF4JLogger don't detect or configure the underlying logging framework anymore.
+    * Deprecated constructors in filters that took in prior filter, use FilterChain to achieve the same effect now.
  * *2010-10-22:*
   * OpenPojo-0.2.0 released
    * JUnit is now optional, if you don't have TestNG or JUnit, OpenPojo will throw Java's AssertionError.
