@@ -32,7 +32,9 @@ import com.openpojo.reflection.exception.ReflectionException;
  * This is a utility class to help enumerate and generate PojoClasses for specific pacakge.
  *
  * @author oshoukry
+ * @deprecated Please refrain from using this class, its implementation is not accurate, use PojoClassFactory instead.
  */
+@Deprecated
 public final class PackageHelper {
     public static final char PATH_SEPERATOR = '/';
 
@@ -88,7 +90,7 @@ public final class PackageHelper {
         List<URL> resources = getResources(packageAsPath);
         if (resources.size() == 0) {
             throw ReflectionException.getInstance(String.format("No such package [%s], path [%s] not found",
-                    packageName, packageAsPath));
+                                                                packageName, packageAsPath));
         }
         List<String> paths = new LinkedList<String>();
         try {
