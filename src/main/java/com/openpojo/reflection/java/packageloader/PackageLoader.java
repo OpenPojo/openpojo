@@ -18,7 +18,6 @@ package com.openpojo.reflection.java.packageloader;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -28,6 +27,8 @@ import com.openpojo.business.BusinessIdentity;
 import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
+import com.openpojo.log.utils.MessageFormatter;
+import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.packageloader.impl.FilePackageLoader;
 import com.openpojo.reflection.java.packageloader.impl.JARPackageLoader;
 
@@ -55,9 +56,15 @@ public abstract class PackageLoader {
 
     public abstract Set<String> getSubPackages();
 
-    public static Set<URL> getThreadResources(final String path) throws IOException, URISyntaxException {
+    public static Set<URL> getThreadResources(final String path) {
         String normalizedPath = fromJDKPackageToJDKPath(path);
-        Enumeration<URL> urls = getThreadClassLoader().getResources(normalizedPath);
+        Enumeration<URL> urls;
+        try {
+            urls = getThreadClassLoader().getResources(normalizedPath);
+        } catch (IOException e) {
+            throw ReflectionException.getInstance(MessageFormatter.format("Failed to getThreadResources for path[{0}]",
+                                                                          path), e);
+        }
         Set<URL> returnURLs = new HashSet<URL>();
         while (urls.hasMoreElements()) {
             returnURLs.add(urls.nextElement());
@@ -72,7 +79,7 @@ public abstract class PackageLoader {
         if (packageURL.getProtocol().equalsIgnoreCase("file")) {
             return new FilePackageLoader(packageURL, packageName);
         }
-        throw new IllegalArgumentException("unknown package loader protocol: " + packageURL.getProtocol());
+        throw new IllegalArgumentException("Unknown package loader protocol: " + packageURL.getProtocol());
     }
 
     private static ClassLoader getThreadClassLoader() {
