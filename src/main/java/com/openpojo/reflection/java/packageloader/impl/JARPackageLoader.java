@@ -17,31 +17,57 @@
 package com.openpojo.reflection.java.packageloader.impl;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.java.JDKType;
-import com.openpojo.reflection.java.packageloader.JDKPackageLoader;
+import com.openpojo.reflection.java.packageloader.PackageLoader;
 
 /**
  * @author oshoukry
  */
-public final class JARPackageLoader extends JDKPackageLoader {
+public final class JARPackageLoader extends PackageLoader {
 
     public JARPackageLoader(final URL packageURL, final String packageName) {
         super(packageURL, packageName);
-        throw new IllegalStateException("Unimplemented!!");
     }
 
     @Override
-    public Set<JDKType> getTypes() {
-        Set<JDKType> types = new HashSet<JDKType>();
+    public Set<Type> getTypes() {
+        Set<Type> types = new LinkedHashSet<Type>();
+        for (Type type : getAllJarTypes()) {
+            Class<?> classEntry = (Class<?>) type;
+            if (classEntry.getPackage().equals(packageName)) {
+                types.add(type);
+            }
+        }
+        return types;
+    }
+
+    @Override
+    public Set<String> getSubPackages() {
+        Set<String> subPackages = new LinkedHashSet<String>();
+
+        Set<Type> types = getAllJarTypes();
+        for (Type type : types) {
+            Class<?> typeClass = (Class<?>) type;
+            String typeClassPackageName = typeClass.getPackage().getName();
+            String directSubPackageName = getDirectSubPackageName(typeClassPackageName);
+            if (directSubPackageName != null) {
+                subPackages.add(directSubPackageName);
+            }
+        }
+        return subPackages;
+    }
+
+    private Set<Type> getAllJarTypes() {
+        Set<Type> types = new LinkedHashSet<Type>();
         JarURLConnection conn;
         JarFile jar = null;
         try {
@@ -52,25 +78,37 @@ public final class JARPackageLoader extends JDKPackageLoader {
         }
         for (JarEntry e : Collections.list(jar.entries())) {
             String entryName = e.getName();
-            if (isClass(entryName)) {
-                String className = fromJDKPathToJDKPackage(stripClassExtension(e.getName()));
-                try {
-                    Class<?> classEntry = Class.forName(className);
-                    if (classEntry.getPackage().getName().equals(packageName)) {
-                        types.add(new JDKType(classEntry));
-                    }
-                } catch (Throwable t) {
-
+            try {
+                Class<?> classEntry = getAsClass(entryName);
+                if (classEntry != null) {
+                    types.add(classEntry);
                 }
+            } catch (ClassNotFoundException classNotFoundException) { // entry wasn't a class
             }
         }
         return types;
     }
 
-    @Override
-    public Set<JDKPackageLoader> getSubPackages() {
-        // TODO Auto-generated method stub
-        throw new IllegalStateException("Unimplemented!!");
+    /**
+     * This method breaks up a package path into its elements.
+     * For example, if packageName is set to "com" and the JAR file has only one class
+     * "com.openpojo.reflection.somclass", we need to state that there are "com.openpojo", "com.openpojo.reflection"
+     * as two distinct subPackages. The JAR file returns a full list of files, no paths, so this is the way to break it
+     * up.
+     *
+     * @param subPackageName
+     *            The subpackage name.
+     * @return
+     *         A Set of unique sub path entries.
+     */
+    private String getDirectSubPackageName(final String subPackageName) {
+        if (subPackageName.startsWith(packageName) && !packageName.equals(subPackageName)) {
+            String[] subPackageTokens = null;
+            subPackageTokens = subPackageName.substring(packageName.length() + 1).split("\\.");
+            if (subPackageTokens.length > 0) {
+                return packageName + JDKPACKAGE_DELIMETER + subPackageTokens[0];
+            }
+        }
+        return null;
     }
-
 }

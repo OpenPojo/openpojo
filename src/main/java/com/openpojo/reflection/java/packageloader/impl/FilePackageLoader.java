@@ -16,31 +16,63 @@
  */
 package com.openpojo.reflection.java.packageloader.impl;
 
+import java.io.File;
+import java.lang.reflect.Type;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Set;
 
-import com.openpojo.reflection.java.JDKType;
-import com.openpojo.reflection.java.packageloader.JDKPackageLoader;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.packageloader.PackageLoader;
 
 /**
  * @author oshoukry
  */
-public final class FilePackageLoader extends JDKPackageLoader {
+public final class FilePackageLoader extends PackageLoader {
 
     public FilePackageLoader(final URL packageURL, final String packageName) {
         super(packageURL, packageName);
     }
 
     @Override
-    public Set<JDKType> getTypes() {
-        // TODO Auto-generated method stub
-        throw new IllegalStateException("Unimplemented!!");
+    public Set<Type> getTypes() {
+
+        Set<Type> types = new HashSet<Type>();
+
+        for (File entry : getEntries()) {
+            try {
+                String className = fromJDKPathToJDKPackage(packageName) + JDKPACKAGE_DELIMETER + entry.getName();
+                Class<?> classEntry = getAsClass(className);
+                if (classEntry != null) {
+                    types.add(classEntry);
+                }
+            } catch (ClassNotFoundException classNotFoundException) { // entry wasn't a class
+            }
+        }
+        return types;
     }
 
     @Override
-    public Set<JDKPackageLoader> getSubPackages() {
-        // TODO Auto-generated method stub
-        throw new IllegalStateException("Unimplemented!!");
+    public Set<String> getSubPackages() {
+        Set<String> subPaths = new HashSet<String>();
+        for (File file : getEntries()) {
+            if (file.isDirectory()) {
+                subPaths.add(fromJDKPathToJDKPackage(packageName) + JDKPACKAGE_DELIMETER + file.getName());
+            }
+        }
+        return subPaths;
+    }
+
+    private File[] getEntries() {
+        File directory;
+        try {
+            // convert toURI to decode %20 for spaces, etc.
+            directory = new File(packageURL.toURI().getPath());
+        } catch (URISyntaxException uriSyntaxException) {
+            throw ReflectionException.getInstance(uriSyntaxException.getMessage(), uriSyntaxException);
+        }
+        return directory.listFiles();
     }
 
 }

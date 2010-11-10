@@ -17,18 +17,18 @@
 
 package com.openpojo.reflection.impl;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
+import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
-import com.openpojo.reflection.utils.PackageHelper;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.packageloader.Package;
 
 /**
  * This class represents the abstraction of a JAVA Package as PojoPackageImpl.
@@ -39,6 +39,7 @@ class PojoPackageImpl implements PojoPackage {
 
     private final String packageName;
     private final PojoClass packageInfoPojoClass;
+    private final Package jdkPackage;
 
     public String getName() {
         return packageName;
@@ -51,7 +52,10 @@ class PojoPackageImpl implements PojoPackage {
             throw new IllegalArgumentException("PackageName can not be null");
         }
 
-        validatePackage();
+        jdkPackage = new Package(packageName);
+        if (!isValid()) {
+            throw ReflectionException.getInstance(MessageFormatter.format("Package [{0}] is not valid", packageName));
+        }
 
         Class<?> infoClass = null;
         try {
@@ -65,8 +69,8 @@ class PojoPackageImpl implements PojoPackage {
         }
     }
 
-    private void validatePackage() {
-        PackageHelper.getPackageDirectories(packageName);
+    private boolean isValid() {
+        return jdkPackage.isValid();
     }
 
     public List<PojoClass> getPojoClasses() {
@@ -75,9 +79,8 @@ class PojoPackageImpl implements PojoPackage {
 
     public List<PojoClass> getPojoClasses(final PojoClassFilter filter) {
         List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
-
-        for (Class<?> clazz : PackageHelper.getClasses(packageName)) {
-            PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
+        for (Type type : jdkPackage.getTypes()) {
+            PojoClass pojoClass = PojoClassFactory.getPojoClass((Class<?>) type);
             if (filter == null || filter.include(pojoClass)) {
                 pojoClasses.add(pojoClass);
             }
@@ -87,24 +90,11 @@ class PojoPackageImpl implements PojoPackage {
     }
 
     public List<PojoPackage> getPojoSubPackages() {
-        // Using a set to de-dupe the entries for package names, since a package can live in multiple paths.
-        Set<String> packageEntries = new LinkedHashSet<String>();
-        List<File> paths = PackageHelper.getPackageDirectories(packageName);
-        for (File path : paths) {
-            for (File entry : path.listFiles()) {
-                if (entry.isDirectory()) {
-                    String subPackageName = packageName + PACKAGE_DELIMETER + entry.getName();
-                    packageEntries.add(subPackageName);
-                }
-            }
+        List<PojoPackage> pojoPackages = new LinkedList<PojoPackage>();
+        for (Package entry : jdkPackage.getSubPackages()) {
+            pojoPackages.add(new PojoPackageImpl(entry.getPackageName()));
         }
-
-        List<PojoPackage> pojoPackageSubPackages = new LinkedList<PojoPackage>();
-        for (String entry : packageEntries) {
-            pojoPackageSubPackages.add(new PojoPackageImpl(entry));
-        }
-
-        return pojoPackageSubPackages;
+        return pojoPackages;
     }
 
     public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
