@@ -16,16 +16,13 @@
  */
 package com.openpojo.reflection.java.packageloader;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.reflection.exception.ReflectionException;
 
 /**
  * @author oshoukry
@@ -76,15 +73,10 @@ public final class Package {
 
     private Set<PackageLoader> getPackageLoaders() {
         Set<PackageLoader> packageLoaders = new HashSet<PackageLoader>();
-        try {
-            Set<URL> resources = PackageLoader.getThreadResources(packageName);
-            for (URL resource : resources) {
-                packageLoaders.add(PackageLoader.getPackageLoaderByURL(resource, packageName));
-            }
-        } catch (IOException e) {
-            throw ReflectionException.getInstance(e.getMessage(), e);
-        } catch (URISyntaxException e) {
-            throw ReflectionException.getInstance(e.getMessage(), e);
+
+        Set<URL> resources = PackageLoader.getThreadResources(packageName);
+        for (URL resource : resources) {
+            packageLoaders.add(PackageLoader.getPackageLoaderByURL(resource, packageName));
         }
         return packageLoaders;
     }
