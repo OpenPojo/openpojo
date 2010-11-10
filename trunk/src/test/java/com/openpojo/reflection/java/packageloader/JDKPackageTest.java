@@ -14,35 +14,34 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.reflection.java;
+package com.openpojo.reflection.java.packageloader;
 
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.lang.reflect.WildcardType;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
-public class JDKType {
-    private final Type underlyingType;
+public class JDKPackageTest {
 
-    public JDKType(final Type underlyingType) {
-        this.underlyingType = underlyingType;
+    /**
+     * @throws java.lang.Exception
+     */
+    @Before
+    public void setUp() throws Exception {
     }
 
-    public boolean isGeneric() {
-        return (underlyingType instanceof ParameterizedType);
-    }
+    @Test
+    public void shouldGetClasses() {
+        Package jdkPackage = new Package("javax.media");
+        for (Type type : jdkPackage.getTypes()) {
+            System.out.println("Type: " + ((Class<?>) type).getName());
+        }
 
-    public boolean isWildType() {
-        return (underlyingType instanceof WildcardType);
-    }
-
-    public boolean isPackage() {
-        return (underlyingType instanceof Package);
-    }
-
-    public Class<?> getUnderlyingClass() {
-        return underlyingType.getClass();
+        for (Package subPackage : jdkPackage.getSubPackages()) {
+            System.out.println("SubPackage: " + subPackage.getPackageName());
+        }
     }
 }

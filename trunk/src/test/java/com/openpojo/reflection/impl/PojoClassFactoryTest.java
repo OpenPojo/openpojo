@@ -116,7 +116,7 @@ public class PojoClassFactoryTest {
     public void testGetPojoClassesRecursively() {
         List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(DUMMY_PACKAGE,
                 new FilterCloverClasses());
-        Affirm.affirmEquals(pojoClasses.toString(), 3, pojoClasses.size());
+        Affirm.affirmEquals(pojoClasses.toString(), 4, pojoClasses.size());
     }
 
     /**
@@ -126,7 +126,7 @@ public class PojoClassFactoryTest {
     public void testEnumerateClassesByExtendingType() {
         List<PojoClass> pojoClasses = PojoClassFactory.enumerateClassesByExtendingType(DUMMY_PACKAGE,
                 Persistable.class, new FilterCloverClasses());
-        Affirm.affirmEquals(pojoClasses.toString(), 2, pojoClasses.size());
+        Affirm.affirmEquals(pojoClasses.toString(), 3, pojoClasses.size());
     }
 
 }

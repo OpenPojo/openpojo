@@ -75,4 +75,10 @@ public final class LoggerFactory {
         return logger;
     }
 
+    public static void initialize() {
+        if (!org.apache.log4j.Logger.getRootLogger().getAllAppenders().hasMoreElements()) {
+            // Configure log4J with the basic configuration.
+            org.apache.log4j.BasicConfigurator.configure();
+        }
+    }
 }
