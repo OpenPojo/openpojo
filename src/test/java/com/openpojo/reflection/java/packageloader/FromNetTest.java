@@ -8,6 +8,7 @@ import java.util.Enumeration;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.openpojo.reflection.java.packageloader.impl.JARPackageLoader;
@@ -25,6 +26,7 @@ public class FromNetTest {
     }
 
     @Test
+    @Ignore
     public void rootResources() throws URISyntaxException {
         while (urls.hasMoreElements()) {
             URL entry = urls.nextElement();
@@ -39,6 +41,7 @@ public class FromNetTest {
     }
 
     @Test
+    @Ignore
     public void getSubPackages() throws URISyntaxException {
         while (urls.hasMoreElements()) {
             URL entry = urls.nextElement();
