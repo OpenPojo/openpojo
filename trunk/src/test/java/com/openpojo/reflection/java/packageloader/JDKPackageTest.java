@@ -19,6 +19,7 @@ package com.openpojo.reflection.java.packageloader;
 import java.lang.reflect.Type;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -34,6 +35,7 @@ public class JDKPackageTest {
     }
 
     @Test
+    @Ignore
     public void shouldGetClasses() {
         Package jdkPackage = new Package("javax.media");
         for (Type type : jdkPackage.getTypes()) {

@@ -49,7 +49,6 @@ public abstract class PackageLoader {
         this.packageURL = packageURL;
         this.packageName = packageName;
         logger = LoggerFactory.getLogger(this.getClass());
-        LoggerFactory.initialize();
     }
 
     public abstract Set<Type> getTypes();

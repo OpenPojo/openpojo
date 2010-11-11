@@ -19,6 +19,7 @@ package com.openpojo.exception;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
@@ -97,6 +98,7 @@ public class TestExceptions {
     }
 
     @Test
+    @Ignore
     public void debugExceptions() {
         for (PojoClass pojoExceptionClass : pojoExceptionClasses) {
             System.out.println(pojoExceptionClass.getSourcePath() + ": " + pojoExceptionClass.getClazz().getName());
