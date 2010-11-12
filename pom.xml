@@ -150,13 +150,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <excludes>
-                        <!-- Excluded since Clover classes interfere with class counts -->
-                        <exclude>com/openpojo/reflection/utils/PackageHelperTest.java</exclude>
-                        <exclude>com/openpojo/reflection/impl/PojoPackageImplTest.java</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>
