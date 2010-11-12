@@ -23,6 +23,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.loop.Employee;
 import com.openpojo.random.loop.RandomEmployee;
 import com.openpojo.random.sampleclasses.AClassWithNoRegisteredRandomGenerator;
@@ -53,7 +54,7 @@ public class RandomFactoryTest {
         });
 
         Assert.assertEquals("RandomGenerator registration failed", randomString, ((RegisteredDummy) RandomFactory
-                .getRandomValue(RegisteredDummy.class)).getValue());
+            .getRandomValue(RegisteredDummy.class)).getValue());
     }
 
     /**
@@ -67,6 +68,11 @@ public class RandomFactoryTest {
 
     }
 
+    @Test(expected = RandomGeneratorException.class)
+    public void shouldFailAbstract() {
+        RandomFactory.getRandomValue(com.openpojo.random.sampleclasses.AnAbstractClass.class);
+    }
+
     @Test
     public void generateRandomWithNoRegisteredRandomGenerator() {
         Class<?> clazz = AClassWithNoRegisteredRandomGenerator.class;
@@ -74,10 +80,10 @@ public class RandomFactoryTest {
         Object someInstance = RandomFactory.getRandomValue(clazz);
 
         Affirm.affirmNotNull(String.format("Null value returned for random instance of [%s]", clazz.getName()),
-                someInstance);
+            someInstance);
 
         Affirm.affirmFalse(String.format("Non randomized instance returned (i.e. same object) for [%s]", clazz
-                .getName()), someInstance.equals(RandomFactory.getRandomValue(clazz)));
+            .getName()), someInstance.equals(RandomFactory.getRandomValue(clazz)));
     }
 
     private class RegisteredDummy {
