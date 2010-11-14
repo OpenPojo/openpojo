@@ -43,7 +43,7 @@ public final class JARPackageLoader extends PackageLoader {
         Set<Type> types = new LinkedHashSet<Type>();
         for (Type type : getAllJarTypes()) {
             Class<?> classEntry = (Class<?>) type;
-            if (classEntry.getPackage().equals(packageName)) {
+            if (classEntry.getPackage().getName().equals(packageName)) {
                 types.add(type);
             }
         }
@@ -90,16 +90,14 @@ public final class JARPackageLoader extends PackageLoader {
     }
 
     /**
-     * This method breaks up a package path into its elements.
+     * This method breaks up a package path into its elements returning the first subelement only.
      * For example, if packageName is set to "com" and the JAR file has only one class
-     * "com.openpojo.reflection.somclass", we need to state that there are "com.openpojo", "com.openpojo.reflection"
-     * as two distinct subPackages. The JAR file returns a full list of files, no paths, so this is the way to break it
-     * up.
+     * "com.openpojo.reflection.somclass", then the return will be set to "com.openpojo".
      *
      * @param subPackageName
      *            The subpackage name.
      * @return
-     *         A Set of unique sub path entries.
+     *         A first sub level bellow packageName.
      */
     private String getDirectSubPackageName(final String subPackageName) {
         if (subPackageName.startsWith(packageName) && !packageName.equals(subPackageName)) {
