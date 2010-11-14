@@ -4,7 +4,9 @@ This page is the top level on the tutorial
 
 == Requirements ==
   # Java 5 or above.
-  # Assertion framework (either JUnit 4+ or TestNG 5.12+).
+  # Optional
+   # JUnit 4.8.2+, Or TestNG 5.14.2+, if neither is present, an AssertionError will be thrown when a test fails.
+   # SLF4J, or Log4j, if neither is present, Java's Logging will be utilized instead.
 
 == Setup ==
   # Add the openpojo.jar to your classpath.
