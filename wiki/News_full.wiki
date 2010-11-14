@@ -4,7 +4,7 @@
  * *2010-11-13:*
   * OpenPojo-0.3.2 released
    * Added
-    * OpenPojo will now handle loading / introspecting classes even in JAR files.
+    * OpenPojo will now enumerate classes & packages in JAR files as well as file system.
    * Deprecated
     * PackageHelper class is no longer used and will be removed in 0.4.x releases.
  * *2010-11-05:*
