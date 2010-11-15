@@ -29,6 +29,7 @@ If your question is not answered by the list bellow, please feel free to post an
   * Pass that FilterChain to the PojoClassFactory when you're enumerating - getPojoClasses(packageName, PojoClassFilter).
  # OpenPojo keeps pulling in these classes that I didn't create, they were created by Clover, help!!
   * When enumerating pass in FilterCloverClasses.
+=== Enumerate in JAR ===
  # I need to enumerate all classes in a package that is located inside a JAR file.
   * Add that JAR file to your class path when you run, call PojoClassFactory.getPojoClassesRecursively(packageName, filter).
 
