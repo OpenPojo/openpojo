@@ -18,18 +18,19 @@ If your question is not answered by the list bellow, please feel free to post an
   * Start eclipse and import the project.
 
 == Usage ==
+=== Field Prefixes ===
  # In my company we use field prefixes so in a class we can have String m_name with getName setName, how do I use OpenPojo to validate getters/setters?
   * In your test setup method, and before you enumerate any POJOs call AttributeHelper.registerFieldPrefix(String).
  # We use hungarian notation, what can we do?
   * You can call AttributeHelper.registerFieldPrefix(String) as many times as you want, they are all stored and used.
+=== Filtering ===
  # How do I filter out all enums as well as package-info?
-  * create a FilterChain and pass in the constructor all the filters that you want to run against your POJOs.
+  * Create a FilterChain and pass in the constructor all the filters that you want to run against your POJOs (FilterEnum, FilterPackageInfo).
   * Pass that FilterChain to the PojoClassFactory when you're enumerating - getPojoClasses(packageName, PojoClassFilter).
-
-== Performance ==
- * How fast is OpenPojo?
-  * The short answer is "VERY" fast, the latest numbers were tested on a 2.4 GHz Core 2 Duo machine and the test was conducted on 1000 POJOs tested with all rule and testers in ~2.2 secs that is over 430 POJOs per second.
-
+ # OpenPojo keeps pulling in these classes that I didn't create, they were created by Clover, help!!
+  * When enumerating pass in FilterCloverClasses.
+ # I need to enumerate all classes in a package that is located inside a JAR file.
+  * Add that JAR file to your class path when you run, call PojoClassFactory.getPojoClassesRecursively(packageName, filter).
 
 *Have a question that was not answered?*
  * Post a comment on this page and I'll answer you.
