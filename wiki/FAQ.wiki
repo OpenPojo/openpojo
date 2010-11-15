@@ -6,6 +6,8 @@ If your question is not answered by the list bellow, please feel free to post an
 
 
 == Setup ==
+ # How do I get started?
+  * See [http://code.google.com/p/openpojo/wiki/Tutorial Tutorial]
  # How do I configure my eclipse project against the source code of OpenPojo?
   * Checkout the code:
    * svn checkout http://openpojo.googlecode.com/svn/trunk/ openpojo-read-only
