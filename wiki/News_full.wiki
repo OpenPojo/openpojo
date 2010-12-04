@@ -1,6 +1,8 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-12-03:*
+  * OpenPojo-0.3.3 released - Licensing is now LGPL instead of GPL.
  * *2010-11-13:*
   * OpenPojo-0.3.2 released
    * Added
