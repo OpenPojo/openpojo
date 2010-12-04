@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -53,8 +54,8 @@
     <licenses>
         <license>
             <distribution>repo</distribution>
-            <name>GNU GENERAL PUBLIC LICENSE v3</name>
-            <url>http://www.gnu.org/licenses/gpl.html</url>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE v3</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
         </license>
     </licenses>
     <inceptionYear>2010</inceptionYear>
@@ -65,6 +66,7 @@
         <junit.version>4.8.2</junit.version>
         <testng.version>5.14.2</testng.version>
         <log4j.version>1.2.16</log4j.version>
+        <javax.validation.version>1.0.0.GA</javax.validation.version>
         <!--
             <slf4j.version>[1.4.1,1.6.1]</slf4j.version> <junit.version>[4.0,4.8.2]</junit.version>
             <testng.version>[5.0,5.14.2]</testng.version> <log4j.version>[1.2.12,1.2.16]</log4j.version>
@@ -208,7 +210,26 @@
             </build>
         </profile>
     </profiles>
+    <repositories>
+        <repository>
+            <id>JBOSS</id>
+            <name>JBoss Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/public/</url>
+        </repository>
+    </repositories>
     <dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
