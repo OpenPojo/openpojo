@@ -41,6 +41,7 @@ public class PackageHelperTest {
     private static final String CLOVER_STRING = "$__CLR";
 
     @Test
+    @SuppressWarnings("deprecation")
     public final void testGetClasses() {
         List<Class<?>> classes = new LinkedList<Class<?>>();
         for (Class<?> classEntry : PackageHelper.getClasses(PACKAGE_NAME)) {
@@ -56,6 +57,7 @@ public class PackageHelperTest {
      */
     @Test
     public final void testGetPackageAsDirectory() {
+        @SuppressWarnings("deprecation")
         List<File> directories = PackageHelper.getPackageDirectories(PACKAGE_NAME);
         Assert.assertNotNull(directories);
 
@@ -77,6 +79,7 @@ public class PackageHelperTest {
 
     @Test
     public final void testClassNotFoundOnClassLoading() {
+        @SuppressWarnings("deprecation")
         PojoClass pojoClass = PojoClassFactory.getPojoClass(PackageHelper.class);
         PojoMethod loadClassPojoMethod = null;
         for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {

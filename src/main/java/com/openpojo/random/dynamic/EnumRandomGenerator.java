@@ -33,7 +33,6 @@ public final class EnumRandomGenerator {
         return Instance.INSTANCE;
     }
 
-    @SuppressWarnings("unchecked")
     public Object doGenerate(final Class<?> type) {
         PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
 
@@ -44,7 +43,7 @@ public final class EnumRandomGenerator {
                 break;
             }
         }
-        Enum[] values = (Enum[]) valuesPojoMethod.invoke(null, (Object[]) null);
+        Enum<?>[] values = (Enum<?>[]) valuesPojoMethod.invoke(null, (Object[]) null);
         return values[RANDOM.nextInt(values.length)];
     }
 
