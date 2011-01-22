@@ -30,13 +30,13 @@ public final class AGoodGetterAndSetterClass {
     enum Color { BLACK, WHITE, GREY };
     private Color hairColor;
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private Map myMap;
 
     /**
      * @return the myMap
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public Map getMyMap() {
         return myMap;
     }
@@ -44,8 +44,7 @@ public final class AGoodGetterAndSetterClass {
     /**
      * @param myMap the myMap to set
      */
-    @SuppressWarnings("unchecked")
-    public void setMyMap(final Map myMap) {
+    public void setMyMap(@SuppressWarnings("rawtypes") final Map myMap) {
         this.myMap = myMap;
     }
 

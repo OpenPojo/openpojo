@@ -27,13 +27,13 @@ public final class ABadGetterAndSetterClass {
     private final String stringAttribute = "a String that is Final";
     public String stringNoGetterOrSetterAttribute;
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private Map myMap;
 
     /**
      * @return the myMap
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public Map getMyMap() {
         return myMap;
     }
@@ -41,8 +41,7 @@ public final class ABadGetterAndSetterClass {
     /**
      * @param myMap the myMap to set
      */
-    @SuppressWarnings("unchecked")
-    public void setMyMap(final Map myMap) {
+    public void setMyMap(@SuppressWarnings("rawtypes") final Map myMap) {
         this.myMap = myMap;
     }
 

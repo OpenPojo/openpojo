@@ -30,7 +30,7 @@ public class ClassWithGenericTypes {
     @SuppressWarnings("unused")
     private Map<String, Integer> parameterizedMap;
 
-    @SuppressWarnings({ "unused", "unchecked" })
+    @SuppressWarnings({ "unused", "rawtypes" })
     private List nonparameterizedList;
 
     @SuppressWarnings("unused")
