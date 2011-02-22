@@ -1,6 +1,8 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-2-22:*
+  * OpenPojo-0.3.4 released - fixed issue 15 to allow public fields as long as they are 'static final'.
  * *2010-12-03:*
   * OpenPojo-0.3.3 released - Licensing is now LGPL instead of GPL.
  * *2010-11-13:*
