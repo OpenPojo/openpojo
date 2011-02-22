@@ -24,7 +24,7 @@ import com.openpojo.business.identity.impl.DefaultIdentityHandler;
 /**
  * This is the Default factory that holds the default implementation of {@link IdentityEvaluator},
  * {@link HashCodeGenerator} and {@link BusinessValidator}. <br>
- * This IdentityFactory can route calls to other IdenityHandlers based on registeration.
+ * This IdentityFactory can route calls to other IdenityHandlers based on registration.
  *
  * @author oshoukry
  */
