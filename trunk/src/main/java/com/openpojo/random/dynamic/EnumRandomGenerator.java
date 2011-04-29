@@ -38,7 +38,7 @@ public final class EnumRandomGenerator {
 
         PojoMethod valuesPojoMethod = null;
         for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
-            if (pojoMethod.getName() == "values") {
+            if (pojoMethod.getName().equals("values")) {
                 valuesPojoMethod = pojoMethod;
                 break;
             }
