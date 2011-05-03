@@ -1,6 +1,9 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2010-5-03:*
+  * OpenPojo-0.3.5 released
+    * Fixed issue 18 (Thanks to Stephan M. for catching this).
  * *2010-2-22:*
   * OpenPojo-0.3.4 released
     * Added
