@@ -28,7 +28,7 @@ To use the BusinessIdentity class you need to:
 
  * BusinessIdentity
   This class exposes three basic methods that you can use in your Pojos to generate hashcode, equals and toString.
-   # hashCode & areEqual are used as a pair and both get their queue off of the @BusinessKey annotation.
+   # hashCode & areEqual are used as a pair and both get their cue off of the @BusinessKey annotation.
    # toString, is unique as it just prints out all variables and their content for a PojoClass.
 
  * BusinessKey
