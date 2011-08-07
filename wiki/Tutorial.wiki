@@ -9,8 +9,20 @@ This page is the top level on the tutorial
    # SLF4J, or Log4j, if neither is present, Java's Logging will be utilized instead.
 
 == Setup ==
-  # Download the latest OpenPojo ([http://code.google.com/p/openpojo/downloads/list Zip]) or from Maven.
-  # Identify the list of packages that have the POJOs you want to test.
+=== Get Jar ===
+  * If you use Maven use the following
+{{{
+  	<dependency>
+  		<groupId>com.googlecode.openpojo</groupId>
+  		<artifactId>openpojo</artifactId>
+  		<version>0.3.5</version>
+  	</dependency>
+}}}
+Or 
+  * Download the latest OpenPojo ([http://code.google.com/p/openpojo/downloads/list Zip])
+ 
+=== Next ===
+ # Identify the list of packages that have the POJOs you want to test.
   # Define classes to implement rules you want evaluate against see built in set in "com.openpojo.validation.rule" package under src folder.
   # Define Testers to implement the behaviors you want to run your POJOs through see the built in set in "com.openpojo.validation.test" package under src folder.
   # In your "setup" method in your JUnit class, create and instance of PojoValidator class and add all the rules and testers to it.
