@@ -12,11 +12,11 @@ This page is the top level on the tutorial
 === Get Jar ===
   * If you use Maven use the following
 {{{
-  	<dependency>
-  		<groupId>com.googlecode.openpojo</groupId>
-  		<artifactId>openpojo</artifactId>
-  		<version>0.3.5</version>
-  	</dependency>
+  <dependency>
+    <groupId>com.googlecode.openpojo</groupId>
+    <artifactId>openpojo</artifactId>
+    <version>0.3.5</version>
+  </dependency>
 }}}
 Or 
   * Download the latest OpenPojo ([http://code.google.com/p/openpojo/downloads/list Zip])
