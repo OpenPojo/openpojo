@@ -56,10 +56,6 @@ public final class BusinessIdentity {
              return false;
          }
 
-         if (BusinessIdentityUtils.sameInstance(first, second)) {
-             return true;
-         }
-
         IdentityFactory.getIdentityHandler(first).validate(first);
         IdentityFactory.getIdentityHandler(second).validate(second);
         return IdentityFactory.getIdentityHandler(first).areEqual(first, second);
