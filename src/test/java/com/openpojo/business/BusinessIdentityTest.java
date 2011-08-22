@@ -96,7 +96,7 @@ public class BusinessIdentityTest {
         }
 
         try {
-            BusinessIdentity.areEqual("First", "First");
+            BusinessIdentity.areEqual(new String("First"), new String("First"));
             Assert.fail("Expected Exception due to no BusinessKeys defined");
         } catch (BusinessException be) {
             // expected

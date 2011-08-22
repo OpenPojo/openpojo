@@ -18,6 +18,7 @@
 package com.openpojo.business;
 
 import com.openpojo.business.identity.IdentityFactory;
+import com.openpojo.business.utils.BusinessIdentityUtils;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
@@ -51,6 +52,14 @@ public final class BusinessIdentity {
      *          True if both objects are equal, false otherwise.  if either of those objects is null, equality is false.
      */
     public static boolean areEqual(final Object first, final Object second) {
+    	if (BusinessIdentityUtils.anyNull(first, second) || !BusinessIdentityUtils.sameClass(first, second)) {
+             return false;
+         }
+
+         if (BusinessIdentityUtils.sameInstance(first, second)) {
+             return true;
+         }
+
         IdentityFactory.getIdentityHandler(first).validate(first);
         IdentityFactory.getIdentityHandler(second).validate(second);
         return IdentityFactory.getIdentityHandler(first).areEqual(first, second);
