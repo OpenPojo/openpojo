@@ -43,14 +43,7 @@ public class DefaultIdentityEvaluator implements IdentityEvaluator {
     }
 
     public boolean areEqual(final Object first, final Object second) {
-        if (BusinessIdentityUtils.anyNull(first, second) || !BusinessIdentityUtils.sameClass(first, second)) {
-            return false;
-        }
-
-        if (BusinessIdentityUtils.sameInstance(first, second)) {
-            return true;
-        }
-
+       
         boolean runningEquality = true;
         for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(first.getClass())) {
             BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
