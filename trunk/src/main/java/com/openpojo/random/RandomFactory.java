@@ -21,6 +21,17 @@ import java.util.Map;
 
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
+import com.openpojo.random.collection.CollectionRandomGenerator;
+import com.openpojo.random.collection.list.AbstractListRandomGenerator;
+import com.openpojo.random.collection.list.AbstractSequentialListRandomGenerator;
+import com.openpojo.random.collection.list.ListConcreteRandomGenerator;
+import com.openpojo.random.collection.list.ListRandomGenerator;
+import com.openpojo.random.collection.queue.QueueConcreteRandomGenerator;
+import com.openpojo.random.collection.queue.QueueRandomGenerator;
+import com.openpojo.random.collection.set.NavigableSetRandomGenerator;
+import com.openpojo.random.collection.set.SetConcreteRandomGenerator;
+import com.openpojo.random.collection.set.SetRandomGenerator;
+import com.openpojo.random.collection.set.SortedSetRandomGenerator;
 import com.openpojo.random.dynamic.EnumRandomGenerator;
 import com.openpojo.random.dynamic.RandomInstanceFromInterfaceRandomGenerator;
 import com.openpojo.random.exception.RandomGeneratorException;
@@ -81,6 +92,22 @@ public class RandomFactory {
         RandomFactory.addRandomGenerator(TimestampRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(ClassRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(EnumSetRandomGenerator.getInstance());
+
+        // Collection
+        RandomFactory.addRandomGenerator(CollectionRandomGenerator.getInstance());
+        // Lists
+        RandomFactory.addRandomGenerator(ListRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(ListConcreteRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(AbstractSequentialListRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(AbstractListRandomGenerator.getInstance());
+        // Sets
+        RandomFactory.addRandomGenerator(SetRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(SetConcreteRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(SortedSetRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(NavigableSetRandomGenerator.getInstance());
+        // Queue
+        RandomFactory.addRandomGenerator(QueueRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(QueueConcreteRandomGenerator.getInstance());
     }
 
     /**
@@ -126,8 +153,7 @@ public class RandomFactory {
             if (typeClass.isAbstract()) {
                 throw RandomGeneratorException
                         .getInstance(String
-                                .format(
-                                        "Unable to generate random instance for Abstract class [%s], please register a RandomGenerator and try again",
+                                .format("Unable to generate random instance for Abstract class [%s], please register a RandomGenerator and try again",
                                         typeClass));
             }
 
