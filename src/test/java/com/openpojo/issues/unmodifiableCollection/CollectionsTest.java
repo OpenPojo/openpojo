@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.openpojo.reflection.PojoClass;
@@ -14,10 +13,6 @@ import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 
 public class CollectionsTest {
-
-	@Before
-	public void setUp() throws Exception {
-	}
 
 	@Test
 	public void testCollectionContainingClass() {
@@ -37,11 +32,13 @@ public class CollectionsTest {
 	private static class CollectionContainingClass {
 		private List<String> values = new ArrayList<String>();
 
-		public void setValues(List<String> values) {
+		@SuppressWarnings("unused")
+        public void setValues(List<String> values) {
 			this.values = values;
 		}
 
-		public List<String> getValues() {
+		@SuppressWarnings("unused")
+        public List<String> getValues() {
 			return Collections.unmodifiableList(values);
 		}
 
