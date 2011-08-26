@@ -41,6 +41,9 @@ import com.openpojo.random.impl.EnumSetRandomGenerator;
 import com.openpojo.random.impl.ObjectRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
 import com.openpojo.random.impl.VoidRandomGenerator;
+import com.openpojo.random.map.MapConcreteRandomGenerator;
+import com.openpojo.random.map.MapRandomGenerator;
+import com.openpojo.random.map.SortedMapRandomGenerator;
 import com.openpojo.random.thread.GeneratedRandomValues;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.construct.InstanceFactory;
@@ -108,6 +111,10 @@ public class RandomFactory {
         // Queue
         RandomFactory.addRandomGenerator(QueueRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(QueueConcreteRandomGenerator.getInstance());
+        // Map
+        RandomFactory.addRandomGenerator(MapRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(SortedMapRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(MapConcreteRandomGenerator.getInstance());
     }
 
     /**

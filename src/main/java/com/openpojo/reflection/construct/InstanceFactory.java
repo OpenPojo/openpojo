@@ -75,8 +75,8 @@ public class InstanceFactory {
                 return returnObject;
             }
         }
-        throw ReflectionException.getInstance(String.format("No matching constructor found using parameters[%s]",
-                                                            Arrays.toString(getTypes(parameters))));
+        throw ReflectionException.getInstance(String.format("No matching constructor for [%s] found using parameters[%s]",
+                                                            pojoClass.getClazz(), Arrays.toString(getTypes(parameters))));
     }
 
     /**
