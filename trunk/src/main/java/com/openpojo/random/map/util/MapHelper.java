@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * This Helper class populates the randomly generated collection with some random elements.<br>
- * It is configured to generate anywhere between 0 - 10 elements in the collection.
+ * This Helper class populates the randomly generated map with some random elements.<br>
+ * It is configured to generate anywhere between 0 - 10 elements in the map.
  *
  * @author oshoukry
  */

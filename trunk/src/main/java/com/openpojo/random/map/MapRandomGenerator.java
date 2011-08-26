@@ -29,14 +29,10 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
- * This is random generator is responsible for generating Collection interface<br>
- * Currently if Collection.class is requested, you will get a random object of
- * any of the following types: <br>
- * 1. Set <br>
- * 2. List <br>
- * 3. Queue <br>
- * <br>
- *
+ * This is random generator is responsible for generating Map interface <br>
+ * Currently if Map.class or AbstractMap.class is requested, you will get <br>
+ * a random object of any of the types defined in {@link MapConcreteRandomGenerator} <br>
+ * 
  * @author oshoukry
  */
 public final class MapRandomGenerator implements RandomGenerator {
@@ -56,8 +52,7 @@ public final class MapRandomGenerator implements RandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { Map.class, AbstractMap.class };
 
     public Object doGenerate(final Class<?> type) {
-        return RandomFactory.getRandomValue(mapImplementations.get(random
-                .nextInt(mapImplementations.size())));
+        return RandomFactory.getRandomValue(mapImplementations.get(random.nextInt(mapImplementations.size())));
     }
 
     public Collection<Class<?>> getTypes() {
