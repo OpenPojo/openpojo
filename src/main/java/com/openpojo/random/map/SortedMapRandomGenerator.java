@@ -25,9 +25,9 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
- * This is random generator is responsible for generating NavigableSet interface<br>
- * Currently if a random NavigableSet.class is requested, you will get an object of type TreeSet<br>
- *
+ * This is random generator is responsible for generating SortedMap interface<br>
+ * Currently if a random SortedMap.class is requested, you will get an object of type TreeMap<br>
+ * 
  * @author oshoukry
  */
 public final class SortedMapRandomGenerator implements RandomGenerator {

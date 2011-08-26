@@ -32,13 +32,18 @@ import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
- * This is random generator is responsible for generating concrete Set implementations <br>
- * <strong>Namely:</strong><br>
- * 1. HashSet <br>
- * 2. TreeSet <br>
- * 3. LinkedHashSet <br>
- * <br>
- *
+ * This is random generator is responsible for generating concrete Map implementations <br>
+ * <strong>Namely:</strong> <br>
+ * 1. TreeMap <br>
+ * 2. HashMap <br>
+ * 3. LinkedHashMap <br>
+ * 4. IdentityHashMap <br>
+ * 5. WeakHashMap <br>
+ * 6. ConcurrentHashMap <br>
+ * <strong>Under Construction will be:</strong> <br>
+ * - Hashtable <br>
+ * - EnumMap <br>
+ * 
  * @author oshoukry
  */
 public final class MapConcreteRandomGenerator implements RandomGenerator {
@@ -51,7 +56,11 @@ public final class MapConcreteRandomGenerator implements RandomGenerator {
     }
 
     private final Class<?>[] TYPES = new Class<?>[] { TreeMap.class, HashMap.class, LinkedHashMap.class,
-            IdentityHashMap.class, /** Not AbstractMap Hashtable.class, **/ /**EnumMap.class, */ WeakHashMap.class, ConcurrentHashMap.class };
+            IdentityHashMap.class, /**
+             * Not AbstractMap Hashtable.class,
+             **/
+            /** EnumMap.class, */
+            WeakHashMap.class, ConcurrentHashMap.class };
 
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
