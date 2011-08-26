@@ -10,10 +10,10 @@
       # Set,  HashSet, TreeSet, LinkedHashSet
       # Queue, BlockingQueue, LinkedBlockingQueue, PriorityBlockingQueue, DelayQueue, SynchronousQueue.
       # Map, TreeMap, HashMap, LinkedHashMap, IdentityHashMap, WeakHashMap, ConcurrentHashMap
- * *2010-5-03:*
+ * *2011-5-03:*
   * OpenPojo-0.3.5 released
     * Fixed issue 18 (Thanks to Stephan M. for catching this).
- * *2010-2-22:*
+ * *2011-2-22:*
   * OpenPojo-0.3.4 released
     * Added
       * New rule to allow public fields as long as they are 'static final' (issue 15).
