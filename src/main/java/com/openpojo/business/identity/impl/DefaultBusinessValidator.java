@@ -24,7 +24,7 @@ import com.openpojo.reflection.PojoField;
 
 /**
  * This class is the default implementation for business validation.
- * Its primary responsibitily is to validate that a business pojo has the following:<br>
+ * Its primary responsibility is to validate that a business POJO has the following:<br>
  * 1. One or more {@link BusinessKey} fields defined.<br>
  * 2. All Required/Composite fields have values where required.
  *
