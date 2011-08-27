@@ -16,42 +16,46 @@
  */
 package com.openpojo.random.map;
 
+import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
- * This is random generator is responsible for generating Map interface <br>
- * Currently if Map.class or AbstractMap.class is requested, you will get <br>
- * a random object of any of the types defined in {@link MapConcreteRandomGenerator} <br>
+ * This is random generator is responsible for generating SortedMap interface<br>
+ * Currently if a random SortedMap.class is requested, you will get an object of type TreeMap<br>
  *
  * @author oshoukry
  */
-public final class MapRandomGenerator implements RandomGenerator {
+public final class AbstractMapRandomGenerator implements RandomGenerator {
 
     private final Random random = new Random(new Date().getTime());
-    private final List<Class<?>> mapImplementations = new LinkedList<Class<?>>();
+    private final List<Class<?>> abstractMapImplementations = new LinkedList<Class<?>>();
 
-    private MapRandomGenerator() {
-        mapImplementations.addAll(MapConcreteRandomGenerator.getInstance().getTypes());
-
+    private AbstractMapRandomGenerator() {
+        Collection<Class<?>> concreteMaps = MapConcreteRandomGenerator.getInstance().getTypes();
+        for (Class<?> clazz : concreteMaps) {
+            if (AbstractMap.class.isAssignableFrom(clazz)) {
+                abstractMapImplementations.add(clazz);
+            }
+        }
     }
 
     public static RandomGenerator getInstance() {
         return Instance.INSTANCE;
     }
 
-    private static final Class<?>[] TYPES = new Class<?>[] { Map.class };
+    private static final Class<?>[] TYPES = new Class<?>[] { AbstractMap.class };
 
     public Object doGenerate(final Class<?> type) {
-        return RandomFactory.getRandomValue(mapImplementations.get(random.nextInt(mapImplementations.size())));
+        return RandomFactory.getRandomValue(abstractMapImplementations.get(random.nextInt(abstractMapImplementations
+                .size())));
     }
 
     public Collection<Class<?>> getTypes() {
@@ -59,6 +63,6 @@ public final class MapRandomGenerator implements RandomGenerator {
     }
 
     private static class Instance {
-        private static final RandomGenerator INSTANCE = new MapRandomGenerator();
+        private static final RandomGenerator INSTANCE = new AbstractMapRandomGenerator();
     }
 }

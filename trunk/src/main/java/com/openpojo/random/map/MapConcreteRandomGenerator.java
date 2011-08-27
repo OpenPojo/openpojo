@@ -19,6 +19,7 @@ package com.openpojo.random.map;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -40,10 +41,8 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * 4. IdentityHashMap <br>
  * 5. WeakHashMap <br>
  * 6. ConcurrentHashMap <br>
- * <strong>Under Construction will be:</strong> <br>
- * - Hashtable <br>
- * - EnumMap <br>
- * 
+ * 7. Hashtable <br>
+ *
  * @author oshoukry
  */
 public final class MapConcreteRandomGenerator implements RandomGenerator {
@@ -56,10 +55,7 @@ public final class MapConcreteRandomGenerator implements RandomGenerator {
     }
 
     private final Class<?>[] TYPES = new Class<?>[] { TreeMap.class, HashMap.class, LinkedHashMap.class,
-            IdentityHashMap.class, /**
-             * Not AbstractMap Hashtable.class,
-             **/
-            /** EnumMap.class, */
+            IdentityHashMap.class, Hashtable.class, // EnumMap.class,
             WeakHashMap.class, ConcurrentHashMap.class };
 
     @SuppressWarnings("rawtypes")
