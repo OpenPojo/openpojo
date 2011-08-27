@@ -34,7 +34,7 @@ public class MapHelper {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public static void populateWithRandomData(Map map) {
         for (int count = 0; count < RANDOM.nextInt(MAX_RANDOM_ELEMENTS + 1); count++) {
-                map.put(RANDOM.nextInt(), RANDOM.nextInt());
-         }
+            map.put(RANDOM.nextInt(), RANDOM.nextInt());
+        }
     }
 }
