@@ -4,7 +4,7 @@
  * *2011-8-26:*
   * OpenPojo-0.3.6 released
     * Fixed issue 19 (Thanks to David K. for catching this).
-    * Added support for Collections and Map random generation namely the following types will now be randomly generated (Thanks to Kajetan F for point out the need for this):
+    * Added support for Collections and Map random generation namely the following types will now be randomly generated (Thanks to Kajetan F for pointing out the need for this):
       # Collection
       # List, ArrayList, LinkedList
       # Set,  HashSet, TreeSet, LinkedHashSet
