@@ -41,6 +41,7 @@ import com.openpojo.random.impl.EnumSetRandomGenerator;
 import com.openpojo.random.impl.ObjectRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
 import com.openpojo.random.impl.VoidRandomGenerator;
+import com.openpojo.random.map.AbstractMapRandomGenerator;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
 import com.openpojo.random.map.MapRandomGenerator;
 import com.openpojo.random.map.SortedMapRandomGenerator;
@@ -75,10 +76,10 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * }
  * </pre>
  *
- * This would potentially cause a stack over-flow since there is a cyclic dependency of Employee on itself.
- * So to prevent stack over-flow (which would occur by trying to create a manager for every manager), this Factory has
- * built in protection (using {@link GeneratedRandomValues}) to prevent such a thing by recording for a current
- * recursive call if it's seen this type before, if so, it will return null the second time around.
+ * This would potentially cause a stack over-flow since there is a cyclic dependency of Employee on itself. So to
+ * prevent stack over-flow (which would occur by trying to create a manager for every manager), this Factory has built
+ * in protection (using {@link GeneratedRandomValues}) to prevent such a thing by recording for a current recursive call
+ * if it's seen this type before, if so, it will return null the second time around.
  *
  * @author oshoukry
  */
@@ -98,28 +99,32 @@ public class RandomFactory {
 
         // Collection
         RandomFactory.addRandomGenerator(CollectionRandomGenerator.getInstance());
+
         // Lists
         RandomFactory.addRandomGenerator(ListRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(ListConcreteRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(AbstractSequentialListRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(AbstractListRandomGenerator.getInstance());
+
         // Sets
         RandomFactory.addRandomGenerator(SetRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(SetConcreteRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(SortedSetRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(NavigableSetRandomGenerator.getInstance());
+
         // Queue
         RandomFactory.addRandomGenerator(QueueRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(QueueConcreteRandomGenerator.getInstance());
+
         // Map
         RandomFactory.addRandomGenerator(MapRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(SortedMapRandomGenerator.getInstance());
         RandomFactory.addRandomGenerator(MapConcreteRandomGenerator.getInstance());
+        RandomFactory.addRandomGenerator(AbstractMapRandomGenerator.getInstance());
     }
 
     /**
-     * Add a random generator to the list of available generators.
-     * The latest random generator registered wins.
+     * Add a random generator to the list of available generators. The latest random generator registered wins.
      *
      * @param generator
      *            The generator to add.
@@ -136,8 +141,7 @@ public class RandomFactory {
      *
      * @param type
      *            The type to get a random value of.
-     * @return
-     *         Randomly created value.
+     * @return Randomly created value.
      */
     public static final Object getRandomValue(final Class<?> type) {
         if (GeneratedRandomValues.contains(type)) {
