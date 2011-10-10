@@ -2,6 +2,7 @@
 
 = News =
  * *2011-10-10:*
+  * OpenPojo-0.3.7 released
     * Fixed issue 21.
     * Added support for Filtering PojoClasses by name using regex (issue 20).
  * *2011-8-26:*
