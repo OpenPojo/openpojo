@@ -1,6 +1,9 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2011-10-10:*
+    * Fixed issue 21.
+    * Added support for Filtering PojoClasses by name using regex (issue 20).
  * *2011-8-26:*
   * OpenPojo-0.3.6 released
     * Fixed issue 19 (Thanks to David K. for catching this).
