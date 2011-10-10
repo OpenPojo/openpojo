@@ -24,6 +24,8 @@ import com.openpojo.reflection.PojoClassFilter;
  * The logic for filtering is simple, since all clover generated classes have "$__CLR" in their name.
  *
  * @author oshoukry
+ *
+ * TODO: Wire the FilterCloverClasses to utilize FilterClassName filter.
  */
 public class FilterCloverClasses implements PojoClassFilter {
     private static final String DEFAULT_CLOVER_TAG = "$__CLR";
