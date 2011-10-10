@@ -1,6 +1,6 @@
 Ramblings about what I think I want to add next...
 
-== Up Coming features ==
+== Up Coming features in no particular order ==
   # Find a way to speed up the BusinessIdentity to reuse as much as possible of the introspection work done once.
   # Auto-register super types from concrete types return from RandomGenerator.
   # Better handling for JDK 1.6 collection's generation vs. 1.5.
