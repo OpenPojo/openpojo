@@ -1,7 +1,8 @@
 Ramblings about what I think I want to add next...
 
 == Up Coming features ==
-  # Add a way to on the fly create random objects without needing to populate the RandomFactory.
-
+  # Find a way to speed up the BusinessIdentity to reuse as much as possible of the introspection work done once.
+  # Auto-register super types from concrete types return from RandomGenerator.
+  # Better handling for JDK 1.6 collection's generation vs. 1.5.
 
 *Note:* If there is something you'd like to see that isn't listed please drop me a line or open a ticket in the Issues section.
