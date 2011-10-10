@@ -16,15 +16,12 @@
  */
 package com.openpojo.random.collection.queue;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Queue;
-import java.util.concurrent.DelayQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
-import java.util.concurrent.SynchronousQueue;
+import java.util.Set;
 
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
 import com.openpojo.reflection.construct.InstanceFactory;
@@ -51,8 +48,9 @@ public final class QueueConcreteRandomGenerator implements RandomGenerator {
         return Instance.INSTANCE;
     }
 
-    private final Class<?>[] TYPES = new Class<?>[] { ArrayDeque.class, LinkedBlockingQueue.class,
-             PriorityBlockingQueue.class, DelayQueue.class, SynchronousQueue.class /**, ArrayBlockingQueue.class*/};
+    private final String[] TYPES = new String[] { "java.util.ArrayDeque", "java.util.concurrent.LinkedBlockingQueue",
+            "java.util.concurrent.PriorityBlockingQueue", "java.util.concurrent.DelayQueue", "java.util.concurrent.SynchronousQueue" };
+
 
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
@@ -67,7 +65,16 @@ public final class QueueConcreteRandomGenerator implements RandomGenerator {
     }
 
     public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
+        Set<Class<?>> types = new HashSet<Class<?>>();
+
+        for (String type : TYPES) {
+            try {
+                types.add(Class.forName(type));
+            } catch (ClassNotFoundException e) {
+                LoggerFactory.getLogger(this.getClass()).info("Failed to load [{0}], got Exception[{1}]", type, e);
+            }
+        }
+        return types;
     }
 
     private static class Instance {
