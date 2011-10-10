@@ -16,11 +16,12 @@
  */
 package com.openpojo.random.collection.set;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.NavigableSet;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeSet;
 
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
@@ -39,14 +40,22 @@ public final class NavigableSetRandomGenerator implements RandomGenerator {
         return Instance.INSTANCE;
     }
 
-    private static final Class<?>[] TYPES = new Class<?>[] { NavigableSet.class };
+    private static final String[] TYPES = new String[] { "java.util.NavigableSet" };
 
     public Object doGenerate(final Class<?> type) {
         return RandomFactory.getRandomValue(TreeSet.class);
     }
 
     public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
+        Set<Class<?>> types = new HashSet<Class<?>>();
+        for (String type : TYPES) {
+            try {
+                types.add(Class.forName(type));
+            } catch (ClassNotFoundException e) {
+                LoggerFactory.getLogger(this.getClass()).info("Failed to load [{0}], got Exception[{1}]", type, e);
+            }
+        }
+        return types;
     }
 
     private static class Instance {
