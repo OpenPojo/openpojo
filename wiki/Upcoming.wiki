@@ -1,8 +1,8 @@
 Ramblings about what I think I want to add next...
 
 == Up Coming features in no particular order ==
+  * Auto-register super types from concrete types returned from a RandomGenerator.
   * Find a way to speed up the BusinessIdentity to reuse as much as possible of the introspection work done once.
-  * Auto-register super types from concrete types return from RandomGenerator.
   * Better handling for JDK 1.6 collection's generation vs. 1.5.
   * Add the ability to filter PojoClass based on source path. 
 
