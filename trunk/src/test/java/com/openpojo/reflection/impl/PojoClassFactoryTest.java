@@ -110,7 +110,7 @@ public class PojoClassFactoryTest {
     }
 
     /**
-     * Test getting classes from a higherarchy.
+     * Test getting classes from a hierarchy.
      */
     @Test
     public void testGetPojoClassesRecursively() {

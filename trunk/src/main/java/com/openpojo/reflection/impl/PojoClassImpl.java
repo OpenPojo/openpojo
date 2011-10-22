@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.business.BusinessIdentity;
+import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
@@ -37,6 +39,9 @@ import com.openpojo.reflection.utils.ToStringHelper;
  * @author oshoukry
  */
 class PojoClassImpl implements PojoClass {
+
+    @BusinessKey(caseSensitive = true)
+    private final String name;
     private final Class<?> clazz;
     private final List<PojoField> pojoFields;
     private final List<PojoMethod> pojoMethods;
@@ -47,6 +52,7 @@ class PojoClassImpl implements PojoClass {
      */
     PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields, final List<PojoMethod> pojoMethods) {
         this.clazz = clazz;
+        this.name = clazz.getName();
         this.pojoFields = Collections.unmodifiableList(pojoFields);
         this.pojoMethods = Collections.unmodifiableList(pojoMethods);
     }
@@ -90,7 +96,7 @@ class PojoClassImpl implements PojoClass {
     }
 
     public String getName() {
-        return clazz.getName();
+        return name;
     }
 
     public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
@@ -155,5 +161,15 @@ class PojoClassImpl implements PojoClass {
         } catch (Exception e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return BusinessIdentity.getHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return BusinessIdentity.areEqual(this, other);
     }
 }

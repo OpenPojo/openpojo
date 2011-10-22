@@ -36,6 +36,7 @@ import com.openpojo.reflection.impl.sampleclasses.AClassWithEquality;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithExceptionalConstructors;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithInterfaces;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedClass;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithSixMethods;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithoutInterfaces;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithoutMethods;
@@ -49,7 +50,6 @@ import com.openpojo.reflection.impl.sampleclasses.NoDeclaredConstructor;
 import com.openpojo.reflection.impl.sampleclasses.OnePrivateNoParamsConstructor;
 import com.openpojo.reflection.impl.sampleclasses.OnePublicNoParamConstructor;
 import com.openpojo.reflection.impl.sampleclasses.SecondInterfaceForAClassWithInterfaces;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedClass;
 import com.openpojo.validation.affirm.Affirm;
 
 public class PojoClassImplTest {
@@ -303,6 +303,14 @@ public class PojoClassImplTest {
         Affirm.affirmTrue(String.format("PojoClass parsing for [%s] returned different class=[%s] in getClazz() call"
                 + " for PojoClass implementation=[%s]", clazz, pojoClass.getClazz(), pojoClass), clazz.equals(pojoClass
                 .getClazz()));
+    }
+
+    @Test
+    public void testEqualityAndHashCodeBasedOnIdentityNotInstance() {
+        PojoClass first = getPojoClassImplForClass(this.getClass());
+        PojoClass second = getPojoClassImplForClass(this.getClass());
+        Affirm.affirmEquals("PojoClassImpl equals is instance based!! Should be business equality based.", first, second);
+        Affirm.affirmEquals("PojoClassImpl hashCode is instance based!! Should be business equality based.", first.hashCode(), second.hashCode());
     }
 
     private PojoClassImpl getPojoClassImplForClass(final Class<?> clazz) {
