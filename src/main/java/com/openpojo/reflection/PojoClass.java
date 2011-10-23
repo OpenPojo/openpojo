@@ -20,35 +20,35 @@ import java.util.List;
 
 /**
  * This Interface defines the contract published by PojoClass implementations.
- * The idea is to give an easy and flexible way to work with application pojo classes.
+ * The idea is to give an easy and flexible way to work with application POJO classes.
  *
  * @author oshoukry
  */
 public interface PojoClass extends PojoElement {
 
     /**
-     * Check if PojoClass wrapps an interface.
+     * Check if PojoClass wraps an interface.
      *
-     * @return true if this PojoClass wrapps an interface.
+     * @return true if this PojoClass wraps an interface.
      */
     public boolean isInterface();
 
     /**
-     * Check if PojoClass wrapps an abstract.
+     * Check if PojoClass wraps an abstract.
      *
-     * @return true if this PojoClass wrapps an abstract class.
+     * @return true if this PojoClass wraps an abstract class.
      */
     public boolean isAbstract();
 
     /**
-     * Check if PojoClass wrapps a concrete (i.e. can be instantiated).
+     * Check if PojoClass wraps a concrete (i.e. can be instantiated).
      *
-     * @return true if this PojoClass wrapps a concrete class.
+     * @return true if this PojoClass wraps a concrete class.
      */
     public boolean isConcrete();
 
     /**
-     * Check if PojoClass wrapps an enum.
+     * Check if PojoClass wraps an enum.
      *
      * @return true if this PojoClass wraps an enum type.
      */
