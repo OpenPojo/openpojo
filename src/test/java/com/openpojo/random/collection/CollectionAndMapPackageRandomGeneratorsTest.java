@@ -24,6 +24,9 @@ public class CollectionAndMapPackageRandomGeneratorsTest {
     private static final List<PojoClass> collectionRandomGenerators = new LinkedList<PojoClass>();
     private static final String[] packages = new String[] { "com.openpojo.random.collection", "com.openpojo.random.map" };
     private static final int EXPECTED_COUNT = 15;
+
+    // TODO: add the validation for every expected type that the system should hold to.
+    @SuppressWarnings("unused")
     private final Set<Class<?>> expectedCollectionsMaps = new TreeSet<Class<?>>();
 
     @BeforeClass
