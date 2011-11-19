@@ -23,9 +23,8 @@ import java.util.List;
 import com.openpojo.reflection.exception.ReflectionException;
 
 /**
- * This Class is responsible for normalizing field names to attribute names.
- * The reason for this is some companies have policies that require all
- * member variables start with "m" or "its" or any of the hungarian notation prefixes.
+ * This Class is responsible for normalizing field names to attribute names. The reason for this is some companies have
+ * policies that require all member variables start with "m" or "its" or any of the hungarian notation prefixes.
  *
  * @author oshoukry
  */
@@ -34,8 +33,8 @@ public class AttributeHelper {
     private static final List<String> fieldPrefixes = new LinkedList<String>();
 
     /**
-     * If your fields are prefixed with some pre-defined string register them here.
-     * You can register more than one prefix.
+     * If your fields are prefixed with some pre-defined string register them here. You can register more than one
+     * prefix.
      *
      * @param prefix
      *            The prefix to register.
@@ -65,13 +64,11 @@ public class AttributeHelper {
     }
 
     /**
-     * This method returns the attribute name given a field name.
-     * The field name will get stripped of prefixes
+     * This method returns the attribute name given a field name. The field name will get stripped of prefixes
      *
      * @param field
      *            The field to inspect for attribute name
-     * @return
-     *         Normalized attribute name
+     * @return Normalized attribute name
      */
     public synchronized static String getAttributeName(final Field field) {
         String normalizedFieldName = field.getName();
@@ -94,14 +91,29 @@ public class AttributeHelper {
     }
 
     /**
-     * Properly CamelCased the field name as expected "first Letter is uppercase, rest is unchanged".
+     * Properly formatted field name, this will change the first letter to upper case only if the second letter isn't
+     * upper.
      *
      * @param field
      *            The field to proper case.
-     * @return
-     *         Formatted field name.
+     * @return Formatted field name.
      */
     private static String formattedFieldName(final String fieldName) {
+        if (isSecondLetterUpperCase(fieldName)) {
+            return fieldName;
+        }
+        return camelCase(fieldName);
+    }
+
+    private static boolean isSecondLetterUpperCase(String fieldName) {
+        if (fieldName.length() > 1) {
+            return Character.isUpperCase(Character.codePointAt(fieldName, 1));
+        }
+        return false;
+    }
+
+    private static String camelCase(String fieldName) {
         return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1, fieldName.length());
     }
+
 }
