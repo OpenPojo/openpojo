@@ -26,6 +26,8 @@ import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
+ * This RandomGenerator handles retrieval of random Enum values from an enum.
+ *
  * @author oshoukry
  */
 public final class EnumRandomGenerator {
@@ -39,10 +41,6 @@ public final class EnumRandomGenerator {
         PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
 
         Enum<?>[] values = getValues(pojoClass);
-        if (values == null) {
-            throw RandomGeneratorException.getInstance(MessageFormatter.format("Failed to enumerate possible values of Enum [{0}]", type));
-        }
-
         return values[RANDOM.nextInt(values.length)];
     }
 
@@ -52,7 +50,8 @@ public final class EnumRandomGenerator {
                 return (Enum<?>[]) pojoMethod.invoke(null, (Object[]) null);
             }
         }
-        return null;
+        throw RandomGeneratorException.getInstance(MessageFormatter.format(
+                "Failed to enumerate possible values of Enum [{0}]", enumPojoClass));
     }
 
     private static class Instance {
