@@ -14,48 +14,49 @@
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.openpojo.reflection.cache;
+package com.openpojo.business.cache;
+
+import java.util.List;
 
 import com.openpojo.cache.CacheStorage;
 import com.openpojo.cache.CacheStorageFactory;
-import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoField;
 
 /**
- * This is the Cache to hold references for PojoClasses, to prevent looking them up over and over.
+ * This is the Cache to hold references for BusinessPojoFields, to prevent looking them up over and over.
  *
  * @author oshoukry
  */
-public class PojoCache {
-    private static CacheStorage<PojoClass> pojoClassCache = CacheStorageFactory.getCacheStorage(PojoCache.class.getName());
+public class BusinessFieldCache {
+    private static CacheStorage<List<PojoField>> cache = CacheStorageFactory.getCacheStorage(BusinessFieldCache.class.getName());
 
     /**
-     * Retrieve an implementation from Cache.
+     * Retrieve a BusinessFields list from Cache.
      *
      * @param name
      *            Fully Qualified Class Name.
-     * @return
-     *         Cached PojoReference, or null if none found.
+     * @return Cached PojoReference, or null if none found.
      */
-    public static PojoClass getPojoClass(final String name) {
-        return pojoClassCache.get(name);
+    public static List<PojoField> getBusinessFields(final String name) {
+        return cache.get(name);
     }
 
     /**
-     * Add a PojoClass definition to the Cache.
+     * Add a BusinessFields definition to the Cache.
      *
      * @param name
      * @param pojoClass
      *            The entry to add to the cache.
      */
-    public static void addPojoClass(final String name, final PojoClass pojoClass) {
-        pojoClassCache.add(name, pojoClass);
+    public static void addBusinessFields(final String name, final List<PojoField> businessFields) {
+        cache.add(name, businessFields);
     }
 
     /**
-     * This method will clear the cache, which is only needed when testing.
-     * Note: Calling this under a heavy loads can have negatively impact performance.
+     * This method will clear the cache, which is only needed when testing. Note: Calling this under a heavy loads can
+     * have negatively impact performance.
      */
     public static void clear() {
-        pojoClassCache.clear();
+        cache.clear();
     }
 }
