@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.business.annotation.BusinessKey;
+import com.openpojo.business.cache.BusinessFieldCache;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -36,16 +37,20 @@ public class BusinessPojoHelper {
      *
      * @param clazz
      *            The class to introspect.
-     * @return
-     *         The list of fields that are annotated with @BusinessKey, will return an empty list if none are found.
+     * @return The list of fields that are annotated with @BusinessKey, will return an empty list if none are found.
      */
     public static List<PojoField> getBusinessKeyFields(final Class<?> clazz) {
-        List<PojoField> businessFields = new LinkedList<PojoField>();
+
+        List<PojoField> businessFields = BusinessFieldCache.getBusinessFields(clazz.getName());
+        if (businessFields != null) {
+            return businessFields;
+        }
+
+        businessFields = new LinkedList<PojoField>();
         PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
 
         List<PojoField> rawFields = new LinkedList<PojoField>();
         rawFields.addAll(pojoClass.getPojoFields());
-
 
         PojoClass parent = pojoClass.getSuperClass();
         while (parent != null) {
@@ -58,6 +63,7 @@ public class BusinessPojoHelper {
                 businessFields.add(pojoField);
             }
         }
+        BusinessFieldCache.addBusinessFields(clazz.getName(), businessFields);
         return businessFields;
     }
 
