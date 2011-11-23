@@ -1,6 +1,10 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2011-11-22:*
+  * OpenPojo-0.3.8 released
+    * Fixed issue 22.
+    * Added performance boost to BusinessIdentity management over 2x preliminary testing.
  * *2011-10-10:*
   * OpenPojo-0.3.7 released
     * Fixed issue 21.
