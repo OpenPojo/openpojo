@@ -1,5 +1,3 @@
-Ramblings about what I think I want to add next...
-
 == Up Coming features in no particular order ==
   * Auto-register super types from concrete types returned from a RandomGenerator.
   * Better handling for JDK 1.6 collection's generation vs. 1.5.
