@@ -23,7 +23,7 @@ import com.openpojo.cache.CacheStorageFactory;
 import com.openpojo.reflection.PojoField;
 
 /**
- * This is the Cache to hold references for BusinessPojoFields, to prevent looking them up over and over.
+ * This is the Cache to hold references for BusinessPojoFields.
  *
  * @author oshoukry
  */
@@ -52,11 +52,4 @@ public class BusinessFieldCache {
         cache.add(name, businessFields);
     }
 
-    /**
-     * This method will clear the cache, which is only needed when testing. Note: Calling this under a heavy loads can
-     * have negatively impact performance.
-     */
-    public static void clear() {
-        cache.clear();
-    }
 }
