@@ -27,12 +27,12 @@ public class CacheStorageFactory {
     /**
      * Returns an instance of CacheStorage for use.
      *
-     * @param name
-     *            The category to use for caching, its best to provide the fully qualified classname of the CacheStorage
-     *            user to allow multiple implementations to coexist based one requester.
+     * @param category
+     *            The category to use for caching, its best to provide the fully qualified class name of the
+     *            CacheStorage user to allow multiple implementations to coexist based one requester.
      * @return returns an instance of CacheStorage.
      */
-    public static <T> CacheStorage<T> getCacheStorage(String name) {
+    public static <T> CacheStorage<T> getCacheStorage(String category) {
         return new WeakHashMapCacheStorage<T>();
     }
 }
