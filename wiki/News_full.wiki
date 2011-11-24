@@ -4,7 +4,7 @@
  * *2011-11-22:*
   * OpenPojo-0.3.8 released
     * Fixed issue 22 (Thanks to Sharan for catching this).
-    * Added performance boost to BusinessIdentity management over 2x preliminary testing.
+    * Added performance boost to BusinessKey fields lookup yielding over 2x preliminary testing for equality & hashCode generation.
  * *2011-10-10:*
   * OpenPojo-0.3.7 released
     * Fixed issue 21.
