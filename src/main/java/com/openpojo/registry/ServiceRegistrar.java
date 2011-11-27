@@ -16,18 +16,81 @@
  */
 package com.openpojo.registry;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.openpojo.business.BusinessIdentity;
+import com.openpojo.random.collection.CollectionRandomGenerator;
+import com.openpojo.random.collection.list.AbstractListRandomGenerator;
+import com.openpojo.random.collection.list.AbstractSequentialListRandomGenerator;
+import com.openpojo.random.collection.list.ListConcreteRandomGenerator;
+import com.openpojo.random.collection.list.ListRandomGenerator;
+import com.openpojo.random.collection.queue.QueueConcreteRandomGenerator;
+import com.openpojo.random.collection.queue.QueueRandomGenerator;
+import com.openpojo.random.collection.set.NavigableSetRandomGenerator;
+import com.openpojo.random.collection.set.SetConcreteRandomGenerator;
+import com.openpojo.random.collection.set.SetRandomGenerator;
+import com.openpojo.random.collection.set.SortedSetRandomGenerator;
+import com.openpojo.random.impl.BasicRandomGenerator;
+import com.openpojo.random.impl.ClassRandomGenerator;
+import com.openpojo.random.impl.DefaultRandomGenerator;
+import com.openpojo.random.impl.EnumSetRandomGenerator;
+import com.openpojo.random.impl.ObjectRandomGenerator;
+import com.openpojo.random.impl.TimestampRandomGenerator;
+import com.openpojo.random.impl.VoidRandomGenerator;
+import com.openpojo.random.map.AbstractMapRandomGenerator;
+import com.openpojo.random.map.MapConcreteRandomGenerator;
+import com.openpojo.random.map.MapRandomGenerator;
+import com.openpojo.random.map.SortedMapRandomGenerator;
+import com.openpojo.random.service.RandomGeneratorService;
+import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
 
 /**
  * @author oshoukry
  */
 public class ServiceRegistrar {
-    private final Map<String, Service> SERVICES = new ConcurrentHashMap<String, Service>();
+    private RandomGeneratorService randomGeneratorService;
 
     private ServiceRegistrar() {
+        initRandomGeneratorService();
+    }
+
+    private void initRandomGeneratorService() {
+
+        randomGeneratorService = new DefaultRandomGeneratorService();
+
+        // Default Generator
+        randomGeneratorService.setDefaultRandomGenerator(new DefaultRandomGenerator());
+
+        // register basic types.
+        randomGeneratorService.registerRandomGenerator(VoidRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(ObjectRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(BasicRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(TimestampRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(ClassRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
+
+        // Collection
+        randomGeneratorService.registerRandomGenerator(CollectionRandomGenerator.getInstance());
+
+        // Lists
+        randomGeneratorService.registerRandomGenerator(ListRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(ListConcreteRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(AbstractSequentialListRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(AbstractListRandomGenerator.getInstance());
+
+        // Sets
+        randomGeneratorService.registerRandomGenerator(SetRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(SetConcreteRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(SortedSetRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(NavigableSetRandomGenerator.getInstance());
+
+        // Queue
+        randomGeneratorService.registerRandomGenerator(QueueRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(QueueConcreteRandomGenerator.getInstance());
+
+        // Map
+        randomGeneratorService.registerRandomGenerator(MapRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(SortedMapRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(MapConcreteRandomGenerator.getInstance());
+        randomGeneratorService.registerRandomGenerator(AbstractMapRandomGenerator.getInstance());
 
     }
 
@@ -35,16 +98,12 @@ public class ServiceRegistrar {
         return Instance.INSTANCE;
     }
 
-    public void registerService(final String name, final Service service) {
-        SERVICES.put(name, service);
+    public void setRandomGeneratorService(RandomGeneratorService randomGeneratorService) {
+        this.randomGeneratorService = randomGeneratorService;
     }
 
-    public void unregisterService(final String name) {
-        SERVICES.remove(name);
-    }
-
-    public Service getServiceByName(final String name) {
-        return SERVICES.get(name);
+    public RandomGeneratorService getRandomGeneratorService() {
+        return randomGeneratorService;
     }
 
     @Override
