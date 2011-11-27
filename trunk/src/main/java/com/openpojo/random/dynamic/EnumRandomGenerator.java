@@ -19,8 +19,6 @@ package com.openpojo.random.dynamic;
 import java.util.Date;
 import java.util.Random;
 
-import com.openpojo.log.utils.MessageFormatter;
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -45,13 +43,14 @@ public final class EnumRandomGenerator {
     }
 
     private Enum<?>[] getValues(PojoClass enumPojoClass) {
+        Enum<?> [] values = null;
         for (PojoMethod pojoMethod : enumPojoClass.getPojoMethods()) {
             if (pojoMethod.getName().equals("values")) {
-                return (Enum<?>[]) pojoMethod.invoke(null, (Object[]) null);
+                values = (Enum<?>[]) pojoMethod.invoke(null, (Object[]) null);
+                break;
             }
         }
-        throw RandomGeneratorException.getInstance(MessageFormatter.format(
-                "Failed to enumerate possible values of Enum [{0}]", enumPojoClass));
+        return values;
     }
 
     private static class Instance {
