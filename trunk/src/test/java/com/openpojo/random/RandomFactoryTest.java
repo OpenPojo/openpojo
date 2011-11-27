@@ -27,6 +27,11 @@ import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.loop.Employee;
 import com.openpojo.random.loop.RandomEmployee;
 import com.openpojo.random.sampleclasses.AClassWithNoRegisteredRandomGenerator;
+import com.openpojo.random.sampleclasses.NoRandomGeneratorPerson;
+import com.openpojo.random.sampleclasses.hierarchy.ClassExtendingClassImplementingSomeInterface;
+import com.openpojo.random.sampleclasses.hierarchy.ClassImplementingSomeInterface;
+import com.openpojo.random.sampleclasses.hierarchy.SomeInterface;
+import com.openpojo.random.sampleclasses.hierarchy.SomeInterfaceRandomGenerator;
 import com.openpojo.validation.affirm.Affirm;
 
 /**
@@ -68,6 +73,11 @@ public class RandomFactoryTest {
 
     }
 
+    @Test
+    public void shouldDetectCyclicLoopForNonRegisteredRandomGenerator() {
+        RandomFactory.getRandomValue(NoRandomGeneratorPerson.class);
+    }
+
     @Test(expected = RandomGeneratorException.class)
     public void shouldFailAbstract() {
         RandomFactory.getRandomValue(com.openpojo.random.sampleclasses.AnAbstractClass.class);
@@ -84,6 +94,28 @@ public class RandomFactoryTest {
 
         Affirm.affirmFalse(String.format("Non randomized instance returned (i.e. same object) for [%s]", clazz
             .getName()), someInstance.equals(RandomFactory.getRandomValue(clazz)));
+    }
+
+    @Test
+    public void shouldRegisterHierarchyOfTypes() {
+        RandomFactory.addRandomGenerator(SomeInterfaceRandomGenerator.getInstance());
+        Class<?> someInterface = SomeInterface.class;
+        Class<?> classImplementingSomeInterface = ClassImplementingSomeInterface.class;
+        Class<?> classExtendingClassImplmentingSomeInterface = ClassExtendingClassImplementingSomeInterface.class;
+        Object instance = RandomFactory.getRandomValue(someInterface);
+
+        Affirm.affirmNotNull(String.format("RandomFactory failed to retrieve random instance for interface [%s]", someInterface), instance);
+        Affirm.affirmEquals("RandomFactory failed to lookup proper random generator from heirarchy",classExtendingClassImplmentingSomeInterface, instance.getClass());
+
+        instance = RandomFactory.getRandomValue(classImplementingSomeInterface);
+        Affirm.affirmEquals("RandomFactory failed to lookup proper random generator from heirarchy",classExtendingClassImplmentingSomeInterface, instance.getClass());
+
+//        Affirm.affirmTrue(String.format("Expected registered type [%s] not found, found[%s]", someInterface, RandomFactory.getRegisteredTypes()), RandomFactory.getRegisteredTypes().contains(someInterface));
+    }
+
+    @Test
+    public void shouldRandomlyGenerateBasedOnHierarchySupport() {
+    	//TODO:
     }
 
     private class RegisteredDummy {

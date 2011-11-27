@@ -16,39 +16,12 @@
  */
 package com.openpojo.random;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
-import com.openpojo.random.collection.CollectionRandomGenerator;
-import com.openpojo.random.collection.list.AbstractListRandomGenerator;
-import com.openpojo.random.collection.list.AbstractSequentialListRandomGenerator;
-import com.openpojo.random.collection.list.ListConcreteRandomGenerator;
-import com.openpojo.random.collection.list.ListRandomGenerator;
-import com.openpojo.random.collection.queue.QueueConcreteRandomGenerator;
-import com.openpojo.random.collection.queue.QueueRandomGenerator;
-import com.openpojo.random.collection.set.NavigableSetRandomGenerator;
-import com.openpojo.random.collection.set.SetConcreteRandomGenerator;
-import com.openpojo.random.collection.set.SetRandomGenerator;
-import com.openpojo.random.collection.set.SortedSetRandomGenerator;
-import com.openpojo.random.dynamic.EnumRandomGenerator;
-import com.openpojo.random.dynamic.RandomInstanceFromInterfaceRandomGenerator;
 import com.openpojo.random.exception.RandomGeneratorException;
-import com.openpojo.random.impl.BasicRandomGenerator;
-import com.openpojo.random.impl.ClassRandomGenerator;
-import com.openpojo.random.impl.EnumSetRandomGenerator;
-import com.openpojo.random.impl.ObjectRandomGenerator;
-import com.openpojo.random.impl.TimestampRandomGenerator;
-import com.openpojo.random.impl.VoidRandomGenerator;
-import com.openpojo.random.map.AbstractMapRandomGenerator;
-import com.openpojo.random.map.MapConcreteRandomGenerator;
-import com.openpojo.random.map.MapRandomGenerator;
-import com.openpojo.random.map.SortedMapRandomGenerator;
+import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.thread.GeneratedRandomValues;
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.construct.InstanceFactory;
-import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.registry.ServiceRegistrar;
 
 /**
  * This factory is responsible for generating the random values using the registered RandomGenerator(s). <br>
@@ -85,43 +58,8 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  */
 public class RandomFactory {
     private static final Logger logger = LoggerFactory.getLogger(RandomFactory.class);
-
-    private static final Map<Class<?>, RandomGenerator> generators = new HashMap<Class<?>, RandomGenerator>();
-
-    static {
-        // register defaults with Factory.
-        RandomFactory.addRandomGenerator(VoidRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(ObjectRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(BasicRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(TimestampRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(ClassRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(EnumSetRandomGenerator.getInstance());
-
-        // Collection
-        RandomFactory.addRandomGenerator(CollectionRandomGenerator.getInstance());
-
-        // Lists
-        RandomFactory.addRandomGenerator(ListRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(ListConcreteRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(AbstractSequentialListRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(AbstractListRandomGenerator.getInstance());
-
-        // Sets
-        RandomFactory.addRandomGenerator(SetRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(SetConcreteRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(SortedSetRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(NavigableSetRandomGenerator.getInstance());
-
-        // Queue
-        RandomFactory.addRandomGenerator(QueueRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(QueueConcreteRandomGenerator.getInstance());
-
-        // Map
-        RandomFactory.addRandomGenerator(MapRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(SortedMapRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(MapConcreteRandomGenerator.getInstance());
-        RandomFactory.addRandomGenerator(AbstractMapRandomGenerator.getInstance());
-    }
+    private static RandomGeneratorService randomGeneratorService = ServiceRegistrar.getInstance()
+                                                                                   .getRandomGeneratorService();
 
     /**
      * Add a random generator to the list of available generators. The latest random generator registered wins.
@@ -130,14 +68,12 @@ public class RandomFactory {
      *            The generator to add.
      */
     public static synchronized void addRandomGenerator(final RandomGenerator generator) {
-        for (Class<?> type : generator.getTypes()) {
-            RandomFactory.generators.put(type, generator);
-        }
+        randomGeneratorService.registerRandomGenerator(generator);
     }
 
     /**
      * This method generates a random value of the requested type.<br>
-     * If the requested type isn't registerd in the factory, an RandomGeneratorException will be thrown.
+     * If the requested type isn't registered in the factory, an RandomGeneratorException will be thrown.
      *
      * @param type
      *            The type to get a random value of.
@@ -149,33 +85,15 @@ public class RandomFactory {
             return null; // seen before, break loop.
         }
 
-        RandomGenerator randomGenerator = RandomFactory.generators.get(type);
-        if (randomGenerator == null) {
-            PojoClass typeClass = PojoClassFactory.getPojoClass(type);
-
-            if (typeClass.isInterface()) {
-                return RandomInstanceFromInterfaceRandomGenerator.getInstance().doGenerate(type);
-            }
-
-            if (typeClass.isEnum()) {
-                return EnumRandomGenerator.getInstance().doGenerate(type);
-            }
-
-            if (typeClass.isAbstract()) {
-                throw RandomGeneratorException
-                        .getInstance(String
-                                .format("Unable to generate random instance for Abstract class [%s], please register a RandomGenerator and try again",
-                                        typeClass));
-            }
-
-            logger.info("Creating random instance for type=[{0}] since no random generator registered", type);
-            return InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
-        }
         GeneratedRandomValues.add(type);
-        Object randomValue;
-        randomValue = randomGenerator.doGenerate(type);
-        GeneratedRandomValues.remove(type);
-
-        return randomValue;
+        try {
+            RandomGenerator randomGenerator = randomGeneratorService.getRandomGeneratorByType(type);
+            if (randomGenerator == null) {
+                throw RandomGeneratorException.getInstance("No randomGenerator Found for type " + type);
+            }
+            return randomGenerator.doGenerate(type);
+        } finally {
+            GeneratedRandomValues.remove(type);
+        }
     }
 }
