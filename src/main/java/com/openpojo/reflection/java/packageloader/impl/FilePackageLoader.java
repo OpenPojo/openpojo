@@ -18,6 +18,7 @@ package com.openpojo.reflection.java.packageloader.impl;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
@@ -68,10 +69,16 @@ public final class FilePackageLoader extends PackageLoader {
         File directory;
         try {
             // convert toURI to decode %20 for spaces, etc.
-            directory = new File(packageURL.toURI().getPath());
+            URI uri = packageURL.toURI();
+            if (uri.getAuthority() != null) {
+                directory = new File("//" + uri.getAuthority() + uri.getPath());
+            } else {
+                directory = new File(uri.getPath().toString());
+            }
         } catch (URISyntaxException uriSyntaxException) {
             throw ReflectionException.getInstance(uriSyntaxException.getMessage(), uriSyntaxException);
         }
+        logger.info("loading classes from path = [{0}]", directory.getAbsolutePath());
         return directory.listFiles();
     }
 
