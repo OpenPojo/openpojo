@@ -16,6 +16,8 @@
  */
 package com.openpojo.random.service.impl;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -24,45 +26,30 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.random.RandomGenerator;
+import com.openpojo.random.exception.RandomGeneratorException;
+import com.openpojo.random.service.RandomGeneratorService;
 
 /**
  * @author oshoukry
  */
-public class DefaultRandomGeneratorService implements com.openpojo.random.service.RandomGeneratorService {
+public class DefaultRandomGeneratorService implements RandomGeneratorService {
     private final Map<Class<?>, RandomGenerator> concreteRandomGenerator = new HashMap<Class<?>, RandomGenerator>();
     private RandomGenerator defaultRandomGenerator;
     private static final Random RANDOM = new Random(new Date().getTime());
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.openpojo.registry.Service#getName()
-     */
     public String getName() {
         return this.getClass().getName();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.openpojo.random.service.RandomGeneratorService#registerRandomGenerator(com.openpojo.random.RandomGenerator)
-     */
-    public void registerRandomGenerator(RandomGenerator randomGenerator) {
-        for (Class<?> type : randomGenerator.getTypes()) {
+    public void registerRandomGenerator(final RandomGenerator randomGenerator) {
+        for (final Class<?> type : randomGenerator.getTypes()) {
             concreteRandomGenerator.put(type, randomGenerator);
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.openpojo.random.service.RandomGeneratorService#registerDefaultRandomGenerator(com.openpojo.random.RandomGenerator
-     * )
-     */
-    public void setDefaultRandomGenerator(RandomGenerator randomGenerator) {
+    public void setDefaultRandomGenerator(final RandomGenerator randomGenerator) {
         defaultRandomGenerator = randomGenerator;
     }
 
@@ -70,32 +57,59 @@ public class DefaultRandomGeneratorService implements com.openpojo.random.servic
         return defaultRandomGenerator;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.openpojo.random.service.RandomGeneratorService#getRandomGeneratorByType(java.lang.Class)
-     */
-    public RandomGenerator getRandomGeneratorByType(Class<?> type) {
+    public RandomGenerator getRandomGeneratorByType(final Class<?> type) {
         RandomGenerator appropriateRandomGenerator = concreteRandomGenerator.get(type);
         if (appropriateRandomGenerator == null) {
-            List<Class<?>> assignableTypes = getAssignableTypesForType(type, concreteRandomGenerator.keySet());
+            final List<Class<?>> assignableTypes = getAssignableTypesForType(type, concreteRandomGenerator.keySet());
             if (assignableTypes.size() == 0) {
                 appropriateRandomGenerator = getDefaultRandomGenerator();
             } else {
-                appropriateRandomGenerator = concreteRandomGenerator.get(assignableTypes.get(RANDOM.nextInt(assignableTypes.size())));
+                final Class<?> adaptToType = assignableTypes.get(RANDOM.nextInt(assignableTypes.size()));
+                appropriateRandomGenerator = new RandomGeneratorAdapter(type, adaptToType,
+                                                                        concreteRandomGenerator.get(adaptToType));
             }
         }
-
         return appropriateRandomGenerator;
     }
 
-    private List<Class<?>> getAssignableTypesForType(Class<?> type, Set<Class<?>> registeredTypes) {
-        List<Class<?>> assignableTypes = new LinkedList<Class<?>>();
-        for (Class<?> registeredType : registeredTypes) {
+    public Collection<Class<?>> getRegisteredTypes() {
+        return Collections.unmodifiableSet(concreteRandomGenerator.keySet());
+    }
+
+    private List<Class<?>> getAssignableTypesForType(final Class<?> type, final Set<Class<?>> registeredTypes) {
+        final List<Class<?>> assignableTypes = new LinkedList<Class<?>>();
+        for (final Class<?> registeredType : registeredTypes) {
             if (type.isAssignableFrom(registeredType)) {
                 assignableTypes.add(registeredType);
             }
         }
         return assignableTypes;
+    }
+
+    private class RandomGeneratorAdapter implements RandomGenerator {
+
+        private final Class<?> fromType;
+        private final Class<?> toType;
+        private final RandomGenerator adaptedRandomGenerator;
+
+        private RandomGeneratorAdapter(final Class<?> fromType, final Class<?> toType,
+                final RandomGenerator adaptedRandomGenerator) {
+            this.fromType = fromType;
+            this.toType = toType;
+            this.adaptedRandomGenerator = adaptedRandomGenerator;
+        }
+
+        public Collection<Class<?>> getTypes() {
+            throw RandomGeneratorException.getInstance(MessageFormatter.format("Illegal use of RandomGeneratorAdapter([{0}] to [{1}]",
+                                                                               fromType, toType));
+        }
+
+        public Object doGenerate(final Class<?> type) {
+            if (type == fromType) {
+                return adaptedRandomGenerator.doGenerate(toType);
+            }
+            throw RandomGeneratorException.getInstance(MessageFormatter.format("Unsupported type requested [{0}]", type));
+        }
+
     }
 }

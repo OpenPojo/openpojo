@@ -16,6 +16,8 @@
  */
 package com.openpojo.random.service;
 
+import java.util.Collection;
+
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.registry.Service;
 
@@ -34,6 +36,13 @@ public interface RandomGeneratorService extends Service {
      * @param randomGenerator
      */
     public void registerRandomGenerator(RandomGenerator randomGenerator);
+
+    /**
+     * Get all registered types.
+     *
+     * @return
+     */
+    public Collection<Class<?>> getRegisteredTypes();
 
     /**
      * This method set the RandomGenerator to use if non are registered for given type. This randomGenerator's

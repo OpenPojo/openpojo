@@ -17,17 +17,9 @@
 package com.openpojo.registry;
 
 import com.openpojo.business.BusinessIdentity;
-import com.openpojo.random.collection.CollectionRandomGenerator;
-import com.openpojo.random.collection.list.AbstractListRandomGenerator;
-import com.openpojo.random.collection.list.AbstractSequentialListRandomGenerator;
 import com.openpojo.random.collection.list.ListConcreteRandomGenerator;
-import com.openpojo.random.collection.list.ListRandomGenerator;
 import com.openpojo.random.collection.queue.QueueConcreteRandomGenerator;
-import com.openpojo.random.collection.queue.QueueRandomGenerator;
-import com.openpojo.random.collection.set.NavigableSetRandomGenerator;
 import com.openpojo.random.collection.set.SetConcreteRandomGenerator;
-import com.openpojo.random.collection.set.SetRandomGenerator;
-import com.openpojo.random.collection.set.SortedSetRandomGenerator;
 import com.openpojo.random.impl.BasicRandomGenerator;
 import com.openpojo.random.impl.ClassRandomGenerator;
 import com.openpojo.random.impl.DefaultRandomGenerator;
@@ -35,10 +27,7 @@ import com.openpojo.random.impl.EnumSetRandomGenerator;
 import com.openpojo.random.impl.ObjectRandomGenerator;
 import com.openpojo.random.impl.TimestampRandomGenerator;
 import com.openpojo.random.impl.VoidRandomGenerator;
-import com.openpojo.random.map.AbstractMapRandomGenerator;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
-import com.openpojo.random.map.MapRandomGenerator;
-import com.openpojo.random.map.SortedMapRandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
 
@@ -49,48 +38,37 @@ public class ServiceRegistrar {
     private RandomGeneratorService randomGeneratorService;
 
     private ServiceRegistrar() {
-        initRandomGeneratorService();
+        initializeRandomGeneratorService();
     }
 
-    private void initRandomGeneratorService() {
+    public void initializeRandomGeneratorService() {
 
-        randomGeneratorService = new DefaultRandomGeneratorService();
+        final RandomGeneratorService newRandomGeneratorService = new DefaultRandomGeneratorService();
 
         // Default Generator
-        randomGeneratorService.setDefaultRandomGenerator(new DefaultRandomGenerator());
+        newRandomGeneratorService.setDefaultRandomGenerator(new DefaultRandomGenerator());
 
         // register basic types.
-        randomGeneratorService.registerRandomGenerator(VoidRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(ObjectRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(BasicRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(TimestampRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(ClassRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
-
-        // Collection
-        randomGeneratorService.registerRandomGenerator(CollectionRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(VoidRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(ObjectRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(ClassRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(BasicRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(TimestampRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
 
         // Lists
-        randomGeneratorService.registerRandomGenerator(ListRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(ListConcreteRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(AbstractSequentialListRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(AbstractListRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(ListConcreteRandomGenerator.getInstance());
 
         // Sets
-        randomGeneratorService.registerRandomGenerator(SetRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(SetConcreteRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(SortedSetRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(NavigableSetRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(SetConcreteRandomGenerator.getInstance());
 
         // Queue
-        randomGeneratorService.registerRandomGenerator(QueueRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(QueueConcreteRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(QueueConcreteRandomGenerator.getInstance());
 
         // Map
-        randomGeneratorService.registerRandomGenerator(MapRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(SortedMapRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(MapConcreteRandomGenerator.getInstance());
-        randomGeneratorService.registerRandomGenerator(AbstractMapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(MapConcreteRandomGenerator.getInstance());
+
+        setRandomGeneratorService(newRandomGeneratorService);
 
     }
 
@@ -98,7 +76,7 @@ public class ServiceRegistrar {
         return Instance.INSTANCE;
     }
 
-    public void setRandomGeneratorService(RandomGeneratorService randomGeneratorService) {
+    public void setRandomGeneratorService(final RandomGeneratorService randomGeneratorService) {
         this.randomGeneratorService = randomGeneratorService;
     }
 
