@@ -1,6 +1,10 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2011-12-4:*
+  * OpenPojo-0.3.9 released
+    * Fixed an issue with running OpenPojo over windows mounted files systems (Thanks to Kajetan F. and Michael G. for uncovering this issue)
+    * Added support for intelligent RandomFactory generation (i.e. if you register a LinkedList generator, it will be also used if a Collection, List, AbstractList...etc are requested).
  * *2011-11-22:*
   * OpenPojo-0.3.8 released
     * Fixed issue 22 (Thanks to Sharan for catching this).
