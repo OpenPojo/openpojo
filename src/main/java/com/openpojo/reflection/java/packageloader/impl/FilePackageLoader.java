@@ -78,7 +78,6 @@ public final class FilePackageLoader extends PackageLoader {
         } catch (URISyntaxException uriSyntaxException) {
             throw ReflectionException.getInstance(uriSyntaxException.getMessage(), uriSyntaxException);
         }
-        logger.info("loading classes from path = [{0}]", directory.getAbsolutePath());
         return directory.listFiles();
     }
 

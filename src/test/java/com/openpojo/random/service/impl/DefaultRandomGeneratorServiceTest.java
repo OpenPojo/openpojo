@@ -43,7 +43,8 @@ public class DefaultRandomGeneratorServiceTest {
 
     @Test
     public void shouldReturnNameBasedOnClassName() {
-        Affirm.affirmEquals("Name returned doesn't match class name", DefaultRandomGeneratorService.class.getName(), defaultRandomGeneratorService.getName());
+        Affirm.affirmEquals("Name returned doesn't match class name", DefaultRandomGeneratorService.class.getName(),
+                            defaultRandomGeneratorService.getName());
     }
 
     @Test
@@ -55,7 +56,7 @@ public class DefaultRandomGeneratorServiceTest {
 
     @Test
     public void shouldSetAndGetDefaultRandomGenerator() {
-        RandomGenerator randomGenerator = (RandomGenerator) RandomFactory.getRandomValue(RandomGenerator.class);
+        final RandomGenerator randomGenerator = (RandomGenerator) RandomFactory.getRandomValue(RandomGenerator.class);
         defaultRandomGeneratorService.setDefaultRandomGenerator(randomGenerator);
 
         Affirm.affirmEquals("Setter & Getter must match passed in value", randomGenerator,
@@ -64,12 +65,12 @@ public class DefaultRandomGeneratorServiceTest {
 
     @Test
     public void shouldGetTypeBasedOnRegisteredRandomGenerator() {
-        Class<?> type = DefaultRandomGeneratorServiceTest.class;
+        final Class<?> type = DefaultRandomGeneratorServiceTest.class;
 
         Affirm.affirmNull("Should not have recieved a valid random generator for non registered type",
                           defaultRandomGeneratorService.getRandomGeneratorByType(type));
 
-        DummyRandomGenerator dummyRandomGenerator = new DummyRandomGenerator();
+        final DummyRandomGenerator dummyRandomGenerator = new DummyRandomGenerator();
         dummyRandomGenerator.setTypes(new Class<?>[] { type });
         defaultRandomGeneratorService.registerRandomGenerator(dummyRandomGenerator);
 
@@ -80,46 +81,56 @@ public class DefaultRandomGeneratorServiceTest {
 
     @Test
     public void shouldGetRandomGeneratorBasedOnAssignability() {
-        Class<?> type = LinkedList.class;
+        final Class<?> type = LinkedList.class;
 
-        DummyRandomGenerator dummyRandomGenerator = new DummyRandomGenerator();
+        final DummyRandomGenerator dummyRandomGenerator = new DummyRandomGenerator();
         dummyRandomGenerator.setTypes(new Class<?>[] { type });
         defaultRandomGeneratorService.registerRandomGenerator(dummyRandomGenerator);
 
-        Affirm.affirmEquals("Incorrect random generator returned", dummyRandomGenerator,
-                            defaultRandomGeneratorService.getRandomGeneratorByType(List.class));
+        defaultRandomGeneratorService.getRandomGeneratorByType(List.class).doGenerate(List.class);
+
+        Affirm.affirmEquals("Incorrect random generator returned (doGenerate should've incremented call count)", 1,
+                            dummyRandomGenerator.getCounter());
     }
 
     @Test
     public void shouldRandomizeWhichRandomGeneratorReturnedBasedOnAssignability() {
-        Class<?> type = LinkedList.class;
-        Class<?> anotherType = ArrayList.class;
+        final Class<?> type = LinkedList.class;
+        final Class<?> anotherType = ArrayList.class;
 
-        DummyRandomGenerator dummyRandomGenerator = new DummyRandomGenerator();
+        final DummyRandomGenerator dummyRandomGenerator = new DummyRandomGenerator();
         dummyRandomGenerator.setTypes(new Class<?>[] { type });
         defaultRandomGeneratorService.registerRandomGenerator(dummyRandomGenerator);
 
-        DummyRandomGenerator anotherRandomGenerator = new DummyRandomGenerator();
+        final DummyRandomGenerator anotherRandomGenerator = new DummyRandomGenerator();
         anotherRandomGenerator.setTypes(new Class<?>[] { anotherType });
         defaultRandomGeneratorService.registerRandomGenerator(anotherRandomGenerator);
 
-        List<RandomGenerator> expectedRandomGenerators = new LinkedList<RandomGenerator>();
+        final List<DummyRandomGenerator> expectedRandomGenerators = new LinkedList<DummyRandomGenerator>();
         expectedRandomGenerators.add(dummyRandomGenerator);
         expectedRandomGenerators.add(anotherRandomGenerator);
 
-        int tolerance=20;
+        int tolerance = 20;
 
         while (tolerance > 0 && expectedRandomGenerators.size() > 0) {
-            expectedRandomGenerators.remove(defaultRandomGeneratorService.getRandomGeneratorByType(List.class));
+            defaultRandomGeneratorService.getRandomGeneratorByType(List.class).doGenerate(List.class);
+            for (int index = 0; index < expectedRandomGenerators.size(); index++) {
+                final DummyRandomGenerator expectedDummyRandomGenerator = expectedRandomGenerators.get(index);
+                if (expectedDummyRandomGenerator.getCounter() > 0) {
+                    expectedRandomGenerators.remove(expectedDummyRandomGenerator);
+                }
+            }
             tolerance--;
         }
 
-        Affirm.affirmEquals("Failed to return all possible valid random generators based on assignability", 0, expectedRandomGenerators.size());
+        Affirm.affirmEquals("Failed to return all possible valid random generators based on assignability", 0,
+                            expectedRandomGenerators.size());
 
     }
 
-    private static class DummyRandomGenerator implements RandomGenerator {
+    private class DummyRandomGenerator implements RandomGenerator {
         private Class<?>[] types;
+        private int counter = 0;
 
         private void setTypes(final Class<?>[] types) {
             this.types = types;
@@ -129,8 +140,13 @@ public class DefaultRandomGeneratorServiceTest {
             return Arrays.asList(types);
         }
 
-        public Object doGenerate(Class<?> type) {
-            throw new IllegalStateException("Not Impelemented");
+        public Object doGenerate(final Class<?> type) {
+            counter++;
+            return null;
+        }
+
+        private int getCounter() {
+            return counter;
         }
     }
 }

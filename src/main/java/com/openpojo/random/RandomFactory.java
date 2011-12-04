@@ -58,8 +58,6 @@ import com.openpojo.registry.ServiceRegistrar;
  */
 public class RandomFactory {
     private static final Logger logger = LoggerFactory.getLogger(RandomFactory.class);
-    private static RandomGeneratorService randomGeneratorService = ServiceRegistrar.getInstance()
-                                                                                   .getRandomGeneratorService();
 
     /**
      * Add a random generator to the list of available generators. The latest random generator registered wins.
@@ -68,7 +66,7 @@ public class RandomFactory {
      *            The generator to add.
      */
     public static synchronized void addRandomGenerator(final RandomGenerator generator) {
-        randomGeneratorService.registerRandomGenerator(generator);
+        getRandomGeneratorService().registerRandomGenerator(generator);
     }
 
     /**
@@ -86,14 +84,21 @@ public class RandomFactory {
         }
 
         GeneratedRandomValues.add(type);
+
         try {
-            RandomGenerator randomGenerator = randomGeneratorService.getRandomGeneratorByType(type);
+            RandomGenerator randomGenerator = getRandomGeneratorService().getRandomGeneratorByType(type);
+
             if (randomGenerator == null) {
                 throw RandomGeneratorException.getInstance("No randomGenerator Found for type " + type);
             }
+
             return randomGenerator.doGenerate(type);
         } finally {
             GeneratedRandomValues.remove(type);
         }
+    }
+
+    private static RandomGeneratorService getRandomGeneratorService() {
+        return ServiceRegistrar.getInstance().getRandomGeneratorService();
     }
 }
