@@ -142,7 +142,6 @@
 				<version>${clover.version}</version>
 				<configuration>
 					<jdk>${project.build.java.target}</jdk>
-					<licenseLocation>${base}/../../clover.license.openpojo</licenseLocation>
 					<targetPercentage>95</targetPercentage>
 				</configuration>
 				<executions>
@@ -211,8 +210,11 @@
 								<artifactId>UmlGraph</artifactId>
 								<version>4.6</version>
 							</docletArtifact>
-							<additionalparam> -inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify
-								-postfixpackage -nodefontsize 9 -nodefontpackagesize 7 </additionalparam>
+							<additionalparam> -inferrel -inferdep -quiet -hide java.*
+								-collpackages java.util.* -qualify
+								-postfixpackage -nodefontsize
+								9 -nodefontpackagesize 7
+							</additionalparam>
 						</configuration>
 					</plugin>
 				</plugins>
