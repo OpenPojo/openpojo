@@ -1,5 +1,4 @@
 == Up Coming features in no particular order ==
-  * Auto-register super types from concrete types returned from a RandomGenerator. (scheduled for version 0.3.9)
   * Better handling for JDK 1.6 collection's generation vs. 1.5.
   * Add the ability to filter PojoClass based on source path. 
 
