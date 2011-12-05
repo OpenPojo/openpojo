@@ -34,7 +34,7 @@ public class BusinessFieldCache {
      * Retrieve a BusinessFields list from Cache.
      *
      * @param name
-     *            Fully Qualified Class Name.
+     *            The cache tag to use for cache lookup.
      * @return Cached PojoReference, or null if none found.
      */
     public static List<PojoField> getBusinessFields(final String name) {
@@ -45,8 +45,9 @@ public class BusinessFieldCache {
      * Add a BusinessFields definition to the Cache.
      *
      * @param name
-     * @param pojoClass
-     *            The entry to add to the cache.
+     *            A tag for to use for cache lookup
+     * @param businessFields
+     *            The list of businessFields to cache
      */
     public static void addBusinessFields(final String name, final List<PojoField> businessFields) {
         cache.add(name, businessFields);
