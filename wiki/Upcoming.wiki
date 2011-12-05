@@ -1,5 +1,9 @@
 == Up Coming features in no particular order ==
-  * Better handling for JDK 1.6 collection's generation vs. 1.5.
-  * Add the ability to filter PojoClass based on source path. 
+  * Enhancements to testing aspect.
+   * Add the ability to filter PojoClass based on source path.
+   * Add the ability to read / write values for PojoClass easily for testing purpose.
+   * Add the ability to invoke methods on PojoClass easily for testing.
+  * Code cleanup
+   * Better handling for JDK 1.6 collection's generation vs. 1.5.
 
 *Note:* If there is something you'd like to see that isn't listed please drop me a line or open a ticket in the [http://code.google.com/p/openpojo/issues Issues] section.
