@@ -40,7 +40,7 @@ public interface RandomGeneratorService extends Service {
     /**
      * Get all registered types.
      *
-     * @return
+     * @return all the registered types in service.
      */
     public Collection<Class<?>> getRegisteredTypes();
 
@@ -57,7 +57,7 @@ public interface RandomGeneratorService extends Service {
     /**
      * Returns the default registered RandomGenerator;
      *
-     * @return
+     * @return the default registered random generator.
      */
     public RandomGenerator getDefaultRandomGenerator();
 

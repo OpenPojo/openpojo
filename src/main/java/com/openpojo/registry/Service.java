@@ -17,11 +17,18 @@
 package com.openpojo.registry;
 
 /**
- * @TODO This is under construction, Please do not implement or use.
+ * This is the internal parent interface for all services registered in the registry. Under construction please don't
+ * use.
+ *
  * @author oshoukry
  */
 public interface Service {
 
+    /**
+     * The name of the service.
+     *
+     * @return the name of the service.
+     */
     public String getName();
 
 }
