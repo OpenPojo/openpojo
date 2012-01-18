@@ -39,16 +39,16 @@ public final class FilePackageLoader extends PackageLoader {
     @Override
     public Set<Type> getTypes() {
 
-        Set<Type> types = new HashSet<Type>();
+        final Set<Type> types = new HashSet<Type>();
 
-        for (File entry : getEntries()) {
+        for (final File entry : getEntries()) {
             try {
-                String className = fromJDKPathToJDKPackage(packageName) + JDKPACKAGE_DELIMETER + entry.getName();
-                Class<?> classEntry = getAsClass(className);
+                final String className = fromJDKPathToJDKPackage(packageName) + JDKPACKAGE_DELIMETER + entry.getName();
+                final Class<?> classEntry = getAsClass(className);
                 if (classEntry != null) {
                     types.add(classEntry);
                 }
-            } catch (ClassNotFoundException classNotFoundException) { // entry wasn't a class
+            } catch (final ClassNotFoundException classNotFoundException) { // entry wasn't a class
             }
         }
         return types;
@@ -56,8 +56,8 @@ public final class FilePackageLoader extends PackageLoader {
 
     @Override
     public Set<String> getSubPackages() {
-        Set<String> subPaths = new HashSet<String>();
-        for (File file : getEntries()) {
+        final Set<String> subPaths = new HashSet<String>();
+        for (final File file : getEntries()) {
             if (file.isDirectory()) {
                 subPaths.add(fromJDKPathToJDKPackage(packageName) + JDKPACKAGE_DELIMETER + file.getName());
             }
@@ -69,13 +69,16 @@ public final class FilePackageLoader extends PackageLoader {
         File directory;
         try {
             // convert toURI to decode %20 for spaces, etc.
-            URI uri = packageURL.toURI();
+            final URI uri = packageURL.toURI();
+
+            // to handle windows paths i.e. //host_server/path/class, need a way to put the authority section back in
+            // the path
             if (uri.getAuthority() != null) {
                 directory = new File("//" + uri.getAuthority() + uri.getPath());
             } else {
                 directory = new File(uri.getPath().toString());
             }
-        } catch (URISyntaxException uriSyntaxException) {
+        } catch (final URISyntaxException uriSyntaxException) {
             throw ReflectionException.getInstance(uriSyntaxException.getMessage(), uriSyntaxException);
         }
         return directory.listFiles();
