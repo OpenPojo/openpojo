@@ -86,8 +86,8 @@ class PojoClassImpl implements PojoClass {
     }
 
     public List<PojoMethod> getPojoConstructors() {
-        List<PojoMethod> constructors = new LinkedList<PojoMethod>();
-        for (PojoMethod pojoMethod : pojoMethods) {
+        final List<PojoMethod> constructors = new LinkedList<PojoMethod>();
+        for (final PojoMethod pojoMethod : pojoMethods) {
             if (pojoMethod.isConstructor()) {
                 constructors.add(pojoMethod);
             }
@@ -116,9 +116,9 @@ class PojoClassImpl implements PojoClass {
     }
 
     public void copy(final Object from, final Object to) {
-        for (PojoField pojoField : pojoFields) {
+        for (final PojoField pojoField : pojoFields) {
             if (pojoField.hasGetter() && pojoField.hasSetter()) {
-                Object value = pojoField.invokeGetter(from);
+                final Object value = pojoField.invokeGetter(from);
                 pojoField.invokeSetter(to, value);
             }
         }
@@ -145,8 +145,8 @@ class PojoClassImpl implements PojoClass {
     }
 
     public List<PojoClass> getInterfaces() {
-        List<PojoClass> interfaces = new LinkedList<PojoClass>();
-        for (Class<?> interfaze : clazz.getInterfaces()) {
+        final List<PojoClass> interfaces = new LinkedList<PojoClass>();
+        for (final Class<?> interfaze : clazz.getInterfaces()) {
             interfaces.add(PojoClassFactory.getPojoClass(interfaze));
         }
         return interfaces;
@@ -154,11 +154,11 @@ class PojoClassImpl implements PojoClass {
 
     public String getSourcePath() {
         try {
-            ClassLoader cl = Thread.currentThread().getContextClassLoader();
-            URL location = cl.getResource(getClazz().getName().replace('.', '/') + ".class");
+            final ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            final URL location = cl.getResource(getClazz().getName().replace('.', '/') + ".class");
             return new URI(location.toString()).toString();
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
         }
     }
@@ -169,7 +169,7 @@ class PojoClassImpl implements PojoClass {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
         return BusinessIdentity.areEqual(this, other);
     }
 }
