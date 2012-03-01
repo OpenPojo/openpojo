@@ -32,8 +32,10 @@ public class Person {
 oh and don't forget to fix your *hashCode* too...
 
 == Alternatively ==
-You can simplify your code by doing the following
+You can simplify your all your identity code by doing the following
+
 {{{
+
 public class Person {
     
     @BusinessKey(caseSensitive = false)  //Configure your field(s)
@@ -44,15 +46,15 @@ public class Person {
         return BusinessIdentity.areEqual(this, obj);
 
     }
-}
-}}}
-
-=== What about hashCode you ask? ===
-
-Do this:
-{{{
     @Override
     public int hashCode() {
         return BusinessIdentity.getHashCode(this);
     }
+
+    @Override
+    public String toString() {
+        return BusinessIdentity.toString(this);
+    }
+}
+
 }}}
