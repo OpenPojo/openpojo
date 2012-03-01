@@ -1,5 +1,3 @@
-# This page will show you how to simplify your identity management code for any Java Object.
-
 = HowTo Identity management =
 
 Say you have a Person domain entity that has a lastname private field.  You have the following rule:
