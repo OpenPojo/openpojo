@@ -1,4 +1,4 @@
-#This page will show you how to simplify your identity management code for any Java Object.
+# This page will show you how to simplify your identity management code for any Java Object.
 
 = HowTo Identity management =
 
