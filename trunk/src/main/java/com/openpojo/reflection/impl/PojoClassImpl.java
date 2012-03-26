@@ -73,6 +73,10 @@ class PojoClassImpl implements PojoClass {
         return clazz.isEnum();
     }
 
+    public boolean isArray() {
+        return clazz.isArray();
+    }
+
     public boolean isFinal() {
         return Modifier.isFinal(clazz.getModifiers());
     }
