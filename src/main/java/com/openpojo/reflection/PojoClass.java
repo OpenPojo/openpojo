@@ -55,6 +55,13 @@ public interface PojoClass extends PojoElement {
     public boolean isEnum();
 
     /**
+     * Check if PojoClass wraps an array.
+     *
+     * @return true if this PojoClass wraps an array class.
+     */
+    public boolean isArray();
+
+    /**
      * Check if PojoClass wrapps a final class.
      *
      * @return true if this PojoClass wrapps a final class.

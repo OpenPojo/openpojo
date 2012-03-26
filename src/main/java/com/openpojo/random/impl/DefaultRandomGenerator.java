@@ -51,8 +51,8 @@ public class DefaultRandomGenerator implements RandomGenerator {
      *
      * @see com.openpojo.random.RandomGenerator#doGenerate(java.lang.Class)
      */
-    public Object doGenerate(Class<?> type) {
-        PojoClass typePojoClass = PojoClassFactory.getPojoClass(type);
+    public Object doGenerate(final Class<?> type) {
+        final PojoClass typePojoClass = PojoClassFactory.getPojoClass(type);
         if (typePojoClass.isInterface()) {
             return interfaceRandomGenerator.doGenerate(type);
         }
@@ -61,7 +61,13 @@ public class DefaultRandomGenerator implements RandomGenerator {
             return enumRandomGenerator.doGenerate(type);
         }
 
-        if (typePojoClass.isAbstract()) {
+        if (typePojoClass.isArray()) {
+            throw RandomGeneratorException.getInstance(String.format(this.getClass().getName()
+                                                                     + " can't generate instance for Array class [%s[]], feature to be added soon see http://openpojo.com for details",
+                                                             typePojoClass.getClazz().getComponentType()));
+        }
+
+        if (typePojoClass.isAbstract()) { // This will return true for Arrays, so the check must come post isArrayCheck.
             throw RandomGeneratorException.getInstance(String.format(this.getClass().getName()
                                                                              + " can't generate instance for Abstract class [%s], please register a RandomGenerator and try again",
                                                                      typePojoClass));

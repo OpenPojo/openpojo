@@ -39,7 +39,7 @@ public class FilterNonConcreteTest {
     @Test
     public void testInclude() {
         PojoClassFilter pojoClassFilter = new FilterNonConcrete();
-        StubPojoClass stubPojoClass = new StubPojoClass();
+        final StubPojoClass stubPojoClass = new StubPojoClass();
 
         stubPojoClass.isConcrete = false;
         Affirm.affirmTrue(String.format("Filter[%s] was supposed to filter OUT non concrete class", pojoClassFilter),
@@ -49,8 +49,8 @@ public class FilterNonConcreteTest {
         Affirm.affirmTrue(String.format("Filter[%s] was supposed to filter IN concrete class", pojoClassFilter),
                           stubPojoClass.isConcrete() == pojoClassFilter.include(stubPojoClass));
 
-        StubPojoClassFilter stubPojoClassFilter = new StubPojoClassFilter();
-        FilterChain filterChain = new FilterChain(new FilterNonConcrete(), stubPojoClassFilter);
+        final StubPojoClassFilter stubPojoClassFilter = new StubPojoClassFilter();
+        final FilterChain filterChain = new FilterChain(new FilterNonConcrete(), stubPojoClassFilter);
         pojoClassFilter = filterChain;
         stubPojoClass.isConcrete = true;
         pojoClassFilter.include(stubPojoClass);
@@ -113,6 +113,10 @@ public class FilterNonConcreteTest {
 
         public boolean isEnum() {
             throw new RuntimeException("Unimplemented!!");
+        }
+
+        public boolean isArray() {
+            throw new IllegalStateException("UnImplemented!!");
         }
 
         public boolean isFinal() {
