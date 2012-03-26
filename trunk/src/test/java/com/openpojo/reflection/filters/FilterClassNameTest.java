@@ -102,6 +102,10 @@ public class FilterClassNameTest {
             throw new IllegalStateException("UnImplemented!!");
         }
 
+        public boolean isArray() {
+            throw new IllegalStateException("UnImplemented!!");
+        }
+
         public boolean isFinal() {
             throw new IllegalStateException("UnImplemented!!");
         }
