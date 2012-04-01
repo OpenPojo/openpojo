@@ -86,7 +86,7 @@ public class DefaultRandomGeneratorService implements RandomGeneratorService {
         return assignableTypes;
     }
 
-    private class RandomGeneratorAdapter implements RandomGenerator {
+    private static class RandomGeneratorAdapter implements RandomGenerator {
 
         private final Class<?> fromType;
         private final Class<?> toType;
