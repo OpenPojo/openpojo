@@ -37,20 +37,19 @@ public class InstanceFactoryTest {
 
     @Test
     public void shouldCreateUsingDefaultConstructor() {
-        Class<?> clazz = ClassWithNoDeclaredConstructor.class;
-        Object obj1 = getInstance(clazz, (Object[]) null);
+        final Class<?> clazz = ClassWithNoDeclaredConstructor.class;
+        final Object obj1 = getInstance(clazz, (Object[]) null);
         Affirm.affirmNotNull("Should have created an object", obj1);
 
-        Object obj2 = getInstance(clazz, new Object[]{ });
+        final Object obj2 = getInstance(clazz, new Object[] {});
         Affirm.affirmTrue("Should have created a different object", obj1 != obj2);
     }
 
     @Test
     public void shouldCreateUsingSingleParameterConstructor() {
-        Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
-        String stringParam = (String) RandomFactory.getRandomValue(String.class);
-        ClassWithVariousDeclaredContructorsAndMethods obj1 = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(
-                                                                                                                         clazz,
+        final Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
+        final String stringParam = RandomFactory.getRandomValue(String.class);
+        final ClassWithVariousDeclaredContructorsAndMethods obj1 = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(clazz,
                                                                                                                          stringParam);
         Affirm.affirmNotNull("Should have created using String constructor", obj1);
         Affirm.affirmEquals("Incorrect constructor used", stringParam, obj1.singleStringConstructor);
@@ -58,11 +57,10 @@ public class InstanceFactoryTest {
 
     @Test
     public void shouldCreateUsingNullParameterDoubleConstructor() {
-        Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
-        String stringParam = (String) RandomFactory.getRandomValue(String.class);
-        ClassWithVariousDeclaredContructorsAndMethods obj = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(
-                                                                                                                        clazz,
-                                                                                                                        new Object[]{
+        final Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
+        final String stringParam = RandomFactory.getRandomValue(String.class);
+        final ClassWithVariousDeclaredContructorsAndMethods obj = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(clazz,
+                                                                                                                        new Object[] {
                                                                                                                                 stringParam,
                                                                                                                                 null });
 
@@ -74,41 +72,39 @@ public class InstanceFactoryTest {
 
     @Test(expected = ReflectionException.class)
     public void shouldFailtoCreateParametersMissmatch() {
-        Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
-        String stringParam = (String) RandomFactory.getRandomValue(String.class);
-        getInstance(clazz, new Object[]{ stringParam, stringParam });
+        final Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
+        final String stringParam = RandomFactory.getRandomValue(String.class);
+        getInstance(clazz, new Object[] { stringParam, stringParam });
         Affirm.fail("Should've failed to create");
     }
 
     @Test(expected = ReflectionException.class)
     public void shouldFailtoCreateUsingDefault() {
-        Class<?> clazz = ClassWithNoDeclaredConstructor.class;
-        String stringParam = (String) RandomFactory.getRandomValue(String.class);
-        getInstance(clazz, new Object[]{ stringParam });
+        final Class<?> clazz = ClassWithNoDeclaredConstructor.class;
+        final String stringParam = RandomFactory.getRandomValue(String.class);
+        getInstance(clazz, new Object[] { stringParam });
         Affirm.fail("Should've failed to create");
     }
 
     private Object getInstance(final Class<?> clazz, final Object... parameters) {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
         return InstanceFactory.getInstance(pojoClass, parameters);
     }
 
     @Test
     public void shouldConstructUsingMinimalParameterCount() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithLessThanGreaterThanConstructors.class);
-        ClassWithLessThanGreaterThanConstructors instance = (ClassWithLessThanGreaterThanConstructors) InstanceFactory
-                .getLeastCompleteInstance(pojoClass);
-        Affirm.affirmEquals("Should've used constructor with single Parameter", 1, instance
-                .getParameterCountUsedForConstruction());
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithLessThanGreaterThanConstructors.class);
+        final ClassWithLessThanGreaterThanConstructors instance = (ClassWithLessThanGreaterThanConstructors) InstanceFactory.getLeastCompleteInstance(pojoClass);
+        Affirm.affirmEquals("Should've used constructor with single Parameter", 1,
+                            instance.getParameterCountUsedForConstruction());
     }
 
     @Test
     public void shouldConstructUsingMaximumParameterCount() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithLessThanGreaterThanConstructors.class);
-        ClassWithLessThanGreaterThanConstructors instance = (ClassWithLessThanGreaterThanConstructors) InstanceFactory
-                .getMostCompleteInstance(pojoClass);
-        Affirm.affirmEquals("Should've used constructor with single Parameter", 3, instance
-                .getParameterCountUsedForConstruction());
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithLessThanGreaterThanConstructors.class);
+        final ClassWithLessThanGreaterThanConstructors instance = (ClassWithLessThanGreaterThanConstructors) InstanceFactory.getMostCompleteInstance(pojoClass);
+        Affirm.affirmEquals("Should've used constructor with single Parameter", 3,
+                            instance.getParameterCountUsedForConstruction());
     }
 
     @Test
@@ -133,8 +129,7 @@ public class InstanceFactoryTest {
 
     @Test
     public void shouldConstructBasedOnDerivedClass() {
-        PojoClass aClassWithInterfaceBasedConstructor = PojoClassFactory
-                .getPojoClass(ClassWithInterfaceBasedConstructor.class);
+        final PojoClass aClassWithInterfaceBasedConstructor = PojoClassFactory.getPojoClass(ClassWithInterfaceBasedConstructor.class);
         InstanceFactory.getInstance(aClassWithInterfaceBasedConstructor, new String("SomeString"));
     }
 }
