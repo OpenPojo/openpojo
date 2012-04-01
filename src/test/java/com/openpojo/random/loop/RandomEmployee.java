@@ -30,8 +30,8 @@ public class RandomEmployee implements RandomGenerator {
     private static final Class<?>[] TYPES = { Employee.class };
 
     public Object doGenerate(final Class<?> type) {
-        return new Employee("fullName-" + RandomFactory.getRandomValue(String.class), (Employee) RandomFactory
-                .getRandomValue(Employee.class));
+        return new Employee("fullName-" + RandomFactory.getRandomValue(String.class),
+                            RandomFactory.getRandomValue(Employee.class));
     }
 
     public Collection<Class<?>> getTypes() {
