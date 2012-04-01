@@ -34,16 +34,16 @@ import com.openpojo.random.RandomGenerator;
  */
 public final class EnumSetRandomGenerator implements RandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
-    private static final Class<?>[] TYPES = new Class<?>[]{ EnumSet.class };
+    private static final Class<?>[] TYPES = new Class<?>[] { EnumSet.class };
 
     public static EnumSetRandomGenerator getInstance() {
         return Instance.INSTANCE;
     }
 
     public Object doGenerate(final Class<?> type) {
-        List<RandomEnum> randomEnumValues = new LinkedList<RandomEnum>();
+        final List<RandomEnum> randomEnumValues = new LinkedList<RandomEnum>();
         for (int i = 0; i <= RANDOM.nextInt(RandomEnum.values().length); i++) {
-            randomEnumValues.add((RandomEnum) RandomFactory.getRandomValue(RandomEnum.class));
+            randomEnumValues.add(RandomFactory.getRandomValue(RandomEnum.class));
         }
         return EnumSet.copyOf(randomEnumValues);
     }
