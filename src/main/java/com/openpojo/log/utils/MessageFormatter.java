@@ -142,9 +142,6 @@ public final class MessageFormatter {
     }
 
     private static String formatArray(final Object message) {
-        if (message == null) {
-            return "null";
-        }
 
         final int arrayLength = Array.getLength(message) - 1;
         if (arrayLength == -1)
