@@ -56,7 +56,7 @@ public class DefaultRandomGeneratorServiceTest {
 
     @Test
     public void shouldSetAndGetDefaultRandomGenerator() {
-        final RandomGenerator randomGenerator = (RandomGenerator) RandomFactory.getRandomValue(RandomGenerator.class);
+        final RandomGenerator randomGenerator = RandomFactory.getRandomValue(RandomGenerator.class);
         defaultRandomGeneratorService.setDefaultRandomGenerator(randomGenerator);
 
         Affirm.affirmEquals("Setter & Getter must match passed in value", randomGenerator,
