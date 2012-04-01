@@ -22,10 +22,10 @@ import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.text.FieldPosition;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * This utility class is used by the logger to format log messages.
@@ -48,8 +48,7 @@ public final class MessageFormatter {
      *            The message to use with tokens.
      * @param args
      *            The objects to print inside the tokens
-     * @return
-     *         A formatted string ready for logging.
+     * @return A formatted string ready for logging.
      */
     public static String format(final String message, final Object... args) {
         if (message == null) {
@@ -61,27 +60,27 @@ public final class MessageFormatter {
 
     /**
      * This method takes a message and arguments in the format of tokens using {#} and substitute those for the objects
-     * in the array. (i.e. usingCurlyBrackets("this is a {0} message", "cool") returns "this is a cool message".)
-     * for further notes on how the formatting actually works, see {@link java.text.MessageFormat} To Note:
-     * 1. Remember that to get a single quote out again from "message" you need to double it. (i.e.
-     * "It''s great to be alive" and NOT "It's great to be alive").
-     * 2: if you pass in a date object, it doesn't use the date.toString(), but formats it using short date version.
+     * in the array. (i.e. usingCurlyBrackets("this is a {0} message", "cool") returns "this is a cool message".) for
+     * further notes on how the formatting actually works, see {@link java.text.MessageFormat} To Note: 1. Remember that
+     * to get a single quote out again from "message" you need to double it. (i.e. "It''s great to be alive" and NOT
+     * "It's great to be alive"). 2: if you pass in a date object, it doesn't use the date.toString(), but formats it
+     * using short date version.
      *
      * @param message
      *            The message to replace its tokens with objects.
      * @param args
      *            The objects to log in the string.
-     * @return
-     *         Returns a formated string filling all tokens with the objects.
+     * @return Returns a formated string filling all tokens with the objects.
      */
     static String usingCurlyBrackets(final String message, final Object... args) {
         if (message == null) {
             return null;
         }
 
-        Object[] params = formatArgsToStrings(args);
+        final Object[] params = formatArgsToStrings(args);
 
-        StringBuffer buf = new StringBuffer(message.length() + (params == null ? 0 : BUFFER_FACTOR * params.length));
+        final StringBuffer buf = new StringBuffer(message.length()
+                + (params == null ? 0 : BUFFER_FACTOR * params.length));
         new MessageFormat(message).format(params, buf, POSITION);
 
         return buf.toString();
@@ -117,7 +116,7 @@ public final class MessageFormatter {
      * @return a string with tokens that can take in the "args" right away in "usingCurlyBrackets"
      */
     static String generateCurlyBracketTokens(final int numberOfTokens) {
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int counter = 0; counter < numberOfTokens; counter++) {
             stringBuilder.append(DEFAULT_FIELDS_FORMAT_PREFIX).append(counter).append(DEFAULT_FIELDS_FORMAT_POSTFIX);
         }
@@ -131,31 +130,51 @@ public final class MessageFormatter {
 
         String formattedMessage = message.toString();
 
-        Class<? extends Object> type = message.getClass();
+        final Class<? extends Object> type = message.getClass();
         if (type.isArray()) {
-            formattedMessage = Arrays.toString((Object[]) message);
+            formattedMessage = formatArray(message);
         }
+
         if (message instanceof Throwable) {
             formattedMessage = format((Throwable) message);
         }
         return formattedMessage;
     }
 
+    private static String formatArray(final Object message) {
+        if (message == null) {
+            return "null";
+        }
+
+        final int arrayLength = Array.getLength(message) - 1;
+        if (arrayLength == -1)
+            return "[]";
+
+        final StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0;; i++) {
+            b.append(String.valueOf(Array.get(message, i)));
+            if (i == arrayLength)
+                return b.append(']').toString();
+            b.append(", ");
+        }
+    }
+
     private static String format(final Throwable throwable) {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw);
         throwable.printStackTrace(pw);
 
         pw.flush();
-        LineNumberReader reader = new LineNumberReader(new StringReader(sw.toString()));
-        ArrayList<String> lines = new ArrayList<String>();
+        final LineNumberReader reader = new LineNumberReader(new StringReader(sw.toString()));
+        final ArrayList<String> lines = new ArrayList<String>();
         try {
             String line = reader.readLine();
             while (line != null) {
                 lines.add(line);
                 line = reader.readLine();
             }
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             if (ex instanceof InterruptedIOException) {
                 Thread.currentThread().interrupt();
             }
