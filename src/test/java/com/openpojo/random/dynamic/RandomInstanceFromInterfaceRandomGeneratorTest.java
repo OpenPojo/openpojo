@@ -49,12 +49,12 @@ public class RandomInstanceFromInterfaceRandomGeneratorTest {
 
     @Test
     public void shouldReturnRandomNonNullValuesForInterfaceMethods() {
-        ASimpleInterface aSimpleInterface = proxyGenerator.doGenerate(ASimpleInterface.class);
+        final ASimpleInterface aSimpleInterface = proxyGenerator.doGenerate(ASimpleInterface.class);
 
         Affirm.affirmNotNull("Generated proxy getName() returned null", aSimpleInterface.getName());
 
-        String name = aSimpleInterface.getName();
-        String otherName = aSimpleInterface.getName();
+        final String name = aSimpleInterface.getName();
+        final String otherName = aSimpleInterface.getName();
         if (name.equals(otherName)) { // Just incase they are the same by chance.
             Affirm.affirmFalse(String.format("RandomProxyFactory=[%s] returned a non-Random Pojo Proxy",
                     RandomInstanceFromInterfaceRandomGenerator.getInstance()), name.equals(aSimpleInterface.getName()));
@@ -63,14 +63,14 @@ public class RandomInstanceFromInterfaceRandomGeneratorTest {
 
     @Test
     public void shouldImplementAccuratetoStringAndhashCode() {
-        String toString = aSimpleInterface.toString();
+        final String toString = aSimpleInterface.toString();
         Affirm.affirmNotNull("toString() on proxy returned null", toString);
         Affirm.affirmTrue(String.format("toString returned [%s] expected it to begin with [%s] and contain [@]", toString, "$Proxy"),
                 toString.startsWith("$Proxy") && toString.contains("@"));
         Affirm.affirmTrue("toString() doesn't end with hashCode()", toString.endsWith(String.valueOf(aSimpleInterface
                 .hashCode())));
 
-        ASimpleInterface anotherSimpleInterface = proxyGenerator.doGenerate(ASimpleInterface.class);
+        final ASimpleInterface anotherSimpleInterface = proxyGenerator.doGenerate(ASimpleInterface.class);
         Affirm.affirmTrue("Generated Proxy hashCode() should not return equal values across instances",
                 aSimpleInterface.hashCode() != anotherSimpleInterface.hashCode());
     }
