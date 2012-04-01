@@ -57,99 +57,98 @@ public class PojoPackageImplTest {
     @Test
     public void testGetPojoClasses() {
         int counter = 0;
-        PojoClassFilter pojoFilter = new FilterCloverClasses();
-        for (PojoClass pojoClass : pojoPackage.getPojoClasses()) {
+        final PojoClassFilter pojoFilter = new FilterCloverClasses();
+        for (final PojoClass pojoClass : pojoPackage.getPojoClasses()) {
             if (pojoFilter.include(pojoClass)) {
                 counter++;
             }
         }
         Assert.assertEquals(String.format("classes added/removed to package=[%s]?", packageName), EXPECTED_CLASSES,
-                counter);
+                            counter);
     }
 
     @Test
     public void shouldReturnEmptyListNoAnnotation() {
-        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
+        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
                 + ".packagenoannotation");
-        Affirm.affirmTrue(String.format("Annotations added? expected none [%s]", pojoPackage), pojoPackage
-                .getAnnotations() != null
-                && pojoPackage.getAnnotations().size() == 0);
+        Affirm.affirmTrue(String.format("Annotations added? expected none [%s]", pojoPackage),
+                          pojoPackage.getAnnotations() != null && pojoPackage.getAnnotations().size() == 0);
     }
 
     @Test
     public void shouldReturnAnAnnotation() {
-        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
+        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
                 + ".packagemanyannotations");
-        Class<? extends Annotation> expectedAnnotationClass = SomeAnnotation.class;
+        final Class<? extends Annotation> expectedAnnotationClass = SomeAnnotation.class;
         Affirm.affirmNotNull(String.format("[%s] removed from package [%s]?", expectedAnnotationClass, pojoPackage),
-                pojoPackage.getAnnotation(expectedAnnotationClass));
+                             pojoPackage.getAnnotation(expectedAnnotationClass));
     }
 
     @Test
     public void shouldEnusreNoPackageInfoExists() {
-        String packageName = this.getClass().getPackage().getName() + ".packagenopackageinfo";
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(packageName);
+        final String packageName = this.getClass().getPackage().getName() + ".packagenopackageinfo";
+        final List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(packageName);
 
         Affirm.affirmTrue("No classes in package?", pojoClasses.size() > 0);
-        for (PojoClass pojoClass : pojoClasses) {
-            Affirm.affirmTrue(String.format("package-info added to package [%s]?", packageName), !pojoClass.getName()
-                    .endsWith("package-info"));
+        for (final PojoClass pojoClass : pojoClasses) {
+            Affirm.affirmTrue(String.format("package-info added to package [%s]?", packageName),
+                              !pojoClass.getName().endsWith("package-info"));
         }
 
     }
 
     @Test
     public void shouldReturnNullAnnotationNoPackageInfo() {
-        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
+        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
                 + ".packagenopackageinfo");
-        Affirm.affirmNull(String.format("package-info added to package [%s]?", pojoPackage), pojoPackage
-                .getAnnotation(SomeAnnotation.class));
+        Affirm.affirmNull(String.format("package-info added to package [%s]?", pojoPackage),
+                          pojoPackage.getAnnotation(SomeAnnotation.class));
     }
 
     @Test
     public void shouldReturnEmptyListAnnotationNoPackageInfo() {
-        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
+        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
                 + ".packagenopackageinfo");
         Affirm.affirmEquals(String.format("package-info with annotations added to package [%s]?", pojoPackage), 0,
-                pojoPackage.getAnnotations().size());
+                            pojoPackage.getAnnotations().size());
     }
 
     @Test
     public void shouldReturnAnnotationList() {
-        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
+        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(this.getClass().getPackage().getName()
                 + ".packagemanyannotations");
-        Affirm.affirmEquals(String.format("Annotations added/removed? [%s]", pojoPackage), 2, pojoPackage
-                .getAnnotations().size());
+        Affirm.affirmEquals(String.format("Annotations added/removed? [%s]", pojoPackage), 2,
+                            pojoPackage.getAnnotations().size());
 
-        List<Class<?>> expectedAnnotations = new LinkedList<Class<?>>();
+        final List<Class<?>> expectedAnnotations = new LinkedList<Class<?>>();
         expectedAnnotations.add(SomeAnnotation.class);
         expectedAnnotations.add(AnotherAnnotation.class);
-        for (Annotation annotation : pojoPackage.getAnnotations()) {
+        for (final Annotation annotation : pojoPackage.getAnnotations()) {
             Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]",
-                    expectedAnnotations, annotation.annotationType()), expectedAnnotations.contains(annotation
-                    .annotationType()));
+                                            expectedAnnotations, annotation.annotationType()),
+                              expectedAnnotations.contains(annotation.annotationType()));
         }
     }
 
     @Test
     public void shouldReturnPackageName() {
-        String packageName = this.getClass().getPackage().getName();
+        final String packageName = this.getClass().getPackage().getName();
 
-        PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(packageName);
+        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(packageName);
         Affirm.affirmEquals("Mismatch in packageName!!", packageName, pojoPackage.getName());
 
     }
 
     @Test(expected = ReflectionException.class)
     public void shouldFailNoSuchPackage() {
-        PojoPackage pojoPackage = PojoPackageFactory
-                .getPojoPackage((String) RandomFactory.getRandomValue(String.class));
+        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(RandomFactory.getRandomValue(String.class));
         pojoPackage.getAnnotations();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentException() {
         @SuppressWarnings("unused")
+        final
         PojoPackage pojoPackage = new PojoPackageImpl(null);
     }
 
