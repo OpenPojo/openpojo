@@ -38,7 +38,7 @@ import com.openpojo.validation.affirm.Affirm;
  * @author oshoukry
  */
 public class RandomFactoryTest {
-    private final String randomString = (String) RandomFactory.getRandomValue(String.class);
+    private final String randomString = RandomFactory.getRandomValue(String.class);
 
     /**
      * Test method for {@link com.openpojo.random.RandomFactory#addRandomGenerator(com.openpojo.random.RandomGenerator)}
@@ -58,8 +58,8 @@ public class RandomFactoryTest {
 
         });
 
-        Assert.assertEquals("RandomGenerator registration failed", randomString, ((RegisteredDummy) RandomFactory
-            .getRandomValue(RegisteredDummy.class)).getValue());
+        Assert.assertEquals("RandomGenerator registration failed", randomString, RandomFactory
+            .getRandomValue(RegisteredDummy.class).getValue());
     }
 
     /**
@@ -85,9 +85,9 @@ public class RandomFactoryTest {
 
     @Test
     public void generateRandomWithNoRegisteredRandomGenerator() {
-        Class<?> clazz = AClassWithNoRegisteredRandomGenerator.class;
+        final Class<?> clazz = AClassWithNoRegisteredRandomGenerator.class;
 
-        Object someInstance = RandomFactory.getRandomValue(clazz);
+        final Object someInstance = RandomFactory.getRandomValue(clazz);
 
         Affirm.affirmNotNull(String.format("Null value returned for random instance of [%s]", clazz.getName()),
             someInstance);
@@ -99,9 +99,9 @@ public class RandomFactoryTest {
     @Test
     public void shouldRegisterHierarchyOfTypes() {
         RandomFactory.addRandomGenerator(SomeInterfaceRandomGenerator.getInstance());
-        Class<?> someInterface = SomeInterface.class;
-        Class<?> classImplementingSomeInterface = ClassImplementingSomeInterface.class;
-        Class<?> classExtendingClassImplmentingSomeInterface = ClassExtendingClassImplementingSomeInterface.class;
+        final Class<?> someInterface = SomeInterface.class;
+        final Class<?> classImplementingSomeInterface = ClassImplementingSomeInterface.class;
+        final Class<?> classExtendingClassImplmentingSomeInterface = ClassExtendingClassImplementingSomeInterface.class;
         Object instance = RandomFactory.getRandomValue(someInterface);
 
         Affirm.affirmNotNull(String.format("RandomFactory failed to retrieve random instance for interface [%s]", someInterface), instance);
@@ -109,14 +109,8 @@ public class RandomFactoryTest {
 
         instance = RandomFactory.getRandomValue(classImplementingSomeInterface);
         Affirm.affirmEquals("RandomFactory failed to lookup proper random generator from heirarchy",classExtendingClassImplmentingSomeInterface, instance.getClass());
-
-//        Affirm.affirmTrue(String.format("Expected registered type [%s] not found, found[%s]", someInterface, RandomFactory.getRegisteredTypes()), RandomFactory.getRegisteredTypes().contains(someInterface));
     }
 
-    @Test
-    public void shouldRandomlyGenerateBasedOnHierarchySupport() {
-    	//TODO:
-    }
 
     private class RegisteredDummy {
         private final String value;
