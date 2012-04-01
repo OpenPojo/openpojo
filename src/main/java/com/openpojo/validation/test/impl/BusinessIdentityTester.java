@@ -29,6 +29,7 @@ import com.openpojo.validation.utils.ValidationHelper;
  * This rules ensures that object.equals(Object) and object.hashCode() are dispatching their calls to BusinessIdentity.
  * Use this tester to if you are using @BusinessKey and passing on your equals and hashCode calls to
  * {@link BusinessIdentity}.
+ *
  * This Tester is NOT thread safe.
  *
  * @author oshoukry
@@ -46,16 +47,16 @@ public final class BusinessIdentityTester implements Tester {
         secondPojoClassInstance = ValidationHelper.getMostCompleteInstance(pojoClass);
 
         // check one way
-        identityHandlerStub.areEqualReturn = (Boolean) RandomFactory.getRandomValue(Boolean.class);
+        identityHandlerStub.areEqualReturn = RandomFactory.getRandomValue(Boolean.class);
         checkEquality();
 
         identityHandlerStub.areEqualReturn = !identityHandlerStub.areEqualReturn;
         checkEquality();
 
-        identityHandlerStub.doGenerateReturn = (Integer) RandomFactory.getRandomValue(Integer.class);
+        identityHandlerStub.doGenerateReturn = RandomFactory.getRandomValue(Integer.class);
         checkHashCode();
 
-        identityHandlerStub.doGenerateReturn = (Integer) RandomFactory.getRandomValue(Integer.class);
+        identityHandlerStub.doGenerateReturn = RandomFactory.getRandomValue(Integer.class);
         checkHashCode();
 
         IdentityFactory.unregisterIdentityHandler(identityHandlerStub);
@@ -63,14 +64,14 @@ public final class BusinessIdentityTester implements Tester {
 
     private void checkHashCode() {
         Affirm.affirmTrue(String.format("Class=[%s] not dispatching 'hashCode()' calls to BusinessIdentity",
-                firstPojoClassInstance.getClass()), identityHandlerStub.doGenerateReturn == firstPojoClassInstance
-                .hashCode());
+                                        firstPojoClassInstance.getClass()),
+                          identityHandlerStub.doGenerateReturn == firstPojoClassInstance.hashCode());
     }
 
     private void checkEquality() {
         Affirm.affirmTrue(String.format("Class=[%s] not dispatching 'equals()' calls to BusinessIdentity",
-                firstPojoClassInstance.getClass()), identityHandlerStub.areEqualReturn == firstPojoClassInstance
-                .equals(secondPojoClassInstance));
+                                        firstPojoClassInstance.getClass()),
+                          identityHandlerStub.areEqualReturn == firstPojoClassInstance.equals(secondPojoClassInstance));
     }
 
     private class IdentityHandlerStub implements IdentityHandler {
