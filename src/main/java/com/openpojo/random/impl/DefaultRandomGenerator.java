@@ -21,6 +21,7 @@ import java.util.Collection;
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomGenerator;
+import com.openpojo.random.dynamic.ArrayRandomGenerator;
 import com.openpojo.random.dynamic.EnumRandomGenerator;
 import com.openpojo.random.dynamic.RandomInstanceFromInterfaceRandomGenerator;
 import com.openpojo.random.exception.RandomGeneratorException;
@@ -35,6 +36,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 public class DefaultRandomGenerator implements RandomGenerator {
     private final RandomInstanceFromInterfaceRandomGenerator interfaceRandomGenerator = RandomInstanceFromInterfaceRandomGenerator.getInstance();
     private final EnumRandomGenerator enumRandomGenerator = EnumRandomGenerator.getInstance();
+    private final ArrayRandomGenerator arrayRandomGenerator = ArrayRandomGenerator.getInstance();
     private final Logger logger = LoggerFactory.getLogger(DefaultRandomGenerator.class);
 
     /*
@@ -61,13 +63,11 @@ public class DefaultRandomGenerator implements RandomGenerator {
             return enumRandomGenerator.doGenerate(type);
         }
 
-        if (typePojoClass.isArray()) {
-            throw RandomGeneratorException.getInstance(String.format(this.getClass().getName()
-                                                                     + " can't generate instance for Array class [%s[]], feature to be added soon see http://openpojo.com for details",
-                                                             typePojoClass.getClazz().getComponentType()));
+        if (typePojoClass.isArray()) { // Must be placed before isAbstract Check
+            return arrayRandomGenerator.doGenerate(type);
         }
 
-        if (typePojoClass.isAbstract()) { // This will return true for Arrays, so the check must come post isArrayCheck.
+        if (typePojoClass.isAbstract()) {
             throw RandomGeneratorException.getInstance(String.format(this.getClass().getName()
                                                                              + " can't generate instance for Abstract class [%s], please register a RandomGenerator and try again",
                                                                      typePojoClass));
