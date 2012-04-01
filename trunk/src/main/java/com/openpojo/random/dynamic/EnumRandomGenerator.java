@@ -31,20 +31,23 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 public final class EnumRandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
 
+    private EnumRandomGenerator() {
+    }
+
     public static EnumRandomGenerator getInstance() {
         return Instance.INSTANCE;
     }
 
     public Object doGenerate(final Class<?> type) {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
 
-        Enum<?>[] values = getValues(pojoClass);
+        final Enum<?>[] values = getValues(pojoClass);
         return values[RANDOM.nextInt(values.length)];
     }
 
-    private Enum<?>[] getValues(PojoClass enumPojoClass) {
-        Enum<?> [] values = null;
-        for (PojoMethod pojoMethod : enumPojoClass.getPojoMethods()) {
+    private Enum<?>[] getValues(final PojoClass enumPojoClass) {
+        Enum<?>[] values = null;
+        for (final PojoMethod pojoMethod : enumPojoClass.getPojoMethods()) {
             if (pojoMethod.getName().equals("values")) {
                 values = (Enum<?>[]) pojoMethod.invoke(null, (Object[]) null);
                 break;
