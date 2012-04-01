@@ -45,15 +45,16 @@ public class MessageFormatterTest {
 
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("SimpleMessage", "SimpleMessage", null));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(null, null,
-                new Object[]{ "nothing to format to" }));
+                                                                      new Object[] { "nothing to format to" }));
 
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(
-                "Here is how to put single quotes in messages '[wrapped 'with' quotes]'",
-                "Here is how to put single quotes in messages ''[{0}]''", new Object[]{ "wrapped 'with' quotes" }));
+                                                                      "Here is how to put single quotes in messages '[wrapped 'with' quotes]'",
+                                                                      "Here is how to put single quotes in messages ''[{0}]''",
+                                                                      new Object[] { "wrapped 'with' quotes" }));
 
         final Date date = new Date();
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("Two Params a string=[myString] and a date=["
-                + date.toString() + "]", "Two Params a string=[{0}] and a date=[{1}]", new Object[]{ "myString",
+                + date.toString() + "]", "Two Params a string=[{0}] and a date=[{1}]", new Object[] { "myString",
                 date.toString() }));
 
         final Exception exception = new Exception("This is an exception");
@@ -66,9 +67,11 @@ public class MessageFormatterTest {
                 lineNumber = lineNumber * -1;
             }
 
-            fakeStackTraceElements[idx] = (StackTraceElement) InstanceFactory.getInstance(PojoClassFactory
-                    .getPojoClass(StackTraceElement.class), RandomFactory.getRandomValue(String.class), RandomFactory
-                    .getRandomValue(String.class), RandomFactory.getRandomValue(String.class), lineNumber);
+            fakeStackTraceElements[idx] = (StackTraceElement) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(StackTraceElement.class),
+                                                                                          RandomFactory.getRandomValue(String.class),
+                                                                                          RandomFactory.getRandomValue(String.class),
+                                                                                          RandomFactory.getRandomValue(String.class),
+                                                                                          lineNumber);
             expectedLog = expectedLog + ", \tat " + fakeStackTraceElements[idx].getClassName() + "."
                     + fakeStackTraceElements[idx].getMethodName() + "(" + fakeStackTraceElements[idx].getFileName()
                     + ":" + lineNumber + ")";
@@ -78,20 +81,25 @@ public class MessageFormatterTest {
         exception.setStackTrace(fakeStackTraceElements);
 
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(expectedLog, "Exception=[{0}]",
-                new Object[]{ exception }));
+                                                                      new Object[] { exception }));
 
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("only one param assigned 1=[1st Param] 2=[{1}]",
-                "only one param assigned 1=[{0}] 2=[{1}]", new Object[]{ "1st Param" }));
+                                                                      "only one param assigned 1=[{0}] 2=[{1}]",
+                                                                      new Object[] { "1st Param" }));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("only one will print - [extra parameter]",
-                "only one will print - [{0}]", new Object[]{ "extra parameter", " should not print" }));
+                                                                      "only one will print - [{0}]", new Object[] {
+                                                                              "extra parameter", " should not print" }));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("nothing shows up for null args=[{0}]",
-                "nothing shows up for null args=[{0}]", null));
+                                                                      "nothing shows up for null args=[{0}]", null));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(
-                "Message and one param [param one] and this one is null=[null]",
-                "Message and one param [{0}] and this one is null=[{1}]", new Object[]{ "param one", null }));
+                                                                      "Message and one param [param one] and this one is null=[null]",
+                                                                      "Message and one param [{0}] and this one is null=[{1}]",
+                                                                      new Object[] { "param one", null }));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(
-                "Nested Array unfolds [[1, 2, 3], [check, me, out]]", "Nested Array unfolds [{0}, {1}]", new Object[]{
-                        new Integer[]{ 1, 2, 3 }, new String[]{ "check", "me", "out" } }));
+                                                                      "Nested Array unfolds [[1, 2, 3], [check, me, out]]",
+                                                                      "Nested Array unfolds [{0}, {1}]", new Object[] {
+                                                                              new Integer[] { 1, 2, 3 },
+                                                                              new String[] { "check", "me", "out" } }));
 
         return usingCurlyBracketsTestData;
     }
@@ -103,10 +111,11 @@ public class MessageFormatterTest {
      */
     private List<FlattenArrayToStringTestData> getFlattenArrayToStringTestData() {
         final List<FlattenArrayToStringTestData> flattenArrayToStringTestData = new LinkedList<FlattenArrayToStringTestData>();
-        flattenArrayToStringTestData.add(new FlattenArrayToStringTestData("[[1, 2, 3]]", new Object[]{ new Integer[]{
+        flattenArrayToStringTestData.add(new FlattenArrayToStringTestData("[[1, 2, 3]]", new Object[] { new Integer[] {
                 1, 2, 3 } }));
         flattenArrayToStringTestData.add(new FlattenArrayToStringTestData("[[This, is, a string]]",
-                new Object[]{ new String[]{ "This", "is", "a string" } }));
+                                                                          new Object[] { new String[] { "This", "is",
+                                                                                  "a string" } }));
 
         return flattenArrayToStringTestData;
     }
@@ -188,17 +197,17 @@ public class MessageFormatterTest {
 
         final StringBuilder assertString = new StringBuilder();
         for (int counter = 0; counter < randomNumberOfTokensBetween0And10; counter++) {
-            assertString.append(GENERATE_CURLY_BRACKET_TOKEN_PREFIX).append(counter).append(
-                    GENERATE_CURLY_BRACKET_TOKEN_POSTFIX);
+            assertString.append(GENERATE_CURLY_BRACKET_TOKEN_PREFIX).append(counter)
+                        .append(GENERATE_CURLY_BRACKET_TOKEN_POSTFIX);
         }
-        Assert.assertEquals(assertString.toString(), MessageFormatter
-                .generateCurlyBracketTokens(randomNumberOfTokensBetween0And10));
+        Assert.assertEquals(assertString.toString(),
+                            MessageFormatter.generateCurlyBracketTokens(randomNumberOfTokensBetween0And10));
 
     }
 
     /**
-     * Storage structure for testing MessageFormatter.usingCurlyBrackets(java.lang.String, java.lang.Object[]).
-     * see {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}
+     * Storage structure for testing MessageFormatter.usingCurlyBrackets(java.lang.String, java.lang.Object[]). see
+     * {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}
      *
      * @author oshoukry
      */
@@ -225,8 +234,8 @@ public class MessageFormatterTest {
     }
 
     /**
-     * This class carries the expected final result as well as the test data input for usingCurlyBrackets method.
-     * see {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}
+     * This class carries the expected final result as well as the test data input for usingCurlyBrackets method. see
+     * {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}
      *
      * @author oshoukry
      */

@@ -51,7 +51,7 @@ public class TestExceptions {
 
     @Test
     public void ValidateConstructors() {
-        for (PojoClass pojoExceptionClass : pojoExceptionClasses) {
+        for (final PojoClass pojoExceptionClass : pojoExceptionClasses) {
 
             ensureConstructorsPrivate(pojoExceptionClass.getPojoConstructors());
             testGetInstance(pojoExceptionClass);
@@ -60,34 +60,30 @@ public class TestExceptions {
 
     public void ensureConstructorsPrivate(final List<PojoMethod> constructors) {
 
-        for (PojoMethod constructor : constructors) {
-            Affirm
-                    .affirmTrue(String.format("Constructor must be private [%s]!!", constructor), constructor
-                            .isPrivate());
+        for (final PojoMethod constructor : constructors) {
+            Affirm.affirmTrue(String.format("Constructor must be private [%s]!!", constructor), constructor.isPrivate());
         }
     }
 
     public void testGetInstance(final PojoClass pojoExceptionClass) {
         int getInstanceCount = 0;
-        String someMessage = (String) RandomFactory.getRandomValue(String.class);
-        Throwable cause = new Throwable();
+        final String someMessage = RandomFactory.getRandomValue(String.class);
+        final Throwable cause = new Throwable();
 
-        for (PojoMethod getInstance : pojoExceptionClass.getPojoMethods()) {
+        for (final PojoMethod getInstance : pojoExceptionClass.getPojoMethods()) {
             if (getInstance.getName().equals("getInstance")) {
                 if (getInstance.getParameterTypes().length == 1) {
-                    Throwable instance = (Throwable) getInstance.invoke(null, someMessage);
+                    final Throwable instance = (Throwable) getInstance.invoke(null, someMessage);
                     Affirm.affirmEquals(String.format("Message changed in Exception[%s] using getInstance(String)?!",
                                                       pojoExceptionClass), someMessage, instance.getMessage());
                 }
 
                 if (getInstance.getParameterTypes().length == 2) {
-                    Throwable instance = (Throwable) getInstance.invoke(null, someMessage, cause);
-                    Affirm.affirmEquals(String
-                            .format("Message changed in Exception[%s] using getInstance(String, Throwable)?!",
-                                    pojoExceptionClass), someMessage, instance.getMessage());
-                    Affirm.affirmEquals(String
-                            .format("Cause changed in Exception[%s] using getInstance(String, Throwable)?!",
-                                    pojoExceptionClass), cause, instance.getCause());
+                    final Throwable instance = (Throwable) getInstance.invoke(null, someMessage, cause);
+                    Affirm.affirmEquals(String.format("Message changed in Exception[%s] using getInstance(String, Throwable)?!",
+                                                      pojoExceptionClass), someMessage, instance.getMessage());
+                    Affirm.affirmEquals(String.format("Cause changed in Exception[%s] using getInstance(String, Throwable)?!",
+                                                      pojoExceptionClass), cause, instance.getCause());
                 }
                 getInstanceCount++;
             }
@@ -100,7 +96,7 @@ public class TestExceptions {
     @Test
     @Ignore
     public void debugExceptions() {
-        for (PojoClass pojoExceptionClass : pojoExceptionClasses) {
+        for (final PojoClass pojoExceptionClass : pojoExceptionClasses) {
             System.out.println(pojoExceptionClass.getSourcePath() + ": " + pojoExceptionClass.getClazz().getName());
         }
     }
