@@ -16,6 +16,7 @@
  */
 package com.openpojo.log.utils;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -40,7 +41,7 @@ public class MessageFormatterTest {
      * @return List of data used to test the method.
      */
     private List<UsingCurlyBracketsTestData> getUsingCurlyBracketsTestData() {
-        List<UsingCurlyBracketsTestData> usingCurlyBracketsTestData = new LinkedList<UsingCurlyBracketsTestData>();
+        final List<UsingCurlyBracketsTestData> usingCurlyBracketsTestData = new LinkedList<UsingCurlyBracketsTestData>();
 
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("SimpleMessage", "SimpleMessage", null));
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData(null, null,
@@ -50,17 +51,17 @@ public class MessageFormatterTest {
                 "Here is how to put single quotes in messages '[wrapped 'with' quotes]'",
                 "Here is how to put single quotes in messages ''[{0}]''", new Object[]{ "wrapped 'with' quotes" }));
 
-        Date date = new Date();
+        final Date date = new Date();
         usingCurlyBracketsTestData.add(new UsingCurlyBracketsTestData("Two Params a string=[myString] and a date=["
                 + date.toString() + "]", "Two Params a string=[{0}] and a date=[{1}]", new Object[]{ "myString",
                 date.toString() }));
 
-        Exception exception = new Exception("This is an exception");
+        final Exception exception = new Exception("This is an exception");
 
-        StackTraceElement[] fakeStackTraceElements = new StackTraceElement[3];
+        final StackTraceElement[] fakeStackTraceElements = new StackTraceElement[3];
         String expectedLog = "Exception=[[java.lang.Exception: This is an exception";
         for (int idx = 0; idx < 3; idx++) {
-            Integer lineNumber = Integer.valueOf((Short) RandomFactory.getRandomValue(Short.class));
+            Integer lineNumber = Integer.valueOf(RandomFactory.getRandomValue(Short.class));
             if (lineNumber < 0) {
                 lineNumber = lineNumber * -1;
             }
@@ -101,7 +102,7 @@ public class MessageFormatterTest {
      * @return List of data used to test the method.
      */
     private List<FlattenArrayToStringTestData> getFlattenArrayToStringTestData() {
-        List<FlattenArrayToStringTestData> flattenArrayToStringTestData = new LinkedList<FlattenArrayToStringTestData>();
+        final List<FlattenArrayToStringTestData> flattenArrayToStringTestData = new LinkedList<FlattenArrayToStringTestData>();
         flattenArrayToStringTestData.add(new FlattenArrayToStringTestData("[[1, 2, 3]]", new Object[]{ new Integer[]{
                 1, 2, 3 } }));
         flattenArrayToStringTestData.add(new FlattenArrayToStringTestData("[[This, is, a string]]",
@@ -116,7 +117,7 @@ public class MessageFormatterTest {
      */
     @Test
     public final void testUsingCurlyBrackets() {
-        for (UsingCurlyBracketsTestData entry : getUsingCurlyBracketsTestData()) {
+        for (final UsingCurlyBracketsTestData entry : getUsingCurlyBracketsTestData()) {
             Assert.assertEquals(entry.expected, MessageFormatter.usingCurlyBrackets(entry.message, entry.fields));
         }
     }
@@ -126,7 +127,7 @@ public class MessageFormatterTest {
      */
     @Test
     public final void testFlattenArrayToString() {
-        for (FlattenArrayToStringTestData entry : getFlattenArrayToStringTestData()) {
+        for (final FlattenArrayToStringTestData entry : getFlattenArrayToStringTestData()) {
             Assert.assertEquals(entry.expected, Arrays.toString(MessageFormatter.formatArgsToStrings(entry.array)));
         }
 
@@ -150,6 +151,31 @@ public class MessageFormatterTest {
                 + GENERATE_CURLY_BRACKET_TOKEN_POSTFIX, MessageFormatter.generateCurlyBracketTokens(1));
     }
 
+    @Test
+    public final void testActualArraySentAsObject() {
+        final String expected = "[false, true]";
+        final Object array = Array.newInstance(boolean.class, 2);
+        Array.set(array, 0, false);
+        Array.set(array, 1, true);
+        Assert.assertEquals(expected, MessageFormatter.format(array));
+    }
+
+    @Test
+    public final void testActualArraySentAsObjectWithNulls() {
+        final String expected = "[3, null, 14]";
+        final Object array = Array.newInstance(Integer.class, 3);
+        Array.set(array, 0, 3);
+        Array.set(array, 2, 14);
+        Assert.assertEquals(expected, MessageFormatter.format(array));
+    }
+
+    @Test
+    public final void testActualArraySentWithSizeZero() {
+        final String expected = "[]";
+        final Object array = Array.newInstance(Integer.class, 0);
+        Assert.assertEquals(expected, MessageFormatter.format(array));
+    }
+
     private static final int MAX_NUMBER_OF_RANDOM_TOKENS = 10;
 
     /**
@@ -158,9 +184,9 @@ public class MessageFormatterTest {
      */
     @Test
     public final void testRandomGenerateCurlyBracketTokens() {
-        int randomNumberOfTokensBetween0And10 = new Random().nextInt(MAX_NUMBER_OF_RANDOM_TOKENS + 1);
+        final int randomNumberOfTokensBetween0And10 = new Random().nextInt(MAX_NUMBER_OF_RANDOM_TOKENS + 1);
 
-        StringBuilder assertString = new StringBuilder();
+        final StringBuilder assertString = new StringBuilder();
         for (int counter = 0; counter < randomNumberOfTokensBetween0And10; counter++) {
             assertString.append(GENERATE_CURLY_BRACKET_TOKEN_PREFIX).append(counter).append(
                     GENERATE_CURLY_BRACKET_TOKEN_POSTFIX);
