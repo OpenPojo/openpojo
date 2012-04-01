@@ -38,8 +38,9 @@ public class FacadeFactoryTest {
     }
 
     private final void checkReturnedFacade(final Class<?> expected, final String... facades) {
-        PojoClass facade = FacadeFactory.getLoadedFacadePojoClass(facades);
-        Affirm.affirmNotNull(String.format("Failed to load from the valid list of facades [%s]?!", Arrays.toString(facades)), facade);
+        final PojoClass facade = FacadeFactory.getLoadedFacadePojoClass(facades);
+        Affirm.affirmNotNull(String.format("Failed to load from the valid list of facades [%s]?!",
+                                           Arrays.toString(facades)), facade);
 
         Affirm.affirmEquals("Wrong facade returned!!", expected, facade.getClazz());
 
@@ -47,6 +48,6 @@ public class FacadeFactoryTest {
 
     @Test(expected = ReflectionException.class)
     public void shouldThrowErorr() {
-        FacadeFactory.getLoadedFacadePojoClass(new String[]{ (String) RandomFactory.getRandomValue(String.class) });
+        FacadeFactory.getLoadedFacadePojoClass(new String[] { RandomFactory.getRandomValue(String.class) });
     }
 }
