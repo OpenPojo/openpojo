@@ -77,7 +77,8 @@ public class RandomFactory {
      *            The type to get a random value of.
      * @return Randomly created value.
      */
-    public static final Object getRandomValue(final Class<?> type) {
+    @SuppressWarnings("unchecked")
+    public static final <T> T  getRandomValue(final Class<T> type) {
         if (GeneratedRandomValues.contains(type)) {
             logger.warn("Cyclic dependency on random generator for type=[{0}] detected, returning null", type);
             return null; // seen before, break loop.
@@ -86,13 +87,13 @@ public class RandomFactory {
         GeneratedRandomValues.add(type);
 
         try {
-            RandomGenerator randomGenerator = getRandomGeneratorService().getRandomGeneratorByType(type);
+            final RandomGenerator randomGenerator = getRandomGeneratorService().getRandomGeneratorByType(type);
 
             if (randomGenerator == null) {
                 throw RandomGeneratorException.getInstance("No randomGenerator Found for type " + type);
             }
 
-            return randomGenerator.doGenerate(type);
+            return (T) randomGenerator.doGenerate(type);
         } finally {
             GeneratedRandomValues.remove(type);
         }
@@ -101,4 +102,5 @@ public class RandomFactory {
     private static RandomGeneratorService getRandomGeneratorService() {
         return ServiceRegistrar.getInstance().getRandomGeneratorService();
     }
+
 }
