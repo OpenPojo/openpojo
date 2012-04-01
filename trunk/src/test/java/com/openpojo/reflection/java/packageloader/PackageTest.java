@@ -28,7 +28,7 @@ public class PackageTest {
 
     @Test
     public final void testIsValid() {
-        Package javaPackage = new Package((String) RandomFactory.getRandomValue(String.class));
+        Package javaPackage = new Package(RandomFactory.getRandomValue(String.class));
         Affirm.affirmFalse("Invalid package evaluated to as valid?!", javaPackage.isValid());
 
         javaPackage = new Package(this.getClass().getPackage().getName());

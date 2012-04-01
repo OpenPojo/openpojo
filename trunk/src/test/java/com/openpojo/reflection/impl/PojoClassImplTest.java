@@ -60,14 +60,15 @@ public class PojoClassImplTest {
         final String message = "Class type check failed on [%s], actual class returned [%s], PojoClass returned [%s]!!";
         for (final PojoClass pojoClass : PojoClassFactory.getPojoClassesRecursively(SAMPLE_CLASSES_PKG, null)) {
             final Class<?> actualClass = pojoClass.getClazz();
-            Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isInterface()", actualClass
-                    .isInterface(), pojoClass.isInterface()), pojoClass.isInterface() == actualClass.isInterface());
-            Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isAbstract()", Modifier
-                    .isAbstract(actualClass.getModifiers()), pojoClass.isAbstract()),
+            Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isInterface()",
+                                            actualClass.isInterface(), pojoClass.isInterface()),
+                              pojoClass.isInterface() == actualClass.isInterface());
+            Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isAbstract()",
+                                            Modifier.isAbstract(actualClass.getModifiers()), pojoClass.isAbstract()),
                               pojoClass.isAbstract() == Modifier.isAbstract(actualClass.getModifiers()));
 
-            final boolean expectedValue = !(Modifier.isAbstract(actualClass.getModifiers()) || actualClass.isInterface() || actualClass
-                    .isEnum());
+            final boolean expectedValue = !(Modifier.isAbstract(actualClass.getModifiers())
+                    || actualClass.isInterface() || actualClass.isEnum());
             final boolean actualValue = pojoClass.isConcrete();
             Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isConcrete()", expectedValue,
                                             actualValue), actualValue == expectedValue);
@@ -108,7 +109,9 @@ public class PojoClassImplTest {
 
         final PojoClass pojoClass = getPojoClassImplForClass(aClassExtendingAnInterfaceAndAbstract);
         Affirm.affirmTrue(String.format("Failed to validate Class=[%s] extending an interface=[%s]"
-                + " for PojoClass Implementation=[%s]", aClassExtendingAnInterfaceAndAbstract, anInterface, pojoClass),
+                                                + " for PojoClass Implementation=[%s]",
+                                        aClassExtendingAnInterfaceAndAbstract,
+                                        anInterface, pojoClass),
                           pojoClass.extendz(anInterface));
     }
 
@@ -134,8 +137,8 @@ public class PojoClassImplTest {
         expectedAnnotations.add(AnotherAnnotation.class);
         for (final Annotation annotation : pojoClass.getAnnotations()) {
             Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]",
-                                            expectedAnnotations, annotation.annotationType()), expectedAnnotations
-                    .contains(annotation.annotationType()));
+                                            expectedAnnotations, annotation.annotationType()),
+                              expectedAnnotations.contains(annotation.annotationType()));
         }
     }
 
@@ -154,7 +157,7 @@ public class PojoClassImplTest {
     @Test(expected = ReflectionException.class)
     public void shouldFailToFindAppropriateConstructor() {
         final PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        InstanceFactory.getInstance(pojoClass, (new Object[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
+        InstanceFactory.getInstance(pojoClass, (new Object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
     }
 
     @Test(expected = ReflectionException.class)
@@ -173,19 +176,16 @@ public class PojoClassImplTest {
     public void shouldCreateInstanceUsingDeclaredPublicConstructor() {
         final PojoClass pojoClass = getPojoClassImplForClass(OnePublicNoParamConstructor.class);
         final Object instance = InstanceFactory.getInstance(pojoClass);
-        Affirm
-                .affirmNotNull(String
-                        .format("Failed to create a new instance using publicly declared constructor for class=[%s]",
-                                pojoClass), instance);
+        Affirm.affirmNotNull(String.format("Failed to create a new instance using publicly declared constructor for class=[%s]",
+                                           pojoClass), instance);
     }
 
     @Test
     public void shouldCreateInstanceUsingDeclaredPrivateConstructor() {
         final PojoClass pojoClass = getPojoClassImplForClass(OnePrivateNoParamsConstructor.class);
         final Object instance = InstanceFactory.getInstance(pojoClass);
-        Affirm.affirmNotNull(String
-                .format("Failed to create a new instance using privately declared constructor for class=[%s]",
-                        pojoClass), instance);
+        Affirm.affirmNotNull(String.format("Failed to create a new instance using privately declared constructor for class=[%s]",
+                                           pojoClass), instance);
     }
 
     @Test
@@ -193,83 +193,74 @@ public class PojoClassImplTest {
         final PojoClass pojoClass = getPojoClassImplForClass(NoDeclaredConstructor.class);
         final Object instance = InstanceFactory.getInstance(pojoClass);
 
-        Affirm.affirmNotNull(String
-                .format("Failed to create a new instance using compiler auto-generated constructor for class=[%s]",
-                        pojoClass), instance);
+        Affirm.affirmNotNull(String.format("Failed to create a new instance using compiler auto-generated constructor for class=[%s]",
+                                           pojoClass), instance);
     }
 
     @Test
     public void shouldCreateInstanceOneParameterConstructor() {
         final PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
         final Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class));
-        Affirm
-                .affirmNotNull(String
-                        .format("Failed to create a new instance using single parameter constructor for class=[%s]",
-                                pojoClass), instance);
+        Affirm.affirmNotNull(String.format("Failed to create a new instance using single parameter constructor for class=[%s]",
+                                           pojoClass), instance);
     }
 
     @Test
     public void shouldCreateInstanceOneNullParameterConstructor() {
         final PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-        final Object instance = InstanceFactory.getInstance(pojoClass, (new Object[]{ null }));
-        Affirm
-                .affirmNotNull(String
-                        .format("Failed to create a new instance using single parameter constructor for class=[%s]",
-                                pojoClass), instance);
+        final Object instance = InstanceFactory.getInstance(pojoClass, (new Object[] { null }));
+        Affirm.affirmNotNull(String.format("Failed to create a new instance using single parameter constructor for class=[%s]",
+                                           pojoClass), instance);
     }
 
     @Test
     public void shouldCreateInstanceMultipleParameterConstructor() {
         final PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
         final Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class),
-                                                      RandomFactory.getRandomValue(Integer.class));
-        Affirm.affirmNotNull(String
-                .format("Failed to create a new instance using multiple parameter constructor for class=[%s]",
-                        pojoClass), instance);
+                                                            RandomFactory.getRandomValue(Integer.class));
+        Affirm.affirmNotNull(String.format("Failed to create a new instance using multiple parameter constructor for class=[%s]",
+                                           pojoClass), instance);
     }
 
     @Test
     public void shouldCreateInstanceMultipleParameterPrivateConstructor() {
         final PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
         final Object instance = InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(String.class),
-                                                      RandomFactory.getRandomValue(Integer.class), RandomFactory
-                                                              .getRandomValue(Character.class));
-        Affirm.affirmNotNull(String
-                .format("Failed to create a new instance using multiple parameter private constructor for class=[%s]",
-                        pojoClass), instance);
+                                                            RandomFactory.getRandomValue(Integer.class),
+                                                            RandomFactory.getRandomValue(Character.class));
+        Affirm.affirmNotNull(String.format("Failed to create a new instance using multiple parameter private constructor for class=[%s]",
+                                           pojoClass), instance);
     }
 
     @Test
     public void testIsNestedClass() {
         final Class<?> nonNestedClass = AClassWithNestedClass.class;
         PojoClass pojoClass = getPojoClassImplForClass(nonNestedClass);
-        Affirm.affirmFalse(String
-                .format("Non-nested class=[%s] returned true for isNestedClass on PojoClass implementation=[%s]",
-                        nonNestedClass, pojoClass), pojoClass.isNestedClass());
+        Affirm.affirmFalse(String.format("Non-nested class=[%s] returned true for isNestedClass on PojoClass implementation=[%s]",
+                                         nonNestedClass, pojoClass), pojoClass.isNestedClass());
 
         final Class<?> nestedClass = NestedClass.class;
         pojoClass = getPojoClassImplForClass(nestedClass);
-        Affirm.affirmTrue(String
-                .format("Nested class=[%s] returned false for isNestedClass on PojoClass implementation=[%s]",
-                        nestedClass, pojoClass), pojoClass.isNestedClass());
+        Affirm.affirmTrue(String.format("Nested class=[%s] returned false for isNestedClass on PojoClass implementation=[%s]",
+                                        nestedClass, pojoClass), pojoClass.isNestedClass());
     }
 
     @Test
     public void testCopy() {
-        final AClassWithEquality first = new AClassWithEquality((String) RandomFactory.getRandomValue(String.class),
-                (Integer) RandomFactory.getRandomValue(Integer.class));
+        final AClassWithEquality first = new AClassWithEquality(RandomFactory.getRandomValue(String.class),
+                                                                RandomFactory.getRandomValue(Integer.class));
 
         final AClassWithEquality second = new AClassWithEquality();
 
         Affirm.affirmFalse(String.format("Class with data=[%s], evaluated equals to one without=[%s]!!",
-                                         BusinessIdentity.toString(first), BusinessIdentity.toString(second)), first
-                .equals(second));
+                                         BusinessIdentity.toString(first), BusinessIdentity.toString(second)),
+                           first.equals(second));
 
         final PojoClass pojoClass = getPojoClassImplForClass(first.getClass());
         pojoClass.copy(first, second);
         Affirm.affirmTrue(String.format("Class=[%s] copied to=[%s] and still equals returned false using PojoClass"
-                + " implementation=[%s]!!", BusinessIdentity.toString(first), BusinessIdentity.toString(second),
-                                        pojoClass), first.equals(second));
+                                                + " implementation=[%s]!!", BusinessIdentity.toString(first),
+                                        BusinessIdentity.toString(second), pojoClass), first.equals(second));
     }
 
     @Test
@@ -283,16 +274,16 @@ public class PojoClassImplTest {
     @Test
     public void shouldGetInterfaces() {
         final PojoClass pojoClass = getPojoClassImplForClass(AClassWithInterfaces.class);
-        Affirm.affirmEquals(String.format("Interfaces added/removed from [%s]?", pojoClass), 2, pojoClass
-                .getInterfaces().size());
+        Affirm.affirmEquals(String.format("Interfaces added/removed from [%s]?", pojoClass), 2,
+                            pojoClass.getInterfaces().size());
 
         final List<Class<?>> expectedInterfaces = new LinkedList<Class<?>>();
         expectedInterfaces.add(FirstInterfaceForAClassWithInterfaces.class);
         expectedInterfaces.add(SecondInterfaceForAClassWithInterfaces.class);
         for (final PojoClass pojoInterface : pojoClass.getInterfaces()) {
             Affirm.affirmTrue(String.format("Expected interfaces [%s] not found, instead found [%s]",
-                                            expectedInterfaces, pojoInterface.getClazz()), expectedInterfaces
-                    .contains(pojoInterface.getClazz()));
+                                            expectedInterfaces, pojoInterface.getClazz()),
+                              expectedInterfaces.contains(pojoInterface.getClazz()));
         }
     }
 
@@ -301,24 +292,28 @@ public class PojoClassImplTest {
         final Class<?> clazz = this.getClass();
         final PojoClass pojoClass = getPojoClassImplForClass(clazz);
         Affirm.affirmTrue(String.format("PojoClass parsing for [%s] returned different class=[%s] in getClazz() call"
-                + " for PojoClass implementation=[%s]", clazz, pojoClass.getClazz(), pojoClass), clazz.equals(pojoClass
-                .getClazz()));
+                                  + " for PojoClass implementation=[%s]", clazz, pojoClass.getClazz(), pojoClass),
+                          clazz.equals(pojoClass.getClazz()));
     }
 
     @Test
     public void testEqualityAndHashCodeBasedOnIdentityNotInstance() {
         final PojoClass first = getPojoClassImplForClass(this.getClass());
         final PojoClass second = getPojoClassImplForClass(this.getClass());
-        Affirm.affirmEquals("PojoClassImpl equals is instance based!! Should be business equality based.", first, second);
-        Affirm.affirmEquals("PojoClassImpl hashCode is instance based!! Should be business equality based.", first.hashCode(), second.hashCode());
+        Affirm.affirmEquals("PojoClassImpl equals is instance based!! Should be business equality based.", first,
+                            second);
+        Affirm.affirmEquals("PojoClassImpl hashCode is instance based!! Should be business equality based.",
+                            first.hashCode(), second.hashCode());
     }
 
     @Test
     public void testIsArray() {
         final Object[] objectArray = new Object[] { new Object() };
         final PojoClass objectArrayPojoClass = getPojoClassImplForClass(objectArray.getClass());
-        Affirm.affirmTrue(String.format("PojoClassImpl isArray() failed on array[%s]", objectArray), objectArrayPojoClass.isArray());
-        Affirm.affirmTrue(String.format("Array should return true on isAbstract for array [%s]! Did Java underlying implementation change?", objectArray), objectArrayPojoClass.isAbstract());
+        Affirm.affirmTrue(String.format("PojoClassImpl isArray() failed on array[%s]", objectArray),
+                          objectArrayPojoClass.isArray());
+        Affirm.affirmTrue(String.format("Array should return true on isAbstract for array [%s]! Did Java underlying implementation change?",
+                                        objectArray), objectArrayPojoClass.isAbstract());
 
     }
 
