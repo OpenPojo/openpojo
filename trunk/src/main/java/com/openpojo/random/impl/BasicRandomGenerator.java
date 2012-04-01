@@ -110,7 +110,7 @@ public final class BasicRandomGenerator implements RandomGenerator {
         }
 
         if (type == byte.class || type == Byte.class) {
-            byte[] randombyte = new byte[1];
+            final byte[] randombyte = new byte[1];
             RANDOM.nextBytes(randombyte);
             return randombyte[0];
         }
@@ -120,7 +120,7 @@ public final class BasicRandomGenerator implements RandomGenerator {
         }
 
         if (type == String.class) {
-            StringBuffer randomString = new StringBuffer(MAX_RANDOM_STRING_LENGTH);
+            final StringBuffer randomString = new StringBuffer(MAX_RANDOM_STRING_LENGTH);
 
             /* prevent zero length string lengths */
             for (int count = 0; count < RANDOM.nextInt(MAX_RANDOM_STRING_LENGTH + 1) + 1; count++) {
@@ -130,12 +130,12 @@ public final class BasicRandomGenerator implements RandomGenerator {
         }
 
         if (type == Date.class) {
-            return new Date((Long) RandomFactory.getRandomValue(Long.class));
+            return new Date(RandomFactory.getRandomValue(Long.class));
         }
 
         if (type == Calendar.class) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis((Long) RandomFactory.getRandomValue(Long.class));
+            final Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(RandomFactory.getRandomValue(Long.class));
             return calendar;
         }
 
