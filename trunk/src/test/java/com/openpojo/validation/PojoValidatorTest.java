@@ -64,7 +64,7 @@ public class PojoValidatorTest {
         final PojoValidator pojoValidator = new PojoValidator();
         final RuleTesterMock ruleTesterMock = new RuleTesterMock();
         pojoValidator.addRule(ruleTesterMock);
-        pojoValidator.addTester(new RuleTesterMock());
+        pojoValidator.addTester(ruleTesterMock);
         pojoValidator.runValidation(new AbstractPojoClass());
         Assert.assertTrue("Evaluate not run on non-concrete class", ruleTesterMock.evaluateCalled);
         Assert.assertTrue("Run called on non-concrete class", ruleTesterMock.runCalled == false);
