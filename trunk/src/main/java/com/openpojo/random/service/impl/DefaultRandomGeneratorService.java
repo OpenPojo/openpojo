@@ -26,9 +26,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.random.RandomGenerator;
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.service.RandomGeneratorService;
 
 /**
@@ -86,30 +84,4 @@ public class DefaultRandomGeneratorService implements RandomGeneratorService {
         return assignableTypes;
     }
 
-    private static class RandomGeneratorAdapter implements RandomGenerator {
-
-        private final Class<?> fromType;
-        private final Class<?> toType;
-        private final RandomGenerator adaptedRandomGenerator;
-
-        private RandomGeneratorAdapter(final Class<?> fromType, final Class<?> toType,
-                final RandomGenerator adaptedRandomGenerator) {
-            this.fromType = fromType;
-            this.toType = toType;
-            this.adaptedRandomGenerator = adaptedRandomGenerator;
-        }
-
-        public Collection<Class<?>> getTypes() {
-            throw RandomGeneratorException.getInstance(MessageFormatter.format("Illegal use of RandomGeneratorAdapter([{0}] to [{1}]",
-                                                                               fromType, toType));
-        }
-
-        public Object doGenerate(final Class<?> type) {
-            if (type == fromType) {
-                return adaptedRandomGenerator.doGenerate(toType);
-            }
-            throw RandomGeneratorException.getInstance(MessageFormatter.format("Unsupported type requested [{0}]", type));
-        }
-
-    }
 }
