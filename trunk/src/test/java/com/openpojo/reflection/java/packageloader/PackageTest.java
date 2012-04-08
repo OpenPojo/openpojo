@@ -19,7 +19,11 @@ package com.openpojo.reflection.java.packageloader;
 import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.validation.PojoValidator;
 import com.openpojo.validation.affirm.Affirm;
+import com.openpojo.validation.rule.impl.BusinessKeyMustExistRule;
+import com.openpojo.validation.test.impl.BusinessIdentityTester;
 
 /**
  * @author oshoukry
@@ -33,6 +37,14 @@ public class PackageTest {
 
         javaPackage = new Package(this.getClass().getPackage().getName());
         Affirm.affirmTrue("Valid package evaluated to as invalid?!", javaPackage.isValid());
+    }
+
+    @Test
+    public final void packageShouldDispatchEqualsAndHashCodeToBusinessIdentity() {
+        final PojoValidator pojoValidator = new PojoValidator();
+        pojoValidator.addTester(new BusinessIdentityTester());
+        pojoValidator.addRule(new BusinessKeyMustExistRule());
+        pojoValidator.runValidation(PojoClassFactory.getPojoClass(Package.class));
     }
 
 }
