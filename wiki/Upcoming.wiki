@@ -1,5 +1,8 @@
 == Up Coming features in no particular order ==
+  * Generics support
+    * Add support for dynamically constructing objects that have constructors that utilize Generic collections.
   * Enhancements to testing aspect.
+   * Add the ability to test / enforce POJO's to be Immutable.
    * Add the ability to generate random arrays (i.e. byte[], String[], ...etc).
    * Add the ability to filter PojoClass based on source path.
    * Add the ability to read / write values for PojoClass easily for testing purpose.
