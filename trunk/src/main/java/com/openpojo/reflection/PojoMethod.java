@@ -96,4 +96,9 @@ public interface PojoMethod extends PojoElement {
      */
     public boolean isConstructor();
 
+    /**
+     * @return
+     *          Returns the return type.
+     */
+    public Class<?> getReturnType();
 }

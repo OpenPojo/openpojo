@@ -68,10 +68,10 @@ public class InstanceFactory {
                     .format("[%s] is not a concrete class, can't create new instance", pojoClass));
         }
 
-        List<PojoMethod> constructors = pojoClass.getPojoConstructors();
-        for (PojoMethod constructor : constructors) {
+        final List<PojoMethod> constructors = pojoClass.getPojoConstructors();
+        for (final PojoMethod constructor : constructors) {
             if (areEquivalentParameters(upcast(constructor.getParameterTypes()), getTypes(parameters))) {
-                Object returnObject = constructor.invoke(null, parameters);
+                final Object returnObject = constructor.invoke(null, parameters);
                 return returnObject;
             }
         }
@@ -88,7 +88,7 @@ public class InstanceFactory {
      *         An upcasted array of parameters (i.e. short -> Short, int -> Int, String doesn't change).
      */
     private static Class<?>[] upcast(final Class<?>[] parameterTypes) {
-        Class<?>[] upCastedParameters = new Class[parameterTypes.length];
+        final Class<?>[] upCastedParameters = new Class[parameterTypes.length];
         for (int idx = 0; idx < parameterTypes.length; idx++) {
             upCastedParameters[idx] = parameterTypes[idx];
             if (parameterTypes[idx].isPrimitive()) {
@@ -131,7 +131,7 @@ public class InstanceFactory {
      *         a newly created instance of the class represented in the pojoClass.
      */
     public static Object getMostCompleteInstance(final PojoClass pojoClass) {
-        PojoMethod constructor = getConstructorByCriteria(pojoClass, new GreaterThan());
+        final PojoMethod constructor = getConstructorByCriteria(pojoClass, new GreaterThan());
         return createInstance(pojoClass, constructor);
     }
 
@@ -145,7 +145,7 @@ public class InstanceFactory {
      *         a newly created instance of the class represented in the pojoClass.
      */
     public static Object getLeastCompleteInstance(final PojoClass pojoClass) {
-        PojoMethod constructor = getConstructorByCriteria(pojoClass, new LessThan());
+        final PojoMethod constructor = getConstructorByCriteria(pojoClass, new LessThan());
         return createInstance(pojoClass, constructor);
     }
 
@@ -190,7 +190,7 @@ public class InstanceFactory {
             return new Class<?>[0];
         }
 
-        Class<?>[] types = new Class<?>[parameters.length];
+        final Class<?>[] types = new Class<?>[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
             if (parameters[i] != null) {
                 types[i] = parameters[i].getClass();
@@ -201,8 +201,8 @@ public class InstanceFactory {
 
     private static Object createInstance(final PojoClass pojoClass, final PojoMethod constructor) {
 
-        Class<?>[] parameterTypes = constructor.getParameterTypes();
-        Object[] parameters = new Object[parameterTypes.length];
+        final Class<?>[] parameterTypes = constructor.getParameterTypes();
+        final Object[] parameters = new Object[parameterTypes.length];
         for (int i = 0; i < parameterTypes.length; i++) {
             parameters[i] = RandomFactory.getRandomValue(parameterTypes[i]);
         }
@@ -213,7 +213,7 @@ public class InstanceFactory {
     private static PojoMethod getConstructorByCriteria(final PojoClass pojoClass,
             final ArrayLengthBasedComparator comparator) {
         PojoMethod constructor = pojoClass.getPojoConstructors().get(0);
-        for (PojoMethod pojoConstructor : pojoClass.getPojoConstructors()) {
+        for (final PojoMethod pojoConstructor : pojoClass.getPojoConstructors()) {
             if (comparator.compare(pojoConstructor.getParameterTypes(), constructor.getParameterTypes())) {
                 constructor = pojoConstructor;
             }
