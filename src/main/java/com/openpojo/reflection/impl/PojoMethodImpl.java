@@ -70,24 +70,24 @@ public class PojoMethodImpl implements PojoMethod {
         if (isConstructor()) {
             try {
                 return getAsConstructor().newInstance(parameters);
-            } catch (IllegalArgumentException e) {
+            } catch (final IllegalArgumentException e) {
                 throw ReflectionException.getInstance(e.getMessage(), e);
-            } catch (InstantiationException e) {
+            } catch (final InstantiationException e) {
                 throw ReflectionException.getInstance(e.getMessage(), e);
-            } catch (IllegalAccessException e) {
+            } catch (final IllegalAccessException e) {
                 throw ReflectionException.getInstance(e.getMessage(), e);
-            } catch (InvocationTargetException e) {
+            } catch (final InvocationTargetException e) {
                 throw ReflectionException.getInstance(e.getMessage(), e);
             }
         }
 
         try {
             return getAsMethod().invoke(instance, parameters);
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
-        } catch (InvocationTargetException e) {
+        } catch (final InvocationTargetException e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
         }
     }
@@ -123,6 +123,13 @@ public class PojoMethodImpl implements PojoMethod {
         return getAsMethod().getParameterTypes();
     }
 
+    public Class<?> getReturnType() {
+        if (isConstructor()) {
+            return getAsConstructor().getDeclaringClass();
+        }
+        return getAsMethod().getReturnType();
+    }
+
     private Method getAsMethod() {
         return (Method) accessibleObject;
     }
@@ -140,11 +147,12 @@ public class PojoMethodImpl implements PojoMethod {
 
     /*
      * (non-Javadoc)
+     *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        String tag = isConstructor() ? "constructor" : "method";
+        final String tag = isConstructor() ? "constructor" : "method";
         return String.format("PojoMethodImpl [%s=%s args=%s]", tag, getName(), Arrays.toString(getParameterTypes()));
     }
 }
