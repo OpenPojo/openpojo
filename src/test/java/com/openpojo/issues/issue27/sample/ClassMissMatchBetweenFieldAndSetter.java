@@ -22,6 +22,7 @@ package com.openpojo.issues.issue27.sample;
  */
 public class ClassMissMatchBetweenFieldAndSetter {
 
+    @SuppressWarnings("unused")
     private Integer myInteger;
 
     public void setMyInteger(final int myInteger) {
