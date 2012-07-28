@@ -30,9 +30,9 @@ public interface PojoMethod extends PojoElement {
      * Individual parameters are automatically unwrapped to match primitive formal parameters, and both primitive
      * and reference parameters are subject to method invocation conversions as necessary.
      *
-     * If the underlying method is static, then the specified obj argument is ignored. It may be null.
+     * If the underlying method is static, then the specified instance argument is ignored. It may be null.
      * If the number of formal parameters required by the underlying method is 0,
-     * the supplied args array may be of length 0 or null.
+     * the supplied parameters array may be of length 0 or null.
      *
      * If the method completes normally, the value it returns is returned to the caller of invoke;
      * if the value has a primitive type, it is first appropriately wrapped in an object.
