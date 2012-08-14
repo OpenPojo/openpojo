@@ -29,7 +29,7 @@ import com.openpojo.validation.test.Tester;
  * @author oshoukry
  */
 public class PojoValidator {
-    private static final Logger logger = LoggerFactory.getLogger(PojoValidator.class);
+    private final Logger logger = LoggerFactory.getLogger(PojoValidator.class);
     private final List<Rule> rules = new LinkedList<Rule>();
     private final List<Tester> testers = new LinkedList<Tester>();
 
@@ -61,7 +61,7 @@ public class PojoValidator {
      *            The PojoClass to validate.
      */
     public void runValidation(final PojoClass pojoClass) {
-        for (Rule rule : rules) {
+        for (final Rule rule : rules) {
             rule.evaluate(pojoClass);
         }
 
@@ -69,7 +69,7 @@ public class PojoValidator {
             logger.warn("Attempt to execute behavioural test on non-concrete class=[{0}] ignored,"
                     + " consider using FilterNonConcrete class when calling PojoClassFactory", pojoClass);
         } else {
-            for (Tester tester : testers) {
+            for (final Tester tester : testers) {
                 tester.run(pojoClass);
             }
         }
