@@ -19,6 +19,7 @@ package com.openpojo.issues.issue28;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.openpojo.issues.issue28.sample.AnotherChildClass;
 import com.openpojo.issues.issue28.sample.ChildClass;
 import com.openpojo.issues.issue28.sample.ParentClass;
 import com.openpojo.reflection.PojoClass;
@@ -38,15 +39,27 @@ public class TestFieldShadowing {
         pojoValidator.addRule(new NoFieldShadowingRule());
     }
 
-    @Test(expected=AssertionError.class)
-    public void shouldFailFieldShadow() {
-        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ChildClass.class);
+    @Test(expected = AssertionError.class)
+    public void shouldFailBecauseShadowingParentField() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ChildClass.class /* ParentClass.class is parent */);
         pojoValidator.runValidation(pojoClass);
     }
 
     @Test
-    public void shouldPassFieldShadow() {
-        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ParentClass.class);
+    public void shouldPassNoShadowing() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(AnotherChildClass.class /* Object is parent */);
+        pojoValidator.runValidation(pojoClass);
+    }
+
+    @Test
+    public void shouldPassBecauseOfDefaultObjectParent() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ParentClass.class /* Object is parent */);
+        pojoValidator.runValidation(pojoClass);
+    }
+
+    @Test
+    public void shouldPassBecauseNoParentDefined() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(Object.class /* No Parent */);
         pojoValidator.runValidation(pojoClass);
     }
 
