@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.utils.AttributeHelper;
@@ -35,8 +34,6 @@ import com.openpojo.reflection.utils.AttributeHelper;
  * @author oshoukry
  */
 public class PojoMethodFactory {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(PojoMethodFactory.class);
 
     /**
      * Returns all methods on a given Class. Note: Constructors are treated as methods and will be returned in the list
@@ -95,7 +92,7 @@ public class PojoMethodFactory {
                 if (pojoMethod.getReturnType().equals(field.getType())) {
                     break;
                 } else {
-                    LOGGER.warn("Getter=[{0}] in class=[{1}] rejected due non-euqal return types [{2} != {3}]", pojoMethod.getName(), field.getDeclaringClass().getName(), pojoMethod.getReturnType(), field.getType());
+                    LoggerFactory.getLogger(PojoMethodFactory.class).warn("Getter=[{0}] in class=[{1}] rejected due non-euqal return types [{2} != {3}]", pojoMethod.getName(), field.getDeclaringClass().getName(), pojoMethod.getReturnType(), field.getType());
                     pojoMethod = null;
                 }
             }
