@@ -58,33 +58,17 @@ public class MockAppenderJavaLogger extends Handler implements MockAppender {
         throw new IllegalArgumentException("Unknown Logged Level" + event.getLevel());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.util.logging.Handler#close()
-     */
     @Override
     public void close() throws SecurityException {
-        // TODO Auto-generated method stub
-
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.util.logging.Handler#flush()
-     */
     @Override
     public void flush() {
-        // TODO Auto-generated method stub
-
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.util.logging.Handler#publish(java.util.logging.LogRecord)
-     */
     @Override
     public void publish(final LogRecord record) {
-        LogEvent le = new LogEvent(record.getLoggerName(), extractPriority(record), record.getMessage());
+        final LogEvent le = new LogEvent(record.getLoggerName(), extractPriority(record), record.getMessage());
         EventLogger.registerEvent(this.getClass(), le);
     }
 
@@ -127,4 +111,5 @@ public class MockAppenderJavaLogger extends Handler implements MockAppender {
 
     public void resetAppender() {
         EventLogger.resetEvents(this.getClass());
-    }}
+    }
+}
