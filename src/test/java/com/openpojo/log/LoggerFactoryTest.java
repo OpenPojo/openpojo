@@ -40,21 +40,18 @@ public class LoggerFactoryTest {
 
     @Test
     public final void shouldReturnDefaultLoggerClassByClass() {
-        Logger log = LoggerFactory.getLogger(LoggerFactoryTest.class);
+        final Logger log = LoggerFactory.getLogger(LoggerFactoryTest.class);
         Assert.assertNotNull(log);
         Assert.assertEquals(defaultLoggerClass.getName(), log.getClass().getName());
     }
 
     @Test
     public final void shouldReturnDefaultLoggerClassByCategory() {
-        Logger log = LoggerFactory.getLogger("TestLogger");
+        final Logger log = LoggerFactory.getLogger("TestLogger");
         Assert.assertNotNull(log);
         Assert.assertEquals(defaultLoggerClass.getName(), log.getClass().getName());
     }
 
-    /**
-     * TODO: send some logs to underlying logging framework and ensure that they are captured on the other end.
-     */
     @Test
     public final void shouldReturnDefaultCategoryByClass() {
         Logger log = LoggerFactory.getLogger((Class<?>) null);
