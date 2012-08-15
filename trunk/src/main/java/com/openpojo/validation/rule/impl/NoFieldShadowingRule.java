@@ -16,6 +16,7 @@
  */
 package com.openpojo.validation.rule.impl;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.log.utils.MessageFormatter;
@@ -46,18 +47,20 @@ import com.openpojo.validation.rule.Rule;
 public class NoFieldShadowingRule implements Rule {
 
     public void evaluate(final PojoClass pojoClass) {
-        final PojoClass parentPojoClass = pojoClass.getSuperClass();
-        if (parentPojoClass != null) {
-            final List<PojoField> childPojoFields = pojoClass.getPojoFields();
-            final List<PojoField> parentPojoFields = parentPojoClass.getPojoFields();
-            for (final PojoField childPojoField : childPojoFields) {
-                if (contains(childPojoField.getName(), parentPojoFields)) {
-                    Affirm.fail(MessageFormatter.format("Field=[{0}] shadows field with the same name in parent class=[{1}]",
-                                                        childPojoField, parentPojoClass.getName()));
-                }
-            }
-
+        final List<PojoField> parentPojoFields = new LinkedList<PojoField>();
+        PojoClass parentPojoClass = pojoClass.getSuperClass();
+        while (parentPojoClass != null) {
+            parentPojoFields.addAll(parentPojoClass.getPojoFields());
+            parentPojoClass = parentPojoClass.getSuperClass();
         }
+        final List<PojoField> childPojoFields = pojoClass.getPojoFields();
+        for (final PojoField childPojoField : childPojoFields) {
+            if (contains(childPojoField.getName(), parentPojoFields)) {
+                Affirm.fail(MessageFormatter.format("Field=[{0}] shadows field with the same name in parent class=[{1}]",
+                                                    childPojoField, parentPojoFields));
+            }
+        }
+
     }
 
     private boolean contains(final String fieldName, final List<PojoField> pojoFields) {
