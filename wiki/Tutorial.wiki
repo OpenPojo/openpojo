@@ -15,7 +15,7 @@ This page is the top level on the tutorial
   <dependency>
     <groupId>com.googlecode.openpojo</groupId>
     <artifactId>openpojo</artifactId>
-    <version>0.3.9</version>
+    <version>0.4.0</version>
   </dependency>
 }}}
 Or 
@@ -52,6 +52,7 @@ public class PojoTest {
         pojoValidator.addRule(new NoPublicFieldsRule());
         pojoValidator.addRule(new NoPrimitivesRule());
         pojoValidator.addRule(new NoStaticExceptFinalRule());
+        pojoValidator.addRule(new NoFieldShadowingRule());
         pojoValidator.addRule(new GetterMustExistRule());
         pojoValidator.addRule(new SetterMustExistRule());
         pojoValidator.addRule(new NoNestedClassRule());
