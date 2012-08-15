@@ -1,6 +1,14 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2012-08-14:*
+  * OpenPojo-0.4.0 released
+    * Fixed     
+      # Issue 26 with @Entity conflict between using default constructor for Getter/Setter testers and @BusinessKey needing required fields. (Thanks to Andrew W. for uncovering this issue).
+      # Issue 27 when getter returns different type than declared on field or setter. (Thanks to Doug L for uncovering this issue)
+    * Added
+      # NoFieldShadowingRule to detect re-declaration of fields with the same name in subclasses Issue 28. (Thanks to Benoit for the suggestion)
+      # Added a method in PojoMethod to retrieve the return type of the underlying method.
  * *2012-04-07:*
   * OpenPojo-0.3.10 released
     * Fixed
