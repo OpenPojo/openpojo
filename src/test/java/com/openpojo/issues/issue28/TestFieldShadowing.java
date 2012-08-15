@@ -19,6 +19,7 @@ package com.openpojo.issues.issue28;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.openpojo.issues.issue28.sample.AChildOfAnotherChildClass;
 import com.openpojo.issues.issue28.sample.AnotherChildClass;
 import com.openpojo.issues.issue28.sample.ChildClass;
 import com.openpojo.issues.issue28.sample.ParentClass;
@@ -42,6 +43,12 @@ public class TestFieldShadowing {
     @Test(expected = AssertionError.class)
     public void shouldFailBecauseShadowingParentField() {
         final PojoClass pojoClass = PojoClassFactory.getPojoClass(ChildClass.class /* ParentClass.class is parent */);
+        pojoValidator.runValidation(pojoClass);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void shouldFailBecauseShadowingParentsParentField() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(AChildOfAnotherChildClass.class /* AnotherChildClass.class is parent */);
         pojoValidator.runValidation(pojoClass);
     }
 
