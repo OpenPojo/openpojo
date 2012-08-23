@@ -56,3 +56,15 @@ Do this:
         return BusinessIdentity.getHashCode(this);
     }
 }}}
+
+=== One more thing... ===
+
+The duo is never complete until you are able to see a pojo print itself out... Why code out *toString()*?
+
+Try this:
+{{{
+    @Override
+    public String toString() {
+        return BusinessIdentity.toString(this);
+    }
+}}}
