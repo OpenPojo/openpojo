@@ -18,7 +18,6 @@ package com.openpojo.validation.test.impl;
 
 import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.business.identity.IdentityFactory;
-import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
@@ -35,35 +34,26 @@ import com.openpojo.validation.utils.ValidationHelper;
 public class GetterTester implements Tester {
 
     public void run(final PojoClass pojoClass) {
-        if (!pojoClass.isConcrete()) {
-            LoggerFactory.getLogger(this.getClass())
-                         .warn("Attempt to execute behavioural test on non-concrete class=[{0}] ignored,"
-                                       + " consider using FilterNonConcrete class when calling PojoClassFactory",
-                               pojoClass);
-        } else {
-            Object classInstance = null;
-
-            classInstance = ValidationHelper.getBasicInstance(pojoClass);
-            for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
-                if (fieldEntry.hasGetter()) {
-                    Object value;
-                    if (fieldEntry.isFinal()) {
-                        // get default value
-                        value = fieldEntry.get(classInstance);
+        final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
+        for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
+            if (fieldEntry.hasGetter()) {
+                Object value;
+                if (fieldEntry.isFinal()) {
+                    // get default value
+                    value = fieldEntry.get(classInstance);
+                } else {
+                    if (fieldEntry.getAnnotation(BusinessKey.class) != null) {
+                        value = RandomFactory.getRandomValue(fieldEntry.getType());
+                        final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
+                        IdentityFactory.registerIdentityHandler(identityHandlerStub);
+                        identityHandlerStub.setHandlerForObject(value);
                     } else {
-                        if (fieldEntry.getAnnotation(BusinessKey.class) != null) {
-                            value = RandomFactory.getRandomValue(fieldEntry.getType());
-                            final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
-                            IdentityFactory.registerIdentityHandler(identityHandlerStub);
-                            identityHandlerStub.setHandlerForObject(value);
-                        } else {
-                            value = RandomFactory.getRandomValue(fieldEntry.getType());
-                        }
-                        fieldEntry.set(classInstance, value);
+                        value = RandomFactory.getRandomValue(fieldEntry.getType());
                     }
-                    Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value,
-                                        fieldEntry.invokeGetter(classInstance));
+                    fieldEntry.set(classInstance, value);
                 }
+                Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value,
+                                    fieldEntry.invokeGetter(classInstance));
             }
         }
     }

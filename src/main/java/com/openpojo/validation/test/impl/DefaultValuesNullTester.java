@@ -31,13 +31,12 @@ import com.openpojo.validation.utils.ValidationHelper;
 public class DefaultValuesNullTester implements Tester {
 
     public void run(final PojoClass pojoClass) {
-        Object classInstance = null;
+        final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
 
-        classInstance = ValidationHelper.getBasicInstance(pojoClass);
-        for (PojoField fieldEntry : pojoClass.getPojoFields()) {
+        for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (!fieldEntry.isPrimitive() && !fieldEntry.isFinal()) {
-                Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry), fieldEntry
-                        .get(classInstance));
+                Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry),
+                                  fieldEntry.get(classInstance));
             }
         }
     }
