@@ -32,7 +32,7 @@ public class GetterTesterAndSetterTesterTest {
         return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
 
             public boolean include(final PojoClass pojoClass) {
-                return !pojoClass.getName().toLowerCase().contains("bad");
+                return !pojoClass.getName().toLowerCase().contains("bad") && pojoClass.isConcrete();
             }
         });
     }
@@ -48,7 +48,7 @@ public class GetterTesterAndSetterTesterTest {
 
     @Test
     public void shouldPassSetterTest() {
-        for (PojoClass pojoClass : getGoodPojoClasses()) {
+        for (final PojoClass pojoClass : getGoodPojoClasses()) {
             invokeRun(pojoClass, new SetterTester());
             invokeRun(pojoClass, new GetterTester());
         }
@@ -56,14 +56,14 @@ public class GetterTesterAndSetterTesterTest {
 
     @Test(expected = AssertionError.class)
     public void shouldFailSetterTest() {
-        for (PojoClass pojoClass : getBadPojoClasses()) {
+        for (final PojoClass pojoClass : getBadPojoClasses()) {
             invokeRun(pojoClass, new SetterTester());
         }
     }
 
     @Test(expected = AssertionError.class)
     public void shouldFailGetterTest() {
-        for (PojoClass pojoClass : getBadPojoClasses()) {
+        for (final PojoClass pojoClass : getBadPojoClasses()) {
             invokeRun(pojoClass, new GetterTester());
         }
     }
