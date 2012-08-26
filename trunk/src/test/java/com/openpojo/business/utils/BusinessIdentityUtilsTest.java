@@ -27,11 +27,10 @@ public class BusinessIdentityUtilsTest {
     @Test
     public void shouldThrowBusinessExceptionWhenNullParameter() {
         try {
-        BusinessIdentityUtils.anyNull((Object[]) null);
+            BusinessIdentityUtils.anyNull((Object[]) null);
+            Assert.fail("Expected BusinessException not thrown");
         } catch (final BusinessException be) {
             Assert.assertEquals("objects parameter cannot be null", be.getMessage());
-            return;
         }
-        Assert.fail("Expected BusinessException not thrown");
     }
 }
