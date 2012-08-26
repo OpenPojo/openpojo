@@ -16,14 +16,22 @@
  */
 package com.openpojo.business.utils;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 import com.openpojo.business.exception.BusinessException;
 
 public class BusinessIdentityUtilsTest {
 
-    @Test(expected = BusinessException.class)
-    public void testAnyNull() {
+    @Test
+    public void shouldThrowBusinessExceptionWhenNullParameter() {
+        try {
         BusinessIdentityUtils.anyNull((Object[]) null);
+        } catch (final BusinessException be) {
+            Assert.assertEquals("objects parameter cannot be null", be.getMessage());
+            return;
+        }
+        Assert.fail("Expected BusinessException not thrown");
     }
 }
