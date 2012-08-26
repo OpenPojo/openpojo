@@ -5,8 +5,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.filters.FilterPackageInfo;
+import com.openpojo.reflection.filters.FilterCloverClasses;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
 import com.openpojo.validation.affirm.Affirm;
@@ -30,7 +31,7 @@ public class TestEntityTest {
 
     @Before
     public void setup() {
-        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterPackageInfo());
+        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterCloverClasses());
 
         pojoValidator = new PojoValidator();
 
@@ -50,7 +51,8 @@ public class TestEntityTest {
 
     @Test
     public void ensureExpectedPojoCount() {
-        Affirm.affirmEquals("Classes added / removed?", EXPECTED_CLASS_COUNT, pojoClasses.size());
+        Affirm.affirmEquals(MessageFormatter.format("Classes added / removed? [{0}]", pojoClasses),
+                            EXPECTED_CLASS_COUNT, pojoClasses.size());
     }
 
     @Test
