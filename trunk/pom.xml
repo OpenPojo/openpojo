@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -69,7 +70,7 @@
 		<javax.validation.version>1.0.0.GA</javax.validation.version>
 		<!-- <slf4j.version>[1.4.1,1.6.1]</slf4j.version> <junit.version>[4.0,4.8.2]</junit.version> 
 			<testng.version>[5.0,5.14.2]</testng.version> <log4j.version>[1.2.12,1.2.16]</log4j.version> -->
-		<clover.version>3.1.2</clover.version>
+		<clover.version>3.1.6</clover.version>
 	</properties>
 	<build>
 		<testResources>
@@ -104,31 +105,20 @@
 						<arguments>-Psonatype-oss-release,openpojo-release</arguments>
 					</configuration>
 				</plugin>
-				<plugin>
+ 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.6</version>
 					<executions>
-						<!-- see http://stackoverflow.com/questions/1232853/how-to-execute-junit-and-testng-tests-in-same-project-using-maven-surefire-plugin 
-							for the weird config -->
 						<execution>
 							<phase>test</phase>
 							<goals>
 								<goal>test</goal>
 							</goals>
-							<configuration>
-								<testNGArtifactName>none:none</testNGArtifactName>
-							</configuration>
-						</execution>
-						<execution>
-							<id>test-testng</id>
-							<phase>test</phase>
-							<goals>
-								<goal>test</goal>
-							</goals>
-							<configuration>
-								<junitArtifactName>none:none</junitArtifactName>
-							</configuration>
+ 							<configuration>
+ 								<forkMode>always</forkMode>
+ 								<testNGArtifactName>none:none</testNGArtifactName>
+ 							</configuration>
 						</execution>
 					</executions>
 				</plugin>
@@ -145,17 +135,12 @@
 				</configuration>
 				<executions>
 					<execution>
-						<id>main</id>
-						<phase>verify</phase>
+						<id>clover</id>
+						<phase>test</phase>
 						<goals>
 							<goal>instrument</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>site</id>
-						<phase>pre-site</phase>
-						<goals>
-							<goal>instrument</goal>
+							<goal>check</goal>
+							<goal>clover</goal>
 						</goals>
 					</execution>
 				</executions>
