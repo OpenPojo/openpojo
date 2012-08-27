@@ -10,7 +10,7 @@
 	<artifactId>openpojo</artifactId>
 	<version>0.4.1-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
-	<url>http://openpojo.googlecode.com/</url>
+	<url>http://openpojo.com/</url>
 	<description>
         This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
         This project has two main aspects to it:
@@ -29,12 +29,11 @@
 	<developers>
 		<developer>
 			<name>Osman Shoukry</name>
-			<email>oshoukry at gmail</email>
+			<email>oshoukry at openpojo dot com</email>
 			<roles>
 				<role>Maintainer</role>
 				<role>Developer</role>
 			</roles>
-			<organization />
 			<timezone>-8</timezone>
 		</developer>
 	</developers>
@@ -47,8 +46,8 @@
 			<organization>davidkarlsen.com</organization>
 			<timezone>+1</timezone>
 			<properties>
-				<contribution>Created initial pom.xml and provided guidence in how
-					to get openpojo into maven</contribution>
+				<contribution>Created initial pom.xml and provided guidance in how
+					to get OpenPojo into Maven</contribution>
 			</properties>
 		</contributor>
 	</contributors>
@@ -109,22 +108,21 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.6</version>
-					<executions>
+ 					<executions>
 						<execution>
 							<phase>test</phase>
 							<goals>
 								<goal>test</goal>
 							</goals>
  							<configuration>
- 								<forkMode>always</forkMode>
  								<testNGArtifactName>none:none</testNGArtifactName>
  							</configuration>
 						</execution>
 					</executions>
-				</plugin>
+ 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
+ 		<plugins>
 			<plugin>
 				<groupId>com.atlassian.maven.plugins</groupId>
 				<artifactId>maven-clover2-plugin</artifactId>
