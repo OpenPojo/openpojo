@@ -94,7 +94,7 @@ public class PojoClassImplTest {
     @Test
     public void testGetPojoMethods() {
         PojoClass pojoClass = getPojoClassImplForClass(AClassWithSixMethods.class);
-        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()),
+        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s] found methods=[%s]", pojoClass.getName(), pojoClass.getPojoMethods()),
                             6 + 1 /* constructor */, pojoClass.getPojoMethods().size());
 
         pojoClass = getPojoClassImplForClass(AClassWithoutMethods.class);
