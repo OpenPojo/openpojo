@@ -31,7 +31,7 @@ public class BusinessIdentityTest {
 
     public List<HashCodeTestData> getHashCodeTestData() {
 
-        List<HashCodeTestData> hashCodeTestData = new LinkedList<HashCodeTestData>();
+        final List<HashCodeTestData> hashCodeTestData = new LinkedList<HashCodeTestData>();
         hashCodeTestData.add(new HashCodeTestData("id", null, "Optional1", null, null));
         hashCodeTestData.add(new HashCodeTestData("id", "name", null, "Optional2", null));
         hashCodeTestData.add(new HashCodeTestData("id", "name", null, "Optional2", "nonBusinessKey"));
@@ -39,7 +39,7 @@ public class BusinessIdentityTest {
     }
 
     public List<PersonEqualityPairTestData> getEqualityTestData() {
-        List<PersonEqualityPairTestData> equalityTestData = new LinkedList<PersonEqualityPairTestData>();
+        final List<PersonEqualityPairTestData> equalityTestData = new LinkedList<PersonEqualityPairTestData>();
         equalityTestData.add(new PersonEqualityPairTestData(new Person(null, "MiddleName", "LastName"), new Person(
                 null, "MiddleName", "LastName"), true));
 
@@ -73,7 +73,7 @@ public class BusinessIdentityTest {
         equalityTestData.add(new PersonEqualityPairTestData(null, new Person(null, "FiRsTnAmE", "MiDdLeNaMe",
                 "LaStNaMe", "Password", null, null), false));
 
-        Person samePointer = new Person("FirstName", "MiddleName", "LastName");
+        final Person samePointer = new Person("FirstName", "MiddleName", "LastName");
         equalityTestData.add(new PersonEqualityPairTestData(samePointer, samePointer, true));
 
         return equalityTestData;
@@ -84,35 +84,35 @@ public class BusinessIdentityTest {
         try {
             BusinessIdentity.areEqual(new Person(null, "MiddleName", null), new Person(null, "MiddleName", null));
             Assert.fail("Expected Exception due to required BusinessKeys not fullfilled");
-        } catch (BusinessException be) {
+        } catch (final BusinessException be) {
             // expected
         }
 
         try {
             BusinessIdentity.areEqual(new Person(null, null, "LastName"), new Person(null, null, "LastName"));
             Assert.fail("Expected Exception due to composite BusinessKeys not fullfilled");
-        } catch (BusinessException be) {
+        } catch (final BusinessException be) {
             // expected
         }
 
         try {
             BusinessIdentity.areEqual(new String("First"), new String("First"));
             Assert.fail("Expected Exception due to no BusinessKeys defined");
-        } catch (BusinessException be) {
+        } catch (final BusinessException be) {
             // expected
         }
 
         try {
             BusinessIdentity.getHashCode(null);
             Assert.fail("Expected Exception due to null object");
-        } catch (BusinessException be) {
+        } catch (final BusinessException be) {
             // expected
         }
     }
 
     @Test
     public void testAreEqual() {
-        for (PersonEqualityPairTestData testData : getEqualityTestData()) {
+        for (final PersonEqualityPairTestData testData : getEqualityTestData()) {
             Assert.assertEquals(String.format("Equality test failed for left=[%s], right=[%s]", testData.left,
                     testData.right), testData.expectedEqualityResult, BusinessIdentity.areEqual(testData.left,
                     testData.right));
@@ -121,7 +121,7 @@ public class BusinessIdentityTest {
 
     @Test
     public void testGetHashCode() {
-        for (HashCodeTestData hashCodeTestData : getHashCodeTestData()) {
+        for (final HashCodeTestData hashCodeTestData : getHashCodeTestData()) {
             Assert.assertEquals(String.format("HashCode test failed for Data=[%s]", hashCodeTestData), hashCodeTestData.expectedHashCode, BusinessIdentity.getHashCode(hashCodeTestData));
         }
 
@@ -129,9 +129,9 @@ public class BusinessIdentityTest {
 
     @Test
     public void testToString() {
-        ToStringTestData toStringTestData = new ToStringTestData();
-        String toString = BusinessIdentity.toString(toStringTestData);
-        Assert.assertTrue("BusinessIdentity.toString() failed!!", toString.startsWith("com.openpojo.business.BusinessIdentityTest$ToStringTestData [@") && toString.endsWith(": instance_name=Instance Name, static_name=Static Name, STATIC_FINAL_NAME=Static Final Name]"));
+        final ToStringTestData toStringTestData = new ToStringTestData();
+        final String toString = BusinessIdentity.toString(toStringTestData);
+        Assert.assertTrue(String.format("BusinessIdentity.toString() failed!! recieved[%s]", toString), toString.startsWith("com.openpojo.business.BusinessIdentityTest$ToStringTestData [@") && toString.endsWith(": instance_name=Instance Name, static_name=Static Name, STATIC_FINAL_NAME=Static Final Name]"));
     }
 
     private static class PersonEqualityPairTestData {
