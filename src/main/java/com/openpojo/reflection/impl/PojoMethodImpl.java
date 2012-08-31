@@ -153,6 +153,6 @@ public class PojoMethodImpl implements PojoMethod {
     @Override
     public String toString() {
         final String tag = isConstructor() ? "constructor" : "method";
-        return String.format("PojoMethodImpl [%s=%s args=%s]", tag, getName(), Arrays.toString(getParameterTypes()));
+        return String.format("PojoMethodImpl [%s=%s args=%s return=%s]", tag, getName(), Arrays.toString(getParameterTypes()), getReturnType());
     }
 }
