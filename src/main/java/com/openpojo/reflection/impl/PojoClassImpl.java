@@ -38,7 +38,7 @@ import com.openpojo.reflection.utils.ToStringHelper;
  *
  * @author oshoukry
  */
-class PojoClassImpl implements PojoClass {
+public class PojoClassImpl implements PojoClass {
 
     @BusinessKey(caseSensitive = true)
     private final String name;
@@ -50,7 +50,7 @@ class PojoClassImpl implements PojoClass {
     /**
      * Minimum constructor.
      */
-    PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields, final List<PojoMethod> pojoMethods) {
+    public PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields, final List<PojoMethod> pojoMethods) {
         this.clazz = clazz;
         this.name = clazz.getName();
         this.pojoFields = Collections.unmodifiableList(pojoFields);
@@ -134,7 +134,7 @@ class PojoClassImpl implements PojoClass {
 
     @Override
     public String toString() {
-        return String.format("PojoClassImpl [clazz=%s, pojoFields=%s, pojoMethods=%s]", clazz, pojoFields, pojoMethods);
+        return String.format(this.getClass().getName() + " [clazz=%s, pojoFields=%s, pojoMethods=%s]", clazz, pojoFields, pojoMethods);
     }
 
     public String toString(final Object instance) {
