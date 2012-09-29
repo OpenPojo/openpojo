@@ -27,7 +27,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  *
  * <br>
  * This class was created to simplify the entry into the business package and is ready for use without writing any code.
- * Simply configure your POJOs with {@link com.openpojo.business.annotation.BusinessKey} annotation, and then deligate your equals and hashCode methods.
+ * Simply configure your POJOs with {@link com.openpojo.business.annotation.BusinessKey} annotation, and then delegate your equals and hashCode methods.
  * <br>
  * The toString method can be called even if your POJOs aren't configured with a BusinessKey, it is simply an easy way
  * to print in clean normalized way ALL contents of a Java Class.
