@@ -1,10 +1,10 @@
-/**
- * Copyright (C) 2010 Osman Shoukry
+/*
+ * Copyright (c) 2010-2012 Osman Shoukry
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
+ *   the Free Software Foundation, either version 3 of the License or any
+ *   later version.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,6 +14,7 @@
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.openpojo.random;
 
 import com.openpojo.log.Logger;
@@ -29,7 +30,7 @@ import com.openpojo.registry.ServiceRegistrar;
  * <br>
  * <i>Simple Example</i><br>
  * If you have an Employee class that has the following constructor:
- *
+ * <p/>
  * <pre>
  * {@code
  * public Employee(final String fullName, final Employee manager) {
@@ -37,9 +38,9 @@ import com.openpojo.registry.ServiceRegistrar;
  * }
  * }
  * </pre>
- *
+ * <p/>
  * And you created the random generator as follows:
- *
+ * <p/>
  * <pre>
  * {@code
  * public Object doGenerate(Class<?> type) {
@@ -48,7 +49,7 @@ import com.openpojo.registry.ServiceRegistrar;
  * }
  * }
  * </pre>
- *
+ * <p/>
  * This would potentially cause a stack over-flow since there is a cyclic dependency of Employee on itself. So to
  * prevent stack over-flow (which would occur by trying to create a manager for every manager), this Factory has built
  * in protection (using {@link GeneratedRandomValues}) to prevent such a thing by recording for a current recursive call
@@ -63,7 +64,7 @@ public class RandomFactory {
      * Add a random generator to the list of available generators. The latest random generator registered wins.
      *
      * @param generator
-     *            The generator to add.
+     *         The generator to add.
      */
     public static synchronized void addRandomGenerator(final RandomGenerator generator) {
         getRandomGeneratorService().registerRandomGenerator(generator);
@@ -74,11 +75,11 @@ public class RandomFactory {
      * If the requested type isn't registered in the factory, an RandomGeneratorException will be thrown.
      *
      * @param type
-     *            The type to get a random value of.
+     *         The type to get a random value of.
      * @return Randomly created value.
      */
     @SuppressWarnings("unchecked")
-    public static final <T> T  getRandomValue(final Class<T> type) {
+    public static final <T> T getRandomValue(final Class<T> type) {
         if (GeneratedRandomValues.contains(type)) {
             logger.warn("Cyclic dependency on random generator for type=[{0}] detected, returning null", type);
             return null; // seen before, break loop.
