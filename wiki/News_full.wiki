@@ -1,6 +1,10 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2012-09-30:*
+  * OpenPojo-0.4.1 released
+    * Fixed
+      # Issue 29, OpenPojo will now skip JaCoCo imbedded fields allowing you to capture coverage reports from EclEmma (Thanks to nox1119 for uncovering this issue).
  * *2012-08-14:*
   * OpenPojo-0.4.0 released
     * Fixed     
