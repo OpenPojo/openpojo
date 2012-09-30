@@ -29,7 +29,7 @@ import com.openpojo.reflection.PojoField;
  *
  * @author oshoukry
  */
-final class PojoFieldFactory {
+public final class PojoFieldFactory {
     /**
      * Get all PojoFields in a given Class.
      *
