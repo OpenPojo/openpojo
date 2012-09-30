@@ -31,6 +31,8 @@ import com.openpojo.random.impl.VoidRandomGenerator;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
+import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
+import com.openpojo.reflection.adapt.service.impl.DefaultPojoClassAdaptationService;
 import com.openpojo.reflection.service.PojoClassLookupService;
 import com.openpojo.reflection.service.impl.DefaultPojoClassLookupService;
 
@@ -40,10 +42,18 @@ import com.openpojo.reflection.service.impl.DefaultPojoClassLookupService;
 public class ServiceRegistrar {
     private RandomGeneratorService randomGeneratorService;
     private PojoClassLookupService pojoClassLookupService;
+    private PojoClassAdaptationService pojoClassAdaptationService;
 
     private ServiceRegistrar() {
         initializeRandomGeneratorService();
         initializePojoClassLookupService();
+        initializePojoClassAdaptationService();
+    }
+
+    private void initializePojoClassAdaptationService() {
+        final PojoClassAdaptationService newPojoClassAdaptationService = new DefaultPojoClassAdaptationService();
+        // Add the JacocoAdaptationService.
+        setPojoClassAdaptationService(newPojoClassAdaptationService);
     }
 
     public void initializeRandomGeneratorService() {
@@ -95,6 +105,14 @@ public class ServiceRegistrar {
 
     public PojoClassLookupService getPojoClassLookupService() {
         return pojoClassLookupService;
+    }
+
+    public void setPojoClassAdaptationService(final PojoClassAdaptationService pojoClassAdaptationService) {
+        this.pojoClassAdaptationService = pojoClassAdaptationService;
+    }
+
+    public PojoClassAdaptationService getPojoClassAdaptationService() {
+        return pojoClassAdaptationService;
     }
 
     @Override
