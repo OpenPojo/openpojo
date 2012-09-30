@@ -31,15 +31,19 @@ import com.openpojo.random.impl.VoidRandomGenerator;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
+import com.openpojo.reflection.service.PojoClassLookupService;
+import com.openpojo.reflection.service.impl.DefaultPojoClassLookupService;
 
 /**
  * @author oshoukry
  */
 public class ServiceRegistrar {
     private RandomGeneratorService randomGeneratorService;
+    private PojoClassLookupService pojoClassLookupService;
 
     private ServiceRegistrar() {
         initializeRandomGeneratorService();
+        initializePojoClassLookupService();
     }
 
     public void initializeRandomGeneratorService() {
@@ -73,6 +77,10 @@ public class ServiceRegistrar {
 
     }
 
+    public void initializePojoClassLookupService() {
+        pojoClassLookupService = new DefaultPojoClassLookupService();
+    }
+
     public static ServiceRegistrar getInstance() {
         return Instance.INSTANCE;
     }
@@ -85,6 +93,10 @@ public class ServiceRegistrar {
         return randomGeneratorService;
     }
 
+    public PojoClassLookupService getPojoClassLookupService() {
+        return pojoClassLookupService;
+    }
+
     @Override
     public String toString() {
         return BusinessIdentity.toString(this);
@@ -93,4 +105,5 @@ public class ServiceRegistrar {
     private static class Instance {
         private static final ServiceRegistrar INSTANCE = new ServiceRegistrar();
     }
+
 }
