@@ -53,6 +53,9 @@ import com.openpojo.reflection.impl.sampleclasses.OnePublicNoParamConstructor;
 import com.openpojo.reflection.impl.sampleclasses.SecondInterfaceForAClassWithInterfaces;
 import com.openpojo.validation.affirm.Affirm;
 
+/*
+ * TODO: This test class needs to be re-worked, to focus on just the PojoClassImpl not across services, i.e. PojoClassFactory, InstanceFactory, etc...
+ */
 public class PojoClassImplTest {
     private static final String SAMPLE_CLASSES_PKG = PojoClassImplTest.class.getPackage().getName() + ".sampleclasses";
 
@@ -95,8 +98,9 @@ public class PojoClassImplTest {
     @Test
     public void testGetPojoMethods() {
         PojoClass pojoClass = getPojoClassImplForClass(AClassWithSixMethods.class);
-        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s] found methods=[%s]", pojoClass.getName(), pojoClass.getPojoMethods()),
-                            6 + 1 /* constructor */, pojoClass.getPojoMethods().size());
+        Affirm.affirmEquals(String.format("Methods added/removed from class=[%s] found methods=[%s]",
+                                          pojoClass.getName(), pojoClass.getPojoMethods()), 6 + 1 /* constructor */,
+                            pojoClass.getPojoMethods().size());
 
         pojoClass = getPojoClassImplForClass(AClassWithoutMethods.class);
         Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()),
@@ -318,7 +322,7 @@ public class PojoClassImplTest {
 
     }
 
-    private PojoClassImpl getPojoClassImplForClass(final Class<?> clazz) {
-        return new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz), PojoMethodFactory.getPojoMethods(clazz));
+    private static PojoClass getPojoClassImplForClass(final Class<?> clazz) {
+        return PojoClassFactory.getPojoClass(clazz);
     }
 }
