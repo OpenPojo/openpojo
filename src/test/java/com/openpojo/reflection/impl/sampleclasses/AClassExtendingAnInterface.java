@@ -19,7 +19,6 @@ package com.openpojo.reflection.impl.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public final class AClassExtendingAnInterface implements AnInterfaceClass {
 
