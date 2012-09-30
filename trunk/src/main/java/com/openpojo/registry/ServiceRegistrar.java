@@ -21,16 +21,11 @@ import com.openpojo.business.BusinessIdentity;
 import com.openpojo.random.collection.list.ListConcreteRandomGenerator;
 import com.openpojo.random.collection.queue.QueueConcreteRandomGenerator;
 import com.openpojo.random.collection.set.SetConcreteRandomGenerator;
-import com.openpojo.random.impl.BasicRandomGenerator;
-import com.openpojo.random.impl.ClassRandomGenerator;
-import com.openpojo.random.impl.DefaultRandomGenerator;
-import com.openpojo.random.impl.EnumSetRandomGenerator;
-import com.openpojo.random.impl.ObjectRandomGenerator;
-import com.openpojo.random.impl.TimestampRandomGenerator;
-import com.openpojo.random.impl.VoidRandomGenerator;
+import com.openpojo.random.impl.*;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
+import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdaptor;
 import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
 import com.openpojo.reflection.adapt.service.impl.DefaultPojoClassAdaptationService;
 import com.openpojo.reflection.service.PojoClassLookupService;
@@ -50,9 +45,12 @@ public class ServiceRegistrar {
         initializePojoClassAdaptationService();
     }
 
-    private void initializePojoClassAdaptationService() {
+    public void initializePojoClassAdaptationService() {
         final PojoClassAdaptationService newPojoClassAdaptationService = new DefaultPojoClassAdaptationService();
-        // Add the JacocoAdaptationService.
+
+        // TODO: Only register JacocoClassAdaptor if we detect Jacoco agent loaded.
+        newPojoClassAdaptationService.registerPojoClassAdaptor(JacocoPojoClassAdaptor.getInstance());
+
         setPojoClassAdaptationService(newPojoClassAdaptationService);
     }
 

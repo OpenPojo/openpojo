@@ -20,6 +20,8 @@ package com.openpojo.reflection.adapt.service;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.adapt.PojoClassAdaptor;
 
+import java.util.Set;
+
 /**
  * A service to modify PojoClasses.
  * The primary reason for usage should be to mask certain fields from being visible to downstream processes.
@@ -40,7 +42,8 @@ public interface PojoClassAdaptationService {
     /**
      * Unregister a previously registered PojoClassAdaptor.
      *
-     * @param pojoClassAdaptor the pojoClassAdaptor to unregister
+     * @param pojoClassAdaptor
+     *         the pojoClassAdaptor to unregister
      */
     public void unRegisterPojoClassAdaptor(PojoClassAdaptor pojoClassAdaptor);
 
@@ -50,4 +53,9 @@ public interface PojoClassAdaptationService {
      * @return processed PojoClass.
      */
     public PojoClass adapt(PojoClass pojoClass);
+
+    /**
+     * @return the set of registered pojo Adaptor classes.
+     */
+    public Set<PojoClassAdaptor> getRegisteredPojoAdaptorClasses();
 }

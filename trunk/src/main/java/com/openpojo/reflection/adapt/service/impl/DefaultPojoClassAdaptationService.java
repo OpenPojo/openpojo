@@ -21,6 +21,7 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.adapt.PojoClassAdaptor;
 import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,5 +46,9 @@ public class DefaultPojoClassAdaptationService implements PojoClassAdaptationSer
             returnPojoClass = pojoClassAdaptor.adapt(returnPojoClass);
         }
         return returnPojoClass;
+    }
+
+    public Set<PojoClassAdaptor> getRegisteredPojoAdaptorClasses() {
+        return Collections.unmodifiableSet(pojoClassAdaptors);
     }
 }
