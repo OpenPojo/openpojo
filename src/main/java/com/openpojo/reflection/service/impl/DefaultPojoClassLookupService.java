@@ -17,9 +17,6 @@
 
 package com.openpojo.reflection.service.impl;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
@@ -32,13 +29,15 @@ import com.openpojo.reflection.impl.PojoMethodFactory;
 import com.openpojo.reflection.impl.PojoPackageFactory;
 import com.openpojo.reflection.service.PojoClassLookupService;
 import com.openpojo.registry.Service;
+import com.openpojo.registry.ServiceRegistrar;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author oshoukry
- *
  */
 public class DefaultPojoClassLookupService implements Service, PojoClassLookupService {
-
     public DefaultPojoClassLookupService() {
     }
 
@@ -47,7 +46,7 @@ public class DefaultPojoClassLookupService implements Service, PojoClassLookupSe
     }
 
     public List<PojoClass> enumerateClassesByExtendingType(final String packageName, final Class<?> type,
-            final PojoClassFilter pojoClassFilter) {
+                                                           final PojoClassFilter pojoClassFilter) {
 
         final FilterBasedOnInheritence inheritencefilter = new FilterBasedOnInheritence(type);
         final FilterChain filterChain = new FilterChain(inheritencefilter, pojoClassFilter);
@@ -58,10 +57,11 @@ public class DefaultPojoClassLookupService implements Service, PojoClassLookupSe
         PojoClass pojoClass = PojoCache.getPojoClass(clazz.getName());
         if (pojoClass == null) {
             pojoClass = new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz),
-                                          PojoMethodFactory.getPojoMethods(clazz));
+                    PojoMethodFactory.getPojoMethods(clazz));
             PojoCache.addPojoClass(clazz.getName(), pojoClass);
         }
-        return pojoClass;
+        return ServiceRegistrar.getInstance().getPojoClassAdaptationService().adapt
+                (pojoClass);
     }
 
     public List<PojoClass> getPojoClasses(final String packageName) {

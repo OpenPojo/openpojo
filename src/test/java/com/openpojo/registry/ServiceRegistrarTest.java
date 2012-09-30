@@ -90,7 +90,7 @@ public class ServiceRegistrarTest {
                         // in JDK5),
                         randomGeneratorService.getRegisteredTypes().size());
             } else {
-                Affirm.fail("Unkown java version found " + System.getProperty("java.version") + " please check the " +
+                Affirm.fail("Unknown java version found " + System.getProperty("java.version") + " please check the " +
                         "correct number of expected registered classes and register type here");
             }
         }
@@ -119,6 +119,7 @@ public class ServiceRegistrarTest {
         ServiceRegistrar.getInstance().setPojoClassAdaptationService(pojoClassAdaptationServiceMock);
         Affirm.affirmEquals("Failed to setPojoClassAdaptationService", pojoClassAdaptationServiceMock,
                 ServiceRegistrar.getInstance().getPojoClassAdaptationService());
+        ServiceRegistrar.getInstance().initializePojoClassAdaptationService();
     }
 
     private class PojoClassAdaptationServiceMock implements PojoClassAdaptationService {
@@ -135,6 +136,11 @@ public class ServiceRegistrarTest {
 
         @Override
         public PojoClass adapt(PojoClass pojoClass) {
+            throw new RuntimeException("UnImplemented");
+        }
+
+        @Override
+        public Set<PojoClassAdaptor> getRegisteredPojoAdaptorClasses() {
             throw new RuntimeException("UnImplemented");
         }
 
