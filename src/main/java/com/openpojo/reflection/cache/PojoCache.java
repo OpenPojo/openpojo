@@ -27,15 +27,15 @@ import com.openpojo.reflection.PojoClass;
  * @author oshoukry
  */
 public class PojoCache {
-    private static CacheStorage<PojoClass> pojoClassCache = CacheStorageFactory.getCacheStorage(PojoCache.class.getName());
+    private static CacheStorage<PojoClass> pojoClassCache = CacheStorageFactory.getCacheStorage(PojoCache.class
+            .getName());
 
     /**
      * Retrieve an implementation from Cache.
      *
      * @param name
-     *            Fully Qualified Class Name.
-     * @return
-     *         Cached PojoReference, or null if none found.
+     *         Fully Qualified Class Name.
+     * @return Cached PojoReference, or null if none found.
      */
     public static PojoClass getPojoClass(final String name) {
         return pojoClassCache.get(name);
@@ -45,8 +45,9 @@ public class PojoCache {
      * Add a PojoClass definition to the Cache.
      *
      * @param name
+     *         Fully Qualified Class Name.
      * @param pojoClass
-     *            The entry to add to the cache.
+     *         The entry to add to the cache.
      */
     public static void addPojoClass(final String name, final PojoClass pojoClass) {
         pojoClassCache.add(name, pojoClass);
