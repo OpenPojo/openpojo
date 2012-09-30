@@ -17,17 +17,18 @@
 
 package com.openpojo.registry;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.adapt.PojoClassAdaptor;
 import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
 import com.openpojo.validation.affirm.Affirm;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class ServiceRegistrarTest {
 
@@ -115,7 +116,7 @@ public class ServiceRegistrarTest {
 
     @Test
     public void shouldSetPojoClassAdaptationService() {
-        PojoClassAdaptationServiceMock pojoClassAdaptationServiceMock = new PojoClassAdaptationServiceMock();
+        final PojoClassAdaptationServiceMock pojoClassAdaptationServiceMock = new PojoClassAdaptationServiceMock();
         ServiceRegistrar.getInstance().setPojoClassAdaptationService(pojoClassAdaptationServiceMock);
         Affirm.affirmEquals("Failed to setPojoClassAdaptationService", pojoClassAdaptationServiceMock,
                 ServiceRegistrar.getInstance().getPojoClassAdaptationService());
@@ -124,22 +125,18 @@ public class ServiceRegistrarTest {
 
     private class PojoClassAdaptationServiceMock implements PojoClassAdaptationService {
 
-        @Override
-        public void registerPojoClassAdaptor(PojoClassAdaptor pojoClassAdaptor) {
+        public void registerPojoClassAdaptor(final PojoClassAdaptor pojoClassAdaptor) {
             throw new RuntimeException("UnImplemented");
         }
 
-        @Override
-        public void unRegisterPojoClassAdaptor(PojoClassAdaptor pojoClassAdaptor) {
+        public void unRegisterPojoClassAdaptor(final PojoClassAdaptor pojoClassAdaptor) {
             throw new RuntimeException("UnImplemented");
         }
 
-        @Override
-        public PojoClass adapt(PojoClass pojoClass) {
+        public PojoClass adapt(final PojoClass pojoClass) {
             throw new RuntimeException("UnImplemented");
         }
 
-        @Override
         public Set<PojoClassAdaptor> getRegisteredPojoAdaptorClasses() {
             throw new RuntimeException("UnImplemented");
         }

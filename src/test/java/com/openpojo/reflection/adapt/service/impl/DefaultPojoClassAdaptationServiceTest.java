@@ -17,11 +17,12 @@
 
 package com.openpojo.reflection.adapt.service.impl;
 
+import org.junit.Test;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.adapt.PojoClassAdaptor;
 import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
 import com.openpojo.validation.affirm.Affirm;
-import org.junit.Test;
 
 /**
  * @author oshoukry
@@ -29,8 +30,8 @@ import org.junit.Test;
 public class DefaultPojoClassAdaptationServiceTest {
     @Test
     public void shouldRegisterAndUnRegisterAdaptor() throws Exception {
-        PojoClassAdaptationService pojoClassAdaptationService = new DefaultPojoClassAdaptationService();
-        PojoClassAdaptorMock pojoClassAdaptorMock = new PojoClassAdaptorMock();
+        final PojoClassAdaptationService pojoClassAdaptationService = new DefaultPojoClassAdaptationService();
+        final PojoClassAdaptorMock pojoClassAdaptorMock = new PojoClassAdaptorMock();
         pojoClassAdaptationService.registerPojoClassAdaptor(pojoClassAdaptorMock);
         pojoClassAdaptationService.adapt(null);
         Affirm.affirmTrue("DefaultAdapationService didn't call adaptor", pojoClassAdaptorMock.isCalled());
@@ -46,9 +47,7 @@ public class DefaultPojoClassAdaptationServiceTest {
     private class PojoClassAdaptorMock implements PojoClassAdaptor {
         private boolean called = false;
 
-        @Override
-        public PojoClass adapt(PojoClass pojoClass) {
-            called = true;
+        public PojoClass adapt(final PojoClass pojoClass) {            called = true;
             return pojoClass;
         }
 

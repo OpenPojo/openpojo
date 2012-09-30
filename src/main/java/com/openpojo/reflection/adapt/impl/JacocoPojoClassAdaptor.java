@@ -17,14 +17,14 @@
 
 package com.openpojo.reflection.adapt.impl;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.adapt.PojoClassAdaptor;
 import com.openpojo.reflection.impl.PojoClassImpl;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * This adaptor will strip out the fields and methods that related to jacoco.
@@ -42,16 +42,15 @@ public class JacocoPojoClassAdaptor implements PojoClassAdaptor {
         return Instance.INSTANCE;
     }
 
-    @Override
-    public PojoClass adapt(PojoClass pojoClass) {
-        List<PojoField> cleansedPojoFields = new LinkedList<PojoField>();
-        for (PojoField pojoField : pojoClass.getPojoFields()) {
+    public PojoClass adapt(final PojoClass pojoClass) {
+        final List<PojoField> cleansedPojoFields = new LinkedList<PojoField>();
+        for (final PojoField pojoField : pojoClass.getPojoFields()) {
             if (!pojoField.getName().equals(JACOCO_FIELD_NAME)) {
                 cleansedPojoFields.add(pojoField);
             }
         }
-        List<PojoMethod> cleansedPojoMethods = new LinkedList<PojoMethod>();
-        for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
+        final List<PojoMethod> cleansedPojoMethods = new LinkedList<PojoMethod>();
+        for (final PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
             if (!pojoMethod.getName().equals(JACOCO_METHOD_NAME)) {
                 cleansedPojoMethods.add(pojoMethod);
             }
