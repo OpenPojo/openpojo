@@ -19,7 +19,6 @@ package com.openpojo.random.impl;
 
 import java.util.Collection;
 
-import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.dynamic.ArrayRandomGenerator;
@@ -38,7 +37,7 @@ public class DefaultRandomGenerator implements RandomGenerator {
     private final RandomInstanceFromInterfaceRandomGenerator interfaceRandomGenerator = RandomInstanceFromInterfaceRandomGenerator.getInstance();
     private final EnumRandomGenerator enumRandomGenerator = EnumRandomGenerator.getInstance();
     private final ArrayRandomGenerator arrayRandomGenerator = ArrayRandomGenerator.getInstance();
-    private final Logger logger = LoggerFactory.getLogger(DefaultRandomGenerator.class);
+    //private final Logger logger = LoggerFactory.getLogger(DefaultRandomGenerator.class);
 
     /*
      * (non-Javadoc)
@@ -74,7 +73,7 @@ public class DefaultRandomGenerator implements RandomGenerator {
                                                                      typePojoClass));
         }
 
-        logger.info("Creating basic instance for type=[{0}] using InstanceFactory", type);
+        LoggerFactory.getLogger(DefaultRandomGenerator.class).info("Creating basic instance for type=[{0}] using InstanceFactory", type);
         return InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
 
     }
