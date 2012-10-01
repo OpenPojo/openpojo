@@ -18,7 +18,7 @@
 package com.openpojo.reflection.adapt.service.impl;
 
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.adapt.PojoClassAdaptor;
+import com.openpojo.reflection.adapt.PojoClassAdapter;
 import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
 
 import java.util.Collections;
@@ -30,25 +30,35 @@ import java.util.Set;
  */
 public class DefaultPojoClassAdaptationService implements PojoClassAdaptationService {
 
-    private final Set<PojoClassAdaptor> pojoClassAdaptors = new HashSet<PojoClassAdaptor>();
+    private final Set<PojoClassAdapter> pojoClassAdapters = new HashSet<PojoClassAdapter>();
 
-    public void registerPojoClassAdaptor(final PojoClassAdaptor pojoClassAdaptor) {
-        pojoClassAdaptors.add(pojoClassAdaptor);
+    /**
+     * Register a PojoClassAdapter, if the pojoClassAdapter is null, it will be silently ignored.
+     *
+     * @param pojoClassAdapter
+     *         The Pojo Class Adapter to register.
+     */
+    public void registerPojoClassAdapter(final PojoClassAdapter pojoClassAdapter) {
+        if (pojoClassAdapter != null) {
+            pojoClassAdapters.add(pojoClassAdapter);
+        }
     }
 
-    public void unRegisterPojoClassAdaptor(final PojoClassAdaptor pojoClassAdaptor) {
-        pojoClassAdaptors.remove(pojoClassAdaptor);
+    public void unRegisterPojoClassAdapter(final PojoClassAdapter pojoClassAdapter) {
+        pojoClassAdapters.remove(pojoClassAdapter);
     }
 
     public PojoClass adapt(final PojoClass pojoClass) {
         PojoClass returnPojoClass = pojoClass;
-        for (PojoClassAdaptor pojoClassAdaptor : pojoClassAdaptors) {
-            returnPojoClass = pojoClassAdaptor.adapt(returnPojoClass);
+        if (returnPojoClass != null) {
+            for (PojoClassAdapter pojoClassAdapter : pojoClassAdapters) {
+                returnPojoClass = pojoClassAdapter.adapt(returnPojoClass);
+            }
         }
         return returnPojoClass;
     }
 
-    public Set<PojoClassAdaptor> getRegisteredPojoAdaptorClasses() {
-        return Collections.unmodifiableSet(pojoClassAdaptors);
+    public Set<PojoClassAdapter> getRegisteredPojoAdapterClasses() {
+        return Collections.unmodifiableSet(pojoClassAdapters);
     }
 }

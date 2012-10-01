@@ -17,18 +17,16 @@
 
 package com.openpojo.registry;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.openpojo.random.RandomFactory;
+import com.openpojo.random.RandomGenerator;
+import com.openpojo.random.service.RandomGeneratorService;
+import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
+import com.openpojo.validation.affirm.Affirm;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.openpojo.random.RandomGenerator;
-import com.openpojo.random.service.RandomGeneratorService;
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.adapt.PojoClassAdaptor;
-import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
-import com.openpojo.validation.affirm.Affirm;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ServiceRegistrarTest {
 
@@ -101,14 +99,16 @@ public class ServiceRegistrarTest {
     public void RandomGeneratedValue() {
         final RandomGenerator defaultRandomGenerator = randomGeneratorService.getDefaultRandomGenerator();
         for (final Class<?> type : expectedDefaultTypes) {
-            Affirm.affirmFalse(String.format("Error default random generatar returned when expected a registered type" +
-                    " [%s]", type), defaultRandomGenerator.equals(randomGeneratorService.getRandomGeneratorByType(type)));
+            Affirm.affirmFalse(String.format("Error default random generator returned when expected a registered " +
+                    "type [%s]", type), defaultRandomGenerator.equals(randomGeneratorService.getRandomGeneratorByType
+                    (type)));
         }
     }
 
     @Test
     public void shouldHaveDefaultPojoClassAdaptationService() {
-        Affirm.affirmNotNull("No default registered PojoClassAdaptationService?", ServiceRegistrar.getInstance().getPojoClassAdaptationService());
+        Affirm.affirmNotNull("No default registered PojoClassAdaptationService?",
+                ServiceRegistrar.getInstance().getPojoClassAdaptationService());
         Affirm.affirmEquals("Non DefaultPojoClassAdaptationService registered",
                 "com.openpojo.reflection.adapt.service.impl.DefaultPojoClassAdaptationService",
                 ServiceRegistrar.getInstance().getPojoClassAdaptationService().getClass().getName());
@@ -116,30 +116,15 @@ public class ServiceRegistrarTest {
 
     @Test
     public void shouldSetPojoClassAdaptationService() {
-        final PojoClassAdaptationServiceMock pojoClassAdaptationServiceMock = new PojoClassAdaptationServiceMock();
-        ServiceRegistrar.getInstance().setPojoClassAdaptationService(pojoClassAdaptationServiceMock);
-        Affirm.affirmEquals("Failed to setPojoClassAdaptationService", pojoClassAdaptationServiceMock,
+        final PojoClassAdaptationService anyPojoClassAdaptationService = anyPojoClassAdaptationService();
+        ServiceRegistrar.getInstance().setPojoClassAdaptationService(anyPojoClassAdaptationService);
+        Affirm.affirmEquals("Failed to setPojoClassAdaptationService", anyPojoClassAdaptationService,
                 ServiceRegistrar.getInstance().getPojoClassAdaptationService());
         ServiceRegistrar.getInstance().initializePojoClassAdaptationService();
     }
 
-    private class PojoClassAdaptationServiceMock implements PojoClassAdaptationService {
 
-        public void registerPojoClassAdaptor(final PojoClassAdaptor pojoClassAdaptor) {
-            throw new RuntimeException("UnImplemented");
-        }
-
-        public void unRegisterPojoClassAdaptor(final PojoClassAdaptor pojoClassAdaptor) {
-            throw new RuntimeException("UnImplemented");
-        }
-
-        public PojoClass adapt(final PojoClass pojoClass) {
-            throw new RuntimeException("UnImplemented");
-        }
-
-        public Set<PojoClassAdaptor> getRegisteredPojoAdaptorClasses() {
-            throw new RuntimeException("UnImplemented");
-        }
-
+    private PojoClassAdaptationService anyPojoClassAdaptationService() {
+        return RandomFactory.getRandomValue(PojoClassAdaptationService.class);
     }
 }
