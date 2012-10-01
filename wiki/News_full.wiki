@@ -2,6 +2,10 @@
 
 = News =
  * *2012-09-30:*
+  * OpenPojo-0.4.2 released
+    * Fixed
+      # Possible null pointer exception when attempting to register null PojoClassAdapter, or attempting to adapt a null PojoClass.
+ * *2012-09-29:*
   * OpenPojo-0.4.1 released
     * Fixed
       # Issue 29, OpenPojo will now skip JaCoCo imbedded fields allowing you to capture coverage reports from EclEmma (Thanks to nox1119 for uncovering this issue).
