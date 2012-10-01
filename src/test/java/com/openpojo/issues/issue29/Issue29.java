@@ -20,8 +20,8 @@ import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.adapt.PojoClassAdaptor;
-import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdaptor;
+import com.openpojo.reflection.adapt.PojoClassAdapter;
+import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdapter;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.registry.ServiceRegistrar;
 import com.openpojo.validation.affirm.Affirm;
@@ -45,19 +45,19 @@ public class Issue29 {
 
     @Test
     public void shouldHideJacocoFieldAndMethod() {
-        PojoClassAdaptor jacocoPojoClassAdaptor = JacocoPojoClassAdaptor.getInstance();
-        ServiceRegistrar.getInstance().getPojoClassAdaptationService().unRegisterPojoClassAdaptor(jacocoPojoClassAdaptor);
+        PojoClassAdapter jacocoPojoClassAdapter = JacocoPojoClassAdapter.getInstance();
+        ServiceRegistrar.getInstance().getPojoClassAdaptationService().unRegisterPojoClassAdapter(jacocoPojoClassAdapter);
         PojoClass jacocoPojoClass = PojoClassFactory.getPojoClass(this.getClass());
         ServiceRegistrar.getInstance().initializePojoClassAdaptationService();
-        PojoClass cleansedPojoClass = jacocoPojoClassAdaptor.adapt(jacocoPojoClass);
-        Affirm.affirmEquals("Adaptor removed too much", jacocoPojoClass.getPojoFields().size() - 1,
+        PojoClass cleansedPojoClass = jacocoPojoClassAdapter.adapt(jacocoPojoClass);
+        Affirm.affirmEquals("Adapter removed too much", jacocoPojoClass.getPojoFields().size() - 1,
                 cleansedPojoClass.getPojoFields().size());
         for (PojoField pojoField : cleansedPojoClass.getPojoFields()) {
             if (pojoField.getName().equals(JACOCO_FIELD_NAME)) {
                 Affirm.fail(JACOCO_FIELD_NAME + " field is still visible!!");
             }
         }
-        Affirm.affirmEquals("Adaptor removed too many Methods", jacocoPojoClass.getPojoMethods().size() - 1,
+        Affirm.affirmEquals("Adapter removed too many Methods", jacocoPojoClass.getPojoMethods().size() - 1,
                 cleansedPojoClass.getPojoMethods().size());
 
         for (PojoMethod pojoMethod : cleansedPojoClass.getPojoMethods()) {
@@ -69,13 +69,13 @@ public class Issue29 {
     }
 
     @Test
-    public void shouldRegisterJacocoPojoClassAdaptorByDefault() {
-        for (PojoClassAdaptor pojoClassAdaptor : ServiceRegistrar.getInstance().getPojoClassAdaptationService()
-                .getRegisteredPojoAdaptorClasses()) {
-            if (pojoClassAdaptor.equals(JacocoPojoClassAdaptor.getInstance())) {
+    public void shouldRegisterJacocoPojoClassAdapterByDefault() {
+        for (PojoClassAdapter pojoClassAdapter : ServiceRegistrar.getInstance().getPojoClassAdaptationService()
+                .getRegisteredPojoAdapterClasses()) {
+            if (pojoClassAdapter.equals(JacocoPojoClassAdapter.getInstance())) {
                 return;
             }
         }
-        Affirm.fail(MessageFormatter.format("[{0}] was not registered by default", JacocoPojoClassAdaptor.getInstance()));
+        Affirm.fail(MessageFormatter.format("[{0}] was not registered by default", JacocoPojoClassAdapter.getInstance()));
     }
 }

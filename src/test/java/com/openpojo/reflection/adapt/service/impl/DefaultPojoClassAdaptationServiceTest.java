@@ -17,37 +17,59 @@
 
 package com.openpojo.reflection.adapt.service.impl;
 
-import org.junit.Test;
-
+import com.openpojo.log.utils.MessageFormatter;
+import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.adapt.PojoClassAdaptor;
+import com.openpojo.reflection.adapt.PojoClassAdapter;
 import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class DefaultPojoClassAdaptationServiceTest {
-    @Test
-    public void shouldRegisterAndUnRegisterAdaptor() throws Exception {
-        final PojoClassAdaptationService pojoClassAdaptationService = new DefaultPojoClassAdaptationService();
-        final PojoClassAdaptorMock pojoClassAdaptorMock = new PojoClassAdaptorMock();
-        pojoClassAdaptationService.registerPojoClassAdaptor(pojoClassAdaptorMock);
-        pojoClassAdaptationService.adapt(null);
-        Affirm.affirmTrue("DefaultAdapationService didn't call adaptor", pojoClassAdaptorMock.isCalled());
 
-        pojoClassAdaptorMock.called = false;
-        pojoClassAdaptationService.unRegisterPojoClassAdaptor(pojoClassAdaptorMock);
-        pojoClassAdaptationService.adapt(null);
-        Affirm.affirmEquals("DefaultAdapationService failed to unRegister adaptor", false,
-                pojoClassAdaptorMock.isCalled());
+    @Test
+    public void shouldRegisterAndUnRegisterAdapter() throws Exception {
+        PojoClassAdaptationService pojoClassAdaptationService = new DefaultPojoClassAdaptationService();
+        PojoClassAdapterMock pojoClassAdapterMock = new PojoClassAdapterMock();
+        pojoClassAdaptationService.registerPojoClassAdapter(pojoClassAdapterMock);
+        pojoClassAdaptationService.adapt(anyPojoClass());
+        Affirm.affirmTrue("DefaultAdapationService didn't call adapter", pojoClassAdapterMock.isCalled());
+
+        pojoClassAdapterMock.called = false;
+        pojoClassAdaptationService.unRegisterPojoClassAdapter(pojoClassAdapterMock);
+        pojoClassAdaptationService.adapt(anyPojoClass());
+        Affirm.affirmEquals("DefaultAdapationService failed to unRegister adapter", false,
+                pojoClassAdapterMock.isCalled());
 
     }
 
-    private class PojoClassAdaptorMock implements PojoClassAdaptor {
+    @Test
+    public void shouldFilterNullPojoClassFromRegisteredPojoClassAdapters() {
+        PojoClassAdaptationService pojoClassAdaptationService = new DefaultPojoClassAdaptationService();
+        PojoClassAdapterMock pojoClassAdapterMock = new PojoClassAdapterMock();
+        pojoClassAdaptationService.registerPojoClassAdapter(pojoClassAdapterMock);
+        pojoClassAdaptationService.adapt(null);
+        Affirm.affirmFalse("DefaultAdapationService didn't filter 'null' PojoClass call adapter",
+                pojoClassAdapterMock.isCalled());
+
+    }
+
+    @Test
+    public void shouldRejectNullPojoClassAdapter() {
+        PojoClassAdaptationService pojoClassAdaptationService = new DefaultPojoClassAdaptationService();
+        pojoClassAdaptationService.registerPojoClassAdapter(null);
+        Affirm.affirmEquals(MessageFormatter.format("[{0}] registered a null PojoClassAdapter",
+                pojoClassAdaptationService), 0, pojoClassAdaptationService.getRegisteredPojoAdapterClasses().size());
+    }
+
+    private class PojoClassAdapterMock implements PojoClassAdapter {
         private boolean called = false;
 
-        public PojoClass adapt(final PojoClass pojoClass) {            called = true;
+        public PojoClass adapt(PojoClass pojoClass) {
+            called = true;
             return pojoClass;
         }
 
@@ -55,4 +77,9 @@ public class DefaultPojoClassAdaptationServiceTest {
             return called;
         }
     }
+
+    private PojoClass anyPojoClass() {
+        return RandomFactory.getRandomValue(PojoClass.class);
+    }
+
 }

@@ -18,7 +18,7 @@
 package com.openpojo.reflection.adapt.service;
 
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.adapt.PojoClassAdaptor;
+import com.openpojo.reflection.adapt.PojoClassAdapter;
 
 import java.util.Set;
 
@@ -32,20 +32,20 @@ import java.util.Set;
 public interface PojoClassAdaptationService {
 
     /**
-     * This method is used to register POJO class adaptor.
+     * This method is used to register POJO class adapter.
      *
-     * @param pojoClassAdaptor
-     *         The pojoClassAdaptor to register.
+     * @param pojoClassAdapter
+     *         The pojoClassAdapter to register.
      */
-    public void registerPojoClassAdaptor(PojoClassAdaptor pojoClassAdaptor);
+    public void registerPojoClassAdapter(PojoClassAdapter pojoClassAdapter);
 
     /**
-     * Unregister a previously registered PojoClassAdaptor.
+     * Unregister a previously registered PojoClassAdapter.
      *
-     * @param pojoClassAdaptor
-     *         the pojoClassAdaptor to unregister
+     * @param pojoClassAdapter
+     *         the pojoClassAdapter to unregister
      */
-    public void unRegisterPojoClassAdaptor(PojoClassAdaptor pojoClassAdaptor);
+    public void unRegisterPojoClassAdapter(PojoClassAdapter pojoClassAdapter);
 
     /**
      * @param pojoClass
@@ -55,7 +55,7 @@ public interface PojoClassAdaptationService {
     public PojoClass adapt(PojoClass pojoClass);
 
     /**
-     * @return the set of registered pojo Adaptor classes.
+     * @return the set of registered pojo adapter classes.
      */
-    public Set<PojoClassAdaptor> getRegisteredPojoAdaptorClasses();
+    public Set<PojoClassAdapter> getRegisteredPojoAdapterClasses();
 }

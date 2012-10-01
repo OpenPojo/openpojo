@@ -23,22 +23,22 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.adapt.PojoClassAdaptor;
+import com.openpojo.reflection.adapt.PojoClassAdapter;
 import com.openpojo.reflection.impl.PojoClassImpl;
 
 /**
- * This adaptor will strip out the fields and methods that related to jacoco.
+ * This Adapter will strip out the fields and methods that related to jacoco.
  *
  * @author oshoukry
  */
-public class JacocoPojoClassAdaptor implements PojoClassAdaptor {
+public class JacocoPojoClassAdapter implements PojoClassAdapter {
     private static final String JACOCO_FIELD_NAME = "$jacocoData";
     private static final String JACOCO_METHOD_NAME = "$jacocoInit";
 
-    private JacocoPojoClassAdaptor() {
+    private JacocoPojoClassAdapter() {
     }
 
-    public static PojoClassAdaptor getInstance() {
+    public static PojoClassAdapter getInstance() {
         return Instance.INSTANCE;
     }
 
@@ -59,6 +59,6 @@ public class JacocoPojoClassAdaptor implements PojoClassAdaptor {
     }
 
     private static class Instance {
-        private static final PojoClassAdaptor INSTANCE = new JacocoPojoClassAdaptor();
+        private static final PojoClassAdapter INSTANCE = new JacocoPojoClassAdapter();
     }
 }

@@ -25,7 +25,7 @@ import com.openpojo.random.impl.*;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
-import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdaptor;
+import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdapter;
 import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
 import com.openpojo.reflection.adapt.service.impl.DefaultPojoClassAdaptationService;
 import com.openpojo.reflection.service.PojoClassLookupService;
@@ -48,8 +48,8 @@ public class ServiceRegistrar {
     public void initializePojoClassAdaptationService() {
         final PojoClassAdaptationService newPojoClassAdaptationService = new DefaultPojoClassAdaptationService();
 
-        // TODO: Only register JacocoClassAdaptor if we detect Jacoco agent loaded.
-        newPojoClassAdaptationService.registerPojoClassAdaptor(JacocoPojoClassAdaptor.getInstance());
+        // TODO: Only register JacocoClassAdapter if we detect Jacoco agent loaded.
+        newPojoClassAdaptationService.registerPojoClassAdapter(JacocoPojoClassAdapter.getInstance());
 
         setPojoClassAdaptationService(newPojoClassAdaptationService);
     }
