@@ -80,17 +80,19 @@ public class ServiceRegistrarTest {
     @Test
     public void defaultRandomGeneratorServicePrePopulated() {
         // JDK 5 only supports 42 of the 43 possible types. (java.util.ArrayDeque does not exist in JDK5).
-        if (System.getProperty("java.version").startsWith("1.6")) {
+        String javaVersion =  System.getProperty("java.version");
+        if (javaVersion.startsWith("1.6") || javaVersion.startsWith("1.7")) {
             Affirm.affirmEquals("Types added / removed?", expectedTypes, randomGeneratorService.getRegisteredTypes()
                     .size());
         } else {
-            if (System.getProperty("java.version").startsWith("1.5")) {
+            if (javaVersion.startsWith("1.5")) {
                 Affirm.affirmEquals("Types added / removed?", expectedTypes - 1, // (java.util.ArrayDeque does not exist
                         // in JDK5),
                         randomGeneratorService.getRegisteredTypes().size());
             } else {
                 Affirm.fail("Unknown java version found " + System.getProperty("java.version") + " please check the " +
-                        "correct number of expected registered classes and register type here");
+                        "correct number of expected registered classes and register type here - (found " + randomGeneratorService.getRegisteredTypes()
+                        .size() + ")" );
             }
         }
     }
