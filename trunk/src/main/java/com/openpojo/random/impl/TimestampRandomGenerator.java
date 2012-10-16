@@ -41,7 +41,7 @@ public final class TimestampRandomGenerator implements RandomGenerator {
     }
 
     public Object doGenerate(final Class<?> type) {
-        return new Timestamp((Long) RandomFactory.getRandomValue(Long.class));
+        return new Timestamp(RandomFactory.getRandomValue(Long.class));
     }
 
     public Collection<Class<?>> getTypes() {
