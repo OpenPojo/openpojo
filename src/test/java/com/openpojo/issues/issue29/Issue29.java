@@ -61,7 +61,6 @@ public class Issue29 {
                 cleansedPojoClass.getPojoMethods().size());
 
         for (PojoMethod pojoMethod : cleansedPojoClass.getPojoMethods()) {
-            System.out.println(pojoMethod);
             if (pojoMethod.getName().equals(JACOCO_METHOD_NAME)) {
                 Affirm.fail(JACOCO_METHOD_NAME + " method is still visible!!");
             }
