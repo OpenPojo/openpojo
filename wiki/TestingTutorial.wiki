@@ -13,7 +13,7 @@
   <dependency>
     <groupId>com.googlecode.openpojo</groupId>
     <artifactId>openpojo</artifactId>
-    <version>0.4.0</version>
+    <version>0.4.2</version>
   </dependency>
 }}}
 Or 
