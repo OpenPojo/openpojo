@@ -86,13 +86,11 @@ public class CollectionAndMapPackageRandomGeneratorsTest {
 
             }
         }
-    };
+    }
 
     private static class RandomGeneratorFilter implements PojoClassFilter {
         public boolean include(final PojoClass pojoClass) {
-            if (pojoClass.extendz(RandomGenerator.class))
-                return true;
-            return false;
+            return pojoClass.extendz(RandomGenerator.class);
         }
     }
 }
