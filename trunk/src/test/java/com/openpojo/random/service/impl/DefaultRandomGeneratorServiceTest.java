@@ -68,7 +68,7 @@ public class DefaultRandomGeneratorServiceTest {
     public void shouldGetTypeBasedOnRegisteredRandomGenerator() {
         final Class<?> type = DefaultRandomGeneratorServiceTest.class;
 
-        Affirm.affirmNull("Should not have recieved a valid random generator for non registered type",
+        Affirm.affirmNull("Should not have received a valid random generator for non registered type",
                           defaultRandomGeneratorService.getRandomGeneratorByType(type));
 
         final DummyRandomGenerator dummyRandomGenerator = new DummyRandomGenerator();
