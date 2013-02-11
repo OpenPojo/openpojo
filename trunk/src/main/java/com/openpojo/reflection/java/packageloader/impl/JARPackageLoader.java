@@ -17,6 +17,10 @@
 
 package com.openpojo.reflection.java.packageloader.impl;
 
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.packageloader.PackageLoader;
+import com.openpojo.reflection.java.packageloader.utils.PackageNameHelper;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.JarURLConnection;
@@ -26,9 +30,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-
-import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.java.packageloader.PackageLoader;
 
 /**
  * @author oshoukry
@@ -59,7 +60,7 @@ public final class JARPackageLoader extends PackageLoader {
         for (Type type : types) {
             Class<?> typeClass = (Class<?>) type;
             String typeClassPackageName = typeClass.getPackage().getName();
-            String directSubPackageName = getDirectSubPackageName(typeClassPackageName);
+            String directSubPackageName = PackageNameHelper.getDirectSubPackageName(packageName, typeClassPackageName);
             if (directSubPackageName != null) {
                 subPackages.add(directSubPackageName);
             }
@@ -70,7 +71,7 @@ public final class JARPackageLoader extends PackageLoader {
     private Set<Type> getAllJarTypes() {
         Set<Type> types = new LinkedHashSet<Type>();
         JarURLConnection conn;
-        JarFile jar = null;
+        JarFile jar;
         try {
             conn = (JarURLConnection) packageURL.openConnection();
             jar = conn.getJarFile();
@@ -90,24 +91,4 @@ public final class JARPackageLoader extends PackageLoader {
         return types;
     }
 
-    /**
-     * This method breaks up a package path into its elements returning the first subelement only.
-     * For example, if packageName is set to "com" and the JAR file has only one class
-     * "com.openpojo.reflection.somclass", then the return will be set to "com.openpojo".
-     *
-     * @param subPackageName
-     *            The subpackage name.
-     * @return
-     *         A first sub level bellow packageName.
-     */
-    private String getDirectSubPackageName(final String subPackageName) {
-        if (subPackageName.startsWith(packageName) && !packageName.equals(subPackageName)) {
-            String[] subPackageTokens = null;
-            subPackageTokens = subPackageName.substring(packageName.length() + 1).split("\\.");
-            if (subPackageTokens.length > 0) {
-                return packageName + JDKPACKAGE_DELIMETER + subPackageTokens[0];
-            }
-        }
-        return null;
-    }
 }
