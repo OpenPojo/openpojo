@@ -67,7 +67,7 @@ public class RandomInstanceFromInterfaceRandomGeneratorTest {
         final String toString = aSimpleInterface.toString();
         Affirm.affirmNotNull("toString() on proxy returned null", toString);
         Affirm.affirmTrue(String.format("toString returned [%s] expected it to begin with [%s] and contain [@]", toString, "$Proxy"),
-                toString.startsWith("$Proxy") && toString.contains("@"));
+                toString.contains("$Proxy") && toString.contains("@"));
         Affirm.affirmTrue("toString() doesn't end with hashCode()", toString.endsWith(String.valueOf(aSimpleInterface
                 .hashCode())));
 
