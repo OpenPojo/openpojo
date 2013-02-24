@@ -1,6 +1,10 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2013-02-24:*
+  * OpenPojo-0.4.3 released
+    * Fixed
+      # Issue 35, Issue while enumerating classes in a jar file while handling package names (Thanks to LHCper).
  * *2012-09-30:*
   * OpenPojo-0.4.2 released
     * Fixed
