@@ -24,7 +24,7 @@
 	</parent>
 	<groupId>com.googlecode.openpojo</groupId>
 	<artifactId>openpojo</artifactId>
-	<version>0.4.3</version>
+	<version>0.4.4-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<url>http://openpojo.com/</url>
 	<description>
@@ -38,9 +38,9 @@
 		<url>http://code.google.com/p/openpojo/issues/</url>
 	</issueManagement>
 	<scm>
-		<connection>scm:svn:http://openpojo.googlecode.com/svn/tags/openpojo-0.4.3</connection>
-		<developerConnection>scm:svn:https://openpojo.googlecode.com/svn/tags/openpojo-0.4.3</developerConnection>
-		<url>http://openpojo.googlecode.com/svn/tags/openpojo-0.4.3</url>
+		<connection>scm:svn:http://openpojo.googlecode.com/svn/trunk</connection>
+		<developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
+		<url>http://openpojo.googlecode.com/svn/trunk</url>
 	</scm>
 	<developers>
 		<developer>
