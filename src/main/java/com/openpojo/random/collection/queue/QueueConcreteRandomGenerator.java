@@ -72,7 +72,7 @@ public final class QueueConcreteRandomGenerator implements RandomGenerator {
             try {
                 types.add(Class.forName(type));
             } catch (ClassNotFoundException e) {
-                LoggerFactory.getLogger(this.getClass()).info("Failed to load [{0}], got Exception[{1}]", type, e);
+                System.out.println("Failed to load [" + type + "] got Exception[" + e + "]");
             }
         }
         return types;
