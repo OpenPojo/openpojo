@@ -40,9 +40,9 @@ public class ServiceRegistrar {
     private PojoClassAdaptationService pojoClassAdaptationService;
 
     private ServiceRegistrar() {
-        initializeRandomGeneratorService();
         initializePojoClassLookupService();
         initializePojoClassAdaptationService();
+        initializeRandomGeneratorService();
     }
 
     public void initializePojoClassAdaptationService() {
@@ -58,6 +58,7 @@ public class ServiceRegistrar {
 
         final RandomGeneratorService newRandomGeneratorService = new DefaultRandomGeneratorService();
 
+        // TODO: This code needs to move out of the registrar.
         // Default Generator
         newRandomGeneratorService.setDefaultRandomGenerator(new DefaultRandomGenerator());
 
