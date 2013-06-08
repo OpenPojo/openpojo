@@ -17,16 +17,15 @@
 
 package com.openpojo.random.collection.queue;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Queue;
-import java.util.Set;
-
-import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  * This is random generator is responsible for generating concrete Queue implementations <br>
@@ -72,7 +71,7 @@ public final class QueueConcreteRandomGenerator implements RandomGenerator {
             try {
                 types.add(Class.forName(type));
             } catch (ClassNotFoundException e) {
-                System.out.println("Failed to load [" + type + "] got Exception[" + e + "]");
+                System.out.println("Warning: Failed to load [" + type + "] got Exception[" + e + "]");
             }
         }
         return types;
