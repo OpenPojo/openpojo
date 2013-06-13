@@ -1,28 +1,21 @@
 /*
- * Copyright (c) 2010-2012 Osman Shoukry
+ * Copyright (c) 2010-2013 Osman Shoukry
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License or any
- *   later version.
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License or any
+ *    later version.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU Lesser General Public License for more details.
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Lesser General Public License for more details.
  *
- *   You should have received a copy of the GNU Lesser General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *    You should have received a copy of the GNU Lesser General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.openpojo.reflection.impl;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Modifier;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.junit.Test;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.random.RandomFactory;
@@ -31,27 +24,15 @@ import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
-import com.openpojo.reflection.impl.sampleclasses.AClassExtendingAnInterface;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithAnnotations;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithEquality;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithExceptionalConstructors;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithInterfaces;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass;
+import com.openpojo.reflection.impl.sampleclasses.*;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedClass;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithSixMethods;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithoutInterfaces;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithoutMethods;
-import com.openpojo.reflection.impl.sampleclasses.AFinalClass;
-import com.openpojo.reflection.impl.sampleclasses.ANonFinalClass;
-import com.openpojo.reflection.impl.sampleclasses.AnAbstractClass;
-import com.openpojo.reflection.impl.sampleclasses.AnInterfaceClass;
-import com.openpojo.reflection.impl.sampleclasses.FirstInterfaceForAClassWithInterfaces;
-import com.openpojo.reflection.impl.sampleclasses.MultiplePublicAndPrivateWithManyParamsConstructor;
-import com.openpojo.reflection.impl.sampleclasses.NoDeclaredConstructor;
-import com.openpojo.reflection.impl.sampleclasses.OnePrivateNoParamsConstructor;
-import com.openpojo.reflection.impl.sampleclasses.OnePublicNoParamConstructor;
-import com.openpojo.reflection.impl.sampleclasses.SecondInterfaceForAClassWithInterfaces;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Test;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
+import java.util.LinkedList;
+import java.util.List;
 
 /*
  * TODO: This test class needs to be re-worked, to focus on just the PojoClassImpl not across services, i.e. PojoClassFactory, InstanceFactory, etc...

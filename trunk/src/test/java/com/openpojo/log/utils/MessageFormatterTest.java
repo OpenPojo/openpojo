@@ -1,46 +1,36 @@
 /*
- * Copyright (c) 2010-2012 Osman Shoukry
+ * Copyright (c) 2010-2013 Osman Shoukry
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License or any
- *   later version.
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License or any
+ *    later version.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU Lesser General Public License for more details.
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Lesser General Public License for more details.
  *
- *   You should have received a copy of the GNU Lesser General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *    You should have received a copy of the GNU Lesser General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.openpojo.log.utils;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * @author oshoukry
  */
 public class MessageFormatterTest {
 
-    /**
-     * Populate and return the input data for testing MessageFormatter.UsingCurlyBrackets(String, Object[]).
-     *
-     * @return List of data used to test the method.
-     */
     private List<UsingCurlyBracketsTestData> getUsingCurlyBracketsTestData() {
         final List<UsingCurlyBracketsTestData> usingCurlyBracketsTestData = new LinkedList<UsingCurlyBracketsTestData>();
 
@@ -105,11 +95,6 @@ public class MessageFormatterTest {
         return usingCurlyBracketsTestData;
     }
 
-    /**
-     * Populate and return the input data for testing MessageFormatter.flattenArrayElementsToString(Object[]).
-     *
-     * @return List of data used to test the method.
-     */
     private List<FlattenArrayToStringTestData> getFlattenArrayToStringTestData() {
         final List<FlattenArrayToStringTestData> flattenArrayToStringTestData = new LinkedList<FlattenArrayToStringTestData>();
         flattenArrayToStringTestData.add(new FlattenArrayToStringTestData("[[1, 2, 3]]", new Object[] { new Integer[] {
@@ -121,10 +106,6 @@ public class MessageFormatterTest {
         return flattenArrayToStringTestData;
     }
 
-    /**
-     * This method tests the formatter's use with curly brackets. Test method for
-     * {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}.
-     */
     @Test
     public final void testUsingCurlyBrackets() {
         for (final UsingCurlyBracketsTestData entry : getUsingCurlyBracketsTestData()) {
@@ -132,9 +113,6 @@ public class MessageFormatterTest {
         }
     }
 
-    /**
-     * Test method for {@link com.cobalt.dap.log.MessageFormatter#flattenArrayElementsToString(java.lang.Object[])}.
-     */
     @Test
     public final void testFlattenArrayToString() {
         for (final FlattenArrayToStringTestData entry : getFlattenArrayToStringTestData()) {
@@ -147,10 +125,6 @@ public class MessageFormatterTest {
     private static final String GENERATE_CURLY_BRACKET_TOKEN_POSTFIX = "}]";
     private static final int TOKEN_COUNTER_START = 0;
 
-    /**
-     * Test boundary Conditions on GenerateCurlyBracketTokens(), testing with -ve, 0 and +ve.
-     * {@link com.cobalt.dap.log.MessageFormatter#generateCurlyBracketTokens(int)}.
-     */
     @Test
     public final void testBoundaryConditionsOnGenerateCurlyBracketTokens() {
 
@@ -188,10 +162,6 @@ public class MessageFormatterTest {
 
     private static final int MAX_NUMBER_OF_RANDOM_TOKENS = 10;
 
-    /**
-     * Test RandomFactory number of curly brackets on GenerateCurlyBracketTokens() see
-     * {@link com.cobalt.dap.log.MessageFormatter#generateCurlyBracketTokens(int)}.
-     */
     @Test
     public final void testRandomGenerateCurlyBracketTokens() {
         final int randomNumberOfTokensBetween0And10 = new Random().nextInt(MAX_NUMBER_OF_RANDOM_TOKENS + 1);
@@ -206,27 +176,11 @@ public class MessageFormatterTest {
 
     }
 
-    /**
-     * Storage structure for testing MessageFormatter.usingCurlyBrackets(java.lang.String, java.lang.Object[]). see
-     * {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}
-     *
-     * @author oshoukry
-     */
     private static final class UsingCurlyBracketsTestData {
         private final String expected;
         private final String message;
         private final Object[] fields;
 
-        /**
-         * Full contructor for convenience.
-         *
-         * @param expected
-         *            What should the "MessageFormatter.UsingCurlyBrackets" return given the input.
-         * @param message
-         *            The input message for
-         * @param fields
-         *            The tokens for literal substitution.
-         */
         private UsingCurlyBracketsTestData(final String expected, final String message, final Object[] fields) {
             this.expected = expected;
             this.message = message;
@@ -234,20 +188,10 @@ public class MessageFormatterTest {
         }
     }
 
-    /**
-     * This class carries the expected final result as well as the test data input for usingCurlyBrackets method. see
-     * {@link com.cobalt.dap.log.MessageFormatter#usingCurlyBrackets(java.lang.String, java.lang.Object[])}
-     *
-     * @author oshoukry
-     */
     private static final class FlattenArrayToStringTestData {
         private final String expected;
         private final Object[] array;
 
-        /**
-         * @param expected
-         * @param array
-         */
         private FlattenArrayToStringTestData(final String expected, final Object[] array) {
             this.expected = expected;
             this.array = array;
