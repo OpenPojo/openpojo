@@ -117,7 +117,7 @@ public final class BasicRandomGenerator implements RandomGenerator {
         }
 
         if (type == String.class) {
-            final StringBuffer randomString = new StringBuffer(MAX_RANDOM_STRING_LENGTH);
+            final StringBuilder randomString = new StringBuilder(MAX_RANDOM_STRING_LENGTH);
 
             /* prevent zero length string lengths */
             for (int count = 0; count < RANDOM.nextInt(MAX_RANDOM_STRING_LENGTH + 1) + 1; count++) {
