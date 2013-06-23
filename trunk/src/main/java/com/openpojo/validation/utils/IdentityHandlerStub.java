@@ -35,7 +35,6 @@ public class IdentityHandlerStub implements IdentityHandler {
     }
 
     public void validate(final Object object) {
-        return;
     }
 
     public int generateHashCode(final Object object) {

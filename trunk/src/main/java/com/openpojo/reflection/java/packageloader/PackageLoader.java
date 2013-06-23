@@ -103,11 +103,11 @@ public abstract class PackageLoader {
         return null;
     }
 
-    protected final static String fromJDKPackageToJDKPath(final String path) {
+    protected static String fromJDKPackageToJDKPath(final String path) {
         return path.replace(JDKPACKAGE_DELIMETER, JDKPATH_DELIMETER);
     }
 
-    protected final static String fromJDKPathToJDKPackage(final String path) {
+    protected static String fromJDKPathToJDKPackage(final String path) {
         return path.replace(JDKPATH_DELIMETER, JDKPACKAGE_DELIMETER);
     }
 

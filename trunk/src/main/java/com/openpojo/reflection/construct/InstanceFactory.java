@@ -17,9 +17,6 @@
 
 package com.openpojo.reflection.construct;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
@@ -27,6 +24,9 @@ import com.openpojo.reflection.construct.utils.ArrayLengthBasedComparator;
 import com.openpojo.reflection.construct.utils.GreaterThan;
 import com.openpojo.reflection.construct.utils.LessThan;
 import com.openpojo.reflection.exception.ReflectionException;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This Factory has the ability to create an instance of any PojoClass.
@@ -72,8 +72,7 @@ public class InstanceFactory {
         final List<PojoMethod> constructors = pojoClass.getPojoConstructors();
         for (final PojoMethod constructor : constructors) {
             if (areEquivalentParameters(upcast(constructor.getParameterTypes()), getTypes(parameters))) {
-                final Object returnObject = constructor.invoke(null, parameters);
-                return returnObject;
+                return constructor.invoke(null, parameters);
             }
         }
         throw ReflectionException.getInstance(String.format("No matching constructor for [%s] found using parameters[%s]",
@@ -81,7 +80,7 @@ public class InstanceFactory {
     }
 
     /**
-     * This method will upcast Native parameters to their equivilent Class-es.
+     * This method will upcast Native parameters to their equivalent Class-es.
      *
      * @param parameterTypes
      *            The array of parameters needed to be upcast.
@@ -163,10 +162,7 @@ public class InstanceFactory {
      */
     private static boolean areEquivalentParameters(final Class<?>[] expectedTypes, final Class<?>[] givenTypes) {
         if (expectedTypes.length == 0) {
-            if (givenTypes.length == 0) {
-                return true;
-            }
-            return false;
+            return givenTypes.length == 0;
         }
 
         if (givenTypes.length != expectedTypes.length) {
