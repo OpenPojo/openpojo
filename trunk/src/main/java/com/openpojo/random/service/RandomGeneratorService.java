@@ -17,10 +17,10 @@
 
 package com.openpojo.random.service;
 
-import java.util.Collection;
-
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.registry.Service;
+
+import java.util.Collection;
 
 /**
  * This service holds a registry for RandomGenerators.
@@ -35,6 +35,7 @@ public interface RandomGeneratorService extends Service {
      * registered against this RandomGenerator over-writing any prior registrations for given types.
      *
      * @param randomGenerator
+     *          The random generator to register.
      */
     public void registerRandomGenerator(RandomGenerator randomGenerator);
 
@@ -52,6 +53,7 @@ public interface RandomGeneratorService extends Service {
      * There can only be one (1) default random generator.
      *
      * @param randomGenerator
+     *          The random generator to register.
      */
     public void setDefaultRandomGenerator(RandomGenerator randomGenerator);
 
@@ -72,6 +74,7 @@ public interface RandomGeneratorService extends Service {
      * the one used.
      *
      * @param type
+     *          The type used to lookup the most appropriate RandomGenerator.
      */
     public RandomGenerator getRandomGeneratorByType(Class<?> type);
 }
