@@ -21,7 +21,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
- * This is the parent interface for everything wrappable.
+ * This is the parent interface for all wrapped types.
  * 
  * @author oshoukry
  */

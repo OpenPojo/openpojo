@@ -26,7 +26,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 /**
  * This ActiveLogger class is a container that holds the active logging underlying framework for
  * the current instance of the VM.
- * The reason this is in a seperate class is to enable lazy loading, the resolution of the active logging mechanism
+ * The reason this is in a separate class is to enable lazy loading, the resolution of the active logging mechanism
  * won't happen until the first call to get the logging framework.
  *
  * @author oshoukry

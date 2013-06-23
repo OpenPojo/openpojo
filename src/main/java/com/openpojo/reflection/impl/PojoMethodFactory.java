@@ -93,7 +93,8 @@ public class PojoMethodFactory {
                 if (pojoMethod.getReturnType().isAssignableFrom(field.getType())) {
                     break;
                 } else {
-                    LoggerFactory.getLogger(PojoMethodFactory.class).warn("Getter=[{0}] in class=[{1}] rejected due non-euqal return types [{2} != {3}]", pojoMethod.getName(), field.getDeclaringClass().getName(), pojoMethod.getReturnType(), field.getType());
+                    LoggerFactory.getLogger(PojoMethodFactory.class).warn("Getter=[{0}] in class=[{1}] rejected due " +
+                            "non-equal return types [{2} != {3}]", pojoMethod.getName(), field.getDeclaringClass().getName(), pojoMethod.getReturnType(), field.getType());
                     pojoMethod = null;
                 }
             }
@@ -143,6 +144,7 @@ public class PojoMethodFactory {
      * @param field
      *            The field to generate for.
      * @return
+     *            List of candidate setter names, or empty list if there are none.
      */
     private static List<String> generateSetMethodNames(final Field field) {
         final List<String> prefix = new LinkedList<String>();

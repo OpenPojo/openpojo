@@ -21,7 +21,7 @@ import com.openpojo.business.BusinessIdentity;
 import com.openpojo.log.Logger;
 
 /**
- * This class wrapps the SLF4J underlying layer.
+ * This class wraps the SLF4J underlying layer.
  */
 public final class SLF4JLogger extends Logger {
 

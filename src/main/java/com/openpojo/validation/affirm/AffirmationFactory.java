@@ -37,7 +37,7 @@ public final class AffirmationFactory {
     private static final Logger log = LoggerFactory.getLogger(Affirmation.class);
 
     /**
-     * The only affimation implemented so far, so default to that.
+     * The only affirmation implemented so far, so default to that.
      */
     private Affirmation affirmation;
 

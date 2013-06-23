@@ -17,10 +17,10 @@
 
 package com.openpojo.reflection.utils;
 
-import java.util.List;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+
+import java.util.List;
 
 /**
  * This class is a collection of commonly used functions used for various toString(Object) calls.
@@ -45,7 +45,7 @@ public final class ToStringHelper {
     }
 
     /**
-     * This method takes an object instance for a pojoClass and flattens it into a properly formated string.
+     * This method takes an object instance for a pojoClass and flattens it into a properly formatted string.
      *
      * @param pojoClass
      *          The meta representation of the instance class.
@@ -62,9 +62,9 @@ public final class ToStringHelper {
     }
 
     /**
-     * This method takes a list of PojoFields and turns them into token seperated name-value pairs.
+     * This method takes a list of PojoFields and turns them into token separated name-value pairs.
      * @param pojoFields
-     *          The list of pojofields to render.
+     *          The list of pojoFields to render.
      * @param instance
      *          The object instance to get the values out of.
      * @return

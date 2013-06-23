@@ -29,7 +29,7 @@ public interface PojoClassFilter {
      * This Method determines whether to include a PojoClass or not.
      *
      * @param pojoClass
-     *            The pojoclass in question.
+     *            The pojoClass in question.
      * @return
      *         True if it should be included, false otherwise.
      */
