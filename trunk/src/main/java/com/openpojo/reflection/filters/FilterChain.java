@@ -17,17 +17,17 @@
 
 package com.openpojo.reflection.filters;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author oshoukry
  */
 public class FilterChain implements PojoClassFilter {
-    List<PojoClassFilter> pojoClassFilters = new LinkedList<PojoClassFilter>();
+    private List<PojoClassFilter> pojoClassFilters = new LinkedList<PojoClassFilter>();
 
     public FilterChain(final PojoClassFilter... pojoClassFilters) {
         for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
