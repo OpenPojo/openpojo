@@ -17,17 +17,13 @@
 
 package com.openpojo.reflection.impl;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.List;
-
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author oshoukry
@@ -47,7 +43,7 @@ public class PojoMethodImpl implements PojoMethod {
         this.accessibleObject = accessibleObject;
     }
 
-    private void allowAccessiblity() {
+    private void allowAccessibility() {
         accessibleObject.setAccessible(true);
     }
 
@@ -67,7 +63,7 @@ public class PojoMethodImpl implements PojoMethod {
     }
 
     public Object invoke(final Object instance, final Object... parameters) {
-        allowAccessiblity();
+        allowAccessibility();
         if (isConstructor()) {
             try {
                 return getAsConstructor().newInstance(parameters);

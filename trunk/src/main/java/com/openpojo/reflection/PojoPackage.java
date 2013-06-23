@@ -47,7 +47,7 @@ public interface PojoPackage extends PojoElement {
     public List<PojoClass> getPojoClasses(final PojoClassFilter filter);
 
     /**
-     * Get all child Packages for current Pacakge.
+     * Get all child Packages for current Package.
      *
      * @return
      *         A list containing PojoPackages for all sub packages.

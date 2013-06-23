@@ -215,7 +215,9 @@ public abstract class Logger {
      * if its ever called with "null" params.
      *
      * @param message
+     *          The message to log.
      * @param args
+     *            The arguments to use in text replacement.
      * @return
      *          A string format for message.
      */

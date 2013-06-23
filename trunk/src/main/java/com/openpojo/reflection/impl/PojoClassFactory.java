@@ -17,11 +17,11 @@
 
 package com.openpojo.reflection.impl;
 
-import java.util.List;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.registry.ServiceRegistrar;
+
+import java.util.List;
 
 /**
  * This is a factory class that builds PojoClassImpl representation given a class.
@@ -88,7 +88,7 @@ public final class PojoClassFactory {
      * @param packageName
      *            Parent package to recurse through.
      * @param type
-     *            Inheritence type (can be interface / abstract class or class).
+     *            Inheritance type (can be interface / abstract class or class).
      * @param pojoClassFilter
      *            A filter to use for PojoClasses.
      * @return List of all Pojo's that extend type.

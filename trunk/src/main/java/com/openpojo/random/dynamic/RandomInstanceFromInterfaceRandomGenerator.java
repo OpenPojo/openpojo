@@ -17,11 +17,11 @@
 
 package com.openpojo.random.dynamic;
 
-import java.lang.reflect.Proxy;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
+
+import java.lang.reflect.Proxy;
 
 /**
  * This Factory returns a proxy pojo for any provided interface.
@@ -40,7 +40,7 @@ public class RandomInstanceFromInterfaceRandomGenerator {
      * The instance will return random values upon method invocations.
      *
      * @param <T>
-     *            The templated type to generate an instance of.
+     *            The type to generate an instance of.
      * @param clazz
      *            The interface to generate the implementations on.
      * @return

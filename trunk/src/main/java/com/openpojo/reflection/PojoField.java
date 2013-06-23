@@ -156,7 +156,7 @@ public interface PojoField extends PojoElement {
     public List<Type> getParameterTypes();
 
     /**
-     * Returns properly formated field=value string from instance.
+     * Returns properly formatted field=value string from instance.
      *
      * @param instance
      *            The instance to pull the field value off of.

@@ -25,7 +25,7 @@ import com.openpojo.business.utils.BusinessPojoHelper;
 import com.openpojo.reflection.PojoField;
 
 /**
- * This class is the default implmentation for hash code generation.
+ * This class is the default implementation for hash code generation.
  * The algorithm is simple and conforms to the java spec for hash code generation.
  * <br>
  * Please note that as per spec, two equal hash codes don't mean that objects are equal,

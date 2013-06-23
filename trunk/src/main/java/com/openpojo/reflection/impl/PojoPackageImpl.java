@@ -17,18 +17,18 @@
 
 package com.openpojo.reflection.impl;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.packageloader.Package;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class represents the abstraction of a JAVA Package as PojoPackageImpl.
@@ -60,7 +60,7 @@ class PojoPackageImpl implements PojoPackage {
         Class<?> infoClass = null;
         try {
             infoClass = Class.forName(packageName + PojoPackage.PACKAGE_DELIMETER + PojoPackage.PACKAGE_INFO);
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException ignored) {
         }
         if (infoClass != null) {
             packageInfoPojoClass = PojoClassFactory.getPojoClass(infoClass);

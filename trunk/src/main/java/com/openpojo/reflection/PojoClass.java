@@ -63,9 +63,9 @@ public interface PojoClass extends PojoElement {
     public boolean isArray();
 
     /**
-     * Check if PojoClass wrapps a final class.
+     * Check if PojoClass wraps a final class.
      *
-     * @return true if this PojoClass wrapps a final class.
+     * @return true if this PojoClass wraps a final class.
      */
     public boolean isFinal();
 
