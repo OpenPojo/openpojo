@@ -79,7 +79,7 @@ public class RandomFactory {
      * @return Randomly created value.
      */
     @SuppressWarnings("unchecked")
-    public static final <T> T getRandomValue(final Class<T> type) {
+    public static <T> T getRandomValue(final Class<T> type) {
         if (GeneratedRandomValues.contains(type)) {
             logger.warn("Cyclic dependency on random generator for type=[{0}] detected, returning null", type);
             return null; // seen before, break loop.

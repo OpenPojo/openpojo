@@ -84,7 +84,6 @@ public final class BusinessIdentityTester implements Tester {
         }
 
         public void validate(final Object object) {
-            return;
         }
 
         public int generateHashCode(final Object object) {

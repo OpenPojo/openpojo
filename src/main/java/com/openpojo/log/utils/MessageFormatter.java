@@ -1,4 +1,5 @@
 /*
+/*
  * Copyright (c) 2010-2013 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -131,7 +132,7 @@ public final class MessageFormatter {
 
         String formattedMessage = message.toString();
 
-        final Class<? extends Object> type = message.getClass();
+        final Class<?> type = message.getClass();
         if (type.isArray()) {
             formattedMessage = formatArray(message);
         }

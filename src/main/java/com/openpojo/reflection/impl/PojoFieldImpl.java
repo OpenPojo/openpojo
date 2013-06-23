@@ -17,6 +17,11 @@
 
 package com.openpojo.reflection.impl;
 
+import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.utils.ToStringHelper;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -25,11 +30,6 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
  * This is the default implementation for PojoField Interface.
@@ -111,10 +111,7 @@ class PojoFieldImpl implements PojoField {
 
     public boolean isParameterized() {
         Type type = field.getGenericType();
-        if (type instanceof ParameterizedType) {
-            return true;
-        }
-        return false;
+        return type instanceof ParameterizedType;
     }
 
     public List<Type> getParameterTypes() {

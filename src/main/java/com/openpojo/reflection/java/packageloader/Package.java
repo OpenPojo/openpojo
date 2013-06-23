@@ -17,13 +17,13 @@
 
 package com.openpojo.reflection.java.packageloader;
 
+import com.openpojo.business.BusinessIdentity;
+import com.openpojo.business.annotation.BusinessKey;
+
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.openpojo.business.BusinessIdentity;
-import com.openpojo.business.annotation.BusinessKey;
 
 /**
  * @author oshoukry
@@ -42,10 +42,7 @@ public final class Package {
     }
 
     public boolean isValid() {
-        if (getPackageLoaders().size() > 0) {
-            return true;
-        }
-        return false;
+        return getPackageLoaders().size() > 0;
     }
 
     public Set<Type> getTypes() {
