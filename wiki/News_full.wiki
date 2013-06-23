@@ -1,6 +1,11 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2013-06-23:*
+  * OpenPojo-0.4.4 released
+    * Fixed
+      # Issue 31 if the getter returns a super class will not cause a getter to be ignored anymore - a reversal on issue 27 fix (Thank to  JeanLasVEGAs for reporting the issue).
+      # Issue 36 now OpenPojo works with JDK 1.5, there was an issue with loading JDK 1.6 specific classes causing cascading error in JDK 1.5 (Thanks to briancallaghan2 for reporting the issue).
  * *2013-02-24:*
   * OpenPojo-0.4.3 released
     * Fixed
