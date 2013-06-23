@@ -21,22 +21,28 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 
 /**
- * This class has a misspelling in the name and has been renamed, please use FilterBasedOnInheritance instead.
+ * This filter includes classes that extend/implement a certain type.
+ * Note: This class filters out the extended/implemented class/interface.
  *
  * @author oshoukry
- * @deprecated This class has been renamed due to the typo in the name, please use FilterBasedOnInheritance instead.
  */
-@Deprecated
-public class FilterBasedOnInheritence implements PojoClassFilter {
-    private FilterBasedOnInheritance filterBasedOnInheritance;
+public class FilterBasedOnInheritance implements PojoClassFilter {
+    private final Class<?> type;
 
-    public FilterBasedOnInheritence(final Class<?> type) {
-        filterBasedOnInheritance = new FilterBasedOnInheritance(type);
-        System.out.println("Deprecated Usage: Please use com.openpojo.reflection.filters.FilterBasedOnInheritance " +
-                "instead of this class.");
+    /**
+     * Construtor.
+     *
+     * @param type
+     *            The type/class to use for inclusion (i.e. the "Class" extends/implements type).
+     */
+    public FilterBasedOnInheritance(final Class<?> type) {
+        this.type = type;
     }
 
     public boolean include(final PojoClass pojoClass) {
-        return filterBasedOnInheritance.include(pojoClass);
+        if (!pojoClass.getName().equals(type.getName())) {
+            return pojoClass.extendz(type);
+        }
+        return false;
     }
 }

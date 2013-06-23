@@ -21,7 +21,7 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.cache.PojoCache;
-import com.openpojo.reflection.filters.FilterBasedOnInheritence;
+import com.openpojo.reflection.filters.FilterBasedOnInheritance;
 import com.openpojo.reflection.filters.FilterChain;
 import com.openpojo.reflection.impl.PojoClassImpl;
 import com.openpojo.reflection.impl.PojoFieldFactory;
@@ -48,8 +48,8 @@ public class DefaultPojoClassLookupService implements Service, PojoClassLookupSe
     public List<PojoClass> enumerateClassesByExtendingType(final String packageName, final Class<?> type,
                                                            final PojoClassFilter pojoClassFilter) {
 
-        final FilterBasedOnInheritence inheritencefilter = new FilterBasedOnInheritence(type);
-        final FilterChain filterChain = new FilterChain(inheritencefilter, pojoClassFilter);
+        final FilterBasedOnInheritance inheritanceFilter = new FilterBasedOnInheritance(type);
+        final FilterChain filterChain = new FilterChain(inheritanceFilter, pojoClassFilter);
         return getPojoClassesRecursively(packageName, filterChain);
     }
 
