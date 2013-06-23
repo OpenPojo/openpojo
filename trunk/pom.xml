@@ -12,7 +12,7 @@
   ~    GNU Lesser General Public License for more details.
   ~
   ~    You should have received a copy of the GNU Lesser General Public License
-  ~    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~    along with this program.  If not, see <http://www.gnu.org/licenses />.
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -24,7 +24,7 @@
 	</parent>
 	<groupId>com.googlecode.openpojo</groupId>
 	<artifactId>openpojo</artifactId>
-	<version>0.4.4-SNAPSHOT</version>
+	<version>0.4.4</version>
 	<name>${project.artifactId}</name>
 	<url>http://openpojo.com/</url>
 	<description>
@@ -38,9 +38,9 @@
 		<url>http://code.google.com/p/openpojo/issues/</url>
 	</issueManagement>
 	<scm>
-		<connection>scm:svn:http://openpojo.googlecode.com/svn/trunk</connection>
-		<developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
-		<url>http://openpojo.googlecode.com/svn/trunk</url>
+		<connection>scm:svn:http://openpojo.googlecode.com/svn/tags/openpojo-0.4.4</connection>
+		<developerConnection>scm:svn:https://openpojo.googlecode.com/svn/tags/openpojo-0.4.4</developerConnection>
+		<url>http://openpojo.googlecode.com/svn/tags/openpojo-0.4.4</url>
 	</scm>
 	<developers>
 		<developer>
