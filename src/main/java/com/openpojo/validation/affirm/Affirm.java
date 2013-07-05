@@ -18,6 +18,8 @@
 package com.openpojo.validation.affirm;
 
 
+import java.util.Collection;
+
 /**
  * This class acts as a facade to JUnit Assert-ions.<br>
  * Written to mainly facilitate:<br>
@@ -38,7 +40,7 @@ public abstract class Affirm {
      * Fail with a message.
      *
      * @param message
-     *            The message describing the failure.
+     *         The message describing the failure.
      */
     public static void fail(final String message) {
         getAffirmation().fail(message);
@@ -48,9 +50,9 @@ public abstract class Affirm {
      * This method will only affirm failure if the condition is false.
      *
      * @param message
-     *            The message describing the affirmation being performed.
+     *         The message describing the affirmation being performed.
      * @param condition
-     *            The condition being affirmed.
+     *         The condition being affirmed.
      */
     public static void affirmTrue(final String message, final boolean condition) {
         getAffirmation().affirmTrue(message, condition);
@@ -70,6 +72,22 @@ public abstract class Affirm {
 
     public static void affirmEquals(final String message, final Object first, final Object second) {
         getAffirmation().affirmEquals(message, first, second);
+    }
+
+
+    public static void affirmContains(final String message, final Object expected, final Collection<?> collection) {
+        for (Object entry : collection) {
+            if (expected == null) {
+                if (entry == null) {
+                    return;
+                }
+            } else {
+                if (expected.equals(entry)) {
+                    return;
+                }
+            }
+        }
+        Affirm.fail(message + ":expected value [" + expected + "] not found");
     }
 
 }

@@ -17,8 +17,10 @@
 
 package com.openpojo.validation.affirm;
 
-import junit.framework.Assert;
+import java.util.LinkedList;
+import java.util.List;
 
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -127,5 +129,40 @@ public abstract class AbstractAffirmation {
             return;
         }
         Assert.fail("Affirm.affirmEquals call on non-equal objects passed!!");
+    }
+
+    @Test
+    public void testAffirmContains() {
+        List<String> myList = new LinkedList<String>();
+        myList.add("This");
+        myList.add("is");
+        myList.add("mylist");
+        Affirm.affirmContains("should find the word 'is' in my list", "is", myList);
+
+        try {
+            Affirm.affirmContains("should not find the word 'WHAT' in my list", "WHAT", myList);
+        } catch (AssertionError e) {
+            return;
+        }
+        Assert.fail("Affirm.affirmContains failed to detect that 'WHAT' is not part of the collection");
+    }
+
+    @Test
+    public void testAffirmContainsWithNulls() {
+        List<String> myList = new LinkedList<String>();
+        myList.add("This");
+        myList.add("is");
+        myList.add("mylist");
+        myList.add(null);
+
+        Affirm.affirmContains("Should find a null in the list", null, myList);
+        myList.remove(null);
+
+        try {
+            Affirm.affirmContains("Should not find a null in the list", null, myList);
+        } catch (AssertionError e) {
+            return;
+        }
+        Assert.fail("Affirm.affirmContains failed to detect a missing null in the list");
     }
 }
