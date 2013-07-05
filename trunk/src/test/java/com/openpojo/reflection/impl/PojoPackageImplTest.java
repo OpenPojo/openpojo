@@ -41,7 +41,7 @@ import com.openpojo.validation.affirm.Affirm;
  */
 public class PojoPackageImplTest {
 
-    private static final int EXPECTED_CLASSES = 29;
+    private static final int EXPECTED_CLASSES = 31;
 
     private String packageName;
     private String expectedToString;
