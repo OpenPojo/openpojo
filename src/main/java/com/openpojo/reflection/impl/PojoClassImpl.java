@@ -17,6 +17,12 @@
 
 package com.openpojo.reflection.impl;
 
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.utils.ToStringHelper;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.net.URI;
@@ -26,14 +32,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.openpojo.business.BusinessIdentity;
-import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.utils.ToStringHelper;
-
 /**
  * This class is the default implementation for the PojoClass Interface, created through the PojoClassFactory.
  *
@@ -41,7 +39,6 @@ import com.openpojo.reflection.utils.ToStringHelper;
  */
 public class PojoClassImpl implements PojoClass {
 
-    @BusinessKey(caseSensitive = true)
     private final String name;
     private final Class<?> clazz;
     private final List<PojoField> pojoFields;
@@ -170,11 +167,15 @@ public class PojoClassImpl implements PojoClass {
 
     @Override
     public int hashCode() {
-        return BusinessIdentity.getHashCode(this);
+        return name.hashCode();
     }
 
     @Override
     public boolean equals(final Object other) {
-        return BusinessIdentity.areEqual(this, other);
+        if (other == null || !other.getClass().equals(this.getClass())) {
+            return false;
+        }
+        PojoClassImpl otherPojoClass = (PojoClassImpl) other;
+        return name.equals(otherPojoClass.name);
     }
 }
