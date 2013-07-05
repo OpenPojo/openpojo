@@ -1,5 +1,4 @@
 /*
-/*
  * Copyright (c) 2010-2013 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
