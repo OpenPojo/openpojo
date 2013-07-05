@@ -85,7 +85,7 @@
 		<javax.validation.version>1.0.0.GA</javax.validation.version>
 		<!-- <slf4j.version>[1.4.1,1.6.1]</slf4j.version> <junit.version>[4.0,4.8.2]</junit.version> 
 			<testng.version>[5.0,5.14.2]</testng.version> <log4j.version>[1.2.12,1.2.16]</log4j.version> -->
-		<clover.version>3.1.6</clover.version>
+		<clover.version>3.1.11</clover.version>
 	</properties>
 	<build>
 		<testResources>
