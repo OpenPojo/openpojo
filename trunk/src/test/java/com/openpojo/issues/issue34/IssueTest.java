@@ -44,10 +44,10 @@ public class IssueTest {
         int countOfBooleans = 0;
 
         for (PojoField pojoField : pojoClass.getPojoFields()) {
-            if (pojoField.isPrimitive() && pojoField.getType() == Boolean.class) {
+            if (pojoField.isPrimitive() && pojoField.getType() == boolean.class) {
                 countOfbooleans++;
             }
-            if (!pojoField.isPrimitive() && pojoField.getType() == boolean.class) {
+            if (!pojoField.isPrimitive() && pojoField.getType() == Boolean.class) {
                 countOfBooleans++;
             }
         }
