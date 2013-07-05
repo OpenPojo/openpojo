@@ -17,6 +17,9 @@
 
 package com.openpojo.registry;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
@@ -25,16 +28,13 @@ import com.openpojo.validation.affirm.Affirm;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class ServiceRegistrarTest {
 
     private final String[] expectedDefaultTypeNames = new String[]{"java.lang.Boolean", "java.lang.Byte",
             "java.lang.Character", "java.lang.Class", "java.lang.Double", "java.lang.Float", "java.lang.Integer",
             "java.lang.Long", "java.lang.Object", "java.lang.Short", "java.lang.String", "java.math.BigDecimal",
             "java.math.BigInteger", "java.sql.Timestamp", "java.util.AbstractCollection", "java.util.AbstractList",
-            "java.util.AbstractMap", "java.util.AbstractSequentialList", "java.util.AbstractSet",
+            "java.util.AbstractMap", "java.util.AbstractSequentialList", "java.util.AbstractSet", "java.lang.Enum",
             "java.util.ArrayDeque", // jdk6 only
             "java.util.ArrayList", "java.util.Calendar", "java.util.Collection", "java.util.Date",
             "java.util.EnumSet", "java.util.HashMap", "java.util.HashSet", "java.util.Hashtable",
@@ -45,7 +45,7 @@ public class ServiceRegistrarTest {
             "java.util.concurrent.DelayQueue", "java.util.concurrent.LinkedBlockingQueue",
             "java.util.concurrent.PriorityBlockingQueue", "java.util.concurrent.SynchronousQueue"};
 
-    private final int expectedTypes = 43;
+    private final int expectedTypes = 44;
 
     private Set<Class<?>> expectedDefaultTypes;
     private RandomGeneratorService randomGeneratorService;
