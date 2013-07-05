@@ -54,12 +54,12 @@ public class PojoMethodImplTest {
     public void testGetAnnotation() {
         for (PojoMethod pojoMethod : pojoMethods) {
             if (pojoMethod.getName().equals("methodWithAnnotation")) {
-                Affirm.affirmNotNull("removed SomeAnnotation annotation from methodWithAnnotation?", pojoMethod
-                        .getAnnotation(SomeAnnotation.class));
+                Affirm.affirmNotNull("removed SomeAnnotation annotation from methodWithAnnotation?",
+                        pojoMethod.getAnnotation(SomeAnnotation.class));
             }
             if (pojoMethod.getName().equals("methodWithoutAnnotation")) {
-                Affirm.affirmNull("SomeAnnotation annotation added to methodWithoutAnnotation?", pojoMethod
-                        .getAnnotation(SomeAnnotation.class));
+                Affirm.affirmNull("SomeAnnotation annotation added to methodWithoutAnnotation?",
+                        pojoMethod.getAnnotation(SomeAnnotation.class));
             }
         }
     }
@@ -69,14 +69,14 @@ public class PojoMethodImplTest {
         for (PojoMethod pojoMethod : pojoMethods) {
             if (pojoMethod.getName().equals("methodWithMultipleAnnotations")) {
                 Affirm.affirmEquals(String.format("Annotations added/removed from method=[%s]", pojoMethod), 2,
-                                    pojoMethod.getAnnotations().size());
+                        pojoMethod.getAnnotations().size());
                 List<Class<?>> expectedAnnotations = new LinkedList<Class<?>>();
                 expectedAnnotations.add(SomeAnnotation.class);
                 expectedAnnotations.add(AnotherAnnotation.class);
                 for (Annotation annotation : pojoMethod.getAnnotations()) {
                     Affirm.affirmTrue(String.format("Expected annotations [%s] not found, instead found [%s]",
-                                                    expectedAnnotations, annotation.annotationType()),
-                                      expectedAnnotations.contains(annotation.annotationType()));
+                            expectedAnnotations, annotation.annotationType()),
+                            expectedAnnotations.contains(annotation.annotationType()));
                 }
                 return;
             }
