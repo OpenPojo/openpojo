@@ -17,6 +17,7 @@
 
 package com.openpojo.random.impl;
 
+import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
@@ -49,5 +50,12 @@ public class EnumRandomGeneratorTest {
             anotherEnum = (Enum) randomGenerator.doGenerate(Enum.class);
             Affirm.affirmFalse("Enum's should be different", someEnum.equals(anotherEnum));
         }
+    }
+
+    @Test
+    public void endToEndTest() {
+        Enum someEnum = RandomFactory.getRandomValue(Enum.class);
+        Affirm.affirmNotNull("Should generate Enum", someEnum);
+        Affirm.affirmTrue("Should use SomeEnum when generating", someEnum.getClass() == SomeEnum.class);
     }
 }
