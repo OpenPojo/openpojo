@@ -42,9 +42,9 @@ public final class EnumSetRandomGenerator implements RandomGenerator {
     }
 
     public Object doGenerate(final Class<?> type) {
-        final List<RandomEnum> randomEnumValues = new LinkedList<RandomEnum>();
-        for (int i = 0; i <= RANDOM.nextInt(RandomEnum.values().length); i++) {
-            randomEnumValues.add(RandomFactory.getRandomValue(RandomEnum.class));
+        final List<SomeEnum> randomEnumValues = new LinkedList<SomeEnum>();
+        for (int i = 0; i <= RANDOM.nextInt(SomeEnum.values().length); i++) {
+            randomEnumValues.add(RandomFactory.getRandomValue(SomeEnum.class));
         }
         return EnumSet.copyOf(randomEnumValues);
     }
@@ -55,10 +55,6 @@ public final class EnumSetRandomGenerator implements RandomGenerator {
 
     private static class Instance {
         private static final EnumSetRandomGenerator INSTANCE = new EnumSetRandomGenerator();
-    }
-
-    public enum RandomEnum {
-        ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE, THIRTEEN, FOURTEEN, FIFTEEN, SIXTEEN, SEVENTEEN, EIGHTEEN, NINETEEN, TWENTY;
     }
 
 }
