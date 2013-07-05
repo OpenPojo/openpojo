@@ -113,6 +113,13 @@ public class PojoMethodImpl implements PojoMethod {
         return accessibleObject instanceof Constructor<?>;
     }
 
+    public Type[] getGenericParameterTypes() {
+        if (isConstructor()) {
+            return getAsConstructor().getGenericParameterTypes();
+        }
+        return getAsMethod().getGenericParameterTypes();
+    }
+
     public Class<?>[] getParameterTypes() {
         if (isConstructor()) {
             return getAsConstructor().getParameterTypes();
@@ -131,15 +138,15 @@ public class PojoMethodImpl implements PojoMethod {
         return (Method) accessibleObject;
     }
 
-    private Constructor<?> getAsConstructor() {
-        return (Constructor<?>) accessibleObject;
-    }
-
     private int getModifiers() {
         if (isConstructor()) {
             return getAsConstructor().getModifiers();
         }
         return getAsMethod().getModifiers();
+    }
+
+    private Constructor<?> getAsConstructor() {
+        return (Constructor<?>) accessibleObject;
     }
 
     /*
