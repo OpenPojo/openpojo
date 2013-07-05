@@ -1,6 +1,11 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2013-07-05:*
+  * OpenPojo-0.4.5 released
+    * Added
+      # Affirm.affirmContains call to simplify checking that an object is in a collection.
+      # Support for Enum.class random value generation.
  * *2013-06-23:*
   * OpenPojo-0.4.4 released
     * Fixed
