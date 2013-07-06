@@ -17,35 +17,56 @@
 
 package com.openpojo.issues.issue27;
 
-import org.junit.Test;
-
-import com.openpojo.issues.issue27.sample.ClassMissMatchBetweenFieldAndGetter;
-import com.openpojo.issues.issue27.sample.ClassMissMatchBetweenFieldAndSetter;
+import com.openpojo.issues.issue27.sample.ClassWithIntegerFieldAndPrimitiveIntParameterSetter;
+import com.openpojo.issues.issue27.sample.ClassWithIntegerFieldAndPrimitiveIntReturnTypeGetter;
+import com.openpojo.issues.issue27.sample.ClassWithPrimitiveIntFieldAndIntegerParameterSetter;
+import com.openpojo.issues.issue27.sample.ClassWithPrimitiveIntFieldAndIntegerReturnTypeGetter;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
 import com.openpojo.validation.rule.impl.GetterMustExistRule;
 import com.openpojo.validation.rule.impl.SetterMustExistRule;
+import org.junit.Test;
 
 /**
  * @author oshoukry
- *
  */
 public class issue27Test {
 
-    @Test (expected = AssertionError.class)
-    public void shouldFailValidationNoSetterFound() {
-        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassMissMatchBetweenFieldAndSetter.class);
+    @Test(expected = AssertionError.class)
+    public void shouldFailValidationWithIntegerFieldAndPrimitiveIntParameterSetter() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithIntegerFieldAndPrimitiveIntParameterSetter
+                .class);
         final PojoValidator pojoValidator = new PojoValidator();
         pojoValidator.addRule(new SetterMustExistRule());
         pojoValidator.runValidation(pojoClass);
     }
 
-    @Test (expected = AssertionError.class)
-    public void shouldFailValidationNoGetterFound() {
-        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassMissMatchBetweenFieldAndGetter.class);
+    @Test(expected = AssertionError.class)
+    public void shouldFailValidationWithPrimitiveIntFieldAndIntegerParameterSetter() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithPrimitiveIntFieldAndIntegerParameterSetter
+                .class);
+        final PojoValidator pojoValidator = new PojoValidator();
+        pojoValidator.addRule(new SetterMustExistRule());
+        pojoValidator.runValidation(pojoClass);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void shouldFailValidationWithIntegerFieldAndPrimitiveIntReturnTypeGetter() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass
+                (ClassWithIntegerFieldAndPrimitiveIntReturnTypeGetter.class);
         final PojoValidator pojoValidator = new PojoValidator();
         pojoValidator.addRule(new GetterMustExistRule());
         pojoValidator.runValidation(pojoClass);
     }
+
+    @Test(expected = AssertionError.class)
+    public void shouldFailValidationWithPrimitiveIntFieldAndIntegerReturnTypeGetter() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass
+                (ClassWithPrimitiveIntFieldAndIntegerReturnTypeGetter.class);
+        final PojoValidator pojoValidator = new PojoValidator();
+        pojoValidator.addRule(new GetterMustExistRule());
+        pojoValidator.runValidation(pojoClass);
+    }
+
 }
