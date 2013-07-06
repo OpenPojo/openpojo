@@ -21,11 +21,12 @@ package com.openpojo.issues.issue27.sample;
  * @author oshoukry
  *
  */
-public class ClassMissMatchBetweenFieldAndGetter {
+public class ClassWithIntegerFieldAndPrimitiveIntParameterSetter {
 
+    @SuppressWarnings("unused")
     private Integer myInteger;
 
-    public int getMyInteger() {
-        return this.myInteger;
+    public void setMyInteger(final int myInteger) {
+        this.myInteger = myInteger;
     }
 }
