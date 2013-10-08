@@ -40,9 +40,6 @@ public class FilterBasedOnInheritance implements PojoClassFilter {
     }
 
     public boolean include(final PojoClass pojoClass) {
-        if (!pojoClass.getName().equals(type.getName())) {
-            return pojoClass.extendz(type);
-        }
-        return false;
+        return !pojoClass.getName().equals(type.getName()) && pojoClass.extendz(type);
     }
 }
