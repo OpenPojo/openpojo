@@ -43,7 +43,6 @@ public class PojoClassImpl implements PojoClass {
     private final Class<?> clazz;
     private final List<PojoField> pojoFields;
     private final List<PojoMethod> pojoMethods;
-    private static final String NESTED_CLASS_TOKEN = "$";
 
     /**
      * Minimum constructor.
@@ -114,7 +113,7 @@ public class PojoClassImpl implements PojoClass {
     }
 
     public boolean isNestedClass() {
-        return clazz.getName().contains(NESTED_CLASS_TOKEN);
+        return clazz.getEnclosingClass() != null;
     }
 
     public void copy(final Object from, final Object to) {

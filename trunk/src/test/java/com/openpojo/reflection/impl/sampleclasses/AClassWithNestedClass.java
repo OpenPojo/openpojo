@@ -26,4 +26,8 @@ public class AClassWithNestedClass {
     public class NestedClass {
 
     }
+
+    public static class NestedStaticClass {
+
+    }
 }

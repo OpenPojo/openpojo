@@ -229,6 +229,11 @@ public class PojoClassImplTest {
         pojoClass = getPojoClassImplForClass(nestedClass);
         Affirm.affirmTrue(String.format("Nested class=[%s] returned false for isNestedClass on PojoClass implementation=[%s]",
                                         nestedClass, pojoClass), pojoClass.isNestedClass());
+
+        final Class<?> nestedStaticClass = AClassWithNestedClass.NestedStaticClass.class;
+        pojoClass = getPojoClassImplForClass(nestedStaticClass);
+        Affirm.affirmTrue(String.format("Nested class=[%s] returned false for isNestedClass on PojoClass implementation=[%s]",
+                nestedClass, pojoClass), pojoClass.isNestedClass());
     }
 
     @Test
