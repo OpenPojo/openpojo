@@ -107,10 +107,7 @@ public class AttributeHelper {
     }
 
     private static boolean isSecondLetterUpperCase(String fieldName) {
-        if (fieldName.length() > 1) {
-            return Character.isUpperCase(Character.codePointAt(fieldName, 1));
-        }
-        return false;
+        return fieldName.length() > 1 && Character.isUpperCase(Character.codePointAt(fieldName, 1));
     }
 
     private static String camelCase(String fieldName) {
