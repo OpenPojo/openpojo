@@ -117,13 +117,13 @@ public final class BasicRandomGenerator implements RandomGenerator {
         }
 
         if (type == String.class) {
-            final StringBuilder randomString = new StringBuilder(MAX_RANDOM_STRING_LENGTH);
+            String randomString = "";
 
             /* prevent zero length string lengths */
             for (int count = 0; count < RANDOM.nextInt(MAX_RANDOM_STRING_LENGTH + 1) + 1; count++) {
-                randomString.append(RandomFactory.getRandomValue(Character.class));
+                randomString += RandomFactory.getRandomValue(Character.class);
             }
-            return randomString.toString();
+            return randomString;
         }
 
         if (type == Date.class) {
