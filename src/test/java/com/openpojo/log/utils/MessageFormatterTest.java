@@ -166,12 +166,11 @@ public class MessageFormatterTest {
     public final void testRandomGenerateCurlyBracketTokens() {
         final int randomNumberOfTokensBetween0And10 = new Random().nextInt(MAX_NUMBER_OF_RANDOM_TOKENS + 1);
 
-        final StringBuilder assertString = new StringBuilder();
+        String assertString = "";
         for (int counter = 0; counter < randomNumberOfTokensBetween0And10; counter++) {
-            assertString.append(GENERATE_CURLY_BRACKET_TOKEN_PREFIX).append(counter)
-                        .append(GENERATE_CURLY_BRACKET_TOKEN_POSTFIX);
+            assertString += GENERATE_CURLY_BRACKET_TOKEN_PREFIX + counter +GENERATE_CURLY_BRACKET_TOKEN_POSTFIX;
         }
-        Assert.assertEquals(assertString.toString(),
+        Assert.assertEquals(assertString,
                             MessageFormatter.generateCurlyBracketTokens(randomNumberOfTokensBetween0And10));
 
     }
