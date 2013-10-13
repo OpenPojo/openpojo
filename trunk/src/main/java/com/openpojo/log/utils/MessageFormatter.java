@@ -117,11 +117,11 @@ public final class MessageFormatter {
      * @return a string with tokens that can take in the "args" right away in "usingCurlyBrackets"
      */
     static String generateCurlyBracketTokens(final int numberOfTokens) {
-        final StringBuilder stringBuilder = new StringBuilder();
+        String generatedTokens = "";
         for (int counter = 0; counter < numberOfTokens; counter++) {
-            stringBuilder.append(DEFAULT_FIELDS_FORMAT_PREFIX).append(counter).append(DEFAULT_FIELDS_FORMAT_POSTFIX);
+            generatedTokens += DEFAULT_FIELDS_FORMAT_PREFIX + counter + DEFAULT_FIELDS_FORMAT_POSTFIX;
         }
-        return stringBuilder.toString();
+        return generatedTokens;
     }
 
     public static String format(final Object message) {
@@ -148,14 +148,16 @@ public final class MessageFormatter {
         if (arrayLength == -1)
             return "[]";
 
-        final StringBuilder b = new StringBuilder();
-        b.append('[');
-        for (int i = 0;; i++) {
-            b.append(String.valueOf(Array.get(message, i)));
-            if (i == arrayLength)
-                return b.append(']').toString();
-            b.append(", ");
+        String formattedString = "";
+        formattedString += '[';
+        for (int i = 0; i <= arrayLength; i++) {
+            formattedString += String.valueOf(Array.get(message, i));
+            if (i != arrayLength)
+                formattedString += ", ";
         }
+        formattedString += ']';
+
+        return formattedString;
     }
 
     private static String format(final Throwable throwable) {
