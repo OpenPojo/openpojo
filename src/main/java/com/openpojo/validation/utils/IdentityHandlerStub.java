@@ -17,6 +17,7 @@
 
 package com.openpojo.validation.utils;
 
+import com.openpojo.business.identity.IdentityFactory;
 import com.openpojo.business.identity.IdentityHandler;
 
 /**
@@ -25,6 +26,18 @@ import com.openpojo.business.identity.IdentityHandler;
  */
 public class IdentityHandlerStub implements IdentityHandler {
     private Object handlerForObject;
+
+    public static void registerIdentityHandlerStubForValue(Object value) {
+        final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
+        IdentityFactory.registerIdentityHandler(identityHandlerStub);
+        identityHandlerStub.setHandlerForObject(value);
+    }
+
+    public static void unregisterIdentityHandlerStubForValue(Object value) {
+        IdentityHandler identityHandler = IdentityFactory.getIdentityHandler(value);
+        IdentityFactory.unregisterIdentityHandler(identityHandler);
+
+    }
 
     public void setHandlerForObject(final Object handlerForObject) {
         this.handlerForObject = handlerForObject;
