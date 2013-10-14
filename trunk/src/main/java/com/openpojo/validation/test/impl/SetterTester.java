@@ -17,8 +17,6 @@
 
 package com.openpojo.validation.test.impl;
 
-import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.business.identity.IdentityFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
@@ -39,18 +37,15 @@ public class SetterTester implements Tester {
         for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.hasSetter()) {
                 final Object value;
-                if (fieldEntry.getAnnotation(BusinessKey.class) != null) {
-                    value = RandomFactory.getRandomValue(fieldEntry.getType());
-                    final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
-                    IdentityFactory.registerIdentityHandler(identityHandlerStub);
-                    identityHandlerStub.setHandlerForObject(value);
-                } else {
-                    value = RandomFactory.getRandomValue(fieldEntry.getType());
-                }
+                value = RandomFactory.getRandomValue(fieldEntry.getType());
                 fieldEntry.invokeSetter(classInstance, value);
+
+                IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
                 Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
                                     fieldEntry.get(classInstance));
+                IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
             }
         }
     }
+
 }

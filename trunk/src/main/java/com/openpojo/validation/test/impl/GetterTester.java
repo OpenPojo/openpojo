@@ -17,8 +17,6 @@
 
 package com.openpojo.validation.test.impl;
 
-import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.business.identity.IdentityFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
@@ -38,23 +36,17 @@ public class GetterTester implements Tester {
         final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
         for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.hasGetter()) {
-                Object value;
-                if (fieldEntry.isFinal()) {
-                    // get default value
-                    value = fieldEntry.get(classInstance);
-                } else {
-                    if (fieldEntry.getAnnotation(BusinessKey.class) != null) {
-                        value = RandomFactory.getRandomValue(fieldEntry.getType());
-                        final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
-                        IdentityFactory.registerIdentityHandler(identityHandlerStub);
-                        identityHandlerStub.setHandlerForObject(value);
-                    } else {
-                        value = RandomFactory.getRandomValue(fieldEntry.getType());
-                    }
+                Object value = fieldEntry.get(classInstance);
+
+                if (!fieldEntry.isFinal()) {
+                    value = RandomFactory.getRandomValue(fieldEntry.getType());
                     fieldEntry.set(classInstance, value);
                 }
+
+                IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
                 Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value,
                                     fieldEntry.invokeGetter(classInstance));
+                IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
             }
         }
     }
