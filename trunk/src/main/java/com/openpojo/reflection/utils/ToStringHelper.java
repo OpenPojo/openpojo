@@ -71,13 +71,13 @@ public final class ToStringHelper {
      *          String formatted, human readable list of pojoFields.
      */
     private static String PojoFieldsToString(final List<PojoField> pojoFields, final Object instance) {
-        StringBuilder stringBuilder = new StringBuilder();
+        String pojoString = "";
         for (int index = 0; index < pojoFields.size(); index++) {
-            stringBuilder.append(pojoFields.get(index).toString(instance));
+            pojoString += pojoFields.get(index).toString(instance);
             if (index < pojoFields.size() - 1) {
-                stringBuilder.append(LIST_TOKEN_SEPERATOR);
+                pojoString += LIST_TOKEN_SEPERATOR;
             }
         }
-        return stringBuilder.toString();
+        return pojoString;
     }
 }
