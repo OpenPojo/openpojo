@@ -31,7 +31,7 @@ import com.openpojo.business.identity.impl.DefaultIdentityHandler;
  */
 public final class IdentityFactory {
 
-    private static LinkedList<IdentityHandler> identityHandlers = new LinkedList<IdentityHandler>();
+    private static volatile LinkedList<IdentityHandler> identityHandlers = new LinkedList<IdentityHandler>();
 
     static {
         registerIdentityHandler(DefaultIdentityHandler.getInstance());
@@ -43,7 +43,7 @@ public final class IdentityFactory {
      *
      * @return the identityEvaluator
      */
-    public synchronized static IdentityHandler getIdentityHandler(final Object object) {
+    public static IdentityHandler getIdentityHandler(final Object object) {
         for (IdentityHandler identityHandler : identityHandlers) {
             if (identityHandler.handlerFor(object)) {
                 return identityHandler;
@@ -60,12 +60,15 @@ public final class IdentityFactory {
      * @param identityHandler
      *            The identityHandler to register.
      */
-    public synchronized static void registerIdentityHandler(final IdentityHandler identityHandler) {
+    public static void registerIdentityHandler(final IdentityHandler identityHandler) {
         if (identityHandler == null) {
             throw new IllegalArgumentException("Attempt to register null IdentityHandler");
         }
-        identityHandlers.remove(identityHandler);
-        identityHandlers.addFirst(identityHandler);
+        LinkedList<IdentityHandler> newList = duplicateIdentityHandlers();
+        newList.remove(identityHandler);
+        newList.addFirst(identityHandler);
+        identityHandlers = newList;
+
     }
 
     /**
@@ -74,7 +77,16 @@ public final class IdentityFactory {
      * @param identityHandler
      *            The identityHandler to unregister.
      */
-    public synchronized static void unregisterIdentityHandler(final IdentityHandler identityHandler) {
-        identityHandlers.remove(identityHandler);
+    public static void unregisterIdentityHandler(final IdentityHandler identityHandler) {
+        LinkedList<IdentityHandler> newList = duplicateIdentityHandlers();
+        if (newList.remove(identityHandler)){
+            identityHandlers = newList;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static LinkedList<IdentityHandler> duplicateIdentityHandlers() {
+        return (LinkedList <IdentityHandler>) identityHandlers.clone();
+
     }
 }
