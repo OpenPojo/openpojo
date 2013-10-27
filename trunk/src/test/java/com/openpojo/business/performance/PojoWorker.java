@@ -28,11 +28,9 @@ import java.util.Set;
 */
 class PojoWorker implements Runnable {
     private PojoWithBusinessIdentity[] pojos;
-    private String name;
     private int numberOfRepetitions;
 
-    public PojoWorker(String name, int pojoCount, int numberOfRepetitions) {
-        this.name = name;
+    public PojoWorker(int pojoCount, int numberOfRepetitions) {
         this.numberOfRepetitions = numberOfRepetitions;
         pojos = new PojoWithBusinessIdentity[pojoCount];
         for (int i = 0; i < pojoCount; i++) {
@@ -42,9 +40,9 @@ class PojoWorker implements Runnable {
 
     public void run() {
         for (int i = 0; i < numberOfRepetitions; i++) {
-            Set mySet = new HashSet();
+            Set<PojoWithBusinessIdentity> mySet = new HashSet<PojoWithBusinessIdentity>();
             Collections.addAll(mySet, pojos);
-            System.out.println(name + " completed run # " + i);
         }
+        
     }
 }

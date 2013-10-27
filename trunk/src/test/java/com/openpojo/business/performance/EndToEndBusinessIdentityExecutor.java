@@ -38,12 +38,11 @@ public class EndToEndBusinessIdentityExecutor {
         pausableThreadPoolExecutor.pause();
         int numberOfJobs = 20;
         for (int i = 0; i < numberOfJobs; i++) {
-            pausableThreadPoolExecutor.execute(getPojoWorker(String.valueOf(i)));
+            pausableThreadPoolExecutor.execute(getPojoWorker());
         }
 
         System.out.println("Starting ThreadPool work");
         pausableThreadPoolExecutor.shutdown();
-        long startTime = System.nanoTime();
         pausableThreadPoolExecutor.resume();
 
         while (!pausableThreadPoolExecutor.isTerminated()) {
@@ -57,7 +56,6 @@ public class EndToEndBusinessIdentityExecutor {
         }
 
         exceptions = pausableThreadPoolExecutor.getExceptions();
-        //System.out.println("Job complete [" + ((double) (System.nanoTime() - startTime) / 1000000000.0 + "] elapsed"));
     }
 
     public List<Throwable> getExceptions() {
@@ -71,10 +69,10 @@ public class EndToEndBusinessIdentityExecutor {
         }
     }
 
-    private PojoWorker getPojoWorker(String name) {
+    private PojoWorker getPojoWorker() {
         int pojoWorkerElementCount = 5;
         int numberOfTimesAPojoWorkerRepeatsWork = 100;
-        return new PojoWorker(name, pojoWorkerElementCount, numberOfTimesAPojoWorkerRepeatsWork);
+        return new PojoWorker(pojoWorkerElementCount, numberOfTimesAPojoWorkerRepeatsWork);
     }
 
     public void shuffleIdentityHandlers(boolean turnOnIdentityHandleShuffling) {
