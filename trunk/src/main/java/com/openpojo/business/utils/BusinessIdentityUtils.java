@@ -17,8 +17,13 @@
 
 package com.openpojo.business.utils;
 
+import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.business.exception.BusinessException;
+import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.PojoField;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 /**
  * This class is just a utility class that holds a few utilities needed by various classes in the business package.
@@ -95,11 +100,31 @@ public class BusinessIdentityUtils {
             return false;
         }
 
-        if (!caseSensitive && isCharacterBased(firstField)) {
-            return firstField.toString().equalsIgnoreCase(secondField.toString());
+        if (pojoField.isArray()) {
+            if (Array.getLength(firstField) != Array.getLength(secondField)) {
+                return false;
+            }
+
+            boolean runningEquality = true;
+            for (int idx= 0; idx < Array.getLength(firstField); idx++) {
+                runningEquality = runningEquality && doEquals(Array.get(firstField, idx), Array.get(secondField, idx), caseSensitive);
+            }
+            return runningEquality;
         }
 
-        return firstField.equals(secondField);
+        return doEquals(firstField, secondField, caseSensitive);
+    }
+
+    private static boolean doEquals(Object first, Object second, boolean caseSensitive) {
+        if (first == second || (first == null && second == null)) {
+            return true;
+        }
+
+        if (!caseSensitive && isCharacterBased(first)) {
+            return first.toString().equalsIgnoreCase(second.toString());
+        }
+
+        return first.equals(second);
     }
 
     /**
@@ -116,6 +141,26 @@ public class BusinessIdentityUtils {
         if (data == null) {
             return 0;
         }
+
+        if (pojoField.isArray()) {
+            final int prime = 31;
+            int result = 1;
+
+            for (int idx = 0; idx < Array.getLength(data); idx++) {
+                result = prime * result + doHashCode(Array.get(data, idx), caseSensitive);
+            }
+
+            return result;
+        }
+
+        return doHashCode(data, caseSensitive);
+    }
+
+    private static int doHashCode(Object data, boolean caseSensitive) {
+        if (data == null) {
+            return 1;
+        }
+
         if (!caseSensitive && isCharacterBased(data)) {
             return data.toString().toLowerCase().hashCode();
         }

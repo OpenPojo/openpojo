@@ -141,6 +141,12 @@ public interface PojoField extends PojoElement {
 
     /**
      * @return
+     *         True if this PojoField is defined as array on the enclosing class.
+     */
+    public boolean isArray();
+
+    /**
+     * @return
      *         True if this PojoField is defined with parameters (i.e. List<SomeClass>).
      */
     public boolean isParameterized();

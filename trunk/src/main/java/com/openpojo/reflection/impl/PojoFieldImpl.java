@@ -165,6 +165,10 @@ class PojoFieldImpl implements PojoField {
         return Modifier.isVolatile(field.getModifiers());
     }
 
+    public boolean isArray() {
+        return field.getType().isArray();
+    }
+
     @Override
     public String toString() {
         return String.format("PojoFieldImpl [field=%s, fieldGetter=%s, fieldSetter=%s]", field, fieldGetter,
