@@ -5,7 +5,7 @@
   * OpenPojo-0.4.6 released
     * Fixed
       # BusinessIdentity.areEqual() call is now non blocking thread safe (Thanks to David K).
-      # @BusinessKey annotated arrays are now handled correctly for equality and hashCode (Thanks to Dillon E).
+      # @BusinessKey annotated native arrays are now handled correctly for equality and hashCode (Thanks to Dillon E).
  * *2013-07-05:*
   * OpenPojo-0.4.5 released
     * Added
