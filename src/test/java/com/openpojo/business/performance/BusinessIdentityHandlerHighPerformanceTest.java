@@ -19,7 +19,6 @@ package com.openpojo.business.performance;
 
 import com.openpojo.business.identity.IdentityFactory;
 import com.openpojo.business.identity.IdentityHandler;
-import com.openpojo.log.utils.MessageFormatter;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
