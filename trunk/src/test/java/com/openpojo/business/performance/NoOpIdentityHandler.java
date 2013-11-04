@@ -20,18 +20,12 @@ package com.openpojo.business.performance;
 import com.openpojo.business.identity.IdentityHandler;
 
 /**
-* @author oshoukry
-*/
-class LazyIdentityHandler implements IdentityHandler {
-
-    private final int delayResponseInMS;
-
-    public LazyIdentityHandler(int delayResponseInMS) {
-        this.delayResponseInMS = delayResponseInMS;
-    }
+ * @author oshoukry
+ */
+public class NoOpIdentityHandler implements IdentityHandler {
 
     public int generateHashCode(Object object) {
-        return 0;
+        return -1;
     }
 
     public boolean areEqual(Object first, Object second) {
@@ -42,11 +36,7 @@ class LazyIdentityHandler implements IdentityHandler {
     }
 
     public boolean handlerFor(Object object) {
-        try {
-            Thread.sleep(delayResponseInMS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return false;
     }
+
 }
