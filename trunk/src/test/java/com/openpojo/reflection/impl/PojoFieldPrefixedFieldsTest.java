@@ -17,17 +17,20 @@
 
 package com.openpojo.reflection.impl;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.cache.PojoCache;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithFieldsNotPrefixed;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithFieldsPrefixed;
 import com.openpojo.reflection.utils.AttributeHelper;
 import com.openpojo.validation.affirm.Affirm;
+import com.openpojo.validation.rule.Rule;
+import com.openpojo.validation.rule.impl.GetterMustExistRule;
+import junit.framework.Assert;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 public class PojoFieldPrefixedFieldsTest {
 
@@ -63,5 +66,47 @@ public class PojoFieldPrefixedFieldsTest {
     public void shouldFailAttributeName() {
         AttributeHelper.registerFieldPrefix("mName");
         PojoClassFactory.getPojoClass(AClassWithFieldsPrefixed.class);
+    }
+
+    @Test
+    public void unRegisteringAPrefix_reflectsOnMethodLookup() {
+        AttributeHelper.registerFieldPrefix("m");
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithFieldsPrefixed.class);
+        Rule getterRule = new GetterMustExistRule();
+        getterRule.evaluate(pojoClass);
+
+        AttributeHelper.unregisterFieldPrefix("m");
+        PojoCache.clear();
+
+        pojoClass = PojoClassFactory.getPojoClass(AClassWithFieldsPrefixed.class);
+        boolean unregisterdSuccessfully = false;
+        try {
+            getterRule.evaluate(pojoClass);
+        } catch (AssertionError ae) {
+            unregisterdSuccessfully = true;
+        }
+        if (!unregisterdSuccessfully)
+            Assert.fail("unregistering failed?!");
+    }
+
+    @Test
+    public void unmatchedPrefixesHaveNoEffect() {
+        AttributeHelper.registerFieldPrefix("n");
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithFieldsNotPrefixed.class);
+        Rule getterRule = new GetterMustExistRule();
+        getterRule.evaluate(pojoClass);
+    }
+
+    @Test
+    public void registeringNullOrEmptyPrefixIsIgnored() {
+        AttributeHelper.registerFieldPrefix(null);
+        AttributeHelper.registerFieldPrefix("");
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithFieldsNotPrefixed.class);
+        Rule getterRule = new GetterMustExistRule();
+        getterRule.evaluate(pojoClass);
+
+        AttributeHelper.registerFieldPrefix("m");
+        pojoClass = PojoClassFactory.getPojoClass(AClassWithFieldsPrefixed.class);
+        getterRule.evaluate(pojoClass);
     }
 }

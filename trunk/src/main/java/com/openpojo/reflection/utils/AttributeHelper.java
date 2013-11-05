@@ -20,8 +20,8 @@ package com.openpojo.reflection.utils;
 import com.openpojo.reflection.exception.ReflectionException;
 
 import java.lang.reflect.Field;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * This Class is responsible for normalizing field names to attribute names. The reason for this is some companies have
@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class AttributeHelper {
 
-    private static final List<String> fieldPrefixes = new LinkedList<String>();
+    private static Set<String> fieldPrefixes = new CopyOnWriteArraySet<String>();
 
     /**
      * If your fields are prefixed with some pre-defined string register them here. You can register more than one
@@ -40,9 +40,9 @@ public class AttributeHelper {
      * @param prefix
      *            The prefix to register.
      */
-    public synchronized static void registerFieldPrefix(final String prefix) {
+    public static void registerFieldPrefix(final String prefix) {
         // don't allow null, empty or duplicate prefixes.
-        if (prefix != null && prefix.length() > 0 && !fieldPrefixes.contains(prefix)) {
+        if (prefix != null && prefix.length() > 0) {
             fieldPrefixes.add(prefix);
         }
     }
@@ -53,14 +53,14 @@ public class AttributeHelper {
      * @param prefix
      *            The prefix to un-register.
      */
-    public synchronized static void unregisterFieldPrefix(final String prefix) {
+    public static void unregisterFieldPrefix(final String prefix) {
         fieldPrefixes.remove(prefix);
     }
 
     /**
      * This method removes all registered values.
      */
-    public synchronized static void clearRegistery() {
+    public static void clearRegistery() {
         fieldPrefixes.clear();
     }
 
@@ -71,7 +71,7 @@ public class AttributeHelper {
      *            The field to inspect for attribute name
      * @return Normalized attribute name
      */
-    public synchronized static String getAttributeName(final Field field) {
+    public static String getAttributeName(final Field field) {
         String normalizedFieldName = field.getName();
         normalizedFieldName = stripPrefix(normalizedFieldName);
         return formattedFieldName(normalizedFieldName);
