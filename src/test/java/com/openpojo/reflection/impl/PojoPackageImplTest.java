@@ -17,15 +17,6 @@
 
 package com.openpojo.reflection.impl;
 
-import java.lang.annotation.Annotation;
-import java.util.LinkedList;
-import java.util.List;
-
-import junit.framework.Assert;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
@@ -35,13 +26,20 @@ import com.openpojo.reflection.filters.FilterCloverClasses;
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 import com.openpojo.validation.affirm.Affirm;
+import junit.framework.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.lang.annotation.Annotation;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author oshoukry
  */
 public class PojoPackageImplTest {
 
-    private static final int EXPECTED_CLASSES = 32;
+    private static final int EXPECTED_CLASSES = 33;
 
     private String packageName;
     private String expectedToString;
