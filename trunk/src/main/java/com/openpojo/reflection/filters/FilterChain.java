@@ -20,6 +20,8 @@ package com.openpojo.reflection.filters;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,4 +49,11 @@ public class FilterChain implements PojoClassFilter {
         return returnValue;
     }
 
+    public Collection<PojoClassFilter> getPojoClassFilters() {
+        return Collections.unmodifiableList(pojoClassFilters);
+    }
+
+    public int size() {
+        return pojoClassFilters.size();
+    }
 }
