@@ -147,6 +147,12 @@ public interface PojoField extends PojoElement {
 
     /**
      * @return
+     *         true if this PojoField is synthetic (i.e. jdk compiler generated).
+     */
+    public boolean isSynthetic();
+
+    /**
+     * @return
      *         True if this PojoField is defined with parameters (i.e. List<SomeClass>).
      */
     public boolean isParameterized();

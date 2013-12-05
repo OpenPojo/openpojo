@@ -111,6 +111,10 @@ public class FilterClassNameTest {
             throw new IllegalStateException("UnImplemented!!");
         }
 
+        public boolean isSynthetic() {
+            throw new IllegalStateException("UnImplemented!!");
+        }
+
         public List<PojoField> getPojoFields() {
             throw new IllegalStateException("UnImplemented!!");
         }
