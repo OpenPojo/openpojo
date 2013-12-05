@@ -17,6 +17,8 @@
 
 package com.openpojo.reflection.construct;
 
+import com.openpojo.reflection.construct.sampleclasses.ClassWithSyntheticConstructor;
+import junit.framework.Assert;
 import org.junit.Test;
 
 import com.openpojo.random.RandomFactory;
@@ -132,5 +134,11 @@ public class InstanceFactoryTest {
     public void shouldConstructBasedOnDerivedClass() {
         final PojoClass aClassWithInterfaceBasedConstructor = PojoClassFactory.getPojoClass(ClassWithInterfaceBasedConstructor.class);
         InstanceFactory.getInstance(aClassWithInterfaceBasedConstructor, new String("SomeString"));
+    }
+
+    @Test
+    public void shouldSkipSyntheticConstructor() {
+        final PojoClass classWithStaticConstructorPojo = PojoClassFactory.getPojoClass(ClassWithSyntheticConstructor.class);
+        Assert.assertNotNull(InstanceFactory.getMostCompleteInstance(classWithStaticConstructorPojo));
     }
 }

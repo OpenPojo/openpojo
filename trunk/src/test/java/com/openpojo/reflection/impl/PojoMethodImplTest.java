@@ -21,6 +21,8 @@ import java.lang.annotation.Annotation;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.reflection.impl.sampleclasses.ClassWithSyntheticConstructor;
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -195,6 +197,19 @@ public class PojoMethodImplTest {
             }
         }
         Affirm.fail("nonStaticMethod missing!!");
+    }
+
+    @Test
+    public void classWithPrivateConstructorAndBuilder_hasSyntheticConstrutor() {
+        Assert.assertNotNull(ClassWithSyntheticConstructor.Builder.getInstance());
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithSyntheticConstructor.class);
+        Assert.assertEquals(2, pojoClass.getPojoConstructors().size());
+        for (PojoMethod constructor : pojoClass.getPojoMethods()) {
+            if (constructor.getParameterTypes().length == 0)
+                Assert.assertFalse("Synthatic constructor found!! [" + constructor + "]", constructor.isSynthetic());
+            else
+                Assert.assertTrue("None synthatic constructor found!! [" + constructor + "]", constructor.isSynthetic());
+        }
     }
 
 }

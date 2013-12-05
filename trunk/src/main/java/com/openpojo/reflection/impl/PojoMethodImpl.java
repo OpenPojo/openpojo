@@ -109,6 +109,13 @@ public class PojoMethodImpl implements PojoMethod {
         return Modifier.isStatic(getModifiers());
     }
 
+    public boolean isSynthetic() {
+        if (isConstructor()) {
+            return getAsConstructor().isSynthetic();
+        }
+        return getAsMethod().isSynthetic();
+    }
+
     public boolean isConstructor() {
         return accessibleObject instanceof Constructor<?>;
     }
