@@ -117,10 +117,14 @@ public class FilterNonConcreteTest {
         }
 
         public boolean isArray() {
-            throw new IllegalStateException("UnImplemented!!");
+            throw new RuntimeException("Unimplemented!!");
         }
 
         public boolean isFinal() {
+            throw new RuntimeException("Unimplemented!!");
+        }
+
+        public boolean isSynthetic() {
             throw new RuntimeException("Unimplemented!!");
         }
 
