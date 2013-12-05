@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class PojoPackageImplTest {
 
-    private static final int EXPECTED_CLASSES = 33;
+    private static final int EXPECTED_CLASSES = 36;
 
     private String packageName;
     private String expectedToString;
