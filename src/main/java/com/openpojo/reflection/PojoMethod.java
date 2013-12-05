@@ -70,27 +70,33 @@ public interface PojoMethod extends PojoElement {
     public Type[] getGenericParameterTypes();
 
     /**
-     * @return True if this PojoField is final-ly defined on the enclosing class.
+     * @return True if this PojoMethod is final-ly defined on the enclosing class.
      */
     public boolean isFinal();
 
     /**
-     * @return True if this PojoField is static-ly defined on the enclosing class.
+     * @return
+     *         true if this PojoMethod is synthetic (i.e. jdk compiler generated).
+     */
+    public boolean isSynthetic();
+
+    /**
+     * @return True if this PojoMethod is static-ly defined on the enclosing class.
      */
     public boolean isStatic();
 
     /**
-     * @return True if this PojoField is private-ly defined on the enclosing class.
+     * @return True if this PojoMethod is private-ly defined on the enclosing class.
      */
     public boolean isPrivate();
 
     /**
-     * @return True if this PojoField is protected-ly defined on the enclosing class.
+     * @return True if this PojoMethod is protected-ly defined on the enclosing class.
      */
     public boolean isProtected();
 
     /**
-     * @return True if this PojoField is public-ly defined on the enclosing class.
+     * @return True if this PojoMethod is public-ly defined on the enclosing class.
      */
     public boolean isPublic();
 

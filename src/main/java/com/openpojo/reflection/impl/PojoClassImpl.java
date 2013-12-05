@@ -17,12 +17,6 @@
 
 package com.openpojo.reflection.impl;
 
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.utils.ToStringHelper;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.net.URI;
@@ -31,6 +25,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
  * This class is the default implementation for the PojoClass Interface, created through the PojoClassFactory.
@@ -76,6 +76,10 @@ public class PojoClassImpl implements PojoClass {
 
     public boolean isFinal() {
         return Modifier.isFinal(clazz.getModifiers());
+    }
+
+    public boolean isSynthetic() {
+        return clazz.isSynthetic();
     }
 
     public List<PojoField> getPojoFields() {

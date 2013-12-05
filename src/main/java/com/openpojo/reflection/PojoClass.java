@@ -70,6 +70,12 @@ public interface PojoClass extends PojoElement {
     public boolean isFinal();
 
     /**
+     * @return
+     *         true if this PojoField is synthetic (i.e. jdk compiler generated).
+     */
+    public boolean isSynthetic();
+
+    /**
      * Get all PojoFields defined in the class.
      *
      * @return the pojoFields

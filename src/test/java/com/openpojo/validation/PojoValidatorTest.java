@@ -122,6 +122,10 @@ public class PojoValidatorTest {
             throw new IllegalStateException("Unimplemented!!");
         }
 
+        public boolean isSynthetic() {
+            throw new IllegalStateException("Unimplemented!!");
+        }
+
         public List<PojoField> getPojoFields() {
             throw new IllegalStateException("Unimplemented!!");
         }
