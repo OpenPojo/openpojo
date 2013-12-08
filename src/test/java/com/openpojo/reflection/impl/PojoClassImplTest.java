@@ -20,6 +20,7 @@ package com.openpojo.reflection.impl;
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
@@ -74,6 +75,31 @@ public class PojoClassImplTest {
         final PojoClass pojoClass = getPojoClassImplForClass(aNonFinalClass);
         Affirm.affirmFalse(String.format("IsFinal on non-final=[%s] returned true for PojoClass implementation=[%s]!!",
                                          aNonFinalClass, pojoClass), pojoClass.isFinal());
+    }
+
+    @Test
+    public void testIsSyntheticOnNonSyntheticClass() {
+        PojoClass aClassWithSyntheticDoublePojoClass = getPojoClassImplForClass(AClassWithSythetics.class);
+        Affirm.affirmFalse("Class isn't synthetic", aClassWithSyntheticDoublePojoClass.isSynthetic());
+    }
+
+    @Test
+    public void testIsSyntheticOnSyntheticClass() {
+        PojoClass syntheticPojoClass = getPojoClassImplForClass(AClassWithSythetics.class);
+        Affirm.affirmEquals("Expected 2 constructors", 2, syntheticPojoClass.getPojoConstructors().size());
+
+        PojoMethod constructor = null;
+
+        for (PojoMethod constructorEntry : syntheticPojoClass.getPojoConstructors()) {
+            if (constructorEntry.getParameterTypes().length > 0)
+                constructor = constructorEntry;
+        }
+
+        Affirm.affirmTrue("Failed to find synthetic constructor", constructor.isSynthetic());
+        Affirm.affirmEquals("Synthetic Constructor should have just one parameter", 1, constructor.getParameterTypes().length);
+
+        PojoClass aSyntheticClass = getPojoClassImplForClass(constructor.getParameterTypes()[0]);
+        Affirm.affirmTrue("Parameter to synthetic constructor should be synthetic class", aSyntheticClass.isSynthetic());
     }
 
     @Test
