@@ -17,13 +17,6 @@
 
 package com.openpojo.reflection.impl;
 
-import java.lang.annotation.Annotation;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
@@ -31,10 +24,17 @@ import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithSyntheticField;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithVariousAnnotatedFields;
 import com.openpojo.reflection.impl.sampleclasses.ClassWithGenericTypes;
 import com.openpojo.reflection.impl.sampleclasses.PojoFieldImplClass;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.lang.annotation.Annotation;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author oshoukry
@@ -261,5 +261,13 @@ public class PojoFieldImplTest {
                                   pojoField.isPublic());
             }
         }
+    }
+
+    @Test
+    public void testIsSynthetic() {
+        PojoClass classWithSyntheticField = PojoClassFactory.getPojoClass(AClassWithSyntheticField.SyntheticFieldContainer.class);
+        Affirm.affirmEquals("Failed to find field in class[" + classWithSyntheticField + "]", 1, classWithSyntheticField.getPojoFields().size());
+        PojoField pojoField = classWithSyntheticField.getPojoFields().get(0);
+        Affirm.affirmTrue("Failed to check isSynthetic + [" + pojoField + "]", pojoField.isSynthetic());
     }
 }
