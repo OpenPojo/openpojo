@@ -17,21 +17,21 @@
 
 package com.openpojo.reflection.impl;
 
-import java.lang.annotation.Annotation;
-import java.util.LinkedList;
-import java.util.List;
-
-import com.openpojo.reflection.impl.sampleclasses.ClassWithSyntheticConstructor;
-import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithSyntheticMethod;
+import com.openpojo.reflection.impl.sampleclasses.ClassWithSyntheticConstructor;
 import com.openpojo.reflection.impl.sampleclasses.PojoMethodClass;
 import com.openpojo.validation.affirm.Affirm;
+import junit.framework.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.lang.annotation.Annotation;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author oshoukry
@@ -197,6 +197,30 @@ public class PojoMethodImplTest {
             }
         }
         Affirm.fail("nonStaticMethod missing!!");
+    }
+
+    @Test
+    public void testIsNotSynthetic() {
+        for (PojoMethod pojoMethod : pojoMethods) {
+            if (pojoMethod.getName().equals("isNotSyntheticMethod")) {
+                Affirm.affirmTrue("Failed to check isNotSynthetic method", !pojoMethod.isSynthetic());
+                return;
+            }
+        }
+        Affirm.fail("isNotSyntheticMethod missing!!");
+    }
+
+    @Test
+    public void testIsSynthetic() {
+        PojoClass syntheticPojoClass = PojoClassFactory.getPojoClass(AClassWithSyntheticMethod.class);
+        System.out.println("" + syntheticPojoClass);
+        for (PojoMethod pojoMethod : syntheticPojoClass.getPojoMethods()) {
+            if (!pojoMethod.getName().equals("doSomethingSneaky") && !pojoMethod.isConstructor()) {
+                Affirm.affirmFalse("Failed to check synthetic method [" + pojoMethod + "]", !pojoMethod.isSynthetic());
+                return;
+            }
+        }
+        Affirm.fail("failed to find a synthetic method in class");
     }
 
     @Test
