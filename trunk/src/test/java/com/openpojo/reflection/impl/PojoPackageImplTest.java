@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class PojoPackageImplTest {
 
-    private static final int EXPECTED_CLASSES = 36;
+    private static final int EXPECTED_CLASSES = 39;
 
     private String packageName;
     private String expectedToString;
@@ -140,8 +140,8 @@ public class PojoPackageImplTest {
 
     @Test(expected = ReflectionException.class)
     public void shouldFailNoSuchPackage() {
-        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(RandomFactory.getRandomValue(String.class));
-        pojoPackage.getAnnotations();
+        String randomPackageName = RandomFactory.getRandomValue(String.class);
+        PojoPackageFactory.getPojoPackage(randomPackageName);
     }
 
     @Test(expected = IllegalArgumentException.class)

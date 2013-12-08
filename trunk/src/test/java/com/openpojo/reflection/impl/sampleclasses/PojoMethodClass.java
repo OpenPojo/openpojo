@@ -82,4 +82,8 @@ public final class PojoMethodClass {
     public void nonStaticMethod() {
 
     }
+
+    public void isNotSyntheticMethod() {
+
+    }
 }
