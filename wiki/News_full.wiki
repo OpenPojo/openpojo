@@ -6,7 +6,7 @@
     * Added
       # PojoClass, PojoMethod & PojoField now all support isSynthetic() check.
     * Fixed
-      # Edge PojoValidator attempting to construct utilizing Synthetic constructor which fails (Thanks to Ting L.).
+      # Edge PojoValidator attempting to construct utilizing Synthetic constructor which fails (Thanks to Ting L).
  * *2013-10-27:*
   * OpenPojo-0.4.6 released
     * Fixed
