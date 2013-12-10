@@ -4,7 +4,7 @@
  * *2013-12-10:*
   * OpenPojo-0.4.8 released
     * Fixed
-      # InstanceFactory failing to skip synthetic constructor when it was first one listed.
+      # InstanceFactory failing to skip synthetic constructor when it is the first one in the list.
  * *2013-12-08:*
   * OpenPojo-0.4.7 released
     * Added
