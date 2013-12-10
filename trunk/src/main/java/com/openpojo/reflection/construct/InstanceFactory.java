@@ -17,9 +17,6 @@
 
 package com.openpojo.reflection.construct;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
@@ -27,6 +24,9 @@ import com.openpojo.reflection.construct.utils.ArrayLengthBasedComparator;
 import com.openpojo.reflection.construct.utils.GreaterThan;
 import com.openpojo.reflection.construct.utils.LessThan;
 import com.openpojo.reflection.exception.ReflectionException;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This Factory has the ability to create an instance of any PojoClass.
@@ -209,12 +209,15 @@ public class InstanceFactory {
 
     private static PojoMethod getConstructorByCriteria(final PojoClass pojoClass,
             final ArrayLengthBasedComparator comparator) {
-        PojoMethod constructor = pojoClass.getPojoConstructors().get(0);
+        PojoMethod constructor = null;
         for (final PojoMethod pojoConstructor : pojoClass.getPojoConstructors()) {
-            if (!pojoConstructor.isSynthetic() && comparator.compare(pojoConstructor.getParameterTypes(),
-                    constructor.getParameterTypes())) {
-                constructor = pojoConstructor;
-            }
+            if (!pojoConstructor.isSynthetic())
+                if (constructor == null)
+                    constructor = pojoConstructor;
+                else {
+                    if (comparator.compare(pojoConstructor.getParameterTypes(), constructor.getParameterTypes()))
+                        constructor = pojoConstructor;
+                }
         }
         return constructor;
     }
