@@ -17,14 +17,14 @@
 
 package com.openpojo.business;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.business.exception.BusinessException;
 import com.openpojo.utils.dummypackage.Person;
 import junit.framework.Assert;
 import org.junit.Test;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class BusinessIdentityTest {
 
@@ -131,6 +131,13 @@ public class BusinessIdentityTest {
         final ToStringTestData toStringTestData = new ToStringTestData();
         final String toString = BusinessIdentity.toString(toStringTestData);
         Assert.assertTrue(String.format("BusinessIdentity.toString() failed!! recieved[%s]", toString), toString.startsWith("com.openpojo.business.BusinessIdentityTest$ToStringTestData [@") && toString.endsWith(": instance_name=Instance Name, static_name=Static Name, STATIC_FINAL_NAME=Static Final Name]"));
+    }
+
+    @Test
+    public void whenNullObject_Then_toString_returnNull() {
+        System.out.println(BusinessIdentity.toString(new ToStringTestData()));
+        System.out.println((String)null);
+        Assert.assertEquals("null", BusinessIdentity.toString(null));
     }
 
     private static class PersonEqualityPairTestData {
