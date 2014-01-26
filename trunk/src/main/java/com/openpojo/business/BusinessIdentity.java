@@ -74,6 +74,8 @@ public final class BusinessIdentity {
     }
 
     public static String toString(final Object instance) {
+        if (instance == null)
+            return "null";
         return PojoClassFactory.getPojoClass(instance.getClass()).toString(instance);
     }
 }
