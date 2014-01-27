@@ -15,11 +15,11 @@ This page is the top level on the tutorial
   <dependency>
     <groupId>com.googlecode.openpojo</groupId>
     <artifactId>openpojo</artifactId>
-    <version>0.4.0</version>
+    <version>0.4.9</version>
   </dependency>
 }}}
 Or 
-  * Download the latest OpenPojo ([http://code.google.com/p/openpojo/downloads/list Zip])
+  * Download the latest OpenPojo ([https://googledrive.com/host/0B8mezwmezYSibXYyOFJPZjFhVzQ/ Zip])
  
 === Next ===
   # Identify the list of packages that have the POJOs you want to test.
