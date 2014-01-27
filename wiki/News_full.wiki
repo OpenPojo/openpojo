@@ -4,7 +4,7 @@
  * *2014-01-26:*
   * OpenPojo-0.4.9 released
     * Added
-      # BusinessIdentity.toString(Object), now allows support passing in null objects.
+      # BusinessIdentity.toString(Object), now allows support passing in null objects (returns "null").
  * *2013-12-10:*
   * OpenPojo-0.4.8 released
     * Fixed
