@@ -85,7 +85,7 @@ public class JavaAssertionAffirmation implements Affirmation {
         fail(MessageFormatter.format("{0} expected <{1}> but was <{2}>", message, expected, actual));
     }
 
-    private boolean isArray(Object object) {
+    private boolean isArray(Object object) { //TODO: Remove array handling duplication with JUnitAssertion class.
         return object != null && object.getClass().isArray();
     }
 
