@@ -27,9 +27,9 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 /**
  * @author oshoukry
  */
-public class JUnitAssertAffirmationTest extends AbstractAffirmation {
-    private final Affirmation jUnitAssertAffirmation = (Affirmation) InstanceFactory.getInstance(PojoClassFactory
-            .getPojoClass(JUnitAssertAffirmation.class));
+public class JUnitAssertAffirmationTest extends AbstractAffirmationTest {
+    private final Affirmation jUnitAssertAffirmation = (Affirmation) InstanceFactory.getInstance(PojoClassFactory.getPojoClass
+            (JUnitAssertAffirmation.class));
 
     @Override
     public Affirmation getAffirmation() {
@@ -38,11 +38,8 @@ public class JUnitAssertAffirmationTest extends AbstractAffirmation {
 
     @Test
     public void shouldTestToString() {
-        Assert.assertTrue(String.format("[%s] signature changed? expected=[%s]!!", JUnitAssertAffirmation.class
-                .getName(), "com.openpojo.validation.affirm.JUnitAssertAffirmation [@xxxxxx: ]"),
-                          jUnitAssertAffirmation.toString()
-                                  .startsWith("com.openpojo.validation.affirm.JUnitAssertAffirmation [@")
-                                  && jUnitAssertAffirmation.toString().endsWith(": ]"));
+        Assert.assertTrue(String.format("[%s] signature changed? expected=[%s]!!", JUnitAssertAffirmation.class.getName(),
+                "com.openpojo.validation.affirm.JUnitAssertAffirmation [@xxxxxx: ]"), jUnitAssertAffirmation.toString().startsWith("com"
+                + ".openpojo.validation.affirm.JUnitAssertAffirmation [@") && jUnitAssertAffirmation.toString().endsWith(": ]"));
     }
-
 }

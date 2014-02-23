@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -15,21 +15,22 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.validation.affirm;
+package com.openpojo.issues.issue42.sample;
 
 /**
  * @author oshoukry
  */
-public interface Affirmation {
-    public void fail(final String message);
+@SuppressWarnings("unused")
+public class AClassWithArrayField {
 
-    public void affirmTrue(final String message, final boolean condition);
+    private byte[] picture;
 
-    public void affirmFalse(final String message, final boolean condition);
+    public byte[] getPicture() {
+        return picture.clone();
+    }
 
-    public void affirmNotNull(final String message, final Object object);
-
-    public void affirmNull(final String message, final Object object);
-
-    public void affirmEquals(final String message, final Object expected, final Object actual);
+    public void setPicture(byte[] picture) {
+        this.picture = picture.clone();
+    }
 }
+
