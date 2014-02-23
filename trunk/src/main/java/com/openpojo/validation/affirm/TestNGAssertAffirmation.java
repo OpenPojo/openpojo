@@ -57,8 +57,8 @@ public class TestNGAssertAffirmation implements Affirmation {
         org.testng.Assert.assertNull(object, message);
     }
 
-    public void affirmEquals(final String message, final Object first, final Object second) {
-        org.testng.Assert.assertEquals(second, first, message);
+    public void affirmEquals(final String message, final Object expected, final Object actual) {
+        org.testng.Assert.assertEquals(actual, expected, message);
     }
 
     @Override

@@ -27,7 +27,7 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public abstract class AbstractAffirmation {
+public abstract class AbstractAffirmationTest {
 
     public abstract Affirmation getAffirmation();
 
@@ -165,4 +165,33 @@ public abstract class AbstractAffirmation {
         }
         Assert.fail("Affirm.affirmContains failed to detect a missing null in the list");
     }
+
+    @Test (expected = java.lang.AssertionError.class)
+    public void shouldFailWhenArraysNotEqualSizes() {
+        byte[] expected = new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc };
+        byte[] actual = new byte[] { (byte) 0xaa };
+        Affirm.affirmEquals("Should fail due to size", expected, actual);
+    }
+
+    @Test
+    public void whenArrayIsClonedEqualityShouldPass() {
+        byte[] expected = new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc };
+        byte[] actual = expected.clone();
+        Affirm.affirmEquals("Array clone should be equal", expected, actual);
+
+    }
+
+    @Test (expected = java.lang.AssertionError.class)
+    public void shouldFailWhenArrayItemMismatch() {
+        byte[] expected = new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc };
+        byte[] actual = new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xdd };
+        Affirm.affirmEquals("Should fail due to element mismatch", expected, actual);
+    }
+
+    @Test (expected = java.lang.AssertionError.class)
+    public void shouldNotFailWhenArrayIsNull() {
+        byte[] expected = new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc };
+        Affirm.affirmEquals("Should not fail due to null", expected, null);
+    }
+
 }

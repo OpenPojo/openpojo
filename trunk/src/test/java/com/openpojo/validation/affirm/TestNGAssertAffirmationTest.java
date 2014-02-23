@@ -27,7 +27,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 /**
  * @author oshoukry
  */
-public class TestNGAssertAffirmationTest extends AbstractAffirmation {
+public class TestNGAssertAffirmationTest extends AbstractAffirmationTest {
 
     private final Affirmation testNGAssertAffirmation = (Affirmation) InstanceFactory.getInstance(PojoClassFactory
             .getPojoClass(TestNGAssertAffirmation.class));

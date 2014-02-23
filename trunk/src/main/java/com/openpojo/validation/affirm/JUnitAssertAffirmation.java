@@ -17,13 +17,13 @@
 
 package com.openpojo.validation.affirm;
 
+import java.lang.reflect.Array;
+
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.reflection.exception.ReflectionException;
 
 /**
- *
  * @author oshoukry
- *
  */
 public class JUnitAssertAffirmation implements Affirmation {
     static {
@@ -58,8 +58,27 @@ public class JUnitAssertAffirmation implements Affirmation {
         org.junit.Assert.assertNull(message, object);
     }
 
-    public void affirmEquals(final String message, final Object first, final Object second) {
-        org.junit.Assert.assertEquals(message, first, second);
+    public void affirmEquals(final String message, final Object expected, final Object actual) {
+        if (isArray(expected)) {
+            Integer expectedLength = Array.getLength(expected);
+            affirmEquals(message + " : Arrays are not the same length", expectedLength, actual == null ? null : Array.getLength(actual));
+
+            for (int i = 0; i < expectedLength; i++) {
+                Object expectedArrayElement = Array.get(expected, i);
+                Object actualArrayElement = Array.get(actual, i);
+                try {
+                    affirmEquals(message, actualArrayElement, expectedArrayElement);
+                } catch (AssertionError ae) {
+                    fail("Array element mismatch value at index [" + i + "] :" + ae.getMessage());
+                }
+            }
+        } else {
+            org.junit.Assert.assertEquals(message, expected, actual);
+        }
+    }
+
+    private boolean isArray(Object object) {
+        return object != null && object.getClass().isArray();
     }
 
     @Override
