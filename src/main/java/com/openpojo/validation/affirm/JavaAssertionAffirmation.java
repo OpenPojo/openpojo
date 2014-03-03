@@ -17,15 +17,13 @@
 
 package com.openpojo.validation.affirm;
 
-import java.lang.reflect.Array;
-
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.log.utils.MessageFormatter;
 
 /**
  * @author oshoukry
  */
-public class JavaAssertionAffirmation implements Affirmation {
+public class JavaAssertionAffirmation extends AbstractAffirmation implements Affirmation {
 
     private JavaAssertionAffirmation() {
     }
@@ -59,34 +57,16 @@ public class JavaAssertionAffirmation implements Affirmation {
     }
 
     public void affirmEquals(final String message, final Object expected, final Object actual) {
-        if (expected == null && actual == null) {
-            return;
-        }
-        if (expected != null && expected.equals(actual)) {
-            return;
-        }
+        if (objectPointersAreTheSame(expected, actual)) return;
 
         if (isArray(expected)) {
-            Integer expectedLength = Array.getLength(expected);
-            affirmEquals(message + " : Arrays are not the same length", expectedLength, actual == null ? null : Array.getLength(actual));
-
-            for (int i = 0; i < expectedLength; i++) {
-                Object expectedArrayElement = Array.get(expected, i);
-                Object actualArrayElement = Array.get(actual, i);
-                try {
-                    affirmEquals(message, actualArrayElement, expectedArrayElement);
-                } catch (AssertionError ae) {
-                    fail("Array element mismatch value at index [" + i + "] :" + ae.getMessage());
-                }
-            }
+            affirmArrayEquals(message, expected, actual);
             return;
         }
 
-        fail(MessageFormatter.format("{0} expected <{1}> but was <{2}>", message, expected, actual));
-    }
+        if (expected != null && expected.equals(actual)) return;
 
-    private boolean isArray(Object object) { //TODO: Remove array handling duplication with JUnitAssertion class.
-        return object != null && object.getClass().isArray();
+        fail(MessageFormatter.format("{0} expected <{1}> but was <{2}>", message, expected, actual));
     }
 
     @Override

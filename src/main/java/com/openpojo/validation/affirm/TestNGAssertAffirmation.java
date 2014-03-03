@@ -21,11 +21,9 @@ import com.openpojo.business.BusinessIdentity;
 import com.openpojo.reflection.exception.ReflectionException;
 
 /**
- *
  * @author oshoukry
- *
  */
-public class TestNGAssertAffirmation implements Affirmation {
+public class TestNGAssertAffirmation extends AbstractAffirmation implements Affirmation {
     static {
         try {
             Class.forName("org.testng.Assert");
@@ -58,7 +56,12 @@ public class TestNGAssertAffirmation implements Affirmation {
     }
 
     public void affirmEquals(final String message, final Object expected, final Object actual) {
-        org.testng.Assert.assertEquals(actual, expected, message);
+        if (objectPointersAreTheSame(expected, actual)) return;
+
+        if (isArray(expected))
+            affirmArrayEquals(message, expected, actual);
+        else
+            org.testng.Assert.assertEquals(actual, expected, message);
     }
 
     @Override
