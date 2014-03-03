@@ -25,6 +25,7 @@ import com.openpojo.random.impl.*;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
+import com.openpojo.reflection.adapt.impl.CoberturaPojoClassAdapter;
 import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdapter;
 import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
 import com.openpojo.reflection.adapt.service.impl.DefaultPojoClassAdaptationService;
@@ -50,6 +51,14 @@ public class ServiceRegistrar {
 
         // TODO: Only register JacocoClassAdapter if we detect Jacoco agent loaded.
         newPojoClassAdaptationService.registerPojoClassAdapter(JacocoPojoClassAdapter.getInstance());
+
+        try {
+            if (Class.forName("net.sourceforge.cobertura.coveragedata.LightClassmapListener") != null) {
+                System.out.println("Cobertura instrumentation detected, registering Cobertura class members filter");
+                newPojoClassAdaptationService.registerPojoClassAdapter(CoberturaPojoClassAdapter.getInstance());
+            }
+        } catch (ClassNotFoundException ignored) {
+        }
 
         setPojoClassAdaptationService(newPojoClassAdaptationService);
     }
