@@ -37,7 +37,6 @@ public class CoberturaPojoClassAdapter implements PojoClassAdapter {
 
     }
 
-    @Override
     public PojoClass adapt(PojoClass pojoClass) {
         final List<PojoField> cleansedPojoFields = new ArrayList<PojoField>();
         for (final PojoField pojoField : pojoClass.getPojoFields()) {
