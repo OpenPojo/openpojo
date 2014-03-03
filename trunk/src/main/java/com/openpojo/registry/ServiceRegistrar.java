@@ -25,6 +25,7 @@ import com.openpojo.random.impl.*;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
+import com.openpojo.reflection.adapt.impl.CloverPojoClassAdapter;
 import com.openpojo.reflection.adapt.impl.CoberturaPojoClassAdapter;
 import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdapter;
 import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
@@ -56,6 +57,14 @@ public class ServiceRegistrar {
             if (Class.forName("net.sourceforge.cobertura.coveragedata.LightClassmapListener") != null) {
                 System.out.println("Cobertura instrumentation detected, registering Cobertura class members filter");
                 newPojoClassAdaptationService.registerPojoClassAdapter(CoberturaPojoClassAdapter.getInstance());
+            }
+        } catch (ClassNotFoundException ignored) {
+        }
+
+        try {
+            if (Class.forName("com_cenqua_clover.TestNameSniffer") != null) {
+                System.out.println("Clover instrumentation detected, registering Clover class member filter");
+                newPojoClassAdaptationService.registerPojoClassAdapter(CloverPojoClassAdapter.getInstance());
             }
         } catch (ClassNotFoundException ignored) {
         }
