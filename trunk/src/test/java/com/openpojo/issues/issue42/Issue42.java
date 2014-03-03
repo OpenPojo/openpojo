@@ -17,18 +17,16 @@
 
 package com.openpojo.issues.issue42;
 
-import java.util.Arrays;
-
 import com.openpojo.issues.issue42.sample.AClassWithArrayField;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.affirm.Affirmation;
 import com.openpojo.validation.affirm.AffirmationFactory;
 import com.openpojo.validation.affirm.JUnitAssertAffirmation;
 import com.openpojo.validation.test.impl.GetterTester;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -42,9 +40,7 @@ public class Issue42 {
         byte [] first = new byte[] { (byte) 0xaa, (byte) 0xab, (byte) 0xac };
         byte [] second = first.clone();
 
-        Assert.assertEquals(first, second);
-        //org.testng.Assert.assertArrayEquals()
-        Assert.assertTrue(Arrays.equals(first, second));
+        Affirm.affirmEquals("A clone failed to be seen as equal", first, second);
     }
 
     @Test
