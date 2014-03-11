@@ -17,10 +17,9 @@
 
 package com.openpojo.log.utils;
 
-import org.junit.Test;
-
 import com.openpojo.log.Logger;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Test;
 
 public class ActiveLoggerTest {
     private final String[] supportedLoggers = { "com.openpojo.log.impl.SLF4JLogger",
