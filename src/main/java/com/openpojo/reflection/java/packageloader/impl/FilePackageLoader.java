@@ -70,19 +70,52 @@ public final class FilePackageLoader extends PackageLoader {
         File directory;
         try {
             // convert toURI to decode %20 for spaces, etc.
-            final URI uri = packageURL.toURI();
+            final URI uri = new URI(getProtocol(packageURL), getAuthority(packageURL), getHost(packageURL), getPort(packageURL),
+                    getPath(packageURL), getQuery(packageURL), getRef(packageURL));
 
             // to handle windows paths i.e. //host_server/path/class, need a way to put the authority section back in
             // the path
             if (uri.getAuthority() != null) {
                 directory = new File("//" + uri.getAuthority() + uri.getPath());
             } else {
-                directory = new File(uri.getPath().toString());
+                directory = new File(uri.getPath());
             }
         } catch (final URISyntaxException uriSyntaxException) {
             throw ReflectionException.getInstance(uriSyntaxException.getMessage(), uriSyntaxException);
         }
         return directory.listFiles();
+    }
+
+    private String getRef(URL packageURL) {
+        return packageURL.getRef();
+    }
+
+    private String getQuery(URL packageURL) {
+        return packageURL.getQuery();
+    }
+
+    private String getPath(URL packageURL) {
+        return packageURL.getPath();
+    }
+
+    private int getPort(URL packageURL) {
+        return packageURL.getPort();
+    }
+
+    private String getHost(URL packageURL) {
+        return packageURL.getHost();
+    }
+
+    private String getAuthority(URL packageURL) {
+        String authority = packageURL.getAuthority();
+        if (authority == null || authority.length() == 0) {
+            return null;
+        }
+        return packageURL.getAuthority();
+    }
+
+    private String getProtocol(URL packageURL) {
+        return packageURL.getProtocol();
     }
 
 }
