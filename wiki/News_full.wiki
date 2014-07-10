@@ -4,7 +4,7 @@
  * *2014-07-07:*
   * OpenPojo-0.5.1 released download using Maven or from http://bit.ly/1oiDOun
     * Fixed
-      # Issue 38 Minor issue when handling paths with spaces in them decoding / encoding the %20.
+      # Issue 38 Minor issue when handling paths with spaces while decoding / encoding the %20.
  * *2014-03-02:*
   * OpenPojo-0.5.0 released download using Maven or from http://bit.ly/1oiDOun
     * Added
