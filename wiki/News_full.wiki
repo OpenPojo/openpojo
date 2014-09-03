@@ -1,6 +1,12 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2014-09-03:*
+  * OpenPojo-0.5.2 released download using Maven or from http://bit.ly/1oiDOun
+    * Added
+      # Support for Clover 4.0
+    * Fixed
+      # Issue 44 Identity factory is now thread safe, an issue that affects testing with multi-threaded on.
  * *2014-07-07:*
   * OpenPojo-0.5.1 released download using Maven or from http://bit.ly/1oiDOun
     * Fixed
