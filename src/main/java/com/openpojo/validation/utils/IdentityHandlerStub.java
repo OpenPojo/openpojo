@@ -29,14 +29,13 @@ public class IdentityHandlerStub implements IdentityHandler {
 
     public static void registerIdentityHandlerStubForValue(Object value) {
         final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
-        IdentityFactory.registerIdentityHandler(identityHandlerStub);
         identityHandlerStub.setHandlerForObject(value);
+        IdentityFactory.registerIdentityHandler(identityHandlerStub);
     }
 
     public static void unregisterIdentityHandlerStubForValue(Object value) {
         IdentityHandler identityHandler = IdentityFactory.getIdentityHandler(value);
         IdentityFactory.unregisterIdentityHandler(identityHandler);
-
     }
 
     public void setHandlerForObject(final Object handlerForObject) {
