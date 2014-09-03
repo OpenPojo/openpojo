@@ -30,7 +30,7 @@ import com.openpojo.reflection.impl.PojoClassImpl;
  */
 public class CloverPojoClassAdapter implements PojoClassAdapter {
 
-    private static final String CLOVER_INJECTED = "__CLR3_";
+    private static final String CLOVER_INJECTED = "__CLR";
 
     private CloverPojoClassAdapter() {
 

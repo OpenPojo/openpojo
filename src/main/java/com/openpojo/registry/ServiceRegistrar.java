@@ -63,8 +63,17 @@ public class ServiceRegistrar {
 
         try {
             if (Class.forName("com_cenqua_clover.TestNameSniffer") != null) {
-                System.out.println("Clover instrumentation detected, registering Clover class member filter");
+                System.out.println("Clover 3 instrumentation detected, registering Clover class member filter");
                 newPojoClassAdaptationService.registerPojoClassAdapter(CloverPojoClassAdapter.getInstance());
+            }
+        } catch (ClassNotFoundException ignored) {
+        }
+
+        try {
+            if (Class.forName("com_atlassian_clover.TestNameSniffer") != null) {
+                System.out.println("Clover 4 instrumentation detected, registering Clover class member filter");
+                newPojoClassAdaptationService.registerPojoClassAdapter(CloverPojoClassAdapter.getInstance());
+
             }
         } catch (ClassNotFoundException ignored) {
         }
