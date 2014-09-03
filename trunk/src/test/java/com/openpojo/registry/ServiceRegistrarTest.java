@@ -79,9 +79,9 @@ public class ServiceRegistrarTest {
 
     @Test
     public void defaultRandomGeneratorServicePrePopulated() {
-        // JDK 5 only supports 42 of the 43 possible types. (java.util.ArrayDeque does not exist in JDK5).
+        // JDK 5 only supports 42 of the 44 possible types. (java.util.ArrayDeque does not exist in JDK5).
         String javaVersion =  System.getProperty("java.version");
-        if (javaVersion.startsWith("1.6") || javaVersion.startsWith("1.7")) {
+        if (javaVersion.startsWith("1.6") || javaVersion.startsWith("1.7") || javaVersion.startsWith("1.8")) {
             Affirm.affirmEquals("Types added / removed?", expectedTypes, randomGeneratorService.getRegisteredTypes()
                     .size());
         } else {
