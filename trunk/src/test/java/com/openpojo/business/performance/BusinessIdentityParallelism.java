@@ -17,13 +17,14 @@
 
 package com.openpojo.business.performance;
 
+import java.lang.reflect.Method;
+import java.util.concurrent.CountDownLatch;
+
 import com.openpojo.business.identity.IdentityFactory;
 import com.openpojo.business.identity.IdentityHandler;
 import junit.framework.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
-
-import java.lang.reflect.Method;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * @author oshoukry
@@ -53,14 +54,18 @@ public class BusinessIdentityParallelism {
                 firstJobResult && secondJobResult);
     }
 
+    //TODO: reverse the behaviour to validate single thread access to critical structure.
     @Test
+    @Ignore("Disabling, this is incorrect behaviour, the correct behaviour is must block on this critical section")
     public void identityFactoryUnRegister_MustBeMultiThreaded() throws InterruptedException, NoSuchMethodException {
         int numberOfThreads = 2;
         Method unregisterMethod = getIdentityFactoryDeclaredMethod("unregisterIdentityHandler", IdentityHandler.class);
         verifyMethodIsThreaded(numberOfThreads, unregisterMethod);
     }
 
+    //TODO: reverse the behaviour to validate single thread access to critical structure.
     @Test
+    @Ignore("Disabling, this is incorrect behaviour, the correct behaviour is must block on this critical section")
     public void identityFactoryRegister_MustBeMultiThreaded() throws InterruptedException, NoSuchMethodException {
         int numberOfThreads = 2;
         Method registerMethod = getIdentityFactoryDeclaredMethod("registerIdentityHandler", IdentityHandler.class);
