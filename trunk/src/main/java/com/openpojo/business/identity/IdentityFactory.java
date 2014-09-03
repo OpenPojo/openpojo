@@ -34,7 +34,7 @@ public final class IdentityFactory {
     private static volatile LinkedList<IdentityHandler> identityHandlers = new LinkedList<IdentityHandler>();
 
     static {
-        registerIdentityHandler(DefaultIdentityHandler.getInstance());
+        identityHandlers.add(DefaultIdentityHandler.getInstance());
     }
 
     /**
@@ -60,7 +60,7 @@ public final class IdentityFactory {
      * @param identityHandler
      *            The identityHandler to register.
      */
-    public static void registerIdentityHandler(final IdentityHandler identityHandler) {
+    public static synchronized void registerIdentityHandler(final IdentityHandler identityHandler) {
         if (identityHandler == null) {
             throw new IllegalArgumentException("Attempt to register null IdentityHandler");
         }
@@ -77,7 +77,7 @@ public final class IdentityFactory {
      * @param identityHandler
      *            The identityHandler to unregister.
      */
-    public static void unregisterIdentityHandler(final IdentityHandler identityHandler) {
+    public static synchronized void unregisterIdentityHandler(final IdentityHandler identityHandler) {
         LinkedList<IdentityHandler> newList = duplicateIdentityHandlers();
         if (newList.remove(identityHandler)){
             identityHandlers = newList;
