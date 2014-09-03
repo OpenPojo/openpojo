@@ -29,8 +29,8 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  */
 public class TestNGAssertAffirmationTest extends AbstractAffirmationTest {
 
-    private final Affirmation testNGAssertAffirmation = (Affirmation) InstanceFactory.getInstance(PojoClassFactory
-            .getPojoClass(TestNGAssertAffirmation.class));
+    private final Affirmation testNGAssertAffirmation = (Affirmation) InstanceFactory.getInstance(PojoClassFactory.getPojoClass
+            (TestNGAssertAffirmation.class));
 
     @Override
     public Affirmation getAffirmation() {
@@ -40,10 +40,8 @@ public class TestNGAssertAffirmationTest extends AbstractAffirmationTest {
     @Test
     public void shouldTestToString() {
         // com.openpojo.validation.affirm.TestNGAssertAffirmation [@1c93d6bc: ]
-        Assert.assertTrue(String.format("[%s] signature changed? expected=[%s]!!", TestNGAssertAffirmation.class
-                                        .getName(), "com.openpojo.validation.affirm.TestNGAssertAffirmation [@xxxxxx: ]"),
-                                        testNGAssertAffirmation.toString()
-                                                          .startsWith("com.openpojo.validation.affirm.TestNGAssertAffirmation [@")
-                                                          && testNGAssertAffirmation.toString().endsWith(": ]"));
+        Assert.assertTrue(String.format("[%s] signature changed? expected=[%s]!!", testNGAssertAffirmation.toString(),
+                "com.openpojo.validation.affirm.TestNGAssertAffirmation [@xxxxxx: ]"), testNGAssertAffirmation.toString().startsWith("com" +
+                ".openpojo.validation.affirm.TestNGAssertAffirmation [@") && testNGAssertAffirmation.toString().endsWith(": ]"));
     }
 }
