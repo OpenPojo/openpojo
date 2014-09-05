@@ -18,12 +18,12 @@
 package com.openpojo.business.performance;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.concurrent.CountDownLatch;
 
 import com.openpojo.business.identity.IdentityFactory;
 import com.openpojo.business.identity.IdentityHandler;
 import junit.framework.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -54,22 +54,20 @@ public class BusinessIdentityParallelism {
                 firstJobResult && secondJobResult);
     }
 
-    //TODO: reverse the behaviour to validate single thread access to critical structure.
     @Test
-    @Ignore("Disabling, this is incorrect behaviour, the correct behaviour is must block on this critical section")
-    public void identityFactoryUnRegister_MustBeMultiThreaded() throws InterruptedException, NoSuchMethodException {
-        int numberOfThreads = 2;
+    public void identityFactoryUnRegister_MustBeMultiThreaded() throws NoSuchMethodException {
         Method unregisterMethod = getIdentityFactoryDeclaredMethod("unregisterIdentityHandler", IdentityHandler.class);
-        verifyMethodIsThreaded(numberOfThreads, unregisterMethod);
+        verifyMethodIsSynchronized(unregisterMethod);
     }
 
-    //TODO: reverse the behaviour to validate single thread access to critical structure.
     @Test
-    @Ignore("Disabling, this is incorrect behaviour, the correct behaviour is must block on this critical section")
-    public void identityFactoryRegister_MustBeMultiThreaded() throws InterruptedException, NoSuchMethodException {
-        int numberOfThreads = 2;
+    public void identityFactoryRegister_MustBeMultiThreaded() throws NoSuchMethodException {
         Method registerMethod = getIdentityFactoryDeclaredMethod("registerIdentityHandler", IdentityHandler.class);
-        verifyMethodIsThreaded(numberOfThreads, registerMethod);
+        verifyMethodIsSynchronized(registerMethod);
+    }
+
+    private void verifyMethodIsSynchronized(Method method) {
+        Assert.assertTrue(Modifier.isSynchronized(method.getModifiers()));
     }
 
     @Test
