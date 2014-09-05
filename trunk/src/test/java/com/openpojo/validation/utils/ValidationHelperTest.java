@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,13 +17,13 @@
 
 package com.openpojo.validation.utils;
 
+import java.util.List;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import junit.framework.Assert;
 import org.junit.Test;
-
-import java.util.List;
 
 public class ValidationHelperTest {
 

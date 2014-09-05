@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,13 +17,13 @@
 
 package com.openpojo.reflection.java.packageloader;
 
-import com.openpojo.business.BusinessIdentity;
-import com.openpojo.business.annotation.BusinessKey;
-
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.openpojo.business.BusinessIdentity;
+import com.openpojo.business.annotation.BusinessKey;
 
 /**
  * @author oshoukry

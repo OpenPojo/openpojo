@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,9 +17,9 @@
 
 package com.openpojo.business.performance;
 
-import com.openpojo.business.identity.IdentityHandler;
-
 import java.util.concurrent.CountDownLatch;
+
+import com.openpojo.business.identity.IdentityHandler;
 
 /**
  * @author oshoukry

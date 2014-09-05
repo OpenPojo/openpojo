@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,18 +17,17 @@
 
 package com.openpojo.random.impl;
 
-import static com.openpojo.random.impl.CommonCode.testDoGenerateForClass;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.openpojo.random.RandomGenerator;
+import com.openpojo.validation.affirm.Affirm;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.openpojo.random.RandomGenerator;
-import com.openpojo.validation.affirm.Affirm;
+import static com.openpojo.random.impl.CommonCode.testDoGenerateForClass;
 
 public class BasicRandomGeneratorTest {
     private RandomGenerator basicRandomGenerator;

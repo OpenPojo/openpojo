@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,10 +17,10 @@
 
 package com.openpojo.utils.dummypackage;
 
-import com.openpojo.business.annotation.BusinessKey;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
+
+import com.openpojo.business.annotation.BusinessKey;
 
 public final class Person implements Serializable, Persistable {
 

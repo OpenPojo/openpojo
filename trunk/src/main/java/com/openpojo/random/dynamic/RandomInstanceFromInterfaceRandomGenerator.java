@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,11 +17,11 @@
 
 package com.openpojo.random.dynamic;
 
+import java.lang.reflect.Proxy;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
-
-import java.lang.reflect.Proxy;
 
 /**
  * This Factory returns a proxy pojo for any provided interface.

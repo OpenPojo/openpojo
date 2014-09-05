@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,10 +17,6 @@
 
 package com.openpojo.reflection.java.packageloader.impl;
 
-import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.java.packageloader.PackageLoader;
-import com.openpojo.reflection.java.packageloader.utils.PackageNameHelper;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.JarURLConnection;
@@ -30,6 +26,10 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.packageloader.PackageLoader;
+import com.openpojo.reflection.java.packageloader.utils.PackageNameHelper;
 
 /**
  * @author oshoukry

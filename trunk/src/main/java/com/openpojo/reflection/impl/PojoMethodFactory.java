@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,10 +17,6 @@
 
 package com.openpojo.reflection.impl;
 
-import com.openpojo.log.LoggerFactory;
-import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.utils.AttributeHelper;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -28,6 +24,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.openpojo.log.LoggerFactory;
+import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.utils.AttributeHelper;
 
 /**
  * This factory handles various method related operations on given Class or Field.

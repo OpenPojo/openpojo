@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,10 +17,10 @@
 
 package com.openpojo.reflection.utils;
 
+import java.util.List;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
-
-import java.util.List;
 
 /**
  * This class is a collection of commonly used functions used for various toString(Object) calls.

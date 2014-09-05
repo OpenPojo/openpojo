@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,10 +17,10 @@
 
 package com.openpojo.cache.impl;
 
-import com.openpojo.cache.CacheStorage;
-
 import java.util.Map;
 import java.util.WeakHashMap;
+
+import com.openpojo.cache.CacheStorage;
 
 /**
  * This simple implementation of CacheStorage uses WeakHashMap as the underlying storage mechanism and only well suited

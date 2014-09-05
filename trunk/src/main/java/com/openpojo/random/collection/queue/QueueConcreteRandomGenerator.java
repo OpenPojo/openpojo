@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,15 +17,15 @@
 
 package com.openpojo.random.collection.queue;
 
-import com.openpojo.random.RandomGenerator;
-import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.reflection.construct.InstanceFactory;
-import com.openpojo.reflection.impl.PojoClassFactory;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
+
+import com.openpojo.random.RandomGenerator;
+import com.openpojo.random.collection.util.CollectionHelper;
+import com.openpojo.reflection.construct.InstanceFactory;
+import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This is random generator is responsible for generating concrete Queue implementations <br>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,14 +17,18 @@
 
 package com.openpojo.log.utils;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.lang.reflect.Array;
-import java.util.*;
 
 /**
  * @author oshoukry
