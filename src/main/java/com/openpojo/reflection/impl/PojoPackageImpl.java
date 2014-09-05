@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,18 +17,18 @@
 
 package com.openpojo.reflection.impl;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.packageloader.Package;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * This class represents the abstraction of a JAVA Package as PojoPackageImpl.

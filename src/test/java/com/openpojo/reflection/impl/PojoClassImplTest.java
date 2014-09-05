@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,6 +17,11 @@
 
 package com.openpojo.reflection.impl;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
@@ -29,11 +34,6 @@ import com.openpojo.reflection.impl.sampleclasses.*;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedClass;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Modifier;
-import java.util.LinkedList;
-import java.util.List;
 
 /*
  * TODO: This test class needs to be re-worked, to focus on just the PojoClassImpl not across services, i.e. PojoClassFactory, InstanceFactory, etc...

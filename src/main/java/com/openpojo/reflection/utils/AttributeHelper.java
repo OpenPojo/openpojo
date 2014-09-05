@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,11 +17,11 @@
 
 package com.openpojo.reflection.utils;
 
-import com.openpojo.reflection.exception.ReflectionException;
-
 import java.lang.reflect.Field;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+
+import com.openpojo.reflection.exception.ReflectionException;
 
 /**
  * This Class is responsible for normalizing field names to attribute names. The reason for this is some companies have

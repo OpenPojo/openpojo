@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,6 +17,8 @@
 
 package com.openpojo.reflection.facade;
 
+import java.util.Arrays;
+
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.exception.ReflectionException;
@@ -24,8 +26,6 @@ import com.openpojo.reflection.facade.sampleclasses.FirstClass;
 import com.openpojo.reflection.facade.sampleclasses.SecondClass;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 public class FacadeFactoryTest {
     Class<?> firstClass = FirstClass.class;

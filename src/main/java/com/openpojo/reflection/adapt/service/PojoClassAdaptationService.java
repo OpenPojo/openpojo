@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2013 Osman Shoukry
+ * Copyright (c) 2010-2014 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -17,10 +17,10 @@
 
 package com.openpojo.reflection.adapt.service;
 
+import java.util.Set;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.adapt.PojoClassAdapter;
-
-import java.util.Set;
 
 /**
  * A service to modify PojoClasses.
