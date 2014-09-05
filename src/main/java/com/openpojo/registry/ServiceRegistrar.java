@@ -50,7 +50,7 @@ public class ServiceRegistrar {
     public void initializePojoClassAdaptationService() {
         final PojoClassAdaptationService newPojoClassAdaptationService = new DefaultPojoClassAdaptationService();
 
-        // TODO: Only register JacocoClassAdapter if we detect Jacoco agent loaded.
+        // TODO: Instrumentation of Fields by coverage tools needs to be refactored out into its own service.
         newPojoClassAdaptationService.registerPojoClassAdapter(JacocoPojoClassAdapter.getInstance());
 
         try {
