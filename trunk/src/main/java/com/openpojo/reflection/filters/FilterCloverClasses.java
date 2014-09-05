@@ -26,17 +26,9 @@ import com.openpojo.reflection.PojoClassFilter;
  *
  * @author oshoukry
  *
- * TODO: Wire the FilterCloverClasses to utilize FilterClassName filter.
  */
 public class FilterCloverClasses implements PojoClassFilter {
     private static final String DEFAULT_CLOVER_TAG = "$__CLR";
-
-    // To detect Clover we can do it by utilizing the class name like this example
-    // static class com.openpojo.business.BusinessIdentityInheritanceTest$__CLR3_0_215j15jgfluf7s9 {
-    // Or we can use the fact that they have a field that is clover specific
-    // //Field descriptor #41 Lcom_cenqua_clover/CoverageRecorder;
-    // public static final com_cenqua_clover.CoverageRecorder R;
-    //
 
     public boolean include(final PojoClass pojoClass) {
         return !pojoClass.getName().contains(DEFAULT_CLOVER_TAG);
