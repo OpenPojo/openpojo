@@ -19,8 +19,8 @@ package com.openpojo.reflection.filters;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
@@ -29,7 +29,7 @@ import com.openpojo.reflection.PojoClassFilter;
  * @author oshoukry
  */
 public class FilterChain implements PojoClassFilter {
-    private List<PojoClassFilter> pojoClassFilters = new LinkedList<PojoClassFilter>();
+    private final Set<PojoClassFilter> pojoClassFilters = new LinkedHashSet<PojoClassFilter>();
 
     public FilterChain(final PojoClassFilter... pojoClassFilters) {
         for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
@@ -40,20 +40,33 @@ public class FilterChain implements PojoClassFilter {
     }
 
     public boolean include(final PojoClass pojoClass) {
-        boolean returnValue = true;
         for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
-            if (returnValue) { // fail fast
-                returnValue = returnValue && pojoClassFilter.include(pojoClass);
-            }
+            if (!pojoClassFilter.include(pojoClass))
+                return false;
         }
-        return returnValue;
+        return true;
     }
 
     public Collection<PojoClassFilter> getPojoClassFilters() {
-        return Collections.unmodifiableList(pojoClassFilters);
+        return Collections.unmodifiableSet(pojoClassFilters);
     }
 
     public int size() {
         return pojoClassFilters.size();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FilterChain that = (FilterChain) o;
+
+        return pojoClassFilters.equals(that.pojoClassFilters);
+    }
+
+    @Override
+    public int hashCode() {
+        return pojoClassFilters.hashCode();
     }
 }

@@ -20,18 +20,17 @@ package com.openpojo.reflection.filters;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import org.junit.Test;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
-public class FilterNonConcreteTest {
+public class FilterNonConcreteTest extends IdentitiesAreEqual {
 
     /**
      * Test method for
@@ -51,8 +50,7 @@ public class FilterNonConcreteTest {
                           stubPojoClass.isConcrete() == pojoClassFilter.include(stubPojoClass));
 
         final StubPojoClassFilter stubPojoClassFilter = new StubPojoClassFilter();
-        final FilterChain filterChain = new FilterChain(new FilterNonConcrete(), stubPojoClassFilter);
-        pojoClassFilter = filterChain;
+        pojoClassFilter = new FilterChain(new FilterNonConcrete(), stubPojoClassFilter);
         stubPojoClass.isConcrete = true;
         pojoClassFilter.include(stubPojoClass);
         Affirm.affirmTrue(String.format("Filter [%s] didn't invoke next in filter chain", pojoClassFilter),
@@ -66,7 +64,14 @@ public class FilterNonConcreteTest {
             includeCalled = true;
             return true;
         }
+    }
 
+    @Test
+    public void shouldBeIdentityEqual() {
+        FilterNonConcrete instanceOne = new FilterNonConcrete();
+        FilterNonConcrete instanceTwo = new FilterNonConcrete();
+
+        checkEqualityAndHashCode(instanceOne, instanceTwo);
     }
 
     private static class StubPojoClass implements PojoClass {

@@ -17,27 +17,16 @@
 
 package com.openpojo.reflection.filters;
 
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoClassFilter;
+import org.junit.Test;
 
 /**
- * This filter will filter out any SampleEnum class type.
- *
  * @author oshoukry
  */
-public class FilterEnum implements PojoClassFilter {
-
-    public boolean include(final PojoClass pojoClass) {
-        return !pojoClass.isEnum();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return this == o || !(o == null || getClass() != o.getClass());
-    }
-
-    @Override
-    public int hashCode() {
-        return this.getClass().hashCode();
+public class FilterCloverClassesTest extends IdentitiesAreEqual {
+    @Test
+    public void shouldBeIdentityEqual() {
+        FilterCloverClasses instanceOne = new FilterCloverClasses();
+        FilterCloverClasses instanceTwo = new FilterCloverClasses();
+        checkEqualityAndHashCode(instanceOne, instanceTwo);
     }
 }

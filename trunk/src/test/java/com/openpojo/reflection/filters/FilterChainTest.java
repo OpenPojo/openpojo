@@ -19,13 +19,13 @@ package com.openpojo.reflection.filters;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
+import org.junit.Assert;
 import org.junit.Test;
-import org.testng.Assert;
 
 /**
  * @author oshoukry
  */
-public class FilterChainTest {
+public class FilterChainTest extends IdentitiesAreEqual {
 
     @Test
     public void newFilterChain_hasNoFilters() {
@@ -53,6 +53,14 @@ public class FilterChainTest {
     public void retrivedFilterCollectionIsUnmodifiable() {
         FilterChain filter = new FilterChain();
         filter.getPojoClassFilters().add(new DummyPojoClassFilter());
+    }
+
+    @Test
+    public void shouldBeIdentityEqual() {
+        FilterChain instanceOne = new FilterChain();
+        FilterChain instanceTwo = new FilterChain();
+
+        checkEqualityAndHashCode(instanceOne, instanceTwo);
     }
 
     private class DummyPojoClassFilter implements PojoClassFilter {
