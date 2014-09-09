@@ -32,4 +32,14 @@ public class FilterPackageInfo implements PojoClassFilter {
         return !pojoClass.getName().endsWith(PojoPackage.PACKAGE_DELIMETER + PojoPackage.PACKAGE_INFO);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return this == o || !(o == null || getClass() != o.getClass());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getClass().hashCode();
+    }
+
 }

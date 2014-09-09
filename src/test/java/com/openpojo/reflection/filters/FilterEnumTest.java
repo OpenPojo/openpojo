@@ -19,18 +19,17 @@ package com.openpojo.reflection.filters;
 
 import java.util.List;
 
-import org.junit.Test;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.filters.sampleclasses.SampleEnum;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
-public class FilterEnumTest {
+public class FilterEnumTest extends IdentitiesAreEqual {
 
     private final String sampleClassesPackage = this.getClass().getPackage().getName() + ".sampleclasses";
     private final PojoClassFilter enumFilter = new FilterEnum();
@@ -61,6 +60,13 @@ public class FilterEnumTest {
         Affirm.affirmFalse(String.format("[%s] didn't exclude enum!!", enumFilter), enumFilter.include(PojoClassFactory
                 .getPojoClass(SampleEnum.class)));
 
+    }
+
+    @Test
+    public void shouldBeIdentityEqual() {
+        FilterEnum instanceOne = new FilterEnum();
+        FilterEnum instanceTwo = new FilterEnum();
+        checkEqualityAndHashCode(instanceOne, instanceTwo);
     }
 
 }

@@ -34,4 +34,13 @@ public class FilterCloverClasses implements PojoClassFilter {
         return !pojoClass.getName().contains(DEFAULT_CLOVER_TAG);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return this == o || !(o == null || getClass() != o.getClass());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getClass().hashCode();
+    }
 }

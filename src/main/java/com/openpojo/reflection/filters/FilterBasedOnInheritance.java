@@ -42,4 +42,20 @@ public class FilterBasedOnInheritance implements PojoClassFilter {
     public boolean include(final PojoClass pojoClass) {
         return !pojoClass.getName().equals(type.getName()) && pojoClass.extendz(type);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+
+        FilterBasedOnInheritance that = (FilterBasedOnInheritance) other;
+
+        return !(type != null ? !type.equals(that.type) : that.type != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return type != null ? type.hashCode() : 0;
+    }
 }

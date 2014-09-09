@@ -20,15 +20,14 @@ package com.openpojo.reflection.filters;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import org.junit.Test;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Test;
 
-public class FilterClassNameTest {
+public class FilterClassNameTest extends IdentitiesAreEqual {
 
     @Test
     public void testRegExToIncludeClassesNamedTest() {
@@ -70,6 +69,14 @@ public class FilterClassNameTest {
                                filter.include(pojoClassStub));
         }
 
+    }
+
+    @Test
+    public void shouldBeIdentityEqual() {
+        FilterClassName instanceOne = new FilterClassName("\\*Test");
+        FilterClassName instanceTwo = new FilterClassName("\\*Test");
+
+        checkEqualityAndHashCode(instanceOne, instanceTwo);
     }
 
     private class PojoClassStub implements PojoClass {
