@@ -21,24 +21,23 @@ import java.util.List;
 
 import com.openpojo.cache.CacheStorage;
 import com.openpojo.cache.CacheStorageFactory;
-import com.openpojo.reflection.PojoField;
 
 /**
  * This is the Cache to hold references for BusinessPojoFields.
  *
  * @author oshoukry
  */
-public class BusinessFieldCache {
-    private static CacheStorage<List<PojoField>> cache = CacheStorageFactory.getCacheStorage(BusinessFieldCache.class.getName());
+public class BusinessKeyFieldCache {
+    private static CacheStorage<List<BusinessKeyField>> cache = CacheStorageFactory.getPersistentCacheStorage();
 
     /**
      * Retrieve a BusinessFields list from Cache.
      *
      * @param name
-     *            The cache tag to use for cache lookup.
+     *         The cache tag to use for cache lookup.
      * @return Cached PojoReference, or null if none found.
      */
-    public static List<PojoField> getBusinessFields(final String name) {
+    public static List<BusinessKeyField> get(final String name) {
         return cache.get(name);
     }
 
@@ -46,11 +45,11 @@ public class BusinessFieldCache {
      * Add a BusinessFields definition to the Cache.
      *
      * @param name
-     *            A tag for to use for cache lookup
+     *         A tag for to use for cache lookup
      * @param businessFields
-     *            The list of businessFields to cache
+     *         The list of businessFields to cache
      */
-    public static void addBusinessFields(final String name, final List<PojoField> businessFields) {
+    public static void add(final String name, final List<BusinessKeyField> businessFields) {
         cache.add(name, businessFields);
     }
 

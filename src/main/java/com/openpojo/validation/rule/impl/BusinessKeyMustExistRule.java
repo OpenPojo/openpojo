@@ -17,15 +17,15 @@
 
 package com.openpojo.validation.rule.impl;
 
-import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.business.utils.BusinessPojoHelper;
+import com.openpojo.business.cache.BusinessKeyField;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
 
+import static com.openpojo.business.utils.BusinessPojoHelper.getBusinessKeyFields;
+
 /**
- * This rule ensures that PojoClass declares at least one required {@link BusinessKey}.<br>
+ * This rule ensures that PojoClass declares at least one required {@link com.openpojo.business.annotation.BusinessKey}.<br>
  * Required BusinessKey means either the required = true, or composite = true.
  *
  * @author oshoukry
@@ -33,9 +33,8 @@ import com.openpojo.validation.rule.Rule;
 public class BusinessKeyMustExistRule implements Rule {
 
     public void evaluate(final PojoClass pojoClass) {
-        for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(pojoClass.getClazz())) {
-            BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
-            if (businessKey.required() || businessKey.composite()) {
+        for (BusinessKeyField businessField : getBusinessKeyFields(pojoClass.getClazz())) {
+            if (businessField.isRequired() || businessField.isComposite()) {
                 return;
             }
         }

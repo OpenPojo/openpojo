@@ -18,10 +18,10 @@
 package com.openpojo.business.identity.impl;
 
 import com.openpojo.business.annotation.BusinessKey;
+import com.openpojo.business.cache.BusinessKeyField;
 import com.openpojo.business.exception.BusinessException;
 import com.openpojo.business.identity.BusinessValidator;
 import com.openpojo.business.utils.BusinessPojoHelper;
-import com.openpojo.reflection.PojoField;
 
 /**
  * This class is the default implementation for business validation.
@@ -49,17 +49,16 @@ public class DefaultBusinessValidator implements BusinessValidator {
         boolean compositeGroupPassed = false;
         boolean hasCompositeGroup = false;
         boolean hasBusinessKey = false;
-        for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(object.getClass())) {
-            final BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
+        for (BusinessKeyField businessKeyField : BusinessPojoHelper.getBusinessKeyFields(object.getClass())) {
             hasBusinessKey = true;
-            if (businessKey.composite()) {
-                if (pojoField.get(object) != null) {
+            if (businessKeyField.isComposite()) {
+                if (businessKeyField.get(object) != null) {
                     compositeGroupPassed = true;
                 }
                 hasCompositeGroup = true;
             } else {
-                if (businessKey.required() && pojoField.get(object) == null) {
-                    throw BusinessException.getInstance((String.format("Field required and can't be null [%s]", pojoField)));
+                if (businessKeyField.isRequired() && businessKeyField.get(object) == null) {
+                    throw BusinessException.getInstance((String.format("Field required and can't be null [%s]", businessKeyField)));
                 }
             }
         }

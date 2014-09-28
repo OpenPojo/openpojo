@@ -17,12 +17,11 @@
 
 package com.openpojo.business.identity.impl;
 
-import com.openpojo.business.annotation.BusinessKey;
+import com.openpojo.business.cache.BusinessKeyField;
 import com.openpojo.business.exception.BusinessException;
 import com.openpojo.business.identity.HashCodeGenerator;
 import com.openpojo.business.utils.BusinessIdentityUtils;
 import com.openpojo.business.utils.BusinessPojoHelper;
-import com.openpojo.reflection.PojoField;
 
 /**
  * This class is the default implementation for hash code generation.
@@ -53,10 +52,8 @@ public class DefaultHashCodeGenerator implements HashCodeGenerator {
         final int prime = 31;
         int result = 1;
 
-        for (PojoField pojoField : BusinessPojoHelper.getBusinessKeyFields(object.getClass())) {
-            BusinessKey businessKey = pojoField.getAnnotation(BusinessKey.class);
-            result = prime * result + BusinessIdentityUtils.getHashCode(pojoField, object, businessKey.caseSensitive());
-        }
+        for (BusinessKeyField businessKeyField : BusinessPojoHelper.getBusinessKeyFields(object.getClass()))
+            result = prime * result + BusinessIdentityUtils.getHashCode(businessKeyField, object, businessKeyField.isCaseSensitive());
         return result;
     }
 
