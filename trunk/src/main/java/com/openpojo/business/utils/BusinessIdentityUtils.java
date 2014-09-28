@@ -19,8 +19,8 @@ package com.openpojo.business.utils;
 
 import java.lang.reflect.Array;
 
+import com.openpojo.business.cache.BusinessKeyField;
 import com.openpojo.business.exception.BusinessException;
-import com.openpojo.reflection.PojoField;
 
 /**
  * This class is just a utility class that holds a few utilities needed by various classes in the business package.
@@ -86,7 +86,7 @@ public class BusinessIdentityUtils {
      * @return
      *         True if they are equal or if they are both null.
      */
-     public static boolean areEqual(final PojoField pojoField, final Object first, final Object second, final boolean caseSensitive) {
+     public static boolean areEqual(final BusinessKeyField pojoField, final Object first, final Object second, final boolean caseSensitive) {
         Object firstField = pojoField.get(first);
         Object secondField = pojoField.get(second);
         if (firstField == null) {
@@ -133,7 +133,7 @@ public class BusinessIdentityUtils {
      * @return
      *          The generated HashCode.
      */
-    public static int getHashCode(final PojoField pojoField, final Object instance, final boolean caseSensitive) {
+    public static int getHashCode(final BusinessKeyField pojoField, final Object instance, final boolean caseSensitive) {
         Object data = pojoField.get(instance);
         if (data == null) {
             return 0;

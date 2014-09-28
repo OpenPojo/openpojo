@@ -27,8 +27,7 @@ import com.openpojo.reflection.PojoClass;
  * @author oshoukry
  */
 public class PojoCache {
-    private static CacheStorage<PojoClass> pojoClassCache = CacheStorageFactory.getCacheStorage(PojoCache.class
-            .getName());
+    private static CacheStorage<PojoClass> pojoClassCache = CacheStorageFactory.getTemporalCacheStorage();
 
     /**
      * Retrieve an implementation from Cache.

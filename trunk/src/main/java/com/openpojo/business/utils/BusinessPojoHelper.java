@@ -21,7 +21,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.business.cache.BusinessFieldCache;
+import com.openpojo.business.cache.BusinessKeyFieldCache;
+import com.openpojo.business.cache.BusinessKeyField;
+import com.openpojo.business.cache.impl.DefaultBusinessKeyField;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -40,14 +42,14 @@ public class BusinessPojoHelper {
      *            The class to introspect.
      * @return The list of fields that are annotated with @BusinessKey, will return an empty list if none are found.
      */
-    public static List<PojoField> getBusinessKeyFields(final Class<?> clazz) {
+    public static List<BusinessKeyField> getBusinessKeyFields(final Class<?> clazz) {
 
-        List<PojoField> businessFields = BusinessFieldCache.getBusinessFields(clazz.getName());
-        if (businessFields != null) {
-            return businessFields;
+        List<BusinessKeyField> businessKeyFields = BusinessKeyFieldCache.get(clazz.getName());
+        if (businessKeyFields != null) {
+            return businessKeyFields;
         }
 
-        businessFields = new LinkedList<PojoField>();
+        businessKeyFields = new LinkedList<BusinessKeyField>();
         PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
 
         List<PojoField> rawFields = new LinkedList<PojoField>();
@@ -60,12 +62,13 @@ public class BusinessPojoHelper {
         }
 
         for (PojoField pojoField : rawFields) {
-            if (pojoField.getAnnotation(BusinessKey.class) != null) {
-                businessFields.add(pojoField);
+            BusinessKey annotation = pojoField.getAnnotation(BusinessKey.class);
+            if (annotation != null) {
+                businessKeyFields.add(new DefaultBusinessKeyField(pojoField, annotation));
             }
         }
-        BusinessFieldCache.addBusinessFields(clazz.getName(), businessFields);
-        return businessFields;
+        BusinessKeyFieldCache.add(clazz.getName(), businessKeyFields);
+        return businessKeyFields;
     }
 
 }
