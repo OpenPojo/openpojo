@@ -22,7 +22,7 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ValidationHelperTest {

@@ -17,7 +17,7 @@
 
 package com.openpojo.random.impl;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.validation.affirm.Affirm;

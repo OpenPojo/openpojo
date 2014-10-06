@@ -27,8 +27,9 @@ import com.openpojo.reflection.utils.AttributeHelper;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.GetterMustExistRule;
-import junit.framework.Assert;
+
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

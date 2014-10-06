@@ -20,7 +20,7 @@ package com.openpojo.random;
 import java.util.Arrays;
 import java.util.Collection;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 
