@@ -23,7 +23,7 @@ import java.util.List;
 import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.business.exception.BusinessException;
 import com.openpojo.utils.dummypackage.Person;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class BusinessIdentityTest {
@@ -121,7 +121,8 @@ public class BusinessIdentityTest {
     @Test
     public void testGetHashCode() {
         for (final HashCodeTestData hashCodeTestData : getHashCodeTestData()) {
-            Assert.assertEquals(String.format("HashCode test failed for Data=[%s]", hashCodeTestData), hashCodeTestData.expectedHashCode, BusinessIdentity.getHashCode(hashCodeTestData));
+            Assert.assertEquals(String.format("HashCode test failed for Data=[%s]", hashCodeTestData), hashCodeTestData.expectedHashCode,
+                    BusinessIdentity.getHashCode(hashCodeTestData));
         }
 
     }
@@ -135,8 +136,6 @@ public class BusinessIdentityTest {
 
     @Test
     public void whenNullObject_Then_toString_returnNull() {
-        System.out.println(BusinessIdentity.toString(new ToStringTestData()));
-        System.out.println((String)null);
         Assert.assertEquals("null", BusinessIdentity.toString(null));
     }
 
