@@ -36,10 +36,22 @@ import com.openpojo.validation.affirm.Affirm;
  */
 public class JARPackageLoaderTest {
     private final String packageName = "org.apache.log4j";
-    private final String[] expectedSubPackagesNames = new String[]{ packageName + ".jdbc", packageName + ".jmx",
-            packageName + ".net", packageName + ".helpers", packageName + ".config", packageName + ".or",
-            packageName + ".pattern", packageName + ".lf5", packageName + ".xml", packageName + ".nt",
-            packageName + ".chainsaw", packageName + ".spi", packageName + ".varia" };
+    private final String[] expectedSubPackagesNames = new String[]{
+            packageName + ".chainsaw",
+            packageName + ".config",
+            packageName + ".helpers",
+            packageName + ".jdbc",
+            packageName + ".jmx",
+            packageName + ".lf5",
+            packageName + ".net",
+            packageName + ".nt",
+            packageName + ".or",
+            packageName + ".pattern",
+            packageName + ".rewrite",
+            packageName + ".spi",
+            packageName + ".varia",
+            packageName + ".xml"
+    };
 
     private final String[] expectedClassesNames = new String[]{ "org.apache.log4j.Appender",
             "org.apache.log4j.AppenderSkeleton", "org.apache.log4j.AsyncAppender$DiscardSummary",
@@ -59,15 +71,12 @@ public class JARPackageLoaderTest {
             "org.apache.log4j.RollingFileAppender", "org.apache.log4j.SimpleLayout",
             "org.apache.log4j.SortedKeyEnumeration", "org.apache.log4j.TTCCLayout", "org.apache.log4j.WriterAppender" };
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() {
     }
 
     @Test
-    public final void shouldGetJarSubPackages() throws IOException {
+    public final void shouldGetJarSubPackages() {
 
         JARPackageLoader jarPackage = getJarPackageLoader(packageName);
 
@@ -83,7 +92,7 @@ public class JARPackageLoaderTest {
     }
 
     @Test
-    public final void shouldGetJarSubClasses() throws IOException {
+    public final void shouldGetJarSubClasses() {
         JARPackageLoader jarPackage = getJarPackageLoader(packageName);
 
         Set<String> classesNames = new LinkedHashSet<String>();
