@@ -20,10 +20,6 @@ package com.openpojo.validation;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
@@ -32,6 +28,8 @@ import com.openpojo.utils.validation.LoggingRule;
 import com.openpojo.utils.validation.LoggingTester;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.test.Tester;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * This is a logging tester used for testing.

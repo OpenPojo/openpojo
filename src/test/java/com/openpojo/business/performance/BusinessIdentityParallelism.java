@@ -23,7 +23,7 @@ import java.util.concurrent.CountDownLatch;
 
 import com.openpojo.business.identity.IdentityFactory;
 import com.openpojo.business.identity.IdentityHandler;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
