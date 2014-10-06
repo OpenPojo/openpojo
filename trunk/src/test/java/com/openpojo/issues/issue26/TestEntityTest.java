@@ -19,12 +19,8 @@ package com.openpojo.issues.issue26;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.filters.FilterCloverClasses;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
 import com.openpojo.validation.affirm.Affirm;
@@ -37,6 +33,8 @@ import com.openpojo.validation.rule.impl.NoStaticExceptFinalRule;
 import com.openpojo.validation.test.impl.BusinessIdentityTester;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
+import org.junit.Before;
+import org.junit.Test;
 
 public class TestEntityTest {
     private static final int EXPECTED_CLASS_COUNT = 2;
@@ -48,7 +46,7 @@ public class TestEntityTest {
 
     @Before
     public void setup() {
-        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterCloverClasses());
+        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE);
 
         pojoValidator = new PojoValidator();
 

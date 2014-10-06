@@ -25,60 +25,27 @@ import com.openpojo.random.impl.*;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
-import com.openpojo.reflection.adapt.impl.CloverPojoClassAdapter;
-import com.openpojo.reflection.adapt.impl.CoberturaPojoClassAdapter;
-import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdapter;
-import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
-import com.openpojo.reflection.adapt.service.impl.DefaultPojoClassAdaptationService;
 import com.openpojo.reflection.service.PojoClassLookupService;
 import com.openpojo.reflection.service.impl.DefaultPojoClassLookupService;
+import com.openpojo.reflection.coverage.service.PojoCoverageFilterService;
+import com.openpojo.reflection.coverage.service.PojoCoverageFilterServiceFactory;
 
 /**
  * @author oshoukry
  */
 public class ServiceRegistrar {
+    private PojoCoverageFilterService pojoCoverageFilterService;
     private RandomGeneratorService randomGeneratorService;
     private PojoClassLookupService pojoClassLookupService;
-    private PojoClassAdaptationService pojoClassAdaptationService;
 
     private ServiceRegistrar() {
+        initializePojoCoverageFilterService();
         initializePojoClassLookupService();
-        initializePojoClassAdaptationService();
         initializeRandomGeneratorService();
     }
 
-    public void initializePojoClassAdaptationService() {
-        final PojoClassAdaptationService newPojoClassAdaptationService = new DefaultPojoClassAdaptationService();
-
-        // TODO: Instrumentation of Fields by coverage tools needs to be refactored out into its own service.
-        newPojoClassAdaptationService.registerPojoClassAdapter(JacocoPojoClassAdapter.getInstance());
-
-        try {
-            if (Class.forName("net.sourceforge.cobertura.coveragedata.LightClassmapListener") != null) {
-                System.out.println("Cobertura instrumentation detected, registering Cobertura class members filter");
-                newPojoClassAdaptationService.registerPojoClassAdapter(CoberturaPojoClassAdapter.getInstance());
-            }
-        } catch (ClassNotFoundException ignored) {
-        }
-
-        try {
-            if (Class.forName("com_cenqua_clover.TestNameSniffer") != null) {
-                System.out.println("Clover 3 instrumentation detected, registering Clover class member filter");
-                newPojoClassAdaptationService.registerPojoClassAdapter(CloverPojoClassAdapter.getInstance());
-            }
-        } catch (ClassNotFoundException ignored) {
-        }
-
-        try {
-            if (Class.forName("com_atlassian_clover.TestNameSniffer") != null) {
-                System.out.println("Clover 4 instrumentation detected, registering Clover class member filter");
-                newPojoClassAdaptationService.registerPojoClassAdapter(CloverPojoClassAdapter.getInstance());
-
-            }
-        } catch (ClassNotFoundException ignored) {
-        }
-
-        setPojoClassAdaptationService(newPojoClassAdaptationService);
+    private void initializePojoCoverageFilterService() {
+        setPojoCoverageFilterService(PojoCoverageFilterServiceFactory.configureAndGetPojoCoverageFilterService());
     }
 
     public void initializeRandomGeneratorService() {
@@ -109,9 +76,7 @@ public class ServiceRegistrar {
 
         // Map
         newRandomGeneratorService.registerRandomGenerator(MapConcreteRandomGenerator.getInstance());
-
         setRandomGeneratorService(newRandomGeneratorService);
-
     }
 
     public void initializePojoClassLookupService() {
@@ -134,12 +99,12 @@ public class ServiceRegistrar {
         return pojoClassLookupService;
     }
 
-    public void setPojoClassAdaptationService(final PojoClassAdaptationService pojoClassAdaptationService) {
-        this.pojoClassAdaptationService = pojoClassAdaptationService;
+    public PojoCoverageFilterService getPojoCoverageFilterService() {
+        return pojoCoverageFilterService;
     }
 
-    public PojoClassAdaptationService getPojoClassAdaptationService() {
-        return pojoClassAdaptationService;
+    public void setPojoCoverageFilterService(PojoCoverageFilterService pojoCoverageFilterService) {
+        this.pojoCoverageFilterService = pojoCoverageFilterService;
     }
 
     @Override
