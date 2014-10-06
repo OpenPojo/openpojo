@@ -30,11 +30,8 @@ public class DefaultPojoCoverageFilterService implements PojoCoverageFilterServi
     private PojoClassCoverageAdapter pojoClassCoverageAdapter = new PojoClassCoverageAdapter();
 
     public synchronized void registerCoverageDetector(CoverageDetector coverageDetector) {
-        if (coverageDetector.isLoaded()) {
-            System.out.println(coverageDetector.getName() + " detected, auto-configuring OpenPojo to ignore its structures.");
             pojoClassCoverageFilter.add(coverageDetector.getPojoClassFilter());
             pojoClassCoverageAdapter.add(coverageDetector.getPojoClassAdapter());
-        } else System.out.println(coverageDetector.getName() + " not detected, ignoring");
     }
 
     public PojoClass adapt(PojoClass pojoClass) {
