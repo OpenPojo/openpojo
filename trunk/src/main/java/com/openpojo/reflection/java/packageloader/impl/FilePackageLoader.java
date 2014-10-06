@@ -19,13 +19,10 @@ package com.openpojo.reflection.java.packageloader.impl;
 
 import java.io.File;
 import java.lang.reflect.Type;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.packageloader.PackageLoader;
 
 /**
@@ -67,55 +64,18 @@ public final class FilePackageLoader extends PackageLoader {
     }
 
     private File[] getEntries() {
-        File directory;
-        try {
-            // convert toURI to decode %20 for spaces, etc.
-            final URI uri = new URI(getProtocol(packageURL), getAuthority(packageURL), getHost(packageURL), getPort(packageURL),
-                    getPath(packageURL), getQuery(packageURL), getRef(packageURL));
+        // convert toURI to decode %20 for spaces, etc.
+        URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(packageURL);
 
-            // to handle windows paths i.e. //host_server/path/class, need a way to put the authority section back in
-            // the path
-            if (uri.getAuthority() != null) {
-                directory = new File("//" + uri.getAuthority() + uri.getPath());
-            } else {
-                directory = new File(uri.getPath());
-            }
-        } catch (final URISyntaxException uriSyntaxException) {
-            throw ReflectionException.getInstance(uriSyntaxException.getMessage(), uriSyntaxException);
+        File directory = urlToFileSystemAdapter.getAsFile();
+        File[] fileList = directory.listFiles();
+        if (fileList == null) {
+            logger.error("Failed to retrieve entries in path: [" + directory.getAbsolutePath() + "] created from URI: [" +
+                    urlToFileSystemAdapter.getAsURI() + "]");
+            fileList = new File[] { };
         }
-        return directory.listFiles();
+        return fileList;
     }
 
-    private String getRef(URL packageURL) {
-        return packageURL.getRef();
-    }
-
-    private String getQuery(URL packageURL) {
-        return packageURL.getQuery();
-    }
-
-    private String getPath(URL packageURL) {
-        return packageURL.getPath();
-    }
-
-    private int getPort(URL packageURL) {
-        return packageURL.getPort();
-    }
-
-    private String getHost(URL packageURL) {
-        return packageURL.getHost();
-    }
-
-    private String getAuthority(URL packageURL) {
-        String authority = packageURL.getAuthority();
-        if (authority == null || authority.length() == 0) {
-            return null;
-        }
-        return packageURL.getAuthority();
-    }
-
-    private String getProtocol(URL packageURL) {
-        return packageURL.getProtocol();
-    }
 
 }
