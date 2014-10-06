@@ -23,14 +23,13 @@ import java.util.List;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.filters.FilterCloverClasses;
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
+import com.openpojo.registry.ServiceRegistrar;
 import com.openpojo.validation.affirm.Affirm;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -56,14 +55,11 @@ public class PojoPackageImplTest {
     @Test
     public void testGetPojoClasses() {
         int counter = 0;
-        final PojoClassFilter pojoFilter = new FilterCloverClasses();
         for (final PojoClass pojoClass : pojoPackage.getPojoClasses()) {
-            if (pojoFilter.include(pojoClass)) {
+            if (ServiceRegistrar.getInstance().getPojoCoverageFilterService().include(pojoClass))
                 counter++;
-            }
         }
-        Assert.assertEquals(String.format("classes added/removed to package=[%s]?", packageName), EXPECTED_CLASSES,
-                            counter);
+        Affirm.affirmEquals(String.format("classes added/removed to package=[%s]?", packageName), EXPECTED_CLASSES, counter);
     }
 
     @Test

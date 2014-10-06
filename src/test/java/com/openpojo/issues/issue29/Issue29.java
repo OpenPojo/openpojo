@@ -16,14 +16,12 @@
  */
 package com.openpojo.issues.issue29;
 
-import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.adapt.PojoClassAdapter;
 import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdapter;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.registry.ServiceRegistrar;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
 
@@ -46,9 +44,7 @@ public class Issue29 {
     @Test
     public void shouldHideJacocoFieldAndMethod() {
         PojoClassAdapter jacocoPojoClassAdapter = JacocoPojoClassAdapter.getInstance();
-        ServiceRegistrar.getInstance().getPojoClassAdaptationService().unRegisterPojoClassAdapter(jacocoPojoClassAdapter);
         PojoClass jacocoPojoClass = PojoClassFactory.getPojoClass(this.getClass());
-        ServiceRegistrar.getInstance().initializePojoClassAdaptationService();
         PojoClass cleansedPojoClass = jacocoPojoClassAdapter.adapt(jacocoPojoClass);
         Affirm.affirmEquals("Adapter removed too much", jacocoPojoClass.getPojoFields().size() - 1,
                 cleansedPojoClass.getPojoFields().size());
@@ -65,16 +61,5 @@ public class Issue29 {
                 Affirm.fail(JACOCO_METHOD_NAME + " method is still visible!!");
             }
         }
-    }
-
-    @Test
-    public void shouldRegisterJacocoPojoClassAdapterByDefault() {
-        for (PojoClassAdapter pojoClassAdapter : ServiceRegistrar.getInstance().getPojoClassAdaptationService()
-                .getRegisteredPojoAdapterClasses()) {
-            if (pojoClassAdapter.equals(JacocoPojoClassAdapter.getInstance())) {
-                return;
-            }
-        }
-        Affirm.fail(MessageFormatter.format("[{0}] was not registered by default", JacocoPojoClassAdapter.getInstance()));
     }
 }

@@ -20,10 +20,8 @@ package com.openpojo.registry;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
-import com.openpojo.reflection.adapt.service.PojoClassAdaptationService;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Before;
 import org.junit.Test;
@@ -105,28 +103,5 @@ public class ServiceRegistrarTest {
                     "type [%s]", type), defaultRandomGenerator.equals(randomGeneratorService.getRandomGeneratorByType
                     (type)));
         }
-    }
-
-    @Test
-    public void shouldHaveDefaultPojoClassAdaptationService() {
-        Affirm.affirmNotNull("No default registered PojoClassAdaptationService?",
-                ServiceRegistrar.getInstance().getPojoClassAdaptationService());
-        Affirm.affirmEquals("Non DefaultPojoClassAdaptationService registered",
-                "com.openpojo.reflection.adapt.service.impl.DefaultPojoClassAdaptationService",
-                ServiceRegistrar.getInstance().getPojoClassAdaptationService().getClass().getName());
-    }
-
-    @Test
-    public void shouldSetPojoClassAdaptationService() {
-        final PojoClassAdaptationService anyPojoClassAdaptationService = anyPojoClassAdaptationService();
-        ServiceRegistrar.getInstance().setPojoClassAdaptationService(anyPojoClassAdaptationService);
-        Affirm.affirmEquals("Failed to setPojoClassAdaptationService", anyPojoClassAdaptationService,
-                ServiceRegistrar.getInstance().getPojoClassAdaptationService());
-        ServiceRegistrar.getInstance().initializePojoClassAdaptationService();
-    }
-
-
-    private PojoClassAdaptationService anyPojoClassAdaptationService() {
-        return RandomFactory.getRandomValue(PojoClassAdaptationService.class);
     }
 }

@@ -19,16 +19,14 @@ package com.openpojo.exception;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.filters.FilterCloverClasses;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * @author oshoukry
@@ -40,8 +38,7 @@ public class TestExceptions {
 
     @Before
     public void setUp() {
-        pojoExceptionClasses = PojoClassFactory.enumerateClassesByExtendingType("com.openpojo", Throwable.class,
-                                                                                new FilterCloverClasses());
+        pojoExceptionClasses = PojoClassFactory.enumerateClassesByExtendingType("com.openpojo", Throwable.class, null);
     }
 
     @Test
