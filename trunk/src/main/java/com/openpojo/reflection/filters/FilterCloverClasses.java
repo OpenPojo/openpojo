@@ -43,4 +43,12 @@ public class FilterCloverClasses implements PojoClassFilter {
     public int hashCode() {
         return this.getClass().hashCode();
     }
+
+    public static FilterCloverClasses getInstance() {
+        return Instance.INSTANCE;
+    }
+
+    private static class Instance {
+        private static final FilterCloverClasses INSTANCE = new FilterCloverClasses();
+    }
 }
