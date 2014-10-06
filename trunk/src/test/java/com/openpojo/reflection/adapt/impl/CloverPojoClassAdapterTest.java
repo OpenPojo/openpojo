@@ -19,12 +19,13 @@ package com.openpojo.reflection.adapt.impl;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.adapt.impl.sampleclasses.CloverInstrumentedClass;
-import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.registry.ServiceRegistrar;
 import com.openpojo.reflection.coverage.impl.Clover3;
+import com.openpojo.reflection.coverage.impl.Clover4;
 import com.openpojo.reflection.coverage.service.PojoCoverageFilterService;
 import com.openpojo.reflection.coverage.service.PojoCoverageFilterServiceFactory;
 import com.openpojo.reflection.coverage.service.impl.DefaultPojoCoverageFilterService;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.registry.ServiceRegistrar;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -64,7 +65,10 @@ public class CloverPojoClassAdapterTest {
 
     @Test
     public void ensureCloverInstrumentedClassNotChanged() {
-        Affirm.affirmEquals("Fields added/removed?", 5, cloverInstrumentedPojoClass.getPojoFields().size());
+        int expectedFields = 4;
+        if (Clover4.getInstance().isLoaded())
+            expectedFields++;
+        Affirm.affirmEquals("Fields added/removed?", expectedFields, cloverInstrumentedPojoClass.getPojoFields().size());
         Affirm.affirmEquals("Methods added/removed?", 3, cloverInstrumentedPojoClass.getPojoMethods().size());
     }
 
