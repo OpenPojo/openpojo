@@ -24,7 +24,7 @@
 	</parent>
 	<groupId>com.googlecode.openpojo</groupId>
 	<artifactId>openpojo</artifactId>
-	<version>0.5.3-SNAPSHOT</version>
+	<version>0.6.0-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<url>http://openpojo.com/</url>
 	<description>
@@ -76,15 +76,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.java.target>1.5</project.build.java.target>
-		<slf4j.version>1.6.1</slf4j.version>
-		<junit.version>4.8.2</junit.version>
-		<testng.version>5.14.2</testng.version>
-		<log4j.version>1.2.16</log4j.version>
-        <surefire.version>2.16</surefire.version>
-		<javax.validation.version>1.0.0.GA</javax.validation.version>
-		<!-- <slf4j.version>[1.4.1,1.6.1]</slf4j.version> <junit.version>[4.0,4.8.2]</junit.version> 
-			<testng.version>[5.0,5.14.2]</testng.version> <log4j.version>[1.2.12,1.2.16]</log4j.version> -->
-		<clover.version>3.1.12</clover.version>
+		<slf4j.version>1.7.7</slf4j.version>
+		<junit.version>4.11</junit.version>
+		<testng.version>6.8.8</testng.version>
+		<log4j.version>1.2.17</log4j.version>
+        <surefire.version>2.17</surefire.version>
+		<!--<javax.validation.version>1.0.0.GA</javax.validation.version>-->
+		<clover.version>4.0.1</clover.version>
 	</properties>
 	<build>
 		<testResources>
