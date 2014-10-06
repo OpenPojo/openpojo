@@ -29,7 +29,7 @@ import com.openpojo.reflection.impl.sampleclasses.AClassWithSyntheticMethod;
 import com.openpojo.reflection.impl.sampleclasses.ClassWithSyntheticConstructor;
 import com.openpojo.reflection.impl.sampleclasses.PojoMethodClass;
 import com.openpojo.validation.affirm.Affirm;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -213,7 +213,6 @@ public class PojoMethodImplTest {
     @Test
     public void testIsSynthetic() {
         PojoClass syntheticPojoClass = PojoClassFactory.getPojoClass(AClassWithSyntheticMethod.class);
-        System.out.println("" + syntheticPojoClass);
         for (PojoMethod pojoMethod : syntheticPojoClass.getPojoMethods()) {
             if (!pojoMethod.getName().equals("doSomethingSneaky") && !pojoMethod.isConstructor()) {
                 Affirm.affirmFalse("Failed to check synthetic method [" + pojoMethod + "]", !pojoMethod.isSynthetic());
