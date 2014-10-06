@@ -43,6 +43,6 @@ public class JacocoTest {
     
     @Test
     public void coverageClassNameIs__orgDOTjacocoDOTcoreDOTJaCoCo() {
-        Assert.assertEquals("org.jacoco.core.JaCoCo", Jacoco.getInstance().getCoverageClassName());
+        Assert.assertEquals("org.jacoco.agent.rt.IAgent", Jacoco.getInstance().getCoverageClassName());
     }
 }

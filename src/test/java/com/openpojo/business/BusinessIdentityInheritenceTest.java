@@ -17,22 +17,12 @@
 
 package com.openpojo.business;
 
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.impl.PojoClassFactory;
-import org.junit.Assert;
-
-import org.junit.Test;
-
 import com.openpojo.business.exception.BusinessException;
 import com.openpojo.business.sampleclasses.Child;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class BusinessIdentityInheritenceTest {
-
-    @Test
-    public void printAllJacocoClasses() {
-        for(PojoClass pojoClass : PojoClassFactory.getPojoClassesRecursively("org.jacoco", null))
-            System.out.println(pojoClass.getName());
-    }
 
     @Test
     public void shouldEquateUsingInheritence() {
