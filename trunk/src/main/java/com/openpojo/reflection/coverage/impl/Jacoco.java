@@ -41,7 +41,7 @@ public class Jacoco extends AbstractCoverageDetector {
 
     @Override
     public String getCoverageClassName() {
-        return "org.jacoco.agent.rt.IAgent";//return "org.jacoco.core.JaCoCo";
+        return "org.jacoco.agent.rt.IAgent";
     }
 
     @Override

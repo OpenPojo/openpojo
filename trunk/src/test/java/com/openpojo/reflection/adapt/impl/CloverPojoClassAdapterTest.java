@@ -21,6 +21,8 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.adapt.impl.sampleclasses.CloverInstrumentedClass;
 import com.openpojo.reflection.coverage.impl.Clover3;
 import com.openpojo.reflection.coverage.impl.Clover4;
+import com.openpojo.reflection.coverage.impl.Cobertura;
+import com.openpojo.reflection.coverage.impl.Jacoco;
 import com.openpojo.reflection.coverage.service.PojoCoverageFilterService;
 import com.openpojo.reflection.coverage.service.PojoCoverageFilterServiceFactory;
 import com.openpojo.reflection.coverage.service.impl.DefaultPojoCoverageFilterService;
@@ -41,7 +43,6 @@ public class CloverPojoClassAdapterTest {
     private PojoClass cloverInstrumentedPojoClass;
     private PojoClass cloverCleanedPojoClass;
     private static PojoCoverageFilterService originalPojoCoverageFilterService;
-    private static PojoCoverageFilterService emptyPojoCoverageFilterService = new DefaultPojoCoverageFilterService();
     private static PojoCoverageFilterService cloverPojoCoverageFilterService = PojoCoverageFilterServiceFactory
             .createPojoCoverageFilterServiceWith(Clover3.getInstance());
 
@@ -52,7 +53,12 @@ public class CloverPojoClassAdapterTest {
 
     @Before
     public void setup() {
-        ServiceRegistrar.getInstance().setPojoCoverageFilterService(emptyPojoCoverageFilterService);
+        PojoCoverageFilterService allButClover3PojoCoverageFilterService = new DefaultPojoCoverageFilterService();
+
+        allButClover3PojoCoverageFilterService.registerCoverageDetector(Cobertura.getInstance());
+        allButClover3PojoCoverageFilterService.registerCoverageDetector(Jacoco.getInstance());
+
+        ServiceRegistrar.getInstance().setPojoCoverageFilterService(allButClover3PojoCoverageFilterService);
         cloverInstrumentedPojoClass = PojoClassFactory.getPojoClass(CloverInstrumentedClass.class);
         ServiceRegistrar.getInstance().setPojoCoverageFilterService(cloverPojoCoverageFilterService);
         cloverCleanedPojoClass = CloverPojoClassAdapter.getInstance().adapt(cloverInstrumentedPojoClass);
@@ -65,10 +71,9 @@ public class CloverPojoClassAdapterTest {
 
     @Test
     public void ensureCloverInstrumentedClassNotChanged() {
-        int expectedFields = 4;
-        if (Clover4.getInstance().isLoaded())
-            expectedFields++;
-        Affirm.affirmEquals("Fields added/removed?", expectedFields, cloverInstrumentedPojoClass.getPojoFields().size());
+        int expectedFieldCount = 4;
+        if (Clover4.getInstance().isLoaded()) expectedFieldCount++;
+        Affirm.affirmEquals("Fields added/removed?", expectedFieldCount, cloverInstrumentedPojoClass.getPojoFields().size());
         Affirm.affirmEquals("Methods added/removed?", 3, cloverInstrumentedPojoClass.getPojoMethods().size());
     }
 
