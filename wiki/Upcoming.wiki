@@ -11,6 +11,6 @@
   * Code cleanup
    * Better handling for JDK 1.6 collection's generation vs. 1.5.
    * Rewire static references for ServiceRegistrar, allowing greater configurability and better decoupling.
-   * Refactor and improve the ability to detect and implement support for instrumentation frameworks (EclEmma JaCoCo, Clover, ...etc).
+   * *DONE 0.6.0* Refactor and improve the ability to detect and implement support for instrumentation frameworks (EclEmma JaCoCo, Clover, ...etc).
 
 *Note:* If there is something you'd like to see that isn't listed please drop me a line or open a ticket in the [http://code.google.com/p/openpojo/issues Issues] section.
