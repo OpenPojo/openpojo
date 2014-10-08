@@ -4,7 +4,7 @@
  * *2014-10-08:*
   * OpenPojo-0.6.0 released download using Maven or from http://bit.ly/1oiDOun
     * Added
-      # Performance boost up to 2x while using BusinessIdentity - (Cache remains for the lifetime of the VM)
+      # Performance boost up to 2x while using BusinessIdentity - Cache remains for the lifetime of the VM.  (Thanks to Dilip J for his help testing & confirming performance gains)
       # Auto-discovery for instrumentation frameworks, now pluggable, no more need to pass in FilterCloverClasses to PojoClassFactory.
     * Removed
       # ServiceRegistrar class filter & class adaptation services removed, all is now handled by the PojoCoverageFilterService.
