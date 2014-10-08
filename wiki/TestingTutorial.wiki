@@ -17,7 +17,7 @@
   </dependency>
 }}}
 Or 
-  * Download the latest OpenPojo ([https://googledrive.com/host/0B8mezwmezYSibXYyOFJPZjFhVzQ/ Zip])
+  * Download the latest OpenPojo ([http://bit.ly/1oiDOun Zip])
  
 === Next ===
   # Identify the list of packages that have the POJOs you want to test.
