@@ -3,8 +3,8 @@
 == Requirements ==
   # Java 5 or above.
   # Optional
-   # JUnit 4.8.2+, Or TestNG 5.14.2+, if neither is present, an AssertionError will be thrown when a test fails.
-   # SLF4J, or Log4j, if neither is present, Java's Logging will be utilized instead.
+   # JUnit 4.11+, Or TestNG 6.8.8+, if neither is present, an AssertionError will be thrown when a test fails.
+   # SLF4J (1.7.7+), or Log4j (1.2.17+), if neither is present, Java's Logging will be utilized instead.
 
 == Setup ==
 === Get Jar ===
@@ -13,7 +13,7 @@
   <dependency>
     <groupId>com.googlecode.openpojo</groupId>
     <artifactId>openpojo</artifactId>
-    <version>0.4.9</version>
+    <version>0.6.0</version>
   </dependency>
 }}}
 Or 
