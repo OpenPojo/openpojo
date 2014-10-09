@@ -114,6 +114,9 @@ public class PojoMethodFactory {
         prefix.add("get" + AttributeHelper.getAttributeName(field));
         if (field.getType() == boolean.class || field.getType() == Boolean.class) {
             prefix.add("is" + AttributeHelper.getAttributeName(field));
+            String fieldName = field.getName();
+            if(fieldName.length() > 2 && fieldName.startsWith("is") && Character.isUpperCase(fieldName.charAt(2)))
+                prefix.add(fieldName);
         }
         return prefix;
     }
@@ -149,6 +152,10 @@ public class PojoMethodFactory {
     private static List<String> generateSetMethodNames(final Field field) {
         final List<String> prefix = new LinkedList<String>();
         prefix.add("set" + AttributeHelper.getAttributeName(field));
+        String fieldName = field.getName();
+        if(fieldName.length() > 2 && fieldName.startsWith("is") && Character.isUpperCase(fieldName.charAt(2)))
+            prefix.add("set" + fieldName.substring(2));
+
         return prefix;
     }
 
