@@ -6,6 +6,7 @@
     * Added
       # Performance boost up to 2x while using BusinessIdentity - Cache remains for the lifetime of the VM.  (Thanks to Dilip J for his help testing & confirming performance gains)
       # Auto-discovery for instrumentation frameworks, now pluggable, no more need to pass in FilterCloverClasses to PojoClassFactory.
+      # Issue 43 will now log as error and skip package paths that fail to enumerate - Please report logs on issue.
     * Removed
       # ServiceRegistrar class filter & class adaptation services removed, all is now handled by the PojoCoverageFilterService.
  * *2014-09-03:*
