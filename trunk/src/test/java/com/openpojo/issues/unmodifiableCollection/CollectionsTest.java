@@ -32,7 +32,7 @@ import com.openpojo.validation.test.impl.SetterTester;
 public class CollectionsTest {
 
 	@Test
-	public void testCollectionContainingClass() {
+	public void testUnmodifiableCollectionsGetterReturned() {
 		PojoValidator pojoValidator = new PojoValidator();
 
 		GetterTester getterTester = new GetterTester();
