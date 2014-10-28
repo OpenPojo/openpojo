@@ -17,15 +17,12 @@
 
 package com.openpojo.reflection;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
 /**
  * This class encapsulates the meta data definition of a field on a class.
  *
  * @author oshoukry
  */
-public interface PojoField extends PojoElement {
+public interface PojoField extends PojoElement, Parameterizable {
 
     /**
      * This method gets the value of the field.
@@ -82,14 +79,6 @@ public interface PojoField extends PojoElement {
      *            The value to set the field to.
      */
     public void invokeSetter(final Object instance, final Object value);
-
-    /**
-     * Return the type of field encapsulated.
-     *
-     * @return
-     *         The type of the Field the PojoField is set to.
-     */
-    public Class<?> getType();
 
     /**
      * @return
@@ -150,22 +139,6 @@ public interface PojoField extends PojoElement {
      *         true if this PojoField is synthetic (i.e. jdk compiler generated).
      */
     public boolean isSynthetic();
-
-    /**
-     * @return
-     *         True if this PojoField is defined with parameters (i.e. List<SomeClass>).
-     */
-    public boolean isParameterized();
-
-    /**
-     * Get the generics defined on the field, returns empty list if the field isn't Parameterized.
-     *
-     * @return
-     *         Return a list of Types that are defined parameterized on enclosed field (i.e. will return a list
-     *         containing SomeClass for a field that is defined as List<SomeClass>, or [String, Integer] if field is defined
-     *         as Map<String, Integer>, ...etc).
-     */
-    public List<Type> getParameterTypes();
 
     /**
      * Returns properly formatted field=value string from instance.
