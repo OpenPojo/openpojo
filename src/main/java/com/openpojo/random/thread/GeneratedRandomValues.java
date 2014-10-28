@@ -17,6 +17,7 @@
 
 package com.openpojo.random.thread;
 
+import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,10 +27,10 @@ import java.util.Set;
  * @author oshoukry
  */
 public class GeneratedRandomValues {
-    private static ThreadLocal<Set<Class<?>>> threadLocal = new ThreadLocal<Set<Class<?>>>() {
+    private static ThreadLocal<Set<Type>> threadLocal = new ThreadLocal<Set<Type>>() {
         @Override
-        protected Set<Class<?>> initialValue() {
-            return new HashSet<Class<?>>();
+        protected Set<Type> initialValue() {
+            return new HashSet<Type>();
         }
     };
 
@@ -39,7 +40,7 @@ public class GeneratedRandomValues {
      * @param type
      *            The type to add.
      */
-    public static void add(final Class<?> type) {
+    public static void add(final Type type) {
         threadLocal.get().add(type);
     }
 
@@ -51,8 +52,8 @@ public class GeneratedRandomValues {
      * @return
      *         Returns true if the type has been added by this thread already.
      */
-    public static boolean contains(final Class<?> type) {
-        Set<Class<?>> generatedValues = threadLocal.get();
+    public static boolean contains(final Type type) {
+        Set<Type> generatedValues = threadLocal.get();
         return generatedValues.contains(type);
     }
 
@@ -62,7 +63,7 @@ public class GeneratedRandomValues {
      * @param type
      *            The type to remove.
      */
-    public static void remove(final Class<?> type) {
+    public static void remove(final Type type) {
         threadLocal.get().remove(type);
     }
 
