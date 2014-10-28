@@ -23,6 +23,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -118,9 +119,7 @@ class PojoFieldImpl implements PojoField {
         List<Type> genericTypes = new LinkedList<Type>();
         if (isParameterized()) {
             ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
-            for (Type actualType : parameterizedType.getActualTypeArguments()) {
-                genericTypes.add(actualType);
-            }
+            Collections.addAll(genericTypes, parameterizedType.getActualTypeArguments());
         }
         return genericTypes;
     }
