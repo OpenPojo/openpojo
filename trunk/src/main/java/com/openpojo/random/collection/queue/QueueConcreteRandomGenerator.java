@@ -53,11 +53,15 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
         return Instance.INSTANCE;
     }
 
-    private final String[] TYPES = new String[] { "java.util.ArrayDeque",
-            "java.util.concurrent.ArrayBlockingQueue",
-            "java.util.concurrent.LinkedBlockingQueue",
-            "java.util.concurrent.PriorityBlockingQueue", "java.util.concurrent.DelayQueue", "java.util.concurrent.SynchronousQueue",
-            "java.util.Queue" };
+    private final String[] TYPES = new String[] {
+            "java.util.ArrayDeque"
+            ,"java.util.Queue"
+            ,"java.util.concurrent.ArrayBlockingQueue"
+            ,"java.util.concurrent.LinkedBlockingQueue"
+            ,"java.util.concurrent.PriorityBlockingQueue"
+            ,"java.util.concurrent.DelayQueue"
+            ,"java.util.concurrent.SynchronousQueue"
+            };
 
 
     @SuppressWarnings("rawtypes")
