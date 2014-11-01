@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.log.LoggerFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -63,7 +64,7 @@ public class CollectionAndMapPackageRandomGeneratorsTest {
             final RandomGenerator randomGenerator = (RandomGenerator) InstanceFactory.getInstance(randomGeneratorPojoClass);
             final Collection<Class<?>> generatorTypes = randomGenerator.getTypes();
             for (final Class<?> type : generatorTypes) {
-                System.out.println("Generating Type [" + type + "]");
+                LoggerFactory.getLogger(this.getClass()).debug("Generating Type [" + type + "]");
                 final Object firstInstance = randomGenerator.doGenerate(type);
                 Affirm.affirmNotNull(MessageFormatter.format("[{0}] returned null for type [{1}]",
                                                              randomGenerator.getClass(), type), firstInstance);
