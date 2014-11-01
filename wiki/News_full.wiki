@@ -4,7 +4,9 @@
  * *2014-11-01:*
   * OpenPojo-0.6.1 released download using Maven or from http://bit.ly/1oiDOun
     * Added
-      # Generics are finally here, Setter/Getter testers will now generate proper types for Collections (Set, List, Queue).
+      # Generics are finally here, Setter/Getter testers will now generate proper types for Collections (Set, List, Queue).  This is an initial release, all feedback welcomed!
+    * Changed
+      # If OpenPojo fails to get files from system path it won't throw null pointer anymore, but will throw proper exception with enough information to help trouble shoot.
     * Fixed
       # issue 47 - Method lookup now works if the type is boolean and the field name starts with is (i.e. isFlagOn, ...etc).
  * *2014-10-08:*
