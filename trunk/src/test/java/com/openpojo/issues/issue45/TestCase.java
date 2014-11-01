@@ -98,4 +98,5 @@ public class TestCase {
         pojoValidator.addTester(new SetterTester());
         pojoValidator.runValidation(PojoClassFactory.getPojoClass(ClassWithVariousGenericSetList.class));
     }
+
 }
