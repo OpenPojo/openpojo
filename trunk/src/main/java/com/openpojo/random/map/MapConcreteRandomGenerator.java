@@ -61,13 +61,8 @@ public final class MapConcreteRandomGenerator implements RandomGenerator {
 
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
-        Map randomMap = null;
-
-        if (this.getTypes().contains(type)) {
-            randomMap = (Map) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
-            MapHelper.populateWithRandomData(randomMap);
-        }
-
+        Map randomMap = (Map) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
+        MapHelper.populateWithRandomData(randomMap);
         return randomMap;
     }
 
