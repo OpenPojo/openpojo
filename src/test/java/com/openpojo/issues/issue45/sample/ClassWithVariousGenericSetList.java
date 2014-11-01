@@ -270,7 +270,7 @@ public class ClassWithVariousGenericSetList {
     }
 
     private void assertParameterOfExpectedStructure(Object input, Class<?>... expectedTypes) {
-        LoggerFactory.getLogger(this.getClass()).trace("Checking: [" + input + "] with types " + Arrays.toString(expectedTypes));
+        LoggerFactory.getLogger(this.getClass()).debug("Checking: [" + input + "] with types " + Arrays.toString(expectedTypes));
         assertTypeIsAssignable(input, expectedTypes[0]);
 
         if (input instanceof Collection) {
