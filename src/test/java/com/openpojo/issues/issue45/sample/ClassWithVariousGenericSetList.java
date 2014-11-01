@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import com.openpojo.log.LoggerFactory;
@@ -46,7 +47,20 @@ public class ClassWithVariousGenericSetList {
     private List<List<? extends SomeGeneric>> listOfListOfExtendsSomeGeneric;
     private List<List<? super SomeGeneric>> listOfListOfSuperSomeGeneric;
 
-    private List<Map> listOfMapOfSomeInterfaceAndSomeGeneric;
+    private List<Map> listOfMap;
+
+    private Queue queueUndefined;
+    private Queue<?> queueUnbounded;
+    private Queue<SomeGeneric> queueSomeGeneric;
+    private Queue<? extends SomeGeneric> queueExtendsSomeGeneric;
+    private Queue<? super SomeGeneric> queueSuperSomeGeneric;
+    private Queue<Queue> queueOfQueueUndefined;
+    private Queue<Queue<?>> queueOfQueueUnbounded;
+    private Queue<Queue<SomeGeneric>> queueOfQueueOfSomeGeneric;
+    private Queue<Queue<? extends SomeGeneric>> queueOfQueueOfExtendsSomeGeneric;
+    private Queue<Queue<? super SomeGeneric>> queueOfQueueOfSuperSomeGeneric;
+
+    private Queue<Map> queueOfMap;
 
     private Set setUndefined;
     private Set<?> setUnbounded;
@@ -61,7 +75,7 @@ public class ClassWithVariousGenericSetList {
 
     private Set<Map<SomeInterface, SomeGeneric>> setOfMapOfSomeInterfaceAndSomeGeneric;
 
-    private List<Set<List<SomeGeneric>>> listOfSetOfListOfSomeGeneric;
+    private Queue<Set<List<SomeGeneric>>> queueOfSetOfListOfSomeGeneric;
     private Set<List<Set<SomeGeneric>>> setOfListOfSetOfSomeGeneric;
 
     private List<Set<? super SomeInterface>> listOfSetOfSuperSomeInterface;
@@ -118,10 +132,66 @@ public class ClassWithVariousGenericSetList {
         this.listOfListOfSuperSomeGeneric = listOfListOfSuperSomeGeneric;
     }
 
-    public void setListOfMapOfSomeInterfaceAndSomeGeneric(List<Map> listOfMapOfSomeInterfaceAndSomeGeneric) {
-        assertParameterOfExpectedStructure(listOfMapOfSomeInterfaceAndSomeGeneric, List.class, Map.class);
-        this.listOfMapOfSomeInterfaceAndSomeGeneric = listOfMapOfSomeInterfaceAndSomeGeneric;
+    public void setListOfMap(List<Map> listOfMap) {
+        assertParameterOfExpectedStructure(listOfMap, List.class, Map.class);
+        this.listOfMap = listOfMap;
     }
+
+    public void setQueueUndefined(Queue queueUndefined) {
+        assertParameterOfExpectedStructure(queueUndefined, Queue.class, SerializeableComparableObject.class);
+        this.queueUndefined = queueUndefined;
+    }
+
+    public void setQueueUnbounded(Queue<?> queueUnbounded) {
+        assertParameterOfExpectedStructure(queueUnbounded, Queue.class, Object.class);
+        this.queueUnbounded = queueUnbounded;
+    }
+
+    public void setQueueSomeGeneric(Queue<SomeGeneric> queueSomeGeneric) {
+        assertParameterOfExpectedStructure(queueSomeGeneric, Queue.class, SomeGeneric.class);
+        this.queueSomeGeneric = queueSomeGeneric;
+    }
+
+    public void setQueueExtendsSomeGeneric(Queue<? extends SomeGeneric> queueExtendsSomeGeneric) {
+        assertParameterOfExpectedStructure(queueExtendsSomeGeneric, Queue.class, SomeGeneric.class);
+        this.queueExtendsSomeGeneric = queueExtendsSomeGeneric;
+    }
+
+    public void setQueueSuperSomeGeneric(Queue<? super SomeGeneric> queueSuperSomeGeneric) {
+        assertParameterOfExpectedStructure(queueSuperSomeGeneric, Queue.class, SomeGeneric.class);
+        this.queueSuperSomeGeneric = queueSuperSomeGeneric;
+    }
+
+    public void setQueueOfQueueUndefined(Queue<Queue> queueOfQueueUndefined) {
+        assertParameterOfExpectedStructure(queueOfQueueUndefined, Queue.class, Queue.class, SerializeableComparableObject.class);
+        this.queueOfQueueUndefined = queueOfQueueUndefined;
+    }
+
+    public void setQueueOfQueueUnbounded(Queue<Queue<?>> queueOfQueueUnbounded) {
+        assertParameterOfExpectedStructure(queueOfQueueUnbounded, Queue.class, Queue.class, Object.class);
+        this.queueOfQueueUnbounded = queueOfQueueUnbounded;
+    }
+
+    public void setQueueOfQueueOfSomeGeneric(Queue<Queue<SomeGeneric>> queueOfQueueOfSomeGeneric) {
+        assertParameterOfExpectedStructure(queueOfQueueOfSomeGeneric, Queue.class, Queue.class, SomeGeneric.class);
+        this.queueOfQueueOfSomeGeneric = queueOfQueueOfSomeGeneric;
+    }
+
+    public void setQueueOfQueueOfExtendsSomeGeneric(Queue<Queue<? extends SomeGeneric>> queueOfQueueOfExtendsSomeGeneric) {
+        assertParameterOfExpectedStructure(queueOfQueueOfExtendsSomeGeneric, Queue.class, Queue.class, SomeGeneric.class);
+        this.queueOfQueueOfExtendsSomeGeneric = queueOfQueueOfExtendsSomeGeneric;
+    }
+
+    public void setQueueOfQueueOfSuperSomeGeneric(Queue<Queue<? super SomeGeneric>> queueOfQueueOfSuperSomeGeneric) {
+        assertParameterOfExpectedStructure(queueOfQueueOfSuperSomeGeneric, Queue.class, Queue.class, SomeGeneric.class);
+        this.queueOfQueueOfSuperSomeGeneric = queueOfQueueOfSuperSomeGeneric;
+    }
+
+    public void setQueueOfMap(Queue<Map> queueOfMap) {
+        assertParameterOfExpectedStructure(queueOfMap, Queue.class, Map.class);
+        this.queueOfMap = queueOfMap;
+    }    
+    
 
     public void setSetUndefined(Set setUndefined) {
         assertParameterOfExpectedStructure(setUndefined, Set.class, SerializeableComparableObject.class);
@@ -179,9 +249,9 @@ public class ClassWithVariousGenericSetList {
         this.setOfMapOfSomeInterfaceAndSomeGeneric = setOfMapOfSomeInterfaceAndSomeGeneric;
     }
 
-    public void setListOfSetOfListOfSomeGeneric(List<Set<List<SomeGeneric>>> listOfSetOfListOfSomeGeneric) {
-        assertParameterOfExpectedStructure(listOfSetOfListOfSomeGeneric, List.class, Set.class, List.class, SomeGeneric.class);
-        this.listOfSetOfListOfSomeGeneric = listOfSetOfListOfSomeGeneric;
+    public void setQueueOfSetOfListOfSomeGeneric(Queue<Set<List<SomeGeneric>>> queueOfSetOfListOfSomeGeneric) {
+        assertParameterOfExpectedStructure(queueOfSetOfListOfSomeGeneric, Queue.class, Set.class, List.class, SomeGeneric.class);
+        this.queueOfSetOfListOfSomeGeneric = queueOfSetOfListOfSomeGeneric;
     }
 
     public void setSetOfListOfSetOfSomeGeneric(Set<List<Set<SomeGeneric>>> setOfListOfSetOfSomeGeneric) {
