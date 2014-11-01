@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.packageloader.PackageLoader;
 
 /**
@@ -69,10 +70,11 @@ public final class FilePackageLoader extends PackageLoader {
 
         File directory = urlToFileSystemAdapter.getAsFile();
         File[] fileList = directory.listFiles();
+
         if (fileList == null) {
-            logger.error("Failed to retrieve entries in path: [" + directory.getAbsolutePath() + "] created from URI: [" +
-                    urlToFileSystemAdapter.getAsURI() + "]");
-            fileList = new File[] { };
+            throw ReflectionException.getInstance("Failed to retrieve entries in path: ["
+                    + directory.getAbsolutePath() + "] created from URI: [" + urlToFileSystemAdapter.getAsURI() + "]."
+                    + "Please report this issue @ https://code.google.com/p/openpojo/issues");
         }
         return fileList;
     }
