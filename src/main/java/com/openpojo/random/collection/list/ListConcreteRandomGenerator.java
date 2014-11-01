@@ -23,8 +23,12 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.random.ParameterizableRandomGenerator;
+import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
+import com.openpojo.random.collection.util.SerializeableComparableObject;
+import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
@@ -37,32 +41,37 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  *
  * @author oshoukry
  */
-public final class ListConcreteRandomGenerator implements RandomGenerator {
+public final class ListConcreteRandomGenerator implements ParameterizableRandomGenerator {
 
     private ListConcreteRandomGenerator() {
-
     }
 
     public static RandomGenerator getInstance() {
         return Instance.INSTANCE;
     }
 
-    private static final Class<?>[] TYPES = new Class<?>[] { ArrayList.class, LinkedList.class };
+    private static final Class<?>[] TYPES = new Class<?>[] { ArrayList.class, LinkedList.class, List.class };
 
-    @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
-        List randomList = null;
 
-        if (this.getTypes().contains(type)) {
-            randomList = (List) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
-            CollectionHelper.populateWithRandomData(randomList);
-        }
+        Class<?> typeToGenerate = type;
+        if (typeToGenerate == List.class)
+            typeToGenerate = ArrayList.class;
+
+        List randomList = (List) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
+        CollectionHelper.buildCollections(randomList, SerializeableComparableObject.class);
 
         return randomList;
     }
 
     public Collection<Class<?>> getTypes() {
         return Arrays.asList(TYPES);
+    }
+
+    public Object doGenerate(Parameterizable parameterizedType) {
+        List returnedList = (List) RandomFactory.getRandomValue(parameterizedType.getType());
+        returnedList.clear();
+        return CollectionHelper.buildCollections(returnedList, parameterizedType.getParameterTypes().get(0));
     }
 
     private static class Instance {

@@ -24,8 +24,11 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
+import com.openpojo.random.collection.util.SerializeableComparableObject;
+import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
@@ -39,7 +42,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  *
  * @author oshoukry
  */
-public final class SetConcreteRandomGenerator implements RandomGenerator {
+public final class SetConcreteRandomGenerator implements ParameterizableRandomGenerator {
 
     private SetConcreteRandomGenerator() {
     }
@@ -48,22 +51,29 @@ public final class SetConcreteRandomGenerator implements RandomGenerator {
         return Instance.INSTANCE;
     }
 
-    private final Class<?>[] TYPES = new Class<?>[] { HashSet.class, TreeSet.class, LinkedHashSet.class };
+    private final Class<?>[] TYPES = new Class<?>[] { HashSet.class, TreeSet.class, LinkedHashSet.class, Set.class };
 
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
-        Set randomSet = null;
 
-        if (this.getTypes().contains(type)) {
-            randomSet = (Set) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
-            CollectionHelper.populateWithRandomData(randomSet);
-        }
+        Class<?> typeToGenerate = type;
+        if (type == Set.class)
+            typeToGenerate = HashSet.class;
+
+        Set randomSet = (Set) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
+        CollectionHelper.buildCollections(randomSet, SerializeableComparableObject.class);
 
         return randomSet;
     }
 
     public Collection<Class<?>> getTypes() {
         return Arrays.asList(TYPES);
+    }
+
+    public Object doGenerate(Parameterizable parameterizedType) {
+        Set initialSet = new HashSet();
+
+        return CollectionHelper.buildCollections(initialSet, parameterizedType.getParameterTypes().get(0));
     }
 
     private static class Instance {

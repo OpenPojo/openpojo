@@ -20,14 +20,16 @@ package com.openpojo.random.service.impl;
 import java.util.Collection;
 
 import com.openpojo.log.utils.MessageFormatter;
+import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.exception.RandomGeneratorException;
+import com.openpojo.reflection.Parameterizable;
 
 /**
  * @author oshoukry
  *
  */
-public final class RandomGeneratorAdapter implements RandomGenerator {
+public final class RandomGeneratorAdapter implements RandomGenerator, ParameterizableRandomGenerator {
 
     private final Class<?> fromType;
     private final Class<?> toType;
@@ -50,5 +52,9 @@ public final class RandomGeneratorAdapter implements RandomGenerator {
             return adaptedRandomGenerator.doGenerate(toType);
         }
         throw RandomGeneratorException.getInstance(MessageFormatter.format("Unsupported type requested [{0}]", type));
+    }
+
+    public Object doGenerate(Parameterizable parameterizedType) {
+        return ((ParameterizableRandomGenerator)adaptedRandomGenerator).doGenerate(parameterizedType);
     }
 }

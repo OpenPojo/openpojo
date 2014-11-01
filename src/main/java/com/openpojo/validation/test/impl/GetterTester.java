@@ -17,6 +17,7 @@
 
 package com.openpojo.validation.test.impl;
 
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
@@ -39,14 +40,19 @@ public class GetterTester implements Tester {
                 Object value = fieldEntry.get(classInstance);
 
                 if (!fieldEntry.isFinal()) {
-                    value = RandomFactory.getRandomValue(fieldEntry.getType());
+                    value = RandomFactory.getRandomValue(fieldEntry);
                     fieldEntry.set(classInstance, value);
                 }
 
                 IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
+
+                LoggerFactory.getLogger(this.getClass()).info("Testing Field [{0}] with value [{1}]", fieldEntry, value);
+
                 Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value,
                                     fieldEntry.invokeGetter(classInstance));
                 IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
+            } else {
+                LoggerFactory.getLogger(this.getClass()).debug("Field [{0}] has no getter skipping", fieldEntry);
             }
         }
     }

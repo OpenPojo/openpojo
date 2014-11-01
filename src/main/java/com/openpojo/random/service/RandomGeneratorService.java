@@ -20,6 +20,7 @@ package com.openpojo.random.service;
 import java.util.Collection;
 
 import com.openpojo.random.RandomGenerator;
+import com.openpojo.reflection.Parameterizable;
 import com.openpojo.registry.Service;
 
 /**
@@ -65,7 +66,7 @@ public interface RandomGeneratorService extends Service {
     public RandomGenerator getDefaultRandomGenerator();
 
     /**
-     * This retrieves the most appropriate RandomGenerator for a givenType. If there is more than one possible random
+     * This retrieves the most appropriate RandomGenerator for a given Type. If there is more than one possible random
      * generator valid for a given type, one will randomly be selected.
      *
      * The only reason multiple may exist is due to inheritance, for example if you register two random generators one
@@ -77,4 +78,18 @@ public interface RandomGeneratorService extends Service {
      *          The type used to lookup the most appropriate RandomGenerator.
      */
     public RandomGenerator getRandomGeneratorByType(Class<?> type);
+
+    /**
+     * This retrieves the most appropriate ParameterizableRandomGenerator for a given Type.
+     * If there is more than one possible random generator valid for a given type, one will randomly be selected.
+     *
+     * The only reason multiple may exist is due to inheritance, for example if you register two random generators one
+     * to handle LinkedList, and one to handle Set, and request a randomGenerator for type "Collection", either of those
+     * randomGenerators could be used. However, if there is a random generator registered for Collection, that will be
+     * the one used.
+     *
+     * @param type
+     *          The parameterized type used to lookup the most appropriate RandomGenerator.
+     */
+    public RandomGenerator getRandomGeneratorByParameterizable(Parameterizable type);
 }

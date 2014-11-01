@@ -63,6 +63,7 @@ public class CollectionAndMapPackageRandomGeneratorsTest {
             final RandomGenerator randomGenerator = (RandomGenerator) InstanceFactory.getInstance(randomGeneratorPojoClass);
             final Collection<Class<?>> generatorTypes = randomGenerator.getTypes();
             for (final Class<?> type : generatorTypes) {
+                System.out.println("Generating Type [" + type + "]");
                 final Object firstInstance = randomGenerator.doGenerate(type);
                 Affirm.affirmNotNull(MessageFormatter.format("[{0}] returned null for type [{1}]",
                                                              randomGenerator.getClass(), type), firstInstance);
