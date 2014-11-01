@@ -37,7 +37,6 @@ public class DefaultRandomGenerator implements RandomGenerator {
     private final RandomInstanceFromInterfaceRandomGenerator interfaceRandomGenerator = RandomInstanceFromInterfaceRandomGenerator.getInstance();
     private final EnumRandomGenerator enumRandomGenerator = EnumRandomGenerator.getInstance();
     private final ArrayRandomGenerator arrayRandomGenerator = ArrayRandomGenerator.getInstance();
-    //private final Logger logger = LoggerFactory.getLogger(DefaultRandomGenerator.class);
 
     /*
      * (non-Javadoc)
@@ -73,7 +72,7 @@ public class DefaultRandomGenerator implements RandomGenerator {
                                                                      typePojoClass));
         }
 
-        LoggerFactory.getLogger(DefaultRandomGenerator.class).info("Creating basic instance for type=[{0}] using InstanceFactory", type);
+        LoggerFactory.getLogger(DefaultRandomGenerator.class).debug("Creating basic instance for type=[{0}] using InstanceFactory", type);
         return InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
 
     }
