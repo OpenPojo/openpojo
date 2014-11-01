@@ -50,7 +50,7 @@ public class IdentityHandlerStub implements IdentityHandler {
     }
 
     public int generateHashCode(final Object object) {
-        throw new RuntimeException("UnImplemented, this class is a stub and doesn't implement unneeded methods");
+        return System.identityHashCode(object);
     }
 
     public boolean handlerFor(final Object object) {
