@@ -17,24 +17,20 @@
 
 package com.openpojo.random.service.impl;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
+import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
+import com.openpojo.reflection.Parameterizable;
 
 /**
  * @author oshoukry
  */
 public class DefaultRandomGeneratorService implements RandomGeneratorService {
     private final Map<Class<?>, RandomGenerator> concreteRandomGenerator = new HashMap<Class<?>, RandomGenerator>();
+    private final Map<Class<?>, ParameterizableRandomGenerator> concreteParameterizableRandomGenerators = new HashMap<Class<?>,
+            ParameterizableRandomGenerator>();
     private RandomGenerator defaultRandomGenerator;
     private static final Random RANDOM = new Random(new Date().getTime());
 
@@ -45,6 +41,8 @@ public class DefaultRandomGeneratorService implements RandomGeneratorService {
     public void registerRandomGenerator(final RandomGenerator randomGenerator) {
         for (final Class<?> type : randomGenerator.getTypes()) {
             concreteRandomGenerator.put(type, randomGenerator);
+            if (randomGenerator instanceof ParameterizableRandomGenerator)
+                concreteParameterizableRandomGenerators.put(type, (ParameterizableRandomGenerator)randomGenerator);
         }
     }
 
@@ -57,15 +55,28 @@ public class DefaultRandomGeneratorService implements RandomGeneratorService {
     }
 
     public RandomGenerator getRandomGeneratorByType(final Class<?> type) {
-        RandomGenerator appropriateRandomGenerator = concreteRandomGenerator.get(type);
+        return getAppropriateRandomGenerator(type, concreteRandomGenerator);
+    }
+
+    public RandomGenerator getRandomGeneratorByParameterizable(Parameterizable type) {
+        if (!type.isParameterized())
+            return getAppropriateRandomGenerator(type.getType(), concreteRandomGenerator);
+
+        return getAppropriateRandomGenerator(type.getType(), concreteParameterizableRandomGenerators);
+    }
+
+    @SuppressWarnings("unchecked")
+    private RandomGenerator getAppropriateRandomGenerator(Class<?> type, Map
+            randomGenerators) {
+        RandomGenerator appropriateRandomGenerator = (RandomGenerator) randomGenerators.get(type);
         if (appropriateRandomGenerator == null) {
-            final List<Class<?>> assignableTypes = getAssignableTypesForType(type, concreteRandomGenerator.keySet());
+            final List assignableTypes = getAssignableTypesForType(type, randomGenerators.keySet());
             if (assignableTypes.size() == 0) {
                 appropriateRandomGenerator = getDefaultRandomGenerator();
             } else {
-                final Class<?> adaptToType = assignableTypes.get(RANDOM.nextInt(assignableTypes.size()));
+                final Class<?> adaptToType = (Class<?>) assignableTypes.get(RANDOM.nextInt(assignableTypes.size()));
                 appropriateRandomGenerator = new RandomGeneratorAdapter(type, adaptToType,
-                                                                        concreteRandomGenerator.get(adaptToType));
+                        (RandomGenerator)randomGenerators.get(adaptToType));
             }
         }
         return appropriateRandomGenerator;

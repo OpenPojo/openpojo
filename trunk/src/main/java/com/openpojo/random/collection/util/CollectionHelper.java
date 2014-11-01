@@ -17,6 +17,7 @@
 
 package com.openpojo.random.collection.util;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
@@ -25,6 +26,7 @@ import java.util.concurrent.Delayed;
 import java.util.concurrent.SynchronousQueue;
 
 import com.openpojo.random.RandomFactory;
+import com.openpojo.random.collection.type.Resolver;
 
 /**
  * This Helper class populates the randomly generated collection with some random elements.<br>
@@ -35,21 +37,28 @@ import com.openpojo.random.RandomFactory;
 public class CollectionHelper {
 
     private static final Random RANDOM = new Random(new Date().getTime());
-    private static final int MAX_RANDOM_ELEMENTS = 10;
+    private static final int MAX_RANDOM_ELEMENTS = 5;
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static void populateWithRandomData(Collection collection) {
-        for (int count = 0; count < RANDOM.nextInt(MAX_RANDOM_ELEMENTS + 1); count++) {
-            if (collection.getClass() == SynchronousQueue.class) {
-                // You can't add to a SynchronousQueue
-                return;
-            }
-            if (collection.getClass() == DelayQueue.class) {
-                collection.add(RandomFactory.getRandomValue(Delayed.class));
-            } else {
-                collection.add(RANDOM.nextInt());
+    @SuppressWarnings("unchecked")
+    public static Collection buildCollections(Collection collection, Type type) {
+        if (type == null || collection == null) return collection;
+
+        if (collection.getClass() == SynchronousQueue.class) return collection;
+
+        if (DelayQueue.class.isAssignableFrom(collection.getClass()) && !(Delayed.class.isAssignableFrom((Class) type)))
+            type = Delayed.class;
+
+        int counter = RANDOM.nextInt(MAX_RANDOM_ELEMENTS) + 1;
+
+        collection.clear();
+        while (counter-- > 0) {
+            Object nextEntry = RandomFactory.getRandomValue((Class) Resolver.getEnclosingType(type));
+            collection.add(nextEntry);
+            if (Collection.class.isAssignableFrom(nextEntry.getClass())) {
+                Type enclosedType = Resolver.getEnclosedType(type);
+                buildCollections((Collection) nextEntry, enclosedType);
             }
         }
-
+        return collection;
     }
 }

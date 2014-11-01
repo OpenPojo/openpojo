@@ -22,6 +22,7 @@ import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.thread.GeneratedRandomValues;
+import com.openpojo.reflection.Parameterizable;
 import com.openpojo.registry.ServiceRegistrar;
 
 /**
@@ -98,6 +99,20 @@ public class RandomFactory {
         } finally {
             GeneratedRandomValues.remove(type);
         }
+    }
+
+    public static Object getRandomValue(final Parameterizable parameterizable) {
+        if (!parameterizable.isParameterized())
+            return getRandomValue(parameterizable.getType());
+
+        RandomGenerator randomGenerator = getRandomGeneratorService().getRandomGeneratorByParameterizable(parameterizable);
+        if (randomGenerator instanceof ParameterizableRandomGenerator) {
+            return ((ParameterizableRandomGenerator)randomGenerator).doGenerate(parameterizable);
+        }
+
+        logger.warn("No ParametrizableRandomGenerator implementation found for parameterized type [" + parameterizable + "] " +
+                "creating non-parameterized instance ");
+        return getRandomValue(parameterizable.getType());
     }
 
     private static RandomGeneratorService getRandomGeneratorService() {
