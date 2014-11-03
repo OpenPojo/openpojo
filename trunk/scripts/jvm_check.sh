@@ -17,6 +17,8 @@ function switch_jdk() {
 LOGFILE=$0.vm.log
 
 switch_jdk 1.6
+
+pushd ../
 mvn clean package > $LOGFILE 2>&1
 tail $LOGFILE
 
@@ -30,3 +32,5 @@ tail $LOGFILE
 
 mvn clean
 rm -rf $LOGFILE
+
+popd
