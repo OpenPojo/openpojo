@@ -38,7 +38,7 @@ public class PojoValidator {
      * Add Rule to use for validation.
      *
      * @param rule
-     *            The rule to Add.
+     *         The rule to Add.
      */
     public void addRule(final Rule rule) {
         rules.add(rule);
@@ -48,7 +48,7 @@ public class PojoValidator {
      * Add Tester to use for validation.
      *
      * @param tester
-     *            The Tester to Add.
+     *         The Tester to Add.
      */
     public void addTester(final Tester tester) {
 
@@ -59,20 +59,27 @@ public class PojoValidator {
      * Run the validation, this will invoke all the rule.evaluate as well as tester.run.
      *
      * @param pojoClass
-     *            The PojoClass to validate.
+     *         The PojoClass to validate.
      */
     public void runValidation(final PojoClass pojoClass) {
+        if (pojoClass.isSynthetic()) {
+            logger.warn("Attempt to validate synthetic class=[{0}] ignored," + " consider using FilterSynthetic class when calling " +
+                    "PojoClassFactory", pojoClass.getClazz());
+            return;
+        }
+
         for (final Rule rule : rules) {
             rule.evaluate(pojoClass);
         }
 
         if (!pojoClass.isConcrete()) {
             logger.warn("Attempt to execute behavioural test on non-concrete class=[{0}] ignored,"
-                    + " consider using FilterNonConcrete class when calling PojoClassFactory", pojoClass);
-        } else {
-            for (final Tester tester : testers) {
-                tester.run(pojoClass);
-            }
+                    + " consider using FilterNonConcrete class when calling PojoClassFactory", pojoClass.getClazz());
+            return;
+        }
+
+        for (final Tester tester : testers) {
+            tester.run(pojoClass);
         }
     }
 

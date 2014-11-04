@@ -121,7 +121,7 @@ public class PojoValidatorTest {
         }
 
         public boolean isSynthetic() {
-            throw new IllegalStateException("Unimplemented!!");
+            return false;
         }
 
         public List<PojoField> getPojoFields() {
@@ -149,7 +149,7 @@ public class PojoValidatorTest {
         }
 
         public Class<?> getClazz() {
-            throw new IllegalStateException("Unimplemented!!");
+            return this.getClass();
         }
 
         public boolean isNestedClass() {
