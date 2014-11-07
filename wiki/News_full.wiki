@@ -1,6 +1,11 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2014-11-06:*
+  * OpenPojo-0.6.2 released download using Maven or from http://bit.ly/1oiDOun
+    * Fixed
+      # Issue 43 - Filesystem class discovery was running into issues with spaces (%20).  (Thanks to J.Karlsson & L.Osiatis)
+      # Issue 46 - Running PojoValidator on Synthetic classes throw Null Pointer in InstanceFactory.createInstance.  (Thanks to stumc68).
  * *2014-11-01:*
   * OpenPojo-0.6.1 released download using Maven or from http://bit.ly/1oiDOun
     * Added
