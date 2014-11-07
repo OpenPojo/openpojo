@@ -27,7 +27,7 @@ import com.openpojo.reflection.exception.ReflectionException;
 /**
 * @author oshoukry
 */
-class URLToFileSystemAdapter {
+public class URLToFileSystemAdapter {
     private final String protocol;
     private final String authority;
     private final String host;
@@ -37,6 +37,9 @@ class URLToFileSystemAdapter {
     private final int port;
 
     public URLToFileSystemAdapter(final URL url) {
+        if (url == null)
+            throw ReflectionException.getInstance("Null URL not allowed");
+
         this.protocol = url.getProtocol();
         if (url.getAuthority() != null && url.getAuthority().length() > 0)
             this.authority = url.getAuthority();
@@ -46,7 +49,7 @@ class URLToFileSystemAdapter {
         this.ref = url.getRef();
         this.query = url.getQuery();
         this.port = url.getPort();
-        this.path = url.getPath();
+        this.path = decodeString(url.getPath());
     }
 
     public URI getAsURI() {
@@ -66,5 +69,22 @@ class URLToFileSystemAdapter {
         if (uri.getAuthority() != null) directory = new File("//" + uri.getAuthority() + uri.getPath());
         else directory = new File(uri.getPath());
         return directory;
+    }
+
+    private static String decodeString(String path) {
+
+        int pos = 0;
+        StringBuilder decodedString = new StringBuilder(path.length());
+        while (pos < path.length()) {
+            char ch = path.charAt(pos);
+            if (ch == '%' && pos + 2 < path.length()) {
+                String hexStr = path.substring(pos + 1, pos + 3);
+                pos += 2;
+                ch = (char)Integer.parseInt(hexStr, 16);
+            }
+            decodedString.append(ch);
+            pos++;
+        }
+        return decodedString.toString();
     }
 }
