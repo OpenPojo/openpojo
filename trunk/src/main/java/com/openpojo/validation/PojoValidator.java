@@ -63,8 +63,8 @@ public class PojoValidator {
      */
     public void runValidation(final PojoClass pojoClass) {
         if (pojoClass.isSynthetic()) {
-            logger.warn("Attempt to validate synthetic class=[{0}] ignored," + " consider using FilterSynthetic class when calling " +
-                    "PojoClassFactory", pojoClass.getClazz());
+            logger.warn("Attempt to validate synthetic class=[{0}] ignored," + " consider using FilterSyntheticClasses filter when " +
+                    "calling PojoClassFactory", pojoClass.getClazz());
             return;
         }
 
@@ -74,7 +74,7 @@ public class PojoValidator {
 
         if (!pojoClass.isConcrete()) {
             logger.warn("Attempt to execute behavioural test on non-concrete class=[{0}] ignored,"
-                    + " consider using FilterNonConcrete class when calling PojoClassFactory", pojoClass.getClazz());
+                    + " consider using FilterNonConcrete filter when calling PojoClassFactory", pojoClass.getClazz());
             return;
         }
 
