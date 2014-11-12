@@ -46,7 +46,7 @@ public class GetterTester implements Tester {
 
                 IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
 
-                LoggerFactory.getLogger(this.getClass()).info("Testing Field [{0}] with value [{1}]", fieldEntry, value);
+                LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]", fieldEntry, value);
 
                 Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value,
                                     fieldEntry.invokeGetter(classInstance));
