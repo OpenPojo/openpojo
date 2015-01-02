@@ -25,7 +25,6 @@ import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -72,31 +71,17 @@ public class TestExceptions {
             if (getInstance.getName().equals("getInstance")) {
                 if (getInstance.getParameterTypes().length == 1) {
                     final Throwable instance = (Throwable) getInstance.invoke(null, someMessage);
-                    Affirm.affirmEquals(String.format("Message changed in Exception[%s] using getInstance(String)?!",
-                                                      pojoExceptionClass), someMessage, instance.getMessage());
+                    Affirm.affirmEquals(String.format("Message changed in Exception[%s] using getInstance(String)?!", pojoExceptionClass), someMessage, instance.getMessage());
                 }
 
                 if (getInstance.getParameterTypes().length == 2) {
                     final Throwable instance = (Throwable) getInstance.invoke(null, someMessage, cause);
-                    Affirm.affirmEquals(String.format("Message changed in Exception[%s] using getInstance(String, Throwable)?!",
-                                                      pojoExceptionClass), someMessage, instance.getMessage());
-                    Affirm.affirmEquals(String.format("Cause changed in Exception[%s] using getInstance(String, Throwable)?!",
-                                                      pojoExceptionClass), cause, instance.getCause());
+                    Affirm.affirmEquals(String.format("Message changed in Exception[%s] using getInstance(String, Throwable)?!", pojoExceptionClass), someMessage, instance.getMessage());
+                    Affirm.affirmEquals(String.format("Cause changed in Exception[%s] using getInstance(String, Throwable)?!", pojoExceptionClass), cause, instance.getCause());
                 }
                 getInstanceCount++;
             }
         }
-        Affirm.affirmEquals(String.format("getInstance methods not in line with constructors count for Exception [%s]",
-                                          pojoExceptionClass), pojoExceptionClass.getPojoConstructors().size(),
-                            getInstanceCount);
+        Affirm.affirmEquals(String.format("getInstance methods not in line with constructors count for Exception [%s]", pojoExceptionClass), pojoExceptionClass.getPojoConstructors().size(), getInstanceCount);
     }
-
-    @Test
-    @Ignore
-    public void debugExceptions() {
-        for (final PojoClass pojoExceptionClass : pojoExceptionClasses) {
-            System.out.println(pojoExceptionClass.getSourcePath() + ": " + pojoExceptionClass.getClazz().getName());
-        }
-    }
-
 }
