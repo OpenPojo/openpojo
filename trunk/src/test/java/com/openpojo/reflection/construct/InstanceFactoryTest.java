@@ -152,4 +152,22 @@ public class InstanceFactoryTest {
             Assert.assertNotNull(child.getName());
         }
     }
+
+    @Test
+    public void shouldCreateObjectWithMultipleTypeVariableTypes() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithMultipleTypeVariablesGenericConstructor.class);
+        AClassWithMultipleTypeVariablesGenericConstructor instance = (AClassWithMultipleTypeVariablesGenericConstructor) InstanceFactory
+                .getMostCompleteInstance(pojoClass);
+
+        Assert.assertNotNull(instance);
+
+        Assert.assertNotNull(instance.getMyV());
+        Assert.assertEquals(instance.getMyV().getClass(), Object.class);
+        Assert.assertNotNull(instance.getMyK());
+        Assert.assertEquals(instance.getMyK().getClass(), Object.class);
+
+        Assert.assertNotNull(instance.getMyT());
+        Assert.assertTrue(CharSequence.class.isAssignableFrom(instance.getMyT().getClass()));
+
+    }
 }
