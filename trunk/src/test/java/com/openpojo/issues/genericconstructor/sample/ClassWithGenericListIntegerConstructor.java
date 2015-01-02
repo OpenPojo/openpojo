@@ -22,7 +22,26 @@ import java.util.Map;
 
 
 public class ClassWithGenericListIntegerConstructor {
+    private final List<List<Integer>> integers;
+    private final Map<String, Integer> mymap;
+    private final String string;
+
     public ClassWithGenericListIntegerConstructor(final List<List<Integer>> integers, final Map<String, Integer> mymap, final String string) {
+        this.integers = integers;
+        this.mymap = mymap;
+        this.string = string;
     }
 
+    public List<List<Integer>> getIntegers() {
+        return integers;
+    }
+
+    public Map<String, Integer> getMymap() {
+
+        return mymap;
+    }
+
+    public String getString() {
+        return string;
+    }
 }
