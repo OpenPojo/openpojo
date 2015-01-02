@@ -24,10 +24,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.PojoParameter;
 import com.openpojo.reflection.exception.ReflectionException;
 
 /**
@@ -92,6 +94,33 @@ public class PojoMethodImpl implements PojoMethod {
         } catch (final InvocationTargetException e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
         }
+    }
+
+    public List<PojoParameter> getPojoParameters() {
+        List<PojoParameter> parameters = new ArrayList<PojoParameter>();
+
+        Annotation[][] parameterAnnotations;
+        Type [] parameterTypes;
+        Class<?>[] parameterClasses;
+
+        if (isConstructor()) {
+            parameterAnnotations = getAsConstructor().getParameterAnnotations();
+            parameterTypes = getAsConstructor().getGenericParameterTypes();
+            parameterClasses = getAsConstructor().getParameterTypes();
+        } else {
+            parameterAnnotations = getAsMethod().getParameterAnnotations();
+            parameterTypes = getAsMethod().getGenericParameterTypes();
+            parameterClasses = getAsMethod().getParameterTypes();
+        }
+
+        // If parameters aren't of Generic type, then default their types to the class params.
+        if (parameterTypes.length == 0) parameterTypes = parameterClasses;
+
+        for (int idx = 0; idx < parameterClasses.length; idx ++) {
+            parameters.add(PojoParameterFactory.getPojoParameter(parameterTypes[idx], parameterAnnotations[idx]));
+        }
+
+        return parameters;
     }
 
     public boolean isFinal() {
@@ -161,11 +190,6 @@ public class PojoMethodImpl implements PojoMethod {
         return (Constructor<?>) accessibleObject;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         final String tag = isConstructor() ? "constructor" : "method";

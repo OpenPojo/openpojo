@@ -18,18 +18,8 @@
 package com.openpojo.reflection;
 
 /**
- * This is the parent interface for all wrapped types.
- * 
  * @author oshoukry
  */
-public interface PojoElement extends Annotatable {
-
-    /**
-     * Get the name of the element.
-     * 
-     * @return
-     *         Return the name of the package, class, field... etc.
-     */
-    public String getName();
+public interface PojoParameter extends Parameterizable, Annotatable {
 
 }

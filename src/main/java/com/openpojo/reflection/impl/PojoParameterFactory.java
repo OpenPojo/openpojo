@@ -15,21 +15,18 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.reflection;
+package com.openpojo.reflection.impl;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+
+import com.openpojo.reflection.PojoParameter;
 
 /**
- * This is the parent interface for all wrapped types.
- * 
  * @author oshoukry
  */
-public interface PojoElement extends Annotatable {
-
-    /**
-     * Get the name of the element.
-     * 
-     * @return
-     *         Return the name of the package, class, field... etc.
-     */
-    public String getName();
-
+public final class PojoParameterFactory {
+    public static PojoParameter getPojoParameter(Type type, Annotation[] annotations) {
+        return new PojoParameterImpl(type, annotations);
+    }
 }

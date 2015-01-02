@@ -17,21 +17,18 @@
 
 package com.openpojo.reflection.construct;
 
-import com.openpojo.reflection.construct.sampleclasses.ClassWithSyntheticConstructor;
-import org.junit.Assert;
-import org.junit.Test;
+import java.util.List;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.construct.sampleclasses.ClassWithInterfaceBasedConstructor;
-import com.openpojo.reflection.construct.sampleclasses.ClassWithLessThanGreaterThanConstructors;
-import com.openpojo.reflection.construct.sampleclasses.ClassWithNativeTypesConstructor;
-import com.openpojo.reflection.construct.sampleclasses.ClassWithNoDeclaredConstructor;
-import com.openpojo.reflection.construct.sampleclasses.ClassWithVariousDeclaredContructorsAndMethods;
-import com.openpojo.reflection.construct.sampleclasses.SomeEnum;
+import com.openpojo.reflection.construct.sampleclasses.*;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Assert;
+import org.junit.Test;
+
+import static org.hamcrest.Matchers.greaterThan;
 
 /**
  * @author oshoukry
@@ -44,7 +41,7 @@ public class InstanceFactoryTest {
         final Object obj1 = getInstance(clazz, (Object[]) null);
         Affirm.affirmNotNull("Should have created an object", obj1);
 
-        final Object obj2 = getInstance(clazz, new Object[] {});
+        final Object obj2 = getInstance(clazz, new Object[] { });
         Affirm.affirmTrue("Should have created a different object", obj1 != obj2);
     }
 
@@ -53,7 +50,7 @@ public class InstanceFactoryTest {
         final Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
         final String stringParam = RandomFactory.getRandomValue(String.class);
         final ClassWithVariousDeclaredContructorsAndMethods obj1 = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(clazz,
-                                                                                                                         stringParam);
+                stringParam);
         Affirm.affirmNotNull("Should have created using String constructor", obj1);
         Affirm.affirmEquals("Incorrect constructor used", stringParam, obj1.singleStringConstructor);
     }
@@ -63,14 +60,11 @@ public class InstanceFactoryTest {
         final Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
         final String stringParam = RandomFactory.getRandomValue(String.class);
         final ClassWithVariousDeclaredContructorsAndMethods obj = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(clazz,
-                                                                                                                        new Object[] {
-                                                                                                                                stringParam,
-                                                                                                                                null });
+                new Object[] { stringParam, null });
 
         Affirm.affirmNotNull("Should have created using two parameter constructor", obj);
         Affirm.affirmNull("Should have called using two parameter constructor", obj.doubleIntegerConstructor);
-        Affirm.affirmEquals("Should have called using two parameter constructor", stringParam,
-                            obj.doubleStringConstructor);
+        Affirm.affirmEquals("Should have called using two parameter constructor", stringParam, obj.doubleStringConstructor);
     }
 
     @Test(expected = ReflectionException.class)
@@ -99,7 +93,7 @@ public class InstanceFactoryTest {
         final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithLessThanGreaterThanConstructors.class);
         final ClassWithLessThanGreaterThanConstructors instance = (ClassWithLessThanGreaterThanConstructors) InstanceFactory.getLeastCompleteInstance(pojoClass);
         Affirm.affirmEquals("Should've used constructor with single Parameter", 1,
-                            instance.getParameterCountUsedForConstruction());
+                instance.getParameterCountUsedForConstruction());
     }
 
     @Test
@@ -107,7 +101,7 @@ public class InstanceFactoryTest {
         final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithLessThanGreaterThanConstructors.class);
         final ClassWithLessThanGreaterThanConstructors instance = (ClassWithLessThanGreaterThanConstructors) InstanceFactory.getMostCompleteInstance(pojoClass);
         Affirm.affirmEquals("Should've used constructor with single Parameter", 3,
-                            instance.getParameterCountUsedForConstruction());
+                instance.getParameterCountUsedForConstruction());
     }
 
     @Test
@@ -140,5 +134,22 @@ public class InstanceFactoryTest {
     public void shouldSkipSyntheticConstructor() {
         final PojoClass classWithStaticConstructorPojo = PojoClassFactory.getPojoClass(ClassWithSyntheticConstructor.class);
         Assert.assertNotNull(InstanceFactory.getMostCompleteInstance(classWithStaticConstructorPojo));
+    }
+
+    @Test
+    public void shouldConstructAClassWithGenericConstructor() {
+        final PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithGenericConstructor.class);
+        AClassWithGenericConstructor aClassWithGenericConstructor = (AClassWithGenericConstructor) InstanceFactory
+                .getLeastCompleteInstance(pojoClass);
+        Assert.assertNotNull(aClassWithGenericConstructor);
+
+        List<AClassWithGenericConstructor.Child> children = aClassWithGenericConstructor.getMyChildren();
+
+        Assert.assertThat(children.size(), greaterThan(0));
+
+        for (AClassWithGenericConstructor.Child child : children) {
+            Assert.assertNotNull(child);
+            Assert.assertNotNull(child.getName());
+        }
     }
 }

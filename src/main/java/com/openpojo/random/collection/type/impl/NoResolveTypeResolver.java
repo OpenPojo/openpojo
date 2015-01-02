@@ -27,7 +27,7 @@ import com.openpojo.random.collection.type.TypeResolver;
 public class NoResolveTypeResolver implements TypeResolver<Type> {
 
     public Type getEnclosingType(Type type) {
-        return resolveType(type);
+        return type;
     }
 
     public Type getEnclosedType(Type type) {
@@ -36,5 +36,9 @@ public class NoResolveTypeResolver implements TypeResolver<Type> {
 
     public Type resolveType(Type type) {
         return type;
+    }
+
+    public Type[] getParameterTypes(Type type) {
+        return new Type[] { type };
     }
 }

@@ -15,21 +15,33 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.reflection;
+package com.openpojo.reflection.construct.sampleclasses;
+
+import java.util.List;
 
 /**
- * This is the parent interface for all wrapped types.
- * 
  * @author oshoukry
  */
-public interface PojoElement extends Annotatable {
+public class AClassWithGenericConstructor {
+    private final List<Child> myChildren;
 
-    /**
-     * Get the name of the element.
-     * 
-     * @return
-     *         Return the name of the package, class, field... etc.
-     */
-    public String getName();
+    public AClassWithGenericConstructor(final List<Child> myChildren) {
+        this.myChildren = myChildren;
+    }
 
+    public List<Child> getMyChildren() {
+        return myChildren;
+    }
+
+    public static class Child {
+        private final String name;
+
+        public Child(final String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 }

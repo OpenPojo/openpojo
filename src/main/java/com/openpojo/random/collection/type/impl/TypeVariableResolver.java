@@ -15,21 +15,31 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.reflection;
+package com.openpojo.random.collection.type.impl;
+
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+
+import com.openpojo.random.collection.type.TypeResolver;
 
 /**
- * This is the parent interface for all wrapped types.
- * 
  * @author oshoukry
  */
-public interface PojoElement extends Annotatable {
+public class TypeVariableResolver implements TypeResolver<TypeVariable> {
 
-    /**
-     * Get the name of the element.
-     * 
-     * @return
-     *         Return the name of the package, class, field... etc.
-     */
-    public String getName();
+    public Type resolveType(TypeVariable type) {
+        return type.getBounds()[0];
+    }
 
+    public Type getEnclosingType(TypeVariable type) {
+        return type.getBounds()[0];
+    }
+
+    public Type getEnclosedType(TypeVariable type) {
+        return null;
+    }
+
+    public Type[] getParameterTypes(TypeVariable type) {
+        return type.getBounds();
+    }
 }

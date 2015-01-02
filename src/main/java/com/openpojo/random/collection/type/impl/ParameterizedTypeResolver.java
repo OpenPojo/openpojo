@@ -44,4 +44,8 @@ public class ParameterizedTypeResolver implements TypeResolver<ParameterizedType
     public Type resolveType(ParameterizedType type) {
         return type.getRawType();
     }
+
+    public Type[] getParameterTypes(ParameterizedType type) {
+        return type.getActualTypeArguments();
+    }
 }
