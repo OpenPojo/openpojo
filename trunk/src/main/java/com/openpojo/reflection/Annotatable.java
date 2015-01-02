@@ -17,19 +17,30 @@
 
 package com.openpojo.reflection;
 
+import java.lang.annotation.Annotation;
+import java.util.List;
+
 /**
- * This is the parent interface for all wrapped types.
- * 
  * @author oshoukry
  */
-public interface PojoElement extends Annotatable {
+public interface Annotatable {
+    /**
+     * Get all annotations defined on element.
+     *
+     * @return
+     *         Get Annotations
+     */
+    List<? extends Annotation> getAnnotations();
 
     /**
-     * Get the name of the element.
-     * 
+     * Get specified instance of an annotation defined on element.
+     *
+     * @param <T>
+     *            Class Type of annotation.
+     * @param annotationClass
+     *            The annotation class.
      * @return
-     *         Return the name of the package, class, field... etc.
+     *         The definition of this annotation on the PojoField.
      */
-    public String getName();
-
+    <T extends Annotation> T getAnnotation(Class<T> annotationClass);
 }

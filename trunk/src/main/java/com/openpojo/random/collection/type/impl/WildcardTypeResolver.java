@@ -44,15 +44,14 @@ public class WildcardTypeResolver implements TypeResolver<WildcardType> {
 
         ensureAValidBoundryExists(lowerBounds, upperBounds);
 
-        Type compatibleType = getBound(lowerBounds);
-        if (compatibleType == null) compatibleType = getBound(upperBounds);
-
-        return compatibleType;
+        return getParameterTypes(wildcardType)[0];
     }
 
-    private Class<?> getBound(Type[] bounds) {
-        if (bounds == null || bounds.length == 0) return null;
-        return (Class<?>)bounds[0];
+    public Type[] getParameterTypes(WildcardType wildcardType) {
+        Type[] bounds = wildcardType.getLowerBounds();
+        if (bounds == null || bounds.length == 0)
+            return wildcardType.getUpperBounds();
+        return bounds;
     }
 
     private void ensureAValidBoundryExists(Type[] lowerBounds, Type[] upperBounds) {
@@ -60,4 +59,6 @@ public class WildcardTypeResolver implements TypeResolver<WildcardType> {
             throw ReflectionException.getInstance("Unable to identitfy proper resolution for type, " +
                     "multiple UpperBounds[" + Arrays.toString(upperBounds) + "] Or LowerBounds[" + Arrays.toString(lowerBounds) + "]");
     }
+
+
 }

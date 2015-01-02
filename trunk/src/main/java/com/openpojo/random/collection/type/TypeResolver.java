@@ -28,4 +28,5 @@ public interface TypeResolver<T extends Type> {
     Type getEnclosingType(T type);
     Type getEnclosedType(T type);
 
+    Type [] getParameterTypes(T type);
 }

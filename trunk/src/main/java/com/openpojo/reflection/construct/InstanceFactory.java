@@ -23,6 +23,7 @@ import java.util.List;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.PojoParameter;
 import com.openpojo.reflection.construct.utils.ArrayLengthBasedComparator;
 import com.openpojo.reflection.construct.utils.GreaterThan;
 import com.openpojo.reflection.construct.utils.LessThan;
@@ -76,7 +77,7 @@ public class InstanceFactory {
             }
         }
         throw ReflectionException.getInstance(String.format("No matching constructor for [%s] found using parameters[%s]",
-                                                            pojoClass.getClazz(), Arrays.toString(getTypes(parameters))));
+                pojoClass.getClazz(), Arrays.toString(getTypes(parameters))));
     }
 
     /**
@@ -198,26 +199,29 @@ public class InstanceFactory {
 
     private static Object createInstance(final PojoClass pojoClass, final PojoMethod constructor) {
 
-        final Class<?>[] parameterTypes = constructor.getParameterTypes();
-        final Object[] parameters = new Object[parameterTypes.length];
-        for (int i = 0; i < parameterTypes.length; i++) {
-            parameters[i] = RandomFactory.getRandomValue(parameterTypes[i]);
-        }
-        return getInstance(pojoClass, parameters);
+        List<PojoParameter> pojoParameterTypes = constructor.getPojoParameters();
 
+        final Object[] parameters = new Object[pojoParameterTypes.size()];
+
+        for (int i = 0; i < pojoParameterTypes.size(); i++) {
+            PojoParameter p = pojoParameterTypes.get(i);
+            parameters[i] = RandomFactory.getRandomValue(pojoParameterTypes.get(i));
+        }
+
+        return getInstance(pojoClass, parameters);
     }
 
     private static PojoMethod getConstructorByCriteria(final PojoClass pojoClass,
-            final ArrayLengthBasedComparator comparator) {
+                                                       final ArrayLengthBasedComparator comparator) {
         PojoMethod constructor = null;
         for (final PojoMethod pojoConstructor : pojoClass.getPojoConstructors()) {
             if (!pojoConstructor.isSynthetic())
                 if (constructor == null)
                     constructor = pojoConstructor;
-                else {
-                    if (comparator.compare(pojoConstructor.getParameterTypes(), constructor.getParameterTypes()))
-                        constructor = pojoConstructor;
-                }
+            else {
+                if (comparator.compare(pojoConstructor.getParameterTypes(), constructor.getParameterTypes()))
+                    constructor = pojoConstructor;
+            }
         }
         return constructor;
     }

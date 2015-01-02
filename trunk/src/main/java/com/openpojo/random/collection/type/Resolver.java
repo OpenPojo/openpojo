@@ -19,10 +19,12 @@ package com.openpojo.random.collection.type;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 
 import com.openpojo.random.collection.type.impl.NoResolveTypeResolver;
 import com.openpojo.random.collection.type.impl.ParameterizedTypeResolver;
+import com.openpojo.random.collection.type.impl.TypeVariableResolver;
 import com.openpojo.random.collection.type.impl.WildcardTypeResolver;
 
 /**
@@ -31,6 +33,7 @@ import com.openpojo.random.collection.type.impl.WildcardTypeResolver;
 public class Resolver {
     private static final WildcardTypeResolver WILDCARD_TYPE_RESOLVER = new WildcardTypeResolver();
     private static final ParameterizedTypeResolver PARAMETERIZED_TYPE_RESOLVER = new ParameterizedTypeResolver();
+    private static final TypeVariableResolver TYPE_VARIABLE_RESOLVER = new TypeVariableResolver();
     private static final NoResolveTypeResolver NO_RESOLVE_TYPE_RESOLVER = new NoResolveTypeResolver();
 
     @SuppressWarnings("unchecked")
@@ -48,11 +51,18 @@ public class Resolver {
         return getTypeResolver(type).getEnclosedType(type);
     }
 
+    @SuppressWarnings("unchecked")
+    public static Type[] getParameterTypes(Type type) {
+        return getTypeResolver(type).getParameterTypes(type);
+    }
+
     private static <T> TypeResolver getTypeResolver(T type) {
         if (type instanceof WildcardType)
             return WILDCARD_TYPE_RESOLVER;
         if (type instanceof ParameterizedType)
             return PARAMETERIZED_TYPE_RESOLVER;
+        if (type instanceof TypeVariable)
+            return TYPE_VARIABLE_RESOLVER;
         return NO_RESOLVE_TYPE_RESOLVER;
     }
 }

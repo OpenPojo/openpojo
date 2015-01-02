@@ -19,6 +19,7 @@ package com.openpojo.reflection;
 
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * This class encapsulates the meta data definition of a method on a class.
@@ -53,6 +54,16 @@ public interface PojoMethod extends PojoElement {
      * @return Value returned by the underlying method.
      */
     public Object invoke(final Object instance, final Object... parameters);
+
+
+    /**
+     * Get method parameters as PojoParameters.
+     * If method doesn't have any parameters an empty list is returned.
+     *
+     * @return
+     *      a List of PojoParameters.
+     */
+    public List<PojoParameter> getPojoParameters();
 
     /**
      * Get the method parameters.
