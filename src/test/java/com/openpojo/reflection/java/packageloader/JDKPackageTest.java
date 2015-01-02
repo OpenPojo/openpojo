@@ -19,7 +19,6 @@ package com.openpojo.reflection.java.packageloader;
 
 import java.lang.reflect.Type;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -27,13 +26,6 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class JDKPackageTest {
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     @Ignore
