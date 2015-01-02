@@ -22,7 +22,6 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.Enumeration;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -31,18 +30,6 @@ import org.junit.Test;
  */
 public class FilePackageLoaderTest {
 
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    /**
-     * Test method for {@link com.openpojo.reflection.java.packageloader.impl.FilePackageLoader#getTypes()}.
-     *
-     * @throws IOException
-     */
     @Test
     @Ignore
     public final void testGetTypes() throws IOException {
