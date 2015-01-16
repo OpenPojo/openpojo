@@ -79,7 +79,8 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
     public Object doGenerate(Parameterizable parameterizedType) {
         Queue returnedQueue = (Queue) RandomFactory.getRandomValue(parameterizedType.getType());
         returnedQueue.clear();
-        return CollectionHelper.buildCollections(returnedQueue, parameterizedType.getParameterTypes().get(0));
+        CollectionHelper.buildCollections(returnedQueue, parameterizedType.getParameterTypes().get(0));
+        return returnedQueue;
     }
 
     public Collection<Class<?>> getTypes() {
