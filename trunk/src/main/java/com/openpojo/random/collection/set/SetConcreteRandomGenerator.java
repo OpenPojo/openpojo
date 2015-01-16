@@ -72,8 +72,8 @@ public final class SetConcreteRandomGenerator implements ParameterizableRandomGe
 
     public Object doGenerate(Parameterizable parameterizedType) {
         Set initialSet = new HashSet();
-
-        return CollectionHelper.buildCollections(initialSet, parameterizedType.getParameterTypes().get(0));
+        CollectionHelper.buildCollections(initialSet, parameterizedType.getParameterTypes().get(0));
+        return initialSet;
     }
 
     private static class Instance {

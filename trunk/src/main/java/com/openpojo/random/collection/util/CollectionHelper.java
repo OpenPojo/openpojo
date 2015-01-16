@@ -40,10 +40,10 @@ public class CollectionHelper {
     private static final int MAX_RANDOM_ELEMENTS = 5;
 
     @SuppressWarnings("unchecked")
-    public static Collection buildCollections(Collection collection, Type type) {
-        if (type == null || collection == null) return collection;
+    public static void buildCollections(Collection collection, Type type) {
+        if (type == null || collection == null) return;
 
-        if (collection.getClass() == SynchronousQueue.class) return collection;
+        if (collection.getClass() == SynchronousQueue.class) return;
 
         if (DelayQueue.class.isAssignableFrom(collection.getClass()) && !(Delayed.class.isAssignableFrom((Class) type)))
             type = Delayed.class;
@@ -59,6 +59,5 @@ public class CollectionHelper {
                 buildCollections((Collection) nextEntry, enclosedType);
             }
         }
-        return collection;
     }
 }

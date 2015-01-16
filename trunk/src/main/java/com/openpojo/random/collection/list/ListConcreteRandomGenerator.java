@@ -71,7 +71,8 @@ public final class ListConcreteRandomGenerator implements ParameterizableRandomG
     public Object doGenerate(Parameterizable parameterizedType) {
         List returnedList = (List) RandomFactory.getRandomValue(parameterizedType.getType());
         returnedList.clear();
-        return CollectionHelper.buildCollections(returnedList, parameterizedType.getParameterTypes().get(0));
+        CollectionHelper.buildCollections(returnedList, parameterizedType.getParameterTypes().get(0));
+        return returnedList;
     }
 
     private static class Instance {
