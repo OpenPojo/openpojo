@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.openpojo.random.collection.type.Resolver;
+import com.openpojo.reflection.java.type.Resolver;
 import com.openpojo.reflection.PojoParameter;
 
 /**
@@ -37,12 +37,12 @@ public class PojoParameterImpl implements PojoParameter {
 
     public PojoParameterImpl(Type type, Annotation[] annotations) {
         this.type = type;
+
         if (annotations == null) {
             this.annotations = Collections.EMPTY_LIST;
         } else {
             this.annotations = Collections.unmodifiableList(Arrays.asList(annotations));
         }
-
     }
 
     public List<? extends Annotation> getAnnotations() {
@@ -63,10 +63,15 @@ public class PojoParameterImpl implements PojoParameter {
     }
 
     public boolean isParameterized() {
-        return (type instanceof ParameterizedType);//TODO: Need to handle WildcardType as well... || type instanceof WildcardType);
+        return (type instanceof ParameterizedType);
     }
 
     public List<Type> getParameterTypes() {
         return Arrays.asList(Resolver.getParameterTypes(type));
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s [@%s: Type=%s, Annotations=%s]", this.getClass().getName(), this.hashCode(), type, annotations );
     }
 }
