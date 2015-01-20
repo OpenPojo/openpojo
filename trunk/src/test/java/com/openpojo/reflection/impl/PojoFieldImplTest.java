@@ -73,7 +73,7 @@ public class PojoFieldImplTest {
 
     private PojoField getPrivateStringField() {
         for (PojoField pojoField : pojoClass.getPojoFields()) {
-            if (pojoField.getName() == "privateString") {
+            if (pojoField.getName().equals("privateString")) {
                 return pojoField;
             }
         }
@@ -122,7 +122,8 @@ public class PojoFieldImplTest {
             if (pojoField.getName().equals("nonparameterizedList")
                     || pojoField.getName().equals("nonParameterizedString")) {
                 Affirm.affirmFalse("Turned generic?!", pojoField.isParameterized());
-                Affirm.affirmEquals("Returned non-empty list for nonParameterized type!?", 0, pojoField
+                Affirm.affirmEquals("Returned non-empty list for nonParameterized type!? [" + pojoField.getParameterTypes() + "]", 0,
+                        pojoField
                         .getParameterTypes().size());
                 affirmChecks++;
             }
