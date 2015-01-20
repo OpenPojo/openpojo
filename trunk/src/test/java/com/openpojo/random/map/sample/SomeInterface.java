@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Osman Shoukry
+ * Copyright (c) 2010-2015 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -15,18 +15,10 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.collection.type;
-
-import java.lang.reflect.Type;
+package com.openpojo.random.map.sample;
 
 /**
  * @author oshoukry
  */
-public interface TypeResolver<T extends Type> {
-
-    Type resolveType(T type);
-    Type getEnclosingType(T type);
-    Type getEnclosedType(T type);
-
-    Type [] getParameterTypes(T type);
+public interface SomeInterface {
 }

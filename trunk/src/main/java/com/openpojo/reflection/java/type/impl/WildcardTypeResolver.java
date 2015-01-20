@@ -15,13 +15,13 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.collection.type.impl;
+package com.openpojo.reflection.java.type.impl;
 
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 
-import com.openpojo.random.collection.type.TypeResolver;
+import com.openpojo.reflection.java.type.TypeResolver;
 import com.openpojo.reflection.exception.ReflectionException;
 
 /**
@@ -31,10 +31,6 @@ public class WildcardTypeResolver implements TypeResolver<WildcardType> {
 
     public Type getEnclosingType(WildcardType type) {
         return resolveType(type);
-    }
-
-    public Type getEnclosedType(WildcardType type) {
-        return null;
     }
 
     public Type resolveType(WildcardType wildcardType) {

@@ -15,17 +15,17 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.collection.type;
+package com.openpojo.reflection.java.type;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 
-import com.openpojo.random.collection.type.impl.NoResolveTypeResolver;
-import com.openpojo.random.collection.type.impl.ParameterizedTypeResolver;
-import com.openpojo.random.collection.type.impl.TypeVariableResolver;
-import com.openpojo.random.collection.type.impl.WildcardTypeResolver;
+import com.openpojo.reflection.java.type.impl.NoResolveTypeResolver;
+import com.openpojo.reflection.java.type.impl.ParameterizedTypeResolver;
+import com.openpojo.reflection.java.type.impl.TypeVariableResolver;
+import com.openpojo.reflection.java.type.impl.WildcardTypeResolver;
 
 /**
  * @author oshoukry
@@ -44,11 +44,6 @@ public class Resolver {
     @SuppressWarnings("unchecked")
     public static Type getEnclosingType(Type type) {
         return getTypeResolver(type).getEnclosingType(type);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static Type getEnclosedType(Type type) {
-        return getTypeResolver(type).getEnclosedType(type);
     }
 
     @SuppressWarnings("unchecked")

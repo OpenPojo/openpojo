@@ -18,18 +18,14 @@
 package com.openpojo.issues.issue45.sample;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
 import com.openpojo.log.LoggerFactory;
-import com.openpojo.random.collection.util.SerializeableComparableObject;
-import org.junit.Assert;
-
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
+import com.openpojo.random.util.MapCollectionAssertionHelper;
+import com.openpojo.random.util.SerializeableComparableObject;
 
 /**
  * @author oshoukry
@@ -83,209 +79,326 @@ public class ClassWithVariousGenericSetList {
     private Map<?,?> mapUnbounded;
 
     public void setListUndefined(List listUndefined) {
-        assertParameterOfExpectedStructure(listUndefined, List.class, SerializeableComparableObject.class);
+        assertParameters(listUndefined,
+                List.class,
+                    SerializeableComparableObject.class );
+
         this.listUndefined = listUndefined;
     }
 
     public void setListUnbounded(List<?> listUnbounded) {
-        assertParameterOfExpectedStructure(listUnbounded, List.class, Object.class);
+        assertParameters(listUnbounded,
+                List.class,
+                    Object.class);
+
         this.listUnbounded = listUnbounded;
     }
 
     public void setListSomeGeneric(List<SomeGeneric> listSomeGeneric) {
-        assertParameterOfExpectedStructure(listSomeGeneric, List.class, SomeGeneric.class);
+        assertParameters(listSomeGeneric,
+                List.class,
+                    SomeGeneric.class);
+
         this.listSomeGeneric = listSomeGeneric;
     }
 
     public void setListExtendsSomeGeneric(List<? extends SomeGeneric> listExtendsSomeGeneric) {
-        assertParameterOfExpectedStructure(listExtendsSomeGeneric, List.class, SomeGeneric.class);
+        assertParameters(listExtendsSomeGeneric,
+                List.class,
+                    SomeGeneric.class);
+
         this.listExtendsSomeGeneric = listExtendsSomeGeneric;
     }
 
     public void setListSuperSomeGeneric(List<? super SomeGeneric> listSuperSomeGeneric) {
-        assertParameterOfExpectedStructure(listSuperSomeGeneric, List.class, SomeGeneric.class);
+        assertParameters(listSuperSomeGeneric,
+                List.class,
+                    SomeGeneric.class);
+
         this.listSuperSomeGeneric = listSuperSomeGeneric;
     }
 
     public void setListOfListUndefined(List<List> listOfListUndefined) {
-        assertParameterOfExpectedStructure(listOfListUndefined, List.class, List.class, SerializeableComparableObject.class);
+        assertParameters(listOfListUndefined,
+                List.class,
+                    List.class,
+                        SerializeableComparableObject.class);
+
         this.listOfListUndefined = listOfListUndefined;
     }
 
     public void setListOfListUnbounded(List<List<?>> listOfListUnbounded) {
-        assertParameterOfExpectedStructure(listOfListUnbounded, List.class, List.class, Object.class);
+        assertParameters(listOfListUnbounded,
+                List.class,
+                    List.class,
+                        Object.class);
+
         this.listOfListUnbounded = listOfListUnbounded;
     }
 
     public void setListOfListOfSomeGeneric(List<List<SomeGeneric>> listOfListOfSomeGeneric) {
-        assertParameterOfExpectedStructure(listOfListOfSomeGeneric, List.class, List.class, SomeGeneric.class);
+        assertParameters(listOfListOfSomeGeneric,
+                List.class,
+                    List.class,
+                        SomeGeneric.class);
+
         this.listOfListOfSomeGeneric = listOfListOfSomeGeneric;
     }
 
     public void setListOfListOfExtendsSomeGeneric(List<List<? extends SomeGeneric>> listOfListOfExtendsSomeGeneric) {
-        assertParameterOfExpectedStructure(listOfListOfExtendsSomeGeneric, List.class, List.class, SomeGeneric.class);
+        assertParameters(listOfListOfExtendsSomeGeneric,
+                List.class,
+                    List.class,
+                        SomeGeneric.class);
+
         this.listOfListOfExtendsSomeGeneric = listOfListOfExtendsSomeGeneric;
     }
 
     public void setListOfListOfSuperSomeGeneric(List<List<? super SomeGeneric>> listOfListOfSuperSomeGeneric) {
-        assertParameterOfExpectedStructure(listOfListOfSuperSomeGeneric, List.class, List.class, SomeGeneric.class);
+        assertParameters(listOfListOfSuperSomeGeneric,
+                List.class,
+                    List.class,
+                        SomeGeneric.class);
+
         this.listOfListOfSuperSomeGeneric = listOfListOfSuperSomeGeneric;
     }
 
     public void setListOfMap(List<Map> listOfMap) {
-        assertParameterOfExpectedStructure(listOfMap, List.class, Map.class);
+        assertParameters(listOfMap,
+                List.class,
+                    Map.class,
+                        SerializeableComparableObject.class,
+                        SerializeableComparableObject.class);
+
         this.listOfMap = listOfMap;
     }
 
     public void setQueueUndefined(Queue queueUndefined) {
-        assertParameterOfExpectedStructure(queueUndefined, Queue.class, SerializeableComparableObject.class);
+        assertParameters(queueUndefined,
+                Queue.class,
+                    SerializeableComparableObject.class);
+
         this.queueUndefined = queueUndefined;
     }
 
     public void setQueueUnbounded(Queue<?> queueUnbounded) {
-        assertParameterOfExpectedStructure(queueUnbounded, Queue.class, Object.class);
+        assertParameters(queueUnbounded,
+                Queue.class,
+                    Object.class);
+
         this.queueUnbounded = queueUnbounded;
     }
 
     public void setQueueSomeGeneric(Queue<SomeGeneric> queueSomeGeneric) {
-        assertParameterOfExpectedStructure(queueSomeGeneric, Queue.class, SomeGeneric.class);
+        assertParameters(queueSomeGeneric,
+                Queue.class,
+                    SomeGeneric.class);
+
         this.queueSomeGeneric = queueSomeGeneric;
     }
 
     public void setQueueExtendsSomeGeneric(Queue<? extends SomeGeneric> queueExtendsSomeGeneric) {
-        assertParameterOfExpectedStructure(queueExtendsSomeGeneric, Queue.class, SomeGeneric.class);
+        assertParameters(queueExtendsSomeGeneric,
+                Queue.class,
+                    SomeGeneric.class);
+
         this.queueExtendsSomeGeneric = queueExtendsSomeGeneric;
     }
 
     public void setQueueSuperSomeGeneric(Queue<? super SomeGeneric> queueSuperSomeGeneric) {
-        assertParameterOfExpectedStructure(queueSuperSomeGeneric, Queue.class, SomeGeneric.class);
+        assertParameters(queueSuperSomeGeneric, Queue.class, SomeGeneric.class);
         this.queueSuperSomeGeneric = queueSuperSomeGeneric;
     }
 
     public void setQueueOfQueueUndefined(Queue<Queue> queueOfQueueUndefined) {
-        assertParameterOfExpectedStructure(queueOfQueueUndefined, Queue.class, Queue.class, SerializeableComparableObject.class);
+        assertParameters(queueOfQueueUndefined,
+                Queue.class,
+                    Queue.class,
+                        SerializeableComparableObject.class);
+
         this.queueOfQueueUndefined = queueOfQueueUndefined;
     }
 
     public void setQueueOfQueueUnbounded(Queue<Queue<?>> queueOfQueueUnbounded) {
-        assertParameterOfExpectedStructure(queueOfQueueUnbounded, Queue.class, Queue.class, Object.class);
+        assertParameters(queueOfQueueUnbounded,
+                Queue.class,
+                    Queue.class,
+                        Object.class);
+
         this.queueOfQueueUnbounded = queueOfQueueUnbounded;
     }
 
     public void setQueueOfQueueOfSomeGeneric(Queue<Queue<SomeGeneric>> queueOfQueueOfSomeGeneric) {
-        assertParameterOfExpectedStructure(queueOfQueueOfSomeGeneric, Queue.class, Queue.class, SomeGeneric.class);
+        assertParameters(queueOfQueueOfSomeGeneric,
+                Queue.class,
+                    Queue.class,
+                        SomeGeneric.class);
+
         this.queueOfQueueOfSomeGeneric = queueOfQueueOfSomeGeneric;
     }
 
     public void setQueueOfQueueOfExtendsSomeGeneric(Queue<Queue<? extends SomeGeneric>> queueOfQueueOfExtendsSomeGeneric) {
-        assertParameterOfExpectedStructure(queueOfQueueOfExtendsSomeGeneric, Queue.class, Queue.class, SomeGeneric.class);
+        assertParameters(queueOfQueueOfExtendsSomeGeneric,
+                Queue.class,
+                    Queue.class,
+                        SomeGeneric.class);
+
         this.queueOfQueueOfExtendsSomeGeneric = queueOfQueueOfExtendsSomeGeneric;
     }
 
     public void setQueueOfQueueOfSuperSomeGeneric(Queue<Queue<? super SomeGeneric>> queueOfQueueOfSuperSomeGeneric) {
-        assertParameterOfExpectedStructure(queueOfQueueOfSuperSomeGeneric, Queue.class, Queue.class, SomeGeneric.class);
+        assertParameters(queueOfQueueOfSuperSomeGeneric,
+                Queue.class,
+                    Queue.class,
+                        SomeGeneric.class);
+
         this.queueOfQueueOfSuperSomeGeneric = queueOfQueueOfSuperSomeGeneric;
     }
 
     public void setQueueOfMap(Queue<Map> queueOfMap) {
-        assertParameterOfExpectedStructure(queueOfMap, Queue.class, Map.class);
+        assertParameters(queueOfMap,
+                Queue.class,
+                    Map.class,
+                        SerializeableComparableObject.class,
+                        SerializeableComparableObject.class);
+
         this.queueOfMap = queueOfMap;
     }    
     
 
     public void setSetUndefined(Set setUndefined) {
-        assertParameterOfExpectedStructure(setUndefined, Set.class, SerializeableComparableObject.class);
+        assertParameters(setUndefined,
+                Set.class,
+                    SerializeableComparableObject.class);
+
         this.setUndefined = setUndefined;
     }
 
     public void setSetUnbounded(Set<?> setUnbounded) {
-        assertParameterOfExpectedStructure(setUnbounded, Set.class, Object.class);
+        assertParameters(setUnbounded,
+                Set.class,
+                    Object.class);
+
         this.setUnbounded = setUnbounded;
     }
 
     public void setSetSomeGeneric(Set<SomeGeneric> setSomeGeneric) {
-        assertParameterOfExpectedStructure(setSomeGeneric, Set.class, SomeGeneric.class);
+        assertParameters(setSomeGeneric,
+                Set.class,
+                    SomeGeneric.class);
+
         this.setSomeGeneric = setSomeGeneric;
     }
 
     public void setSetExtendsSomeGeneric(Set<? extends SomeGeneric> setExtendsSomeGeneric) {
-        assertParameterOfExpectedStructure(setExtendsSomeGeneric, Set.class, SomeGeneric.class);
+        assertParameters(setExtendsSomeGeneric,
+                Set.class,
+                    SomeGeneric.class);
+
         this.setExtendsSomeGeneric = setExtendsSomeGeneric;
     }
 
     public void setSetSuperSomeGeneric(Set<? super SomeGeneric> setSuperSomeGeneric) {
-        assertParameterOfExpectedStructure(setSuperSomeGeneric, Set.class, SomeGeneric.class);
+        assertParameters(setSuperSomeGeneric,
+                Set.class,
+                    SomeGeneric.class);
+
         this.setSuperSomeGeneric = setSuperSomeGeneric;
     }
 
     public void setSetOfSetUndefined(Set<Set> setOfSetUndefined) {
-        assertParameterOfExpectedStructure(setOfSetUndefined, Set.class, Set.class, SerializeableComparableObject.class);
+        assertParameters(setOfSetUndefined,
+                Set.class,
+                    Set.class,
+                        SerializeableComparableObject.class);
+
         this.setOfSetUndefined = setOfSetUndefined;
     }
 
     public void setSetOfSetUnbounded(Set<Set<?>> setOfSetUnbounded) {
-        assertParameterOfExpectedStructure(setOfSetUnbounded, Set.class, Set.class, Object.class);
+        assertParameters(setOfSetUnbounded, Set.class, Set.class, Object.class);
         this.setOfSetUnbounded = setOfSetUnbounded;
     }
 
     public void setSetOfSetOfSomeGeneric(Set<Set<SomeGeneric>> setOfSetOfSomeGeneric) {
-        assertParameterOfExpectedStructure(setOfSetOfSomeGeneric, Set.class, Set.class, SomeGeneric.class);
+        assertParameters(setOfSetOfSomeGeneric,
+                Set.class,
+                    Set.class,
+                        SomeGeneric.class);
+
         this.setOfSetOfSomeGeneric = setOfSetOfSomeGeneric;
     }
 
     public void setSetOfSetOfExtendsSomeGeneric(Set<Set<? extends SomeGeneric>> setOfSetOfExtendsSomeGeneric) {
-        assertParameterOfExpectedStructure(setOfSetOfExtendsSomeGeneric, Set.class, Set.class, SomeGeneric.class);
+        assertParameters(setOfSetOfExtendsSomeGeneric,
+                Set.class,
+                    Set.class,
+                        SomeGeneric.class);
+
         this.setOfSetOfExtendsSomeGeneric = setOfSetOfExtendsSomeGeneric;
     }
 
     public void setSetOfSetOfSuperSomeGeneric(Set<Set<? super SomeGeneric>> setOfSetOfSuperSomeGeneric) {
-        assertParameterOfExpectedStructure(setOfSetOfSuperSomeGeneric, Set.class, Set.class, SomeGeneric.class);
+        assertParameters(setOfSetOfSuperSomeGeneric,
+                Set.class,
+                    Set.class,
+                        SomeGeneric.class);
+
         this.setOfSetOfSuperSomeGeneric = setOfSetOfSuperSomeGeneric;
     }
 
     public void setSetOfMapOfSomeInterfaceAndSomeGeneric(Set<Map<SomeInterface, SomeGeneric>> setOfMapOfSomeInterfaceAndSomeGeneric) {
-        assertParameterOfExpectedStructure(setOfMapOfSomeInterfaceAndSomeGeneric, Set.class, Map.class, SomeInterface.class,
-                SomeGeneric.class);
+        assertParameters(setOfMapOfSomeInterfaceAndSomeGeneric,
+                Set.class,
+                    Map.class,
+                        SomeInterface.class,
+                        SomeGeneric.class);
+
         this.setOfMapOfSomeInterfaceAndSomeGeneric = setOfMapOfSomeInterfaceAndSomeGeneric;
     }
 
     public void setQueueOfSetOfListOfSomeGeneric(Queue<Set<List<SomeGeneric>>> queueOfSetOfListOfSomeGeneric) {
-        assertParameterOfExpectedStructure(queueOfSetOfListOfSomeGeneric, Queue.class, Set.class, List.class, SomeGeneric.class);
+        assertParameters(queueOfSetOfListOfSomeGeneric,
+                Queue.class,
+                    Set.class,
+                        List.class,
+                            SomeGeneric.class);
+
         this.queueOfSetOfListOfSomeGeneric = queueOfSetOfListOfSomeGeneric;
     }
 
     public void setSetOfListOfSetOfSomeGeneric(Set<List<Set<SomeGeneric>>> setOfListOfSetOfSomeGeneric) {
-        assertParameterOfExpectedStructure(setOfListOfSetOfSomeGeneric, Set.class, List.class, Set.class, SomeGeneric.class);
+        assertParameters(setOfListOfSetOfSomeGeneric,
+                Set.class,
+                    List.class,
+                        Set.class,
+                            SomeGeneric.class);
+
         this.setOfListOfSetOfSomeGeneric = setOfListOfSetOfSomeGeneric;
     }
 
     public void setListOfSetOfSuperSomeInterface(List<Set<? super SomeInterface>> listOfSetOfSuperSomeInterface) {
-        assertParameterOfExpectedStructure(listOfSetOfSuperSomeInterface, List.class, Set.class, SomeInterface.class);
+        assertParameters(listOfSetOfSuperSomeInterface,
+                List.class,
+                    Set.class,
+                        SomeInterface.class);
+
         this.listOfSetOfSuperSomeInterface = listOfSetOfSuperSomeInterface;
     }
 
     public void setMapUnbounded(Map<?,?> mapUnbounded) {
-        assertParameterOfExpectedStructure(mapUnbounded, Map.class);
+        assertParameters(mapUnbounded,
+                Map.class,
+                    Object.class,
+                    Object.class);
+
         this.mapUnbounded = mapUnbounded;
     }
 
-    private void assertParameterOfExpectedStructure(Object input, Class<?>... expectedTypes) {
+    private void assertParameters(Object input, Class<?>... expectedTypes) {
         LoggerFactory.getLogger(this.getClass()).debug("Checking: [" + input + "] with types " + Arrays.toString(expectedTypes));
-        assertTypeIsAssignable(input, expectedTypes[0]);
 
-        if (input instanceof Collection) {
-            Collection inputCollection = (Collection)input;
-            Assert.assertThat(inputCollection.size(), is(greaterThan(0)));
-            for (Object entry : inputCollection) {
-                Class<?> [] remainingExpectedTypes = new Class<?>[expectedTypes.length - 1];
-                System.arraycopy(expectedTypes, 1, remainingExpectedTypes, 0, remainingExpectedTypes.length);
-                assertParameterOfExpectedStructure(entry, remainingExpectedTypes);
-            }
-        }
+        MapCollectionAssertionHelper.assertParametersStructure(input, expectedTypes);
     }
 
-    private void assertTypeIsAssignable(Object input, Class<?> type) {
-        Assert.assertTrue("Type [" + type + "is cannot be assigned to input [" + input.getClass() + "]",
-                type.isAssignableFrom(input.getClass()));
-    }
 }

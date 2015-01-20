@@ -26,7 +26,7 @@ import java.util.concurrent.Delayed;
 import java.util.concurrent.SynchronousQueue;
 
 import com.openpojo.random.RandomFactory;
-import com.openpojo.random.collection.type.Resolver;
+import com.openpojo.reflection.impl.ParameterizableFactory;
 
 /**
  * This Helper class populates the randomly generated collection with some random elements.<br>
@@ -52,12 +52,9 @@ public class CollectionHelper {
 
         collection.clear();
         while (counter-- > 0) {
-            Object nextEntry = RandomFactory.getRandomValue((Class) Resolver.getEnclosingType(type));
+            Object nextEntry = RandomFactory.getRandomValue(ParameterizableFactory.getInstance(type));
             collection.add(nextEntry);
-            if (Collection.class.isAssignableFrom(nextEntry.getClass())) {
-                Type enclosedType = Resolver.getEnclosedType(type);
-                buildCollections((Collection) nextEntry, enclosedType);
-            }
         }
     }
+
 }
