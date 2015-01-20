@@ -27,7 +27,7 @@ import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.random.util.SerializeableComparableObject;
+import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -71,7 +71,7 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
             randomQueue = new ArrayBlockingQueue(20);
         else
             randomQueue = (Queue) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
-        CollectionHelper.buildCollections(randomQueue, SerializeableComparableObject.class);
+        CollectionHelper.buildCollections(randomQueue, SerializableComparableObject.class);
 
         return randomQueue;
     }
