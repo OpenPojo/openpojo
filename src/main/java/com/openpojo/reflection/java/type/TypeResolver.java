@@ -15,31 +15,17 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.collection.type.impl;
+package com.openpojo.reflection.java.type;
 
 import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-
-import com.openpojo.random.collection.type.TypeResolver;
 
 /**
  * @author oshoukry
  */
-public class TypeVariableResolver implements TypeResolver<TypeVariable> {
+public interface TypeResolver<T extends Type> {
 
-    public Type resolveType(TypeVariable type) {
-        return type.getBounds()[0];
-    }
+    Type resolveType(T type);
+    Type getEnclosingType(T type);
 
-    public Type getEnclosingType(TypeVariable type) {
-        return type.getBounds()[0];
-    }
-
-    public Type getEnclosedType(TypeVariable type) {
-        return null;
-    }
-
-    public Type[] getParameterTypes(TypeVariable type) {
-        return type.getBounds();
-    }
+    Type [] getParameterTypes(T type);
 }

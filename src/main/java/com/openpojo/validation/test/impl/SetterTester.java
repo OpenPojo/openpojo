@@ -38,6 +38,7 @@ public class SetterTester implements Tester {
         for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
             if (fieldEntry.hasSetter()) {
                 final Object value;
+
                 value = RandomFactory.getRandomValue(fieldEntry);
 
                 IdentityHandlerStub.registerIdentityHandlerStubForValue(value);

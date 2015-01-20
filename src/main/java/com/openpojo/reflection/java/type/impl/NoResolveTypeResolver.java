@@ -15,11 +15,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.collection.type.impl;
+package com.openpojo.reflection.java.type.impl;
 
 import java.lang.reflect.Type;
 
-import com.openpojo.random.collection.type.TypeResolver;
+import com.openpojo.reflection.java.type.TypeResolver;
 
 /**
  * @author oshoukry
@@ -28,10 +28,6 @@ public class NoResolveTypeResolver implements TypeResolver<Type> {
 
     public Type getEnclosingType(Type type) {
         return type;
-    }
-
-    public Type getEnclosedType(Type type) {
-        return null;
     }
 
     public Type resolveType(Type type) {

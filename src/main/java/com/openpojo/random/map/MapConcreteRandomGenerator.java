@@ -17,19 +17,15 @@
 
 package com.openpojo.random.map;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.IdentityHashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.WeakHashMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.openpojo.random.ParameterizableRandomGenerator;
+import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
+import com.openpojo.random.util.SerializeableComparableObject;
+import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 
@@ -46,7 +42,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  *
  * @author oshoukry
  */
-public final class MapConcreteRandomGenerator implements RandomGenerator {
+public final class MapConcreteRandomGenerator implements RandomGenerator, ParameterizableRandomGenerator {
 
     private MapConcreteRandomGenerator() {
     }
@@ -57,13 +53,24 @@ public final class MapConcreteRandomGenerator implements RandomGenerator {
 
     private final Class<?>[] TYPES = new Class<?>[] { TreeMap.class, HashMap.class, LinkedHashMap.class,
             IdentityHashMap.class, Hashtable.class, // EnumMap.class,
-            WeakHashMap.class, ConcurrentHashMap.class };
+            WeakHashMap.class, ConcurrentHashMap.class, Map.class };
 
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
-        Map randomMap = (Map) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
-        MapHelper.populateWithRandomData(randomMap);
+
+        Class<?> typeToGenerate = type;
+        if (typeToGenerate == Map.class)
+            typeToGenerate = HashMap.class;
+
+        Map randomMap = (Map) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
+        MapHelper.buildMap(randomMap, SerializeableComparableObject.class, SerializeableComparableObject.class);
         return randomMap;
+    }
+
+    public Object doGenerate(Parameterizable parameterizedType) {
+        Map returnedMap = (Map) RandomFactory.getRandomValue(parameterizedType.getType());
+        returnedMap.clear();
+        return MapHelper.buildMap(returnedMap, parameterizedType.getParameterTypes().get(0), parameterizedType.getParameterTypes().get(1));
     }
 
     public Collection<Class<?>> getTypes() {

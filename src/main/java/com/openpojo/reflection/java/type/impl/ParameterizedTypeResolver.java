@@ -15,14 +15,12 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.collection.type.impl;
+package com.openpojo.reflection.java.type.impl;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 
-import com.openpojo.random.collection.type.TypeResolver;
-import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.type.TypeResolver;
 
 /**
  * @author oshoukry
@@ -31,14 +29,6 @@ public class ParameterizedTypeResolver implements TypeResolver<ParameterizedType
 
     public Type getEnclosingType(ParameterizedType type) {
         return type.getRawType();
-    }
-
-    public Type getEnclosedType(ParameterizedType type) {
-        if (type.getActualTypeArguments().length == 1)
-            return type.getActualTypeArguments()[0];
-
-        throw ReflectionException.getInstance("Unexpected array encountered when calling ParameterizedType.getActualTypeArguments() on [" +
-                type + "]" + " expected array with one element, found " + Arrays.toString(type.getActualTypeArguments()));
     }
 
     public Type resolveType(ParameterizedType type) {

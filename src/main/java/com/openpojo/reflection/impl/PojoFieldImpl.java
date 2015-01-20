@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.reflection.java.type.Resolver;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
@@ -103,7 +104,6 @@ class PojoFieldImpl implements PojoField {
         } catch (NullPointerException e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
         }
-
     }
 
     public Class<?> getType() {
@@ -117,10 +117,7 @@ class PojoFieldImpl implements PojoField {
 
     public List<Type> getParameterTypes() {
         List<Type> genericTypes = new LinkedList<Type>();
-        if (isParameterized()) {
-            ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
-            Collections.addAll(genericTypes, parameterizedType.getActualTypeArguments());
-        }
+        if (isParameterized()) Collections.addAll(genericTypes, Resolver.getParameterTypes(field.getGenericType()));
         return genericTypes;
     }
 
@@ -174,8 +171,7 @@ class PojoFieldImpl implements PojoField {
 
     @Override
     public String toString() {
-        return String.format("PojoFieldImpl [field=%s, fieldGetter=%s, fieldSetter=%s]", field, fieldGetter,
-                fieldSetter);
+        return String.format("PojoFieldImpl [field=%s, fieldGetter=%s, fieldSetter=%s]", field, fieldGetter, fieldSetter);
     }
 
     public String toString(final Object instance) {

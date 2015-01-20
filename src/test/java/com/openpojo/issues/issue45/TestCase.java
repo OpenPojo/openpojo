@@ -92,7 +92,7 @@ public class TestCase {
     }
 
     @Test
-    public void testEndToEnd() {
+    public void testEndToEndCollections() {
         pojoValidator = new PojoValidator();
         pojoValidator.addRule(new SetterMustExistRule());
         pojoValidator.addTester(new SetterTester());
