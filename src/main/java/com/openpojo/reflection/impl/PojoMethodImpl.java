@@ -105,7 +105,7 @@ public class PojoMethodImpl implements PojoMethod {
 
         if (isConstructor()) {
             parameterAnnotations = getAsConstructor().getParameterAnnotations();
-            parameterTypes = getAsConstructor().getGenericParameterTypes();
+            parameterTypes = getConstructorGenericParameterTypes(getAsConstructor());
             parameterClasses = getAsConstructor().getParameterTypes();
         } else {
             parameterAnnotations = getAsMethod().getParameterAnnotations();
@@ -166,6 +166,23 @@ public class PojoMethodImpl implements PojoMethod {
             return getAsConstructor().getParameterTypes();
         }
         return getAsMethod().getParameterTypes();
+    }
+
+    private Type[] getConstructorGenericParameterTypes(Constructor<?> asConstructor) {
+        Type[] genericParameterTypes = asConstructor.getGenericParameterTypes();
+
+        //See: http://bugs.java.com/view_bug.do?bug_id=5087240
+        Class<?> declaringClass = getAsConstructor().getDeclaringClass();
+        Class<?> outerClass = declaringClass.getEnclosingClass();
+
+        if (outerClass != null && !Modifier.isStatic(declaringClass.getModifiers())) {
+            Type [] fixedGenericParameterTypes = new Type[genericParameterTypes.length + 1];
+            fixedGenericParameterTypes[0] = outerClass;
+            System.arraycopy(genericParameterTypes, 0, fixedGenericParameterTypes, 1, genericParameterTypes.length);
+            genericParameterTypes = fixedGenericParameterTypes;
+        }
+
+        return genericParameterTypes;
     }
 
     public Class<?> getReturnType() {
