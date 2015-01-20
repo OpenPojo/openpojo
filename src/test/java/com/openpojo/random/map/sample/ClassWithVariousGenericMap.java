@@ -24,7 +24,7 @@ import java.util.Queue;
 
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.util.MapCollectionAssertionHelper;
-import com.openpojo.random.util.SerializeableComparableObject;
+import com.openpojo.random.util.SerializableComparableObject;
 
 /**
  * @author oshoukry
@@ -45,10 +45,10 @@ public class ClassWithVariousGenericMap {
     private Map<Map, Map> mapOfMapUndefined;
     private Map<Map<?, ?>, Map<?, ?>> mapOfMapUnbounded;
 
-    private Map<Map<Object, SomeGeneric>, Map<SomeInterface, SerializeableComparableObject>>
+    private Map<Map<Object, SomeGeneric>, Map<SomeInterface, SerializableComparableObject>>
             mapOfMap_Object_SomeGeneric_And_MapOfSomeGeneric_SerializableComparableObject;
 
-    private Map<Map<? extends SerializeableComparableObject, ? extends SomeInterface>, Map<? extends SomeGeneric, ?>>
+    private Map<Map<? extends SerializableComparableObject, ? extends SomeInterface>, Map<? extends SomeGeneric, ?>>
             mapOfMapOfExtendsSomeGeneric;
 
     private Map<Map<? super SomeGeneric, ? super SomeGeneric>, Map<? super SomeGeneric, ? super SomeGeneric>> mapOfMapOfSuperSomeGeneric;
@@ -62,8 +62,8 @@ public class ClassWithVariousGenericMap {
     public void setMapUndefined(Map mapUndefined) {
         assertParameters(mapUndefined,
                 Map.class,
-                    SerializeableComparableObject.class,
-                    SerializeableComparableObject.class);
+                    SerializableComparableObject.class,
+                    SerializableComparableObject.class);
         this.mapUndefined = mapUndefined;
     }
 
@@ -76,10 +76,7 @@ public class ClassWithVariousGenericMap {
     }
 
     public void setMapStringInteger(Map<String, Integer> mapStringInteger) {
-        assertParameters(mapStringInteger,
-                Map.class,
-                    String.class,
-                    Integer.class);
+        assertParameters(mapStringInteger, Map.class, String.class, Integer.class);
         this.mapStringInteger = mapStringInteger;
     }
 
@@ -114,11 +111,11 @@ public class ClassWithVariousGenericMap {
         assertParameters(mapOfMapUndefined,
                 Map.class,
                     Map.class,
-                        SerializeableComparableObject.class,
-                        SerializeableComparableObject.class,
+                        SerializableComparableObject.class,
+                        SerializableComparableObject.class,
                     Map.class,
-                        SerializeableComparableObject.class,
-                        SerializeableComparableObject.class);
+                        SerializableComparableObject.class,
+                        SerializableComparableObject.class);
 
         this.mapOfMapUndefined = mapOfMapUndefined;
     }
@@ -137,7 +134,7 @@ public class ClassWithVariousGenericMap {
     }
 
     public void setMapOfMap_Object_SomeGeneric_And_MapOfSomeGeneric_SerializableComparableObject(Map<Map<Object, SomeGeneric>,
-            Map<SomeInterface, SerializeableComparableObject>> mapOfMap_Object_SomeGeneric_And_MapOfSomeGeneric_SerializableComparableObject) {
+            Map<SomeInterface, SerializableComparableObject>> mapOfMap_Object_SomeGeneric_And_MapOfSomeGeneric_SerializableComparableObject) {
         assertParameters(mapOfMap_Object_SomeGeneric_And_MapOfSomeGeneric_SerializableComparableObject,
                 Map.class,
                     Map.class,
@@ -145,18 +142,18 @@ public class ClassWithVariousGenericMap {
                         SomeGeneric.class,
                     Map.class,
                         SomeInterface.class,
-                        SerializeableComparableObject.class);
+                        SerializableComparableObject.class);
 
         this.mapOfMap_Object_SomeGeneric_And_MapOfSomeGeneric_SerializableComparableObject =
                 mapOfMap_Object_SomeGeneric_And_MapOfSomeGeneric_SerializableComparableObject;
     }
 
-    public void setMapOfMapOfExtendsSomeGeneric(Map<Map<? extends SerializeableComparableObject, ? extends SomeInterface>, Map<? extends
+    public void setMapOfMapOfExtendsSomeGeneric(Map<Map<? extends SerializableComparableObject, ? extends SomeInterface>, Map<? extends
             SomeGeneric, ?>> mapOfMapOfExtendsSomeGeneric) {
         assertParameters(mapOfMapOfExtendsSomeGeneric,
                 Map.class,
                     Map.class,
-                        SerializeableComparableObject.class,
+                        SerializableComparableObject.class,
                         SomeInterface.class,
                     Map.class,
                         SomeGeneric.class,
@@ -183,8 +180,8 @@ public class ClassWithVariousGenericMap {
         assertParameters(listOfMap,
                 List.class,
                     Map.class,
-                        SerializeableComparableObject.class,
-                        SerializeableComparableObject.class);
+                        SerializableComparableObject.class,
+                        SerializableComparableObject.class);
         this.listOfMap = listOfMap;
     }
 
@@ -192,9 +189,9 @@ public class ClassWithVariousGenericMap {
         assertParameters(mapOfListQueue,
                 Map.class,
                     List.class,
-                        SerializeableComparableObject.class,
+                        SerializableComparableObject.class,
                         Queue.class,
-                    SerializeableComparableObject.class);
+                    SerializableComparableObject.class);
         this.mapOfListQueue = mapOfListQueue;
     }
 
@@ -205,9 +202,9 @@ public class ClassWithVariousGenericMap {
                     List.class,
                         Map.class,
                             List.class,
-                                SerializeableComparableObject.class,
+                                SerializableComparableObject.class,
                             Queue.class,
-                                SerializeableComparableObject.class);
+                                SerializableComparableObject.class);
         this.mapOfSomeGenericListOfMapOfListQueue = mapOfSomeGenericListOfMapOfListQueue;
     }
 

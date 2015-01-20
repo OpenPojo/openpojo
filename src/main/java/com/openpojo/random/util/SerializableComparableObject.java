@@ -22,14 +22,25 @@ import java.io.Serializable;
 /**
 * @author oshoukry
 */
-public class SerializeableComparableObject implements Serializable, Comparable {
+public class SerializableComparableObject implements Serializable, Comparable {
     private static final long serialVersionUID = 1L;
 
+    @SuppressWarnings("NullableProblems")
     public int compareTo(Object other) {
         if (other == null || this.hashCode() > other.hashCode())
             return 1;
         if (this.hashCode() == other.hashCode())
             return 0;
         return -1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return !(o == null || getClass() != o.getClass()) && this.hashCode() == o.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return System.identityHashCode(this);
     }
 }

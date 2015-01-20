@@ -27,7 +27,7 @@ import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.random.util.SerializeableComparableObject;
+import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -59,7 +59,7 @@ public final class ListConcreteRandomGenerator implements ParameterizableRandomG
             typeToGenerate = ArrayList.class;
 
         List randomList = (List) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
-        CollectionHelper.buildCollections(randomList, SerializeableComparableObject.class);
+        CollectionHelper.buildCollections(randomList, SerializableComparableObject.class);
 
         return randomList;
     }

@@ -24,7 +24,7 @@ import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
-import com.openpojo.random.util.SerializeableComparableObject;
+import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -63,7 +63,7 @@ public final class MapConcreteRandomGenerator implements RandomGenerator, Parame
             typeToGenerate = HashMap.class;
 
         Map randomMap = (Map) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
-        MapHelper.buildMap(randomMap, SerializeableComparableObject.class, SerializeableComparableObject.class);
+        MapHelper.buildMap(randomMap, SerializableComparableObject.class, SerializableComparableObject.class);
         return randomMap;
     }
 

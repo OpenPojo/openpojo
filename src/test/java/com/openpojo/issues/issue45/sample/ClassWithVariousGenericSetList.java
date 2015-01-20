@@ -25,7 +25,7 @@ import java.util.Set;
 
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.util.MapCollectionAssertionHelper;
-import com.openpojo.random.util.SerializeableComparableObject;
+import com.openpojo.random.util.SerializableComparableObject;
 
 /**
  * @author oshoukry
@@ -81,7 +81,7 @@ public class ClassWithVariousGenericSetList {
     public void setListUndefined(List listUndefined) {
         assertParameters(listUndefined,
                 List.class,
-                    SerializeableComparableObject.class );
+                    SerializableComparableObject.class );
 
         this.listUndefined = listUndefined;
     }
@@ -122,7 +122,7 @@ public class ClassWithVariousGenericSetList {
         assertParameters(listOfListUndefined,
                 List.class,
                     List.class,
-                        SerializeableComparableObject.class);
+                        SerializableComparableObject.class);
 
         this.listOfListUndefined = listOfListUndefined;
     }
@@ -167,8 +167,8 @@ public class ClassWithVariousGenericSetList {
         assertParameters(listOfMap,
                 List.class,
                     Map.class,
-                        SerializeableComparableObject.class,
-                        SerializeableComparableObject.class);
+                        SerializableComparableObject.class,
+                        SerializableComparableObject.class);
 
         this.listOfMap = listOfMap;
     }
@@ -176,7 +176,7 @@ public class ClassWithVariousGenericSetList {
     public void setQueueUndefined(Queue queueUndefined) {
         assertParameters(queueUndefined,
                 Queue.class,
-                    SerializeableComparableObject.class);
+                    SerializableComparableObject.class);
 
         this.queueUndefined = queueUndefined;
     }
@@ -214,7 +214,7 @@ public class ClassWithVariousGenericSetList {
         assertParameters(queueOfQueueUndefined,
                 Queue.class,
                     Queue.class,
-                        SerializeableComparableObject.class);
+                        SerializableComparableObject.class);
 
         this.queueOfQueueUndefined = queueOfQueueUndefined;
     }
@@ -259,8 +259,8 @@ public class ClassWithVariousGenericSetList {
         assertParameters(queueOfMap,
                 Queue.class,
                     Map.class,
-                        SerializeableComparableObject.class,
-                        SerializeableComparableObject.class);
+                        SerializableComparableObject.class,
+                        SerializableComparableObject.class);
 
         this.queueOfMap = queueOfMap;
     }    
@@ -269,7 +269,7 @@ public class ClassWithVariousGenericSetList {
     public void setSetUndefined(Set setUndefined) {
         assertParameters(setUndefined,
                 Set.class,
-                    SerializeableComparableObject.class);
+                    SerializableComparableObject.class);
 
         this.setUndefined = setUndefined;
     }
@@ -310,7 +310,7 @@ public class ClassWithVariousGenericSetList {
         assertParameters(setOfSetUndefined,
                 Set.class,
                     Set.class,
-                        SerializeableComparableObject.class);
+                        SerializableComparableObject.class);
 
         this.setOfSetUndefined = setOfSetUndefined;
     }
