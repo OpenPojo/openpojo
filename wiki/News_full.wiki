@@ -1,6 +1,16 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2015-01-19:*
+  * OpenPojo-0.6.3 released download using Maven or from http://bit.ly/1oiDOun
+    * Fixed
+      # Issue when creating nested class that is declared non-static.
+    * Added
+      # Generics enhancements, testers will now generate proper types for Map types.
+      # Constructors that required generic bags (Collection / Map / Custom) are now invoked with the proper types.
+    * Changed
+      # Whenever a general Map is requested, a HashMap will be used.
+      # All Map & Collection randomly generated will have between 1 and 5 items randomly added of the proper compatible generic type.
  * *2014-11-06:*
   * OpenPojo-0.6.2 released download using Maven or from http://bit.ly/1oiDOun
     * Fixed
