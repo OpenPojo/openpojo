@@ -17,6 +17,8 @@
 
 package com.openpojo.reflection.coverage.service;
 
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.coverage.CoverageDetector;
 import com.openpojo.reflection.coverage.impl.Clover3;
 import com.openpojo.reflection.coverage.impl.Clover4;
@@ -28,17 +30,22 @@ import com.openpojo.reflection.coverage.service.impl.DefaultPojoCoverageFilterSe
  * @author oshoukry
  */
 public class PojoCoverageFilterServiceFactory {
-    private static final CoverageDetector[] KNOWN_COVERAGE_DETECTORS = new CoverageDetector[] {Clover3.getInstance(),
+    private static final CoverageDetector[] KNOWN_COVERAGE_DETECTORS = new CoverageDetector[] {
+            Clover3.getInstance(),
             Clover4.getInstance(),
-            Cobertura.getInstance(), Jacoco.getInstance()};
+            Cobertura.getInstance(),
+            Jacoco.getInstance()
+    };
 
     public static PojoCoverageFilterService configureAndGetPojoCoverageFilterService() {
         PojoCoverageFilterService pojoCoverageFilterService = new DefaultPojoCoverageFilterService();
         for (CoverageDetector coverageDetector : KNOWN_COVERAGE_DETECTORS) {
+            Logger logger = LoggerFactory.getLogger(PojoCoverageFilterServiceFactory.class);
             if (coverageDetector.isLoaded()) {
-                System.out.println(coverageDetector.getName() + " detected, auto-configuring OpenPojo to ignore its structures.");
+                logger.info(coverageDetector.getName() + " detected, " + "auto-configuring " + "OpenPojo to ignore its " + "structures" +
+                        ".");
                 pojoCoverageFilterService.registerCoverageDetector(coverageDetector);
-            } else System.out.println(coverageDetector.getName() + " not detected, ignoring");
+            } else logger.info(coverageDetector.getName() + " not detected, ignoring");
         }
         return pojoCoverageFilterService;
     }

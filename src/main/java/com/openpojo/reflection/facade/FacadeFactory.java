@@ -34,19 +34,21 @@ public final class FacadeFactory {
      * This method will throw a runtime ReflectionException if non of the facades given are active.
      *
      * @param facadeNames
-     *            The fully qualified class names of the possible facades.
-     * @return
-     *         A PojoClass wrapper around the correctly identified ClassName.
+     *         The fully qualified class names of the possible facades.
+     * @return A PojoClass wrapper around the correctly identified ClassName.
      */
     public static PojoClass getLoadedFacadePojoClass(final String[] facadeNames) {
+        return PojoClassFactory.getPojoClass(getLoadedFacadeClass(facadeNames));
+    }
+
+    public static Class<?> getLoadedFacadeClass(final String[] facadeNames) {
         for (String facadeName : facadeNames) {
             try {
-                return PojoClassFactory.getPojoClass(Class.forName(facadeName));
-            } catch (Throwable t) {
-                // this class not found, lets try the next one in the list.
+                return Class.forName(facadeName);
+            } catch (Throwable ignored) {
             }
         }
-        throw ReflectionException.getInstance(String.format("Unable to find suitable implementation among [%s]", Arrays
-                .toString(facadeNames)));
+        throw ReflectionException.getInstance(String.format("Unable to find suitable implementation among [%s]", Arrays.toString
+                (facadeNames)));
     }
 }
