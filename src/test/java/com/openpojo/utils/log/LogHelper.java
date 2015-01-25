@@ -217,4 +217,16 @@ public final class LogHelper {
         }
     }
 
+    public static void resetLoggers() {
+        java.util.logging.LogManager.getLogManager().reset();
+
+        BasicConfigurator.resetConfiguration();
+        Properties props = new Properties();
+        try {
+            props.load(LogHelper.class.getResourceAsStream("/log4j.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PropertyConfigurator.configure(props);
+    }
 }

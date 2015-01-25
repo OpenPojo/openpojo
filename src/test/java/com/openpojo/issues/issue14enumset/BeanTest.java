@@ -34,6 +34,7 @@ import com.openpojo.validation.rule.impl.SetterMustExistRule;
 import com.openpojo.validation.test.impl.DefaultValuesNullTester;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,6 +61,11 @@ public class BeanTest {
         pojoValidator.addTester(new DefaultValuesNullTester());
         pojoValidator.addTester(new SetterTester());
         pojoValidator.addTester(new GetterTester());
+    }
+
+    @After
+    public void restoreLogging() {
+        LogHelper.resetLoggers();
     }
 
     @Test
