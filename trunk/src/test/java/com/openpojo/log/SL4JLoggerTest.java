@@ -24,7 +24,6 @@ import com.openpojo.log.common.AbstractLoggerBase;
 import com.openpojo.log.common.LoggerMsgTestData;
 import com.openpojo.log.common.LoggerVarArgsTestData;
 import com.openpojo.log.impl.SLF4JLogger;
-import com.openpojo.log.utils.ActiveLogger;
 import com.openpojo.utils.log.LogHelper;
 import com.openpojo.utils.log.MockAppender;
 import com.openpojo.utils.log.MockAppenderLog4J;
@@ -42,7 +41,7 @@ public class SL4JLoggerTest extends AbstractLoggerBase {
      */
     @Before
     public final void setUp() {
-        ActiveLogger.setActiveLogger(SLF4JLogger.class);
+        LoggerFactory.setActiveLogger(SLF4JLogger.class);
     }
 
     @Override

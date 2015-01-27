@@ -23,7 +23,6 @@ import org.junit.Test;
 import com.openpojo.log.common.AbstractLoggerBase;
 import com.openpojo.log.impl.Log4JLogger;
 import com.openpojo.log.impl.SLF4JLogger;
-import com.openpojo.log.utils.ActiveLogger;
 import com.openpojo.utils.log.MockAppender;
 import com.openpojo.utils.log.MockAppenderLog4J;
 import com.openpojo.validation.affirm.Affirm;
@@ -52,7 +51,7 @@ public class Log4JLoggerTest extends AbstractLoggerBase {
 
     @Before
     public final void setUp() {
-        ActiveLogger.setActiveLogger(Log4JLogger.class);
+        LoggerFactory.setActiveLogger(Log4JLogger.class);
     }
 
     @Test
