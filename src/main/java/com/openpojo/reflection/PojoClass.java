@@ -135,6 +135,14 @@ public interface PojoClass extends PojoElement {
     public boolean isNestedClass();
 
     /**
+     * Check if PojoClass wraps a static class.
+     * This would be true for example when a class is defined as nested and is declared static.
+     *
+     * @return true if this PojoClass wraps a static class.
+     */
+    public boolean isStatic();
+
+    /**
      * Copy all contents from one Instance represented by this PojoClass to another.
      *
      * @param from

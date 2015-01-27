@@ -95,6 +95,10 @@ public class PojoClassStub implements PojoClass {
         return false;
     }
 
+    public boolean isStatic() {
+        return false;
+    }
+
     public void copy(Object from, Object to) {
 
     }

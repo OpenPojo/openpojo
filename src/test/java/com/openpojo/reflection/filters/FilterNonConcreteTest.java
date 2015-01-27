@@ -141,6 +141,10 @@ public class FilterNonConcreteTest extends IdentitiesAreEqual {
             throw new RuntimeException("Unimplemented!!");
         }
 
+        public boolean isStatic() {
+            throw new RuntimeException("Unimplemented!!");
+        }
+
         public String toString(final Object instance) {
             throw new RuntimeException("Unimplemented!!");
         }

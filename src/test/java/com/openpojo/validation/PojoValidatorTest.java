@@ -128,6 +128,10 @@ public class PojoValidatorTest {
             throw new IllegalStateException("Unimplemented!!");
         }
 
+        public List<PojoField> getInheritedPojoFields() {
+            throw new IllegalStateException("Unimplemented!!");
+        }
+
         public List<PojoMethod> getPojoMethods() {
             throw new IllegalStateException("Unimplemented!!");
         }
@@ -153,6 +157,10 @@ public class PojoValidatorTest {
         }
 
         public boolean isNestedClass() {
+            throw new IllegalStateException("Unimplemented!!");
+        }
+
+        public boolean isStatic() {
             throw new IllegalStateException("Unimplemented!!");
         }
 

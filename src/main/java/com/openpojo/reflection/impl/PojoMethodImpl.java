@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.PojoParameter;
 import com.openpojo.reflection.exception.ReflectionException;
@@ -172,12 +173,11 @@ public class PojoMethodImpl implements PojoMethod {
         Type[] genericParameterTypes = asConstructor.getGenericParameterTypes();
 
         //See: http://bugs.java.com/view_bug.do?bug_id=5087240
-        Class<?> declaringClass = getAsConstructor().getDeclaringClass();
-        Class<?> outerClass = declaringClass.getEnclosingClass();
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(getAsConstructor().getDeclaringClass());
 
-        if (outerClass != null && !Modifier.isStatic(declaringClass.getModifiers())) {
+        if (pojoClass.isNestedClass() && !pojoClass.isStatic()) {
             Type [] fixedGenericParameterTypes = new Type[genericParameterTypes.length + 1];
-            fixedGenericParameterTypes[0] = outerClass;
+            fixedGenericParameterTypes[0] = pojoClass.getClazz();
             System.arraycopy(genericParameterTypes, 0, fixedGenericParameterTypes, 1, genericParameterTypes.length);
             genericParameterTypes = fixedGenericParameterTypes;
         }

@@ -120,6 +120,10 @@ public class PojoClassImpl implements PojoClass {
         return clazz.getEnclosingClass() != null;
     }
 
+    public boolean isStatic() {
+        return Modifier.isStatic(clazz.getModifiers());
+    }
+
     public void copy(final Object from, final Object to) {
         for (final PojoField pojoField : pojoFields) {
             if (pojoField.hasGetter() && pojoField.hasSetter()) {
