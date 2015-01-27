@@ -19,7 +19,6 @@ package com.openpojo.reflection.impl;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
-import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,6 +29,8 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.packageloader.PackageLoader;
+import com.openpojo.reflection.java.packageloader.impl.URLToFileSystemAdapter;
 import com.openpojo.reflection.utils.ToStringHelper;
 
 /**
@@ -164,9 +165,8 @@ public class PojoClassImpl implements PojoClass {
     public String getSourcePath() {
         try {
             final ClassLoader cl = Thread.currentThread().getContextClassLoader();
-            final URL location = cl.getResource(getClazz().getName().replace('.', '/') + ".class");
-            return new URI(location.toString()).toString();
-
+            final URL location = cl.getResource(getClazz().getName().replace('.', PackageLoader.JDKPATH_DELIMETER) + PackageLoader.CLASS_EXTENSION);
+            return new URLToFileSystemAdapter(location).getAsURI().toString();
         } catch (final Exception e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
         }
