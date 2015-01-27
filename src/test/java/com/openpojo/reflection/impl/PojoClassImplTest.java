@@ -324,6 +324,18 @@ public class PojoClassImplTest {
     }
 
     @Test
+    public void testEqualsReturnsFalseWhenOtherIsNull() {
+        final PojoClass pojoClass = getPojoClassImplForClass(this.getClass());
+        Affirm.affirmFalse("equals(null) should return false", pojoClass.equals(null));
+    }
+
+    @Test
+    public void testEqualsReturnsFalseWhenOtherIsDifferentClass() {
+        final PojoClass pojoClass = getPojoClassImplForClass(this.getClass());
+        Affirm.affirmFalse("equals(differentClass) should return false", pojoClass.equals(new Object()));
+    }
+
+    @Test
     public void testIsArray() {
         final Object[] objectArray = new Object[] { new Object() };
         final PojoClass objectArrayPojoClass = getPojoClassImplForClass(objectArray.getClass());
@@ -331,7 +343,6 @@ public class PojoClassImplTest {
                           objectArrayPojoClass.isArray());
         Affirm.affirmTrue(String.format("Array should return true on isAbstract for array [%s]! Did Java underlying implementation change?",
                                         objectArray), objectArrayPojoClass.isAbstract());
-
     }
 
     @Test
@@ -343,6 +354,17 @@ public class PojoClassImplTest {
         pojoClass = getPojoClassImplForClass(AClassWithTwoChildClassesOneStaticAndOneNot.AStaticClass.class);
         Affirm.affirmTrue("Nested class not detected nested", pojoClass.isNestedClass());
         Affirm.affirmTrue("Nested static class not seen as static", pojoClass.isStatic());
+    }
+
+    @Test
+    public void testGetPath() {
+        PojoClass pojoClass = getPojoClassImplForClass(this.getClass());
+
+        String sourcePath = pojoClass.getSourcePath();
+        Affirm.affirmTrue("Should start with file://", sourcePath.startsWith("file:/"));
+
+        String thisClassEndingPath = this.getClass().getName().replaceAll("\\.", "/") + ".class";
+        Affirm.affirmTrue("Should end with this class's package path", sourcePath.endsWith(thisClassEndingPath));
     }
 
     private static PojoClass getPojoClassImplForClass(final Class<?> clazz) {
