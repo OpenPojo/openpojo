@@ -361,10 +361,10 @@ public class PojoClassImplTest {
         PojoClass pojoClass = getPojoClassImplForClass(this.getClass());
 
         String sourcePath = pojoClass.getSourcePath();
-        Affirm.affirmTrue("Should start with file://", sourcePath.startsWith("file:/"));
+        Affirm.affirmTrue("Should start with file:// [" + sourcePath + "]", sourcePath.startsWith("file://"));
 
         String thisClassEndingPath = this.getClass().getName().replaceAll("\\.", "/") + ".class";
-        Affirm.affirmTrue("Should end with this class's package path", sourcePath.endsWith(thisClassEndingPath));
+        Affirm.affirmTrue("Should end with this class's package path [" + sourcePath + "]", sourcePath.endsWith(thisClassEndingPath));
     }
 
     private static PojoClass getPojoClassImplForClass(final Class<?> clazz) {
