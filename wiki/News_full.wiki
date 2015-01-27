@@ -1,6 +1,14 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2015-01-26:*
+  * OpenPojo-0.6.4 released download using Maven or from http://bit.ly/1oiDOun
+    * Fixed
+      # Standard out messages about coverage detection framework - Issue 50. (Thanks to Arngrimur B.)
+    * Added
+      # PojoClass now has isStatic() method to enable quick check for static declaration of nested classes.
+    * Changed
+      # LoggerFactory now doesn't rely on ActiveLogger utility class - which has been removed, and isn't coupled to PojoClass.
  * *2015-01-19:*
   * OpenPojo-0.6.3 released download using Maven or from http://bit.ly/1oiDOun
     * Fixed
