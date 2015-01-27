@@ -22,21 +22,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.openpojo.log.impl.Log4JLogger;
-import com.openpojo.log.utils.ActiveLogger;
 import com.openpojo.validation.affirm.Affirm;
 
 /**
  * @author oshoukry
  */
 public class LoggerFactoryTest {
-    Class<? extends Logger> defaultLoggerClass = Log4JLogger.class;
+    private Class<? extends Logger> defaultLoggerClass = Log4JLogger.class;
 
-    /**
-     * This method does the test setup, currently initializes the loggers.
-     */
+    private final String[] supportedLoggers = { "com.openpojo.log.impl.SLF4JLogger",
+            "com.openpojo.log.impl.Log4JLogger", "com.openpojo.log.impl.JavaLogger" };
+
     @Before
     public final void setUp() {
-        ActiveLogger.setActiveLogger(defaultLoggerClass);
+        LoggerFactory.setActiveLogger(defaultLoggerClass);
     }
 
     @Test
@@ -59,5 +58,29 @@ public class LoggerFactoryTest {
         Affirm.affirmNotNull("Null logger returned when requested with null class", log);
         log = LoggerFactory.getLogger((String) null);
         Affirm.affirmNotNull("Null logger returned when requested with null category", log);
+    }
+
+
+    @Test
+    public final void ensureSupportedLoggersAndOrder() {
+        Affirm.affirmEquals("Supported loggers added/removed?", 3, LoggerFactory.SUPPORTED_LOGGERS.length);
+
+        String message = "Changed supported loggers order? expected position[%s] to be [%s]";
+
+        for (int position = 0; position < supportedLoggers.length; position++) {
+            Affirm.affirmEquals(String.format(message, position, supportedLoggers[position]),
+                    supportedLoggers[position], LoggerFactory.SUPPORTED_LOGGERS[position]);
+        }
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public final void shouldReturnSetLogger() throws ClassNotFoundException {
+        for (String logger : supportedLoggers) {
+            Class<Logger> loggerClass = (Class<Logger>) Class.forName(logger);
+            LoggerFactory.setActiveLogger(loggerClass);
+            Affirm.affirmTrue(String.format("Expected LoggerFactory to be set to [%s] but was [%s]", loggerClass,
+                    LoggerFactory.getLogger((String)null)), LoggerFactory.getLogger((String)null).getClass().equals(loggerClass));
+        }
     }
 }

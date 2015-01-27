@@ -24,7 +24,6 @@ import com.openpojo.log.common.AbstractLoggerBase;
 import com.openpojo.log.common.LoggerMsgTestData;
 import com.openpojo.log.common.LoggerVarArgsTestData;
 import com.openpojo.log.impl.JavaLogger;
-import com.openpojo.log.utils.ActiveLogger;
 import com.openpojo.utils.log.LogHelper;
 import com.openpojo.utils.log.MockAppender;
 import com.openpojo.utils.log.MockAppenderJavaLogger;
@@ -41,7 +40,7 @@ public class JavaLoggerTest extends AbstractLoggerBase {
     @Before
     public void setup() {
         LogHelper.initializeJavaLogger();
-        ActiveLogger.setActiveLogger(JavaLogger.class);
+        LoggerFactory.setActiveLogger(JavaLogger.class);
     }
 
     /**
