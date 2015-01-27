@@ -95,6 +95,7 @@ public class PojoClassImplTest {
                 constructor = constructorEntry;
         }
 
+        Affirm.affirmNotNull("Should find a constructor", constructor);
         Affirm.affirmTrue("Failed to find synthetic constructor", constructor.isSynthetic());
         Affirm.affirmEquals("Synthetic Constructor should have just one parameter", 1, constructor.getParameterTypes().length);
 
@@ -103,6 +104,7 @@ public class PojoClassImplTest {
     }
 
     @Test
+    @SuppressWarnings("PointlessArithmeticExpression")
     public void testGetPojoMethods() {
         PojoClass pojoClass = getPojoClassImplForClass(AClassWithSixMethods.class);
         Affirm.affirmEquals(String.format("Methods added/removed from class=[%s] found methods=[%s]",
@@ -324,6 +326,7 @@ public class PojoClassImplTest {
     }
 
     @Test
+    @SuppressWarnings("ObjectEqualsNull")
     public void testEqualsReturnsFalseWhenOtherIsNull() {
         final PojoClass pojoClass = getPojoClassImplForClass(this.getClass());
         Affirm.affirmFalse("equals(null) should return false", pojoClass.equals(null));
