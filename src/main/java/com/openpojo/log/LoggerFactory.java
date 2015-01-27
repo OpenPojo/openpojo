@@ -17,10 +17,10 @@
 
 package com.openpojo.log;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Constructor;
 
-import com.openpojo.log.utils.ActiveLogger;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.facade.FacadeFactory;
 
 /**
  * This Factory will create and return a logger based on the current availability of the underlying logger.
@@ -32,8 +32,29 @@ import com.openpojo.log.utils.ActiveLogger;
  * 3. java.util.logging.Logger.
  */
 public final class LoggerFactory {
-    private static final Map<String, Logger> cache = new HashMap<String, Logger>();
-    private static final String DEFAULT_CATEGORY = null;
+    public static final String[] SUPPORTED_LOGGERS = new String[] { "com.openpojo.log.impl.SLF4JLogger", "com.openpojo.log.impl" +
+            ".Log4JLogger", "com.openpojo.log.impl.JavaLogger" };
+
+    private static final String DEFAULT_CATEGORY = "UndefinedLogSource";
+
+    private static volatile Class<? extends Logger> loggerClass;
+    private static volatile Constructor<? extends Logger> loggerConstructor;
+
+    static {
+        autoDetect();
+    }
+
+    /**
+     * This method will auto detect the underlying logging framework available and set the current active logging
+     * framework accordingly.
+     */
+    @SuppressWarnings("unchecked")
+    public static void autoDetect() {
+        Class<Logger> loadedLoggerClass = (Class<Logger>) FacadeFactory.getLoadedFacadeClass(SUPPORTED_LOGGERS);
+        if (loggerClass == null || loadedLoggerClass != loggerClass) {
+            setActiveLogger(loadedLoggerClass);
+        }
+    }
 
     /**
      * This method returns an instance of Logger class for logging.
@@ -44,7 +65,7 @@ public final class LoggerFactory {
      *         returns an instance of the Logger.
      */
     public static Logger getLogger(final Class<?> clazz) {
-        return getAndCacheLogger(getLoggerCategory(clazz));
+        return getLogger(getLoggerCategory(clazz));
     }
 
     /**
@@ -56,7 +77,19 @@ public final class LoggerFactory {
      *         returns and instance of the logger.
      */
     public static Logger getLogger(final String category) {
-        return getAndCacheLogger(getLoggerCategory(category));
+        return createNewLoggerInstance(getLoggerCategory(category));
+    }
+
+    /**
+     * This method allows full control to set the active logger to a specific one.
+     *
+     * @param newLogger
+     *         The logger class to use.
+     */
+    public static synchronized void setActiveLogger(final Class<? extends Logger> newLogger) {
+        loggerClass = newLogger;
+        loggerConstructor = getConstructorAndMakeAccessible(loggerClass);
+        reportActiveLogger();
     }
 
     private static String getLoggerCategory(final Class<?> clazz) {
@@ -67,12 +100,26 @@ public final class LoggerFactory {
         return category == null ? DEFAULT_CATEGORY : category;
     }
 
-    private synchronized static Logger getAndCacheLogger(final String category) {
-        Logger logger = cache.get(category);
-        if (logger == null) {
-            logger = ActiveLogger.getInstance(category);
-            cache.put(category, logger);
+    private static Logger createNewLoggerInstance(final String category) {
+        try {
+            return loggerConstructor.newInstance(category);
+        } catch (Throwable throwable) {
+            throw ReflectionException.getInstance("Error creating new logger", throwable);
         }
-        return logger;
     }
+
+    private static Constructor<? extends Logger> getConstructorAndMakeAccessible(Class<? extends Logger> activeLoggerClass) {
+        try {
+            Constructor<? extends Logger> constructor = activeLoggerClass.getDeclaredConstructor(String.class);
+            constructor.setAccessible(true);
+            return constructor;
+        } catch (NoSuchMethodException ignored) {
+            throw ReflectionException.getInstance("Unable to retrieve logger constructor for class [" + activeLoggerClass + "]");
+        }
+    }
+
+    private static void reportActiveLogger() {
+        getLogger(LoggerFactory.class.getName()).info("Logging subsystem initialized to [{0}]", loggerClass.getName());
+    }
+
 }
