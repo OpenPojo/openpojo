@@ -33,6 +33,7 @@ import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 import com.openpojo.reflection.impl.sampleclasses.*;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedClass;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Assert;
 import org.junit.Test;
 
 /*
@@ -95,7 +96,7 @@ public class PojoClassImplTest {
                 constructor = constructorEntry;
         }
 
-        Affirm.affirmNotNull("Should find a constructor", constructor);
+        Assert.assertNotNull(constructor);
         Affirm.affirmTrue("Failed to find synthetic constructor", constructor.isSynthetic());
         Affirm.affirmEquals("Synthetic Constructor should have just one parameter", 1, constructor.getParameterTypes().length);
 
