@@ -154,6 +154,10 @@ public class FilterClassNameTest extends IdentitiesAreEqual {
             throw new IllegalStateException("UnImplemented!!");
         }
 
+        public boolean isStatic() {
+            throw new IllegalStateException("Unimplemented!!");
+        }
+
         public void copy(final Object from, final Object to) {
             throw new IllegalStateException("UnImplemented!!");
         }

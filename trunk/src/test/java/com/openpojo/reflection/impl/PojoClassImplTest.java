@@ -334,6 +334,17 @@ public class PojoClassImplTest {
 
     }
 
+    @Test
+    public void testIsStatic() {
+        PojoClass pojoClass = getPojoClassImplForClass(AClassWithTwoChildClassesOneStaticAndOneNot.APublicNonStaticClass.class);
+        Affirm.affirmTrue("Nested class not detected nested", pojoClass.isNestedClass());
+        Affirm.affirmFalse("Nested non-static nested class detected as static", pojoClass.isStatic());
+
+        pojoClass = getPojoClassImplForClass(AClassWithTwoChildClassesOneStaticAndOneNot.AStaticClass.class);
+        Affirm.affirmTrue("Nested class not detected nested", pojoClass.isNestedClass());
+        Affirm.affirmTrue("Nested static class not seen as static", pojoClass.isStatic());
+    }
+
     private static PojoClass getPojoClassImplForClass(final Class<?> clazz) {
         return PojoClassFactory.getPojoClass(clazz);
     }
