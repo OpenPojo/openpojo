@@ -40,12 +40,11 @@ public class PojoCoverageFilterServiceFactory {
     public static PojoCoverageFilterService configureAndGetPojoCoverageFilterService() {
         PojoCoverageFilterService pojoCoverageFilterService = new DefaultPojoCoverageFilterService();
         for (CoverageDetector coverageDetector : KNOWN_COVERAGE_DETECTORS) {
-            Logger logger = LoggerFactory.getLogger(PojoCoverageFilterServiceFactory.class);
             if (coverageDetector.isLoaded()) {
-                logger.info(coverageDetector.getName() + " detected, " + "auto-configuring " + "OpenPojo to ignore its " + "structures" +
-                        ".");
+                Logger logger = LoggerFactory.getLogger(PojoCoverageFilterServiceFactory.class);
+                logger.info(coverageDetector.getName() + " detected, auto-configuring OpenPojo to ignore its structures.");
                 pojoCoverageFilterService.registerCoverageDetector(coverageDetector);
-            } else logger.info(coverageDetector.getName() + " not detected, ignoring");
+            }
         }
         return pojoCoverageFilterService;
     }
