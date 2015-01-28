@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Osman Shoukry
+ * Copyright (c) 2010-2015 Osman Shoukry
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Lesser General Public License as published by
@@ -21,31 +21,18 @@ package com.openpojo.reflection.impl.sampleclasses;
  * @author oshoukry
  *
  */
+@SuppressWarnings("unused")
 public class AClassWithSixMethods {
 
-    public void publicVoidMethod() {
+    public void publicVoidMethod() {}
 
-    }
+    private void privateVoidMethod() {}
 
-    @SuppressWarnings("unused")
-    private void privateVoidMethod() {
+    protected void protectedVoidMethod() {}
 
-    }
+    public static void publicStaticVoidMethod() {}
 
-    protected void protectedVoidMethod() {
+    private static void privateStaticVoidMethod() {}
 
-    }
-
-    public static void publicStaticVoidMethod() {
-
-    }
-
-    @SuppressWarnings("unused")
-    private static void privateStaticVoidMethod() {
-
-    }
-
-    protected static void protectedStaticVoidMethod() {
-
-    }
+    protected static void protectedStaticVoidMethod() {}
 }
