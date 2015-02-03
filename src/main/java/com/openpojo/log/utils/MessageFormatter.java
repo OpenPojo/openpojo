@@ -144,18 +144,15 @@ public final class MessageFormatter {
 
     private static String formatArray(final Object message) {
 
-        final int arrayLength = Array.getLength(message) - 1;
-        if (arrayLength == -1)
-            return "[]";
+        final int arrayLength = Array.getLength(message);
 
-        String formattedString = "";
-        formattedString += '[';
-        for (int i = 0; i <= arrayLength; i++) {
+        String formattedString = "[";
+        for (int i = 0; i < arrayLength; i++) {
             formattedString += String.valueOf(Array.get(message, i));
-            if (i != arrayLength)
+            if (i != arrayLength - 1)
                 formattedString += ", ";
         }
-        formattedString += ']';
+        formattedString += "]";
 
         return formattedString;
     }
