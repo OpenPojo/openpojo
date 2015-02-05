@@ -47,7 +47,6 @@ public class SerializableMustHaveSerialVersionUIDRule implements Rule {
                     if (pojoField.getType() != long.class) {
                         Affirm.fail(String.format("[%s] must be defined as [long] on Serializable class [%s]",
                                 SERIAL_VERSION_UID, pojoClass));
-
                     }
                     return;
                 }
@@ -56,5 +55,4 @@ public class SerializableMustHaveSerialVersionUIDRule implements Rule {
                     .format("No [%s] field defined on Serializable class [%s]", SERIAL_VERSION_UID, pojoClass));
         }
     }
-
 }
