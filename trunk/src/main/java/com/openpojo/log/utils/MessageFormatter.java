@@ -71,7 +71,7 @@ public final class MessageFormatter {
      *            The message to replace its tokens with objects.
      * @param args
      *            The objects to log in the string.
-     * @return Returns a formated string filling all tokens with the objects.
+     * @return Returns a formatted string filling all tokens with the objects.
      */
     static String usingCurlyBrackets(final String message, final Object... args) {
         if (message == null) {
