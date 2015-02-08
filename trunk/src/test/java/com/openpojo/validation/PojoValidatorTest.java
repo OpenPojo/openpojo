@@ -17,12 +17,11 @@
 
 package com.openpojo.validation;
 
-import java.lang.annotation.Annotation;
-import java.util.List;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.utils.validation.LoggingRule;
 import com.openpojo.utils.validation.LoggingTester;
@@ -63,9 +62,9 @@ public class PojoValidatorTest {
         final RuleTesterMock ruleTesterMock = new RuleTesterMock();
         pojoValidator.addRule(ruleTesterMock);
         pojoValidator.addTester(ruleTesterMock);
-        pojoValidator.runValidation(new AbstractPojoClass());
+        pojoValidator.runValidation(PojoStubFactory.getStubPojoClass());
         Assert.assertTrue("Evaluate not run on non-concrete class", ruleTesterMock.evaluateCalled);
-        Assert.assertTrue("Run called on non-concrete class", ruleTesterMock.runCalled == false);
+        Assert.assertTrue("Run called on non-concrete class", !ruleTesterMock.runCalled);
     }
 
     private static class RuleTesterMock implements Rule, Tester {
@@ -82,99 +81,31 @@ public class PojoValidatorTest {
 
     }
 
-    private static class AbstractPojoClass implements PojoClass {
 
-        public String getName() {
-            throw new IllegalStateException("Unimplemented!!");
+
+    private static class PojoStubFactory {
+
+        public static PojoClass getStubPojoClass() {
+            return (PojoClass) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[] { PojoClass.class },
+                    new StubInvocationHandler());
         }
+    }
 
-        public List<? extends Annotation> getAnnotations() {
-            throw new IllegalStateException("Unimplemented!!");
+
+    private static class StubInvocationHandler implements InvocationHandler {
+
+        public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+
+            if (method.getName().equals("isConcrete"))
+                return false;
+
+            if (method.getName().equals("isSynthetic"))
+                return false;
+
+            if (method.getName().equals("getClazz"))
+                return this.getClass();
+
+            throw new RuntimeException("UnImplemented!!");
         }
-
-        public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public boolean isInterface() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public boolean isAbstract() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public boolean isConcrete() {
-            return false;
-        }
-
-        public boolean isEnum() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public boolean isArray() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public boolean isFinal() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public boolean isSynthetic() {
-            return false;
-        }
-
-        public List<PojoField> getPojoFields() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public List<PojoField> getInheritedPojoFields() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public List<PojoMethod> getPojoMethods() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public List<PojoMethod> getPojoConstructors() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public boolean extendz(final Class<?> type) {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public PojoClass getSuperClass() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public List<PojoClass> getInterfaces() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public Class<?> getClazz() {
-            return this.getClass();
-        }
-
-        public boolean isNestedClass() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public boolean isStatic() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public void copy(final Object from, final Object to) {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public String toString(final Object instance) {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public String getSourcePath() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
     }
 }
