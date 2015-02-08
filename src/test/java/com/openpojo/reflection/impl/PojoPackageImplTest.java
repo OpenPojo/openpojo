@@ -38,7 +38,7 @@ import org.junit.Test;
  */
 public class PojoPackageImplTest {
 
-    private static final int EXPECTED_CLASSES = 46;
+    private static final int EXPECTED_CLASSES = 48;
 
     private String packageName;
     private String expectedToString;

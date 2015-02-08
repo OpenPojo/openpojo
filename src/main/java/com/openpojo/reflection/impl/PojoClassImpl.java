@@ -87,8 +87,26 @@ public class PojoClassImpl implements PojoClass {
         return pojoFields;
     }
 
+    public List<PojoField> getPojoFieldsAnnotatedWith(Class<? extends Annotation> annotation) {
+        List<PojoField> returnedFields = new LinkedList<PojoField>();
+        for (PojoField pojoField :pojoFields) {
+            if (pojoField.getAnnotation(annotation) != null)
+                returnedFields.add(pojoField);
+        }
+        return returnedFields;
+    };
+
     public List<PojoMethod> getPojoMethods() {
         return pojoMethods;
+    }
+
+    public List<PojoMethod> getPojoMethodsAnnotatedWith(Class<? extends Annotation> annotation) {
+        List<PojoMethod> returnedMethods = new LinkedList<PojoMethod>();
+        for (PojoMethod pojoMethod : pojoMethods) {
+            if (pojoMethod.getAnnotation(annotation) != null)
+                returnedMethods.add(pojoMethod);
+        }
+        return returnedMethods;
     }
 
     public List<PojoMethod> getPojoConstructors() {
