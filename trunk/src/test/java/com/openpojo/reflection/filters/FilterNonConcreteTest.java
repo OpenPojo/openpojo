@@ -17,13 +17,12 @@
 
 package com.openpojo.reflection.filters;
 
-import java.lang.annotation.Annotation;
-import java.util.List;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
-import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.PojoMethod;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
 
@@ -32,29 +31,25 @@ import org.junit.Test;
  */
 public class FilterNonConcreteTest extends IdentitiesAreEqual {
 
-    /**
-     * Test method for
-     * {@link com.openpojo.reflection.filters.FilterNonConcrete#include(com.openpojo.reflection.PojoClass)}.
-     */
     @Test
     public void testInclude() {
         PojoClassFilter pojoClassFilter = new FilterNonConcrete();
-        final StubPojoClass stubPojoClass = new StubPojoClass();
+        PojoClass stubPojoClass = PojoStubFactory.getStubPojoClass(false);
 
-        stubPojoClass.isConcrete = false;
-        Affirm.affirmTrue(String.format("Filter[%s] was supposed to filter OUT non concrete class", pojoClassFilter),
-                          stubPojoClass.isConcrete() == pojoClassFilter.include(stubPojoClass));
+        Affirm.affirmTrue(String.format("Filter[%s] was supposed to filter OUT non concrete class", pojoClassFilter), stubPojoClass
+                .isConcrete() == pojoClassFilter.include(stubPojoClass));
 
-        stubPojoClass.isConcrete = true;
-        Affirm.affirmTrue(String.format("Filter[%s] was supposed to filter IN concrete class", pojoClassFilter),
-                          stubPojoClass.isConcrete() == pojoClassFilter.include(stubPojoClass));
+        stubPojoClass = PojoStubFactory.getStubPojoClass(true);
+        Affirm.affirmTrue(String.format("Filter[%s] was supposed to filter IN concrete class", pojoClassFilter), stubPojoClass.isConcrete
+                () == pojoClassFilter.include(stubPojoClass));
 
         final StubPojoClassFilter stubPojoClassFilter = new StubPojoClassFilter();
         pojoClassFilter = new FilterChain(new FilterNonConcrete(), stubPojoClassFilter);
-        stubPojoClass.isConcrete = true;
+
+        stubPojoClass = PojoStubFactory.getStubPojoClass(true);
         pojoClassFilter.include(stubPojoClass);
-        Affirm.affirmTrue(String.format("Filter [%s] didn't invoke next in filter chain", pojoClassFilter),
-                          stubPojoClassFilter.includeCalled);
+        Affirm.affirmTrue(String.format("Filter [%s] didn't invoke next in filter chain", pojoClassFilter), stubPojoClassFilter
+                .includeCalled);
     }
 
     private static class StubPojoClassFilter implements PojoClassFilter {
@@ -74,96 +69,26 @@ public class FilterNonConcreteTest extends IdentitiesAreEqual {
         checkEqualityAndHashCode(instanceOne, instanceTwo);
     }
 
-    private static class StubPojoClass implements PojoClass {
+    private static class PojoStubFactory {
+
+        public static PojoClass getStubPojoClass(boolean isConcrete) {
+            return (PojoClass) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[] { PojoClass.class },
+                    new StubInvocationHandler(isConcrete));
+        }
+    }
+
+    private static class StubInvocationHandler implements InvocationHandler {
         private boolean isConcrete;
 
-        public boolean isConcrete() {
-            return isConcrete;
+        public StubInvocationHandler(boolean isConcrete) {
+            this.isConcrete = isConcrete;
         }
 
-        public void copy(final Object from, final Object to) {
-            throw new RuntimeException("Unimplemented!!");
-        }
+        public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
 
-        public boolean extendz(final Class<?> type) {
-            throw new RuntimeException("Unimplemented!!");
-        }
+            if (method.getName().equals("isConcrete")) return isConcrete;
 
-        public Class<?> getClazz() {
-            throw new RuntimeException("Unimplemented!!");
+            throw new RuntimeException("UnImplemented!!");
         }
-
-        public List<PojoClass> getInterfaces() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public List<PojoMethod> getPojoConstructors() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public List<PojoField> getPojoFields() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public List<PojoMethod> getPojoMethods() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public PojoClass getSuperClass() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public boolean isAbstract() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public boolean isEnum() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public boolean isArray() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public boolean isFinal() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public boolean isSynthetic() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public boolean isInterface() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public boolean isNestedClass() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public boolean isStatic() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public String toString(final Object instance) {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public List<? extends Annotation> getAnnotations() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public String getName() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
-        public String getSourcePath() {
-            throw new RuntimeException("Unimplemented!!");
-        }
-
     }
 }
