@@ -1,0 +1,9 @@
+mvn clean
+mvn release:clean
+mvn release:prepare
+mvn release:perform
+
+mkdir OpenPojo-<version>
+mv openpojo* OpenPojo-<version>
+zip -r OpenPojo-<version>.zip OpenPojo-<version>/
+
