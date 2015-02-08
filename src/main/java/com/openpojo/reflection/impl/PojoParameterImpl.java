@@ -20,6 +20,7 @@ package com.openpojo.reflection.impl;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -37,12 +38,14 @@ public class PojoParameterImpl implements PojoParameter {
 
     public PojoParameterImpl(Type type, Annotation[] annotations) {
         this.type = type;
-
-        if (annotations == null) {
-            this.annotations = Collections.EMPTY_LIST;
-        } else {
-            this.annotations = Collections.unmodifiableList(Arrays.asList(annotations));
+        List<Annotation> tmpAnnotations = new ArrayList<Annotation>();
+        if (annotations != null) {
+            for (Annotation entry : annotations) {
+                if (entry != null)
+                    tmpAnnotations.add(entry);
+            }
         }
+        this.annotations = Collections.unmodifiableList(tmpAnnotations);
     }
 
     public List<? extends Annotation> getAnnotations() {
@@ -51,9 +54,11 @@ public class PojoParameterImpl implements PojoParameter {
 
     @SuppressWarnings("unchecked")
     public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
+
         for (Annotation entry : annotations) {
-            if (entry.getClass() == annotationClass)
+            if (entry.annotationType().equals(annotationClass)){
                 return (T) entry;
+            }
         }
         return null;
     }
