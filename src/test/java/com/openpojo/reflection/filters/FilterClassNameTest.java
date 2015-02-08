@@ -17,13 +17,12 @@
 
 package com.openpojo.reflection.filters;
 
-import java.lang.annotation.Annotation;
-import java.util.List;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
-import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.PojoMethod;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
 
@@ -37,17 +36,16 @@ public class FilterClassNameTest extends IdentitiesAreEqual {
 
         String[] classNames = new String[] { "EndingWithTest", "TestStartingWith", "WithTestInTheMiddleClass",
                 "package.path.TestClass", "package.path.ClassTest", "package.path.ClassTestClass" };
-        final PojoClassStub pojoClassStub = new PojoClassStub();
 
         for (final String className : classNames) {
-            pojoClassStub.className = className;
+            final PojoClass pojoClassStub = PojoStubFactory.getStubPojoClass(className);
             Affirm.affirmTrue(String.format("[%s] didn't include class [%s]!!", filter, className),
                               filter.include(pojoClassStub));
         }
 
         classNames = new String[] { "package.Test.Class", "TestClass.package" };
         for (final String className : classNames) {
-            pojoClassStub.className = className;
+            final PojoClass pojoClassStub = PojoStubFactory.getStubPojoClass(className);
             Affirm.affirmFalse(String.format("[%s] didn't exclude class [%s]!!", filter, className),
                                filter.include(pojoClassStub));
         }
@@ -61,10 +59,9 @@ public class FilterClassNameTest extends IdentitiesAreEqual {
 
         final String[] classNames = new String[] { "packagepath.packageSample.MyClass", "SampleClass", "Sample",
                 "sample", "Somesample", "someSampleClass" };
-        final PojoClassStub pojoClassStub = new PojoClassStub();
 
         for (final String className : classNames) {
-            pojoClassStub.className = className;
+            PojoClass pojoClassStub = PojoStubFactory.getStubPojoClass(className);
             Affirm.affirmFalse(String.format("[%s] didn't exclude class [%s]!!", filter, className),
                                filter.include(pojoClassStub));
         }
@@ -79,96 +76,26 @@ public class FilterClassNameTest extends IdentitiesAreEqual {
         checkEqualityAndHashCode(instanceOne, instanceTwo);
     }
 
-    private class PojoClassStub implements PojoClass {
+    private static class PojoStubFactory {
+
+        public static PojoClass getStubPojoClass(String className) {
+            return (PojoClass) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[] { PojoClass.class },
+                    new StubInvocationHandler(className));
+        }
+    }
+
+    private static class StubInvocationHandler implements InvocationHandler {
         private String className;
 
-        public String getName() {
-            return className;
+        public StubInvocationHandler(String className) {
+            this.className = className;
         }
 
-        public List<? extends Annotation> getAnnotations() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
+        public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
 
-        public <T extends Annotation> T getAnnotation(final Class<T> annotationClass) {
-            throw new IllegalStateException("UnImplemented!!");
-        }
+            if (method.getName().equals("getName")) return className;
 
-        public boolean isInterface() {
-            throw new IllegalStateException("UnImplemented!!");
+            throw new RuntimeException("UnImplemented!!");
         }
-
-        public boolean isAbstract() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public boolean isConcrete() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public boolean isEnum() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public boolean isArray() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public boolean isFinal() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public boolean isSynthetic() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public List<PojoField> getPojoFields() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public List<PojoMethod> getPojoMethods() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public List<PojoMethod> getPojoConstructors() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public boolean extendz(final Class<?> type) {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public PojoClass getSuperClass() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public List<PojoClass> getInterfaces() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public Class<?> getClazz() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public boolean isNestedClass() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public boolean isStatic() {
-            throw new IllegalStateException("Unimplemented!!");
-        }
-
-        public void copy(final Object from, final Object to) {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public String toString(final Object instance) {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
-        public String getSourcePath() {
-            throw new IllegalStateException("UnImplemented!!");
-        }
-
     }
 }
