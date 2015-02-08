@@ -81,8 +81,6 @@ public class PojoValidatorTest {
 
     }
 
-
-
     private static class PojoStubFactory {
 
         public static PojoClass getStubPojoClass() {
@@ -90,7 +88,6 @@ public class PojoValidatorTest {
                     new StubInvocationHandler());
         }
     }
-
 
     private static class StubInvocationHandler implements InvocationHandler {
 
