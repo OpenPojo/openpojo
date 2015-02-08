@@ -16,20 +16,24 @@ function switch_jdk() {
 
 switch_jdk 1.6
 
-COUNTER=1;
+COUNTER=10;
+
+echo "INFO: Running $COUNTER tests back to back"
 
 pushd ../
 
 while [ $COUNTER -gt 0 ]; do
+  printf "INFO: $COUNTER more to go ..."
   COUNTER=`expr $COUNTER - 1`
   mvn clean package > run.$COUNTER
 
   ISSUCCESSFUL=`cat run.$COUNTER |grep "BUILD SUCCESS" |wc -l`
 
   if [ $ISSUCCESSFUL -gt 0 ]; then
+    echo "PASSED!!"
     rm -rf run.$COUNTER
   else
-    echo "ERROR: Failure detected in run.$COUNTER, file not removed."
+    echo "FAILED!! Failure detected in run.$COUNTER, file not removed."
   fi
 
 done
