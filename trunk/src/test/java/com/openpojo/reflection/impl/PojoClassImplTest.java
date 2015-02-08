@@ -25,6 +25,7 @@ import java.util.List;
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
@@ -103,6 +104,17 @@ public class PojoClassImplTest {
         PojoClass aSyntheticClass = getPojoClassImplForClass(constructor.getParameterTypes()[0]);
         Affirm.affirmTrue("Parameter to synthetic constructor should be synthetic class", aSyntheticClass.isSynthetic());
     }
+    
+    @Test
+    public void testGetPojoFieldsAnnotatedWith(){
+        PojoClass pojoClass = getPojoClassImplForClass(AClassWithAnnotatedFields.class);
+        Affirm.affirmEquals("Expected 4 fields", 4, pojoClass.getPojoFields().size());
+
+        List<PojoField> annotatedPojoFields = pojoClass.getPojoFieldsAnnotatedWith(SomeAnnotation.class);
+        Affirm.affirmEquals("Expected 2 annotated fields", 2, annotatedPojoFields.size());
+
+
+    }
 
     @Test
     @SuppressWarnings("PointlessArithmeticExpression")
@@ -115,6 +127,16 @@ public class PojoClassImplTest {
         pojoClass = getPojoClassImplForClass(AClassWithoutMethods.class);
         Affirm.affirmEquals(String.format("Methods added/removed from class=[%s]", pojoClass.getName()),
                             0 + 1 /* constructor */, pojoClass.getPojoMethods().size());
+    }
+
+    @Test
+    public void testGetPojoMethodsAnnotatedWith() {
+        PojoClass pojoClass = getPojoClassImplForClass(AClassWithAnnotatedMethods.class);
+        Affirm.affirmEquals("Expected 5 methods", 4 + 1 /* constructor */, pojoClass.getPojoMethods().size());
+
+        List<PojoMethod> annotatedPojoFields = pojoClass.getPojoMethodsAnnotatedWith(SomeAnnotation.class);
+        Affirm.affirmEquals("Expected 2 annotated methods", 2, annotatedPojoFields.size());
+
     }
 
     @Test

@@ -17,6 +17,7 @@
 
 package com.openpojo.reflection;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -83,9 +84,19 @@ public interface PojoClass extends PojoElement {
     public List<PojoField> getPojoFields();
 
     /**
+     * Get all PojoFields annotated with given annotation.
+     */
+    public List<PojoField> getPojoFieldsAnnotatedWith(Class<? extends Annotation> annotation);
+
+    /**
      * Get all PojoMethods defined in the class;
      */
     public List<PojoMethod> getPojoMethods();
+
+    /**
+     * Get all PojoMethods annotated with given annotation
+     */
+    public List<PojoMethod> getPojoMethodsAnnotatedWith(Class<? extends Annotation> annotation);
 
     /**
      * Get all Constructors defined in the class.

@@ -21,8 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.business.cache.BusinessKeyFieldCache;
 import com.openpojo.business.cache.BusinessKeyField;
+import com.openpojo.business.cache.BusinessKeyFieldCache;
 import com.openpojo.business.cache.impl.DefaultBusinessKeyField;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
@@ -50,25 +50,19 @@ public class BusinessPojoHelper {
         }
 
         businessKeyFields = new LinkedList<BusinessKeyField>();
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
 
-        List<PojoField> rawFields = new LinkedList<PojoField>();
-        rawFields.addAll(pojoClass.getPojoFields());
-
-        PojoClass parent = pojoClass.getSuperClass();
-        while (parent != null) {
-            rawFields.addAll(parent.getPojoFields());
-            parent = parent.getSuperClass();
-        }
-
-        for (PojoField pojoField : rawFields) {
-            BusinessKey annotation = pojoField.getAnnotation(BusinessKey.class);
-            if (annotation != null) {
-                businessKeyFields.add(new DefaultBusinessKeyField(pojoField, annotation));
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);;
+        while (pojoClass != null) {
+            for (PojoField pojoField : pojoClass.getPojoFieldsAnnotatedWith(BusinessKey.class)) {
+                BusinessKey annotation = pojoField.getAnnotation(BusinessKey.class);
+                businessKeyFields.add(new DefaultBusinessKeyField(pojoField));
             }
+            pojoClass = pojoClass.getSuperClass();
         }
+
         BusinessKeyFieldCache.add(clazz.getName(), businessKeyFields);
         return businessKeyFields;
     }
+
 
 }

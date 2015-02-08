@@ -31,8 +31,9 @@ public class DefaultBusinessKeyField implements BusinessKeyField {
     private final boolean isRequired;
     private final PojoField pojoField;
 
-    public DefaultBusinessKeyField(PojoField pojoField, BusinessKey annotation) {
+    public DefaultBusinessKeyField(PojoField pojoField) {
         this.pojoField = pojoField;
+        BusinessKey annotation = pojoField.getAnnotation(BusinessKey.class);
         isComposite = annotation.composite();
         isCaseSensitive = annotation.caseSensitive();
         isRequired = annotation.required();
