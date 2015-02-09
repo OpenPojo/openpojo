@@ -26,9 +26,9 @@ import com.openpojo.reflection.facade.FacadeFactory;
  * This Factory will create and return a logger based on the current availability of the underlying logger.
  * The system has support currently for SL4J, Log4J, JavaLogger.
  * The factory will detect runtime which logger is available and return the appropriate logger
- * The order of precedence is as follows:
- * 1. SL4J
- * 2. org.apache.log4j.Logger
+ * The order of precedence is as follows: <br>
+ * 1. org.slf4j.Logger. <br>
+ * 2. org.apache.log4j.Logger. <br>
  * 3. java.util.logging.Logger.
  */
 public final class LoggerFactory {
