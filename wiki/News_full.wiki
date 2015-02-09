@@ -1,6 +1,12 @@
 #Latest news on what is happening in OpenPojo.
 
 = News =
+ * *2015-02-08:*
+  * OpenPojo-0.6.5 released download using Maven or from http://bit.ly/1oiDOun
+    * Added
+      # PojoMethod.getPojoParameters now returns a list of PojoParameters, for each you can interrogate parameterization, get annotations, or get actual type.
+      # PojoClass.getPojoFieldsAnnotatedWith(Annotation), now retrieves all fields for a given Annotation.
+      # PojoClass.getPojoMethodsAnnotatedWith(Annotation), now retrieve all methods for a given annotation.
  * *2015-01-26:*
   * OpenPojo-0.6.4 released download using Maven or from http://bit.ly/1oiDOun
     * Fixed
