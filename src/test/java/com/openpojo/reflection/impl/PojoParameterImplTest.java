@@ -52,7 +52,6 @@ public class PojoParameterImplTest {
                 List<PojoParameter> pojoParameters = constructor.getPojoParameters();
                 Assert.assertThat(pojoParameters.size(), is(greaterThan(1)));
                 for (int i = 1; i < pojoParameters.size(); i++) {
-                    System.out.println(pojoParameters.get(i));
                     PojoParameter parameter = pojoParameters.get(i);
                     Assert.assertThat(parameter.isParameterized(), is(Matchers.equalTo(true)));
                 }
