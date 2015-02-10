@@ -89,12 +89,11 @@ public class PojoClassImpl implements PojoClass {
 
     public List<PojoField> getPojoFieldsAnnotatedWith(Class<? extends Annotation> annotation) {
         List<PojoField> returnedFields = new LinkedList<PojoField>();
-        for (PojoField pojoField :pojoFields) {
-            if (pojoField.getAnnotation(annotation) != null)
-                returnedFields.add(pojoField);
+        for (PojoField pojoField : pojoFields) {
+            if (pojoField.getAnnotation(annotation) != null) returnedFields.add(pojoField);
         }
         return returnedFields;
-    };
+    }
 
     public List<PojoMethod> getPojoMethods() {
         return pojoMethods;
@@ -103,8 +102,7 @@ public class PojoClassImpl implements PojoClass {
     public List<PojoMethod> getPojoMethodsAnnotatedWith(Class<? extends Annotation> annotation) {
         List<PojoMethod> returnedMethods = new LinkedList<PojoMethod>();
         for (PojoMethod pojoMethod : pojoMethods) {
-            if (pojoMethod.getAnnotation(annotation) != null)
-                returnedMethods.add(pojoMethod);
+            if (pojoMethod.getAnnotation(annotation) != null) returnedMethods.add(pojoMethod);
         }
         return returnedMethods;
     }
@@ -182,8 +180,9 @@ public class PojoClassImpl implements PojoClass {
 
     public String getSourcePath() {
         try {
-            final ClassLoader cl = Thread.currentThread().getContextClassLoader();
-            final URL location = cl.getResource(getClazz().getName().replace('.', PackageLoader.JDKPATH_DELIMETER) + PackageLoader.CLASS_EXTENSION);
+            final ClassLoader cl = this.getClazz().getClassLoader();
+            final URL location = cl.getResource(getClazz().getName().replace('.', PackageLoader.JDKPATH_DELIMETER)
+                    + PackageLoader.CLASS_EXTENSION);
             return new URLToFileSystemAdapter(location).getAsURI().toString();
         } catch (final Exception e) {
             throw ReflectionException.getInstance(e.getMessage(), e);

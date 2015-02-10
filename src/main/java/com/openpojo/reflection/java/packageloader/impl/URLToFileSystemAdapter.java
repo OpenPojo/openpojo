@@ -28,19 +28,22 @@ import com.openpojo.reflection.exception.ReflectionException;
 * @author oshoukry
 */
 public class URLToFileSystemAdapter {
-    private final String protocol;
+    private static final String FILE_PROTOCOL="file";
+    private static final String JAR_PROTOCOL="jar";
+    private static final String PROTOCOL_SEPARATOR ="://";
+
+    private String protocol;
     private final String authority;
     private final String host;
     private final String ref;
     private final String query;
-    private final String path;
+    private String path;
     private final int port;
 
     public URLToFileSystemAdapter(final URL url) {
         if (url == null)
             throw ReflectionException.getInstance("Null URL not allowed");
 
-        this.protocol = url.getProtocol();
         if (url.getAuthority() != null && url.getAuthority().length() > 0)
             this.authority = url.getAuthority();
         else
@@ -49,7 +52,23 @@ public class URLToFileSystemAdapter {
         this.ref = url.getRef();
         this.query = url.getQuery();
         this.port = url.getPort();
+        this.protocol = url.getProtocol();
         this.path = decodeString(url.getPath());
+        fixProtocolAndPath();
+    }
+
+    /*
+     * Nasty hack because URI doesn't understand jar:file:// scheme due to the following:
+     * 1. Scheme "jar" is not a protocol
+     * 2. Scheme-specific-part starts with file:// and therefore isn't treated as hierarchical
+     *
+     * The fix here is to switch the protocol to file://.
+     */
+    private void fixProtocolAndPath() {
+        if (protocol.equals(JAR_PROTOCOL) && path.startsWith(FILE_PROTOCOL)) {
+            this.protocol = FILE_PROTOCOL;
+            this.path = path.substring(FILE_PROTOCOL.length() + PROTOCOL_SEPARATOR.length());
+        }
     }
 
     public URI getAsURI() {
@@ -62,6 +81,7 @@ public class URLToFileSystemAdapter {
 
     public File getAsFile() {
         URI uri = getAsURI();
+
         // to handle windows paths i.e. //host_server/path/class, need a way to put the authority section back in
         // the path
 
