@@ -35,7 +35,7 @@ Name: Wt24e
 == Method 2: I want to use a particular constructor, then use InstanceFactory ==
 {{{
 PojoClass myClassAsPojoClass = PojoClassFactory.getPojoClass(MyClass.class);
-MyClass myClass = (MyClass) InstanceFactory.getInstance(myClassAsPojoClass, args1, arg2);
+MyClass myClass = (MyClass) InstanceFactory.getInstance(myClassAsPojoClass, arg1, arg2);
 }}}
 
 Actually I just want to use the most complete constructor on the Pojo, I just don't know which one.
