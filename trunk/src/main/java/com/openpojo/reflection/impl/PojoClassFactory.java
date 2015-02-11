@@ -53,7 +53,7 @@ public final class PojoClassFactory {
     }
 
     /**
-     * This method returns a list of PojoClasses in a package representation with filtering cababilities.
+     * This method returns a list of PojoClasses in a package representation with filtering capabilities.
      *
      * @param packageName
      *            Package to introspect (eg. com.mypackage.pojo).
