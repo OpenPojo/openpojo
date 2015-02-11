@@ -18,6 +18,8 @@ If your question is not answered by the list bellow, please feel free to post an
   * Start eclipse and import the project.
 
 == Usage ==
+  *# [GenerateRandomInstance How do I generate a random instance of my class?]
+
 === Field Prefixes ===
  # In my company we use field prefixes so in a class we can have String m_name with getName setName, how do I use OpenPojo to validate getters/setters?
   * In your test setup method, and before you enumerate any POJOs call AttributeHelper.registerFieldPrefix(String).
