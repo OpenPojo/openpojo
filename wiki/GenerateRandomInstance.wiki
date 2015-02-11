@@ -20,7 +20,7 @@ public interface MyInterface {
   String getName();
 }
 }}}
-and in your code you do
+and you do
 {{{
 MyInterface myInterface = RandomFactory.getRandomValue(MyInterface.class);
 System.out.println("Name: " + myInterface.getName());
