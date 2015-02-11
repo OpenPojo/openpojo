@@ -1,6 +1,4 @@
 == Up Coming features in no particular order ==
-  * Generics support
-    * Add support for dynamically constructing objects that have constructors that utilize Generic collections.
   * Enhancements to testing aspect.
    * Add the ability to test / enforce POJO's to be Immutable.
    * Add the ability to filter PojoClass based on source path.
@@ -11,6 +9,5 @@
   * Code cleanup
    * Better handling for JDK 1.6 collection's generation vs. 1.5.
    * Rewire static references for ServiceRegistrar, allowing greater configurability and better decoupling.
-   * *DONE see OpenPojo-0.6.0* - Refactor and improve the ability to detect and implement support for instrumentation frameworks (EclEmma JaCoCo, Clover, ...etc).
-
+ 
 *Note:* If there is something you'd like to see that isn't listed please drop me a line or open a ticket in the [http://code.google.com/p/openpojo/issues Issues] section.
