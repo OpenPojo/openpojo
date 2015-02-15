@@ -26,6 +26,17 @@ List<PojoClass> pojoClasses =
     PojoClassFactory.getPojoClassesRecursively("com.mycompany", new FilterNonConcrete());
 }}}
 
+=== What other filters can I use? ===
+See package "com.openpojo.reflection.filters" as of writing this there are:
+  # _FilterBasedOnInheritance_ - Used by enumerateClassesByExtendingType.
+  # _FilterChain_ - Combine many filters in a single chain.
+  # _FilterClassName_ - Use a regular expression to filter classes based on their name.
+  # _FilterEnum_ - Filter out all enum classes.
+  # _FilterNestedClasses_ - Filter out all non-top-level classes.
+  # _FilterNonConcrete_ - Filter out Interfaces and abstract classes.
+  # _FilterPackageInfo_ - Filter the PackageInfo special package configuration class.
+  # _FilterSyntheticClasses_ - Filter out any auto-generated JVM classes.
+
 == I want to write my own filtering mechanism for looking up a class ==
 
 To implement your own filtering mechanism implement the interface PojoClassFilter
