@@ -20,7 +20,7 @@ If your question is not answered by the list bellow, please feel free to post an
 == Usage ==
   # [GenerateRandomInstance How do I generate a random instance of my class?]
   # [PojoFiltering How do I get a list of all classes in a given package OR How to I filter the list of classes I am getting?]
-  # [PojoField Field Prefixes are causing OpenPojo to faill getters / setters lookup, Help!!
+  # [PojoFieldPrefixes Field Prefixes are causing OpenPojo to faill getters / setters lookup, Help!!
 
 *Have a question that was not answered?*
  * Post a comment on this page and I'll answer you.
