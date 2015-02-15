@@ -148,7 +148,7 @@ public final class MessageFormatter {
 
         String formattedString = "[";
         for (int i = 0; i < arrayLength; i++) {
-            formattedString += String.valueOf(Array.get(message, i));
+            formattedString += format(Array.get(message, i));
             if (i != arrayLength - 1)
                 formattedString += ", ";
         }
