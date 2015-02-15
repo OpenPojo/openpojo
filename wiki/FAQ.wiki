@@ -18,26 +18,14 @@ If your question is not answered by the list bellow, please feel free to post an
   * Start eclipse and import the project.
 
 == Usage ==
-  *# [GenerateRandomInstance How do I generate a random instance of my class?]
+  # [GenerateRandomInstance How do I generate a random instance of my class?]
+  # [PojoFiltering How do I get a list of all classes in a given package OR How to I filter the list of classes I am getting?]
 
 === Field Prefixes ===
  # In my company we use field prefixes so in a class we can have String m_name with getName setName, how do I use OpenPojo to validate getters/setters?
   * In your test setup method, and before you enumerate any POJOs call AttributeHelper.registerFieldPrefix(String).
  # We use hungarian notation, what can we do?
   * You can call AttributeHelper.registerFieldPrefix(String) as many times as you want, they are all stored and used.
-=== Filtering ===
- # How do I filter out all enums as well as package-info?
-  * Create a FilterChain and pass in the constructor all the filters that you want to run against your POJOs (FilterEnum, FilterPackageInfo).
-  * Pass that FilterChain to the PojoClassFactory when you're enumerating - getPojoClasses(packageName, PojoClassFilter).
- # OpenPojo keeps pulling in these classes that I didn't create, they were created by Clover, help!!
-  * When enumerating pass in FilterCloverClasses.
-=== Enumeration ===
- # I need to enumerate all classes in a package that is located inside a JAR file.
-  * Add that JAR file to your class path when you run, call PojoClassFactory.getPojoClassesRecursively(packageName, filter).
- # My Pojo Classes are spread in many packages, how do I find them all?
-  * This question has many answers depending on what you can / can't do, but here are a couple of suggestions
-   * If you are able to identify them when you visually look at them, write a PojoClassFilter that looks for whatever clues you know about to vote them in.
-   * If you can't find out by looking, the next best thing to do is to create a marker interface or annotation that you can throw on your Pojo's that you can then create a PojoClassFilter to examine.
 
 *Have a question that was not answered?*
  * Post a comment on this page and I'll answer you.
