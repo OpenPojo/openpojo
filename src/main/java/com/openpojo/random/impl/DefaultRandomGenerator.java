@@ -31,27 +31,18 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * @author oshoukry
- *
  */
 public class DefaultRandomGenerator implements RandomGenerator {
-    private final RandomInstanceFromInterfaceRandomGenerator interfaceRandomGenerator = RandomInstanceFromInterfaceRandomGenerator.getInstance();
+    private final RandomInstanceFromInterfaceRandomGenerator interfaceRandomGenerator =
+                                                                        RandomInstanceFromInterfaceRandomGenerator.getInstance();
     private final EnumRandomGenerator enumRandomGenerator = EnumRandomGenerator.getInstance();
     private final ArrayRandomGenerator arrayRandomGenerator = ArrayRandomGenerator.getInstance();
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.openpojo.random.RandomGenerator#getTypes()
-     */
     public Collection<Class<?>> getTypes() {
-        throw RandomGeneratorException.getInstance("UnImplemented, this default RandomGenerator should be registered as Default, and has no explicit Types declared");
+        throw RandomGeneratorException.getInstance("UnImplemented, this default RandomGenerator should be registered as Default, and has "
+                + "no explicit Types declared");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.openpojo.random.RandomGenerator#doGenerate(java.lang.Class)
-     */
     public Object doGenerate(final Class<?> type) {
         final PojoClass typePojoClass = PojoClassFactory.getPojoClass(type);
         if (typePojoClass.isInterface()) {
@@ -67,9 +58,8 @@ public class DefaultRandomGenerator implements RandomGenerator {
         }
 
         if (typePojoClass.isAbstract()) {
-            throw RandomGeneratorException.getInstance(String.format(this.getClass().getName()
-                                                                             + " can't generate instance for Abstract class [%s], please register a RandomGenerator and try again",
-                                                                     typePojoClass));
+            throw RandomGeneratorException.getInstance(String.format(this.getClass().getName() + " can't generate instance for Abstract "
+                    + "class [%s], please register a RandomGenerator and try again", typePojoClass));
         }
 
         LoggerFactory.getLogger(DefaultRandomGenerator.class).debug("Creating basic instance for type=[{0}] using InstanceFactory", type);
