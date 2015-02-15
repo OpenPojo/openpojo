@@ -164,6 +164,13 @@ public class MessageFormatterTest {
         Assert.assertEquals(expected, MessageFormatter.format(array));
     }
 
+    @Test
+    public void formatArrayOfArrays() {
+        final String expected = "[[1, 2]]";
+        int[][] arrayOfArray = {{1, 2}};
+        Assert.assertEquals(expected, MessageFormatter.format(arrayOfArray));
+    }
+
     private static final int MAX_NUMBER_OF_RANDOM_TOKENS = 10;
 
     @Test
