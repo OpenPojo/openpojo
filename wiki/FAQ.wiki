@@ -20,12 +20,7 @@ If your question is not answered by the list bellow, please feel free to post an
 == Usage ==
   # [GenerateRandomInstance How do I generate a random instance of my class?]
   # [PojoFiltering How do I get a list of all classes in a given package OR How to I filter the list of classes I am getting?]
-
-=== Field Prefixes ===
- # In my company we use field prefixes so in a class we can have String m_name with getName setName, how do I use OpenPojo to validate getters/setters?
-  * In your test setup method, and before you enumerate any POJOs call AttributeHelper.registerFieldPrefix(String).
- # We use hungarian notation, what can we do?
-  * You can call AttributeHelper.registerFieldPrefix(String) as many times as you want, they are all stored and used.
+  # [PojoField Field Prefixes are causing OpenPojo to faill getters / setters lookup, Help!!
 
 *Have a question that was not answered?*
  * Post a comment on this page and I'll answer you.
