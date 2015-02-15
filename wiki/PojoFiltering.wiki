@@ -1,0 +1,51 @@
+= How do I get a list of all classes in a given package? =
+
+To lookup classes you can do one of the following:
+
+=== 1. Getting all classes in a given package "com.mycompany.pojos" ===
+{{{
+List<PojoClass> pojoClasses =
+    PojoClassFactory.getPojoClasses("com.mycompany.pojos");
+}}}
+
+=== 2. Getting all classes in a given package and all sub packages "com.mycompany" ===
+{{{
+List<PojoClass> pojoClasses =
+    PojoClassFactory.getPojoClassesRecursively("com.mycompany.mypackage", null);
+}}}
+
+=== 3. Getting all classes that extend a given class or implement a given interface ===
+{{{
+List<PojoClass> pojoClasses =
+    PojoClassFactory.enumerateClassesByExtendingType("com.mycompany", MyInterface.class, null);
+}}}
+
+=== 4. Getting all concrete (i.e. not interfaces or abstract classes) classes in a given package ===
+{{{
+List<PojoClass> pojoClasses =
+    PojoClassFactory.getPojoClassesRecursively("com.mycompany", new FilterNonConcrete());
+}}}
+
+== I want to write my own filtering mechanism for looking up a class ==
+
+To implement your own filtering mechanism implement the interface PojoClassFilter
+
+For example, if you want to get all inner classes in your system, first implement your Filter:
+
+{{{
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoClassFilter;
+
+public class InnerClassesFilter implements PojoClassFilter {
+  public boolean include(final PojoClass pojoClass {
+    return pojoClass.isNestedClass();
+  }
+}
+}}}
+
+Then in in your test do:
+
+{{{
+List<PojoClass> pojoClasses =
+    PojoClassFactory.getPojoClassesRecursively("com.mycompany", new InnerClassesFilter());
+}}}
