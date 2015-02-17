@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 import com.openpojo.random.RandomFactory;
+import com.openpojo.reflection.impl.ParameterizableFactory;
 
 /**
  * This Class is responsible for creating on the fly random instances from Interfaces.
@@ -51,7 +52,7 @@ public class RandomReturnInvocationHandler implements InvocationHandler {
             return objectHashCode(proxy);
         }
 
-        return RandomFactory.getRandomValue(method.getReturnType());
+        return RandomFactory.getRandomValue(ParameterizableFactory.getInstance(method.getGenericReturnType()));
     }
 
     private String objectToString(final Object proxy) {
