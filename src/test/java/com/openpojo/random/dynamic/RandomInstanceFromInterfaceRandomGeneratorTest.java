@@ -54,6 +54,11 @@ public class RandomInstanceFromInterfaceRandomGeneratorTest {
     }
 
     @Test
+    public void shouldReturnFalseWithNullEquals() {
+        Affirm.affirmFalse("Should be false", aSimpleInterface.equals(null));
+    }
+
+    @Test
     public void shouldReturnRandomNonNullValuesForInterfaceMethods() {
         final ASimpleInterface aSimpleInterface = proxyGenerator.doGenerate(ASimpleInterface.class);
 
@@ -61,7 +66,7 @@ public class RandomInstanceFromInterfaceRandomGeneratorTest {
 
         final String name = aSimpleInterface.getName();
         final String otherName = aSimpleInterface.getName();
-        if (name.equals(otherName)) { // Just incase they are the same by chance.
+        if (name.equals(otherName)) { // Just in case they are the same by chance.
             Affirm.affirmFalse(String.format("RandomProxyFactory=[%s] returned a non-Random Pojo Proxy",
                     RandomInstanceFromInterfaceRandomGenerator.getInstance()), name.equals(aSimpleInterface.getName()));
         }
@@ -109,12 +114,15 @@ public class RandomInstanceFromInterfaceRandomGeneratorTest {
         Affirm.affirmNotNull("Should not be null", aString );
         Affirm.affirmTrue("Should not be empty", aString.length() > 0);
 
+        boolean voidMethodInvoked = false;
         PojoClass pojoClass = PojoClassFactory.getPojoClass(anInterfaceWithGenericMethodReturnType.getClass());
         for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
             if (pojoMethod.getName().equals("aVoid")) {
                 Affirm.affirmNull("Should be null", pojoMethod.invoke(anInterfaceWithGenericMethodReturnType));
+                voidMethodInvoked = true;
             }
         }
+        Affirm.affirmTrue("Void method not found!!", voidMethodInvoked);
     }
 
     @Test(expected = ReflectionException.class)
