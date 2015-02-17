@@ -17,14 +17,19 @@
 
 package com.openpojo.random.dynamic;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.util.List;
 
 import com.openpojo.random.dynamic.sampleclasses.AConcreteClass;
 import com.openpojo.random.dynamic.sampleclasses.ASimpleInterface;
 import com.openpojo.random.dynamic.sampleclasses.AnAbstractClass;
+import com.openpojo.random.dynamic.sampleclasses.AnInterfaceWithGenericMethodReturnType;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Before;
+import org.junit.Test;
 
 public class RandomInstanceFromInterfaceRandomGeneratorTest {
 
@@ -80,6 +85,36 @@ public class RandomInstanceFromInterfaceRandomGeneratorTest {
     public void shouldAllowInvokingVoidReturnMethods() {
         // Just ensuring it doesn't throw some exception/etc.
         aSimpleInterface.doSomethingUseful();
+    }
+
+    @Test
+    public void shouldReturnProperGenericsValue() {
+        final AnInterfaceWithGenericMethodReturnType anInterfaceWithGenericMethodReturnType = proxyGenerator.doGenerate
+                (AnInterfaceWithGenericMethodReturnType.class);
+
+        List<AConcreteClass> theList = anInterfaceWithGenericMethodReturnType.aListOfAConcreteClass();
+
+        Affirm.affirmNotNull("Should not be null", theList);
+        Affirm.affirmTrue("Should not be empty", theList.size() > 0);
+        for (Object entry : theList)
+            Affirm.affirmEquals("Should be of correct type", AConcreteClass.class, entry.getClass());
+
+        int[] anIntArray = anInterfaceWithGenericMethodReturnType.anIntArray();
+        Affirm.affirmNotNull("Should not be null", anIntArray);
+        Affirm.affirmTrue("Should not be empty", anIntArray.length > 0);
+        for (int entry : anIntArray)
+            Affirm.affirmFalse("should not be equal", entry == entry + 1);
+
+        String aString = anInterfaceWithGenericMethodReturnType.aString();
+        Affirm.affirmNotNull("Should not be null", aString );
+        Affirm.affirmTrue("Should not be empty", aString.length() > 0);
+
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(anInterfaceWithGenericMethodReturnType.getClass());
+        for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
+            if (pojoMethod.getName().equals("aVoid")) {
+                Affirm.affirmNull("Should be null", pojoMethod.invoke(anInterfaceWithGenericMethodReturnType));
+            }
+        }
     }
 
     @Test(expected = ReflectionException.class)
