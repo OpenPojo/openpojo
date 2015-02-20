@@ -49,7 +49,7 @@ public final class EnumRandomGenerator {
     private Enum<?>[] getValues(final PojoClass enumPojoClass) {
         Enum<?>[] values = null;
         for (final PojoMethod pojoMethod : enumPojoClass.getPojoMethods()) {
-            if (pojoMethod.getName().equals("values")) {
+            if (pojoMethod.getName().equals("values") && pojoMethod.getPojoParameters().size() == 0) {
                 values = (Enum<?>[]) pojoMethod.invoke(null, (Object[]) null);
                 break;
             }
