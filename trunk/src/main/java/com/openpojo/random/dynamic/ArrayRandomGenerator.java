@@ -29,7 +29,7 @@ import com.openpojo.random.RandomFactory;
  */
 public class ArrayRandomGenerator {
     private static final Random RANDOM = new Random(new Date().getTime());
-    private static final int MAX_RANDOM_ELEMENTS = 20;
+    private static final int MAX_RANDOM_ELEMENTS = 5;
 
     private ArrayRandomGenerator() {
     }
@@ -39,7 +39,7 @@ public class ArrayRandomGenerator {
     }
 
     public Object doGenerate(final Class<?> type) {
-        final int count = RANDOM.nextInt(MAX_RANDOM_ELEMENTS + 1);
+        final int count = RANDOM.nextInt(MAX_RANDOM_ELEMENTS) + 1;
         final Object arrayReturn = Array.newInstance(type.getComponentType(), count);
         for (int i = 0; i < count; i++) {
             Array.set(arrayReturn, i, RandomFactory.getRandomValue(type.getComponentType()));
