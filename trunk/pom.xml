@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   ~ Copyright (c) 2010-2015 Osman Shoukry
   ~
@@ -17,31 +19,34 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
+        <groupId>org.sonatype.oss</groupId>
         <version>5</version>
     </parent>
+
     <groupId>com.googlecode.openpojo</groupId>
     <artifactId>openpojo</artifactId>
     <version>0.6.6-SNAPSHOT</version>
     <name>${project.artifactId}</name>
-    <url>http://openpojo.com/</url>
-    <description>
-        This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
+
+    <description>This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
         This project has two main aspects to it:
         * Make Testing as easy as possible.
-        * Simplifying identity management (hashCode / equals) using annotation.
-    </description>
-    <issueManagement>
-        <system>googlecode</system>
-        <url>http://code.google.com/p/openpojo/issues/</url>
-    </issueManagement>
-    <scm>
-        <connection>scm:svn:http://openpojo.googlecode.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
-        <url>http://openpojo.googlecode.com/svn/trunk</url>
-    </scm>
+        * Simplifying identity management (hashCode / equals) using annotation.</description>
+    <url>http://openpojo.com/</url>
+
+    <inceptionYear>2010</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE v3</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <developers>
         <developer>
             <name>Osman Shoukry</name>
@@ -53,6 +58,7 @@
             <timezone>-8</timezone>
         </developer>
     </developers>
+
     <contributors>
         <contributor>
             <name>David J. M. Karlsen</name>
@@ -61,30 +67,87 @@
             <timezone>+1</timezone>
             <properties>
                 <contribution>Created initial pom.xml and provided guidance in how
-                    to get OpenPojo into Maven
-                </contribution>
+                    to get OpenPojo into Maven</contribution>
             </properties>
         </contributor>
     </contributors>
-    <licenses>
-        <license>
-            <distribution>repo</distribution>
-            <name>GNU LESSER GENERAL PUBLIC LICENSE v3</name>
-            <url>http://www.gnu.org/licenses/lgpl.html</url>
-        </license>
-    </licenses>
-    <inceptionYear>2010</inceptionYear>
+
+    <scm>
+        <connection>scm:svn:http://openpojo.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
+        <url>http://openpojo.googlecode.com/svn/trunk</url>
+    </scm>
+
+    <issueManagement>
+        <system>googlecode</system>
+        <url>http://code.google.com/p/openpojo/issues/</url>
+    </issueManagement>
+
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.build.java.target>1.5</project.build.java.target>
-        <slf4j.version>1.7.7</slf4j.version>
-        <junit.version>4.11</junit.version>
-        <hamcrest.version>1.3</hamcrest.version>
-        <testng.version>6.8.8</testng.version>
-        <log4j.version>1.2.17</log4j.version>
-        <surefire.version>2.17</surefire.version>
         <clover.version>4.0.1</clover.version>
+        <hamcrest.version>1.3</hamcrest.version>
+        <junit.version>4.11</junit.version>
+        <log4j.version>1.2.17</log4j.version>
+        <project.build.java.target>1.5</project.build.java.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <slf4j.version>1.7.7</slf4j.version>
+        <surefire.version>2.17</surefire.version>
+        <testng.version>6.8.8</testng.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>JBOSS</id>
+            <name>JBoss Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/public/</url>
+        </repository>
+    </repositories>
+
     <build>
         <testResources>
             <testResource>
@@ -125,10 +188,6 @@
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>maven-clover2-plugin</artifactId>
                 <version>${clover.version}</version>
-                <configuration>
-                    <jdk>${project.build.java.target}</jdk>
-                    <targetPercentage>95</targetPercentage>
-                </configuration>
                 <executions>
                     <execution>
                         <id>clover</id>
@@ -140,9 +199,14 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <jdk>${project.build.java.target}</jdk>
+                    <targetPercentage>95</targetPercentage>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
     <profiles>
         <profile>
             <id>openpojo-release</id>
@@ -193,63 +257,12 @@
                             <additionalparam>-inferrel -inferdep -quiet -hide java.*
                                 -collpackages java.util.* -qualify
                                 -postfixpackage -nodefontsize
-                                9 -nodefontpackagesize 7
-                            </additionalparam>
+                                9 -nodefontpackagesize 7</additionalparam>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-    <repositories>
-        <repository>
-            <id>JBOSS</id>
-            <name>JBoss Repository</name>
-            <url>https://repository.jboss.org/nexus/content/repositories/public/</url>
-        </repository>
-    </repositories>
-    <dependencies>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>${hamcrest.version}</version>
-            <scope>test</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
+
 </project>
