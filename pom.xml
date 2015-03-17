@@ -191,10 +191,8 @@
                 <version>${clover.version}</version>
                 <executions>
                     <execution>
-                        <!--
-<id>clover</id>
--->
-                        <phase>test</phase>
+                        <id>clover</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>instrument</goal>
                             <goal>check</goal>
