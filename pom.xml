@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
   ~ Copyright (c) 2010-2015 Osman Shoukry
   ~
@@ -16,7 +15,6 @@
   ~    You should have received a copy of the GNU Lesser General Public License
   ~    along with this program.  If not, see <http://www.gnu.org/licenses />.
   -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -85,7 +83,7 @@
 
     <properties>
         <clover.version>4.0.1</clover.version>
-	<maven.clover.skip>${skipTests}</maven.clover.skip>
+        <maven.clover.skip>${skipTests}</maven.clover.skip>
         <hamcrest.version>1.3</hamcrest.version>
         <junit.version>4.11</junit.version>
         <log4j.version>1.2.17</log4j.version>
@@ -203,19 +201,17 @@
                 <configuration>
                     <jdk>${project.build.java.target}</jdk>
                     <targetPercentage>95</targetPercentage>
-                    <license>
-                       <![CDATA[qmmqPdradBdfucGSQpLVcmshVPOMJeuUbdHjfExELDfBGfe
+                    <license><![CDATA[qmmqPdradBdfucGSQpLVcmshVPOMJeuUbdHjfExELDfBGfe
                                 mj2L0E9>WPi6EzZcjunnyIqjH2KUUUhkia8fcfyTy4R9sid
                                 opQqSxpMOnpPNRoRqnnXuRrrNnQpQnNQNOxxSwtTxVSVWwQ
                                 PNqpnmqmUUnqnptopsmmmmmUUnqnptopsmmmmmUUFmbkGlg
-                                lUUnmmmm]]>
-                </license>
+                                lUUnmmmm]]></license>
                 </configuration>
             </plugin>
             <plugin>
-              <groupId>org.eluder.coveralls</groupId>
-              <artifactId>coveralls-maven-plugin</artifactId>
-              <version>3.0.1</version>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>3.0.1</version>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
