@@ -73,9 +73,9 @@
     </contributors>
 
     <scm>
-        <connection>scm:svn:http://openpojo.googlecode.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://openpojo.googlecode.com/svn/trunk</developerConnection>
-        <url>http://openpojo.googlecode.com/svn/trunk</url>
+        <connection>scm:git:git://github.com/oshoukry/openpojo.git</connection>
+        <developerConnection>scm:git:git@github.com:oshoukry/openpojo.git</developerConnection>
+        <url>https://github.com/oshoukry/openpojo</url>
     </scm>
 
     <issueManagement>
