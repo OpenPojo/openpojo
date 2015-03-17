@@ -1,4 +1,4 @@
-# OpenPojo [![Build Status](https://travis-ci.org/oshoukry/openpojo.svg?branch=master)](https://travis-ci.org/oshoukry/openpojo)
+# OpenPojo [![Build Status](https://travis-ci.org/oshoukry/openpojo.svg?branch=master)](https://travis-ci.org/oshoukry/openpojo) [![Coverage Status](https://coveralls.io/repos/oshoukry/openpojo/badge.svg?branch=master)](https://coveralls.io/r/oshoukry/openpojo?branch=master)
 
 POJO Testing &amp; Identity Management Made Trivial 
 
