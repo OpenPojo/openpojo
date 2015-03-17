@@ -20,7 +20,6 @@ public class PojoTest {
     pojoValidator = new PojoValidator();
 
     // Add Rules to validate structure for POJO_PACKAGE
-    // See more @com.openpojo.validation.rule.impl
     pojoValidator.addRule(new GetterMustExistRule());
     pojoValidator.addRule(new SetterMustExistRule());
     pojoValidator.addRule(/* ... See com.openpojo.validation.rule.impl for more ...*/);
