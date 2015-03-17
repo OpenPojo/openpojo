@@ -1,3 +1,4 @@
+# This file is for reference on the steps performed to cut a release.
 mvn clean
 mvn release:clean
 mvn release:prepare
