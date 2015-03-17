@@ -79,8 +79,8 @@
     </scm>
 
     <issueManagement>
-        <system>googlecode</system>
-        <url>http://code.google.com/p/openpojo/issues/</url>
+        <system>GitHub Issues</system>
+        <url>https://github.com/oshoukry/openpojo/issues</url>
     </issueManagement>
 
     <properties>
