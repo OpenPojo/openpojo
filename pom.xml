@@ -202,6 +202,13 @@
                 <configuration>
                     <jdk>${project.build.java.target}</jdk>
                     <targetPercentage>95</targetPercentage>
+                    <license>
+                       <![CDATA[qmmqPdradBdfucGSQpLVcmshVPOMJeuUbdHjfExELDfBGfe
+                                mj2L0E9>WPi6EzZcjunnyIqjH2KUUUhkia8fcfyTy4R9sid
+                                opQqSxpMOnpPNRoRqnnXuRrrNnQpQnNQNOxxSwtTxVSVWwQ
+                                PNqpnmqmUUnqnptopsmmmmmUUnqnptopsmmmmmUUFmbkGlg
+                                lUUnmmmm]]>
+                </license>
                 </configuration>
             </plugin>
         </plugins>
