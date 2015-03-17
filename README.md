@@ -28,7 +28,7 @@ public class PojoTest {
     // Add Testers to validate behaviour for POJO_PACKAGE
     pojoValidator.addTester(new SetterTester());
     pojoValidator.addTester(new GetterTester());
-    pojoValidator.addRule(/* ... See com.openpojo.validation.test.impl for more ...*/);
+    pojoValidator.addTester(/* ... See com.openpojo.validation.test.impl for more ...*/);
   }
 
   @Test
