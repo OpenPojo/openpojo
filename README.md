@@ -23,12 +23,12 @@ public class PojoTest {
     // See more @com.openpojo.validation.rule.impl
     pojoValidator.addRule(new GetterMustExistRule());
     pojoValidator.addRule(new SetterMustExistRule());
-    //[... See more @com.openpojo.validation.rule.impl]
+    pojoValidator.addRule(/* ... See com.openpojo.validation.rule.impl for more ...*/);
 
     // Add Testers to validate behaviour for POJO_PACKAGE
     pojoValidator.addTester(new SetterTester());
     pojoValidator.addTester(new GetterTester());
-    //[... See more @com.openpojo.validation.test.impl]
+    pojoValidator.addRule(/* ... See com.openpojo.validation.test.impl for more ...*/);
   }
 
   @Test
