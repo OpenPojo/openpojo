@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.openpojo.random.ParameterizableRandomGenerator;
+import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
 import com.openpojo.random.util.SerializableComparableObject;
@@ -71,7 +72,7 @@ public final class SetConcreteRandomGenerator implements ParameterizableRandomGe
     }
 
     public Object doGenerate(Parameterizable parameterizedType) {
-        Set initialSet = new HashSet();
+        Set initialSet = (Set) RandomFactory.getRandomValue(parameterizedType.getType());
         CollectionHelper.buildCollections(initialSet, parameterizedType.getParameterTypes().get(0));
         return initialSet;
     }
