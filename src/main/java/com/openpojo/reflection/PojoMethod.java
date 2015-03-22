@@ -117,6 +117,11 @@ public interface PojoMethod extends PojoElement {
     public boolean isConstructor();
 
     /**
+     * @return True if this method is abstract-ly defined on the enclosing class.
+     */
+    public boolean isAbstract();
+
+    /**
      * @return Returns the return type.
      */
     public Class<?> getReturnType();

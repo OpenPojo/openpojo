@@ -155,6 +155,14 @@ public class PojoMethodImpl implements PojoMethod {
         return accessibleObject instanceof Constructor<?>;
     }
 
+    public boolean isAbstract() {
+        if (isConstructor()) {
+            return Modifier.isAbstract(getAsConstructor().getModifiers()); // should never return true
+        }
+
+        return Modifier.isAbstract(getAsMethod().getModifiers());
+    }
+
     public Type[] getGenericParameterTypes() {
         if (isConstructor()) {
             return getAsConstructor().getGenericParameterTypes();
