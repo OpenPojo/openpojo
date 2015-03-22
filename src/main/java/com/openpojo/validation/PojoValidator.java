@@ -72,9 +72,8 @@ public class PojoValidator {
             rule.evaluate(pojoClass);
         }
 
-        if (!pojoClass.isConcrete()) {
-            logger.warn("Attempt to execute behavioural test on non-concrete class=[{0}] ignored,"
-                    + " consider using FilterNonConcrete filter when calling PojoClassFactory", pojoClass.getClazz());
+        if (pojoClass.isInterface() || pojoClass.isEnum()) {
+            logger.warn("Attempt to execute behavioural test on non-constructable class=[{0}] ignored", pojoClass.getClazz());
             return;
         }
 

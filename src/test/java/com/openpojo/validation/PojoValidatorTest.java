@@ -26,8 +26,12 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.utils.validation.LoggingRule;
 import com.openpojo.utils.validation.LoggingTester;
 import com.openpojo.validation.rule.Rule;
+import com.openpojo.validation.sample.AnAbstractClassWithGetterSetter;
 import com.openpojo.validation.test.Tester;
+import com.openpojo.validation.test.impl.GetterTester;
+import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -37,10 +41,10 @@ import org.junit.Test;
  */
 public class PojoValidatorTest {
 
+    private PojoValidator pojoValidator = new PojoValidator();
+
     @Test
     public void testRunValidation() {
-        final PojoValidator pojoValidator = new PojoValidator();
-
         final LoggingRule loggingRule = new LoggingRule();
         final LoggingTester loggingTester = new LoggingTester();
 
@@ -57,14 +61,50 @@ public class PojoValidatorTest {
     }
 
     @Test
-    public void shouldEvaluateStructureAndNotRunValidationOnBehaviourSilentlyWithoutExceptions() {
-        final PojoValidator pojoValidator = new PojoValidator();
-        final RuleTesterMock ruleTesterMock = new RuleTesterMock();
+    public void shouldNotInvokeRulesOnInterfaces() {
+        MethodValueReturn methodValueReturn = new MethodValueReturn();
+        methodValueReturn.isInterface = true;
+        String pojoType = "Interface";
+
+        ensureRuleInvokedTesterNotInvoked(methodValueReturn, pojoType);
+    }
+
+    @Test
+    public void shouldNotInvokeRulesOnEnums() {
+        MethodValueReturn methodValueReturn = new MethodValueReturn();
+        methodValueReturn.isEnum = true;
+        String pojoType = "Enum";
+
+        ensureRuleInvokedTesterNotInvoked(methodValueReturn, pojoType);
+    }
+
+    private void ensureRuleInvokedTesterNotInvoked(MethodValueReturn methodValueReturn, String pojoType) {
+        RuleTesterMock ruleTesterMock = new RuleTesterMock();
         pojoValidator.addRule(ruleTesterMock);
         pojoValidator.addTester(ruleTesterMock);
-        pojoValidator.runValidation(PojoStubFactory.getStubPojoClass());
-        Assert.assertTrue("Evaluate not run on non-concrete class", ruleTesterMock.evaluateCalled);
-        Assert.assertTrue("Run called on non-concrete class", !ruleTesterMock.runCalled);
+        pojoValidator.runValidation(PojoStubFactory.getStubPojoClass(methodValueReturn));
+        Assert.assertTrue("Evaluate not run on " + pojoType + " class", ruleTesterMock.evaluateCalled);
+        Assert.assertTrue("Rule called on " + pojoType + " class", !ruleTesterMock.runCalled);
+    }
+
+    @Test
+    public void shouldInvokeRuleOnAbstract() {
+        MethodValueReturn methodValueReturn = new MethodValueReturn();
+        methodValueReturn.isAbstract = true;
+        RuleTesterMock ruleTesterMock = new RuleTesterMock();
+        pojoValidator.addTester(ruleTesterMock);
+
+        pojoValidator.runValidation(PojoStubFactory.getStubPojoClass(methodValueReturn));
+        Assert.assertTrue("Rule not called", ruleTesterMock.runCalled);
+    }
+
+    @Test
+    @Ignore
+    public void abstractClassTestingEndToEnd() {
+        pojoValidator.addTester(new GetterTester());
+        pojoValidator.addTester(new SetterTester());
+
+        pojoValidator.runValidation(PojoClassFactory.getPojoClass(AnAbstractClassWithGetterSetter.class));
     }
 
     private static class RuleTesterMock implements Rule, Tester {
@@ -78,29 +118,41 @@ public class PojoValidatorTest {
         public void run(final PojoClass pojoClass) {
             runCalled = true;
         }
-
     }
 
     private static class PojoStubFactory {
 
-        public static PojoClass getStubPojoClass() {
+        public static PojoClass getStubPojoClass(MethodValueReturn methodValueReturn) {
             return (PojoClass) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[] { PojoClass.class },
-                    new StubInvocationHandler());
+                    new StubInvocationHandler(methodValueReturn));
         }
+    }
+
+    private static class MethodValueReturn {
+        public boolean isConcrete = false;
+        public boolean isAbstract = false;
+        public boolean isInterface = false;
+        public boolean isEnum = false;
+        public boolean isSynthetic = false;
     }
 
     private static class StubInvocationHandler implements InvocationHandler {
 
+        private final MethodValueReturn methodValueReturn;
+
+        public StubInvocationHandler(MethodValueReturn methodValueReturn) {
+            this.methodValueReturn = methodValueReturn;
+        }
+
         public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
 
-            if (method.getName().equals("isConcrete"))
-                return false;
+            if (method.getName().equals("isConcrete")) return methodValueReturn.isConcrete;
+            if (method.getName().equals("isAbstract")) return methodValueReturn.isAbstract;
+            if (method.getName().equals("isInterface")) return methodValueReturn.isInterface;
+            if (method.getName().equals("isEnum")) return methodValueReturn.isEnum;
+            if (method.getName().equals("isSynthetic")) return methodValueReturn.isSynthetic;
 
-            if (method.getName().equals("isSynthetic"))
-                return false;
-
-            if (method.getName().equals("getClazz"))
-                return this.getClass();
+            if (method.getName().equals("getClazz")) return this.getClass();
 
             throw new RuntimeException("UnImplemented!!");
         }
