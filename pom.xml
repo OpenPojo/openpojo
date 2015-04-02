@@ -97,7 +97,7 @@
         <maven-javadoc-plugin.version>2.7</maven-javadoc-plugin.version>
         <maven-source-plugin.version>2.1.2</maven-source-plugin.version>
         <skipTests>false</skipTests>
-        <skipTests.maven.clover.skip>${skipTests}</skipTests.maven.clover.skip>
+        <maven.clover.skip>${skipTests}</maven.clover.skip>
         <slf4j.version>1.7.7</slf4j.version>
         <surefire.version>2.17</surefire.version>
         <testng.version>6.8.8</testng.version>
