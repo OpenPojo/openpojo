@@ -26,6 +26,7 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.Java;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
 
@@ -41,7 +42,7 @@ public class ZIPPackageLoaderTest {
 
         URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] { new URL(mypath) });
 
-        String [] classNames = new String[] { "com.openpojotest.AClass", "com.openpojotest.AndAnotherClass" };
+        String[] classNames = new String[] { "com.openpojotest.AClass", "com.openpojotest.AndAnotherClass" };
 
         boolean saidHello = false;
         boolean gotGreetingMessage = false;
@@ -50,8 +51,8 @@ public class ZIPPackageLoaderTest {
             Class entry = urlClassLoader.loadClass(className);
             PojoClass pojoClass = PojoClassFactory.getPojoClass(entry);
 
-            Affirm.affirmEquals("Should be equal", mypath + className.replace(".", "/") + ".class",
-                    "jar:" + pojoClass.getSourcePath());
+            Affirm.affirmEquals("Should be equal", mypath + className.replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER) + Java
+                    .CLASS_EXTENSION, "jar:" + pojoClass.getSourcePath());
 
             if (pojoClass.getName().equals("com.openpojotest.AClass")) {
                 for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {

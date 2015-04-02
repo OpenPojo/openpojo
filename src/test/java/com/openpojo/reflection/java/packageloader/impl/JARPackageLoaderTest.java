@@ -24,12 +24,11 @@ import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import com.openpojo.log.utils.MessageFormatter;
+import com.openpojo.reflection.java.Java;
+import com.openpojo.validation.affirm.Affirm;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.openpojo.log.utils.MessageFormatter;
-import com.openpojo.reflection.java.packageloader.PackageLoader;
-import com.openpojo.validation.affirm.Affirm;
 
 /**
  * @author oshoukry
@@ -113,7 +112,7 @@ public class JARPackageLoaderTest {
         Enumeration<URL> resources = null;
         try {
             resources = Thread.currentThread().getContextClassLoader().getResources(
-                packageName.replace(PackageLoader.JDKPACKAGE_DELIMETER, PackageLoader.JDKPATH_DELIMETER));
+                packageName.replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER));
         } catch (IOException e) {
             Affirm.fail(MessageFormatter.format("Failed to get resources for package[{0}] got exception[{1}]",
                 packageName, e));

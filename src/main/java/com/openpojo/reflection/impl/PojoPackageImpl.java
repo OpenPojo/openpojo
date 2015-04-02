@@ -28,6 +28,7 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.Java;
 import com.openpojo.reflection.java.packageloader.Package;
 
 /**
@@ -59,7 +60,7 @@ class PojoPackageImpl implements PojoPackage {
 
         Class<?> infoClass = null;
         try {
-            infoClass = Class.forName(packageName + PojoPackage.PACKAGE_DELIMETER + PojoPackage.PACKAGE_INFO);
+            infoClass = Class.forName(packageName + Java.PACKAGE_DELIMETER + Java.PACKAGE_INFO);
         } catch (ClassNotFoundException ignored) {
         }
         if (infoClass != null) {

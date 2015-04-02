@@ -30,6 +30,7 @@ import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.Java;
 import com.openpojo.reflection.java.packageloader.impl.FilePackageLoader;
 import com.openpojo.reflection.java.packageloader.impl.JARPackageLoader;
 
@@ -86,10 +87,6 @@ public abstract class PackageLoader {
         return Thread.currentThread().getContextClassLoader();
     }
 
-    public static final Character JDKPACKAGE_DELIMETER = '.';
-    public static final Character JDKPATH_DELIMETER = '/';
-    public static final String CLASS_EXTENSION = ".class";
-
     protected final Class<?> getAsClass(final String entry) throws ClassNotFoundException {
         if (isClass(entry)) {
             String className = stripClassExtension(fromJDKPathToJDKPackage(entry));
@@ -104,19 +101,19 @@ public abstract class PackageLoader {
     }
 
     protected static String fromJDKPackageToJDKPath(final String path) {
-        return path.replace(JDKPACKAGE_DELIMETER, JDKPATH_DELIMETER);
+        return path.replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER);
     }
 
     protected static String fromJDKPathToJDKPackage(final String path) {
-        return path.replace(JDKPATH_DELIMETER, JDKPACKAGE_DELIMETER);
+        return path.replace(Java.PATH_DELIMETER, Java.PACKAGE_DELIMETER);
     }
 
     private String stripClassExtension(final String path) {
-        return path.substring(0, path.length() - CLASS_EXTENSION.length());
+        return path.substring(0, path.length() - Java.CLASS_EXTENSION.length());
     }
 
     private boolean isClass(final String path) {
-        return path.endsWith(CLASS_EXTENSION);
+        return path.endsWith(Java.CLASS_EXTENSION);
     }
 
     @Override

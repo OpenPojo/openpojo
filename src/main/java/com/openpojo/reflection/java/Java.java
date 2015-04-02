@@ -15,31 +15,14 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.reflection.filters;
-
-import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoClassFilter;
-import com.openpojo.reflection.java.Java;
+package com.openpojo.reflection.java;
 
 /**
- * This filter will exclude any "package-info" interface entries.
- *
  * @author oshoukry
  */
-public class FilterPackageInfo implements PojoClassFilter {
-
-    public boolean include(final PojoClass pojoClass) {
-        return !pojoClass.getName().endsWith(Java.PACKAGE_DELIMETER + Java.PACKAGE_INFO);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return this == o || !(o == null || getClass() != o.getClass());
-    }
-
-    @Override
-    public int hashCode() {
-        return this.getClass().hashCode();
-    }
-
+public interface Java {
+    char PACKAGE_DELIMETER = '.';
+    char PATH_DELIMETER = '/';
+    String CLASS_EXTENSION = ".class";
+    String PACKAGE_INFO = "package-info";
 }

@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.Java;
 import com.openpojo.reflection.java.packageloader.PackageLoader;
 
 /**
@@ -42,7 +43,7 @@ public final class FilePackageLoader extends PackageLoader {
 
         for (final File entry : getEntries()) {
             try {
-                final String className = fromJDKPathToJDKPackage(packageName) + JDKPACKAGE_DELIMETER + entry.getName();
+                final String className = fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMETER + entry.getName();
                 final Class<?> classEntry = getAsClass(className);
                 if (classEntry != null) {
                     types.add(classEntry);
@@ -58,7 +59,7 @@ public final class FilePackageLoader extends PackageLoader {
         final Set<String> subPaths = new HashSet<String>();
         for (final File file : getEntries()) {
             if (file.isDirectory()) {
-                subPaths.add(fromJDKPathToJDKPackage(packageName) + JDKPACKAGE_DELIMETER + file.getName());
+                subPaths.add(fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMETER + file.getName());
             }
         }
         return subPaths;
