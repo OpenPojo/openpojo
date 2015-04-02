@@ -25,16 +25,13 @@ import java.util.List;
  * @author oshoukry
  */
 public interface PojoPackage extends PojoElement {
-    public static final String PACKAGE_INFO = "package-info";
-    public static final char PACKAGE_DELIMETER = '.';
-
     /**
      * Get all PojoClasses in current package.
      *
      * @return
      *         Return a list of all classes as PojoClasses in a given package.
      */
-    public List<PojoClass> getPojoClasses();
+    List<PojoClass> getPojoClasses();
 
     /**
      * Get all Classes in this PojoPackageImpl using defined filter.
@@ -44,7 +41,7 @@ public interface PojoPackage extends PojoElement {
      * @return
      *         List of PojoClasses in package.
      */
-    public List<PojoClass> getPojoClasses(final PojoClassFilter filter);
+    List<PojoClass> getPojoClasses(final PojoClassFilter filter);
 
     /**
      * Get all child Packages for current Package.
@@ -52,5 +49,5 @@ public interface PojoPackage extends PojoElement {
      * @return
      *         A list containing PojoPackages for all sub packages.
      */
-    public List<PojoPackage> getPojoSubPackages();
+    List<PojoPackage> getPojoSubPackages();
 }
