@@ -33,6 +33,7 @@ import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 import com.openpojo.reflection.impl.sampleclasses.*;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedClass;
+import com.openpojo.reflection.java.Java;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Assert;
 import org.junit.Test;
@@ -51,9 +52,10 @@ public class PojoClassImplTest {
             Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isInterface()",
                                             actualClass.isInterface(), pojoClass.isInterface()),
                               pojoClass.isInterface() == actualClass.isInterface());
-            Affirm.affirmTrue(String.format(message, actualClass.getName() + ".isAbstract()",
-                                            Modifier.isAbstract(actualClass.getModifiers()), pojoClass.isAbstract()),
-                              pojoClass.isAbstract() == Modifier.isAbstract(actualClass.getModifiers()));
+            Affirm.affirmTrue(
+                String.format(message, actualClass.getName() + ".isAbstract()",
+                    Modifier.isAbstract(actualClass.getModifiers()) && !Modifier.isInterface(actualClass.getModifiers()), pojoClass.isAbstract()),
+                    pojoClass.isAbstract() == (Modifier.isAbstract(actualClass.getModifiers()) && !Modifier.isInterface(actualClass.getModifiers())));
 
             final boolean expectedValue = !(Modifier.isAbstract(actualClass.getModifiers())
                     || actualClass.isInterface() || actualClass.isEnum());
@@ -185,10 +187,10 @@ public class PojoClassImplTest {
         InstanceFactory.getInstance(pojoClass);
     }
 
-    @Test(expected = ReflectionException.class)
-    public void shouldFailToCreateInstanceOnAbstract() {
+    @Test
+    public void shouldCreateInstanceOnAbstract() {
         final PojoClass pojoClass = getPojoClassImplForClass(AnAbstractClass.class);
-        InstanceFactory.getInstance(pojoClass);
+        Affirm.affirmNotNull("Should have created instance", InstanceFactory.getInstance(pojoClass));
     }
 
     @Test(expected = ReflectionException.class)
@@ -389,7 +391,7 @@ public class PojoClassImplTest {
         String sourcePath = pojoClass.getSourcePath();
         Affirm.affirmTrue("Should start with file:// [" + sourcePath + "]", sourcePath.startsWith("file://"));
 
-        String thisClassEndingPath = this.getClass().getName().replaceAll("\\.", "/") + ".class";
+        String thisClassEndingPath = this.getClass().getName().replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER) + Java.CLASS_EXTENSION;
         Affirm.affirmTrue("Should end with this class's package path [" + sourcePath + "]", sourcePath.endsWith(thisClassEndingPath));
     }
 

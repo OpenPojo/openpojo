@@ -29,7 +29,7 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.java.packageloader.PackageLoader;
+import com.openpojo.reflection.java.Java;
 import com.openpojo.reflection.java.packageloader.impl.URLToFileSystemAdapter;
 import com.openpojo.reflection.utils.ToStringHelper;
 
@@ -60,7 +60,8 @@ public class PojoClassImpl implements PojoClass {
     }
 
     public boolean isAbstract() {
-        return Modifier.isAbstract(clazz.getModifiers());
+        // Java returns true on Abstract call for Interfaces.
+        return Modifier.isAbstract(clazz.getModifiers()) && !isInterface();
     }
 
     public boolean isConcrete() {
@@ -181,8 +182,8 @@ public class PojoClassImpl implements PojoClass {
     public String getSourcePath() {
         try {
             final ClassLoader cl = this.getClazz().getClassLoader();
-            final URL location = cl.getResource(getClazz().getName().replace('.', PackageLoader.JDKPATH_DELIMETER)
-                    + PackageLoader.CLASS_EXTENSION);
+            final URL location = cl.getResource(getClazz().getName().replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER)
+                    + Java.CLASS_EXTENSION);
             return new URLToFileSystemAdapter(location).getAsURI().toString();
         } catch (final Exception e) {
             throw ReflectionException.getInstance(e.getMessage(), e);
