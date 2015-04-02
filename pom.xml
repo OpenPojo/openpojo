@@ -27,7 +27,7 @@
 
     <groupId>com.openpojo</groupId>
     <artifactId>openpojo</artifactId>
-    <version>0.6.6-SNAPSHOT</version>
+    <version>0.7.0-SNAPSHOT</version>
     <name>${project.artifactId}</name>
 
     <description>This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
@@ -84,7 +84,7 @@
 
     <properties>
         <UmlGraph.version>4.6</UmlGraph.version>
-        <asm-all.version>5.0.3</asm-all.version>
+        <asm.version>5.0.3</asm.version>
         <coveralls-maven-plugin.version>3.0.1</coveralls-maven-plugin.version>
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
@@ -148,8 +148,8 @@
         </dependency>
         <dependency>
             <groupId>org.ow2.asm</groupId>
-            <artifactId>asm-all</artifactId>
-            <version>${asm-all.version}</version>
+            <artifactId>asm</artifactId>
+            <version>${asm.version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
