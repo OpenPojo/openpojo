@@ -19,21 +19,21 @@ package com.openpojo.validation.test.impl;
 
 import java.util.List;
 
-import org.junit.Test;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.test.Tester;
+import com.openpojo.validation.test.impl.sampleclasses.Good_AnAbstractClassWithAbstractSetterGetter;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class GetterTesterAndSetterTesterTest {
     private static final String TESTPACKAGE = GetterTesterAndSetterTesterTest.class.getPackage().getName() + ".sampleclasses";
 
     public List<PojoClass> getGoodPojoClasses() {
-        return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
-
-            public boolean include(final PojoClass pojoClass) {
-                return !pojoClass.getName().toLowerCase().contains("bad") && pojoClass.isConcrete();
+        return PojoClassFactory.getPojoClasses(TESTPACKAGE, new PojoClassFilter() {
+            public boolean include(PojoClass pojoClass) {
+                return pojoClass.getClazz().getSimpleName().startsWith("Good_");
             }
         });
     }
@@ -42,23 +42,39 @@ public class GetterTesterAndSetterTesterTest {
         return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
 
             public boolean include(final PojoClass pojoClass) {
-                return pojoClass.getName().toLowerCase().contains("bad");
+                return pojoClass.getClazz().getSimpleName().startsWith("Bad_");
             }
         });
     }
 
     @Test
     public void shouldPassSetterTest() {
-        for (final PojoClass pojoClass : getGoodPojoClasses()) {
+        List<PojoClass> goodPojoClasses = getGoodPojoClasses();
+
+        Assert.assertEquals("Classes added/removed?", 3, goodPojoClasses.size());
+        for (final PojoClass pojoClass : goodPojoClasses) {
             invokeRun(pojoClass, new SetterTester());
             invokeRun(pojoClass, new GetterTester());
         }
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
+    public void setterShouldSkipTestingAbstractMethods() {
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(Good_AnAbstractClassWithAbstractSetterGetter.class);
+        invokeRun(pojoClass, new SetterTester());
+    }
+
+    @Test
     public void shouldFailSetterTest() {
-        for (final PojoClass pojoClass : getBadPojoClasses()) {
-            invokeRun(pojoClass, new SetterTester());
+        List<PojoClass> badPojoClasses = getBadPojoClasses();
+        Assert.assertEquals("Classes added/removed?", 1, badPojoClasses.size());
+        for (final PojoClass pojoClass : badPojoClasses) {
+            try {
+                invokeRun(pojoClass, new SetterTester());
+                Assert.fail("Should not have passed");
+            } catch (AssertionError ignored) {
+
+            }
         }
     }
 

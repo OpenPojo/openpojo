@@ -20,11 +20,6 @@ package com.openpojo.random;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Assert;
-
-import org.junit.Test;
-
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.loop.Employee;
 import com.openpojo.random.loop.RandomEmployee;
 import com.openpojo.random.sampleclasses.AClassWithNoRegisteredRandomGenerator;
@@ -34,6 +29,8 @@ import com.openpojo.random.sampleclasses.hierarchy.ClassImplementingSomeInterfac
 import com.openpojo.random.sampleclasses.hierarchy.SomeInterface;
 import com.openpojo.random.sampleclasses.hierarchy.SomeInterfaceRandomGenerator;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author oshoukry
@@ -79,9 +76,11 @@ public class RandomFactoryTest {
         RandomFactory.getRandomValue(NoRandomGeneratorPerson.class);
     }
 
-    @Test(expected = RandomGeneratorException.class)
-    public void shouldFailAbstract() {
-        RandomFactory.getRandomValue(com.openpojo.random.sampleclasses.AnAbstractClass.class);
+    @Test
+    public void shouldGenerateAbstract() {
+        com.openpojo.random.sampleclasses.AnAbstractClass anAbstractClass = RandomFactory.getRandomValue(com.openpojo.random.sampleclasses
+                .AnAbstractClass.class);
+        Assert.assertNotNull(anAbstractClass);
     }
 
     @Test

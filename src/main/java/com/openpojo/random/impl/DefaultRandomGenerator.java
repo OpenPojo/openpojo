@@ -53,13 +53,8 @@ public class DefaultRandomGenerator implements RandomGenerator {
             return enumRandomGenerator.doGenerate(type);
         }
 
-        if (typePojoClass.isArray()) { // Must be placed before isAbstract Check
+        if (typePojoClass.isArray()) {
             return arrayRandomGenerator.doGenerate(type);
-        }
-
-        if (typePojoClass.isAbstract()) {
-            throw RandomGeneratorException.getInstance(String.format(this.getClass().getName() + " can't generate instance for Abstract "
-                    + "class [%s], please register a RandomGenerator and try again", typePojoClass));
         }
 
         LoggerFactory.getLogger(DefaultRandomGenerator.class).debug("Creating basic instance for type=[{0}] using InstanceFactory", type);

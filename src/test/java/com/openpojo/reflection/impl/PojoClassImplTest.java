@@ -36,7 +36,6 @@ import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedCl
 import com.openpojo.reflection.java.Java;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /*
@@ -189,7 +188,6 @@ public class PojoClassImplTest {
     }
 
     @Test
-    @Ignore //TODO: Enable when create abstract code is ready.
     public void shouldCreateInstanceOnAbstract() {
         final PojoClass pojoClass = getPojoClassImplForClass(AnAbstractClass.class);
         Affirm.affirmNotNull("Should have created instance", InstanceFactory.getInstance(pojoClass));

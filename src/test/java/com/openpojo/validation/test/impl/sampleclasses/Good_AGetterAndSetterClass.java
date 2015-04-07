@@ -23,10 +23,13 @@ import java.util.Map;
  * @author oshoukry
  *
  */
-public final class ABadGetterAndSetterClass {
+public final class Good_AGetterAndSetterClass {
     private String attribute;
     private final String stringAttribute = "a String that is Final";
     public String stringNoGetterOrSetterAttribute;
+
+    enum Color { BLACK, WHITE, GREY }
+    private Color hairColor;
 
     @SuppressWarnings("rawtypes")
     private Map myMap;
@@ -47,24 +50,37 @@ public final class ABadGetterAndSetterClass {
     }
 
     /**
+     * @return the hairColor
+     */
+    public Color getHairColor() {
+        return hairColor;
+    }
+
+    /**
+     * @param hairColor the hairColor to set
+     */
+    public void setHairColor(final Color hairColor) {
+        this.hairColor = hairColor;
+    }
+
+    /**
      * @return the stringAttribute
      */
     public String getStringAttribute() {
-        return stringAttribute + stringAttribute;
+        return stringAttribute;
     }
 
     /**
      * @return the attribute
      */
     public String getAttribute() {
-        return attribute + attribute;
+        return attribute;
     }
 
     /**
      * @param attribute the attribute to set
      */
     public void setAttribute(final String attribute) {
-        this.attribute = attribute + attribute;
+        this.attribute = attribute;
     }
-
 }

@@ -28,6 +28,8 @@ import com.openpojo.reflection.construct.utils.ArrayLengthBasedComparator;
 import com.openpojo.reflection.construct.utils.GreaterThan;
 import com.openpojo.reflection.construct.utils.LessThan;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.bytecode.ByteCodeFactory;
 
 /**
  * This Factory has the ability to create an instance of any PojoClass.
@@ -37,6 +39,7 @@ import com.openpojo.reflection.exception.ReflectionException;
  * @author oshoukry
  */
 public class InstanceFactory {
+
     /**
      * This method returns a new instance created using default constructor.
      * It is identical to calling getInstance(PojoClass, null).
@@ -65,9 +68,18 @@ public class InstanceFactory {
      *         a newly created instance of the class represented in the pojoClass.
      */
     public static Object getInstance(final PojoClass pojoClass, final Object... parameters) {
+        if (pojoClass.isAbstract())
+            return doGetInstance(wrapAbstractClass(pojoClass), parameters);
+        return doGetInstance(pojoClass, parameters);
+    }
+
+    private static PojoClass wrapAbstractClass(final PojoClass pojoClass) {
+        return PojoClassFactory.getPojoClass(ByteCodeFactory.getSubClass(pojoClass.getClazz()));
+    }
+
+    private static Object doGetInstance(PojoClass pojoClass, Object[] parameters) {
         if (!pojoClass.isConcrete()) {
-            throw ReflectionException.getInstance(String
-                    .format("[%s] is not a concrete class, can't create new instance", pojoClass));
+            throw ReflectionException.getInstance(String.format("[%s] is not a concrete class, can't create new instance", pojoClass));
         }
 
         final List<PojoMethod> constructors = pojoClass.getPojoConstructors();
@@ -204,7 +216,6 @@ public class InstanceFactory {
         final Object[] parameters = new Object[pojoParameterTypes.size()];
 
         for (int i = 0; i < pojoParameterTypes.size(); i++) {
-            PojoParameter p = pojoParameterTypes.get(i);
             parameters[i] = RandomFactory.getRandomValue(pojoParameterTypes.get(i));
         }
 

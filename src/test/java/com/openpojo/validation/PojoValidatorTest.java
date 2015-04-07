@@ -31,7 +31,6 @@ import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -99,7 +98,6 @@ public class PojoValidatorTest {
     }
 
     @Test
-    @Ignore
     public void abstractClassTestingEndToEnd() {
         pojoValidator.addTester(new GetterTester());
         pojoValidator.addTester(new SetterTester());
