@@ -1,4 +1,8 @@
-# OpenPojo [![Build Status](https://travis-ci.org/oshoukry/openpojo.svg?branch=master)](https://travis-ci.org/oshoukry/openpojo) [![Coverage Status](https://coveralls.io/repos/oshoukry/openpojo/badge.svg?branch=master)](https://coveralls.io/r/oshoukry/openpojo?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.googlecode.openpojo/openpojo/badge.svg?style=flat)](http://search.maven.org/#search|ga|1|g%3Acom.googlecode.openpojo)
+# OpenPojo [![Build Status](https://travis-ci.org/oshoukry/openpojo.svg?branch=master)](https://travis-ci.org/oshoukry/openpojo) [![Coverage Status](https://coveralls.io/repos/oshoukry/openpojo/badge.svg?branch=master)](https://coveralls.io/r/oshoukry/openpojo?branch=master)
+Maven Group Plugin | Latest Version
+------------------ | ---------------
+com.openpojo.openpojo | [0.7.0](https://github.com/oshoukry/openpojo/releases/tag/openpojo-0.7.0)
+com.googlecode.openpojo.openpojo | [0.6.5](https://code.google.com/p/openpojo/wiki/Old) - Deprecated
 
 POJO Testing &amp; Identity Management Made Trivial 
 
