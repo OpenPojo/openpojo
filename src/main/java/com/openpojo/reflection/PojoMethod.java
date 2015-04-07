@@ -53,24 +53,23 @@ public interface PojoMethod extends PojoElement {
      *         The parameters to pass to the method upon invocation.
      * @return Value returned by the underlying method.
      */
-    public Object invoke(final Object instance, final Object... parameters);
+    Object invoke(final Object instance, final Object... parameters);
 
 
     /**
      * Get method parameters as PojoParameters.
      * If method doesn't have any parameters an empty list is returned.
      *
-     * @return
-     *      a List of PojoParameters.
+     * @return a List of PojoParameters.
      */
-    public List<PojoParameter> getPojoParameters();
+    List<PojoParameter> getPojoParameters();
 
     /**
      * Get the method parameters.
      *
      * @return An array of parameterTypes.
      */
-    public Class<?>[] getParameterTypes();
+    Class<?>[] getParameterTypes();
 
     /**
      * Get the method generic parameter types
@@ -78,51 +77,50 @@ public interface PojoMethod extends PojoElement {
      *
      * @return An array of generic parameter types.
      */
-    public Type[] getGenericParameterTypes();
+    Type[] getGenericParameterTypes();
 
     /**
      * @return True if this PojoMethod is final-ly defined on the enclosing class.
      */
-    public boolean isFinal();
+    boolean isFinal();
 
     /**
-     * @return
-     *         true if this PojoMethod is synthetic (i.e. jdk compiler generated).
+     * @return true if this PojoMethod is synthetic (i.e. jdk compiler generated).
      */
-    public boolean isSynthetic();
+    boolean isSynthetic();
 
     /**
      * @return True if this PojoMethod is static-ly defined on the enclosing class.
      */
-    public boolean isStatic();
+    boolean isStatic();
 
     /**
      * @return True if this PojoMethod is private-ly defined on the enclosing class.
      */
-    public boolean isPrivate();
+    boolean isPrivate();
 
     /**
      * @return True if this PojoMethod is protected-ly defined on the enclosing class.
      */
-    public boolean isProtected();
+    boolean isProtected();
 
     /**
      * @return True if this PojoMethod is public-ly defined on the enclosing class.
      */
-    public boolean isPublic();
+    boolean isPublic();
 
     /**
      * @return True if this method is a constructor method and returns a new instance.
      */
-    public boolean isConstructor();
+    boolean isConstructor();
 
     /**
      * @return True if this method is abstract-ly defined on the enclosing class.
      */
-    public boolean isAbstract();
+    boolean isAbstract();
 
     /**
      * @return Returns the return type.
      */
-    public Class<?> getReturnType();
+    Class<?> getReturnType();
 }
