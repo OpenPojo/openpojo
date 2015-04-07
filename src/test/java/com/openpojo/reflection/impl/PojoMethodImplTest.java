@@ -22,9 +22,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithAbstractGetter;
+import com.openpojo.reflection.impl.sampleclasses.AClassWithAbstractSetter;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithSyntheticMethod;
 import com.openpojo.reflection.impl.sampleclasses.ClassWithSyntheticConstructor;
 import com.openpojo.reflection.impl.sampleclasses.PojoMethodClass;
@@ -235,4 +238,39 @@ public class PojoMethodImplTest {
         }
     }
 
+    @Test
+    public void shouldNotIncludeAbstractGetterMethod() {
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithAbstractGetter.class);
+        boolean hasAbstractGetterMethod = false;
+        PojoField pojoField = pojoClass.getPojoFields().get(0);
+
+        String expectedGetterName = "get" + pojoField.getName().substring(0, 1).toUpperCase() + pojoField.getName().substring(1,
+                pojoField.getName().length());
+        for (PojoMethod pojoMethod: pojoClass.getPojoMethods()) {
+
+            if (pojoMethod.getName().equals(expectedGetterName))
+                hasAbstractGetterMethod = true;
+        }
+        Assert.assertTrue(hasAbstractGetterMethod);
+        Assert.assertEquals(1, pojoClass.getPojoFields().size());
+        Assert.assertFalse(pojoField.hasGetter());
+    }
+
+    @Test
+    public void shouldNotIncludeAbstractSetterMethod() {
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithAbstractSetter.class);
+        boolean hasAbstractSetterMethod = false;
+        PojoField pojoField = pojoClass.getPojoFields().get(0);
+
+        String expectedSetterName = "set" + pojoField.getName().substring(0, 1).toUpperCase() + pojoField.getName().substring(1,
+                pojoField.getName().length());
+        for (PojoMethod pojoMethod: pojoClass.getPojoMethods()) {
+
+            if (pojoMethod.getName().equals(expectedSetterName))
+                hasAbstractSetterMethod = true;
+        }
+        Assert.assertTrue(hasAbstractSetterMethod);
+        Assert.assertEquals(1, pojoClass.getPojoFields().size());
+        Assert.assertFalse(pojoField.hasGetter());
+    }
 }

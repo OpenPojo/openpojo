@@ -91,6 +91,11 @@ public class PojoMethodFactory {
             pojoMethod = PojoMethodFactory.getMethod(clazz, candidateName);
             if (pojoMethod != null) {
                 if (pojoMethod.getReturnType().isAssignableFrom(field.getType())) {
+                    if (pojoMethod.isAbstract()) {
+                        LoggerFactory.getLogger(PojoMethodFactory.class).warn("Getter=[{0}] in class=[{1}] rejected due to " +
+                                "method being abstract", pojoMethod.getName(), field.getDeclaringClass().getName());
+                        pojoMethod = null;
+                    }
                     break;
                 } else {
                     LoggerFactory.getLogger(PojoMethodFactory.class).warn("Getter=[{0}] in class=[{1}] rejected due " +
@@ -134,7 +139,13 @@ public class PojoMethodFactory {
         for (final String candidateName : generateSetMethodNames(field)) {
             final Class<?> clazz = field.getDeclaringClass();
             pojoMethod = PojoMethodFactory.getMethod(clazz, candidateName, field.getType());
+
             if (pojoMethod != null) {
+                if (pojoMethod.isAbstract()) {
+                    LoggerFactory.getLogger(PojoMethodFactory.class).warn("Setter=[{0}] in class=[{1}] rejected due to " +
+                            "method being abstract", pojoMethod.getName(), field.getDeclaringClass().getName());
+                    pojoMethod = null;
+                }
                 break;
             }
         }
