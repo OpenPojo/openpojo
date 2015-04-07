@@ -15,17 +15,18 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.validation.rule.impl.sampleclasses;
+package com.openpojo.validation.test.impl.sampleclasses;
 
 /**
  * @author oshoukry
  */
-public final class DefaultValueNullClass {
+public final class DefaultValueNotNullClass {
 
     // Okay
     public boolean publicBooleanPrimitive = false;
     public final String publicFinalString = "SomeValue";
 
-    // Okay
-    public String publicStringField;
+    // Not Okay
+    public String publicStringField = "Default Value";
+
 }

@@ -20,8 +20,8 @@ package com.openpojo.validation.test.impl;
 import org.junit.Test;
 
 import com.openpojo.validation.rule.impl.CommonCode;
-import com.openpojo.validation.rule.impl.sampleclasses.DefaultValueNotNullClass;
-import com.openpojo.validation.rule.impl.sampleclasses.DefaultValueNullClass;
+import com.openpojo.validation.test.impl.sampleclasses.DefaultValueNotNullClass;
+import com.openpojo.validation.test.impl.sampleclasses.DefaultValueNullClass;
 import com.openpojo.validation.test.Tester;
 
 /**
