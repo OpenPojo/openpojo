@@ -31,6 +31,7 @@ import com.openpojo.log.LoggerFactory;
 import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.Java;
+import com.openpojo.reflection.java.load.ClassUtil;
 import com.openpojo.reflection.java.packageloader.impl.FilePackageLoader;
 import com.openpojo.reflection.java.packageloader.impl.JARPackageLoader;
 
@@ -87,15 +88,12 @@ public abstract class PackageLoader {
         return Thread.currentThread().getContextClassLoader();
     }
 
-    protected final Class<?> getAsClass(final String entry) throws ClassNotFoundException {
+    protected final Class<?> getAsClass(final String entry) {
         if (isClass(entry)) {
             String className = stripClassExtension(fromJDKPathToJDKPackage(entry));
             logger.trace("loading class [{0}]", className);
-            try {
-                return Class.forName(className, false, getThreadClassLoader());
-            } catch (LinkageError linkageError) { // entry depends on class that wasn't found.
-                logger.debug("Class [{0}] has unmet dependency, loading skipped [{1}]", entry, linkageError);
-            }
+
+            return ClassUtil.loadClass(className, false);
         }
         return null;
     }

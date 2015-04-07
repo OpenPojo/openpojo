@@ -22,6 +22,7 @@ import java.util.Arrays;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * This factory is responsible for looking up usable implementations of facade when multiple are possible.
@@ -43,10 +44,9 @@ public final class FacadeFactory {
 
     public static Class<?> getLoadedFacadeClass(final String[] facadeNames) {
         for (String facadeName : facadeNames) {
-            try {
-                return Class.forName(facadeName);
-            } catch (Throwable ignored) {
-            }
+            Class clazz = ClassUtil.loadClass(facadeName);
+            if (clazz != null)
+                return clazz;
         }
         throw ReflectionException.getInstance(String.format("Unable to find suitable implementation among [%s]", Arrays.toString
                 (facadeNames)));

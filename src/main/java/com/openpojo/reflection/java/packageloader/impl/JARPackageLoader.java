@@ -80,12 +80,9 @@ public final class JARPackageLoader extends PackageLoader {
         }
         for (JarEntry e : Collections.list(jar.entries())) {
             String entryName = e.getName();
-            try {
-                Class<?> classEntry = getAsClass(entryName);
-                if (classEntry != null) {
-                    types.add(classEntry);
-                }
-            } catch (ClassNotFoundException classNotFoundException) { // entry wasn't a class
+            Class<?> classEntry = getAsClass(entryName);
+            if (classEntry != null) {
+                types.add(classEntry);
             }
         }
         return types;

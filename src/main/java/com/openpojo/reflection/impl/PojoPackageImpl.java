@@ -29,6 +29,7 @@ import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.Java;
+import com.openpojo.reflection.java.load.ClassUtil;
 import com.openpojo.reflection.java.packageloader.Package;
 
 /**
@@ -47,22 +48,19 @@ class PojoPackageImpl implements PojoPackage {
     }
 
     public PojoPackageImpl(final String packageName) {
-
-        this.packageName = packageName;
         if (packageName == null) {
             throw new IllegalArgumentException("PackageName can not be null");
         }
+
+        this.packageName = packageName;
 
         jdkPackage = new Package(packageName);
         if (!isValid()) {
             throw ReflectionException.getInstance(MessageFormatter.format("Package [{0}] is not valid", packageName));
         }
 
-        Class<?> infoClass = null;
-        try {
-            infoClass = Class.forName(packageName + Java.PACKAGE_DELIMETER + Java.PACKAGE_INFO);
-        } catch (ClassNotFoundException ignored) {
-        }
+        Class<?> infoClass = ClassUtil.loadClass(packageName + Java.PACKAGE_DELIMETER + Java.PACKAGE_INFO);
+
         if (infoClass != null) {
             packageInfoPojoClass = PojoClassFactory.getPojoClass(infoClass);
         } else {

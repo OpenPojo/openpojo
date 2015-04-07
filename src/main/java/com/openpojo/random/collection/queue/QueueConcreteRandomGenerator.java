@@ -23,6 +23,8 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
@@ -31,6 +33,7 @@ import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * This is random generator is responsible for generating concrete Queue implementations <br>
@@ -45,6 +48,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * @author oshoukry
  */
 public final class QueueConcreteRandomGenerator implements ParameterizableRandomGenerator {
+    private static final Logger LOGGER = LoggerFactory.getLogger(QueueConcreteRandomGenerator.class);
 
     private QueueConcreteRandomGenerator() {
     }
@@ -61,7 +65,7 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
             ,"java.util.concurrent.PriorityBlockingQueue"
             ,"java.util.concurrent.DelayQueue"
             ,"java.util.concurrent.SynchronousQueue"
-            };
+    };
 
 
     @SuppressWarnings("rawtypes")
@@ -86,10 +90,11 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
         Set<Class<?>> types = new HashSet<Class<?>>();
 
         for (String type : TYPES) {
-            try {
-                types.add(Class.forName(type));
-            } catch (ClassNotFoundException e) {
-                System.out.println("Warning: Failed to load [" + type + "] got Exception[" + e + "]");
+            Class<?> clazz = ClassUtil.loadClass(type);
+            if (clazz != null) {
+                types.add(clazz);
+            } else {
+                LOGGER.info("Class [" + type + "] can't be loaded, skipping!");
             }
         }
         return types;

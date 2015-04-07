@@ -42,13 +42,10 @@ public final class FilePackageLoader extends PackageLoader {
         final Set<Type> types = new HashSet<Type>();
 
         for (final File entry : getEntries()) {
-            try {
-                final String className = fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMETER + entry.getName();
-                final Class<?> classEntry = getAsClass(className);
-                if (classEntry != null) {
-                    types.add(classEntry);
-                }
-            } catch (final ClassNotFoundException classNotFoundException) { // entry wasn't a class
+            final String className = fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMETER + entry.getName();
+            final Class<?> classEntry = getAsClass(className);
+            if (classEntry != null) {
+                types.add(classEntry);
             }
         }
         return types;
@@ -73,9 +70,9 @@ public final class FilePackageLoader extends PackageLoader {
         File[] fileList = directory.listFiles();
 
         if (fileList == null) {
-            throw ReflectionException.getInstance("Failed to retrieve entries in path: ["
-                    + directory.getAbsolutePath() + "] created from URI: [" + urlToFileSystemAdapter.getAsURI() + "]."
-                    + "Please report this issue @ https://code.google.com/p/openpojo/issues");
+            throw ReflectionException.getInstance("Failed to retrieve entries in path: [" + directory.getAbsolutePath() + "] created from" +
+                    " URI: [" + urlToFileSystemAdapter.getAsURI() + "]." + "Please report this issue @ https://code.google" +
+                    ".com/p/openpojo/issues");
         }
         return fileList;
     }

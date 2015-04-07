@@ -19,17 +19,15 @@ package com.openpojo.validation.affirm;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * @author oshoukry
  */
 public class TestNGAssertAffirmation extends AbstractAffirmation implements Affirmation {
     static {
-        try {
-            Class.forName("org.testng.Assert");
-        } catch (ClassNotFoundException e) {
+        if (!ClassUtil.isClassLoaded("org.testng.Assert"))
             throw ReflectionException.getInstance("org.testng.Assert class not found");
-        }
     }
 
     private TestNGAssertAffirmation() {

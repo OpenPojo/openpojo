@@ -19,17 +19,15 @@ package com.openpojo.validation.affirm;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * @author oshoukry
  */
 public class JUnitAssertAffirmation extends AbstractAffirmation implements Affirmation {
     static {
-        try {
-            Class.forName("org.junit.Assert");
-        } catch (ClassNotFoundException e) {
+        if (!ClassUtil.isClassLoaded("org.junit.Assert"))
             throw ReflectionException.getInstance("org.junit.Assert class not found");
-        }
     }
 
     private JUnitAssertAffirmation() {
