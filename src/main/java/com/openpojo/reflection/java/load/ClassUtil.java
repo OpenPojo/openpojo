@@ -17,15 +17,10 @@
 
 package com.openpojo.reflection.java.load;
 
-import com.openpojo.log.Logger;
-import com.openpojo.log.LoggerFactory;
-
 /**
  * @author oshoukry
  */
 public class ClassUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ClassUtil.class);
-
     private ClassUtil() {
         throw new IllegalStateException(ClassUtil.class.getName() + " should not be constructed!");
     }
@@ -46,9 +41,7 @@ public class ClassUtil {
         try {
             return Class.forName(className, initialize, classloader);
         } catch (LinkageError linkageError) { // class depends on another that wasn't found.
-            LOGGER.debug("Class [{0}] has unmet dependency, loading failed [{1}]", className, linkageError);
         } catch (ClassNotFoundException classNotFoundException) { // no such class found.
-            LOGGER.debug("Class [{0}] not found, loading failed [{1}]", className, classNotFoundException);
         }
         return null;
     }
