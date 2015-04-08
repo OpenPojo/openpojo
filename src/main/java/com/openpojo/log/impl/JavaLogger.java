@@ -21,6 +21,7 @@ import java.util.logging.Level;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.log.Logger;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * Our own JavaLogger adapter.<br>
@@ -35,6 +36,13 @@ import com.openpojo.log.Logger;
 public final class JavaLogger extends Logger {
 
     private final java.util.logging.Logger logger;
+
+    static {
+        final String className = "java.util.logging.Logger";
+        if (!ClassUtil.isClassLoaded(className)) {
+            throw new RuntimeException(className + " - Not loaded");
+        }
+    }
 
     private JavaLogger(final String category) {
         logger = java.util.logging.Logger.getLogger(category);

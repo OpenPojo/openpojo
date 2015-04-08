@@ -19,6 +19,9 @@ package com.openpojo.log.impl;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.log.Logger;
+import com.openpojo.reflection.java.load.ClassUtil;
+
+import static org.slf4j.LoggerFactory.*;
 
 /**
  * This class wraps the SLF4J underlying layer.
@@ -27,8 +30,15 @@ public final class SLF4JLogger extends Logger {
 
     private final org.slf4j.Logger logger;
 
+    static {
+        final String className = "org.slf4j.Logger";
+        if (!ClassUtil.isClassLoaded(className)) {
+            throw new RuntimeException(className + " - Not loaded");
+        }
+    }
+
     private SLF4JLogger(final String category) {
-        logger = org.slf4j.LoggerFactory.getLogger(category);
+        logger = getLogger(category);
     }
 
     @Override
@@ -96,5 +106,4 @@ public final class SLF4JLogger extends Logger {
     public String toString() {
         return BusinessIdentity.toString(this);
     }
-
 }

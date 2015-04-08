@@ -19,6 +19,7 @@ package com.openpojo.log.impl;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.log.Logger;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * This class wraps the Log4J underlying layer.
@@ -26,6 +27,13 @@ import com.openpojo.log.Logger;
 public final class Log4JLogger extends Logger {
 
     private final org.apache.log4j.Logger logger;
+
+    static {
+        final String className = "org.apache.log4j.Logger";
+        if (!ClassUtil.isClassLoaded(className)) {
+            throw new RuntimeException(className + " - Not loaded");
+        }
+    }
 
     private Log4JLogger(final String category) {
         logger = org.apache.log4j.Logger.getLogger(category);
