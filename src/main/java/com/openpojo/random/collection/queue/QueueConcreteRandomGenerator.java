@@ -22,6 +22,9 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.SynchronousQueue;
 
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
@@ -80,11 +83,18 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
 
         LOGGER.debug("Generating [{0}] for requested type [{1}]", typeToGenerate, type);
 
+        if (typeToGenerate == SynchronousQueue.class)
+            return new SynchronousQueue();
+
         if (typeToGenerate == ArrayBlockingQueue.class)
             randomQueue = new ArrayBlockingQueue(20);
         else
             randomQueue = (Queue) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
-        CollectionHelper.buildCollections(randomQueue, SerializableComparableObject.class);
+
+        if (typeToGenerate == DelayQueue.class)
+            CollectionHelper.buildCollections(randomQueue, Delayed.class);
+        else
+            CollectionHelper.buildCollections(randomQueue, SerializableComparableObject.class);
 
         return randomQueue;
     }

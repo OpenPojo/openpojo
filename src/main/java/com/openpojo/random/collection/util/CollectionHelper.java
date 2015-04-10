@@ -22,9 +22,6 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
-import java.util.concurrent.DelayQueue;
-import java.util.concurrent.Delayed;
-import java.util.concurrent.SynchronousQueue;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.exception.RandomGeneratorException;
@@ -44,11 +41,6 @@ public class CollectionHelper {
     @SuppressWarnings("unchecked")
     public static Collection buildCollections(Collection collection, Type type) {
         if (type == null || collection == null) return collection;
-
-        if (collection.getClass() == SynchronousQueue.class) return collection;
-
-        if (DelayQueue.class.isAssignableFrom(collection.getClass()) && !(Delayed.class.isAssignableFrom((Class) type)))
-            type = Delayed.class;
 
         int counter = RANDOM.nextInt(MAX_RANDOM_ELEMENTS) + 1;
 
