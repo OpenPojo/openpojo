@@ -43,7 +43,7 @@ public class ServiceRegistrarTest {
             "java.util.concurrent.DelayQueue", "java.util.concurrent.LinkedBlockingQueue",
             "java.util.concurrent.PriorityBlockingQueue", "java.util.concurrent.SynchronousQueue"};
 
-    private final int expectedTypes = 49;
+    private final int expectedTypes = 50;
 
     private Set<Class<?>> expectedDefaultTypes;
     private RandomGeneratorService randomGeneratorService;

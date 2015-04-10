@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.concurrent.SynchronousQueue;
 
 import org.junit.Assert;
 
@@ -115,6 +116,8 @@ public class MapCollectionAssertionHelper {
     }
 
     private static void ensureThatAllCollectionEntriesAreSameClassType(Collection collection) {
+        if (collection instanceof SynchronousQueue) // This can't have anything in it.
+            return;
         Object referenceEntry = collection.iterator().next();
         for (Object entry : collection) {
             Assert.assertEquals(referenceEntry.getClass(), entry.getClass());

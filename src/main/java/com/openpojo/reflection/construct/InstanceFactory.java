@@ -20,6 +20,8 @@ package com.openpojo.reflection.construct;
 import java.util.Arrays;
 import java.util.List;
 
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
@@ -39,6 +41,11 @@ import com.openpojo.reflection.java.bytecode.ByteCodeFactory;
  * @author oshoukry
  */
 public class InstanceFactory {
+    private static final Logger LOGGER = LoggerFactory.getLogger(InstanceFactory.class);
+
+    private InstanceFactory() {
+        throw new RuntimeException("Should not be constructed");
+    }
 
     /**
      * This method returns a new instance created using default constructor.
@@ -211,15 +218,20 @@ public class InstanceFactory {
 
     private static Object createInstance(final PojoClass pojoClass, final PojoMethod constructor) {
 
-        List<PojoParameter> pojoParameterTypes = constructor.getPojoParameters();
+        try {
+            List<PojoParameter> pojoParameterTypes = constructor.getPojoParameters();
 
-        final Object[] parameters = new Object[pojoParameterTypes.size()];
+            final Object[] parameters = new Object[pojoParameterTypes.size()];
 
-        for (int i = 0; i < pojoParameterTypes.size(); i++) {
-            parameters[i] = RandomFactory.getRandomValue(pojoParameterTypes.get(i));
+            for (int i = 0; i < pojoParameterTypes.size(); i++) {
+                parameters[i] = RandomFactory.getRandomValue(pojoParameterTypes.get(i));
+            }
+
+            return getInstance(pojoClass, parameters);
+        } catch (RuntimeException re) {
+            throw ReflectionException.getInstance("Failed to create instance for class [" + pojoClass + "] using constructor [" +
+                    constructor + "]", re);
         }
-
-        return getInstance(pojoClass, parameters);
     }
 
     private static PojoMethod getConstructorByCriteria(final PojoClass pojoClass,

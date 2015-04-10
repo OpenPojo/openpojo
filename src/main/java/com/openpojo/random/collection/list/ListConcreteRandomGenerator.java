@@ -23,8 +23,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.ParameterizableRandomGenerator;
-import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
 import com.openpojo.random.util.SerializableComparableObject;
@@ -42,6 +43,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * @author oshoukry
  */
 public final class ListConcreteRandomGenerator implements ParameterizableRandomGenerator {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListConcreteRandomGenerator.class);
 
     private ListConcreteRandomGenerator() {
     }
@@ -55,8 +57,10 @@ public final class ListConcreteRandomGenerator implements ParameterizableRandomG
     public Object doGenerate(final Class<?> type) {
 
         Class<?> typeToGenerate = type;
-        if (typeToGenerate == List.class)
-            typeToGenerate = ArrayList.class;
+        if (typeToGenerate.isInterface())
+            typeToGenerate = CollectionHelper.getConstructableType(type, getTypes());
+
+        LOGGER.debug("Generating [{0}] for requested type [{1}]", typeToGenerate, type);
 
         List randomList = (List) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
         CollectionHelper.buildCollections(randomList, SerializableComparableObject.class);
@@ -69,10 +73,8 @@ public final class ListConcreteRandomGenerator implements ParameterizableRandomG
     }
 
     public Object doGenerate(Parameterizable parameterizedType) {
-        List returnedList = (List) RandomFactory.getRandomValue(parameterizedType.getType());
-        returnedList.clear();
-        CollectionHelper.buildCollections(returnedList, parameterizedType.getParameterTypes().get(0));
-        return returnedList;
+        return CollectionHelper.buildCollections((Collection) doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes()
+                .get(0));
     }
 
     private static class Instance {

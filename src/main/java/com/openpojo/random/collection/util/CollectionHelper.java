@@ -17,6 +17,7 @@
 
 package com.openpojo.random.collection.util;
 
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Date;
@@ -26,6 +27,7 @@ import java.util.concurrent.Delayed;
 import java.util.concurrent.SynchronousQueue;
 
 import com.openpojo.random.RandomFactory;
+import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.reflection.impl.ParameterizableFactory;
 
 /**
@@ -40,10 +42,10 @@ public class CollectionHelper {
     private static final int MAX_RANDOM_ELEMENTS = 5;
 
     @SuppressWarnings("unchecked")
-    public static void buildCollections(Collection collection, Type type) {
-        if (type == null || collection == null) return;
+    public static Collection buildCollections(Collection collection, Type type) {
+        if (type == null || collection == null) return collection;
 
-        if (collection.getClass() == SynchronousQueue.class) return;
+        if (collection.getClass() == SynchronousQueue.class) return collection;
 
         if (DelayQueue.class.isAssignableFrom(collection.getClass()) && !(Delayed.class.isAssignableFrom((Class) type)))
             type = Delayed.class;
@@ -55,6 +57,17 @@ public class CollectionHelper {
             Object nextEntry = RandomFactory.getRandomValue(ParameterizableFactory.getInstance(type));
             collection.add(nextEntry);
         }
+        return collection;
     }
 
+    public static Class<?> getConstructableType(Class<?> type, Collection<Class<?>> types) {
+        for (Class<?> entry : types) {
+            if (!entry.isInterface() && !Modifier.isAbstract(entry.getModifiers())) {
+                if (type.isAssignableFrom(entry))
+                    return entry;
+            }
+        }
+        throw RandomGeneratorException.getInstance("Unable to locate appropriate construcable class for type [" + type + "] from given " +
+                "types [" + types + "]" );
+    }
 }

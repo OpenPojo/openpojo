@@ -19,6 +19,8 @@ package com.openpojo.random.service.impl;
 
 import java.util.Collection;
 
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomGenerator;
@@ -34,12 +36,14 @@ public final class RandomGeneratorAdapter implements RandomGenerator, Parameteri
     private final Class<?> fromType;
     private final Class<?> toType;
     private final RandomGenerator adaptedRandomGenerator;
+    private final static Logger LOGGER = LoggerFactory.getLogger(RandomGeneratorAdapter.class);
 
     public RandomGeneratorAdapter(final Class<?> fromType, final Class<?> toType,
             final RandomGenerator adaptedRandomGenerator) {
         this.fromType = fromType;
         this.toType = toType;
         this.adaptedRandomGenerator = adaptedRandomGenerator;
+        LOGGER.debug("Mapping [{0}] to [{1}] for generator [{2}]", fromType, toType, adaptedRandomGenerator);
     }
 
     public Collection<Class<?>> getTypes() {

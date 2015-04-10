@@ -89,7 +89,8 @@ class PojoFieldImpl implements PojoField {
         try {
             return fieldGetter.invoke(instance, (Object[]) null);
         } catch (NullPointerException e) {
-            throw ReflectionException.getInstance(e.getMessage(), e);
+            String message = "Null pointer exception invoking [" + fieldGetter + "] on instance [" + instance + "]";
+            throw ReflectionException.getInstance(message, e);
         }
 
     }
@@ -102,7 +103,9 @@ class PojoFieldImpl implements PojoField {
         try {
             fieldSetter.invoke(instance, value);
         } catch (NullPointerException e) {
-            throw ReflectionException.getInstance(e.getMessage(), e);
+            String message = "Null pointer exception invoking [" + fieldSetter + "] on instance [" + instance + "] with value [" + value +
+                    "]";
+            throw ReflectionException.getInstance(message, e);
         }
     }
 

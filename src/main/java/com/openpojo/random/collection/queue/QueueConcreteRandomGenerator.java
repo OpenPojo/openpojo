@@ -26,7 +26,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.ParameterizableRandomGenerator;
-import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
 import com.openpojo.random.util.SerializableComparableObject;
@@ -38,12 +37,14 @@ import com.openpojo.reflection.java.load.ClassUtil;
 /**
  * This is random generator is responsible for generating concrete Queue implementations <br>
  * <strong>Namely:</strong><br>
- * 1. BlockingQueue -- Interface <br>
- * 2. LinkedBlockingQueue <br>
- * 3. PriorityBlockingQueue <br>
- * 4. DelayQueue <br>
- * 5. SynchronousQueue <br>
- * 6. ArrayBlockingQueue <br>
+ * 1. ArrayDeque
+ * 2. Queue -- Interface
+ * 3. ArrayBlockingQueue
+ * 4. ConcurrentLinkedQueue
+ * 5. DelayQueue
+ * 6. LinkedBlockingQueue
+ * 7. PriorityBlockingQueue
+ * 8. SynchronousQueue
  *
  * @author oshoukry
  */
@@ -61,9 +62,10 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
             "java.util.ArrayDeque"
             ,"java.util.Queue"
             ,"java.util.concurrent.ArrayBlockingQueue"
+            ,"java.util.concurrent.ConcurrentLinkedQueue"
+            ,"java.util.concurrent.DelayQueue"
             ,"java.util.concurrent.LinkedBlockingQueue"
             ,"java.util.concurrent.PriorityBlockingQueue"
-            ,"java.util.concurrent.DelayQueue"
             ,"java.util.concurrent.SynchronousQueue"
     };
 
@@ -71,19 +73,25 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
         Queue randomQueue;
-        if (type == ArrayBlockingQueue.class || type == Queue.class)
+
+        Class<?> typeToGenerate = type;
+        if (typeToGenerate.isInterface())
+            typeToGenerate = CollectionHelper.getConstructableType(type, getTypes());
+
+        LOGGER.debug("Generating [{0}] for requested type [{1}]", typeToGenerate, type);
+
+        if (typeToGenerate == ArrayBlockingQueue.class)
             randomQueue = new ArrayBlockingQueue(20);
         else
-            randomQueue = (Queue) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(type));
+            randomQueue = (Queue) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
         CollectionHelper.buildCollections(randomQueue, SerializableComparableObject.class);
 
         return randomQueue;
     }
 
     public Object doGenerate(Parameterizable parameterizedType) {
-        Queue returnedQueue = (Queue) RandomFactory.getRandomValue(parameterizedType.getType());
-        CollectionHelper.buildCollections(returnedQueue, parameterizedType.getParameterTypes().get(0));
-        return returnedQueue;
+        return CollectionHelper.buildCollections((Collection) doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes()
+                .get(0));
     }
 
     public Collection<Class<?>> getTypes() {

@@ -25,10 +25,10 @@ import com.openpojo.random.impl.*;
 import com.openpojo.random.map.MapConcreteRandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
-import com.openpojo.reflection.service.PojoClassLookupService;
-import com.openpojo.reflection.service.impl.DefaultPojoClassLookupService;
 import com.openpojo.reflection.coverage.service.PojoCoverageFilterService;
 import com.openpojo.reflection.coverage.service.PojoCoverageFilterServiceFactory;
+import com.openpojo.reflection.service.PojoClassLookupService;
+import com.openpojo.reflection.service.impl.DefaultPojoClassLookupService;
 
 /**
  * @author oshoukry

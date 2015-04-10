@@ -17,6 +17,8 @@
 
 package com.openpojo.reflection.construct;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 import com.openpojo.random.RandomFactory;
@@ -34,6 +36,23 @@ import static org.hamcrest.Matchers.greaterThan;
  * @author oshoukry
  */
 public class InstanceFactoryTest {
+
+    @Test
+    public void shouldNotConstruct() {
+        Constructor[] constructors = InstanceFactory.class.getDeclaredConstructors();
+        Assert.assertEquals(1, constructors.length);
+        Constructor constructor = constructors[0];
+        Assert.assertEquals(0, constructor.getParameterTypes().length);
+        Assert.assertTrue("Constructor must be private", Modifier.isPrivate(constructor.getModifiers()));
+
+        constructor.setAccessible(true);
+        try {
+            constructor.newInstance();
+            Assert.fail("Should not be created");
+        } catch (Throwable re) {
+            Assert.assertEquals("Should not be constructed", re.getCause().getMessage());
+        }
+    }
 
     @Test
     public void shouldCreateUsingDefaultConstructor() {
@@ -127,7 +146,7 @@ public class InstanceFactoryTest {
     @Test
     public void shouldConstructBasedOnDerivedClass() {
         final PojoClass aClassWithInterfaceBasedConstructor = PojoClassFactory.getPojoClass(ClassWithInterfaceBasedConstructor.class);
-        InstanceFactory.getInstance(aClassWithInterfaceBasedConstructor, new String("SomeString"));
+        Assert.assertNotNull(InstanceFactory.getInstance(aClassWithInterfaceBasedConstructor, "SomeString"));
     }
 
     @Test

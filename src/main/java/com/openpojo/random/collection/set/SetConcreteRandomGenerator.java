@@ -24,8 +24,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.ParameterizableRandomGenerator;
-import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
 import com.openpojo.random.util.SerializableComparableObject;
@@ -44,6 +45,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * @author oshoukry
  */
 public final class SetConcreteRandomGenerator implements ParameterizableRandomGenerator {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SetConcreteRandomGenerator.class);
 
     private SetConcreteRandomGenerator() {
     }
@@ -58,8 +60,10 @@ public final class SetConcreteRandomGenerator implements ParameterizableRandomGe
     public Object doGenerate(final Class<?> type) {
 
         Class<?> typeToGenerate = type;
-        if (type == Set.class)
-            typeToGenerate = HashSet.class;
+        if (typeToGenerate.isInterface())
+            typeToGenerate = CollectionHelper.getConstructableType(type, getTypes());
+
+        LOGGER.debug("Generating [{0}] for requested type [{1}]", typeToGenerate, type);
 
         Set randomSet = (Set) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
         CollectionHelper.buildCollections(randomSet, SerializableComparableObject.class);
@@ -72,9 +76,8 @@ public final class SetConcreteRandomGenerator implements ParameterizableRandomGe
     }
 
     public Object doGenerate(Parameterizable parameterizedType) {
-        Set initialSet = (Set) RandomFactory.getRandomValue(parameterizedType.getType());
-        CollectionHelper.buildCollections(initialSet, parameterizedType.getParameterTypes().get(0));
-        return initialSet;
+        return CollectionHelper.buildCollections((Collection) doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes()
+                .get(0));
     }
 
     private static class Instance {
