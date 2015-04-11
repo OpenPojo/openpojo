@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.SynchronousQueue;
@@ -78,7 +79,10 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
         Queue randomQueue;
 
         Class<?> typeToGenerate = type;
-        if (typeToGenerate.isInterface())
+        if (typeToGenerate == Queue.class)
+            typeToGenerate = ConcurrentLinkedQueue.class;
+
+        if (typeToGenerate.isInterface())  // other interfaces or
             typeToGenerate = CollectionHelper.getConstructableType(type, getTypes());
 
         LOGGER.debug("Generating [{0}] for requested type [{1}]", typeToGenerate, type);
@@ -100,6 +104,12 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
     }
 
     public Object doGenerate(Parameterizable parameterizedType) {
+        if (parameterizedType.getType() == SynchronousQueue.class)
+            return doGenerate(SynchronousQueue.class);
+
+        if (parameterizedType.getType() == DelayQueue.class)
+            return doGenerate(DelayQueue.class);
+
         return CollectionHelper.buildCollections((Collection) doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes()
                 .get(0));
     }
