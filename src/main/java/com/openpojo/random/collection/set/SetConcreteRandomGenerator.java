@@ -46,6 +46,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  */
 public final class SetConcreteRandomGenerator implements ParameterizableRandomGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(SetConcreteRandomGenerator.class);
+    private final Class<?>[] TYPES = new Class<?>[] { HashSet.class, TreeSet.class, LinkedHashSet.class, Set.class };
 
     private SetConcreteRandomGenerator() {
     }
@@ -53,8 +54,6 @@ public final class SetConcreteRandomGenerator implements ParameterizableRandomGe
     public static RandomGenerator getInstance() {
         return Instance.INSTANCE;
     }
-
-    private final Class<?>[] TYPES = new Class<?>[] { HashSet.class, TreeSet.class, LinkedHashSet.class, Set.class };
 
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
