@@ -68,7 +68,6 @@ public class RandomFactoryTest {
         RandomFactory.addRandomGenerator(new RandomEmployee());
         Assert.assertNotNull(RandomFactory.getRandomValue(Employee.class));
         Assert.assertNotNull(RandomFactory.getRandomValue(Employee.class));
-
     }
 
     @Test
