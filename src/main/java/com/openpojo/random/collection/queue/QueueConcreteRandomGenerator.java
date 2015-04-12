@@ -30,7 +30,6 @@ import java.util.concurrent.SynchronousQueue;
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.ParameterizableRandomGenerator;
-import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
 import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
@@ -58,7 +57,7 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
     private QueueConcreteRandomGenerator() {
     }
 
-    public static RandomGenerator getInstance() {
+    public static QueueConcreteRandomGenerator getInstance() {
         return Instance.INSTANCE;
     }
 
@@ -129,6 +128,6 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
     }
 
     private static class Instance {
-        private static final RandomGenerator INSTANCE = new QueueConcreteRandomGenerator();
+        private static final QueueConcreteRandomGenerator INSTANCE = new QueueConcreteRandomGenerator();
     }
 }
