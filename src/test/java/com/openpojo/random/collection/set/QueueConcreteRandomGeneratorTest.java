@@ -83,8 +83,10 @@ public class QueueConcreteRandomGeneratorTest {
     @Test
     public void whenGenerateWithAnInterface_GeneratedCorrectly() {
         Queue queue = (Queue) QueueConcreteRandomGenerator.getInstance().doGenerate(BlockingQueue.class);
-        Assert.assertNotNull(queue);
-        Assert.assertTrue(queue.size() > 0);
+
+        Assert.assertNotNull("Should not be null", queue);
+        if (!(queue instanceof SynchronousQueue))
+            Assert.assertTrue("Should not be empty", queue.size() > 0);
     }
 
     private Parameterizable getParameterizable(final Class<?> genericType) {
