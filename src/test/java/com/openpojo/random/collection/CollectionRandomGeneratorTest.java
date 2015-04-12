@@ -24,8 +24,14 @@ import java.util.Collection;
 import java.util.List;
 
 import com.openpojo.random.RandomFactory;
+import com.openpojo.random.collection.sample.AClassWithExhaustiveCollection;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.reflection.Parameterizable;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.rule.impl.SetterMustExistRule;
+import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -96,5 +102,16 @@ public class CollectionRandomGeneratorTest {
         Assert.assertTrue("Should be an ArrayList", collection instanceof ArrayList);
         collection = RandomFactory.getRandomValue(Collection.class); // double check in case.
         Assert.assertTrue("Should be an ArrayList", collection instanceof ArrayList);
+    }
+
+    @Test
+    public void exhaustiveTest() {
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithExhaustiveCollection.class);
+        PojoValidator pojoValidator = new PojoValidator();
+
+        pojoValidator.addRule(new SetterMustExistRule());
+        pojoValidator.addTester(new SetterTester());
+
+        pojoValidator.runValidation(pojoClass);
     }
 }

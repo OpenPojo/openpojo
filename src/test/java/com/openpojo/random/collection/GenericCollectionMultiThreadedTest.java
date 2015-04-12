@@ -27,9 +27,13 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import com.openpojo.random.collection.sample.AClassWithExhaustiveCollection;
+import com.openpojo.random.collection.sample.AClassWithGenericCollection;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.rule.impl.GetterMustExistRule;
+import com.openpojo.validation.rule.impl.SetterMustExistRule;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Assert;
@@ -38,14 +42,17 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public class CollectionGenericTest {
+public class GenericCollectionMultiThreadedTest {
 
-    private String samplePackage = CollectionGenericTest.class.getPackage().getName() + ".sample";
+    private String samplePackage = GenericCollectionMultiThreadedTest.class.getPackage().getName() + ".sample";
 
     @Test
     public void shouldCreateGenericCollection() throws ExecutionException, InterruptedException {
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(samplePackage, null);
-        Assert.assertEquals(1, pojoClasses.size());
+        List<PojoClass> pojoClasses = new ArrayList<PojoClass>(2);
+        pojoClasses.add(PojoClassFactory.getPojoClass(AClassWithGenericCollection.class));
+        pojoClasses.add(PojoClassFactory.getPojoClass(AClassWithExhaustiveCollection.class));
+
+        Assert.assertEquals(2, pojoClasses.size());
         int ttl_jobs = 1000;
         int per_thread = 30;
 
@@ -82,6 +89,8 @@ public class CollectionGenericTest {
 
         private Verify(List<PojoClass> pojoClasses) {
             this.pojoClasses = pojoClasses;
+            pojoValidator.addRule(new SetterMustExistRule());
+            pojoValidator.addRule(new GetterMustExistRule());
             pojoValidator.addTester(new SetterTester());
             pojoValidator.addTester(new GetterTester());
         }
