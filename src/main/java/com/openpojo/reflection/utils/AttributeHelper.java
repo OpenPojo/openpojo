@@ -60,7 +60,7 @@ public class AttributeHelper {
     /**
      * This method removes all registered values.
      */
-    public static void clearRegistery() {
+    public static void clearRegistry() {
         fieldPrefixes.clear();
     }
 

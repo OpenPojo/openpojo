@@ -39,7 +39,7 @@ public class PojoFieldPrefixedFieldsTest {
     @After
     public void cleanup() {
         PojoCache.clear();
-        AttributeHelper.clearRegistery();
+        AttributeHelper.clearRegistry();
     }
 
     @Test
