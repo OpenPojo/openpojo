@@ -55,6 +55,7 @@ public class InstanceFactoryTest {
     }
 
     @Test
+    @SuppressWarnings("RedundantArrayCreation")
     public void shouldCreateUsingDefaultConstructor() {
         final Class<?> clazz = ClassWithNoDeclaredConstructor.class;
         final Object obj1 = getInstance(clazz, (Object[]) null);
@@ -78,8 +79,7 @@ public class InstanceFactoryTest {
     public void shouldCreateUsingNullParameterDoubleConstructor() {
         final Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
         final String stringParam = RandomFactory.getRandomValue(String.class);
-        final ClassWithVariousDeclaredContructorsAndMethods obj = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(clazz,
-                new Object[] { stringParam, null });
+        final ClassWithVariousDeclaredContructorsAndMethods obj = (ClassWithVariousDeclaredContructorsAndMethods) getInstance(clazz, stringParam, null);
 
         Affirm.affirmNotNull("Should have created using two parameter constructor", obj);
         Affirm.affirmNull("Should have called using two parameter constructor", obj.doubleIntegerConstructor);
@@ -90,7 +90,7 @@ public class InstanceFactoryTest {
     public void shouldFailtoCreateParametersMissmatch() {
         final Class<?> clazz = ClassWithVariousDeclaredContructorsAndMethods.class;
         final String stringParam = RandomFactory.getRandomValue(String.class);
-        getInstance(clazz, new Object[] { stringParam, stringParam });
+        getInstance(clazz, stringParam, stringParam);
         Affirm.fail("Should've failed to create");
     }
 
@@ -98,7 +98,7 @@ public class InstanceFactoryTest {
     public void shouldFailtoCreateUsingDefault() {
         final Class<?> clazz = ClassWithNoDeclaredConstructor.class;
         final String stringParam = RandomFactory.getRandomValue(String.class);
-        getInstance(clazz, new Object[] { stringParam });
+        getInstance(clazz, stringParam);
         Affirm.fail("Should've failed to create");
     }
 
