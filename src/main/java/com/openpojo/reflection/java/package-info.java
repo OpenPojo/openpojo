@@ -18,7 +18,6 @@
 package com.openpojo.reflection.java;
 
 /**
- * This Package is responsible for abstracting and facading a lot of the dependencies and
+ * This Package is responsible for abstracting and acting as facade to a lot of the dependencies and
  * detail on how Java works.
  */
-
