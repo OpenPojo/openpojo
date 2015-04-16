@@ -59,7 +59,7 @@ public class CollectionHelper {
                     return entry;
             }
         }
-        throw RandomGeneratorException.getInstance("Unable to locate appropriate construcable class for type [" + type + "] from given " +
+        throw RandomGeneratorException.getInstance("Unable to locate appropriate constructable class for type [" + type + "] from given " +
                 "types [" + types + "]" );
     }
 }
