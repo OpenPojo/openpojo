@@ -37,6 +37,7 @@ public class WeakHashMapCacheStorage<T> implements CacheStorage<T> {
         repository.clear();
     }
 
+    @SuppressWarnings("RedundantStringConstructorCall")
     public void add(String name, T value) {
         // Ensure that we don't have a "Strong" reference to the key in the map, otherwise no cleanup will occur.
         repository.put(new String(name), value);
