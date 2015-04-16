@@ -54,7 +54,6 @@ public class BusinessPojoHelper {
         PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
         while (pojoClass != null) {
             for (PojoField pojoField : pojoClass.getPojoFieldsAnnotatedWith(BusinessKey.class)) {
-                BusinessKey annotation = pojoField.getAnnotation(BusinessKey.class);
                 businessKeyFields.add(new DefaultBusinessKeyField(pojoField));
             }
             pojoClass = pojoClass.getSuperClass();
