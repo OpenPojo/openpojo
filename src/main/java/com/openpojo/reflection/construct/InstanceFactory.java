@@ -91,7 +91,7 @@ public class InstanceFactory {
 
         final List<PojoMethod> constructors = pojoClass.getPojoConstructors();
         for (final PojoMethod constructor : constructors) {
-            if (areEquivalentParameters(upcast(constructor.getParameterTypes()), getTypes(parameters))) {
+            if (areEquivalentParameters(upCast(constructor.getParameterTypes()), getTypes(parameters))) {
                 return constructor.invoke(null, parameters);
             }
         }
@@ -100,14 +100,14 @@ public class InstanceFactory {
     }
 
     /**
-     * This method will upcast Native parameters to their equivalent Class-es.
+     * This method will upCast Native parameters to their equivalent Class-es.
      *
      * @param parameterTypes
-     *            The array of parameters needed to be upcast.
+     *            The array of parameters needed to be upCast.
      * @return
      *         An upcasted array of parameters (i.e. short -> Short, int -> Int, String doesn't change).
      */
-    private static Class<?>[] upcast(final Class<?>[] parameterTypes) {
+    private static Class<?>[] upCast(final Class<?>[] parameterTypes) {
         final Class<?>[] upCastedParameters = new Class[parameterTypes.length];
         for (int idx = 0; idx < parameterTypes.length; idx++) {
             upCastedParameters[idx] = parameterTypes[idx];
