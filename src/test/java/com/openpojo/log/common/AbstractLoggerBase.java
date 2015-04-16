@@ -47,8 +47,6 @@ public abstract class AbstractLoggerBase {
 
     /**
      * This method is the real one that has all the variations our logging supports.
-     *
-     * @return
      */
     protected List<LoggerVarArgsTestData> getVarArgsVariations() {
         List<LoggerVarArgsTestData> variations = new LinkedList<LoggerVarArgsTestData>();
@@ -63,17 +61,15 @@ public abstract class AbstractLoggerBase {
 
     /**
      * This method returns the various variations for single argument logging.
-     *
-     * @return
-     *         a List of LoggerMsgTestData variations for testing.
      */
+    @SuppressWarnings("RedundantCast")
     protected List<LoggerMsgTestData> getMsgVariations() {
         List<LoggerMsgTestData> variations = new LinkedList<LoggerMsgTestData>();
 
         variations.add(new LoggerMsgTestData("Simple message"));
         variations.add(new LoggerMsgTestData("old style message" + " some arg" + " some other arg"));
         variations.add(new LoggerMsgTestData((String) null));
-        variations.add(new LoggerMsgTestData(new RuntimeException("uh oh, runtime exception occured")));
+        variations.add(new LoggerMsgTestData(new RuntimeException("uh oh, runtime exception occurred")));
         return variations;
     }
 
