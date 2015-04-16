@@ -30,7 +30,7 @@ public class FilterBasedOnInheritance implements PojoClassFilter {
     private final Class<?> type;
 
     /**
-     * Construtor.
+     * Constructor.
      *
      * @param type
      *            The type/class to use for inclusion (i.e. the "Class" extends/implements type).
