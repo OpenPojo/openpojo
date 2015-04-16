@@ -32,7 +32,8 @@ public class CommonCode {
      * @param type
      *            The class type to test.
      */
-    public static void testDoGenerateForClass(final RandomGenerator randomGenerator, final Class<? extends Object> type) {
+    @SuppressWarnings("ConstantConditions")
+    public static void testDoGenerateForClass(final RandomGenerator randomGenerator, final Class<?> type) {
         Affirm.affirmTrue(String.format("Failed to get the requested type=[%s] from [%s] recieved=[%s] instead", type,
                 randomGenerator, randomGenerator.doGenerate(type)), type.isInstance(randomGenerator.doGenerate(type)));
         Object object = type.cast(randomGenerator.doGenerate(type));
