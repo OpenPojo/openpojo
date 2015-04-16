@@ -19,13 +19,12 @@ package com.openpojo.reflection.impl.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public class AClassWithEquality {
 
     private String name;
     private Integer age;
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "FieldCanBeLocal" })
     private Boolean noGetterBoolean;
     public Boolean noSetterBoolean;
 
@@ -33,43 +32,27 @@ public class AClassWithEquality {
 
     }
 
-    /**
-     * @param name
-     * @param age
-     */
     public AClassWithEquality(final String name, final Integer age) {
         this.name = name;
         this.age = age;
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
-    /**
-     * @param name the name to set
-     */
+
     public void setName(final String name) {
         this.name = name;
     }
-    /**
-     * @return the age
-     */
+
     public Integer getAge() {
         return age;
     }
-    /**
-     * @param age the age to set
-     */
+
     public void setAge(final Integer age) {
         this.age = age;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
@@ -99,16 +82,10 @@ public class AClassWithEquality {
         return true;
     }
 
-    /**
-     * @return the noSetterBoolean
-     */
     public Boolean getNoSetterBoolean() {
         return noSetterBoolean;
     }
 
-    /**
-     * @param noGetterBoolean the noGetterBoolean to set
-     */
     public void setNoGetterBoolean(final Boolean noGetterBoolean) {
         this.noGetterBoolean = noGetterBoolean;
     }
