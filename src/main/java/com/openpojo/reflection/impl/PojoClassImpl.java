@@ -182,7 +182,7 @@ public class PojoClassImpl implements PojoClass {
     public String getSourcePath() {
         try {
             final ClassLoader cl = this.getClazz().getClassLoader();
-            final URL location = cl.getResource(getClazz().getName().replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER)
+            final URL location = cl.getResource(getClazz().getName().replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER)
                     + Java.CLASS_EXTENSION);
             return new URLToFileSystemAdapter(location).getAsURI().toString();
         } catch (final Exception e) {

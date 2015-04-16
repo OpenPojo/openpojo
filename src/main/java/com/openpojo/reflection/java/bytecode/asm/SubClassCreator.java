@@ -75,7 +75,7 @@ class SubClassCreator extends ClassVisitor {
                 for (int idx = 0; idx <= counter; idx++) {
                     mv.visitVarInsn(ALOAD, idx);
                 }
-                mv.visitMethodInsn(INVOKESPECIAL, className.replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER),
+                mv.visitMethodInsn(INVOKESPECIAL, className.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER),
                         "<init>", desc, false);
                 mv.visitInsn(RETURN);
                 mv.visitMaxs(counter + 1, counter + 1);

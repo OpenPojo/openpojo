@@ -31,8 +31,8 @@ class SubClassDefinition {
     public SubClassDefinition(Class<?> clazz) {
         this.generatedClassName = clazz.getName() + "__Generated_OpenPojo";
         try {
-            this.classReader = new ClassReader(clazz.getResourceAsStream(Java.PATH_DELIMETER
-                    + clazz.getName().replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER) + Java.CLASS_EXTENSION));
+            this.classReader = new ClassReader(clazz.getResourceAsStream(Java.PATH_DELIMITER
+                    + clazz.getName().replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER) + Java.CLASS_EXTENSION));
         } catch (Throwable t) {
             throw ReflectionException.getInstance("Failed to create ClassReader for class [" + clazz + "]", t);
         }
@@ -43,7 +43,7 @@ class SubClassDefinition {
     }
 
     public String getGeneratedClassNameAsJDKPath() {
-        return generatedClassName.replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER);
+        return generatedClassName.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
     }
 
     public String getGeneratedClassName() {

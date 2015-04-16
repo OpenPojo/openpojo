@@ -37,13 +37,13 @@ public class PackageNameHelper {
      *         A first sub level bellow packageName.
      */
     public static String getDirectSubPackageName(final String parentPackageName, final String subPackageName) {
-        String parentPackageNameAsPath = parentPackageName + Java.PACKAGE_DELIMETER;
+        String parentPackageNameAsPath = parentPackageName + Java.PACKAGE_DELIMITER;
         if (subPackageName.startsWith(parentPackageNameAsPath) && subPackageName.length() > parentPackageNameAsPath.length()) {
             String[] subPackageTokens;
             subPackageTokens = subPackageName.substring(parentPackageNameAsPath.length()).split("\\" + Java
-                    .PACKAGE_DELIMETER);
+                    .PACKAGE_DELIMITER);
             if (subPackageTokens.length > 0) {
-                return parentPackageName + Java.PACKAGE_DELIMETER + subPackageTokens[0];
+                return parentPackageName + Java.PACKAGE_DELIMITER + subPackageTokens[0];
             }
         }
         return null;

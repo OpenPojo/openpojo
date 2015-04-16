@@ -51,7 +51,7 @@ public class ZIPPackageLoaderTest {
             Class entry = urlClassLoader.loadClass(className);
             PojoClass pojoClass = PojoClassFactory.getPojoClass(entry);
 
-            Affirm.affirmEquals("Should be equal", mypath + className.replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER) + Java
+            Affirm.affirmEquals("Should be equal", mypath + className.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER) + Java
                     .CLASS_EXTENSION, "jar:" + pojoClass.getSourcePath());
 
             if (pojoClass.getName().equals("com.openpojotest.AClass")) {

@@ -29,7 +29,7 @@ import com.openpojo.reflection.java.Java;
 public class FilterPackageInfo implements PojoClassFilter {
 
     public boolean include(final PojoClass pojoClass) {
-        return !pojoClass.getName().endsWith(Java.PACKAGE_DELIMETER + Java.PACKAGE_INFO);
+        return !pojoClass.getName().endsWith(Java.PACKAGE_DELIMITER + Java.PACKAGE_INFO);
     }
 
     @Override

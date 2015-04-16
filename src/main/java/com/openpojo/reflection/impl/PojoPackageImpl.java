@@ -59,7 +59,7 @@ class PojoPackageImpl implements PojoPackage {
             throw ReflectionException.getInstance(MessageFormatter.format("Package [{0}] is not valid", packageName));
         }
 
-        Class<?> infoClass = ClassUtil.loadClass(packageName + Java.PACKAGE_DELIMETER + Java.PACKAGE_INFO);
+        Class<?> infoClass = ClassUtil.loadClass(packageName + Java.PACKAGE_DELIMITER + Java.PACKAGE_INFO);
 
         if (infoClass != null) {
             packageInfoPojoClass = PojoClassFactory.getPojoClass(infoClass);

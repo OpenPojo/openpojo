@@ -42,7 +42,7 @@ public final class FilePackageLoader extends PackageLoader {
         final Set<Type> types = new HashSet<Type>();
 
         for (final File entry : getEntries()) {
-            final String className = fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMETER + entry.getName();
+            final String className = fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMITER + entry.getName();
             final Class<?> classEntry = getAsClass(className);
             if (classEntry != null) {
                 types.add(classEntry);
@@ -56,7 +56,7 @@ public final class FilePackageLoader extends PackageLoader {
         final Set<String> subPaths = new HashSet<String>();
         for (final File file : getEntries()) {
             if (file.isDirectory()) {
-                subPaths.add(fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMETER + file.getName());
+                subPaths.add(fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMITER + file.getName());
             }
         }
         return subPaths;

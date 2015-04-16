@@ -99,11 +99,11 @@ public abstract class PackageLoader {
     }
 
     protected static String fromJDKPackageToJDKPath(final String path) {
-        return path.replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER);
+        return path.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
     }
 
     protected static String fromJDKPathToJDKPackage(final String path) {
-        return path.replace(Java.PATH_DELIMETER, Java.PACKAGE_DELIMETER);
+        return path.replace(Java.PATH_DELIMITER, Java.PACKAGE_DELIMITER);
     }
 
     private String stripClassExtension(final String path) {

@@ -391,7 +391,7 @@ public class PojoClassImplTest {
         String sourcePath = pojoClass.getSourcePath();
         Affirm.affirmTrue("Should start with file:// [" + sourcePath + "]", sourcePath.startsWith("file://"));
 
-        String thisClassEndingPath = this.getClass().getName().replace(Java.PACKAGE_DELIMETER, Java.PATH_DELIMETER) + Java.CLASS_EXTENSION;
+        String thisClassEndingPath = this.getClass().getName().replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER) + Java.CLASS_EXTENSION;
         Affirm.affirmTrue("Should end with this class's package path [" + sourcePath + "]", sourcePath.endsWith(thisClassEndingPath));
     }
 
