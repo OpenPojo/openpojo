@@ -13,7 +13,7 @@ public class PojoTest {
   private static final int EXPECTED_CLASS_COUNT = 1;
 
   // The package to test
-  private static final String POJO_PACKAGE = "com.openpojo.samplepojo";
+  private static final String POJO_PACKAGE = "com.openpojo.sample";
 
   private List<PojoClass> pojoClasses;
   private PojoValidator pojoValidator;
@@ -52,7 +52,7 @@ public class PojoTest {
 ```java
 public class Person {
   @BusinessKey(caseSensitive = false)  //Configure your field(s)
-  private String lastname;
+  private String lastName;
 
   @Override
   public boolean equals(Object obj) {
