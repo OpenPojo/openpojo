@@ -37,5 +37,5 @@ public interface IdentityEvaluator {
      * @return
      *         True if both objects are equal.
      */
-    public boolean areEqual(final Object first, final Object second);
+    boolean areEqual(final Object first, final Object second);
 }

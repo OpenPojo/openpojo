@@ -29,7 +29,7 @@ public interface IdentityHandler {
      * @return
      *         generated hash code.
      */
-    public int generateHashCode(Object object);
+    int generateHashCode(Object object);
 
     /**
      * This method is responsible for evaluating two objects as equal using the identity.
@@ -41,7 +41,7 @@ public interface IdentityHandler {
      * @return
      *         True if both objects are equal.
      */
-    public boolean areEqual(final Object first, final Object second);
+    boolean areEqual(final Object first, final Object second);
 
     /**
      * This method validates an object to comply with the BusinessKey annotation rules.
@@ -50,7 +50,7 @@ public interface IdentityHandler {
      * @param object
      *            The Business Object to be validated.
      */
-    public void validate(Object object);
+    void validate(Object object);
 
     /**
      * This method returns true or false depending on whether this IdentityHandler handles identity for this object
@@ -60,5 +60,5 @@ public interface IdentityHandler {
      * @return
      *         true if all identity calls for this object should go through this IdentityHandler.
      */
-    public boolean handlerFor(Object object);
+    boolean handlerFor(Object object);
 }

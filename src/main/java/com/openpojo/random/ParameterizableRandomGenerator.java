@@ -34,6 +34,6 @@ public interface ParameterizableRandomGenerator extends RandomGenerator {
      * @return
      *         A random Object dynamically created.
      */
-    public Object doGenerate(Parameterizable parameterizedType);
+    Object doGenerate(Parameterizable parameterizedType);
 
 }

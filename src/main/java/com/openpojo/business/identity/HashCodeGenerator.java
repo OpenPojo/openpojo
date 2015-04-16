@@ -32,5 +32,5 @@ public interface HashCodeGenerator {
      * @return
      *          generated hash code.
      */
-    public int doGenerate(Object object);
+    int doGenerate(Object object);
 }

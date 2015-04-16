@@ -30,6 +30,6 @@ public interface PojoElement extends Annotatable {
      * @return
      *         Return the name of the package, class, field... etc.
      */
-    public String getName();
+    String getName();
 
 }

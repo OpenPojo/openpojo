@@ -30,5 +30,5 @@ public interface Rule {
      * @param pojoClass
      *            The PojoClass to evaluate that rule on.
      */
-    public void evaluate(PojoClass pojoClass);
+    void evaluate(PojoClass pojoClass);
 }

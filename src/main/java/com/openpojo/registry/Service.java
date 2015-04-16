@@ -30,6 +30,6 @@ public interface Service {
      *
      * @return the name of the service.
      */
-    public String getName();
+    String getName();
 
 }

@@ -31,7 +31,7 @@ public interface RandomGenerator {
      * @return
      *         A collection with a list of Types this Random Generator can handle.
      */
-    public Collection<Class<?>> getTypes();
+    Collection<Class<?>> getTypes();
 
     /**
      * Perform random generation.
@@ -41,5 +41,5 @@ public interface RandomGenerator {
      * @return
      *         A random Object dynamically created.
      */
-    public Object doGenerate(Class<?> type);
+    Object doGenerate(Class<?> type);
 }

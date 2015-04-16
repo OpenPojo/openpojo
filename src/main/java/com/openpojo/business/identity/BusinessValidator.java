@@ -31,5 +31,5 @@ public interface BusinessValidator {
      * @param object
      *          The Business Object to be validated.
      */
-    public void validate(Object object);
+    void validate(Object object);
 }

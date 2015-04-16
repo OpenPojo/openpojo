@@ -25,5 +25,5 @@ import com.openpojo.reflection.PojoClass;
  * @author oshoukry
  */
 public interface PojoClassAdapter {
-    public PojoClass adapt(final PojoClass pojoClass);
+    PojoClass adapt(final PojoClass pojoClass);
 }

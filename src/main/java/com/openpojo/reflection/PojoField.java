@@ -32,7 +32,7 @@ public interface PojoField extends PojoElement, Parameterizable {
      * @return
      *         The value of the field.
      */
-    public Object get(final Object instance);
+    Object get(final Object instance);
 
     /**
      * This method sets the value of the field.
@@ -42,7 +42,7 @@ public interface PojoField extends PojoElement, Parameterizable {
      * @param value
      *            The value to set it to.
      */
-    public void set(final Object instance, final Object value);
+    void set(final Object instance, final Object value);
 
     /**
      * Returns true if this field has a getter method.
@@ -50,7 +50,7 @@ public interface PojoField extends PojoElement, Parameterizable {
      * @return
      *         Returns true if the getter is set.
      */
-    public boolean hasGetter();
+    boolean hasGetter();
 
     /**
      * This method will invoke the getter method.
@@ -60,7 +60,7 @@ public interface PojoField extends PojoElement, Parameterizable {
      * @return
      *         The value of the field.
      */
-    public Object invokeGetter(final Object instance);
+    Object invokeGetter(final Object instance);
 
     /**
      * Returns true if this field has a setter method.
@@ -68,7 +68,7 @@ public interface PojoField extends PojoElement, Parameterizable {
      * @return
      *         Returns true if the setter is set.
      */
-    public boolean hasSetter();
+    boolean hasSetter();
 
     /**
      * This method will invoke the setter method.
@@ -78,67 +78,67 @@ public interface PojoField extends PojoElement, Parameterizable {
      * @param value
      *            The value to set the field to.
      */
-    public void invokeSetter(final Object instance, final Object value);
+    void invokeSetter(final Object instance, final Object value);
 
     /**
      * @return
      *         True if the field is of primitive type.
      */
-    public boolean isPrimitive();
+    boolean isPrimitive();
 
     /**
      * @return
      *         True if this PojoField is defined as final on the enclosing class.
      */
-    public boolean isFinal();
+    boolean isFinal();
 
     /**
      * @return
      *         True if this PojoField is defined as static on the enclosing class.
      */
-    public boolean isStatic();
+    boolean isStatic();
 
     /**
      * @return
      *         True if this PojoField is defined as private on the enclosing class.
      */
-    public boolean isPrivate();
+    boolean isPrivate();
 
     /**
      * @return
      *         True if this PojoField is defined as protected on the enclosing class.
      */
-    public boolean isProtected();
+    boolean isProtected();
 
     /**
      * @return
      *         True if this PojoField is defined as public on the enclosing class.
      */
-    public boolean isPublic();
+    boolean isPublic();
 
     /**
      * @return
      *         True if this PojoField is defined as transient on the enclosing class.
      */
-    public boolean isTransient();
+    boolean isTransient();
 
     /**
      * @return
      *         True if this PojoField is defined as volatile on the enclosing class.
      */
-    public boolean isVolatile();
+    boolean isVolatile();
 
     /**
      * @return
      *         True if this PojoField is defined as array on the enclosing class.
      */
-    public boolean isArray();
+    boolean isArray();
 
     /**
      * @return
      *         true if this PojoField is synthetic (i.e. jdk compiler generated).
      */
-    public boolean isSynthetic();
+    boolean isSynthetic();
 
     /**
      * Returns properly formatted field=value string from instance.
@@ -148,6 +148,6 @@ public interface PojoField extends PojoElement, Parameterizable {
      * @return
      *         A string representation of the field and value.
      */
-    public String toString(Object instance);
+    String toString(Object instance);
 
 }

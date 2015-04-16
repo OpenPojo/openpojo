@@ -38,14 +38,14 @@ public interface RandomGeneratorService extends Service {
      * @param randomGenerator
      *          The random generator to register.
      */
-    public void registerRandomGenerator(RandomGenerator randomGenerator);
+    void registerRandomGenerator(RandomGenerator randomGenerator);
 
     /**
      * Get all registered types.
      *
      * @return all the registered types in service.
      */
-    public Collection<Class<?>> getRegisteredTypes();
+    Collection<Class<?>> getRegisteredTypes();
 
     /**
      * This method set the RandomGenerator to use if non are registered for given type. This randomGenerator's
@@ -56,14 +56,14 @@ public interface RandomGeneratorService extends Service {
      * @param randomGenerator
      *          The random generator to register.
      */
-    public void setDefaultRandomGenerator(RandomGenerator randomGenerator);
+    void setDefaultRandomGenerator(RandomGenerator randomGenerator);
 
     /**
      * Returns the default registered RandomGenerator;
      *
      * @return the default registered random generator.
      */
-    public RandomGenerator getDefaultRandomGenerator();
+    RandomGenerator getDefaultRandomGenerator();
 
     /**
      * This retrieves the most appropriate RandomGenerator for a given Type. If there is more than one possible random
@@ -77,7 +77,7 @@ public interface RandomGeneratorService extends Service {
      * @param type
      *          The type used to lookup the most appropriate RandomGenerator.
      */
-    public RandomGenerator getRandomGeneratorByType(Class<?> type);
+    RandomGenerator getRandomGeneratorByType(Class<?> type);
 
     /**
      * This retrieves the most appropriate ParameterizableRandomGenerator for a given Type.
@@ -91,5 +91,5 @@ public interface RandomGeneratorService extends Service {
      * @param type
      *          The parameterized type used to lookup the most appropriate RandomGenerator.
      */
-    public RandomGenerator getRandomGeneratorByParameterizable(Parameterizable type);
+    RandomGenerator getRandomGeneratorByParameterizable(Parameterizable type);
 }

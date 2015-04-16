@@ -33,5 +33,5 @@ public interface PojoClassFilter {
      * @return
      *         True if it should be included, false otherwise.
      */
-    public boolean include(final PojoClass pojoClass);
+    boolean include(final PojoClass pojoClass);
 }

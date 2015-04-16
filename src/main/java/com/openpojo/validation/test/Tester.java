@@ -32,5 +32,5 @@ public interface Tester {
      * @param pojoClass
      *            The PojoClass being tested.
      */
-    public void run(PojoClass pojoClass);
+    void run(PojoClass pojoClass);
 }

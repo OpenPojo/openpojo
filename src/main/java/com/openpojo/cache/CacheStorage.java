@@ -32,7 +32,7 @@ public interface CacheStorage<T> {
      * @param value
      *            The value to be cached.
      */
-    public void add(String name, T value);
+    void add(String name, T value);
 
     /**
      * Get an item from the cache.
@@ -41,10 +41,10 @@ public interface CacheStorage<T> {
      *            The lookup key.
      * @return returns the cached value, or null if not found.
      */
-    public T get(String name);
+    T get(String name);
 
     /**
      * The method clears the cache.
      */
-    public void clear();
+    void clear();
 }

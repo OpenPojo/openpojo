@@ -31,16 +31,15 @@ import com.openpojo.registry.Service;
  */
 public interface PojoClassLookupService extends Service {
 
-    public List<PojoClass> enumerateClassesByExtendingType(final String packageName, final Class<?> type,
-            final PojoClassFilter pojoClassFilter);
+    List<PojoClass> enumerateClassesByExtendingType(final String packageName, final Class<?> type, final PojoClassFilter pojoClassFilter);
 
-    public PojoClass getPojoClass(final Class<?> clazz);
+    PojoClass getPojoClass(final Class<?> clazz);
 
-    public List<PojoClass> getPojoClasses(final String packageName);
+    List<PojoClass> getPojoClasses(final String packageName);
 
-    public List<PojoClass> getPojoClasses(final String packageName, final PojoClassFilter pojoClassFilter);
+    List<PojoClass> getPojoClasses(final String packageName, final PojoClassFilter pojoClassFilter);
 
-    public List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter pojoClassFilter);
+    List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter pojoClassFilter);
 
 
 }

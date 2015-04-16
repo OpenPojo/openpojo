@@ -33,75 +33,75 @@ public interface PojoClass extends PojoElement {
      *
      * @return true if this PojoClass wraps an interface.
      */
-    public boolean isInterface();
+    boolean isInterface();
 
     /**
      * Check if PojoClass wraps an abstract.
      *
      * @return true if this PojoClass wraps an abstract class.
      */
-    public boolean isAbstract();
+    boolean isAbstract();
 
     /**
      * Check if PojoClass wraps a concrete (i.e. can be instantiated).
      *
      * @return true if this PojoClass wraps a concrete class.
      */
-    public boolean isConcrete();
+    boolean isConcrete();
 
     /**
      * Check if PojoClass wraps an enum.
      *
      * @return true if this PojoClass wraps an enum type.
      */
-    public boolean isEnum();
+    boolean isEnum();
 
     /**
      * Check if PojoClass wraps an array.
      *
      * @return true if this PojoClass wraps an array class.
      */
-    public boolean isArray();
+    boolean isArray();
 
     /**
      * Check if PojoClass wraps a final class.
      *
      * @return true if this PojoClass wraps a final class.
      */
-    public boolean isFinal();
+    boolean isFinal();
 
     /**
      * @return
      *         true if this PojoField is synthetic (i.e. jdk compiler generated).
      */
-    public boolean isSynthetic();
+    boolean isSynthetic();
 
     /**
      * Get all PojoFields defined in the class.
      *
      * @return the pojoFields
      */
-    public List<PojoField> getPojoFields();
+    List<PojoField> getPojoFields();
 
     /**
      * Get all PojoFields annotated with given annotation.
      */
-    public List<PojoField> getPojoFieldsAnnotatedWith(Class<? extends Annotation> annotation);
+    List<PojoField> getPojoFieldsAnnotatedWith(Class<? extends Annotation> annotation);
 
     /**
      * Get all PojoMethods defined in the class;
      */
-    public List<PojoMethod> getPojoMethods();
+    List<PojoMethod> getPojoMethods();
 
     /**
      * Get all PojoMethods annotated with given annotation
      */
-    public List<PojoMethod> getPojoMethodsAnnotatedWith(Class<? extends Annotation> annotation);
+    List<PojoMethod> getPojoMethodsAnnotatedWith(Class<? extends Annotation> annotation);
 
     /**
      * Get all Constructors defined in the class.
      */
-    public List<PojoMethod> getPojoConstructors();
+    List<PojoMethod> getPojoConstructors();
 
     /**
      * Checks to see if class extends/implements a certain type.
@@ -111,7 +111,7 @@ public interface PojoClass extends PojoElement {
      * @return
      *         True if class is subclass or implements an interface, otherwise false.
      */
-    public boolean extendz(final Class<?> type);
+    boolean extendz(final Class<?> type);
 
     /**
      * Return the super class of the class represented by this PojoClass class.
@@ -119,7 +119,7 @@ public interface PojoClass extends PojoElement {
      * @return
      *         PojoClass representing the super class of this class or null if none exist.
      */
-    public PojoClass getSuperClass();
+    PojoClass getSuperClass();
 
     /**
      * Returns a list of all interfaces implemented by the class represented by this PojoClass.
@@ -127,7 +127,7 @@ public interface PojoClass extends PojoElement {
      * @return
      *         The list of interfaces implemented by the class wrapped by this PojoClass.
      */
-    public List<PojoClass> getInterfaces();
+    List<PojoClass> getInterfaces();
 
     /**
      * This method returns the underlying class represented by this instance.
@@ -135,7 +135,7 @@ public interface PojoClass extends PojoElement {
      * @return
      *         The class type wrapped by this PojoClass.
      */
-    public Class<?> getClazz();
+    Class<?> getClazz();
 
     /**
      * Checks to see if this class is a nested subclass.
@@ -143,7 +143,7 @@ public interface PojoClass extends PojoElement {
      * @return
      *         True if it is a subclass, false otherwise.
      */
-    public boolean isNestedClass();
+    boolean isNestedClass();
 
     /**
      * Check if PojoClass wraps a static class.
@@ -151,7 +151,7 @@ public interface PojoClass extends PojoElement {
      *
      * @return true if this PojoClass wraps a static class.
      */
-    public boolean isStatic();
+    boolean isStatic();
 
     /**
      * Copy all contents from one Instance represented by this PojoClass to another.
@@ -161,7 +161,7 @@ public interface PojoClass extends PojoElement {
      * @param to
      *            The Instance to copy to.
      */
-    public void copy(final Object from, final Object to);
+    void copy(final Object from, final Object to);
 
     /**
      * This method converts a pojoClass instance's contents to a string.
@@ -172,7 +172,7 @@ public interface PojoClass extends PojoElement {
      * @return
      *         String representation of the instance.
      */
-    public String toString(Object instance);
+    String toString(Object instance);
 
     /**
      * This method returns the location from which this class was loaded.
@@ -181,6 +181,6 @@ public interface PojoClass extends PojoElement {
      * @return
      *         String of the PATH of where this class was loaded from.
      */
-    public String getSourcePath();
+    String getSourcePath();
 
 }
