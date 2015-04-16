@@ -111,9 +111,9 @@ public final class BasicRandomGenerator implements RandomGenerator {
         }
 
         if (type == byte.class || type == Byte.class) {
-            final byte[] randombyte = new byte[1];
-            RANDOM.nextBytes(randombyte);
-            return randombyte[0];
+            final byte[] randomByte = new byte[1];
+            RANDOM.nextBytes(randomByte);
+            return randomByte[0];
         }
 
         if (type == char.class || type == Character.class) {
@@ -131,12 +131,12 @@ public final class BasicRandomGenerator implements RandomGenerator {
         }
 
         if (type == Date.class) {
-            return new Date(RandomFactory.getRandomValue(Long.class));
+            return new Date(RANDOM.nextLong());
         }
 
         if (type == Calendar.class) {
             final Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(RandomFactory.getRandomValue(Long.class));
+            calendar.setTimeInMillis(RANDOM.nextLong());
             return calendar;
         }
 
