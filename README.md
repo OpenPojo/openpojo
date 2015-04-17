@@ -70,3 +70,5 @@ public class Person {
   }
 }
 ```
+
+For more examples and the tutorials see the [Wiki](https://github.com/oshoukry/openpojo/wiki)
