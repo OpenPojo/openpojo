@@ -18,7 +18,6 @@
 package com.openpojo.random.map;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomFactory;
@@ -51,9 +50,9 @@ public final class MapConcreteRandomGenerator implements RandomGenerator, Parame
         return Instance.INSTANCE;
     }
 
-    private final Class<?>[] TYPES = new Class<?>[] { TreeMap.class, HashMap.class, LinkedHashMap.class,
+    private final Class<?>[] TYPES = new Class<?>[] { HashMap.class, LinkedHashMap.class,
             IdentityHashMap.class, Hashtable.class, // EnumMap.class,
-            WeakHashMap.class, ConcurrentHashMap.class, Map.class };
+            WeakHashMap.class };
 
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
@@ -69,7 +68,6 @@ public final class MapConcreteRandomGenerator implements RandomGenerator, Parame
 
     public Object doGenerate(Parameterizable parameterizedType) {
         Map returnedMap = (Map) RandomFactory.getRandomValue(parameterizedType.getType());
-        returnedMap.clear();
         return MapHelper.buildMap(returnedMap, parameterizedType.getParameterTypes().get(0), parameterizedType.getParameterTypes().get(1));
     }
 

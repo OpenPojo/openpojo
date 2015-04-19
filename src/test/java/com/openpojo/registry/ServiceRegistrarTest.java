@@ -79,6 +79,7 @@ public class ServiceRegistrarTest {
             ,"java.util.TreeSet"
             ,"java.util.WeakHashMap"
             ,"java.util.concurrent.ArrayBlockingQueue"
+            ,"java.util.concurrent.ConcurrentMap"
             ,"java.util.concurrent.ConcurrentHashMap"
             ,"java.util.concurrent.ConcurrentLinkedQueue"
             ,"java.util.concurrent.DelayQueue"

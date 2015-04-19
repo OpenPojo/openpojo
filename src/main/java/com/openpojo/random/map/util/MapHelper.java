@@ -37,7 +37,7 @@ public class MapHelper {
     private static final int MAX_RANDOM_ELEMENTS = 5;
 
     @SuppressWarnings("unchecked")
-    public static Object buildMap(Map map, Type key, Type value) {
+    public static Map buildMap(Map map, Type key, Type value) {
         if (key == null || value == null || map == null) return map;
 
         int counter = RANDOM.nextInt(MAX_RANDOM_ELEMENTS) + 1;
