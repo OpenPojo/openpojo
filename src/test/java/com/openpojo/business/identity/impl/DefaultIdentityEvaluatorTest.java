@@ -36,6 +36,7 @@ public class DefaultIdentityEvaluatorTest {
     private HashCodeGenerator defaultHashCodeGenerator = DefaultHashCodeGenerator.getInstance();
 
     @Test
+    @SuppressWarnings("UnnecessaryLocalVariable")
     public void whenPointersToSameInstance_areEqualsTrue() {
         Object firstPointer = new Object();
         Object secondPointer = firstPointer;
