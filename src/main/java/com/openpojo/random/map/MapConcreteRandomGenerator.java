@@ -50,16 +50,13 @@ public final class MapConcreteRandomGenerator implements RandomGenerator, Parame
         return Instance.INSTANCE;
     }
 
-    private final Class<?>[] TYPES = new Class<?>[] { HashMap.class, LinkedHashMap.class,
-            IdentityHashMap.class, Hashtable.class, // EnumMap.class,
-            WeakHashMap.class };
+    private final Class<?>[] TYPES = new Class<?>[] { IdentityHashMap.class, WeakHashMap.class };
 
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
 
         Class<?> typeToGenerate = type;
-        if (typeToGenerate == Map.class)
-            typeToGenerate = HashMap.class;
+        if (typeToGenerate == Map.class) typeToGenerate = HashMap.class;
 
         Map randomMap = (Map) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
         MapHelper.buildMap(randomMap, SerializableComparableObject.class, SerializableComparableObject.class);

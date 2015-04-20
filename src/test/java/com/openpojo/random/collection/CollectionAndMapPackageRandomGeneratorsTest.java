@@ -39,7 +39,7 @@ import com.openpojo.validation.affirm.Affirm;
 public class CollectionAndMapPackageRandomGeneratorsTest {
     private static final List<PojoClass> collectionRandomGenerators = new LinkedList<PojoClass>();
     private static final String[] packages = new String[] { "com.openpojo.random.collection", "com.openpojo.random.map" };
-    private static final int EXPECTED_COUNT = 10;
+    private static final int EXPECTED_COUNT = 16;
 
     @BeforeClass
     public static void setup() {
@@ -50,9 +50,9 @@ public class CollectionAndMapPackageRandomGeneratorsTest {
                                                                                                          new FilterNestedClasses(),
                                                                                                          new FilterNonConcrete())));
         }
-        Affirm.affirmEquals(MessageFormatter.format("Invalid number of Collection/Map RandomGenerators added/removed? found [{0}]",
-                                                    collectionRandomGenerators), EXPECTED_COUNT,
-                            collectionRandomGenerators.size());
+        Affirm.affirmEquals(MessageFormatter.format("Invalid number of Collection/Map RandomGenerators added/removed? expected: " +
+                                "[{0}], found: [{1}] which were [{2}] ", EXPECTED_COUNT, collectionRandomGenerators.size(),
+                                collectionRandomGenerators), EXPECTED_COUNT, collectionRandomGenerators.size());
     }
 
     /**

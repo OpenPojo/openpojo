@@ -24,11 +24,7 @@ import com.openpojo.random.collection.queue.PriorityQueueRandomGenerator;
 import com.openpojo.random.collection.queue.QueueConcreteRandomGenerator;
 import com.openpojo.random.collection.set.SetConcreteRandomGenerator;
 import com.openpojo.random.impl.*;
-import com.openpojo.random.map.ConcurrentHashMapRandomGenerator;
-import com.openpojo.random.map.ConcurrentMapRandomGenerator;
-import com.openpojo.random.map.MapConcreteRandomGenerator;
-import com.openpojo.random.map.MapRandomGenerator;
-import com.openpojo.random.map.TreeMapRandomGenerator;
+import com.openpojo.random.map.*;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
 import com.openpojo.reflection.coverage.service.PojoCoverageFilterService;
@@ -85,8 +81,14 @@ public class ServiceRegistrar {
 
         // Map
         newRandomGeneratorService.registerRandomGenerator(MapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(NavigableMapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(TreeMapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(SortedMapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(ConcurrentMapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(EnumMapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(HashMapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(HashtableRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(LinkedHashMapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(ConcurrentHashMapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(MapConcreteRandomGenerator.getInstance());
         setRandomGeneratorService(newRandomGeneratorService);
