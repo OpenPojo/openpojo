@@ -55,6 +55,14 @@ public abstract class AbstractMapRandomGeneratorTest {
 
     protected abstract Class<?> getGenericType2();
 
+    protected Class<?> getDefaultType1() {
+        return SerializableComparableObject.class;
+    }
+
+    protected Class<?> getDefaultType2() {
+        return SerializableComparableObject.class;
+    }
+
     @Test
     public void constructorShouldBePrivate() {
         final Class<?> mapRandomGeneratorClass = getGeneratorClass();
@@ -120,7 +128,7 @@ public abstract class AbstractMapRandomGeneratorTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void shouldGenerateParametrizableHashMapForRequest() {
+    public void shouldGenerateParametrizableCorrectMapForRequest() {
         Map<SimpleType1, SimpleType2> mapOfType1AndType2 = (Map) getInstance().doGenerate(getParameterizedType());
 
         Assert.assertNotNull("Should not be null", mapOfType1AndType2);
@@ -134,7 +142,7 @@ public abstract class AbstractMapRandomGeneratorTest {
     @Test
     public void endToEnd() {
         Map<?, ?> generatedMap = RandomFactory.getRandomValue(getExpectedTypeClass());
-        assertMapHasExpectedTypes(generatedMap, SerializableComparableObject.class, SerializableComparableObject.class);
+        assertMapHasExpectedTypes(generatedMap, getDefaultType1(), getDefaultType2());
     }
 
     protected void assertMapHasExpectedTypes(Map<?, ?> generatedMap, Class<?> type1, Class<?> type2) {
