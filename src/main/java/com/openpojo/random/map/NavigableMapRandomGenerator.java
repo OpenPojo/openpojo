@@ -34,9 +34,10 @@ import com.openpojo.reflection.java.load.ClassUtil;
  */
 public class NavigableMapRandomGenerator extends AbstractMapRandomGenerator {
     private static final String TYPE = "java.util.NavigableMap";
+    private static final NavigableMapRandomGenerator INSTANCE = new NavigableMapRandomGenerator();
 
     public static NavigableMapRandomGenerator getInstance() {
-        return Instance.INSTANCE;
+        return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
@@ -55,9 +56,5 @@ public class NavigableMapRandomGenerator extends AbstractMapRandomGenerator {
     }
 
     private NavigableMapRandomGenerator() {
-    }
-
-    private static class Instance {
-        private static final NavigableMapRandomGenerator INSTANCE = new NavigableMapRandomGenerator();
     }
 }

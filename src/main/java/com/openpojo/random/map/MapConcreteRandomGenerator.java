@@ -42,12 +42,10 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * @author oshoukry
  */
 public final class MapConcreteRandomGenerator implements RandomGenerator, ParameterizableRandomGenerator {
-
-    private MapConcreteRandomGenerator() {
-    }
+    private static final RandomGenerator INSTANCE = new MapConcreteRandomGenerator();
 
     public static RandomGenerator getInstance() {
-        return Instance.INSTANCE;
+        return INSTANCE;
     }
 
     private final Class<?>[] TYPES = new Class<?>[] { IdentityHashMap.class, WeakHashMap.class };
@@ -72,7 +70,6 @@ public final class MapConcreteRandomGenerator implements RandomGenerator, Parame
         return Arrays.asList(TYPES);
     }
 
-    private static class Instance {
-        private static final RandomGenerator INSTANCE = new MapConcreteRandomGenerator();
+    private MapConcreteRandomGenerator() {
     }
 }

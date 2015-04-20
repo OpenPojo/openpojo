@@ -34,9 +34,10 @@ import com.openpojo.reflection.Parameterizable;
  */
 public class EnumMapRandomGenerator extends AbstractMapRandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { EnumMap.class };
+    private static final EnumMapRandomGenerator INSTANCE = new EnumMapRandomGenerator();
 
     public static EnumMapRandomGenerator getInstance() {
-        return Instance.INSTANCE;
+        return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
@@ -45,14 +46,14 @@ public class EnumMapRandomGenerator extends AbstractMapRandomGenerator {
 
     @Override
     protected Map getBasicInstance(Class<?> type) {
-        throwExceptionIfNotExpectedType(type);
+        throwExceptionIfNotAssignableTo(type);
         return MapHelper.buildMap(new EnumMap<SomeEnum, SerializableComparableObject>(SomeEnum.class), SomeEnum.class,
                 SerializableComparableObject.class);
     }
 
     @SuppressWarnings("unchecked")
     public Map doGenerate(Parameterizable parameterizedType) {
-        throwExceptionIfNotExpectedType(parameterizedType.getType());
+        throwExceptionIfNotAssignableTo(parameterizedType.getType());
 
         Class<?> type = (Class<?>) parameterizedType.getParameterTypes().get(0);
         EnumMap returnedMap = new EnumMap(type);
@@ -60,7 +61,7 @@ public class EnumMapRandomGenerator extends AbstractMapRandomGenerator {
                 parameterizedType.getParameterTypes().get(1));
     }
 
-    private void throwExceptionIfNotExpectedType(Class<?> type) {
+    private void throwExceptionIfNotAssignableTo(Class<?> type) {
         if (!isAssignableTo(type))
             throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
     }
@@ -68,7 +69,4 @@ public class EnumMapRandomGenerator extends AbstractMapRandomGenerator {
     private EnumMapRandomGenerator() {
     }
 
-    private static class Instance {
-        private static final EnumMapRandomGenerator INSTANCE = new EnumMapRandomGenerator();
-    }
 }

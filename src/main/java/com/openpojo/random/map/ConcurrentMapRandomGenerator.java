@@ -33,9 +33,10 @@ import com.openpojo.random.util.SerializableComparableObject;
  */
 public class ConcurrentMapRandomGenerator extends AbstractMapRandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { ConcurrentMap.class };
+    private static final ConcurrentMapRandomGenerator INSTANCE = new ConcurrentMapRandomGenerator();
 
     public static ConcurrentMapRandomGenerator getInstance() {
-        return Instance.INSTANCE;
+        return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
@@ -52,7 +53,4 @@ public class ConcurrentMapRandomGenerator extends AbstractMapRandomGenerator {
     private ConcurrentMapRandomGenerator() {
     }
 
-    private static class Instance {
-        private static final ConcurrentMapRandomGenerator INSTANCE = new ConcurrentMapRandomGenerator();
-    }
 }

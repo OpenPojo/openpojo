@@ -32,9 +32,10 @@ import com.openpojo.random.util.SerializableComparableObject;
  */
 public class HashtableRandomGenerator extends AbstractMapRandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { Hashtable.class };
+    private static final HashtableRandomGenerator INSTANCE = new HashtableRandomGenerator();
 
     public static HashtableRandomGenerator getInstance() {
-        return Instance.INSTANCE;
+        return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
@@ -49,9 +50,5 @@ public class HashtableRandomGenerator extends AbstractMapRandomGenerator {
     }
 
     private HashtableRandomGenerator() {
-    }
-
-    private static class Instance {
-        private static final HashtableRandomGenerator INSTANCE = new HashtableRandomGenerator();
     }
 }

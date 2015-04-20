@@ -32,9 +32,10 @@ import com.openpojo.random.util.SerializableComparableObject;
  */
 public class LinkedHashMapRandomGenerator extends AbstractMapRandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { LinkedHashMap.class };
+    private static final LinkedHashMapRandomGenerator INSTANCE = new LinkedHashMapRandomGenerator();
 
     public static LinkedHashMapRandomGenerator getInstance() {
-        return Instance.INSTANCE;
+        return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
@@ -49,9 +50,5 @@ public class LinkedHashMapRandomGenerator extends AbstractMapRandomGenerator {
     }
 
     private LinkedHashMapRandomGenerator() {
-    }
-
-    private static class Instance {
-        private static final LinkedHashMapRandomGenerator INSTANCE = new LinkedHashMapRandomGenerator();
     }
 }

@@ -32,9 +32,10 @@ import com.openpojo.random.util.SerializableComparableObject;
  */
 public class ConcurrentHashMapRandomGenerator extends AbstractMapRandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { ConcurrentHashMap.class };
+    private static final ConcurrentHashMapRandomGenerator INSTANCE = new ConcurrentHashMapRandomGenerator();
 
     public static ConcurrentHashMapRandomGenerator getInstance() {
-        return Instance.INSTANCE;
+        return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
@@ -51,7 +52,4 @@ public class ConcurrentHashMapRandomGenerator extends AbstractMapRandomGenerator
     private ConcurrentHashMapRandomGenerator() {
     }
 
-    private static class Instance {
-        private static final ConcurrentHashMapRandomGenerator INSTANCE = new ConcurrentHashMapRandomGenerator();
-    }
 }

@@ -32,9 +32,10 @@ import com.openpojo.random.util.SerializableComparableObject;
  */
 public class TreeMapRandomGenerator extends AbstractMapRandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { TreeMap.class };
+    private static final TreeMapRandomGenerator INSTANCE = new TreeMapRandomGenerator();
 
     public static TreeMapRandomGenerator getInstance() {
-        return Instance.INSTANCE;
+        return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
@@ -49,9 +50,5 @@ public class TreeMapRandomGenerator extends AbstractMapRandomGenerator {
     }
 
     private TreeMapRandomGenerator() {
-    }
-
-    private static class Instance {
-        private static final TreeMapRandomGenerator INSTANCE = new TreeMapRandomGenerator();
     }
 }
