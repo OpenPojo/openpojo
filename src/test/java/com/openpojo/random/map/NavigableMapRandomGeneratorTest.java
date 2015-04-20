@@ -25,13 +25,25 @@ import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.map.support.ComparableType1;
 import com.openpojo.random.map.support.ComparableType2;
 import com.openpojo.reflection.java.load.ClassUtil;
+import org.junit.BeforeClass;
 
 /**
  * @author oshoukry
  */
 public class NavigableMapRandomGeneratorTest extends AbstractMapRandomGeneratorTest {
     private static String JVM = System.getProperty("java.class.version");
-    private boolean compatibleVM = Double.valueOf(JVM) > 53.0 ;
+    private static final String EXPECTED_TYPE_CLASS_NAME ="java.util.NavigableMap";
+    private static Class<? extends Map> expectedTypeClass;
+    private static boolean compatibleVM;
+
+
+    @BeforeClass
+    @SuppressWarnings("unchecked")
+    public static void setExpectedTypeClass() {
+        expectedTypeClass = (Class<? extends Map>) ClassUtil.loadClass(EXPECTED_TYPE_CLASS_NAME);
+        compatibleVM = expectedTypeClass != null;
+        System.out.println("JVM compatibility returned [" + compatibleVM + "] for class [" + EXPECTED_TYPE_CLASS_NAME + "]");
+    }
 
     protected ParameterizableRandomGenerator getInstance() {
         return NavigableMapRandomGenerator.getInstance();
@@ -43,7 +55,7 @@ public class NavigableMapRandomGeneratorTest extends AbstractMapRandomGeneratorT
 
     @SuppressWarnings("unchecked")
     protected Class<? extends Map> getExpectedTypeClass() {
-        return (Class<? extends Map>) ClassUtil.loadClass("java.util.NavigableMap.class");
+        return expectedTypeClass;
     }
 
     protected Class<? extends Map> getGeneratedTypeClass() {
