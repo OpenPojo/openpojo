@@ -24,7 +24,6 @@ import com.openpojo.random.RandomFactory;
  */
 public class TestSetClass implements Comparable {
 
-    @Override
     public int compareTo(Object o) {
         return anyValidCompareToValue();
     }
