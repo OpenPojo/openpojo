@@ -38,9 +38,9 @@ public abstract class AbstractMapRandomGenerator implements ParameterizableRando
                 parameterizedType.getParameterTypes().get(1));
     }
 
-    protected boolean isExpectedType(Class<?> type) {
+    protected boolean isAssignableTo(Class<?> type) {
         for (Class<?> knownType : getTypes()) {
-            if (knownType == type)
+            if (type.isAssignableFrom(knownType))
                 return true;
         }
         return false;

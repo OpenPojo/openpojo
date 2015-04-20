@@ -43,7 +43,7 @@ public class HashtableRandomGenerator extends AbstractMapRandomGenerator {
 
     @Override
     protected Map getBasicInstance(Class<?> type) {
-        if (!isExpectedType(type))
+        if (!isAssignableTo(type))
             throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
         return MapHelper.buildMap(new Hashtable(), SerializableComparableObject.class, SerializableComparableObject.class);
     }

@@ -44,7 +44,7 @@ public class ConcurrentMapRandomGenerator extends AbstractMapRandomGenerator {
 
     @Override
     protected Map getBasicInstance(Class<?> type) {
-        if (!isExpectedType(type))
+        if (!isAssignableTo(type))
             throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
         return MapHelper.buildMap(new ConcurrentHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
     }

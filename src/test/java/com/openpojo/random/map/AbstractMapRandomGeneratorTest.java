@@ -28,6 +28,7 @@ import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.exception.RandomGeneratorException;
+import com.openpojo.random.map.support.ALeafChildClass;
 import com.openpojo.random.map.support.SimpleType1;
 import com.openpojo.random.map.support.SimpleType2;
 import com.openpojo.random.util.SerializableComparableObject;
@@ -98,14 +99,14 @@ public abstract class AbstractMapRandomGeneratorTest {
 
     @Test(expected = RandomGeneratorException.class)
     public void shouldThrowExceptionForDoGenerateForOtherThanMapClass() {
-        getInstance().doGenerate(Object.class);
+        getInstance().doGenerate(ALeafChildClass.class);
     }
 
     @Test(expected = RandomGeneratorException.class)
     public void shouldThrowExceptionForDoGenerateForParameterizedOtherThanMapClass() {
         getInstance().doGenerate(new Parameterizable() {
             public Class<?> getType() {
-                return Object.class;
+                return ALeafChildClass.class;
             }
 
             public boolean isParameterized() {

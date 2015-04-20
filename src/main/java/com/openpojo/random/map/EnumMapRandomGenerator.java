@@ -61,7 +61,7 @@ public class EnumMapRandomGenerator extends AbstractMapRandomGenerator {
     }
 
     private void throwExceptionIfNotExpectedType(Class<?> type) {
-        if (!isExpectedType(type))
+        if (!isAssignableTo(type))
             throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
     }
 
