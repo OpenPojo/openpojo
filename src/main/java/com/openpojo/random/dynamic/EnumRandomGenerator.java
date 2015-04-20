@@ -20,6 +20,7 @@ package com.openpojo.random.dynamic;
 import java.util.Date;
 import java.util.Random;
 
+import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -43,6 +44,9 @@ public final class EnumRandomGenerator {
         final PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
 
         final Enum<?>[] values = getValues(pojoClass);
+         if  (values.length == 0)
+             throw RandomGeneratorException.getInstance("Can't generate random value for Enum class [" + type + "] enum doesn't define " +
+                     "any values");
         return values[RANDOM.nextInt(values.length)];
     }
 
