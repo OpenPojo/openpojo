@@ -21,28 +21,21 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.openpojo.random.ParameterizableRandomGenerator;
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.map.support.ComparableType1;
 import com.openpojo.random.map.support.ComparableType2;
 import com.openpojo.reflection.java.load.ClassUtil;
-import org.junit.BeforeClass;
+import org.junit.Assume;
+import org.junit.Before;
 
 /**
  * @author oshoukry
  */
 public class NavigableMapRandomGeneratorTest extends AbstractMapRandomGeneratorTest {
-    private static String JVM = System.getProperty("java.class.version");
-    private static final String EXPECTED_TYPE_CLASS_NAME ="java.util.NavigableMap";
-    private static Class<? extends Map> expectedTypeClass;
-    private static boolean compatibleVM;
+    private static final String NAVIGABLEMAP_CLASS_NAME = "java.util.NavigableMap";
 
-
-    @BeforeClass
-    @SuppressWarnings("unchecked")
-    public static void setExpectedTypeClass() {
-        expectedTypeClass = (Class<? extends Map>) ClassUtil.loadClass(EXPECTED_TYPE_CLASS_NAME);
-        compatibleVM = expectedTypeClass != null;
-        System.out.println("JVM compatibility returned [" + compatibleVM + "] for class [" + EXPECTED_TYPE_CLASS_NAME + "]");
+    @Before
+    public void requirement() {
+        Assume.assumeTrue(NAVIGABLEMAP_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(NAVIGABLEMAP_CLASS_NAME));
     }
 
     protected ParameterizableRandomGenerator getInstance() {
@@ -55,7 +48,7 @@ public class NavigableMapRandomGeneratorTest extends AbstractMapRandomGeneratorT
 
     @SuppressWarnings("unchecked")
     protected Class<? extends Map> getExpectedTypeClass() {
-        return expectedTypeClass;
+        return (Class<? extends Map>) ClassUtil.loadClass(NAVIGABLEMAP_CLASS_NAME);
     }
 
     protected Class<? extends Map> getGeneratedTypeClass() {
@@ -74,34 +67,4 @@ public class NavigableMapRandomGeneratorTest extends AbstractMapRandomGeneratorT
         super.constructorShouldBePrivate();
     }
 
-    public void shouldOnlyReturnMapClassFromGetTypes() {
-        if (compatibleVM)
-            super.shouldOnlyReturnMapClassFromGetTypes();
-    }
-
-    public void shouldThrowExceptionForDoGenerateForOtherThanMapClass() {
-        if (compatibleVM)
-            super.shouldThrowExceptionForDoGenerateForOtherThanMapClass();
-        throw RandomGeneratorException.getInstance("Not Suppported VM");
-    }
-
-    public void shouldGenerateParametrizableCorrectMapForRequest() {
-        if (compatibleVM)
-            super.shouldGenerateParametrizableCorrectMapForRequest();
-    }
-
-    public void endToEnd() {
-        if (compatibleVM)
-            super.endToEnd();
-    }
-
-    public void endToEndWithGenerics() {
-        if (compatibleVM)
-            super.endToEndWithGenerics();
-    }
-
-    public void shouldGenerateCorrectTypeMapForRequestedMap() {
-        if (compatibleVM)
-            super.shouldGenerateCorrectTypeMapForRequestedMap();
-    }
 }
