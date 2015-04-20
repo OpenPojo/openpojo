@@ -43,7 +43,7 @@ public class IdentityFactoryRaceConditionTest {
     public void runWithManyThreads() {
         int numberOfThreads = 1500;
 
-        ThreadPoolExecutor tpe = new ThreadPoolExecutor(numberOfThreads, numberOfThreads, 3, TimeUnit.MINUTES,
+        ThreadPoolExecutor tpe = new ThreadPoolExecutor(numberOfThreads, numberOfThreads, 3 * 60, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<Runnable>(numberOfThreads) );
 
         CyclicBarrier cb = new CyclicBarrier(numberOfThreads);
