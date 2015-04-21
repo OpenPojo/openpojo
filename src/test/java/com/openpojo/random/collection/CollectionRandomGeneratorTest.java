@@ -25,6 +25,7 @@ import java.util.List;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.collection.sample.AClassWithExhaustiveCollection;
+import com.openpojo.random.collection.support.ALeafChildClass;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.PojoClass;
@@ -55,12 +56,12 @@ public class CollectionRandomGeneratorTest {
 
     @Test (expected = RandomGeneratorException.class)
     public void whenGenerateWithCollection_ThrowsException() {
-        CollectionRandomGenerator.getInstance().doGenerate(Object.class);
+        CollectionRandomGenerator.getInstance().doGenerate(ALeafChildClass.class);
     }
 
     @Test
     public void whenGenerateWithCollection_ReturnNonEmpty() {
-        Collection collection = (Collection) CollectionRandomGenerator.getInstance().doGenerate(Collection.class);
+        Collection collection = CollectionRandomGenerator.getInstance().doGenerate(Collection.class);
         Assert.assertNotNull("Should not be null", collection);
         Assert.assertTrue("Should not be empty", collection.size() > 0);
         Assert.assertTrue("Should be of type ArrayList", collection instanceof ArrayList);

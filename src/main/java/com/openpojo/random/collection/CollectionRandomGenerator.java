@@ -21,34 +21,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.openpojo.random.collection.util.AbstractCollectionRandomGenerator;
-import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.random.util.SerializableComparableObject;
+import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
+import com.openpojo.random.exception.RandomGeneratorException;
 
 /**
  * @author oshoukry
  */
-public class CollectionRandomGenerator extends AbstractCollectionRandomGenerator {
+public class CollectionRandomGenerator extends BaseCollectionRandomGenerator {
     private final Class<?>[] TYPES = new Class<?>[] { Collection.class };
+    public static final CollectionRandomGenerator INSTANCE = new CollectionRandomGenerator();
 
     public static CollectionRandomGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
-
-    public Object doGenerate(Class<?> type) {
-        super.doGenerate(type);
-
-        return CollectionHelper.buildCollections(new ArrayList(), SerializableComparableObject.class);
+        return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
         return Arrays.asList(TYPES);
     }
 
-    private CollectionRandomGenerator() {
+    @Override
+    protected Collection getBasicInstance(Class<?> type) {
+        if (!isAssignableTo(type))
+            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+        return new ArrayList();
     }
 
-    private static class Instance {
-        public static final CollectionRandomGenerator INSTANCE = new CollectionRandomGenerator();
+    private CollectionRandomGenerator() {
     }
 }
