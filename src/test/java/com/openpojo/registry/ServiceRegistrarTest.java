@@ -52,6 +52,7 @@ public class ServiceRegistrarTest {
             ,"java.util.AbstractCollection"
             ,"java.util.AbstractList"
             ,"java.util.AbstractMap"
+            ,"java.util.AbstractQueue"
             ,"java.util.AbstractSequentialList"
             ,"java.util.AbstractSet"
             ,"java.util.ArrayDeque" // jdk6 only
