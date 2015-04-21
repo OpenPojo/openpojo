@@ -93,6 +93,7 @@ public class ServiceRegistrarTest {
             ,"java.util.concurrent.LinkedBlockingQueue"
             ,"java.util.concurrent.PriorityBlockingQueue"
             ,"java.util.concurrent.SynchronousQueue"
+            ,"java.util.concurrent.TransferQueue"
     };
     // @formatter:on
 
