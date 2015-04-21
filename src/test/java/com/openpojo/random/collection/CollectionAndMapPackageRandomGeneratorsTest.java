@@ -39,7 +39,7 @@ import com.openpojo.validation.affirm.Affirm;
 public class CollectionAndMapPackageRandomGeneratorsTest {
     private static final List<PojoClass> collectionRandomGenerators = new LinkedList<PojoClass>();
     private static final String[] packages = new String[] { "com.openpojo.random.collection", "com.openpojo.random.map" };
-    private static final int EXPECTED_COUNT = 27;
+    private static final int EXPECTED_COUNT = 28;
 
     @BeforeClass
     public static void setup() {

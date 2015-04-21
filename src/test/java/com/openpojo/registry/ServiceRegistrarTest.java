@@ -59,6 +59,7 @@ public class ServiceRegistrarTest {
             ,"java.util.Calendar"
             ,"java.util.Collection"
             ,"java.util.Date"
+            ,"java.util.Deque"
             ,"java.util.EnumMap"
             ,"java.util.EnumSet"
             ,"java.util.HashMap"
