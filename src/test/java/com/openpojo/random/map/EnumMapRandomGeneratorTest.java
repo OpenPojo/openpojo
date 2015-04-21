@@ -28,7 +28,7 @@ import com.openpojo.random.map.support.SimpleType2;
 /**
  * @author oshoukry
  */
-public class EnumMapRandomGeneratorTest extends AbstractMapRandomGeneratorTest {
+public class EnumMapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
 
     protected EnumMapRandomGenerator getInstance() {
         return EnumMapRandomGenerator.getInstance();

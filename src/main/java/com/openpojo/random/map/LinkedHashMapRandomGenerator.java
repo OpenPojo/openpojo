@@ -23,14 +23,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.openpojo.random.exception.RandomGeneratorException;
-import com.openpojo.random.map.util.AbstractMapRandomGenerator;
+import com.openpojo.random.map.util.BaseMapRandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
 import com.openpojo.random.util.SerializableComparableObject;
 
 /**
  * @author oshoukry
  */
-public class LinkedHashMapRandomGenerator extends AbstractMapRandomGenerator {
+public class LinkedHashMapRandomGenerator extends BaseMapRandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { LinkedHashMap.class };
     private static final LinkedHashMapRandomGenerator INSTANCE = new LinkedHashMapRandomGenerator();
 

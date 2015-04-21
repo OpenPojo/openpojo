@@ -27,7 +27,7 @@ import com.openpojo.random.map.support.SimpleType2;
 /**
  * @author oshoukry
  */
-public class ConcurrentHashMapRandomGeneratorTest extends AbstractMapRandomGeneratorTest {
+public class ConcurrentHashMapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
 
     protected ParameterizableRandomGenerator getInstance() {
         return ConcurrentHashMapRandomGenerator.getInstance();

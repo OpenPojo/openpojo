@@ -27,7 +27,7 @@ import com.openpojo.random.map.support.ComparableType2;
 /**
  * @author oshoukry
  */
-public class TreeMapRandomGeneratorTest extends AbstractMapRandomGeneratorTest {
+public class TreeMapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
 
     protected ParameterizableRandomGenerator getInstance() {
         return TreeMapRandomGenerator.getInstance();

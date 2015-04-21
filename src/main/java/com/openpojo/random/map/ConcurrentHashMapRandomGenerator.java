@@ -23,14 +23,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.openpojo.random.exception.RandomGeneratorException;
-import com.openpojo.random.map.util.AbstractMapRandomGenerator;
+import com.openpojo.random.map.util.BaseMapRandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
 import com.openpojo.random.util.SerializableComparableObject;
 
 /**
  * @author oshoukry
  */
-public class ConcurrentHashMapRandomGenerator extends AbstractMapRandomGenerator {
+public class ConcurrentHashMapRandomGenerator extends BaseMapRandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { ConcurrentHashMap.class };
     private static final ConcurrentHashMapRandomGenerator INSTANCE = new ConcurrentHashMapRandomGenerator();
 

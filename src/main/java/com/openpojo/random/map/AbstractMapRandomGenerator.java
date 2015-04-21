@@ -17,10 +17,11 @@
 
 package com.openpojo.random.map;
 
+import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.map.util.BaseMapRandomGenerator;
@@ -30,11 +31,11 @@ import com.openpojo.random.util.SerializableComparableObject;
 /**
  * @author oshoukry
  */
-public class TreeMapRandomGenerator extends BaseMapRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { TreeMap.class };
-    private static final TreeMapRandomGenerator INSTANCE = new TreeMapRandomGenerator();
+public class AbstractMapRandomGenerator extends BaseMapRandomGenerator {
+    private static final Class<?>[] TYPES = new Class<?>[] { AbstractMap.class };
+    private static final AbstractMapRandomGenerator INSTANCE = new AbstractMapRandomGenerator();
 
-    public static TreeMapRandomGenerator getInstance() {
+    public static AbstractMapRandomGenerator getInstance() {
         return INSTANCE;
     }
 
@@ -46,9 +47,10 @@ public class TreeMapRandomGenerator extends BaseMapRandomGenerator {
     protected Map getBasicInstance(Class<?> type) {
         if (!isAssignableTo(type))
             throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
-        return MapHelper.buildMap(new TreeMap(), SerializableComparableObject.class, SerializableComparableObject.class);
+        return MapHelper.buildMap(new HashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
     }
 
-    private TreeMapRandomGenerator() {
+    private AbstractMapRandomGenerator() {
     }
+
 }

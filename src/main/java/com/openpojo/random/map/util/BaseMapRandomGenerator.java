@@ -26,7 +26,7 @@ import com.openpojo.reflection.Parameterizable;
 /**
  * @author oshoukry
  */
-public abstract class AbstractMapRandomGenerator implements ParameterizableRandomGenerator {
+public abstract class BaseMapRandomGenerator implements ParameterizableRandomGenerator {
 
     @SuppressWarnings("unchecked")
     public Map doGenerate(Class<?> type) {

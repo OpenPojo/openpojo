@@ -24,7 +24,7 @@ import java.util.Map;
 
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.SomeEnum;
-import com.openpojo.random.map.util.AbstractMapRandomGenerator;
+import com.openpojo.random.map.util.BaseMapRandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
 import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
@@ -32,7 +32,7 @@ import com.openpojo.reflection.Parameterizable;
 /**
  * @author oshoukry
  */
-public class EnumMapRandomGenerator extends AbstractMapRandomGenerator {
+public class EnumMapRandomGenerator extends BaseMapRandomGenerator {
     private static final Class<?>[] TYPES = new Class<?>[] { EnumMap.class };
     private static final EnumMapRandomGenerator INSTANCE = new EnumMapRandomGenerator();
 

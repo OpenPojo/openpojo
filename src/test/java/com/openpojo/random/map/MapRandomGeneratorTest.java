@@ -27,7 +27,7 @@ import com.openpojo.random.map.support.SimpleType2;
 /**
  * @author oshoukry
  */
-public class MapRandomGeneratorTest extends AbstractMapRandomGeneratorTest {
+public class MapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
 
     protected MapRandomGenerator getInstance() {
         return MapRandomGenerator.getInstance();

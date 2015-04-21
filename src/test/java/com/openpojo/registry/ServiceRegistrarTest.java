@@ -122,7 +122,6 @@ public class ServiceRegistrarTest {
         ServiceRegistrar.getInstance().initializeRandomGeneratorService();
         randomGeneratorService = ServiceRegistrar.getInstance().getRandomGeneratorService();
 
-//        "java.util.AbstractMap"
 //        "java.util.NavigableSet"  // only Jdk 6+
 //        "java.util.AbstractList"
 //        "java.util.SortedSet"
@@ -130,9 +129,9 @@ public class ServiceRegistrarTest {
 //        "java.util.AbstractSet"
 //        "java.util.AbstractCollection"
         if (javaVersion.startsWith("1.5"))
-            expectedTypes = expectedDefaultTypes.size() - 6;  // NavigableSet never registers in the expected.
+            expectedTypes = expectedDefaultTypes.size() - 5;  // NavigableSet never registers in the expected.
         else if (javaVersion.startsWith("1.6") || javaVersion.startsWith("1.7") || javaVersion.startsWith("1.8"))
-            expectedTypes = expectedDefaultTypes.size() - 7;
+            expectedTypes = expectedDefaultTypes.size() - 6;
         else throw new UnsupportedOperationException("Unknown java version found " + javaVersion + " please check " +
                     "the correct number of expected registered classes and register type here - (found " + randomGeneratorService
                     .getRegisteredTypes().size() + ")");

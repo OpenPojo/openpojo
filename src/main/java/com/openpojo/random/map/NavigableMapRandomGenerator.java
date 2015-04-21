@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.openpojo.random.exception.RandomGeneratorException;
-import com.openpojo.random.map.util.AbstractMapRandomGenerator;
+import com.openpojo.random.map.util.BaseMapRandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
 import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.java.load.ClassUtil;
@@ -32,7 +32,7 @@ import com.openpojo.reflection.java.load.ClassUtil;
 /**
  * @author oshoukry
  */
-public class NavigableMapRandomGenerator extends AbstractMapRandomGenerator {
+public class NavigableMapRandomGenerator extends BaseMapRandomGenerator {
     private static final String TYPE = "java.util.NavigableMap";
     private static final NavigableMapRandomGenerator INSTANCE = new NavigableMapRandomGenerator();
 

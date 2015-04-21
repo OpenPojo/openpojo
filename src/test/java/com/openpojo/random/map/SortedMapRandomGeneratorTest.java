@@ -28,7 +28,7 @@ import com.openpojo.random.map.support.ComparableType2;
 /**
  * @author oshoukry
  */
-public class SortedMapRandomGeneratorTest extends AbstractMapRandomGeneratorTest {
+public class SortedMapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
 
     protected ParameterizableRandomGenerator getInstance() {
         return SortedMapRandomGenerator.getInstance();

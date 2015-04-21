@@ -30,7 +30,7 @@ import org.junit.Before;
 /**
  * @author oshoukry
  */
-public class NavigableMapRandomGeneratorTest extends AbstractMapRandomGeneratorTest {
+public class NavigableMapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
     private static final String NAVIGABLEMAP_CLASS_NAME = "java.util.NavigableMap";
 
     @Before
