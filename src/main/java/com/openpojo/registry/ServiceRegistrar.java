@@ -19,7 +19,7 @@ package com.openpojo.registry;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.random.collection.CollectionRandomGenerator;
-import com.openpojo.random.collection.list.ListConcreteRandomGenerator;
+import com.openpojo.random.collection.list.*;
 import com.openpojo.random.collection.queue.PriorityQueueRandomGenerator;
 import com.openpojo.random.collection.queue.QueueConcreteRandomGenerator;
 import com.openpojo.random.collection.set.SetConcreteRandomGenerator;
@@ -69,8 +69,15 @@ public class ServiceRegistrar {
 
         // Collection
         newRandomGeneratorService.registerRandomGenerator(CollectionRandomGenerator.getInstance());
+
         // Lists
-        newRandomGeneratorService.registerRandomGenerator(ListConcreteRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(AbstractListRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(AbstractSequentialListRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(ArrayListRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(LinkedListRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(ListRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(StackRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(VectorRandomGenerator.getInstance());
 
         // Sets
         newRandomGeneratorService.registerRandomGenerator(SetConcreteRandomGenerator.getInstance());

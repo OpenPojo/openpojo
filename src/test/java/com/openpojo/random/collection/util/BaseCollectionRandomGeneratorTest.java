@@ -15,22 +15,20 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.map.util;
+package com.openpojo.random.collection.util;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
+import com.openpojo.random.collection.support.ALeafChildClass;
+import com.openpojo.random.collection.support.SimpleType;
 import com.openpojo.random.exception.RandomGeneratorException;
-import com.openpojo.random.map.support.ALeafChildClass;
-import com.openpojo.random.map.support.SimpleType1;
-import com.openpojo.random.map.support.SimpleType2;
 import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.PojoClass;
@@ -42,40 +40,33 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public abstract class BaseMapRandomGeneratorTest {
+public abstract class BaseCollectionRandomGeneratorTest {
 
     protected abstract ParameterizableRandomGenerator getInstance();
 
     protected abstract Class<? extends ParameterizableRandomGenerator> getGeneratorClass();
 
-    protected abstract Class<? extends Map> getExpectedTypeClass();
+    protected abstract Class<? extends Collection> getExpectedTypeClass();
 
-    protected abstract Class<? extends Map> getGeneratedTypeClass();
+    protected abstract Class<? extends Collection> getGeneratedTypeClass();
 
-    protected abstract Class<?> getGenericType1();
+    protected abstract Class<?> getGenericType();
 
-    protected abstract Class<?> getGenericType2();
-
-    protected Class<?> getDefaultType1() {
-        return SerializableComparableObject.class;
-    }
-
-    protected Class<?> getDefaultType2() {
+    protected Class<?> getDefaultType() {
         return SerializableComparableObject.class;
     }
 
     @Test
     public void constructorShouldBePrivate() {
-        final Class<?> mapRandomGeneratorClass = getGeneratorClass();
-        PojoClass mapRandomGeneratorPojo = PojoClassFactory.getPojoClass(mapRandomGeneratorClass);
+        final Class<?> randomGeneratorClass = getGeneratorClass();
+        PojoClass randomGeneratorPojo = PojoClassFactory.getPojoClass(randomGeneratorClass);
 
         List<PojoMethod> constructors = new ArrayList<PojoMethod>();
 
-        for (PojoMethod constructor : mapRandomGeneratorPojo.getPojoConstructors()) {
+        for (PojoMethod constructor : randomGeneratorPojo.getPojoConstructors()) {
             if (!constructor.isSynthetic()) constructors.add(constructor);
         }
-        Assert.assertEquals("Should only have one constructor [" + mapRandomGeneratorPojo.getPojoConstructors() + "]", 1, constructors
-                .size());
+        Assert.assertEquals("Should only have one constructor [" + randomGeneratorPojo.getPojoConstructors() + "]", 1, constructors.size());
 
         PojoMethod constructor = constructors.get(0);
 
@@ -90,7 +81,7 @@ public abstract class BaseMapRandomGeneratorTest {
     }
 
     @Test
-    public void shouldOnlyReturnMapClassFromGetTypes() {
+    public void shouldOnlyReturnCollectionClassFromGetTypes() {
         Collection<Class<?>> types = getInstance().getTypes();
         Assert.assertNotNull("Should not be null", types);
         Assert.assertEquals("Should only have one type", 1, types.size());
@@ -98,12 +89,12 @@ public abstract class BaseMapRandomGeneratorTest {
     }
 
     @Test(expected = RandomGeneratorException.class)
-    public void shouldThrowExceptionForDoGenerateForOtherThanMapClass() {
+    public void shouldThrowExceptionForDoGenerateForOtherThanCollectionClass() {
         getInstance().doGenerate(ALeafChildClass.class);
     }
 
     @Test(expected = RandomGeneratorException.class)
-    public void shouldThrowExceptionForDoGenerateForParameterizedOtherThanMapClass() {
+    public void shouldThrowExceptionForDoGenerateForParameterizedOtherThanCollectionClass() {
         getInstance().doGenerate(new Parameterizable() {
             public Class<?> getType() {
                 return ALeafChildClass.class;
@@ -120,8 +111,8 @@ public abstract class BaseMapRandomGeneratorTest {
     }
 
     @Test
-    public void shouldGenerateCorrectTypeMapForRequestedMap() {
-        Map someObject = (Map) getInstance().doGenerate(getExpectedTypeClass());
+    public void shouldGenerateCorrectTypeCollectionForRequestedCollection() {
+        Collection someObject = (Collection) getInstance().doGenerate(getExpectedTypeClass());
         Assert.assertNotNull("Should not be null", someObject);
         Assert.assertEquals("Should be a " + getGeneratedTypeClass().getName(), getGeneratedTypeClass(), someObject.getClass());
         Assert.assertTrue("Should not be Empty", someObject.size() > 0);
@@ -129,45 +120,42 @@ public abstract class BaseMapRandomGeneratorTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void shouldGenerateParametrizableCorrectMapForRequest() {
-        Map<SimpleType1, SimpleType2> mapOfType1AndType2 = (Map) getInstance().doGenerate(getParameterizedType());
+    public void shouldGenerateParametrizableCorrectCollectionForRequest() {
+        Collection<SimpleType> collectionOfType = (Collection) getInstance().doGenerate(getParameterizedType());
 
-        Assert.assertNotNull("Should not be null", mapOfType1AndType2);
-        Assert.assertTrue("Should not be empty", mapOfType1AndType2.size() > 0);
-        for (Map.Entry<?, ?> entry : mapOfType1AndType2.entrySet()) {
+        Assert.assertNotNull("Should not be null", collectionOfType);
+        Assert.assertTrue("Should not be empty", collectionOfType.size() > 0);
+        for (Object entry: collectionOfType) {
             Assert.assertNotNull("Should not be null", entry);
-            Assert.assertEquals("Key should be " + getGenericType1().getName(), getGenericType1(), entry.getKey().getClass());
-            Assert.assertEquals("Value be " + getGenericType2().getName(), getGenericType2(), entry.getValue().getClass());
+            Assert.assertEquals("Entry should be " + getGenericType().getName(), getGenericType(), entry.getClass());
         }
     }
 
     @Test
     public void endToEnd() {
-        Map<?, ?> generatedMap = RandomFactory.getRandomValue(getExpectedTypeClass());
-        assertMapHasExpectedTypes(generatedMap, getDefaultType1(), getDefaultType2());
+        Collection<?> generatedCollection = RandomFactory.getRandomValue(getExpectedTypeClass());
+        assertCollectionHasExpectedTypes(generatedCollection, getDefaultType());
     }
 
-    protected void assertMapHasExpectedTypes(Map<?, ?> generatedMap, Class<?> type1, Class<?> type2) {
-        Assert.assertNotNull("Should not be null", generatedMap);
-        Assert.assertEquals(getGeneratedTypeClass(), generatedMap.getClass());
-        Assert.assertTrue("Should not be empty", generatedMap.size() > 0);
-        for (Map.Entry<?, ?> entry : generatedMap.entrySet()) {
-            Assert.assertNotNull("Should not be null", entry.getKey());
-            Assert.assertEquals("Key should be " + type1.getName(), type1, entry.getKey().getClass());
-            Assert.assertNotNull("Should not be null", entry.getValue());
-            Assert.assertEquals("Key should be " + type2.getName(), type2, entry.getValue().getClass());
+    protected void assertCollectionHasExpectedTypes(Collection<?> generatedCollection, Class<?> type) {
+        Assert.assertNotNull("Should not be null", generatedCollection);
+        Assert.assertEquals(getGeneratedTypeClass(), generatedCollection.getClass());
+        Assert.assertTrue("Should not be empty", generatedCollection.size() > 0);
+        for (Object entry: generatedCollection) {
+            Assert.assertNotNull("Should not be null", entry);
+            Assert.assertEquals("Entry should be " + type.getName(), type, entry.getClass());
         }
     }
 
     @Test
     public void endToEndWithGenerics() {
-        Map<?, ?> generatedMap = (Map) RandomFactory.getRandomValue(getParameterizedType());
-        assertMapHasExpectedTypes(generatedMap, getGenericType1(), getGenericType2());
+        Collection<?> generatedCollection = (Collection) RandomFactory.getRandomValue(getParameterizedType());
+        assertCollectionHasExpectedTypes(generatedCollection, getGenericType());
     }
 
     protected Parameterizable getParameterizedType() {
         return new Parameterizable() {
-            private Type[] types = new Type[] { getGenericType1(), getGenericType2() };
+            private Type[] types = new Type[] { getGenericType() };
 
             public Class<?> getType() {
                 return getExpectedTypeClass();

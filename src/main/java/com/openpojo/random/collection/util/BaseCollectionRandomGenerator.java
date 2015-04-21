@@ -20,34 +20,31 @@ package com.openpojo.random.collection.util;
 import java.util.Collection;
 
 import com.openpojo.random.ParameterizableRandomGenerator;
-import com.openpojo.random.exception.RandomGeneratorException;
+import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
 
 /**
  * @author oshoukry
  */
-public abstract class AbstractCollectionRandomGenerator implements ParameterizableRandomGenerator {
+public abstract class BaseCollectionRandomGenerator implements ParameterizableRandomGenerator {
 
-    public Object doGenerate(Class<?> type) {
-        if (!canGenerate(type))
-            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
-
-        return null;
+    public Collection doGenerate(Class<?> type) {
+        return CollectionHelper.buildCollections(getBasicInstance(type), SerializableComparableObject.class);
     }
 
-    private boolean canGenerate(Class<?> type) {
+    protected boolean isAssignableTo(Class<?> type) {
         for (Class<?> knownType : getTypes()) {
-            if (knownType.isAssignableFrom(type))
+            if (type.isAssignableFrom(knownType))
                 return true;
         }
         return false;
     }
 
     public Object doGenerate(Parameterizable parameterizedType) {
-        return CollectionHelper.buildCollections((Collection) doGenerate(parameterizedType.getType()), parameterizedType
-                .getParameterTypes().get(0));
+        return CollectionHelper.buildCollections(doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes().get(0));
     }
 
     public abstract Collection<Class<?>> getTypes();
 
+    protected abstract Collection getBasicInstance(Class<?> type);
 }
