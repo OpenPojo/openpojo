@@ -89,6 +89,7 @@ public class ServiceRegistrar {
 
         // Queue
         newRandomGeneratorService.registerRandomGenerator(AbstractQueueRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(ArrayBlockingQueueRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(BlockingDequeRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(BlockingQueueRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(DequeRandomGenerator.getInstance());

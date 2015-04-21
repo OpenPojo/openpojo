@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
@@ -63,7 +62,6 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
 
     private final String[] TYPES = new String[] {
             "java.util.ArrayDeque"
-            ,"java.util.concurrent.ArrayBlockingQueue"
             ,"java.util.concurrent.ConcurrentLinkedQueue"
             ,"java.util.concurrent.DelayQueue"
             ,"java.util.concurrent.LinkedBlockingQueue"
@@ -88,10 +86,7 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
         if (typeToGenerate == SynchronousQueue.class)
             return new SynchronousQueue();
 
-        if (typeToGenerate == ArrayBlockingQueue.class)
-            randomQueue = new ArrayBlockingQueue(20);
-        else
-            randomQueue = (Queue) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
+        randomQueue = (Queue) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
 
         if (typeToGenerate == DelayQueue.class)
             CollectionHelper.buildCollections(randomQueue, Delayed.class);
