@@ -24,6 +24,7 @@ import java.util.TreeMap;
 import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.map.support.ComparableType1;
 import com.openpojo.random.map.support.ComparableType2;
+import com.openpojo.random.map.util.BaseMapRandomGeneratorTest;
 
 /**
  * @author oshoukry

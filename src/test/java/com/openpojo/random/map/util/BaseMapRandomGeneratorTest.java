@@ -15,7 +15,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.map;
+package com.openpojo.random.map.util;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

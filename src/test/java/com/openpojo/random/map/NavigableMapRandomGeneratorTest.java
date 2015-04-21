@@ -23,6 +23,7 @@ import java.util.TreeMap;
 import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.map.support.ComparableType1;
 import com.openpojo.random.map.support.ComparableType2;
+import com.openpojo.random.map.util.BaseMapRandomGeneratorTest;
 import com.openpojo.reflection.java.load.ClassUtil;
 import org.junit.Assume;
 import org.junit.Before;

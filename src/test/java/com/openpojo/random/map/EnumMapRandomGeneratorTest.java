@@ -24,6 +24,7 @@ import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.impl.SomeEnum;
 import com.openpojo.random.map.support.EnumType1;
 import com.openpojo.random.map.support.SimpleType2;
+import com.openpojo.random.map.util.BaseMapRandomGeneratorTest;
 
 /**
  * @author oshoukry
