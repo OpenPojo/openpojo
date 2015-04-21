@@ -17,45 +17,37 @@
 
 package com.openpojo.random.collection.queue;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
 import com.openpojo.random.exception.RandomGeneratorException;
-import com.openpojo.reflection.construct.InstanceFactory;
-import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * @author oshoukry
  */
-public class BlockingDequeRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final String TYPE = "java.util.concurrent.BlockingDeque";
-    private static final String CONCRETE_TYPE = "java.util.concurrent.LinkedBlockingDeque";
-    private static final BlockingDequeRandomGenerator INSTANCE = new BlockingDequeRandomGenerator();
+public class BlockingQueueRandomGenerator extends BaseCollectionRandomGenerator {
+    private static final Class<?>[] TYPES = new Class<?>[] { BlockingQueue.class };
+    private static final BlockingQueueRandomGenerator INSTANCE = new BlockingQueueRandomGenerator();
 
-    public static BlockingDequeRandomGenerator getInstance() {
+    public static BlockingQueueRandomGenerator getInstance() {
         return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
-        List<Class<?>> types = new ArrayList<Class<?>>();
-        if (ClassUtil.isClassLoaded(TYPE) && ClassUtil.isClassLoaded(CONCRETE_TYPE))
-            types.add(ClassUtil.loadClass(TYPE));
-        return types;
+        return Arrays.asList(TYPES);
     }
 
     @Override
     protected Collection getBasicInstance(Class<?> type) {
         if (!isAssignableTo(type))
             throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
-
-        return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(CONCRETE_TYPE)),
-                CollectionHelper.MAX_RANDOM_ELEMENTS);
+        return new ArrayBlockingQueue(CollectionHelper.MAX_RANDOM_ELEMENTS);
     }
 
-    private BlockingDequeRandomGenerator() {
+    private BlockingQueueRandomGenerator() {
     }
 }

@@ -83,6 +83,7 @@ public class ServiceRegistrarTest {
             ,"java.util.Vector"
             ,"java.util.WeakHashMap"
             ,"java.util.concurrent.ArrayBlockingQueue"
+            ,"java.util.concurrent.BlockingQueue"
             ,"java.util.concurrent.BlockingDeque"
             ,"java.util.concurrent.ConcurrentHashMap"
             ,"java.util.concurrent.ConcurrentLinkedQueue"

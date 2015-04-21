@@ -36,7 +36,7 @@ import com.openpojo.reflection.impl.ParameterizableFactory;
 public class CollectionHelper {
 
     private static final Random RANDOM = new Random(new Date().getTime());
-    private static final int MAX_RANDOM_ELEMENTS = 5;
+    public static final int MAX_RANDOM_ELEMENTS = 5;
 
     @SuppressWarnings("unchecked")
     public static Collection buildCollections(Collection collection, Type type) {
