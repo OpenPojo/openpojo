@@ -80,18 +80,19 @@ public class ServiceRegistrar {
         newRandomGeneratorService.registerRandomGenerator(PriorityQueueRandomGenerator.getInstance());
 
         // Map
-        newRandomGeneratorService.registerRandomGenerator(MapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(AbstractMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(NavigableMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(TreeMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(SortedMapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(ConcurrentHashMapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(ConcurrentMapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(EnumMapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(HashMapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(HashtableRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(IdentityHashMapRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(LinkedHashMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ConcurrentHashMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(MapConcreteRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(MapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(NavigableMapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(SortedMapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(TreeMapRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(WeakHashMapRandomGenerator.getInstance());
         setRandomGeneratorService(newRandomGeneratorService);
     }
 
