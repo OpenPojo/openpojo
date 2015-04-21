@@ -88,6 +88,7 @@ public class ServiceRegistrarTest {
             ,"java.util.concurrent.BlockingQueue"
             ,"java.util.concurrent.BlockingDeque"
             ,"java.util.concurrent.ConcurrentHashMap"
+            ,"java.util.concurrent.ConcurrentLinkedDeque"
             ,"java.util.concurrent.ConcurrentLinkedQueue"
             ,"java.util.concurrent.ConcurrentMap"
             ,"java.util.concurrent.DelayQueue"

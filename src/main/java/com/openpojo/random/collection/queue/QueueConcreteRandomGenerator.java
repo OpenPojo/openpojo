@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.SynchronousQueue;
@@ -74,8 +73,6 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
         Queue randomQueue;
 
         Class<?> typeToGenerate = type;
-        if (typeToGenerate == Queue.class)
-            typeToGenerate = ConcurrentLinkedQueue.class;
 
         if (typeToGenerate.isInterface())  // other interfaces or
             typeToGenerate = CollectionHelper.getConstructableType(type, getTypes());

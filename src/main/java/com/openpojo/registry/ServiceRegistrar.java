@@ -93,6 +93,7 @@ public class ServiceRegistrar {
         newRandomGeneratorService.registerRandomGenerator(ArrayDequeRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(BlockingDequeRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(BlockingQueueRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(ConcurrentLinkedDequeRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(DequeRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(PriorityQueueRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(QueueConcreteRandomGenerator.getInstance());
