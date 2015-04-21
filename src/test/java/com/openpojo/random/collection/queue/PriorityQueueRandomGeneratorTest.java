@@ -17,80 +17,42 @@
 
 package com.openpojo.random.collection.queue;
 
-import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.PriorityQueue;
 
-import com.openpojo.random.RandomFactory;
-import com.openpojo.random.collection.support.ALeafChildClass;
-import com.openpojo.random.exception.RandomGeneratorException;
-import com.openpojo.reflection.Parameterizable;
-import org.junit.Assert;
-import org.junit.Test;
+import com.openpojo.random.ParameterizableRandomGenerator;
+import com.openpojo.random.collection.support.ComparableType;
+import com.openpojo.random.collection.util.BaseCollectionRandomGeneratorTest;
 
 /**
  * @author oshoukry
  */
-public class PriorityQueueRandomGeneratorTest {
+public class PriorityQueueRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
 
-    @Test
-    public void shouldBeAbleToCreate() {
-        Assert.assertNotNull(PriorityQueueRandomGenerator.getInstance());
-        Assert.assertEquals(PriorityQueueRandomGenerator.class, PriorityQueueRandomGenerator.getInstance().getClass());
+
+    @Override
+    protected ParameterizableRandomGenerator getInstance() {
+        return PriorityQueueRandomGenerator.getInstance();
     }
 
-    @Test
-    public void shouldGenerateForPriorityQueueOnly() {
-        Collection<Class<?>> types = PriorityQueueRandomGenerator.getInstance().getTypes();
-        Assert.assertEquals(1, types.size());
-        Assert.assertEquals(PriorityQueue.class, types.iterator().next());
+    @Override
+    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+        return PriorityQueueRandomGenerator.class;
     }
 
-    @Test (expected = RandomGeneratorException.class)
-    public void whenGenerateWithNonPriorityQueue_ThrowsException() {
-        PriorityQueueRandomGenerator.getInstance().doGenerate(ALeafChildClass.class);
+    @Override
+    protected Class<? extends Collection> getExpectedTypeClass() {
+        return PriorityQueue.class;
     }
 
-    @Test
-    public void whenGenerateWithPriorityQueue_ReturnNonEmptyPriorityQueue() {
-        PriorityQueue priorityQueue = (PriorityQueue) PriorityQueueRandomGenerator.getInstance().doGenerate(PriorityQueue.class);
-        Assert.assertNotNull(priorityQueue);
-        Assert.assertTrue(priorityQueue.size() > 0);
+    @Override
+    protected Class<? extends Collection> getGeneratedTypeClass() {
+        return PriorityQueue.class;
     }
 
-    @Test
-    @SuppressWarnings("unchecked")
-    public void whenGenerateWithGenericPriorityQueue_GenerateCorrectly() {
-        Parameterizable parameterizable = new Parameterizable() {
-            public Class<?> getType() {
-                return PriorityQueue.class;
-            }
-
-            public boolean isParameterized() {
-                return true;
-            }
-
-            public List<Type> getParameterTypes() {
-                return Arrays.asList(new Type[]{ String.class });
-            }
-        };
-
-        PriorityQueue<String> aPriorityQueueOfStrings;
-        aPriorityQueueOfStrings = (PriorityQueue<String>) PriorityQueueRandomGenerator.getInstance().doGenerate(parameterizable);
-        Assert.assertNotNull("Should not be null", aPriorityQueueOfStrings);
-        Assert.assertTrue("Should have entries", aPriorityQueueOfStrings.size() > 0);
-        for (Object s: aPriorityQueueOfStrings) {
-            Assert.assertNotNull(s);
-            Assert.assertTrue("Should be String", s instanceof String);
-        }
+    @Override
+    protected Class<?> getGenericType() {
+        return ComparableType.class;
     }
 
-    @Test
-    public void testEndToEnd() {
-        PriorityQueue priorityQueue = RandomFactory.getRandomValue(PriorityQueue.class);
-        Assert.assertNotNull("Should not be null", priorityQueue);
-        Assert.assertTrue("Should not be empty", priorityQueue.size() > 0);
-    }
 }

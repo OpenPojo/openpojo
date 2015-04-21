@@ -27,7 +27,6 @@ import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.support.ALeafChildClass;
-import com.openpojo.random.collection.support.SimpleType;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
@@ -121,7 +120,7 @@ public abstract class BaseCollectionRandomGeneratorTest {
     @Test
     @SuppressWarnings("unchecked")
     public void shouldGenerateParametrizableCorrectCollectionForRequest() {
-        Collection<SimpleType> collectionOfType = (Collection) getInstance().doGenerate(getParameterizedType());
+        Collection<?> collectionOfType = (Collection) getInstance().doGenerate(getParameterizedType());
 
         Assert.assertNotNull("Should not be null", collectionOfType);
         Assert.assertTrue("Should not be empty", collectionOfType.size() > 0);
