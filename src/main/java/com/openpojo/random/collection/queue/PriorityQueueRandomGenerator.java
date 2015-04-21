@@ -21,34 +21,31 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.PriorityQueue;
 
-import com.openpojo.random.collection.util.AbstractCollectionRandomGenerator;
-import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.random.util.SerializableComparableObject;
+import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
+import com.openpojo.random.exception.RandomGeneratorException;
 
 /**
  * @author oshoukry
  */
-public class PriorityQueueRandomGenerator extends AbstractCollectionRandomGenerator {
+public class PriorityQueueRandomGenerator extends BaseCollectionRandomGenerator {
     private final Class<?>[] TYPES = new Class<?>[] { PriorityQueue.class };
+    public static final PriorityQueueRandomGenerator INSTANCE = new PriorityQueueRandomGenerator();
 
     public static PriorityQueueRandomGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
-
-    public Object doGenerate(Class<?> type) {
-        super.doGenerate(type);
-
-        return CollectionHelper.buildCollections(new PriorityQueue(), SerializableComparableObject.class);
+        return INSTANCE;
     }
 
     public Collection<Class<?>> getTypes() {
         return Arrays.asList(TYPES);
     }
 
-    private PriorityQueueRandomGenerator() {
+    @Override
+    protected Collection getBasicInstance(Class<?> type) {
+        if (!isAssignableTo(type)) throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+
+        return new PriorityQueue();
     }
 
-    private static class Instance {
-        public static final PriorityQueueRandomGenerator INSTANCE = new PriorityQueueRandomGenerator();
+    private PriorityQueueRandomGenerator() {
     }
 }

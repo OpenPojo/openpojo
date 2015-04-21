@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import com.openpojo.random.RandomFactory;
+import com.openpojo.random.collection.support.ALeafChildClass;
 import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.reflection.Parameterizable;
 import org.junit.Assert;
@@ -49,7 +50,7 @@ public class PriorityQueueRandomGeneratorTest {
 
     @Test (expected = RandomGeneratorException.class)
     public void whenGenerateWithNonPriorityQueue_ThrowsException() {
-        PriorityQueueRandomGenerator.getInstance().doGenerate(Object.class);
+        PriorityQueueRandomGenerator.getInstance().doGenerate(ALeafChildClass.class);
     }
 
     @Test
