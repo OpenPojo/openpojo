@@ -27,7 +27,7 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public class TestCase {
+public class IssueTest {
 
     @Test
     public void ensureEnumStaysIntact() {

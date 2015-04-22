@@ -32,7 +32,7 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public class Issue33 {
+public class IssueTest {
 
     private PojoValidator pojoValidator;
     private PojoClass pojoClass;

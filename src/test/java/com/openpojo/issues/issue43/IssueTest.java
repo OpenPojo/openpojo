@@ -28,7 +28,7 @@ import org.testng.Assert;
 /**
  * @author oshoukry
  */
-public class TestCase {
+public class IssueTest {
 
     @Test
     public void shouldEscapeSpaces() throws MalformedURLException {

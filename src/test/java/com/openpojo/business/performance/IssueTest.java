@@ -29,7 +29,7 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public class BusinessIdentityParallelism {
+public class IssueTest {
 
     @Test
     public void identityFactoryGetHandler_MustAllowAccessWhileBeingModified() throws InterruptedException {

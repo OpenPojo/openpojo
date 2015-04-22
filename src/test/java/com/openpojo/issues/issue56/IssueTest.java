@@ -15,34 +15,26 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.issues.issue46;
+package com.openpojo.issues.issue56;
 
-import java.util.List;
-
+import com.openpojo.issues.issue56.sample.TestClass;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
-import com.openpojo.validation.test.impl.DefaultValuesNullTester;
-import org.junit.Before;
+import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Test;
 
 /**
  * @author oshoukry
  */
-public class TestCase {
-    private List<PojoClass> pojoClasses;
-    private PojoValidator pojoValidator;
-
-    @Before
-    public void setup() {
-        pojoClasses = PojoClassFactory.getPojoClassesRecursively("com.openpojo.issues.issue46.sample", null);
-        pojoValidator = new PojoValidator();
-        pojoValidator.addTester(new DefaultValuesNullTester());
-    }
-
+public class IssueTest {
     @Test
-    public void getAllClasses() {
-        for (PojoClass pojoClass : pojoClasses)
-            pojoValidator.runValidation(pojoClass);
+    public void testSetGenerator() {
+        PojoValidator pojoValidator = new PojoValidator();
+        pojoValidator.addTester(new SetterTester());
+
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(TestClass.class);
+
+        pojoValidator.runValidation(pojoClass);
     }
 }

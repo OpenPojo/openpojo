@@ -32,7 +32,7 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public class Issue42 {
+public class IssueTest {
 
     @Test
     public void testByteArrayEquality() {

@@ -33,7 +33,7 @@ import com.openpojo.validation.rule.impl.NoFieldShadowingRule;
  * @author oshoukry
  *
  */
-public class TestFieldShadowing {
+public class IssueTest {
     final PojoValidator pojoValidator = new PojoValidator();
 
     @Before

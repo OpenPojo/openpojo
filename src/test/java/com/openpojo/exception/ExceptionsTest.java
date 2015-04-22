@@ -30,7 +30,7 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public class TestExceptions {
+public class ExceptionsTest {
 
     private List<PojoClass> pojoExceptionClasses;
     private static final int EXPECTED_EXCEPTION_COUNT = 4;

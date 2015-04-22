@@ -22,8 +22,8 @@ import org.junit.Test;
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 
-public class Issue36 {
-	private static final Logger LOG = LoggerFactory.getLogger(Issue36.class);
+public class IssueTest {
+	private static final Logger LOG = LoggerFactory.getLogger(IssueTest.class);
 
 	@Test
 	public void test() {
