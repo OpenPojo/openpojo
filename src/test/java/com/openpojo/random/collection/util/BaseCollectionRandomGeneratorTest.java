@@ -55,6 +55,10 @@ public abstract class BaseCollectionRandomGeneratorTest {
         return SerializableComparableObject.class;
     }
 
+    protected boolean validateCollectionContents() {
+        return true;
+    }
+
     @Test
     public void constructorShouldBePrivate() {
         final Class<?> randomGeneratorClass = getGeneratorClass();
@@ -114,7 +118,8 @@ public abstract class BaseCollectionRandomGeneratorTest {
         Collection someObject = (Collection) getInstance().doGenerate(getExpectedTypeClass());
         Assert.assertNotNull("Should not be null", someObject);
         Assert.assertEquals("Should be a " + getGeneratedTypeClass().getName(), getGeneratedTypeClass(), someObject.getClass());
-        Assert.assertTrue("Should not be Empty", someObject.size() > 0);
+        if (validateCollectionContents())
+            Assert.assertTrue("Should not be Empty", someObject.size() > 0);
     }
 
     @Test
@@ -123,7 +128,8 @@ public abstract class BaseCollectionRandomGeneratorTest {
         Collection<?> collectionOfType = (Collection) getInstance().doGenerate(getParameterizedType());
 
         Assert.assertNotNull("Should not be null", collectionOfType);
-        Assert.assertTrue("Should not be empty", collectionOfType.size() > 0);
+        if (validateCollectionContents())
+            Assert.assertTrue("Should not be empty", collectionOfType.size() > 0);
         for (Object entry: collectionOfType) {
             Assert.assertNotNull("Should not be null", entry);
             Assert.assertEquals("Entry should be " + getGenericType().getName(), getGenericType(), entry.getClass());
@@ -139,7 +145,8 @@ public abstract class BaseCollectionRandomGeneratorTest {
     protected void assertCollectionHasExpectedTypes(Collection<?> generatedCollection, Class<?> type) {
         Assert.assertNotNull("Should not be null", generatedCollection);
         Assert.assertEquals(getGeneratedTypeClass(), generatedCollection.getClass());
-        Assert.assertTrue("Should not be empty", generatedCollection.size() > 0);
+        if (validateCollectionContents())
+            Assert.assertTrue("Should not be empty", generatedCollection.size() > 0);
         for (Object entry: generatedCollection) {
             Assert.assertNotNull("Should not be null", entry);
             Assert.assertEquals("Entry should be " + type.getName(), type, entry.getClass());

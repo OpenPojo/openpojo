@@ -102,8 +102,8 @@ public class ServiceRegistrar {
         newRandomGeneratorService.registerRandomGenerator(LinkedTransferQueueRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(PriorityBlockingQueueRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(PriorityQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(QueueConcreteRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(QueueRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(SynchronousQueueRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(TransferQueueRandomGenerator.getInstance());
 
         // Map
