@@ -41,9 +41,9 @@ public class StructuralTest {
                 if (hasTestAnnotationOrParentHasTestAnnotation(pojoClass)) testThatVoilateEndsWithTest.add(pojoClass);
             }
         }
-        String nonCompliantClasses = "\r";
+        String nonCompliantClasses = "\r\n";
         for (PojoClass pojoClass : testThatVoilateEndsWithTest) {
-            nonCompliantClasses += "\t" + pojoClass.getName() + "\r";
+            nonCompliantClasses += "\t" + pojoClass.getName() + "\r\n";
         }
         Assert.assertEquals("Every test class must end with Test" + nonCompliantClasses, 0, testThatVoilateEndsWithTest.size());
     }
