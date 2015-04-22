@@ -96,6 +96,7 @@ public class ServiceRegistrar {
         newRandomGeneratorService.registerRandomGenerator(ConcurrentSkipListSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(CopyOnWriteArraySetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(HashSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(SetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(SortedSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(NavigableSetRandomGenerator.getInstance());

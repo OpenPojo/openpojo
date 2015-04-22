@@ -42,7 +42,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  */
 public final class SetConcreteRandomGenerator implements ParameterizableRandomGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(SetConcreteRandomGenerator.class);
-    private final Class<?>[] TYPES = new Class<?>[] { HashSet.class, TreeSet.class, LinkedHashSet.class };
+    private final Class<?>[] TYPES = new Class<?>[] { TreeSet.class, LinkedHashSet.class };
 
     private SetConcreteRandomGenerator() {
     }
@@ -58,7 +58,8 @@ public final class SetConcreteRandomGenerator implements ParameterizableRandomGe
                 || type.getName().equals("java.util.NavigableSet")
                 || type == SortedSet.class
                 || type == AbstractSet.class
-                || type.getName().equals("java.util.concurrent.ConcurrentSkipListSet"))
+                || type.getName().equals("java.util.concurrent.ConcurrentSkipListSet")
+                || type == HashSet.class)
             throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
         Class<?> typeToGenerate = type;
         if (typeToGenerate.isInterface())
