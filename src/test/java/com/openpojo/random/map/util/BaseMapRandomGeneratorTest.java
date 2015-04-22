@@ -97,6 +97,14 @@ public abstract class BaseMapRandomGeneratorTest {
         Assert.assertEquals("Should only be " + getExpectedTypeClass().getName(), getExpectedTypeClass(), types.iterator().next());
     }
 
+    @Test
+    public void generatedTypeShouldBeAssignableToDeclaredType() {
+        Class<?> declaredType = getInstance().getTypes().iterator().next();
+        Object generatedInstance = getInstance().doGenerate(declaredType);
+        Assert.assertTrue("[" + declaredType.getName() + " is not assignable to " + generatedInstance.getClass().getName() + "]",
+                declaredType.isAssignableFrom(generatedInstance.getClass()));
+    }
+
     @Test(expected = RandomGeneratorException.class)
     public void shouldThrowExceptionForDoGenerateForOtherThanMapClass() {
         getInstance().doGenerate(ALeafChildClass.class);
