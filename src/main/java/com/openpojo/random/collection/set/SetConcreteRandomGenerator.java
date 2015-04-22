@@ -29,6 +29,7 @@ import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
+import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.construct.InstanceFactory;
@@ -58,6 +59,8 @@ public final class SetConcreteRandomGenerator implements ParameterizableRandomGe
     @SuppressWarnings("rawtypes")
     public Object doGenerate(final Class<?> type) {
 
+        if (type == Set.class || type.getName().equals("java.util.NavigableSet"))
+            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
         Class<?> typeToGenerate = type;
         if (typeToGenerate.isInterface())
             typeToGenerate = CollectionHelper.getConstructableType(type, getTypes());

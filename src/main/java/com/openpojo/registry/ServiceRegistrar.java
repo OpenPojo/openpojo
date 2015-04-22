@@ -28,6 +28,7 @@ import com.openpojo.random.collection.list.ListRandomGenerator;
 import com.openpojo.random.collection.list.StackRandomGenerator;
 import com.openpojo.random.collection.list.VectorRandomGenerator;
 import com.openpojo.random.collection.queue.*;
+import com.openpojo.random.collection.set.NavigableSetRandomGenerator;
 import com.openpojo.random.collection.set.SetConcreteRandomGenerator;
 import com.openpojo.random.collection.set.SetRandomGenerator;
 import com.openpojo.random.impl.*;
@@ -89,6 +90,7 @@ public class ServiceRegistrar {
 
         // Sets
         newRandomGeneratorService.registerRandomGenerator(SetRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(NavigableSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(SetConcreteRandomGenerator.getInstance());
 
         // Queue
