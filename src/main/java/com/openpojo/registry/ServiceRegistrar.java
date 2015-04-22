@@ -28,14 +28,14 @@ import com.openpojo.random.collection.list.ListRandomGenerator;
 import com.openpojo.random.collection.list.StackRandomGenerator;
 import com.openpojo.random.collection.list.VectorRandomGenerator;
 import com.openpojo.random.collection.queue.*;
-import com.openpojo.random.collection.set.AbstractSetRandomGenerator;
-import com.openpojo.random.collection.set.ConcurrentSkipListSetRandomGenerator;
-import com.openpojo.random.collection.set.CopyOnWriteArraySetRandomGenerator;
-import com.openpojo.random.collection.set.NavigableSetRandomGenerator;
-import com.openpojo.random.collection.set.SetConcreteRandomGenerator;
-import com.openpojo.random.collection.set.SetRandomGenerator;
-import com.openpojo.random.collection.set.SortedSetRandomGenerator;
-import com.openpojo.random.impl.*;
+import com.openpojo.random.collection.set.*;
+import com.openpojo.random.impl.BasicRandomGenerator;
+import com.openpojo.random.impl.ClassRandomGenerator;
+import com.openpojo.random.impl.DefaultRandomGenerator;
+import com.openpojo.random.impl.EnumRandomGenerator;
+import com.openpojo.random.impl.ObjectRandomGenerator;
+import com.openpojo.random.impl.TimestampRandomGenerator;
+import com.openpojo.random.impl.VoidRandomGenerator;
 import com.openpojo.random.map.*;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
@@ -77,7 +77,6 @@ public class ServiceRegistrar {
         newRandomGeneratorService.registerRandomGenerator(BasicRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(TimestampRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(EnumRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
 
         // Collection
         newRandomGeneratorService.registerRandomGenerator(AbstractCollectionRandomGenerator.getInstance());
@@ -96,6 +95,7 @@ public class ServiceRegistrar {
         newRandomGeneratorService.registerRandomGenerator(AbstractSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(ConcurrentSkipListSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(CopyOnWriteArraySetRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(SetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(SortedSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(NavigableSetRandomGenerator.getInstance());

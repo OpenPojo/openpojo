@@ -17,15 +17,8 @@
 
 package com.openpojo.random.impl;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 
-import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 
 /**
@@ -33,24 +26,21 @@ import com.openpojo.random.RandomGenerator;
  *
  * @author oshoukry
  */
+@Deprecated
 public final class EnumSetRandomGenerator implements RandomGenerator {
-    private static final Random RANDOM = new Random(new Date().getTime());
-    private static final Class<?>[] TYPES = new Class<?>[] { EnumSet.class };
+    private static final com.openpojo.random.collection.set.EnumSetRandomGenerator delegate = com.openpojo.random.collection.set
+            .EnumSetRandomGenerator.getInstance();
 
     public static EnumSetRandomGenerator getInstance() {
         return Instance.INSTANCE;
     }
 
     public Object doGenerate(final Class<?> type) {
-        final List<SomeEnum> randomEnumValues = new LinkedList<SomeEnum>();
-        for (int i = 0; i <= RANDOM.nextInt(SomeEnum.values().length); i++) {
-            randomEnumValues.add(RandomFactory.getRandomValue(SomeEnum.class));
-        }
-        return EnumSet.copyOf(randomEnumValues);
+        return delegate.doGenerate(type);
     }
 
     public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
+        return delegate.getTypes();
     }
 
     private static class Instance {
