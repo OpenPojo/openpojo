@@ -21,8 +21,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.DelayQueue;
-import java.util.concurrent.Delayed;
 import java.util.concurrent.SynchronousQueue;
 
 import com.openpojo.log.Logger;
@@ -60,8 +58,7 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
     }
 
     private final String[] TYPES = new String[] {
-            "java.util.concurrent.DelayQueue"
-            ,"java.util.concurrent.LinkedBlockingQueue"
+            "java.util.concurrent.LinkedBlockingQueue"
             ,"java.util.concurrent.PriorityBlockingQueue"
             ,"java.util.concurrent.SynchronousQueue"
     };
@@ -83,10 +80,7 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
 
         randomQueue = (Queue) InstanceFactory.getLeastCompleteInstance(PojoClassFactory.getPojoClass(typeToGenerate));
 
-        if (typeToGenerate == DelayQueue.class)
-            CollectionHelper.buildCollections(randomQueue, Delayed.class);
-        else
-            CollectionHelper.buildCollections(randomQueue, SerializableComparableObject.class);
+        CollectionHelper.buildCollections(randomQueue, SerializableComparableObject.class);
 
         return randomQueue;
     }
@@ -94,9 +88,6 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
     public Object doGenerate(Parameterizable parameterizedType) {
         if (parameterizedType.getType() == SynchronousQueue.class)
             return doGenerate(SynchronousQueue.class);
-
-        if (parameterizedType.getType() == DelayQueue.class)
-            return doGenerate(DelayQueue.class);
 
         return CollectionHelper.buildCollections((Collection) doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes()
                 .get(0));

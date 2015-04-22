@@ -15,16 +15,25 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.collection.queue;
+package com.openpojo.random.collection.support;
+
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author oshoukry
  */
-public class DelayQueueTest {
-//    DelayQueue<String>
-//
-//    @Test
-//    public void shouldGenerateDelayQueue() {
-//        QueueConcreteRandomGenerator.getInstance().doGenerate(DelayQueue.class);
-//    }
+public class DelayedType implements Delayed {
+
+    public long getDelay(TimeUnit unit) {
+        return 0;
+    }
+
+    public int compareTo(Delayed o) {
+        if (System.identityHashCode(this) > System.identityHashCode(o))
+            return 1;
+        if (System.identityHashCode(this) < System.identityHashCode(o))
+            return -1;
+        return  0;
+    }
 }

@@ -60,27 +60,6 @@ public class QueueConcreteRandomGeneratorTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
-    public void whenGenerateWithGenericDelayQueue_GenerateCorrectly() {
-        Parameterizable parameterizable = getParameterizable(Delayed.class);
-
-        DelayQueue<Delayed> aDelayQueue = (DelayQueue<Delayed>) QueueConcreteRandomGenerator.getInstance().doGenerate(parameterizable);
-
-        isNotNullOrEmptyAndPopulatedWithDelayed(aDelayQueue);
-    }
-
-    @Test
-    @SuppressWarnings("unchecked")
-    public void whenGenerateWithGenericDelayQueueAndNotDelayedType_GenerateWithDelayed() {
-        Parameterizable parameterizable = getParameterizable(String.class);
-
-        DelayQueue<Delayed> aDelayQueue = (DelayQueue<Delayed>) QueueConcreteRandomGenerator.getInstance().doGenerate(parameterizable);
-
-        isNotNullOrEmptyAndPopulatedWithDelayed(aDelayQueue);
-
-    }
-
-    @Test
     public void whenGenerateWithAnInterface_GeneratedCorrectly() {
         Queue queue = (Queue) QueueConcreteRandomGenerator.getInstance().doGenerate(BlockingQueue.class);
 
