@@ -42,7 +42,7 @@ import static org.hamcrest.Matchers.is;
 /**
  * @author oshoukry
  */
-public class TestCase {
+public class IssueTest {
 
     private PojoClass aClassWithGenericCollectionPojo;
     private PojoClass aParameterizedClass;
@@ -61,6 +61,7 @@ public class TestCase {
     }
 
     @Test
+    @SuppressWarnings("AssertEqualsBetweenInconvertibleTypes")
     public void ensureAClassWithGenericCollectionPojo_HasNotBeenModified() {
         Assert.assertThat("Fields added / removed to sample class?", aClassWithGenericCollectionPojo.getPojoFields().size(), is(1));
         PojoField pojoField = aClassWithGenericCollectionPojo.getPojoFields().get(0);
