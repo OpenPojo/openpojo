@@ -98,10 +98,10 @@ public class ServiceRegistrar {
         newRandomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(HashSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(LinkedHashSetRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(NavigableSetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(SetRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(SortedSetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(NavigableSetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(SetConcreteRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(TreeSetRandomGenerator.getInstance());
 
         // Queue
         newRandomGeneratorService.registerRandomGenerator(AbstractQueueRandomGenerator.getInstance());
