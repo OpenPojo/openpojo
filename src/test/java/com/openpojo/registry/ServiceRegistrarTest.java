@@ -94,6 +94,7 @@ public class ServiceRegistrarTest {
             ,"java.util.concurrent.DelayQueue"
             ,"java.util.concurrent.LinkedBlockingDeque"
             ,"java.util.concurrent.LinkedBlockingQueue"
+            ,"java.util.concurrent.LinkedTransferQueue"
             ,"java.util.concurrent.PriorityBlockingQueue"
             ,"java.util.concurrent.SynchronousQueue"
             ,"java.util.concurrent.TransferQueue"
