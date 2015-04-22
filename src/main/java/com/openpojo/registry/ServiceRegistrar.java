@@ -18,6 +18,7 @@
 package com.openpojo.registry;
 
 import com.openpojo.business.BusinessIdentity;
+import com.openpojo.random.collection.AbstractCollectionRandomGenerator;
 import com.openpojo.random.collection.CollectionRandomGenerator;
 import com.openpojo.random.collection.list.AbstractListRandomGenerator;
 import com.openpojo.random.collection.list.AbstractSequentialListRandomGenerator;
@@ -73,6 +74,7 @@ public class ServiceRegistrar {
         newRandomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
 
         // Collection
+        newRandomGeneratorService.registerRandomGenerator(AbstractCollectionRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(CollectionRandomGenerator.getInstance());
 
         // Lists

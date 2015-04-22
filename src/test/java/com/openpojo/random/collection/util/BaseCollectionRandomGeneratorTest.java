@@ -67,7 +67,8 @@ public abstract class BaseCollectionRandomGeneratorTest {
         List<PojoMethod> constructors = new ArrayList<PojoMethod>();
 
         for (PojoMethod constructor : randomGeneratorPojo.getPojoConstructors()) {
-            if (!constructor.isSynthetic()) constructors.add(constructor);
+            if (!constructor.isSynthetic())
+                constructors.add(constructor);
         }
         Assert.assertEquals("Should only have one constructor [" + randomGeneratorPojo.getPojoConstructors() + "]", 1, constructors.size());
 
@@ -89,6 +90,14 @@ public abstract class BaseCollectionRandomGeneratorTest {
         Assert.assertNotNull("Should not be null", types);
         Assert.assertEquals("Should only have one type", 1, types.size());
         Assert.assertEquals("Should only be " + getExpectedTypeClass().getName(), getExpectedTypeClass(), types.iterator().next());
+    }
+
+    @Test
+    public void generatedTypeShouldBeAssignableToDeclaredType() {
+        Class<?> declaredType = getInstance().getTypes().iterator().next();
+        Object generatedInstance = getInstance().doGenerate(declaredType);
+        Assert.assertTrue("[" + declaredType.getName() + " is not assignable to " + generatedInstance.getClass().getName() + "]",
+                declaredType.isAssignableFrom(generatedInstance.getClass()));
     }
 
     @Test(expected = RandomGeneratorException.class)
@@ -130,7 +139,7 @@ public abstract class BaseCollectionRandomGeneratorTest {
         Assert.assertNotNull("Should not be null", collectionOfType);
         if (validateCollectionContents())
             Assert.assertTrue("Should not be empty", collectionOfType.size() > 0);
-        for (Object entry: collectionOfType) {
+        for (Object entry : collectionOfType) {
             Assert.assertNotNull("Should not be null", entry);
             Assert.assertEquals("Entry should be " + getGenericType().getName(), getGenericType(), entry.getClass());
         }
@@ -147,7 +156,7 @@ public abstract class BaseCollectionRandomGeneratorTest {
         Assert.assertEquals(getGeneratedTypeClass(), generatedCollection.getClass());
         if (validateCollectionContents())
             Assert.assertTrue("Should not be empty", generatedCollection.size() > 0);
-        for (Object entry: generatedCollection) {
+        for (Object entry : generatedCollection) {
             Assert.assertNotNull("Should not be null", entry);
             Assert.assertEquals("Entry should be " + type.getName(), type, entry.getClass());
         }

@@ -135,11 +135,10 @@ public class ServiceRegistrarTest {
 //        "java.util.NavigableSet"  // only Jdk 6+
 //        "java.util.SortedSet"
 //        "java.util.AbstractSet"
-//        "java.util.AbstractCollection"
         if (javaVersion.startsWith("1.5"))
-            expectedTypes = expectedDefaultTypes.size() - 3;  // NavigableSet never registers in the expected.
+            expectedTypes = expectedDefaultTypes.size() - 2;  // NavigableSet never registers in the expected.
         else if (javaVersion.startsWith("1.6") || javaVersion.startsWith("1.7") || javaVersion.startsWith("1.8"))
-            expectedTypes = expectedDefaultTypes.size() - 4;
+            expectedTypes = expectedDefaultTypes.size() - 3;
         else throw new UnsupportedOperationException("Unknown java version found " + javaVersion + " please check " +
                     "the correct number of expected registered classes and register type here - (found " + randomGeneratorService
                     .getRegisteredTypes().size() + ")");
