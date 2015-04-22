@@ -18,40 +18,40 @@
 package com.openpojo.random.collection.queue;
 
 import java.util.Collection;
-import java.util.PriorityQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import com.openpojo.random.ParameterizableRandomGenerator;
-import com.openpojo.random.collection.support.ComparableType;
+import com.openpojo.random.collection.support.SimpleType;
 import com.openpojo.random.collection.util.BaseCollectionRandomGeneratorTest;
 
 /**
  * @author oshoukry
  */
-public class PriorityQueueRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
+public class LinkedBlockingQueueRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
 
     @Override
     protected ParameterizableRandomGenerator getInstance() {
-        return PriorityQueueRandomGenerator.getInstance();
+        return LinkedBlockingQueueRandomGenerator.getInstance();
     }
 
     @Override
     protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return PriorityQueueRandomGenerator.class;
+        return LinkedBlockingQueueRandomGenerator.class;
     }
 
     @Override
     protected Class<? extends Collection> getExpectedTypeClass() {
-        return PriorityQueue.class;
+        return LinkedBlockingQueue.class;
     }
 
     @Override
     protected Class<? extends Collection> getGeneratedTypeClass() {
-        return PriorityQueue.class;
+        return getExpectedTypeClass();
     }
 
     @Override
     protected Class<?> getGenericType() {
-        return ComparableType.class;
+        return SimpleType.class;
     }
 
 }
