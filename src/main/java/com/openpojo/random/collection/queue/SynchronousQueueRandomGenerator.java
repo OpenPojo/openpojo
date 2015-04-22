@@ -44,7 +44,7 @@ public class SynchronousQueueRandomGenerator extends BaseCollectionRandomGenerat
         return getBasicInstance(type);
     }
 
-    public Object doGenerate(Parameterizable parameterizedType) {
+    public Collection doGenerate(Parameterizable parameterizedType) {
         return getBasicInstance(parameterizedType.getType());
     }
 

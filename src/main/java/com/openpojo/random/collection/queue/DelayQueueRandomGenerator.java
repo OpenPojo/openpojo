@@ -42,7 +42,7 @@ public class DelayQueueRandomGenerator extends BaseCollectionRandomGenerator {
         return CollectionHelper.buildCollections(getBasicInstance(type), ComparableDelayed.class);
     }
 
-    public Object doGenerate(Parameterizable parameterizedType) {
+    public Collection doGenerate(Parameterizable parameterizedType) {
         return CollectionHelper.buildCollections(getBasicInstance(parameterizedType.getType()), parameterizedType.getParameterTypes().get(0));
     }
 

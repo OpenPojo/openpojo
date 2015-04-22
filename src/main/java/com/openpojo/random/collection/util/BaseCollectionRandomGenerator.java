@@ -40,7 +40,7 @@ public abstract class BaseCollectionRandomGenerator implements ParameterizableRa
         return false;
     }
 
-    public Object doGenerate(Parameterizable parameterizedType) {
+    public Collection doGenerate(Parameterizable parameterizedType) {
         return CollectionHelper.buildCollections(doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes().get(0));
     }
 
