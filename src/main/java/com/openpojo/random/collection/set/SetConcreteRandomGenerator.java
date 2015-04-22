@@ -57,7 +57,8 @@ public final class SetConcreteRandomGenerator implements ParameterizableRandomGe
         if (type == Set.class
                 || type.getName().equals("java.util.NavigableSet")
                 || type == SortedSet.class
-                || type == AbstractSet.class)
+                || type == AbstractSet.class
+                || type.getName().equals("java.util.concurrent.ConcurrentSkipListSet"))
             throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
         Class<?> typeToGenerate = type;
         if (typeToGenerate.isInterface())
