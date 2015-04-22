@@ -16,6 +16,9 @@
  */
 package com.openpojo.issues.issue29;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
@@ -23,12 +26,13 @@ import com.openpojo.reflection.adapt.PojoClassAdapter;
 import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdapter;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * @author oshoukry
  */
-public class Issue29 {
+public class IssueTest {
     private static final String JACOCO_FIELD_NAME = "$jacocoData";
     private static final String JACOCO_METHOD_NAME = "$jacocoInit";
 
@@ -42,24 +46,31 @@ public class Issue29 {
 
 
     @Test
-    public void shouldHideJacocoFieldAndMethod() {
+    public void shouldHideJacocoFieldAndMethod() throws NoSuchFieldException, NoSuchMethodException {
+        Field field = this.getClass().getDeclaredField(JACOCO_FIELD_NAME);
+        Assert.assertNotNull("Should not be null", field);
+
+        Method method = this.getClass().getDeclaredMethod(JACOCO_METHOD_NAME);
+        Assert.assertNotNull("Should not be null", method);
+
         PojoClassAdapter jacocoPojoClassAdapter = JacocoPojoClassAdapter.getInstance();
-        PojoClass jacocoPojoClass = PojoClassFactory.getPojoClass(this.getClass());
-        PojoClass cleansedPojoClass = jacocoPojoClassAdapter.adapt(jacocoPojoClass);
-        Affirm.affirmEquals("Adapter removed too much", jacocoPojoClass.getPojoFields().size() - 1,
-                cleansedPojoClass.getPojoFields().size());
+        PojoClass cleansedPojoClass = jacocoPojoClassAdapter.adapt(PojoClassFactory.getPojoClass(this.getClass()));
+
         for (PojoField pojoField : cleansedPojoClass.getPojoFields()) {
             if (pojoField.getName().equals(JACOCO_FIELD_NAME)) {
                 Affirm.fail(JACOCO_FIELD_NAME + " field is still visible!!");
             }
         }
-        Affirm.affirmEquals("Adapter removed too many Methods", jacocoPojoClass.getPojoMethods().size() - 1,
-                cleansedPojoClass.getPojoMethods().size());
 
         for (PojoMethod pojoMethod : cleansedPojoClass.getPojoMethods()) {
             if (pojoMethod.getName().equals(JACOCO_METHOD_NAME)) {
                 Affirm.fail(JACOCO_METHOD_NAME + " method is still visible!!");
             }
         }
+
+        Assert.assertNotNull(this.getClass().getDeclaredField("JACOCO_FIELD_NAME"));
+        Assert.assertNotNull(this.getClass().getDeclaredField("JACOCO_METHOD_NAME"));
+        Assert.assertNotNull(this.getClass().getDeclaredMethod("shouldHideJacocoFieldAndMethod"));
+
     }
 }
