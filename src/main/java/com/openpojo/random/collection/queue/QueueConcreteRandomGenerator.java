@@ -58,8 +58,7 @@ public final class QueueConcreteRandomGenerator implements ParameterizableRandom
     }
 
     private final String[] TYPES = new String[] {
-            "java.util.concurrent.PriorityBlockingQueue"
-            ,"java.util.concurrent.SynchronousQueue"
+            "java.util.concurrent.SynchronousQueue"
     };
 
 
