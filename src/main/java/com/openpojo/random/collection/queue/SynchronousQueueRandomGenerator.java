@@ -48,7 +48,6 @@ public class SynchronousQueueRandomGenerator extends BaseCollectionRandomGenerat
         return getBasicInstance(parameterizedType.getType());
     }
 
-
     @Override
     protected Collection getBasicInstance(Class<?> type) {
         if (!isAssignableTo(type))
