@@ -36,7 +36,7 @@ public class SomeRole extends Role {
         super(anyString(), anyRoleValue());
     }
 
-    protected static String anyString() {
+    private static String anyString() {
         return RandomFactory.getRandomValue(String.class);
     }
 
