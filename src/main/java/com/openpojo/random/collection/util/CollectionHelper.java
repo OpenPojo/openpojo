@@ -38,7 +38,8 @@ public class CollectionHelper {
 
     @SuppressWarnings("unchecked")
     public static Collection buildCollections(Collection collection, Type type) {
-        if (type == null || collection == null) return collection;
+        if (type == null || collection == null)
+            return collection;
 
         int counter = RANDOM.nextInt(MAX_RANDOM_ELEMENTS) + 1;
 
