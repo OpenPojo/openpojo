@@ -36,14 +36,6 @@ public abstract class BaseCollectionRandomGenerator implements ParameterizableRa
         return CollectionHelper.buildCollections(doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes().get(0));
     }
 
-    protected boolean isAssignableTo(Class<?> type) {
-        for (Class<?> knownType : getTypes()) {
-            if (type.isAssignableFrom(knownType))
-                return true;
-        }
-        return false;
-    }
-
     public abstract Collection<Class<?>> getTypes();
 
     protected abstract Collection getBasicInstance(Class<?> type);

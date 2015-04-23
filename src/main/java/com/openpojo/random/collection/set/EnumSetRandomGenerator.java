@@ -27,8 +27,8 @@ import java.util.Random;
 
 import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.SomeEnum;
+import com.openpojo.random.util.Helper;
 import com.openpojo.reflection.Parameterizable;
 
 /**
@@ -49,9 +49,9 @@ public class EnumSetRandomGenerator extends BaseCollectionRandomGenerator {
 
     @Override
     protected Collection getBasicInstance(Class<?> type) {
-        throwExceptionIfNotAssignableTo(type);
+        Helper.assertIsAssignableTo(type, getTypes());
         List<SomeEnum> someEnums = new ArrayList<SomeEnum>();
-        for (int i=0; i< CollectionHelper.MAX_RANDOM_ELEMENTS; i++) {
+        for (int i = 0; i < CollectionHelper.MAX_RANDOM_ELEMENTS; i++) {
             someEnums.add(SomeEnum.values()[RANDOM.nextInt(SomeEnum.values().length - 1)]);
         }
 
@@ -63,13 +63,8 @@ public class EnumSetRandomGenerator extends BaseCollectionRandomGenerator {
     }
 
     public Collection doGenerate(Parameterizable parameterizedType) {
-        throwExceptionIfNotAssignableTo(parameterizedType.getType());
+        Helper.assertIsAssignableTo(parameterizedType.getType(), getTypes());
         return EnumSet.allOf((Class) parameterizedType.getParameterTypes().get(0));
-    }
-
-    private void throwExceptionIfNotAssignableTo(Class<?> type) {
-        if (!isAssignableTo(type))
-            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
     }
 
     private EnumSetRandomGenerator() {

@@ -15,26 +15,25 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.map;
+package com.openpojo.random.collection.list;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
-import java.util.WeakHashMap;
+import javax.management.Attribute;
+import javax.management.AttributeList;
 
-import com.openpojo.random.map.util.BaseMapRandomGenerator;
-import com.openpojo.random.map.util.MapHelper;
+import com.openpojo.random.RandomGenerator;
+import com.openpojo.random.collection.util.CollectionHelper;
 import com.openpojo.random.util.Helper;
-import com.openpojo.random.util.SerializableComparableObject;
 
 /**
  * @author oshoukry
  */
-public class WeakHashMapRandomGenerator extends BaseMapRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { WeakHashMap.class };
-    private static final WeakHashMapRandomGenerator INSTANCE = new WeakHashMapRandomGenerator();
+public class AttributeListRandomGenerator implements RandomGenerator {
+    private static final Class<?>[] TYPES = new Class<?>[] { AttributeList.class };
+    private static final AttributeListRandomGenerator INSTANCE = new AttributeListRandomGenerator();
 
-    public static WeakHashMapRandomGenerator getInstance() {
+    public static AttributeListRandomGenerator getInstance() {
         return INSTANCE;
     }
 
@@ -42,13 +41,11 @@ public class WeakHashMapRandomGenerator extends BaseMapRandomGenerator {
         return Arrays.asList(TYPES);
     }
 
-    @Override
-    protected Map getBasicInstance(Class<?> type) {
+    public Collection doGenerate(Class<?> type) {
         Helper.assertIsAssignableTo(type, getTypes());
-        return MapHelper.buildMap(new WeakHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
+        return CollectionHelper.buildCollections(new AttributeList(), Attribute.class);
     }
 
-    private WeakHashMapRandomGenerator() {
+    private AttributeListRandomGenerator() {
     }
-
 }

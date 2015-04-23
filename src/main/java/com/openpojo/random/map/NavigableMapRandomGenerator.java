@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.map.util.BaseMapRandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
+import com.openpojo.random.util.Helper;
 import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.java.load.ClassUtil;
 
@@ -49,8 +49,7 @@ public class NavigableMapRandomGenerator extends BaseMapRandomGenerator {
 
     @Override
     protected Map getBasicInstance(Class<?> type) {
-        if (!isAssignableTo(type))
-            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+        Helper.assertIsAssignableTo(type, getTypes());
         return MapHelper.buildMap(new TreeMap(), SerializableComparableObject.class,
                 SerializableComparableObject.class);
     }

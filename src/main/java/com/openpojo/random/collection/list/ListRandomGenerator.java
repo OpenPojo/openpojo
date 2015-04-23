@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
-import com.openpojo.random.exception.RandomGeneratorException;
+import com.openpojo.random.util.Helper;
 
 /**
  * @author oshoukry
@@ -42,8 +42,7 @@ public class ListRandomGenerator extends BaseCollectionRandomGenerator {
 
     @Override
     protected Collection getBasicInstance(Class<?> type) {
-        if (!isAssignableTo(type))
-            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+        Helper.assertIsAssignableTo(type, getTypes());
         return new ArrayList();
     }
 

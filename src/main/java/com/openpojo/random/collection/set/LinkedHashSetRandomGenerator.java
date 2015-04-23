@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
-import com.openpojo.random.exception.RandomGeneratorException;
+import com.openpojo.random.util.Helper;
 
 /**
  * @author oshoukry
@@ -41,8 +41,7 @@ public class LinkedHashSetRandomGenerator extends BaseCollectionRandomGenerator 
 
     @Override
     protected Collection getBasicInstance(Class<?> type) {
-        if (!isAssignableTo(type))
-            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+        Helper.assertIsAssignableTo(type, getTypes());
         return new LinkedHashSet();
     }
 

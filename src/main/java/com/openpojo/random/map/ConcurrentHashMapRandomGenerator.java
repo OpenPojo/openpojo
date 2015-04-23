@@ -22,9 +22,9 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.map.util.BaseMapRandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
+import com.openpojo.random.util.Helper;
 import com.openpojo.random.util.SerializableComparableObject;
 
 /**
@@ -44,8 +44,7 @@ public class ConcurrentHashMapRandomGenerator extends BaseMapRandomGenerator {
 
     @Override
     protected Map getBasicInstance(Class<?> type) {
-        if (!isAssignableTo(type))
-            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+        Helper.assertIsAssignableTo(type, getTypes());
         return MapHelper.buildMap(new ConcurrentHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
     }
 

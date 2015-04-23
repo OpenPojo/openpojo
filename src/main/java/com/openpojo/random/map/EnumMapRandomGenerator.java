@@ -22,10 +22,10 @@ import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Map;
 
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.impl.SomeEnum;
 import com.openpojo.random.map.util.BaseMapRandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
+import com.openpojo.random.util.Helper;
 import com.openpojo.random.util.SerializableComparableObject;
 import com.openpojo.reflection.Parameterizable;
 
@@ -46,24 +46,19 @@ public class EnumMapRandomGenerator extends BaseMapRandomGenerator {
 
     @Override
     protected Map getBasicInstance(Class<?> type) {
-        throwExceptionIfNotAssignableTo(type);
+        Helper.assertIsAssignableTo(type, getTypes());
         return MapHelper.buildMap(new EnumMap<SomeEnum, SerializableComparableObject>(SomeEnum.class), SomeEnum.class,
                 SerializableComparableObject.class);
     }
 
     @SuppressWarnings("unchecked")
     public Map doGenerate(Parameterizable parameterizedType) {
-        throwExceptionIfNotAssignableTo(parameterizedType.getType());
+        Helper.assertIsAssignableTo(parameterizedType.getType(), getTypes());
 
         Class<?> type = (Class<?>) parameterizedType.getParameterTypes().get(0);
         EnumMap returnedMap = new EnumMap(type);
         return MapHelper.buildMap(returnedMap, parameterizedType.getParameterTypes().get(0),
                 parameterizedType.getParameterTypes().get(1));
-    }
-
-    private void throwExceptionIfNotAssignableTo(Class<?> type) {
-        if (!isAssignableTo(type))
-            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
     }
 
     private EnumMapRandomGenerator() {

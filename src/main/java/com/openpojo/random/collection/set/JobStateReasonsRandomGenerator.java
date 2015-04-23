@@ -24,7 +24,7 @@ import javax.print.attribute.standard.JobStateReasons;
 
 import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.random.exception.RandomGeneratorException;
+import com.openpojo.random.util.Helper;
 import com.openpojo.reflection.Parameterizable;
 
 /**
@@ -52,8 +52,7 @@ public class JobStateReasonsRandomGenerator extends BaseCollectionRandomGenerato
 
     @Override
     protected Collection getBasicInstance(Class<?> type) {
-        if (!isAssignableTo(type))
-            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+        Helper.assertIsAssignableTo(type, getTypes());
         return new JobStateReasons();
     }
 

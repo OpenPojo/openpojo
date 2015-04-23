@@ -23,8 +23,8 @@ import java.util.concurrent.DelayQueue;
 
 import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.random.util.ComparableDelayed;
+import com.openpojo.random.util.Helper;
 import com.openpojo.reflection.Parameterizable;
 
 /**
@@ -43,7 +43,8 @@ public class DelayQueueRandomGenerator extends BaseCollectionRandomGenerator {
     }
 
     public Collection doGenerate(Parameterizable parameterizedType) {
-        return CollectionHelper.buildCollections(getBasicInstance(parameterizedType.getType()), parameterizedType.getParameterTypes().get(0));
+        return CollectionHelper.buildCollections(getBasicInstance(parameterizedType.getType()), parameterizedType.getParameterTypes().get
+                (0));
     }
 
     public Collection<Class<?>> getTypes() {
@@ -52,8 +53,7 @@ public class DelayQueueRandomGenerator extends BaseCollectionRandomGenerator {
 
     @Override
     protected Collection getBasicInstance(Class<?> type) {
-        if (!isAssignableTo(type))
-            throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+        Helper.assertIsAssignableTo(type, getTypes());
         return new DelayQueue();
     }
 

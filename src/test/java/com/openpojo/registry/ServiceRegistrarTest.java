@@ -101,6 +101,8 @@ public class ServiceRegistrarTest {
             ,"java.util.concurrent.SynchronousQueue"
             ,"java.util.concurrent.TransferQueue"
 
+            ,"javax.management.AttributeList"
+
             ,"javax.print.attribute.standard.JobStateReasons"
     };
     // @formatter:on
