@@ -103,6 +103,7 @@ public class ServiceRegistrarTest {
             ,"java.util.concurrent.TransferQueue"
 
             ,"javax.management.AttributeList"
+            ,"javax.management.relation.RoleList"
 
             ,"javax.print.attribute.standard.JobStateReasons"
     };

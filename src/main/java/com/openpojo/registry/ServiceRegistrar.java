@@ -84,6 +84,7 @@ public class ServiceRegistrar {
         newRandomGeneratorService.registerRandomGenerator(CopyOnWriteArrayListRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(LinkedListRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(ListRandomGenerator.getInstance());
+        newRandomGeneratorService.registerRandomGenerator(RoleListRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(StackRandomGenerator.getInstance());
         newRandomGeneratorService.registerRandomGenerator(VectorRandomGenerator.getInstance());
 
