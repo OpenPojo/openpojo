@@ -100,6 +100,8 @@ public class ServiceRegistrarTest {
             ,"java.util.concurrent.PriorityBlockingQueue"
             ,"java.util.concurrent.SynchronousQueue"
             ,"java.util.concurrent.TransferQueue"
+
+            ,"javax.print.attribute.standard.JobStateReasons"
     };
     // @formatter:on
 
