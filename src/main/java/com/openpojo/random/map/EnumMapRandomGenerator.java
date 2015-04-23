@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Map;
 
-import com.openpojo.random.impl.SomeEnum;
+import com.openpojo.random.util.SomeEnum;
 import com.openpojo.random.map.util.BaseMapRandomGenerator;
 import com.openpojo.random.map.util.MapHelper;
 import com.openpojo.random.util.Helper;

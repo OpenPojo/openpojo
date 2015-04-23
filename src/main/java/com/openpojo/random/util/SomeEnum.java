@@ -15,7 +15,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.random.impl;
+package com.openpojo.random.util;
 
 public enum SomeEnum {
     _00, _01, _02, _03, _04, _05, _06, _07,

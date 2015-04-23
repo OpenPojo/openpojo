@@ -27,7 +27,7 @@ import java.util.Random;
 
 import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.random.impl.SomeEnum;
+import com.openpojo.random.util.SomeEnum;
 import com.openpojo.random.util.Helper;
 import com.openpojo.reflection.Parameterizable;
 

@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.Random;
 
 import com.openpojo.random.RandomGenerator;
+import com.openpojo.random.util.SomeEnum;
 
 /**
  * This random generator generates for Enum type.

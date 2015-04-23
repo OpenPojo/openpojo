@@ -23,7 +23,7 @@ import java.util.EnumSet;
 import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.collection.support.EnumType;
 import com.openpojo.random.collection.util.BaseCollectionRandomGeneratorTest;
-import com.openpojo.random.impl.SomeEnum;
+import com.openpojo.random.util.SomeEnum;
 import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
