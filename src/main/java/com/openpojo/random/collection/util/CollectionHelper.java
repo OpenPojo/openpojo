@@ -17,14 +17,12 @@
 
 package com.openpojo.random.collection.util;
 
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
 
 import com.openpojo.random.RandomFactory;
-import com.openpojo.random.exception.RandomGeneratorException;
 import com.openpojo.reflection.impl.ParameterizableFactory;
 
 /**
@@ -50,16 +48,5 @@ public class CollectionHelper {
             collection.add(nextEntry);
         }
         return collection;
-    }
-
-    public static Class<?> getConstructableType(Class<?> type, Collection<Class<?>> types) {
-        for (Class<?> entry : types) {
-            if (!entry.isInterface() && !Modifier.isAbstract(entry.getModifiers())) {
-                if (type.isAssignableFrom(entry))
-                    return entry;
-            }
-        }
-        throw RandomGeneratorException.getInstance("Unable to locate appropriate constructable class for type [" + type + "] from given " +
-                "types [" + types + "]" );
     }
 }
