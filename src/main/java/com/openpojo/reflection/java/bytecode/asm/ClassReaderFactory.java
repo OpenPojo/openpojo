@@ -17,15 +17,26 @@
 
 package com.openpojo.reflection.java.bytecode.asm;
 
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.java.Java;
 import org.objectweb.asm.ClassReader;
 
 /**
  * @author oshoukry
  */
-public interface SubClassDefinition {
-    ClassReader getClassReader();
+public class ClassReaderFactory {
 
-    String getGeneratedClassNameAsJDKPath();
+    private ClassReaderFactory() {
+        throw new UnsupportedOperationException(ClassReaderFactory.class.getName() + " should not be constructed!");
+    }
 
-    String getGeneratedClassName();
+    public static ClassReader getClassReader(Class clazz) {
+        try {
+            return new ClassReader(clazz.getResourceAsStream(Java.PATH_DELIMITER
+                    + clazz.getName().replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER) + Java.CLASS_EXTENSION));
+        } catch (Throwable t) {
+            throw ReflectionException.getInstance("Failed to create ClassReader for class [" + clazz + "]", t);
+        }
+    }
+
 }

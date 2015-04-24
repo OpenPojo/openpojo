@@ -40,9 +40,13 @@ public class ASMService {
         return Instance.INSTANCE;
     }
 
-    @SuppressWarnings("unchecked")
     public <T> Class<? extends T> createSubclassFor(Class<T> clazz) {
-        SubClassDefinition subClassDefinition = new SubClassDefinition(clazz);
+        SubClassDefinition subClassDefinition = new DefaultSubClassDefinition(clazz);
+        return createSubclassFor(clazz, subClassDefinition);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> Class<? extends T> createSubclassFor(Class<T> clazz, SubClassDefinition subClassDefinition) {
         Class<? extends T> generatedClass = (Class<? extends T>) alreadyGeneratedClasses.get(subClassDefinition.getGeneratedClassName());
 
         if (generatedClass != null) {
