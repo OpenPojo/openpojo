@@ -17,6 +17,8 @@
 
 package com.openpojo.validation.rule.impl;
 
+import java.util.UUID;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.bytecode.asm.ASMService;
@@ -56,7 +58,7 @@ public class TestClassMustEndWithRuleTest {
     @Test(expected = AssertionError.class)
     public void aClassThatHasTestNotAsStartOrEndShouldFailValidation() {
         Class<?> aBadTestClass = ASMService.getInstance().createSubclassFor(this.getClass(),
-                new DefaultSubClassDefinition(this.getClass(), "ABadTestClassName"));
+                new DefaultSubClassDefinition(this.getClass(), getUniqueClassName("ABadTestClassName")));
         PojoClass aBadTestClassPojo = PojoClassFactory.getPojoClass(aBadTestClass);
         testClassMustEndWithRule.evaluate(aBadTestClassPojo);
     }
@@ -101,9 +103,13 @@ public class TestClassMustEndWithRuleTest {
     public void aTestNGClassThatDoesntEndWithTestShouldFail() {
         final Class<ATestNGClassEndsWithTest> parentClass = ATestNGClassEndsWithTest.class;
         Class<?> aBadTestClass = ASMService.getInstance().createSubclassFor(parentClass,
-                new DefaultSubClassDefinition(parentClass, "ABadTestClassName"));
+                new DefaultSubClassDefinition(parentClass, getUniqueClassName("ABadTestClassName")));
         PojoClass aBadTestClassPojo = PojoClassFactory.getPojoClass(aBadTestClass);
         testClassMustEndWithRule.evaluate(aBadTestClassPojo);
+    }
+
+    private String getUniqueClassName(String prefix) {
+        return prefix + "_" + UUID.randomUUID().toString().replace("-", "_");
     }
 
 }
