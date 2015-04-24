@@ -17,8 +17,10 @@
 
 package com.openpojo.random.collection.sample;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import javax.management.Attribute;
+import javax.management.AttributeList;
 
 import com.openpojo.random.util.SerializableComparableObject;
 import org.junit.Assert;
@@ -38,6 +40,12 @@ public class AClassWithExhaustiveCollection {
     private Collection<Collection<SomeGeneric>> collectionOfCollectionOfSomeGeneric;
     private Collection<Collection<? extends SomeGeneric>> collectionOfCollectionOfExtendsSomeGeneric;
     private Collection<Collection<? super SomeGeneric>> collectionOfCollectionOfSuperSomeGeneric;
+
+    private Collection<AbstractCollection<AbstractList<SomeGeneric>>> collectionOfAbstractCollectionOfAbstractList;
+    private AbstractList<AbstractSequentialList<ArrayList<SomeGeneric>>> abstractListOfAbstractSequentialListOfArrayList;
+    private ArrayList<CopyOnWriteArrayList<LinkedList<SomeGeneric>>> arrayListOfCopyOnWriteArrayListOfLinkedList;
+    private LinkedList<List<Stack<SomeGeneric>>> linkedListOfListOfStack;
+    private Stack<Vector<AttributeList>> stackOfVectorOfAttributeList;
 
     public void setCollectionUndefined(Collection collectionUndefined) {
         assertThatCollectionIsOf(collectionUndefined, SerializableComparableObject.class);
@@ -88,6 +96,36 @@ public class AClassWithExhaustiveCollection {
     public void setCollectionOfCollectionOfSuperSomeGeneric(Collection<Collection<? super SomeGeneric>> collectionOfCollectionOfSuperSomeGeneric) {
         assertThatCollectionIsOf(collectionOfCollectionOfSuperSomeGeneric, ArrayList.class, SomeGeneric.class);
         this.collectionOfCollectionOfSuperSomeGeneric = collectionOfCollectionOfSuperSomeGeneric;
+    }
+
+    public void setCollectionOfAbstractCollectionOfAbstractList(Collection<AbstractCollection<AbstractList<SomeGeneric>>>
+                                                                        collectionOfAbstractCollectionOfAbstractList) {
+        assertThatCollectionIsOf(collectionOfAbstractCollectionOfAbstractList, ArrayList.class, ArrayList.class, SomeGeneric.class);
+        this.collectionOfAbstractCollectionOfAbstractList = collectionOfAbstractCollectionOfAbstractList;
+    }
+
+    public void setAbstractListOfAbstractSequentialListOfArrayList(AbstractList<AbstractSequentialList<ArrayList<SomeGeneric>>>
+                                                                           abstractListOfAbstractSequentialListOfArrayList) {
+
+        assertThatCollectionIsOf(abstractListOfAbstractSequentialListOfArrayList, LinkedList.class, ArrayList.class, SomeGeneric.class);
+        this.abstractListOfAbstractSequentialListOfArrayList = abstractListOfAbstractSequentialListOfArrayList;
+    }
+
+    public void setArrayListOfCopyOnWriteArrayListOfLinkedList(ArrayList<CopyOnWriteArrayList<LinkedList<SomeGeneric>>>
+                                                                       arrayListOfCopyOnWriteArrayListOfLinkedList) {
+        assertThatCollectionIsOf(arrayListOfCopyOnWriteArrayListOfLinkedList, CopyOnWriteArrayList.class, LinkedList.class, SomeGeneric
+                .class);
+        this.arrayListOfCopyOnWriteArrayListOfLinkedList = arrayListOfCopyOnWriteArrayListOfLinkedList;
+    }
+
+    public void setLinkedListOfListOfStack(LinkedList<List<Stack<SomeGeneric>>> linkedListOfListOfStack) {
+        assertThatCollectionIsOf(linkedListOfListOfStack, ArrayList.class, Stack.class, SomeGeneric.class);
+        this.linkedListOfListOfStack = linkedListOfListOfStack;
+    }
+
+    public void setStackOfVectorOfAttributeList(Stack<Vector<AttributeList>> stackOfVectorOfAttributeList) {
+        assertThatCollectionIsOf(stackOfVectorOfAttributeList, Vector.class, AttributeList.class, Attribute.class);
+        this.stackOfVectorOfAttributeList = stackOfVectorOfAttributeList;
     }
 
     private void assertThatCollectionIsOf(Collection collection, Class<?>... type) {
@@ -141,6 +179,26 @@ public class AClassWithExhaustiveCollection {
 
     public Collection<Collection<? super SomeGeneric>> getCollectionOfCollectionOfSuperSomeGeneric() {
         return collectionOfCollectionOfSuperSomeGeneric;
+    }
+
+    public Collection<AbstractCollection<AbstractList<SomeGeneric>>> getCollectionOfAbstractCollectionOfAbstractList() {
+        return collectionOfAbstractCollectionOfAbstractList;
+    }
+
+    public AbstractList<AbstractSequentialList<ArrayList<SomeGeneric>>> getAbstractListOfAbstractSequentialListOfArrayList() {
+        return abstractListOfAbstractSequentialListOfArrayList;
+    }
+
+    public ArrayList<CopyOnWriteArrayList<LinkedList<SomeGeneric>>> getArrayListOfCopyOnWriteArrayListOfLinkedList() {
+        return arrayListOfCopyOnWriteArrayListOfLinkedList;
+    }
+
+    public LinkedList<List<Stack<SomeGeneric>>> getLinkedListOfListOfStack() {
+        return linkedListOfListOfStack;
+    }
+
+    public Stack<Vector<AttributeList>> getStackOfVectorOfAttributeList() {
+        return stackOfVectorOfAttributeList;
     }
 
     private static class SomeGeneric {

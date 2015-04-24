@@ -17,12 +17,19 @@
 
 package com.openpojo.random.map.sample;
 
+import java.util.AbstractMap;
 import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.openpojo.log.LoggerFactory;
+import com.openpojo.random.map.support.EnumType1;
+import com.openpojo.random.map.support.SimpleType1;
+import com.openpojo.random.map.support.SimpleType2;
 import com.openpojo.random.util.MapCollectionAssertionHelper;
 import com.openpojo.random.util.SerializableComparableObject;
 
@@ -58,6 +65,9 @@ public class ClassWithVariousGenericMap {
 
     private Map<SomeGeneric, List<Map<List, Queue>>> mapOfSomeGenericListOfMapOfListQueue;
     private Map<SomeInterface, SomeGeneric> mapOfSomeInterfaceSomeGeneric;
+
+    private Map<AbstractMap<ConcurrentHashMap<SomeGeneric, SomeGeneric>, EnumMap<EnumType1, SomeGeneric>>, HashMap<SimpleType1, SimpleType2>>
+            mapOfAbstractMapOfConcurrentHashMapAndEnumMapAndHashMap;
 
     public void setMapUndefined(Map mapUndefined) {
         assertParameters(mapUndefined,
@@ -214,6 +224,23 @@ public class ClassWithVariousGenericMap {
                     SomeInterface.class,
                     SomeGeneric.class);
         this.mapOfSomeInterfaceSomeGeneric = mapOfSomeInterfaceSomeGeneric;
+    }
+
+    public void setMapOfAbstractMapOfConcurrentHashMapAndEnumMapAndHashMap(Map<AbstractMap<ConcurrentHashMap<SomeGeneric, SomeGeneric>,
+            EnumMap<EnumType1, SomeGeneric>>, HashMap<SimpleType1, SimpleType2>> mapOfAbstractMapOfConcurrentHashMapAndEnumMapAndHashMap) {
+        assertParameters(mapOfAbstractMapOfConcurrentHashMapAndEnumMapAndHashMap,
+                HashMap.class,
+                    HashMap.class,
+                        ConcurrentHashMap.class,
+                            SomeGeneric.class,
+                            SomeGeneric.class,
+                        EnumMap.class,
+                            EnumType1.class,
+                            SomeGeneric.class,
+                    HashMap.class,
+                        SimpleType1.class,
+                        SimpleType2.class);
+        this.mapOfAbstractMapOfConcurrentHashMapAndEnumMapAndHashMap = mapOfAbstractMapOfConcurrentHashMapAndEnumMapAndHashMap;
     }
 
     private void assertParameters(Object input, Class<?>... expectedTypes) {
