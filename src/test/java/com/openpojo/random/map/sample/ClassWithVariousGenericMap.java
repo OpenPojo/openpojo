@@ -229,8 +229,8 @@ public class ClassWithVariousGenericMap {
     public void setMapOfAbstractMapOfConcurrentHashMapAndEnumMapAndHashMap(Map<AbstractMap<ConcurrentHashMap<SomeGeneric, SomeGeneric>,
             EnumMap<EnumType1, SomeGeneric>>, HashMap<SimpleType1, SimpleType2>> mapOfAbstractMapOfConcurrentHashMapAndEnumMapAndHashMap) {
         assertParameters(mapOfAbstractMapOfConcurrentHashMapAndEnumMapAndHashMap,
-                HashMap.class,
-                    HashMap.class,
+                Map.class,
+                    AbstractMap.class,
                         ConcurrentHashMap.class,
                             SomeGeneric.class,
                             SomeGeneric.class,
