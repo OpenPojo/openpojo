@@ -1,0 +1,25 @@
+
+1. Need a new interface for ParameterizableGenerator that enables constraining the generic bounds.
+  * A Parameterized Generator should inherit from an abstract that enables over-ride for getDefaultType or GetGenricsUpperBounds, get
+  Generics LowerBounds and ensuring the RandomService picks candiates for Generator based on those bounds.
+
+2. Initialize the testing subsystem only when it is needed (i.e. on first use).
+
+3. Main-Registry needs to be broken up into the eventual components with adequate layering in place
+  a. Java Simplified Service
+  b. Logging Service
+  c. PojoClass Lookup Service
+  d. Business Service
+  e. Random Service
+  e. Instance Service
+  f. Validation Service
+
+4. Validation Enhancements:
+  a. Add Structural Validator
+    i. Tests must end with Test.
+    ii. Tests must be in test path.
+
+5. Code Reporting Service?
+  a. Most important Class.
+  b. Complexity of Classes.
+  c.

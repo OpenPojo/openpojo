@@ -17,44 +17,32 @@
 
 package com.openpojo;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import org.junit.Assert;
+import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.rule.impl.TestsMustBeNamedTestOrTestSuiteRule;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class StructuralTest {
+    private PojoValidator pojoValidator;
+
+    @Before
+    public void setup() {
+        pojoValidator = new PojoValidator();
+        pojoValidator.addRule(new TestsMustBeNamedTestOrTestSuiteRule());
+    }
 
     @Test
     public void allTestsMustEndWithTest() {
         List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively("com.openpojo", null);
-        Set<PojoClass> testThatVoilateEndsWithTest = new HashSet<PojoClass>();
         for (PojoClass pojoClass : pojoClasses) {
-            if (!pojoClass.getName().endsWith("Test")) {
-                if (hasTestAnnotationOrParentHasTestAnnotation(pojoClass)) testThatVoilateEndsWithTest.add(pojoClass);
-            }
+            pojoValidator.runValidation(pojoClass);
         }
-        String nonCompliantClasses = "\r\n";
-        for (PojoClass pojoClass : testThatVoilateEndsWithTest) {
-            nonCompliantClasses += "\t" + pojoClass.getName() + "\r\n";
-        }
-        Assert.assertEquals("Every test class must end with Test" + nonCompliantClasses, 0, testThatVoilateEndsWithTest.size());
-    }
-
-    private boolean hasTestAnnotationOrParentHasTestAnnotation(PojoClass pojoClass) {
-        if (pojoClass == null) return false;
-
-        for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
-            if (pojoMethod.getAnnotation(Test.class) != null) return true;
-        }
-
-        return (hasTestAnnotationOrParentHasTestAnnotation(pojoClass.getSuperClass()));
     }
 }
