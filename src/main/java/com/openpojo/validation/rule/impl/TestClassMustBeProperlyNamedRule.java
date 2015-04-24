@@ -79,8 +79,7 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
             Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) ClassUtil.loadClass(annotation);
             if (annotation != null && isAnnotatedOrParentAnnotated(pojoClass, annotationClass)) {
                 Affirm.fail("Class [" + pojoClass.getName() + "] does not end/start with 'Test' but is annotated has or inherits " +
-                        "annotation " +
-                        "[" + annotationClass.getName() + "]");
+                        "annotation " + "[" + annotationClass.getName() + "]");
             }
         }
     }
