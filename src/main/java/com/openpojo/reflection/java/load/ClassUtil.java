@@ -17,12 +17,14 @@
 
 package com.openpojo.reflection.java.load;
 
+import com.openpojo.reflection.java.bytecode.asm.ClassReaderFactory;
+
 /**
  * @author oshoukry
  */
 public class ClassUtil {
     private ClassUtil() {
-        throw new IllegalStateException(ClassUtil.class.getName() + " should not be constructed!");
+        throw new UnsupportedOperationException(ClassReaderFactory.class.getName() + " should not be constructed!");
     }
 
     public static boolean isClassLoaded(String className) {

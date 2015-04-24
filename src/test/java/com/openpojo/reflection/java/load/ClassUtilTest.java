@@ -21,15 +21,15 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import org.junit.Assert;
 import org.junit.Test;
-import org.testng.Assert;
 
 /**
  * @author oshoukry
  */
 public class ClassUtilTest {
 
-    @Test (expected = IllegalStateException.class)
+    @Test (expected = UnsupportedOperationException.class)
     public void shouldNotBeAbleToConstruct() {
         try {
             PojoClass classUtilPojoClass = PojoClassFactory.getPojoClass(ClassUtil.class);
@@ -38,8 +38,8 @@ public class ClassUtilTest {
         } catch (ReflectionException re) {
             Throwable cause = re.getCause();
             while (cause != null) {
-                if (cause instanceof IllegalStateException)
-                    throw (IllegalStateException) cause;
+                if (cause instanceof UnsupportedOperationException)
+                    throw (UnsupportedOperationException) cause;
                 cause = cause.getCause();
             }
         }
