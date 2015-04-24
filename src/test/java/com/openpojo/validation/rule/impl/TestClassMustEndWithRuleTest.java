@@ -99,8 +99,9 @@ public class TestClassMustEndWithRuleTest {
 
     @Test(expected = AssertionError.class)
     public void aTestNGClassThatDoesntEndWithTestShouldFail() {
-        Class<?> aBadTestClass = ASMService.getInstance().createSubclassFor(ATestNGClassEndsWithTest.class,
-                new DefaultSubClassDefinition(ATestNGClassEndsWithTest.class, "ABadTestClassName"));
+        final Class<ATestNGClassEndsWithTest> parentClass = ATestNGClassEndsWithTest.class;
+        Class<?> aBadTestClass = ASMService.getInstance().createSubclassFor(parentClass,
+                new DefaultSubClassDefinition(parentClass, "ABadTestClassName"));
         PojoClass aBadTestClassPojo = PojoClassFactory.getPojoClass(aBadTestClass);
         testClassMustEndWithRule.evaluate(aBadTestClassPojo);
     }
