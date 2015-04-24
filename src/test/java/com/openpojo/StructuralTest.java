@@ -22,7 +22,7 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
-import com.openpojo.validation.rule.impl.TestsMustBeNamedTestOrTestSuiteRule;
+import com.openpojo.validation.rule.impl.TestClassMustBeProperlyNamedRule;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +35,7 @@ public class StructuralTest {
     @Before
     public void setup() {
         pojoValidator = new PojoValidator();
-        pojoValidator.addRule(new TestsMustBeNamedTestOrTestSuiteRule());
+        pojoValidator.addRule(new TestClassMustBeProperlyNamedRule());
     }
 
     @Test

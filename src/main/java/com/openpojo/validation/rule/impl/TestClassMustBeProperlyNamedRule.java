@@ -18,6 +18,8 @@
 package com.openpojo.validation.rule.impl;
 
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.Collection;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
@@ -27,33 +29,72 @@ import com.openpojo.validation.rule.Rule;
 
 
 /**
+ * There are three default accepted naming schemes for test classes.
+ * <ul>
+ * <li> Test ends with Test
+ * <li> Test begins with Test
+ * <li> Test ends with TestCase
+ * </ul>
+ * <p/>
+ * To override the accepted list use the {@link #TestClassMustBeProperlyNamedRule(Collection prefix, Collection postfix)
+ * TestClassMustBeProperlyNamedRule}
+ *
  * @author oshoukry
  */
-public class TestsMustBeNamedTestOrTestSuiteRule implements Rule {
+public class TestClassMustBeProperlyNamedRule implements Rule {
 
-    public static final String[] TOKENS = { "Test", "TestCase" };
+    private static final String[] PREFIX_TOKENS = { "Test" };
+    private static final String[] SUFFIX_TOKENS = { "Test", "TestCase" };
+
+    private final Collection<String> prefixes;
+    private final Collection<String> suffixes;
+
     private String annotations[] = { "org.testng.annotations.Test", "org.junit.Test" };
 
-    public TestsMustBeNamedTestOrTestSuiteRule() {
+    /**
+     * This constructor used the default is prefix "Test", suffixes "Test" & "TestCase".
+     */
+    public TestClassMustBeProperlyNamedRule() {
+        this(Arrays.asList(PREFIX_TOKENS), Arrays.asList(SUFFIX_TOKENS));
+    }
+
+    /**
+     * This constructor enables you to override the prefix / postfixes for the test names.
+     * The default is prefix is Test, suffixes *Test or *TestCase
+     *
+     * @param prefixes the prefix list to use.
+     * @param suffixes the sufix list to use
+     */
+    public TestClassMustBeProperlyNamedRule(Collection<String> prefixes, Collection<String> suffixes) {
+        this.prefixes = prefixes;
+        this.suffixes = suffixes;
     }
 
     @SuppressWarnings("unchecked")
     public void evaluate(PojoClass pojoClass) {
-        if (!pojoClass.isConcrete() || containsToken(pojoClass))
+        if (!pojoClass.isConcrete() || properlyNamed(pojoClass))
             return;
 
         for (String annotation : annotations) {
             Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) ClassUtil.loadClass(annotation);
-            if (annotation !=null && isAnnotatedOrParentAnnotated(pojoClass, annotationClass)) {
-                Affirm.fail("Class [" + pojoClass.getName() + "] does not end with 'Test' but has methods or inherits methods annotated with " +
-
+            if (annotation != null && isAnnotatedOrParentAnnotated(pojoClass, annotationClass)) {
+                Affirm.fail("Class [" + pojoClass.getName() + "] does not end/start with 'Test' but is annotated has or inherits " +
+                        "annotation " +
                         "[" + annotationClass.getName() + "]");
             }
         }
     }
-    private boolean containsToken(PojoClass pojoClass) {
-        for (String token : TOKENS) {
-            if (getClassName(pojoClass).contains(token))
+
+    private boolean properlyNamed(PojoClass pojoClass) {
+        String simpleClassName = getClassName(pojoClass);
+
+        for (String token : prefixes) {
+            if (simpleClassName.startsWith(token))
+                return true;
+        }
+
+        for (String token : suffixes) {
+            if (simpleClassName.endsWith(token))
                 return true;
         }
         return false;
