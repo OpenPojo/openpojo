@@ -34,7 +34,7 @@ public interface Parameterizable {
 
     /**
      * @return
-     *         True if Parameterized (i.e. List<SomeClass>).
+     *         True if Parameterized (i.e. List&lt;SomeClass&gt;).
      */
     boolean isParameterized();
 
@@ -43,7 +43,7 @@ public interface Parameterizable {
      *
      * @return
      *         Return a list of Type that are defined parameterized (i.e. will return a list
-     *         containing SomeClass for a List<SomeClass>, or [String, Integer] for Map<String, Integer>, ...etc).
+     *         containing SomeClass for a List&lt;SomeClass&gt;, or [String, Integer] for Map&lt;String, Integer&lt;, ...etc).
      */
     List<Type> getParameterTypes();
 }

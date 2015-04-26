@@ -85,21 +85,36 @@ public interface PojoClass extends PojoElement {
 
     /**
      * Get all PojoFields annotated with given annotation.
+     *
+     * @param annotation
+     *          the annotation to use for lookup.
+     * @return
+     *          the list of fields that are annotated with given annotation.
      */
     List<PojoField> getPojoFieldsAnnotatedWith(Class<? extends Annotation> annotation);
 
     /**
      * Get all PojoMethods defined in the class;
+     *
+     * @return the list of all methods defined in class, this includes constructors and synthetically added methods by the compiler.
      */
     List<PojoMethod> getPojoMethods();
 
     /**
      * Get all PojoMethods annotated with given annotation
+     *
+     * @param annotation
+     *          the annotation to use for lookup.
+     * @return
+     *          a list of methods that are annotated with given annotation.
      */
     List<PojoMethod> getPojoMethodsAnnotatedWith(Class<? extends Annotation> annotation);
 
     /**
      * Get all Constructors defined in the class.
+     *
+     * @return
+     *          the list of constructors.
      */
     List<PojoMethod> getPojoConstructors();
 
@@ -107,7 +122,7 @@ public interface PojoClass extends PojoElement {
      * Checks to see if class extends/implements a certain type.
      *
      * @param type
-     *            The type in question.
+     *         The type in question.
      * @return
      *         True if class is subclass or implements an interface, otherwise false.
      */

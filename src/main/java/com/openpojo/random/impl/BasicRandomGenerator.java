@@ -31,14 +31,14 @@ import com.openpojo.random.RandomGenerator;
 /**
  * This is the most basic random generator, it handles all basic java types (20 in total).<br>
  * <strong>Namely:</strong><br>
- *  1. boolean & Boolean<br>
- *  2. int & Integer <br>
- *  3. float & Float <br>
- *  4. double & Double <br>
- *  5. long & Long <br>
- *  6. short & Short <br>
- *  7. byte & Byte <br>
- *  8. char & Character <br>
+ *  1. boolean &amp; Boolean<br>
+ *  2. int &amp; Integer <br>
+ *  3. float &amp; Float <br>
+ *  4. double &amp; Double <br>
+ *  5. long &amp; Long <br>
+ *  6. short &amp; Short <br>
+ *  7. byte &amp; Byte <br>
+ *  8. char &amp; Character <br>
  *  9. String <br>
  * 10. Date<br>
  * 11. Calendar<br>
@@ -47,7 +47,7 @@ import com.openpojo.random.RandomGenerator;
  * <br>
  * You can overwrite any of those types with your own generator and register it with the RandomFactory. <br>
  * <strong>Note:</strong><br>
- * 1. char & Character random generation is <i>currently</i> limited to the following set of
+ * 1. char &amp; Character random generation is <i>currently</i> limited to the following set of
  * characters A-Z, a-z and 0-9. <br>
  * 2. String random generation relies on the Character random generation, all strings are generated as random sequence
  * of characters with length between 1 and 32 inclusive. So If you over-write the Character generator,

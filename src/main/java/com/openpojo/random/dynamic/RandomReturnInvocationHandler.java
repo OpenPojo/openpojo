@@ -26,7 +26,7 @@ import com.openpojo.reflection.impl.ParameterizableFactory;
 /**
  * This Class is responsible for creating on the fly random instances from Interfaces.
  * These random instances will return random data on all invocations for their methods.
- * equals, hashCode & toString however will behave consistently with java's default behaviour.
+ * equals, hashCode &amp; toString however will behave consistently with java's default behaviour.
  * 
  * @author oshoukry
  */

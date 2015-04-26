@@ -37,7 +37,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * <br>
  * <strong>Example:</strong> {@link BusinessKey}(caseSensitive = false)
  * String one = "hello world" <br>
- * must have the same hashcode & equality as:<br>
+ * must have the same hashcode &amp; equality as:<br>
  * one = "HELLO WORLD" <br>
  * <strong>required usage:</strong><br>
  * If a field is tagged with required = false, then the field will only be used in equality only if its populated.
@@ -48,7 +48,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * and this field is treated as optional part of a group. This also means that one of the fields tagged with composite
  * MUST have a value.<br>
  * <strong>Example:</strong>
- * If you had a POJO called Person, that had a FirstName & LastName fields, and you want to set a rule that is for this
+ * If you had a POJO called Person, that had a FirstName &amp; LastName fields, and you want to set a rule that is for this
  * POJO to be complete, one of the names MUST be populated, but its not important which one. <br>
  * This is typical composite key usage.
  *
@@ -59,11 +59,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface BusinessKey {
     /**
      * Set to true if the field is of type Character or CharSequence to ignore case when comparing.
+     *
+     * @return returns the value for caseSensitive; defaults to true.
      */
     boolean caseSensitive() default true;
 
     /**
      * Set to True to indicate field required to be populated.
+     *
+     * @return returns true if the field is required for business identity validation, defaults to true.
      */
     boolean required() default true;
 
@@ -71,6 +75,8 @@ public @interface BusinessKey {
      * Set to true if this key is part of a group where any one of the group needs to be not null.
      * Setting Composite to true, shadows the "required" above, since composite is OR-ing against any that are
      * populated.  With at least one of the composite group being non-null.
+     *
+     * @return returns weather this key is part of a group, defaults to false;
      */
     boolean composite() default false;
 }

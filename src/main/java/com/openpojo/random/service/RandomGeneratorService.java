@@ -76,6 +76,8 @@ public interface RandomGeneratorService extends Service {
      *
      * @param type
      *          The type used to lookup the most appropriate RandomGenerator.
+     * @return
+     *          The random generator to handle generating random values for requested type.
      */
     RandomGenerator getRandomGeneratorByType(Class<?> type);
 
@@ -90,6 +92,8 @@ public interface RandomGeneratorService extends Service {
      *
      * @param type
      *          The parameterized type used to lookup the most appropriate RandomGenerator.
+     * @return
+     *          The parameterized random generator to handle generating random values for requested type.
      */
     RandomGenerator getRandomGeneratorByParameterizable(Parameterizable type);
 }
