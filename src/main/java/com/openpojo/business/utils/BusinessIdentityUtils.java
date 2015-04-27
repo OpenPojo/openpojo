@@ -28,6 +28,11 @@ import com.openpojo.business.exception.BusinessException;
  * @author oshoukry
  */
 public class BusinessIdentityUtils {
+
+    private BusinessIdentityUtils() {
+        throw new UnsupportedOperationException(BusinessIdentityUtils.class.getName() + " should not be constructed!");
+    }
+
     /**
      * @param objects
      *          List of objects to check if any are null.
