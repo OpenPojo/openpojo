@@ -46,7 +46,6 @@ public class ClassReaderFactoryTest {
         Assert.fail("Should have not been able to construct");
     }
 
-
     @Test
     public void canCreateClassReader() {
         Assert.assertNotNull("Should not be null", ClassReaderFactory.getClassReader(this.getClass()));
