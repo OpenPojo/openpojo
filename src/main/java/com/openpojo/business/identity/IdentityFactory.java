@@ -41,6 +41,7 @@ public final class IdentityFactory {
      * This method looks through the list of registered IdentityHandler(s) and returns the first one that returns true
      * on handlerFor(Object) call.
      *
+     * @param object the object to use for looking up the appropriate handler.
      * @return the identityEvaluator
      */
     public static IdentityHandler getIdentityHandler(final Object object) {

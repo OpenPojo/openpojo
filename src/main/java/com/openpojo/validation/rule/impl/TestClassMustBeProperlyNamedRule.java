@@ -35,7 +35,7 @@ import com.openpojo.validation.rule.Rule;
  * <li> Test begins with Test
  * <li> Test ends with TestCase
  * </ul>
- * <p/>
+ * <p>
  * To override the accepted list use the {@link #TestClassMustBeProperlyNamedRule(Collection prefix, Collection postfix)
  * TestClassMustBeProperlyNamedRule}
  *
@@ -52,7 +52,7 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
     private String annotations[] = { "org.testng.annotations.Test", "org.junit.Test" };
 
     /**
-     * This constructor used the default is prefix "Test", suffixes "Test" & "TestCase".
+     * This constructor used the default is prefix "Test", suffixes "Test" &amp; "TestCase".
      */
     public TestClassMustBeProperlyNamedRule() {
         this(Arrays.asList(PREFIX_TOKENS), Arrays.asList(SUFFIX_TOKENS));
@@ -78,8 +78,8 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
         for (String annotation : annotations) {
             Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) ClassUtil.loadClass(annotation);
             if (annotation != null && isAnnotatedOrParentAnnotated(pojoClass, annotationClass)) {
-                Affirm.fail("Class [" + pojoClass.getName() + "] does not end/start with 'Test' but is annotated has or inherits " +
-                        "annotation " + "[" + annotationClass.getName() + "]");
+                Affirm.fail("Test class [" + pojoClass.getName() + "] does not start with " + prefixes.toString() + " or ends with " +
+                        suffixes.toString());
             }
         }
     }

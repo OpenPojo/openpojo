@@ -34,7 +34,8 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * <br>
  *
  * <strong>Note:</strong><br>
- * All calls to areEqual & getHashCode will result in a call to {@link com.openpojo.business.identity.BusinessValidator}.validate(Object).<br>
+ * All calls to areEqual &amp; getHashCode will result in a call to {@link com.openpojo.business.identity.BusinessValidator}.validate
+ * (Object).<br>
  * A {@link com.openpojo.business.exception.BusinessException} will be thrown if the objects don't pass business validation.
  *
  * @author oshoukry

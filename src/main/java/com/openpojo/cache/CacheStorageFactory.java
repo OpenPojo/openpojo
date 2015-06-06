@@ -30,7 +30,10 @@ public class CacheStorageFactory {
     /**
      * Returns an instance of CacheStorage that will garbage collect automatically.
      *
-     * @return returns an instance of TemporalCacheStorage.
+     * @param <T>
+     *          The value type used for caching.
+     * @return
+     *          returns an instance of TemporalCacheStorage.
      */
     public static <T> CacheStorage<T> getTemporalCacheStorage() {
         return new WeakHashMapCacheStorage<T>();
@@ -39,7 +42,10 @@ public class CacheStorageFactory {
     /**
      * Returns an instance of CacheStorage that will not garbage collect automatically.
      *
-     * @return returns an instance of PersistentCacheStorage.
+     * @param <T>
+     *          The value type used for caching.
+     * @return
+     *          returns an instance of PersistentCacheStorage.
      */
     public static <T> CacheStorage<T> getPersistentCacheStorage() {
         return new StrongRefHashMapCacheStorage<T>();

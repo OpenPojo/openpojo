@@ -45,9 +45,6 @@ public class PojoClassImpl implements PojoClass {
     private final List<PojoField> pojoFields;
     private final List<PojoMethod> pojoMethods;
 
-    /**
-     * Minimum constructor.
-     */
     public PojoClassImpl(final Class<?> clazz, final List<PojoField> pojoFields, final List<PojoMethod> pojoMethods) {
         this.clazz = clazz;
         this.name = clazz.getName();

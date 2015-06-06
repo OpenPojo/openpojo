@@ -28,6 +28,11 @@ import com.openpojo.business.exception.BusinessException;
  * @author oshoukry
  */
 public class BusinessIdentityUtils {
+
+    private BusinessIdentityUtils() {
+        throw new UnsupportedOperationException(BusinessIdentityUtils.class.getName() + " should not be constructed!");
+    }
+
     /**
      * @param objects
      *          List of objects to check if any are null.
@@ -77,6 +82,9 @@ public class BusinessIdentityUtils {
      * This is different from regular equals implementation that it will return true
      * if both fields are null, as well as it takes into account case based equality for character sequences.
      *
+     * @param pojoField
+     *          The pojoField to perform the equality on.
+     *
      * @param first
      *            The first instance that contains this PojoField.
      * @param second
@@ -113,8 +121,11 @@ public class BusinessIdentityUtils {
     }
 
     private static boolean doEquals(Object first, Object second, boolean caseSensitive) {
-        if (first == second || (first == null && second == null)) {
+        if (first == second)
             return true;
+
+        if (first == null) {
+            return false;
         }
 
         if (!caseSensitive && isCharacterBased(first)) {
@@ -126,6 +137,9 @@ public class BusinessIdentityUtils {
 
     /**
      * Generate HashCode on field value.
+     *
+     * @param pojoField
+     *          The pojoField to get the hashCode for.
      * @param instance
      *          The instance to pull the field value out of.
      * @param caseSensitive

@@ -31,7 +31,6 @@ import com.openpojo.registry.ServiceRegistrar;
  * <br>
  * <i>Simple Example</i><br>
  * If you have an Employee class that has the following constructor:
- * <p/>
  * <pre>
  * {@code
  * public Employee(final String fullName, final Employee manager) {
@@ -39,9 +38,8 @@ import com.openpojo.registry.ServiceRegistrar;
  * }
  * }
  * </pre>
- * <p/>
+ * <p>
  * And you created the random generator as follows:
- * <p/>
  * <pre>
  * {@code
  * public Object doGenerate(Class<?> type) {
@@ -50,7 +48,7 @@ import com.openpojo.registry.ServiceRegistrar;
  * }
  * }
  * </pre>
- * <p/>
+ * <p>
  * This would potentially cause a stack over-flow since there is a cyclic dependency of Employee on itself. So to
  * prevent stack over-flow (which would occur by trying to create a manager for every manager), this Factory has built
  * in protection (using {@link GeneratedRandomValues}) to prevent such a thing by recording for a current recursive call
@@ -76,8 +74,11 @@ public class RandomFactory {
      * If the requested type isn't registered in the factory, an RandomGeneratorException will be thrown.
      *
      * @param type
-     *         The type to get a random value of.
-     * @return Randomly created value.
+     *          The type to get a random value of.
+     * @param <T>
+     *          The class type to generate an object for.
+     * @return
+     *          Randomly created value.
      */
     @SuppressWarnings("unchecked")
     public static <T> T getRandomValue(final Class<T> type) {
