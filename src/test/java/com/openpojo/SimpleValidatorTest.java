@@ -42,7 +42,7 @@ public class SimpleValidatorTest {
 
     @Test
     public void valide() {
-	validator.with(rule).with(tester).valide();
+	validator.with(rule).with(tester).validate();
     }
 
     @Test(expected = NullPointerException.class)

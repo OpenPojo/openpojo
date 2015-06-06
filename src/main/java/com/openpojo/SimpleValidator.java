@@ -48,7 +48,7 @@ public class SimpleValidator {
     /**
      * runs the validation
      */
-    public void valide() {
+    public void validate() {
 	for (final PojoClass clazz : classes) {
 	    validator.runValidation(clazz);
 	}
