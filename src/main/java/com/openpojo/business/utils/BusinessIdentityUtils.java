@@ -153,6 +153,14 @@ public class BusinessIdentityUtils {
             return 0;
         }
 
+        return doHashCode(data, caseSensitive);
+    }
+
+    private static int doHashCode(Object data, boolean caseSensitive) {
+        if (data == null) {
+            return 1;
+        }
+
         if (pojoField.isArray()) {
             final int prime = 31;
             int result = 1;
@@ -162,14 +170,6 @@ public class BusinessIdentityUtils {
             }
 
             return result;
-        }
-
-        return doHashCode(data, caseSensitive);
-    }
-
-    private static int doHashCode(Object data, boolean caseSensitive) {
-        if (data == null) {
-            return 1;
         }
 
         if (!caseSensitive && isCharacterBased(data)) {
