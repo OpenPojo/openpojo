@@ -64,7 +64,7 @@ public class PojoValidator {
      */
     public void runValidation(final PojoClass pojoClass) {
         if (pojoClass.isSynthetic()) {
-            logger.warn("Attempt to validate synthetic class=[{0}] ignored," + " consider using FilterSyntheticClasses filter when " +
+            logger.warn("Attempt to validate synthetic class=[{0}] ignored, consider using FilterSyntheticClasses filter when " +
                     "calling PojoClassFactory", pojoClass.getClazz());
             return;
         }
@@ -73,7 +73,7 @@ public class PojoValidator {
             rule.evaluate(pojoClass);
         }
 
-        if (pojoClass.isInterface() || pojoClass.isEnum()) {
+        if ((pojoClass.isInterface() || pojoClass.isEnum()) && testers.size() > 0) {
             logger.warn("Attempt to execute behavioural test on non-constructable class=[{0}] ignored", pojoClass.getClazz());
             return;
         }
@@ -84,8 +84,7 @@ public class PojoValidator {
             }
         } catch (ASMNotLoadedException asmNotLoaded) {
             logger.warn("ASM not loaded while attempting to execute behavioural tests on non-constructable class[{0}], either filter " +
-                            "abstract classes or add asm to your classpath.",
-                    pojoClass.getClazz());
+                    "abstract classes or add asm to your classpath.", pojoClass.getClazz());
         }
     }
 
