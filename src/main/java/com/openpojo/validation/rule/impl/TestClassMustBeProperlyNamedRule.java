@@ -18,6 +18,7 @@
 package com.openpojo.validation.rule.impl;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -43,19 +44,20 @@ import com.openpojo.validation.rule.Rule;
  */
 public class TestClassMustBeProperlyNamedRule implements Rule {
 
-    private static final String[] PREFIX_TOKENS = { "Test" };
-    private static final String[] SUFFIX_TOKENS = { "Test", "TestCase" };
+    public static final String[] DEFAULT_PREFIX_TOKENS = { "Test" };
+    public static final String[] DEFAULT_SUFFIX_TOKENS = { "Test", "TestCase" };
 
     private final Collection<String> prefixes;
     private final Collection<String> suffixes;
 
-    private String annotations[] = { "org.testng.annotations.Test", "org.junit.Test" };
+    public static final String DEFAULT_ANNOTATIONS[] = { "org.testng.annotations.Test", "org.junit.Test" };
+    private final Collection<Class<? extends Annotation>> loadedAnnotations = new ArrayList<Class<? extends Annotation>>();
 
     /**
      * This constructor used the default is prefix "Test", suffixes "Test" &amp; "TestCase".
      */
     public TestClassMustBeProperlyNamedRule() {
-        this(Arrays.asList(PREFIX_TOKENS), Arrays.asList(SUFFIX_TOKENS));
+        this(Arrays.asList(DEFAULT_PREFIX_TOKENS), Arrays.asList(DEFAULT_SUFFIX_TOKENS));
     }
 
     /**
@@ -65,9 +67,19 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
      * @param prefixes the prefix list to use.
      * @param suffixes the sufix list to use
      */
+    @SuppressWarnings("unchecked")
     public TestClassMustBeProperlyNamedRule(Collection<String> prefixes, Collection<String> suffixes) {
         this.prefixes = prefixes;
         this.suffixes = suffixes;
+        for (String annotation : DEFAULT_ANNOTATIONS) {
+            Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) ClassUtil.loadClass(annotation);
+            if (annotationClass != null) {
+                loadedAnnotations.add(annotationClass);
+            }
+        }
+
+        if (loadedAnnotations.size() == 0)
+            throw new IllegalStateException("No annotations loaded, exptected any of " + Arrays.toString(DEFAULT_ANNOTATIONS));
     }
 
     @SuppressWarnings("unchecked")
@@ -75,9 +87,8 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
         if (!pojoClass.isConcrete() || properlyNamed(pojoClass))
             return;
 
-        for (String annotation : annotations) {
-            Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) ClassUtil.loadClass(annotation);
-            if (annotation != null && isAnnotatedOrParentAnnotated(pojoClass, annotationClass)) {
+        for (Class<? extends Annotation> annotation : loadedAnnotations) {
+            if (isAnnotatedOrParentAnnotated(pojoClass, annotation)) {
                 Affirm.fail("Test class [" + pojoClass.getName() + "] does not start with " + prefixes.toString() + " or ends with " +
                         suffixes.toString());
             }
