@@ -94,30 +94,15 @@ public class BusinessIdentityUtils {
      * @return
      *         True if they are equal or if they are both null.
      */
-     public static boolean areEqual(final BusinessKeyField pojoField, final Object first, final Object second, final boolean caseSensitive) {
+    public static boolean areEqual(final BusinessKeyField pojoField, final Object first, final Object second, final boolean caseSensitive) {
         Object firstField = pojoField.get(first);
         Object secondField = pojoField.get(second);
         if (firstField == null) {
             return secondField == null;
         }
 
-        if (secondField == null) {
-            return false;
-        }
+        return secondField != null && doEquals(firstField, secondField, caseSensitive);
 
-        if (pojoField.isArray()) {
-            if (Array.getLength(firstField) != Array.getLength(secondField)) {
-                return false;
-            }
-
-            boolean runningEquality = true;
-            for (int idx= 0; idx < Array.getLength(firstField); idx++) {
-                runningEquality = runningEquality && doEquals(Array.get(firstField, idx), Array.get(secondField, idx), caseSensitive);
-            }
-            return runningEquality;
-        }
-
-        return doEquals(firstField, secondField, caseSensitive);
     }
 
     private static boolean doEquals(Object first, Object second, boolean caseSensitive) {
@@ -126,6 +111,18 @@ public class BusinessIdentityUtils {
 
         if (first == null) {
             return false;
+        }
+
+        if (first.getClass().isArray()) {
+            if (Array.getLength(first) != Array.getLength(second)) {
+                return false;
+            }
+
+            boolean runningEquality = true;
+            for (int idx = 0; idx < Array.getLength(first); idx++) {
+                runningEquality = runningEquality && doEquals(Array.get(first, idx), Array.get(second, idx), caseSensitive);
+            }
+            return runningEquality;
         }
 
         if (!caseSensitive && isCharacterBased(first)) {
@@ -153,7 +150,15 @@ public class BusinessIdentityUtils {
             return 0;
         }
 
-        if (pojoField.isArray()) {
+        return doHashCode(data, caseSensitive);
+    }
+
+    private static int doHashCode(Object data, boolean caseSensitive) {
+        if (data == null) {
+            return 1;
+        }
+
+        if (data.getClass().isArray()) {
             final int prime = 31;
             int result = 1;
 
@@ -162,14 +167,6 @@ public class BusinessIdentityUtils {
             }
 
             return result;
-        }
-
-        return doHashCode(data, caseSensitive);
-    }
-
-    private static int doHashCode(Object data, boolean caseSensitive) {
-        if (data == null) {
-            return 1;
         }
 
         if (!caseSensitive && isCharacterBased(data)) {
