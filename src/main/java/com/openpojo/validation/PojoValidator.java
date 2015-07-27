@@ -24,11 +24,13 @@ import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.java.bytecode.asm.ASMNotLoadedException;
+import com.openpojo.validation.exception.ValidationException;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.test.Tester;
 
 /**
  * @author oshoukry
+ * @deprecated Please use SimpleValidator instead.
  */
 public class PojoValidator {
     private final Logger logger = LoggerFactory.getLogger(PojoValidator.class);
@@ -63,6 +65,9 @@ public class PojoValidator {
      *         The PojoClass to validate.
      */
     public void runValidation(final PojoClass pojoClass) {
+        if (rules.size() == 0 && testers.size() == 0)
+            throw ValidationException.getInstance("No Rules or Testers configured for test, please Rule or Tester before validation");
+
         if (pojoClass.isSynthetic()) {
             logger.warn("Attempt to validate synthetic class=[{0}] ignored, consider using FilterSyntheticClasses filter when " +
                     "calling PojoClassFactory", pojoClass.getClazz());
