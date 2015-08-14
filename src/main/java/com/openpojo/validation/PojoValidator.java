@@ -36,8 +36,7 @@ public class PojoValidator {
     private final List<Tester> testers = new LinkedList<Tester>();
 
     public PojoValidator() {
-        Logger logger = LoggerFactory.getLogger(PojoValidator.class);
-        logger.warn("This class is deprecated, please use " + ValidatorBuilder.class.getName() + " instead.");
+        DeprecationWarning.getInstance();
     }
 
     /**
@@ -70,4 +69,17 @@ public class PojoValidator {
         ValidationHelper.runValidation(pojoClass, rules, testers);
     }
 
+
+    private static class DeprecationWarning {
+        private static final DeprecationWarning INSTANCE = new DeprecationWarning();
+
+        private DeprecationWarning() {
+            Logger logger = LoggerFactory.getLogger(PojoValidator.class);
+            logger.warn("This class is deprecated, please use " + ValidatorBuilder.class.getName() + " instead.");
+        }
+
+        private static DeprecationWarning getInstance() {
+            return INSTANCE;
+        }
+    }
 }
