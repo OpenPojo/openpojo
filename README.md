@@ -15,35 +15,26 @@ public class PojoTest {
   // The package to test
   private static final String POJO_PACKAGE = "com.openpojo.sample";
 
-  private List<PojoClass> pojoClasses;
-  private PojoValidator pojoValidator;
-
-  @Before
-  public void setup() {
-    pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterPackageInfo());
-    pojoValidator = new PojoValidator();
-
-    // Add Rules to validate structure for POJO_PACKAGE
-    pojoValidator.addRule(new GetterMustExistRule());
-    pojoValidator.addRule(new SetterMustExistRule());
-    pojoValidator.addRule(/* ... See com.openpojo.validation.rule.impl for more ...*/);
-
-    // Add Testers to validate behaviour for POJO_PACKAGE
-    pojoValidator.addTester(new SetterTester());
-    pojoValidator.addTester(new GetterTester());
-    pojoValidator.addTester(/* ... See com.openpojo.validation.test.impl for more ...*/);
-  }
-
   @Test
   public void ensureExpectedPojoCount() {
+    List <PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterPackageInfo());
     Affirm.affirmEquals("Classes added / removed?", EXPECTED_CLASS_COUNT, pojoClasses.size());
   }
 
   @Test
   public void testPojoStructureAndBehavior() {
-    for (PojoClass pojoClass : pojoClasses) {
-        pojoValidator.runValidation(pojoClass);
-    }
+    Validator validator = ValidatorBuilder.create()
+                            // Add Rules to validate structure for POJO_PACKAGE
+                            // See com.openpojo.validation.rule.impl for more ...
+                            .with(new GetterMustExistRule())
+                            .with(new SetterMustExistRule())
+                            // Add Testers to validate behaviour for POJO_PACKAGE
+                            // See com.openpojo.validation.test.impl for more ...
+                            .with(new SetterTester())
+                            .with(new GetterTester())
+                            .build();
+
+    validator.validate(POJO_PACKAGE, new FilterPackageInfo());
   }
 }
 ```
