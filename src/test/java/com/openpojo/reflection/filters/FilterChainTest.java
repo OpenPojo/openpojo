@@ -34,6 +34,12 @@ public class FilterChainTest extends IdentitiesAreEqual {
     }
 
     @Test
+    public void filterChain_shouldIgonreNullFilterArray() {
+        FilterChain filter = new FilterChain((PojoClassFilter[])null);
+        Assert.assertEquals(0, filter.size());
+    }
+
+    @Test
     public void oneOneFilterAdded_FilterChainHasOneFilter() {
         PojoClassFilter dummyFilter = new DummyPojoClassFilter();
         FilterChain filter = new FilterChain(dummyFilter);

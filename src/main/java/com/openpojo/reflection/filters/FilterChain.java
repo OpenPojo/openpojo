@@ -32,11 +32,12 @@ public class FilterChain implements PojoClassFilter {
     private final Set<PojoClassFilter> pojoClassFilters = new LinkedHashSet<PojoClassFilter>();
 
     public FilterChain(final PojoClassFilter... pojoClassFilters) {
-        for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
-            if (pojoClassFilter != null) {
-                this.pojoClassFilters.add(pojoClassFilter);
+        if (pojoClassFilters != null)
+            for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
+                if (pojoClassFilter != null) {
+                    this.pojoClassFilters.add(pojoClassFilter);
+                }
             }
-        }
     }
 
     public boolean include(final PojoClass pojoClass) {
@@ -57,8 +58,10 @@ public class FilterChain implements PojoClassFilter {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         FilterChain that = (FilterChain) o;
 
