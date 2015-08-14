@@ -15,59 +15,38 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openpojo.validation;
+package com.openpojo.validation.impl;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import com.openpojo.log.Logger;
-import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoClassFilter;
+import com.openpojo.reflection.filters.FilterChain;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.validation.Validator;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.utils.ValidationHelper;
 
 /**
  * @author oshoukry
- * @deprecated This class is deprecated, please use {@link ValidatorBuilder} instead.
  */
-public class PojoValidator {
+public class DefaultValidator implements Validator {
     private final List<Rule> rules = new LinkedList<Rule>();
     private final List<Tester> testers = new LinkedList<Tester>();
 
-    public PojoValidator() {
-        Logger logger = LoggerFactory.getLogger(PojoValidator.class);
-        logger.warn("This class is deprecated, please use " + ValidatorBuilder.class.getName() + " instead.");
+    public DefaultValidator(List<Rule> rules, List<Tester> testers) {
+        this.rules.addAll(rules);
+        this.testers.addAll(testers);
     }
 
-    /**
-     * Add Rule to use for validation.
-     *
-     * @param rule
-     *         The rule to Add.
-     */
-    public void addRule(final Rule rule) {
-        rules.add(rule);
-    }
-
-    /**
-     * Add Tester to use for validation.
-     *
-     * @param tester
-     *         The Tester to Add.
-     */
-    public void addTester(final Tester tester) {
-        testers.add(tester);
-    }
-
-    /**
-     * Run the validation, this will invoke all the rule.evaluate as well as tester.run.
-     *
-     * @param pojoClass
-     *         The PojoClass to validate.
-     */
-    public void runValidation(final PojoClass pojoClass) {
-        ValidationHelper.runValidation(pojoClass, rules, testers);
+    public void validate(String packageName, PojoClassFilter... filters) {
+        PojoClassFilter pojoClassFilter = new FilterChain(filters);
+        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(packageName, pojoClassFilter);
+        for (PojoClass pojoClass : pojoClasses) {
+            ValidationHelper.runValidation(pojoClass, this.rules, this.testers);
+        }
     }
 
 }

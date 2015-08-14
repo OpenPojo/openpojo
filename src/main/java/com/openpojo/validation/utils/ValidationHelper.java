@@ -17,9 +17,17 @@
 
 package com.openpojo.validation.utils;
 
+import java.util.List;
+
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.construct.InstanceFactory;
+import com.openpojo.reflection.java.bytecode.asm.ASMNotLoadedException;
+import com.openpojo.validation.impl.DefaultValidator;
+import com.openpojo.validation.rule.Rule;
+import com.openpojo.validation.test.Tester;
 
 /**
  * This Validation helper utility class will carry the collection of common
@@ -70,5 +78,34 @@ public final class ValidationHelper {
      */
     public static Object getMostCompleteInstance(final PojoClass pojoClass) {
         return InstanceFactory.getMostCompleteInstance(pojoClass);
+    }
+
+    public static void runValidation(PojoClass pojoClass, List<Rule> rules, List<Tester> testers) {
+        final Logger logger = LoggerFactory.getLogger(DefaultValidator.class);
+
+        if (pojoClass.isSynthetic()) {
+            logger.warn("Attempt to validate synthetic class=[{0}] ignored, consider using FilterSyntheticClasses filter when " +
+                    "calling PojoClassFactory", pojoClass.getClazz());
+            return;
+        }
+
+        for (final Rule rule : rules) {
+            rule.evaluate(pojoClass);
+        }
+
+        if ((pojoClass.isInterface() || pojoClass.isEnum()) && testers.size() > 0) {
+            logger.warn("Attempt to execute behavioural test on non-constructable class=[{0}] ignored", pojoClass.getClazz());
+            return;
+        }
+
+        try {
+            for (final Tester tester : testers) {
+                tester.run(pojoClass);
+            }
+        } catch (ASMNotLoadedException asmNotLoaded) {
+            logger.warn("ASM not loaded while attempting to execute behavioural tests on non-constructable class[{0}], either filter " +
+                    "abstract classes or add asm to your classpath.", pojoClass.getClazz());
+        }
+
     }
 }
