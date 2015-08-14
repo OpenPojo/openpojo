@@ -44,9 +44,17 @@ public class DefaultValidator implements Validator {
     public void validate(String packageName, PojoClassFilter... filters) {
         PojoClassFilter pojoClassFilter = new FilterChain(filters);
         List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(packageName, pojoClassFilter);
-        for (PojoClass pojoClass : pojoClasses) {
-            ValidationHelper.runValidation(pojoClass, this.rules, this.testers);
-        }
+        validate(pojoClasses);
     }
+
+    public void validate(List<PojoClass> pojoClasses) {
+        for (PojoClass pojoClass : pojoClasses)
+            validate(pojoClass);
+    }
+
+    public void validate(PojoClass pojoClass) {
+        ValidationHelper.runValidation(pojoClass, this.rules, this.testers);
+    }
+
 
 }

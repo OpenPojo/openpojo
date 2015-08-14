@@ -17,11 +17,37 @@
 
 package com.openpojo.validation;
 
+import java.util.List;
+
+import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 
 /**
+ * This Validator interface defines how PojoValidation is handled.
+ *
  * @author oshoukry
  */
 public interface Validator {
+
+    /**
+     * Validate for a given package and a filter.
+     *
+     * @param packageName The package name to run the validation against.
+     * @param filter The filter(s) to be used for filtering which classes are to be included in the validation.
+     */
     void validate(String packageName, PojoClassFilter... filter);
+
+    /**
+     * Validate for a given list of pojo classes.
+     *
+     * @param pojoClasses the set of PojoClasses to validate.
+     */
+    void validate(List<PojoClass> pojoClasses);
+
+    /**
+     * Validate for a given pojoClass.
+     *
+     * @param pojoClass the PojoClass to validate.
+     */
+    void validate(PojoClass pojoClass);
 }
