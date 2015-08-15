@@ -62,13 +62,14 @@ public class ValidatorBuilder {
         return this;
     }
 
+    public List<Tester> getTesters() {
+        return testers;
+    }
+
     public Validator build() {
         if (rules.size() == 0 && testers.size() == 0)
             throw ValidationException.getInstance("You must add at least 1 Rule or Tester before building Validator");
         return new DefaultValidator(rules, testers);
     }
 
-    public List<Tester> getTesters() {
-        return testers;
-    }
 }
