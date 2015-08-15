@@ -26,7 +26,8 @@ import java.util.concurrent.TimeUnit;
 import com.openpojo.business.identity.impl.sampleclasses.PojoClassWithHashCodeBusinessIdentity;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.*;
 import com.openpojo.validation.test.impl.BusinessIdentityTester;
 import com.openpojo.validation.test.impl.DefaultValuesNullTester;
@@ -71,24 +72,26 @@ public class IdentityFactoryRaceConditionTest {
 
         public void run() {
             try {
-                PojoValidator pv = new PojoValidator();
-                pv.addRule(new BusinessKeyMustExistRule());
-                pv.addRule(new GetterMustExistRule());
-                pv.addRule(new NoFieldShadowingRule());
-                pv.addRule(new NoNestedClassRule());
-                pv.addRule(new NoPrimitivesRule());
-                pv.addRule(new NoPublicFieldsExceptStaticFinalRule());
-                pv.addRule(new NoPublicFieldsRule());
-                pv.addRule(new NoStaticExceptFinalRule());
-                pv.addRule(new SerializableMustHaveSerialVersionUIDRule());
-                pv.addRule(new SetterMustExistRule());
-                pv.addTester(new BusinessIdentityTester());
-                pv.addTester(new DefaultValuesNullTester());
-                pv.addTester(new GetterTester());
-                pv.addTester(new SetterTester());
+                Validator pv = ValidatorBuilder.create()
+                        .with(new BusinessKeyMustExistRule())
+                        .with(new GetterMustExistRule())
+                        .with(new NoFieldShadowingRule())
+                        .with(new NoNestedClassRule())
+                        .with(new NoPrimitivesRule())
+                        .with(new NoPublicFieldsExceptStaticFinalRule())
+                        .with(new NoPublicFieldsRule())
+                        .with(new NoStaticExceptFinalRule())
+                        .with(new SerializableMustHaveSerialVersionUIDRule())
+                        .with(new SetterMustExistRule())
+                        .with(new BusinessIdentityTester())
+                        .with(new DefaultValuesNullTester())
+                        .with(new GetterTester())
+                        .with(new SetterTester())
+                        .build();
+
                 PojoClass pojoClass = PojoClassFactory.getPojoClass(PojoClassWithHashCodeBusinessIdentity.class);
                 cyclicBarrier.await();
-                pv.runValidation(pojoClass);
+                pv.validate(pojoClass);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (BrokenBarrierException e) {

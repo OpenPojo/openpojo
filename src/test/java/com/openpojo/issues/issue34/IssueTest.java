@@ -21,7 +21,8 @@ import com.openpojo.issues.issue34.sample.ClassWithBooleanFields;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.impl.GetterMustExistRule;
 import com.openpojo.validation.rule.impl.SetterMustExistRule;
@@ -55,13 +56,13 @@ public class IssueTest {
         Affirm.affirmEquals("2 boolean fields must exist", 2, countOfbooleans);
         Affirm.affirmEquals("2 Boolean fields must exist", 2, countOfBooleans);
 
-        PojoValidator pojoValidator = new PojoValidator();
-        pojoValidator.addRule(new GetterMustExistRule());
-        pojoValidator.addRule(new SetterMustExistRule());
+        Validator pojoValidator = ValidatorBuilder.create()
+                .with(new GetterMustExistRule())
+                .with(new SetterMustExistRule())
+                .with(new GetterTester())
+                .with(new SetterTester())
+                .build();
 
-        pojoValidator.addTester(new GetterTester());
-        pojoValidator.addTester(new SetterTester());
-
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClass);
     }
 }

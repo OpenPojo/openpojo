@@ -20,7 +20,8 @@ package com.openpojo.issues.issue56;
 import com.openpojo.issues.issue56.sample.TestClass;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Test;
 
@@ -30,11 +31,12 @@ import org.junit.Test;
 public class IssueTest {
     @Test
     public void testSetGenerator() {
-        PojoValidator pojoValidator = new PojoValidator();
-        pojoValidator.addTester(new SetterTester());
+        Validator pojoValidator = ValidatorBuilder.create()
+                .with(new SetterTester())
+                .build();
 
         PojoClass pojoClass = PojoClassFactory.getPojoClass(TestClass.class);
 
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClass);
     }
 }

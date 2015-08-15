@@ -31,7 +31,8 @@ import com.openpojo.random.collection.sample.AClassWithExhaustiveCollection;
 import com.openpojo.random.collection.sample.AClassWithGenericCollection;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.GetterMustExistRule;
 import com.openpojo.validation.rule.impl.SetterMustExistRule;
 import com.openpojo.validation.test.impl.GetterTester;
@@ -84,20 +85,21 @@ public class GenericCollectionMultiThreadedTest {
 
     private static class Verify implements Runnable {
         private List<PojoClass> pojoClasses;
-        private PojoValidator pojoValidator = new PojoValidator();
+        private Validator pojoValidator;
 
 
         private Verify(List<PojoClass> pojoClasses) {
             this.pojoClasses = pojoClasses;
-            pojoValidator.addRule(new SetterMustExistRule());
-            pojoValidator.addRule(new GetterMustExistRule());
-            pojoValidator.addTester(new SetterTester());
-            pojoValidator.addTester(new GetterTester());
+            pojoValidator = ValidatorBuilder.create()
+                    .with(new SetterMustExistRule())
+                    .with(new GetterMustExistRule())
+                    .with(new SetterTester())
+                    .with(new GetterTester())
+                    .build();
         }
 
         public void run() {
-            for (PojoClass entry : pojoClasses)
-                pojoValidator.runValidation(entry);
+            pojoValidator.validate(pojoClasses);
         }
     }
 

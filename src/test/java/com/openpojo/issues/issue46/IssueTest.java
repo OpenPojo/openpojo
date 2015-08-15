@@ -21,7 +21,8 @@ import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.test.impl.DefaultValuesNullTester;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,18 +32,16 @@ import org.junit.Test;
  */
 public class IssueTest {
     private List<PojoClass> pojoClasses;
-    private PojoValidator pojoValidator;
+    private Validator pojoValidator;
 
     @Before
     public void setup() {
         pojoClasses = PojoClassFactory.getPojoClassesRecursively("com.openpojo.issues.issue46.sample", null);
-        pojoValidator = new PojoValidator();
-        pojoValidator.addTester(new DefaultValuesNullTester());
+        pojoValidator = ValidatorBuilder.create().with(new DefaultValuesNullTester()).build();
     }
 
     @Test
     public void getAllClasses() {
-        for (PojoClass pojoClass : pojoClasses)
-            pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClasses);
     }
 }

@@ -19,13 +19,11 @@ package com.openpojo;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.filters.FilterPackageInfo;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.impl.BusinessKeyMustExistRule;
 import com.openpojo.validation.rule.impl.GetterMustExistRule;
@@ -38,6 +36,8 @@ import com.openpojo.validation.test.impl.BusinessIdentityTester;
 import com.openpojo.validation.test.impl.DefaultValuesNullTester;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * This example demonstrates what you can do to utilize this utility to test your own pojos.
@@ -53,28 +53,10 @@ public class PojoTest {
     private static final String POJO_PACKAGE = "com.openpojo.samplepojo";
 
     private List<PojoClass> pojoClasses;
-    private PojoValidator pojoValidator;
 
     @Before
     public void setup() {
         pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterPackageInfo());
-
-        pojoValidator = new PojoValidator();
-
-        // Create Rules to validate structure for POJO_PACKAGE
-        pojoValidator.addRule(new NoPublicFieldsRule());
-        pojoValidator.addRule(new NoPrimitivesRule());
-        pojoValidator.addRule(new NoStaticExceptFinalRule());
-        pojoValidator.addRule(new GetterMustExistRule());
-        pojoValidator.addRule(new SetterMustExistRule());
-        pojoValidator.addRule(new NoNestedClassRule());
-        pojoValidator.addRule(new BusinessKeyMustExistRule());
-
-        // Create Testers to validate behaviour for POJO_PACKAGE
-        pojoValidator.addTester(new DefaultValuesNullTester());
-        pojoValidator.addTester(new SetterTester());
-        pojoValidator.addTester(new GetterTester());
-        pojoValidator.addTester(new BusinessIdentityTester());
     }
 
     @Test
@@ -84,9 +66,24 @@ public class PojoTest {
 
     @Test
     public void testPojoStructureAndBehavior() {
-        for (PojoClass pojoClass : pojoClasses) {
-            pojoValidator.runValidation(pojoClass);
-        }
+        Validator pojoValidator = ValidatorBuilder.create()
+                // Create Rules to validate structure for POJO_PACKAGE - @formatter:off
+                .with(new NoPublicFieldsRule())
+                .with(new NoPrimitivesRule())
+                .with(new NoStaticExceptFinalRule())
+                .with(new GetterMustExistRule())
+                .with(new SetterMustExistRule())
+                .with(new NoNestedClassRule())
+                .with(new BusinessKeyMustExistRule())
+
+                // Create Testers to validate behaviour for POJO_PACKAGE
+                .with(new DefaultValuesNullTester())
+                .with(new SetterTester())
+                .with(new GetterTester())
+                .with(new BusinessIdentityTester())
+                .build();  //@formatter:on
+
+        pojoValidator.validate(pojoClasses);
     }
 
 }

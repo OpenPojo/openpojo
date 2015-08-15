@@ -28,7 +28,8 @@ import com.openpojo.issues.issue45.sample.SomeGeneric;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.GetterMustExistRule;
 import com.openpojo.validation.rule.impl.SetterMustExistRule;
 import com.openpojo.validation.test.impl.GetterTester;
@@ -46,18 +47,19 @@ public class IssueTest {
 
     private PojoClass aClassWithGenericCollectionPojo;
     private PojoClass aParameterizedClass;
-    private PojoValidator pojoValidator;
+    private Validator pojoValidator;
 
     @Before
     public void setUp() throws Exception {
         aClassWithGenericCollectionPojo = PojoClassFactory.getPojoClass(AClassWithGenericCollection.class);
         aParameterizedClass = PojoClassFactory.getPojoClass(AParameterizedClass.class);
 
-        pojoValidator = new PojoValidator();
-        pojoValidator.addRule(new GetterMustExistRule());
-        pojoValidator.addRule(new SetterMustExistRule());
-        pojoValidator.addTester(new SetterTester());
-        pojoValidator.addTester(new GetterTester());
+        pojoValidator = ValidatorBuilder.create()
+                .with(new GetterMustExistRule())
+                .with(new SetterMustExistRule())
+                .with(new SetterTester())
+                .with(new GetterTester())
+                .build();
     }
 
     @Test
@@ -79,25 +81,25 @@ public class IssueTest {
 
     @Test
     public void whenAClassHasGenericCollection_RandomGeneratorShouldPopulateProperly() {
-        pojoValidator.runValidation(aClassWithGenericCollectionPojo);
+        pojoValidator.validate(aClassWithGenericCollectionPojo);
     }
 
     @Test
     public void testAParameterizedClass() {
-        pojoValidator.runValidation(aParameterizedClass);
+        pojoValidator.validate(aParameterizedClass);
     }
 
     @Test
     public void testAClassWithGenericArray() {
-        pojoValidator.runValidation(PojoClassFactory.getPojoClass(AClassWithGenericArray.class));
+        pojoValidator.validate(PojoClassFactory.getPojoClass(AClassWithGenericArray.class));
     }
 
     @Test
     public void testEndToEndCollections() {
-        pojoValidator = new PojoValidator();
-        pojoValidator.addRule(new SetterMustExistRule());
-        pojoValidator.addTester(new SetterTester());
-        pojoValidator.runValidation(PojoClassFactory.getPojoClass(ClassWithVariousGenericSetList.class));
+        pojoValidator = ValidatorBuilder.create().with(new SetterMustExistRule())
+                .with(new SetterTester())
+                .build();
+        pojoValidator.validate(PojoClassFactory.getPojoClass(ClassWithVariousGenericSetList.class));
     }
 
 }

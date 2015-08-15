@@ -23,7 +23,8 @@ import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.registry.ServiceRegistrar;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Before;
@@ -34,12 +35,11 @@ import org.junit.Test;
  */
 public class IssueTest {
 
-    private PojoValidator pojoValidator;
+    private Validator pojoValidator;
     private PojoClass pojoClass;
 
     @Before
     public void setUp() throws Exception {
-        pojoValidator = new PojoValidator();
         pojoClass = PojoClassFactory.getPojoClass(ClassAggregatingAbstractClass.class);
         RandomGeneratorService randomGeneratorService = ServiceRegistrar.getInstance().getRandomGeneratorService();
         randomGeneratorService.registerRandomGenerator(new AbstractClassRandomGenerator());
@@ -47,14 +47,14 @@ public class IssueTest {
 
     @Test
     public void testGetter() {
-        pojoValidator.addTester(new GetterTester());
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator = ValidatorBuilder.create().with(new GetterTester()).build();
+        pojoValidator.validate(pojoClass);
     }
 
     @Test
     public void testSetter() {
-        pojoValidator.addTester(new SetterTester());
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator = ValidatorBuilder.create().with(new SetterTester()).build();
+        pojoValidator.validate(pojoClass);
     }
 
 

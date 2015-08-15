@@ -21,7 +21,8 @@ import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.TestClassMustBeProperlyNamedRule;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,19 +31,16 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class StructuralTest {
-    private PojoValidator pojoValidator;
+    private Validator validator;
 
     @Before
     public void setup() {
-        pojoValidator = new PojoValidator();
-        pojoValidator.addRule(new TestClassMustBeProperlyNamedRule());
+        validator = ValidatorBuilder.create().with(new TestClassMustBeProperlyNamedRule()).build();
     }
 
     @Test
     public void allTestsMustEndWithTest() {
         List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively("com.openpojo", null);
-        for (PojoClass pojoClass : pojoClasses) {
-            pojoValidator.runValidation(pojoClass);
-        }
+        validator.validate(pojoClasses);
     }
 }

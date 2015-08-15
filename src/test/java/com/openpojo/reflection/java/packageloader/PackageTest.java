@@ -17,14 +17,14 @@
 
 package com.openpojo.reflection.java.packageloader;
 
-import org.junit.Test;
-
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.impl.BusinessKeyMustExistRule;
 import com.openpojo.validation.test.impl.BusinessIdentityTester;
+import org.junit.Test;
 
 /**
  * @author oshoukry
@@ -42,10 +42,11 @@ public class PackageTest {
 
     @Test
     public final void packageShouldDispatchEqualsAndHashCodeToBusinessIdentity() {
-        final PojoValidator pojoValidator = new PojoValidator();
-        pojoValidator.addTester(new BusinessIdentityTester());
-        pojoValidator.addRule(new BusinessKeyMustExistRule());
-        pojoValidator.runValidation(PojoClassFactory.getPojoClass(Package.class));
+        final Validator pojoValidator = ValidatorBuilder.create()
+                .with(new BusinessIdentityTester())
+                .with(new BusinessKeyMustExistRule())
+                .build();
+        pojoValidator.validate(PojoClassFactory.getPojoClass(Package.class));
     }
 
 }

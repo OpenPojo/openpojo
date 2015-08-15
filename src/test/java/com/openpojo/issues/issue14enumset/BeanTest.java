@@ -26,7 +26,8 @@ import com.openpojo.reflection.filters.FilterEnum;
 import com.openpojo.reflection.filters.FilterPackageInfo;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.utils.log.LogHelper;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.GetterMustExistRule;
 import com.openpojo.validation.rule.impl.NoPublicFieldsRule;
 import com.openpojo.validation.rule.impl.NoStaticExceptFinalRule;
@@ -41,7 +42,7 @@ import org.junit.Test;
 public class BeanTest {
 
     private List<PojoClass> pojoClasses;
-    private PojoValidator pojoValidator;
+    private Validator pojoValidator;
 
     @Before
     public void setup() {
@@ -49,18 +50,21 @@ public class BeanTest {
         PojoClassFilter pojoClassFilter = new FilterChain(new FilterEnum(), new FilterPackageInfo());
         pojoClasses = PojoClassFactory.getPojoClassesRecursively(this.getClass().getPackage().getName()
                 + ".sampleclasses", pojoClassFilter);
-        pojoValidator = new PojoValidator();
+
+        ValidatorBuilder validatorBuilder = ValidatorBuilder.create();
 
         // Create Rules to validate structure for POJO_PACKAGE
-        pojoValidator.addRule(new NoPublicFieldsRule());
-        pojoValidator.addRule(new NoStaticExceptFinalRule());
-        pojoValidator.addRule(new GetterMustExistRule());
-        pojoValidator.addRule(new SetterMustExistRule());
+        validatorBuilder.with(new NoPublicFieldsRule());
+        validatorBuilder.with(new NoStaticExceptFinalRule());
+        validatorBuilder.with(new GetterMustExistRule());
+        validatorBuilder.with(new SetterMustExistRule());
 
         // Create Testers to validate behaviour for POJO_PACKAGE
-        pojoValidator.addTester(new DefaultValuesNullTester());
-        pojoValidator.addTester(new SetterTester());
-        pojoValidator.addTester(new GetterTester());
+        validatorBuilder.with(new DefaultValuesNullTester());
+        validatorBuilder.with(new SetterTester());
+        validatorBuilder.with(new GetterTester());
+
+        pojoValidator = validatorBuilder.build();
     }
 
     @After
@@ -70,8 +74,6 @@ public class BeanTest {
 
     @Test
     public void testPojoStructureAndBehavior() {
-        for (PojoClass pojoClass : pojoClasses) {
-            pojoValidator.runValidation(pojoClass);
-        }
+        pojoValidator.validate(pojoClasses);
     }
 }

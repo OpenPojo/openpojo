@@ -40,20 +40,22 @@ import org.junit.Test;
  */
 public class PojoValidatorTest {
 
-    private PojoValidator pojoValidator = new PojoValidator();
+    private Validator pojoValidator;
 
     @Test
     public void testRunValidation() {
         final LoggingRule loggingRule = new LoggingRule();
         final LoggingTester loggingTester = new LoggingTester();
 
-        pojoValidator.addRule(loggingRule);
-        pojoValidator.addTester(loggingTester);
+        pojoValidator = ValidatorBuilder.create()
+                .with(loggingRule)
+                .with(loggingTester)
+                .build();
 
         Assert.assertEquals(0, loggingRule.getLogs().size());
         Assert.assertEquals(0, loggingTester.getLogs().size());
 
-        pojoValidator.runValidation(PojoClassFactory.getPojoClass(PojoValidatorTest.class));
+        pojoValidator.validate(PojoClassFactory.getPojoClass(PojoValidatorTest.class));
 
         Assert.assertEquals(1, loggingRule.getLogs().size());
         Assert.assertEquals(1, loggingTester.getLogs().size());
@@ -79,9 +81,11 @@ public class PojoValidatorTest {
 
     private void ensureRuleInvokedTesterNotInvoked(MethodValueReturn methodValueReturn, String pojoType) {
         RuleTesterMock ruleTesterMock = new RuleTesterMock();
-        pojoValidator.addRule(ruleTesterMock);
-        pojoValidator.addTester(ruleTesterMock);
-        pojoValidator.runValidation(PojoStubFactory.getStubPojoClass(methodValueReturn));
+        pojoValidator = ValidatorBuilder.create()
+                .with((Rule) ruleTesterMock)
+                .with((Tester) ruleTesterMock)
+                .build();
+        pojoValidator.validate(PojoStubFactory.getStubPojoClass(methodValueReturn));
         Assert.assertTrue("Evaluate not run on " + pojoType + " class", ruleTesterMock.evaluateCalled);
         Assert.assertTrue("Rule called on " + pojoType + " class", !ruleTesterMock.runCalled);
     }
@@ -91,18 +95,21 @@ public class PojoValidatorTest {
         MethodValueReturn methodValueReturn = new MethodValueReturn();
         methodValueReturn.isAbstract = true;
         RuleTesterMock ruleTesterMock = new RuleTesterMock();
-        pojoValidator.addTester(ruleTesterMock);
 
-        pojoValidator.runValidation(PojoStubFactory.getStubPojoClass(methodValueReturn));
-        Assert.assertTrue("Rule not called", ruleTesterMock.runCalled);
+        pojoValidator = ValidatorBuilder.create()
+                .with((Tester) ruleTesterMock).build();
+
+        pojoValidator.validate(PojoStubFactory.getStubPojoClass(methodValueReturn));
+        Assert.assertTrue("Tester not called", ruleTesterMock.runCalled);
     }
 
     @Test
     public void abstractClassTestingEndToEnd() {
-        pojoValidator.addTester(new GetterTester());
-        pojoValidator.addTester(new SetterTester());
+        pojoValidator = ValidatorBuilder.create()
+                .with(new GetterTester())
+                .with(new SetterTester()).build();
 
-        pojoValidator.runValidation(PojoClassFactory.getPojoClass(AnAbstractClassWithGetterSetter.class));
+        pojoValidator.validate(PojoClassFactory.getPojoClass(AnAbstractClassWithGetterSetter.class));
     }
 
     private static class RuleTesterMock implements Rule, Tester {

@@ -17,58 +17,58 @@
 
 package com.openpojo.issues.issue28;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import com.openpojo.issues.issue28.sample.AChildOfAnotherChildClass;
 import com.openpojo.issues.issue28.sample.AnotherChildClass;
 import com.openpojo.issues.issue28.sample.ChildClass;
 import com.openpojo.issues.issue28.sample.ParentClass;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.NoFieldShadowingRule;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  *
  */
 public class IssueTest {
-    final PojoValidator pojoValidator = new PojoValidator();
+    private Validator pojoValidator;
 
     @Before
     public void setup() {
-        pojoValidator.addRule(new NoFieldShadowingRule());
+        pojoValidator = ValidatorBuilder.create().with(new NoFieldShadowingRule()).build();
     }
 
     @Test(expected = AssertionError.class)
     public void shouldFailBecauseShadowingParentField() {
         final PojoClass pojoClass = PojoClassFactory.getPojoClass(ChildClass.class /* ParentClass.class is parent */);
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClass);
     }
 
     @Test(expected = AssertionError.class)
     public void shouldFailBecauseShadowingParentsParentField() {
         final PojoClass pojoClass = PojoClassFactory.getPojoClass(AChildOfAnotherChildClass.class /* AnotherChildClass.class is parent */);
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClass);
     }
 
     @Test
     public void shouldPassNoShadowing() {
         final PojoClass pojoClass = PojoClassFactory.getPojoClass(AnotherChildClass.class /* Object is parent */);
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClass);
     }
 
     @Test
     public void shouldPassBecauseOfDefaultObjectParent() {
         final PojoClass pojoClass = PojoClassFactory.getPojoClass(ParentClass.class /* Object is parent */);
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClass);
     }
 
     @Test
     public void shouldPassBecauseNoParentDefined() {
         final PojoClass pojoClass = PojoClassFactory.getPojoClass(Object.class /* No Parent */);
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClass);
     }
 
 }

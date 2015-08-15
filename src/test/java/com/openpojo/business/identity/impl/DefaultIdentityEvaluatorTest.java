@@ -24,7 +24,8 @@ import com.openpojo.business.identity.impl.sampleclasses.StringArrayCaseSensitiv
 import com.openpojo.business.identity.impl.sampleclasses.StringArrayOfArrayCaseInsensitive;
 import com.openpojo.business.identity.impl.sampleclasses.StringArrayOfArrayCaseSensitive;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.BusinessKeyMustExistRule;
 import com.openpojo.validation.test.impl.BusinessIdentityTester;
 import org.junit.Test;
@@ -48,11 +49,11 @@ public class DefaultIdentityEvaluatorTest {
 
     @Test
     public void SampleClassMustUseBusinessIdentity() {
-        PojoValidator pojoValidator = new PojoValidator();
-        pojoValidator.addRule(new BusinessKeyMustExistRule());
-        pojoValidator.addTester(new BusinessIdentityTester());
-        pojoValidator.runValidation(PojoClassFactory.getPojoClass(StringArrayCaseSensitive.class));
-        pojoValidator.runValidation(PojoClassFactory.getPojoClass(StringArrayCaseInsensitive.class));
+        Validator pojoValidator = ValidatorBuilder.create()
+                .with(new BusinessKeyMustExistRule())
+                .with(new BusinessIdentityTester()).build();
+        pojoValidator.validate(PojoClassFactory.getPojoClass(StringArrayCaseSensitive.class));
+        pojoValidator.validate(PojoClassFactory.getPojoClass(StringArrayCaseInsensitive.class));
     }
 
     @Test

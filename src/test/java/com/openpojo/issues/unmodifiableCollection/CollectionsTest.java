@@ -21,43 +21,39 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
+import org.junit.Test;
 
 public class CollectionsTest {
 
-	@Test
-	public void testUnmodifiableCollectionsGetterReturned() {
-		PojoValidator pojoValidator = new PojoValidator();
+    @Test
+    public void testUnmodifiableCollectionsGetterReturned() {
+        Validator pojoValidator = ValidatorBuilder.create()
+                .with(new GetterTester())
+                .with(new SetterTester())
+                .build();
 
-		GetterTester getterTester = new GetterTester();
-		SetterTester setterTester = new SetterTester();
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(CollectionContainingClass.class);
+        pojoValidator.validate(pojoClass);
+    }
 
-		pojoValidator.addTester(getterTester);
-		pojoValidator.addTester(setterTester);
+    private static class CollectionContainingClass {
+        private List<String> values = new ArrayList<String>();
 
-		PojoClass pojoClass = PojoClassFactory
-				.getPojoClass(CollectionContainingClass.class);
-		pojoValidator.runValidation(pojoClass);
-	}
-
-	private static class CollectionContainingClass {
-		private List<String> values = new ArrayList<String>();
-
-		@SuppressWarnings("unused")
+        @SuppressWarnings("unused")
         public void setValues(List<String> values) {
-			this.values = values;
-		}
+            this.values = values;
+        }
 
-		@SuppressWarnings("unused")
+        @SuppressWarnings("unused")
         public List<String> getValues() {
-			return Collections.unmodifiableList(values);
-		}
+            return Collections.unmodifiableList(values);
+        }
 
-	}
+    }
 }

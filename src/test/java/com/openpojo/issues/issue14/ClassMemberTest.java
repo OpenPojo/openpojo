@@ -17,34 +17,34 @@
 
 package com.openpojo.issues.issue14;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import com.openpojo.issues.issue14.sampleclasses.SampleClass;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.affirm.Affirm;
-import com.openpojo.validation.test.impl.SetterTester;
 import com.openpojo.validation.test.impl.GetterTester;
+import com.openpojo.validation.test.impl.SetterTester;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class ClassMemberTest {
     private PojoClass pojoClass;
-    private PojoValidator pojoValidator;
+    private Validator pojoValidator;
 
     @Before
     public void setUp() {
 
         pojoClass = PojoClassFactory.getPojoClass(SampleClass.class);
-        pojoValidator = new PojoValidator();
-
-        // Add Testers to create a new instance on the private variable Class and trigger the problem.
-        pojoValidator.addTester(new SetterTester());
-        pojoValidator.addTester(new GetterTester());
+        pojoValidator = ValidatorBuilder.create()
+            // Add Testers to create a new instance on the private variable Class and trigger the problem.
+                .with(new SetterTester())
+                .with(new GetterTester())
+                .build();
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ClassMemberTest {
 
         boolean validated = false;
         for (PojoField pojoField : pojoClass.getPojoFields()) {
-            if (pojoField.getName() == fieldName) {
+            if (pojoField.getName().equals(fieldName)) {
                 Affirm.affirmEquals("Field type changed?", Class.class.getName(), pojoField.getType().getName());
                 Affirm.affirmTrue(String.format("Getter/Setter removed from field[%s]", pojoField), pojoField
                         .hasGetter()
@@ -70,7 +70,7 @@ public class ClassMemberTest {
 
     @Test
     public void validatePojos() {
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClass);
     }
 
 }

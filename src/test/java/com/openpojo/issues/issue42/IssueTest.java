@@ -21,7 +21,8 @@ import com.openpojo.issues.issue42.sample.AClassWithArrayField;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.affirm.Affirmation;
 import com.openpojo.validation.affirm.AffirmationFactory;
@@ -49,8 +50,9 @@ public class IssueTest {
                 .class));
         AffirmationFactory.getInstance().setActiveAffirmation(jUnitAffirmation);
         PojoClass classWithArrayField = PojoClassFactory.getPojoClass(AClassWithArrayField.class);
-        PojoValidator pojoValidator = new PojoValidator();
-        pojoValidator.addTester(new GetterTester());
-        pojoValidator.runValidation(classWithArrayField);
+        Validator pojoValidator = ValidatorBuilder.create()
+                .with(new GetterTester())
+                .build();
+        pojoValidator.validate(classWithArrayField);
     }
 }

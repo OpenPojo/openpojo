@@ -23,7 +23,8 @@ import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.bytecode.sample.*;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.GetterMustExistRule;
 import com.openpojo.validation.rule.impl.SetterMustExistRule;
 import com.openpojo.validation.test.impl.GetterTester;
@@ -130,14 +131,14 @@ public class ByteCodeFactoryTest {
     public void endToEndTest() {
         PojoClass pojoClass = PojoClassFactory.getPojoClass(ACompleteAbstractClass.class);
 
-        PojoValidator pojoValidator = new PojoValidator();
+        Validator pojoValidator = ValidatorBuilder.create()
+                .with(new GetterMustExistRule())
+                .with(new SetterMustExistRule())
+                .with(new GetterTester())
+                .with(new SetterTester())
+                .build();
 
-        pojoValidator.addRule(new GetterMustExistRule());
-        pojoValidator.addRule(new SetterMustExistRule());
-        pojoValidator.addTester(new GetterTester());
-        pojoValidator.addTester(new SetterTester());
-
-        pojoValidator.runValidation(pojoClass);
+        pojoValidator.validate(pojoClass);
     }
 
     private void assertIsConcreteAndConstructable(Class<?> subClass) {
