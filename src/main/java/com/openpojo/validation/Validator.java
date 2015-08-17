@@ -30,32 +30,39 @@ import com.openpojo.reflection.PojoClassFilter;
 public interface Validator {
 
     /**
+     * Validate for a given pojoClass.
+     *
+     * @param pojoClass
+     *         the PojoClass to validate.
+     */
+    void validate(PojoClass pojoClass);
+
+    /**
+     * Validate for a given list of pojo classes.
+     *
+     * @param pojoClasses
+     *         the set of PojoClasses to validate.
+     */
+    void validate(List<PojoClass> pojoClasses);
+
+    /**
      * Validate for a given package and a filter.
      *
-     * @param packageName The package name to run the validation against.
-     * @param filters The filter(s) to be used for filtering which classes are to be included in the validation.
+     * @param packageName
+     *         The package name to run the validation against.
+     * @param filters
+     *         The filter(s) to be used for filtering which classes are to be included in the validation.
      */
     void validate(String packageName, PojoClassFilter... filters);
 
     /**
      * Validate for a given package and all its sub-packages with a given filter.
      *
-     * @param packageName The package name to run the validation against.
-     * @param filters The filter(s) to be used for filtering which classes are to be included in the validation.
+     * @param packageName
+     *         The package name to run the validation against.
+     * @param filters
+     *         The filter(s) to be used for filtering which classes are to be included in the validation.
      */
     void validateRecursively(String packageName, PojoClassFilter... filters);
 
-    /**
-     * Validate for a given list of pojo classes.
-     *
-     * @param pojoClasses the set of PojoClasses to validate.
-     */
-    void validate(List<PojoClass> pojoClasses);
-
-    /**
-     * Validate for a given pojoClass.
-     *
-     * @param pojoClass the PojoClass to validate.
-     */
-    void validate(PojoClass pojoClass);
 }

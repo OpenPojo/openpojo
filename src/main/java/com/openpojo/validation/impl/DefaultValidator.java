@@ -41,6 +41,15 @@ public class DefaultValidator implements Validator {
         this.testers.addAll(testers);
     }
 
+    public void validate(PojoClass pojoClass) {
+        ValidationHelper.runValidation(pojoClass, this.rules, this.testers);
+    }
+
+    public void validate(List<PojoClass> pojoClasses) {
+        for (PojoClass pojoClass : pojoClasses)
+            validate(pojoClass);
+    }
+
     public void validate(String packageName, PojoClassFilter... filters) {
         PojoClassFilter pojoClassFilter = new FilterChain(filters);
         List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(packageName, pojoClassFilter);
@@ -52,15 +61,4 @@ public class DefaultValidator implements Validator {
         List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(packageName, pojoClassFilter);
         validate(pojoClasses);
     }
-
-    public void validate(List<PojoClass> pojoClasses) {
-        for (PojoClass pojoClass : pojoClasses)
-            validate(pojoClass);
-    }
-
-    public void validate(PojoClass pojoClass) {
-        ValidationHelper.runValidation(pojoClass, this.rules, this.testers);
-    }
-
-
 }
