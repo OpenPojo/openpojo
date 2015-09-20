@@ -3,7 +3,7 @@ POJO Testing &amp; Identity Management Made Trivial
 
 Maven Group Plugin | Latest Version
 ------------------ | ---------------
-com.openpojo.openpojo | [0.7.4](https://github.com/oshoukry/openpojo/releases/tag/openpojo-0.7.4)
+com.openpojo.openpojo | [0.7.5](https://github.com/oshoukry/openpojo/releases/tag/openpojo-0.7.5)
 com.googlecode.openpojo.openpojo | [0.6.5](https://code.google.com/p/openpojo/wiki/Old) - Deprecated
 
 #### Testing Example
@@ -17,7 +17,8 @@ public class PojoTest {
 
   @Test
   public void ensureExpectedPojoCount() {
-    List <PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterPackageInfo());
+    List <PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE,
+                                                                   new FilterPackageInfo());
     Affirm.affirmEquals("Classes added / removed?", EXPECTED_CLASS_COUNT, pojoClasses.size());
   }
 
