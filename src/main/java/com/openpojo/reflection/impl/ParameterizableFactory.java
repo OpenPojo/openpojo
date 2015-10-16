@@ -23,8 +23,8 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
-import com.openpojo.reflection.java.type.Resolver;
 import com.openpojo.reflection.Parameterizable;
+import com.openpojo.reflection.java.type.Resolver;
 
 /**
 * @author oshoukry

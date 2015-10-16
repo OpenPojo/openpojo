@@ -18,11 +18,13 @@
 
 package com.openpojo.reflection.java.type;
 
+import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 
+import com.openpojo.reflection.java.type.impl.GenericArrayTypeResolver;
 import com.openpojo.reflection.java.type.impl.NoResolveTypeResolver;
 import com.openpojo.reflection.java.type.impl.ParameterizedTypeResolver;
 import com.openpojo.reflection.java.type.impl.TypeVariableResolver;
@@ -35,6 +37,7 @@ public class Resolver {
     private static final WildcardTypeResolver WILDCARD_TYPE_RESOLVER = new WildcardTypeResolver();
     private static final ParameterizedTypeResolver PARAMETERIZED_TYPE_RESOLVER = new ParameterizedTypeResolver();
     private static final TypeVariableResolver TYPE_VARIABLE_RESOLVER = new TypeVariableResolver();
+    private static final GenericArrayTypeResolver GENERIC_ARRAY_TYPE_RESOLVER = new GenericArrayTypeResolver();
     private static final NoResolveTypeResolver NO_RESOLVE_TYPE_RESOLVER = new NoResolveTypeResolver();
 
     @SuppressWarnings("unchecked")
@@ -59,6 +62,8 @@ public class Resolver {
             return PARAMETERIZED_TYPE_RESOLVER;
         if (type instanceof TypeVariable)
             return TYPE_VARIABLE_RESOLVER;
+        if (type instanceof GenericArrayType)
+            return GENERIC_ARRAY_TYPE_RESOLVER;
         return NO_RESOLVE_TYPE_RESOLVER;
     }
 }
