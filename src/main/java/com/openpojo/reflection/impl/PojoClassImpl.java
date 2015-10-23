@@ -29,6 +29,7 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.Java;
 import com.openpojo.reflection.java.packageloader.impl.URLToFileSystemAdapter;
@@ -175,6 +176,10 @@ public class PojoClassImpl implements PojoClass {
             interfaces.add(PojoClassFactory.getPojoClass(interfaze));
         }
         return interfaces;
+    }
+
+    public PojoPackage getPackage() {
+        return PojoPackageFactory.getPojoPackage(clazz.getPackage().getName());
     }
 
     public String getSourcePath() {

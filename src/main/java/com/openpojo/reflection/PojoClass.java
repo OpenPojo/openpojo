@@ -146,6 +146,13 @@ public interface PojoClass extends PojoElement {
     List<PojoClass> getInterfaces();
 
     /**
+     * Get Enclosing Package
+     *
+     * @return the package that has this class is part of.
+     */
+    PojoPackage getPackage();
+
+    /**
      * This method returns the underlying class represented by this instance.
      *
      * @return

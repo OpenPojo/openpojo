@@ -27,6 +27,7 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
@@ -393,6 +394,15 @@ public class PojoClassImplTest {
 
         String thisClassEndingPath = this.getClass().getName().replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER) + Java.CLASS_EXTENSION;
         Affirm.affirmTrue("Should end with this class's package path [" + sourcePath + "]", sourcePath.endsWith(thisClassEndingPath));
+    }
+
+    @Test
+    public void testGetPackage() {
+        PojoClass pojoClass = getPojoClassImplForClass(this.getClass());
+
+        PojoPackage pojoPackage = pojoClass.getPackage();
+        Affirm.affirmNotNull("Null package received", pojoPackage);
+        Affirm.affirmEquals("Invalid package retrieved", this.getClass().getPackage().getName(), pojoPackage.getName());
     }
 
     private static PojoClass getPojoClassImplForClass(final Class<?> clazz) {
