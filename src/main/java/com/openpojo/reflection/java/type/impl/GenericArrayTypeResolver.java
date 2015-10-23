@@ -26,8 +26,8 @@ import com.openpojo.reflection.java.type.TypeResolver;
 
 /**
  * This resolver is used for GenericArrayType, which is returned when the underlying declaration is parameterized with an
- * array.  For example, if you have Set < SomeType[] >.  In Java 7 & 8, this is no longer the case.
- * TODO: Remove when JDK 1.5 & 1.6 are no longer supported.
+ * array.  For example, if you have Set of SomeType[].  In Java 7 and 8, this is no longer the case.
+ * TODO: Remove when JDK 1.5 and 1.6 are no longer supported.
  *
  * @author oshoukry
  */
