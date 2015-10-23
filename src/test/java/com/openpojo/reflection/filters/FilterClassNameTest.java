@@ -76,6 +76,28 @@ public class FilterClassNameTest extends IdentitiesAreEqual {
         checkEqualityAndHashCode(instanceOne, instanceTwo);
     }
 
+    @Test
+    public void shouldFilterBasedOnPackageName() {
+
+        // Include classNames that have the word Test in the name.
+        final PojoClassFilter filter = new FilterClassName("^(?:.*\\.)?model(\\..*)+");
+
+        String[] classNames = new String[] { "com.model.MyClass", "model.pojos.MyClass", "com.model.pojos.MyClass" };
+
+        for (final String className : classNames) {
+            final PojoClass pojoClassStub = PojoStubFactory.getStubPojoClass(className);
+            Affirm.affirmTrue(String.format("[%s] didn't include class [%s]!!", filter, className),
+                    filter.include(pojoClassStub));
+        }
+
+        classNames = new String[] { "Testmodel", "com.mypackage.modelClass", "model", "pojomodel.model"};
+        for (final String className : classNames) {
+            final PojoClass pojoClassStub = PojoStubFactory.getStubPojoClass(className);
+            Affirm.affirmFalse(String.format("[%s] didn't exclude class [%s]!!", filter, className),
+                    filter.include(pojoClassStub));
+        }
+    }
+
     private static class PojoStubFactory {
 
         public static PojoClass getStubPojoClass(String className) {
