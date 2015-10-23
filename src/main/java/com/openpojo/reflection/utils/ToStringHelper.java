@@ -18,6 +18,7 @@
 
 package com.openpojo.reflection.utils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
@@ -42,7 +43,10 @@ public final class ToStringHelper {
      *          String formatted, human readable name/value pair.
      */
     public static String nameValuePair(final Object name, final Object value) {
-        return String.format(NAME_VALUE_TOKEN_FORMAT, name, value);
+        String valueString = "" + value;
+        if (value != null && value.getClass().isArray())
+            valueString = Arrays.deepToString((Object[]) value);
+        return String.format(NAME_VALUE_TOKEN_FORMAT, name, valueString);
     }
 
     /**

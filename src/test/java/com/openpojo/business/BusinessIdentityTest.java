@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.business.exception.BusinessException;
+import com.openpojo.business.sampleclasses.JavaClassWithArray;
 import com.openpojo.utils.dummypackage.Person;
 import org.junit.Assert;
 import org.junit.Test;
@@ -95,6 +96,7 @@ public class BusinessIdentityTest {
         }
 
         try {
+            //noinspection RedundantStringConstructorCall
             BusinessIdentity.areEqual(new String("First"), new String("First"));
             Assert.fail("Expected Exception due to no BusinessKeys defined");
         } catch (final BusinessException be) {
@@ -135,6 +137,29 @@ public class BusinessIdentityTest {
     }
 
     @Test
+    public void shouldToStringOnArrays() {
+        String [][] data = {{"One"}, {"One", "Two"}, {"One", "Two", "Three"} };
+        JavaClassWithArray javaClassWithArray = new JavaClassWithArray(data);
+        String toStringOutput = javaClassWithArray.toString();
+        String expected = JavaClassWithArray.class.getName()+ " [@";
+        expected += Integer.toHexString(System.identityHashCode(javaClassWithArray));
+        expected += ": data=[[One], [One, Two], [One, Two, Three]]";
+        expected += "]";
+        Assert.assertEquals(expected, toStringOutput);
+    }
+
+    @Test
+    public void shouldToStringOnNullArray() {
+        JavaClassWithArray javaClassWithArray = new JavaClassWithArray(null);
+        String toStringOutput = javaClassWithArray.toString();
+        String expected = JavaClassWithArray.class.getName()+ " [@";
+        expected += Integer.toHexString(System.identityHashCode(javaClassWithArray));
+        expected += ": data=null";
+        expected += "]";
+        Assert.assertEquals(expected, toStringOutput);
+    }
+
+    @Test
     public void whenNullObject_Then_toString_returnNull() {
         Assert.assertEquals("null", BusinessIdentity.toString(null));
     }
@@ -168,10 +193,7 @@ public class BusinessIdentityTest {
         private final String nonBusinessKey;
 
         private int expectedHashCode = 1;
-        /**
-         * @param id
-         * @param name
-         */
+
         public HashCodeTestData(final String id, final String name, final String optionalPart1, final String optionalPart2, final String nonBusinessKey) {
             this.id = id;
             this.name = name;
