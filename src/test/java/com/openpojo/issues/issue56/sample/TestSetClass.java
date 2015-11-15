@@ -24,11 +24,11 @@ import com.openpojo.random.RandomFactory;
  */
 public class TestSetClass implements Comparable {
 
-    public int compareTo(Object o) {
-        return anyValidCompareToValue();
-    }
+  public int compareTo(Object o) {
+    return anyValidCompareToValue();
+  }
 
-    private int anyValidCompareToValue() {
-        return (RandomFactory.getRandomValue(char.class) % 3) - 1;
-    }
+  private int anyValidCompareToValue() {
+    return (RandomFactory.getRandomValue(char.class) % 3) - 1;
+  }
 }

@@ -35,49 +35,49 @@ import org.junit.Test;
  */
 public class ZIPPackageLoaderTest {
 
-    @Test
-    public void canLoadZipFile() throws MalformedURLException, ClassNotFoundException {
+  @Test
+  public void canLoadZipFile() throws MalformedURLException, ClassNotFoundException {
 
-        String mypath = "jar:file://" + System.getProperty("user.dir") + "/test/sampleJar.zip!/";
+    String mypath = "jar:file://" + System.getProperty("user.dir") + "/test/sampleJar.zip!/";
 
-        URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] { new URL(mypath) });
+    URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] { new URL(mypath) });
 
-        String[] classNames = new String[] { "com.openpojotest.AClass", "com.openpojotest.AndAnotherClass" };
+    String[] classNames = new String[] { "com.openpojotest.AClass", "com.openpojotest.AndAnotherClass" };
 
-        boolean saidHello = false;
-        boolean gotGreetingMessage = false;
+    boolean saidHello = false;
+    boolean gotGreetingMessage = false;
 
-        for (String className : classNames) {
-            Class entry = urlClassLoader.loadClass(className);
-            PojoClass pojoClass = PojoClassFactory.getPojoClass(entry);
+    for (String className : classNames) {
+      Class entry = urlClassLoader.loadClass(className);
+      PojoClass pojoClass = PojoClassFactory.getPojoClass(entry);
 
-            Affirm.affirmEquals("Should be equal", mypath + className.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER) + Java
-                    .CLASS_EXTENSION, "jar:" + pojoClass.getSourcePath());
+      Affirm.affirmEquals("Should be equal", mypath + className.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER) +
+          Java.CLASS_EXTENSION, "jar:" + pojoClass.getSourcePath());
 
-            if (pojoClass.getName().equals("com.openpojotest.AClass")) {
-                for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
-                    if (pojoMethod.getName().equals("sayHello")) {
-                        Object instance = InstanceFactory.getInstance(pojoClass);
-                        String hello = (String) pojoMethod.invoke(instance);
-                        Affirm.affirmEquals("sayHello failed!!", "Hello World!", hello);
-                        saidHello = true;
-                    }
-                }
-            } else {
-                String randomString = RandomFactory.getRandomValue(String.class);
-                for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
-                    if (pojoMethod.getName().equals("getGreetingMessage")) {
-                        Object instance = InstanceFactory.getInstance(pojoClass);
-                        String greetingMessage = (String) pojoMethod.invoke(instance, randomString);
-                        Affirm.affirmEquals("getGreetingMessage failed!!", "Hello " + randomString + ", so good to meet you",
-                                greetingMessage);
-                        gotGreetingMessage = true;
-                    }
-                }
-            }
+      if (pojoClass.getName().equals("com.openpojotest.AClass")) {
+        for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
+          if (pojoMethod.getName().equals("sayHello")) {
+            Object instance = InstanceFactory.getInstance(pojoClass);
+            String hello = (String) pojoMethod.invoke(instance);
+            Affirm.affirmEquals("sayHello failed!!", "Hello World!", hello);
+            saidHello = true;
+          }
         }
-
-        Affirm.affirmTrue("Should have saidHello & gotGreetingMessage", saidHello && gotGreetingMessage);
+      } else {
+        String randomString = RandomFactory.getRandomValue(String.class);
+        for (PojoMethod pojoMethod : pojoClass.getPojoMethods()) {
+          if (pojoMethod.getName().equals("getGreetingMessage")) {
+            Object instance = InstanceFactory.getInstance(pojoClass);
+            String greetingMessage = (String) pojoMethod.invoke(instance, randomString);
+            Affirm.affirmEquals("getGreetingMessage failed!!", "Hello " + randomString + ", so good to meet you",
+                greetingMessage);
+            gotGreetingMessage = true;
+          }
+        }
+      }
     }
+
+    Affirm.affirmTrue("Should have saidHello & gotGreetingMessage", saidHello && gotGreetingMessage);
+  }
 
 }

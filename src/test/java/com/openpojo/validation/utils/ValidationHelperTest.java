@@ -27,43 +27,51 @@ import org.junit.Test;
 
 public class ValidationHelperTest {
 
-    @Test
-    public void testIsStaticFinal() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(StaticFinalData.class);
-        List<PojoField> pojoFields = pojoClass.getPojoFields();
-        Assert.assertEquals(4, pojoFields.size());
-        for (PojoField fieldEntry : pojoFields) {
-            if (fieldEntry.getName() == "staticAndNotFinal") {
-                Assert.assertTrue("Static and not Final test failed!!", fieldEntry.isStatic() && !fieldEntry.isFinal()
-                        && !ValidationHelper.isStaticFinal(fieldEntry));
-            }
-            if (fieldEntry.getName() == "notStaticAndNotFinal") {
-                Assert.assertTrue("Not static OR final test failed!!", !fieldEntry.isStatic() && !fieldEntry.isFinal()
-                        && !ValidationHelper.isStaticFinal(fieldEntry));
-            }
-            if (fieldEntry.getName() == "STATICANDFINAL") {
-                Assert.assertTrue("Static AND Final test failed!!!", fieldEntry.isStatic() && fieldEntry.isFinal()
-                        && ValidationHelper.isStaticFinal(fieldEntry));
-            }
-            if (fieldEntry.getName() == "finalAndNotStatic") {
-                Assert.assertTrue("Final and not Static test failed!!", !fieldEntry.isStatic() && fieldEntry.isFinal()
-                        && !ValidationHelper.isStaticFinal(fieldEntry));
-            }
-        }
+  @Test
+  public void testIsStaticFinal() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(StaticFinalData.class);
+    List<PojoField> pojoFields = pojoClass.getPojoFields();
+    Assert.assertEquals(4, pojoFields.size());
+    for (PojoField fieldEntry : pojoFields) {
+      if (fieldEntry.getName() == "staticAndNotFinal") {
+        Assert.assertTrue("Static and not Final test failed!!",
+            fieldEntry.isStatic()
+                && !fieldEntry.isFinal()
+                && !ValidationHelper.isStaticFinal(fieldEntry));
+      }
+      if (fieldEntry.getName() == "notStaticAndNotFinal") {
+        Assert.assertTrue("Not static OR final test failed!!",
+            !fieldEntry.isStatic()
+                && !fieldEntry.isFinal()
+                && !ValidationHelper.isStaticFinal(fieldEntry));
+      }
+      if (fieldEntry.getName() == "STATICANDFINAL") {
+        Assert.assertTrue("Static AND Final test failed!!!",
+            fieldEntry.isStatic()
+                && fieldEntry.isFinal()
+                && ValidationHelper.isStaticFinal(fieldEntry));
+      }
+      if (fieldEntry.getName() == "finalAndNotStatic") {
+        Assert.assertTrue("Final and not Static test failed!!",
+            !fieldEntry.isStatic()
+                && fieldEntry.isFinal()
+                && !ValidationHelper.isStaticFinal(fieldEntry));
+      }
     }
+  }
 
-    private static class StaticFinalData {
+  private static class StaticFinalData {
 
-        @SuppressWarnings("unused")
-        private static int staticAndNotFinal = 0;
+    @SuppressWarnings("unused")
+    private static int staticAndNotFinal = 0;
 
-        @SuppressWarnings("unused")
-        private int notStaticAndNotFinal;
+    @SuppressWarnings("unused")
+    private int notStaticAndNotFinal;
 
-        @SuppressWarnings("unused")
-        private static final int STATICANDFINAL = 0;
+    @SuppressWarnings("unused")
+    private static final int STATICANDFINAL = 0;
 
-        @SuppressWarnings("unused")
-        private final int finalAndNotStatic = 0;
-    }
+    @SuppressWarnings("unused")
+    private final int finalAndNotStatic = 0;
+  }
 }

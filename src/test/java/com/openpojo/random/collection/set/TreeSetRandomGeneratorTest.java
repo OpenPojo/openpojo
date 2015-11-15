@@ -29,28 +29,28 @@ import com.openpojo.random.collection.util.BaseCollectionRandomGeneratorTest;
  */
 public class TreeSetRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
 
-    @Override
-    protected ParameterizableRandomGenerator getInstance() {
-        return TreeSetRandomGenerator.getInstance();
-    }
+  @Override
+  protected ParameterizableRandomGenerator getInstance() {
+    return TreeSetRandomGenerator.getInstance();
+  }
 
-    @Override
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return TreeSetRandomGenerator.class;
-    }
+  @Override
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return TreeSetRandomGenerator.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getExpectedTypeClass() {
-        return TreeSet.class;
-    }
+  @Override
+  protected Class<? extends Collection> getExpectedTypeClass() {
+    return TreeSet.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getGeneratedTypeClass() {
-        return TreeSet.class;
-    }
+  @Override
+  protected Class<? extends Collection> getGeneratedTypeClass() {
+    return TreeSet.class;
+  }
 
-    @Override
-    protected Class<?> getGenericType() {
-        return ComparableType.class;
-    }
+  @Override
+  protected Class<?> getGenericType() {
+    return ComparableType.class;
+  }
 }

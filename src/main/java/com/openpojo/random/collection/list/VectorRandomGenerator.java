@@ -29,23 +29,23 @@ import com.openpojo.random.util.Helper;
  * @author oshoukry
  */
 public class VectorRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { Vector.class };
-    private static final VectorRandomGenerator INSTANCE = new VectorRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { Vector.class };
+  private static final VectorRandomGenerator INSTANCE = new VectorRandomGenerator();
 
-    public static VectorRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static VectorRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new Vector();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new Vector();
+  }
 
-    private VectorRandomGenerator() {
-    }
+  private VectorRandomGenerator() {
+  }
 }

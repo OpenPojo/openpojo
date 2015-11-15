@@ -25,8 +25,9 @@ import java.lang.reflect.Type;
  */
 public interface TypeResolver<T extends Type> {
 
-    Type resolveType(T type);
-    Type getEnclosingType(T type);
+  Type resolveType(T type);
 
-    Type [] getParameterTypes(T type);
+  Type getEnclosingType(T type);
+
+  Type[] getParameterTypes(T type);
 }

@@ -32,24 +32,24 @@ import com.openpojo.random.util.SerializableComparableObject;
  * @author oshoukry
  */
 public class WeakHashMapRandomGenerator extends BaseMapRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { WeakHashMap.class };
-    private static final WeakHashMapRandomGenerator INSTANCE = new WeakHashMapRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { WeakHashMap.class };
+  private static final WeakHashMapRandomGenerator INSTANCE = new WeakHashMapRandomGenerator();
 
-    public static WeakHashMapRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static WeakHashMapRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Map getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return MapHelper.buildMap(new WeakHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
-    }
+  @Override
+  protected Map getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return MapHelper.buildMap(new WeakHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
+  }
 
-    private WeakHashMapRandomGenerator() {
-    }
+  private WeakHashMapRandomGenerator() {
+  }
 
 }

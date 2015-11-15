@@ -28,15 +28,15 @@ import com.openpojo.reflection.java.type.TypeResolver;
  */
 public class TypeVariableResolver implements TypeResolver<TypeVariable> {
 
-    public Type resolveType(TypeVariable type) {
-        return type.getBounds()[0];
-    }
+  public Type resolveType(TypeVariable type) {
+    return type.getBounds()[0];
+  }
 
-    public Type getEnclosingType(TypeVariable type) {
-        return type.getBounds()[0];
-    }
+  public Type getEnclosingType(TypeVariable type) {
+    return type.getBounds()[0];
+  }
 
-    public Type[] getParameterTypes(TypeVariable type) {
-        return type.getBounds();
-    }
+  public Type[] getParameterTypes(TypeVariable type) {
+    return type.getBounds();
+  }
 }

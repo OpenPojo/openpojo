@@ -29,23 +29,23 @@ import com.openpojo.random.util.Helper;
  * @author oshoukry
  */
 public class TreeSetRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { TreeSet.class };
-    private static final TreeSetRandomGenerator INSTANCE = new TreeSetRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { TreeSet.class };
+  private static final TreeSetRandomGenerator INSTANCE = new TreeSetRandomGenerator();
 
-    public static TreeSetRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static TreeSetRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new TreeSet();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new TreeSet();
+  }
 
-    private TreeSetRandomGenerator() {
-    }
+  private TreeSetRandomGenerator() {
+  }
 }

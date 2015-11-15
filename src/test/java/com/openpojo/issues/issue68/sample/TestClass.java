@@ -27,40 +27,40 @@ import java.util.Set;
  * @author oshoukry
  */
 public class TestClass {
-    private Map<String, SomeType[]> myMap;
-    private Set<SomeType[]> mySet;
-    private Collection<SomeType[]> myCollection;
-    private List<SomeType[]> myList;
+  private Map<String, SomeType[]> myMap;
+  private Set<SomeType[]> mySet;
+  private Collection<SomeType[]> myCollection;
+  private List<SomeType[]> myList;
 
-    public Map<String, SomeType[]> getMyMap() {
-        return myMap;
-    }
+  public Map<String, SomeType[]> getMyMap() {
+    return myMap;
+  }
 
-    public void setMyMap(Map<String, SomeType[]> myMap) {
-        this.myMap = myMap;
-    }
+  public void setMyMap(Map<String, SomeType[]> myMap) {
+    this.myMap = myMap;
+  }
 
-    public Set<SomeType[]> getMySet() {
-        return mySet;
-    }
+  public Set<SomeType[]> getMySet() {
+    return mySet;
+  }
 
-    public void setMySet(Set<SomeType[]> mySet) {
-        this.mySet = mySet;
-    }
+  public void setMySet(Set<SomeType[]> mySet) {
+    this.mySet = mySet;
+  }
 
-    public Collection<SomeType[]> getMyCollection() {
-        return myCollection;
-    }
+  public Collection<SomeType[]> getMyCollection() {
+    return myCollection;
+  }
 
-    public void setMyCollection(Collection<SomeType[]> myCollection) {
-        this.myCollection = myCollection;
-    }
+  public void setMyCollection(Collection<SomeType[]> myCollection) {
+    this.myCollection = myCollection;
+  }
 
-    public List<SomeType[]> getMyList() {
-        return myList;
-    }
+  public List<SomeType[]> getMyList() {
+    return myList;
+  }
 
-    public void setMyList(List<SomeType[]> myList) {
-        this.myList = myList;
-    }
+  public void setMyList(List<SomeType[]> myList) {
+    this.myList = myList;
+  }
 }

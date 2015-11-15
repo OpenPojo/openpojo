@@ -24,9 +24,9 @@ import java.util.SortedSet;
  */
 @SuppressWarnings("unused")
 public class TestClass {
-    private SortedSet<TestSetClass> sortedTestSet;
+  private SortedSet<TestSetClass> sortedTestSet;
 
-    public void setSortedTestSet(SortedSet<TestSetClass> sortedTestSet) {
-        this.sortedTestSet = sortedTestSet;
-    }
+  public void setSortedTestSet(SortedSet<TestSetClass> sortedTestSet) {
+    this.sortedTestSet = sortedTestSet;
+  }
 }

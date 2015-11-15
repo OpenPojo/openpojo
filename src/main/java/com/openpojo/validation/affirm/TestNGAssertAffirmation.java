@@ -26,45 +26,46 @@ import com.openpojo.reflection.java.load.ClassUtil;
  * @author oshoukry
  */
 public class TestNGAssertAffirmation extends AbstractAffirmation implements Affirmation {
-    static {
-        if (!ClassUtil.isClassLoaded("org.testng.Assert"))
-            throw ReflectionException.getInstance("org.testng.Assert class not found");
-    }
+  static {
+    if (!ClassUtil.isClassLoaded("org.testng.Assert"))
+      throw ReflectionException.getInstance("org.testng.Assert class not found");
+  }
 
-    private TestNGAssertAffirmation() {
-    }
+  private TestNGAssertAffirmation() {
+  }
 
-    public void fail(final String message) {
-        org.testng.Assert.fail(message);
-    }
+  public void fail(final String message) {
+    org.testng.Assert.fail(message);
+  }
 
-    public void affirmTrue(final String message, final boolean condition) {
-        org.testng.Assert.assertTrue(condition, message);
-    }
+  public void affirmTrue(final String message, final boolean condition) {
+    org.testng.Assert.assertTrue(condition, message);
+  }
 
-    public void affirmFalse(final String message, final boolean condition) {
-        org.testng.Assert.assertFalse(condition, message);
-    }
+  public void affirmFalse(final String message, final boolean condition) {
+    org.testng.Assert.assertFalse(condition, message);
+  }
 
-    public void affirmNotNull(final String message, final Object object) {
-        org.testng.Assert.assertNotNull(object, message);
-    }
+  public void affirmNotNull(final String message, final Object object) {
+    org.testng.Assert.assertNotNull(object, message);
+  }
 
-    public void affirmNull(final String message, final Object object) {
-        org.testng.Assert.assertNull(object, message);
-    }
+  public void affirmNull(final String message, final Object object) {
+    org.testng.Assert.assertNull(object, message);
+  }
 
-    public void affirmEquals(final String message, final Object expected, final Object actual) {
-        if (objectPointersAreTheSame(expected, actual)) return;
+  public void affirmEquals(final String message, final Object expected, final Object actual) {
+    if (objectPointersAreTheSame(expected, actual))
+      return;
 
-        if (isArray(expected))
-            affirmArrayEquals(message, expected, actual);
-        else
-            org.testng.Assert.assertEquals(actual, expected, message);
-    }
+    if (isArray(expected))
+      affirmArrayEquals(message, expected, actual);
+    else
+      org.testng.Assert.assertEquals(actual, expected, message);
+  }
 
-    @Override
-    public String toString() {
-        return BusinessIdentity.toString(this);
-    }
+  @Override
+  public String toString() {
+    return BusinessIdentity.toString(this);
+  }
 }

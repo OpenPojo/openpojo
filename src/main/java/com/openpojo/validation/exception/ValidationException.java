@@ -25,39 +25,37 @@ package com.openpojo.validation.exception;
  */
 public class ValidationException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private ValidationException(final String message) {
-        super(message);
-    }
+  private ValidationException(final String message) {
+    super(message);
+  }
 
-    private ValidationException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
+  private ValidationException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
 
-    /**
-     * Construct an Exception with message.
-     *
-     * @param message
-     *            The description of the exception.
-     * @return
-     *         An instance of the Exception.
-     */
-    public static ValidationException getInstance(final String message) {
-        return new ValidationException(message);
-    }
+  /**
+   * Construct an Exception with message.
+   *
+   * @param message
+   *     The description of the exception.
+   * @return An instance of the Exception.
+   */
+  public static ValidationException getInstance(final String message) {
+    return new ValidationException(message);
+  }
 
-    /**
-     * Construct an Exception with message and cause.
-     *
-     * @param message
-     *            The description of the exception.
-     * @param cause
-     *            The cause of the exception.
-     * @return
-     *         An instance of the Exception.
-     */
-    public static ValidationException getInstance(final String message, final Throwable cause) {
-        return new ValidationException(message, cause);
-    }
+  /**
+   * Construct an Exception with message and cause.
+   *
+   * @param message
+   *     The description of the exception.
+   * @param cause
+   *     The cause of the exception.
+   * @return An instance of the Exception.
+   */
+  public static ValidationException getInstance(final String message, final Throwable cause) {
+    return new ValidationException(message, cause);
+  }
 }

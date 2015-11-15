@@ -32,73 +32,73 @@ import org.junit.Test;
  */
 public class ValidatorBuilderTest {
 
-    @Test
-    public void constructorMustBePrivate() {
-        PojoClass validatorBuilderPojoClass = PojoClassFactory.getPojoClass(ValidatorBuilder.class);
-        for (PojoMethod constructor : validatorBuilderPojoClass.getPojoConstructors())
-            Assert.assertTrue(constructor.isPrivate());
-    }
+  @Test
+  public void constructorMustBePrivate() {
+    PojoClass validatorBuilderPojoClass = PojoClassFactory.getPojoClass(ValidatorBuilder.class);
+    for (PojoMethod constructor : validatorBuilderPojoClass.getPojoConstructors())
+      Assert.assertTrue(constructor.isPrivate());
+  }
 
-    @Test
-    public void createReturnsValidatorBuilder() {
-        Object validatorBuilder = ValidatorBuilder.create();
-        Assert.assertNotNull(validatorBuilder);
-        Assert.assertTrue(ValidatorBuilder.class.isAssignableFrom(validatorBuilder.getClass()));
-    }
+  @Test
+  public void createReturnsValidatorBuilder() {
+    Object validatorBuilder = ValidatorBuilder.create();
+    Assert.assertNotNull(validatorBuilder);
+    Assert.assertTrue(ValidatorBuilder.class.isAssignableFrom(validatorBuilder.getClass()));
+  }
 
-    @Test
-    public void withRules_ignoresNullArray() {
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with((Rule[]) null);
-        Assert.assertEquals(0, validatorBuilder.getRules().size());
-    }
+  @Test
+  public void withRules_ignoresNullArray() {
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with((Rule[]) null);
+    Assert.assertEquals(0, validatorBuilder.getRules().size());
+  }
 
-    @Test
-    public void withRules_ignoresNullArrayEntries() {
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with(new Rule[] { null, null });
-        Assert.assertEquals(0, validatorBuilder.getRules().size());
-    }
+  @Test
+  public void withRules_ignoresNullArrayEntries() {
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with(new Rule[] { null, null });
+    Assert.assertEquals(0, validatorBuilder.getRules().size());
+  }
 
-    @Test
-    public void withRules_persistRules() {
-        Rule anyRule = RandomFactory.getRandomValue(Rule.class);
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with(anyRule, null);
-        Assert.assertEquals(1, validatorBuilder.getRules().size());
-    }
+  @Test
+  public void withRules_persistRules() {
+    Rule anyRule = RandomFactory.getRandomValue(Rule.class);
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with(anyRule, null);
+    Assert.assertEquals(1, validatorBuilder.getRules().size());
+  }
 
-    @Test
-    public void withTesters_ignoresNullArray() {
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with((Tester[]) null);
-        Assert.assertEquals(0, validatorBuilder.getTesters().size());
-    }
+  @Test
+  public void withTesters_ignoresNullArray() {
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with((Tester[]) null);
+    Assert.assertEquals(0, validatorBuilder.getTesters().size());
+  }
 
-    @Test
-    public void withTesters_ignoresNullArrayEntries() {
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with(new Tester[] { null, null });
-        Assert.assertEquals(0, validatorBuilder.getTesters().size());
-    }
+  @Test
+  public void withTesters_ignoresNullArrayEntries() {
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with(new Tester[] { null, null });
+    Assert.assertEquals(0, validatorBuilder.getTesters().size());
+  }
 
-    @Test
-    public void withTesters_persistRules() {
-        Tester anyTester = RandomFactory.getRandomValue(Tester.class);
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with(anyTester, null);
-        Assert.assertEquals(1, validatorBuilder.getTesters().size());
-    }
+  @Test
+  public void withTesters_persistRules() {
+    Tester anyTester = RandomFactory.getRandomValue(Tester.class);
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create().with(anyTester, null);
+    Assert.assertEquals(1, validatorBuilder.getTesters().size());
+  }
 
-    @Test(expected = ValidationException.class)
-    public void build_throwsExceptionIfNoRulesOrTestersAdded() {
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create();
-        validatorBuilder.build();
-    }
+  @Test(expected = ValidationException.class)
+  public void build_throwsExceptionIfNoRulesOrTestersAdded() {
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create();
+    validatorBuilder.build();
+  }
 
-    @Test
-    public void build_returnsValidator() {
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create();
-        validatorBuilder.with(RandomFactory.getRandomValue(Rule.class));
+  @Test
+  public void build_returnsValidator() {
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create();
+    validatorBuilder.with(RandomFactory.getRandomValue(Rule.class));
 
-        Object validator = validatorBuilder.build();
+    Object validator = validatorBuilder.build();
 
-        Assert.assertNotNull(validator);
-        Assert.assertTrue(Validator.class.isAssignableFrom(validator.getClass()));
-    }
+    Assert.assertNotNull(validator);
+    Assert.assertTrue(Validator.class.isAssignableFrom(validator.getClass()));
+  }
 
 }

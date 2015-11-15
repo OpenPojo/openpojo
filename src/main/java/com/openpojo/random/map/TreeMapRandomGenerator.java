@@ -32,23 +32,23 @@ import com.openpojo.random.util.SerializableComparableObject;
  * @author oshoukry
  */
 public class TreeMapRandomGenerator extends BaseMapRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { TreeMap.class };
-    private static final TreeMapRandomGenerator INSTANCE = new TreeMapRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { TreeMap.class };
+  private static final TreeMapRandomGenerator INSTANCE = new TreeMapRandomGenerator();
 
-    public static TreeMapRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static TreeMapRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Map getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return MapHelper.buildMap(new TreeMap(), SerializableComparableObject.class, SerializableComparableObject.class);
-    }
+  @Override
+  protected Map getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return MapHelper.buildMap(new TreeMap(), SerializableComparableObject.class, SerializableComparableObject.class);
+  }
 
-    private TreeMapRandomGenerator() {
-    }
+  private TreeMapRandomGenerator() {
+  }
 }

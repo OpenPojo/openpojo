@@ -24,103 +24,102 @@ import com.openpojo.utils.dummypackage.Persistable;
 
 /**
  * @author oshoukry
- *
  */
-public class YetAnotherPerson  implements Serializable, Persistable {
+public class YetAnotherPerson implements Serializable, Persistable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * Minimal business constructor.
-     *
-     * @param firstname
-     * @param middlename
-     * @param lastname
-     */
-    public YetAnotherPerson(final String firstname, final String middlename, final String lastname) {
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-    }
+  /**
+   * Minimal business constructor.
+   *
+   * @param firstname
+   * @param middlename
+   * @param lastname
+   */
+  public YetAnotherPerson(final String firstname, final String middlename, final String lastname) {
+    this.firstname = firstname;
+    this.middlename = middlename;
+    this.lastname = lastname;
+  }
 
-    private String id;
+  private String id;
 
-    public String getId() {
-        return id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setId(final String id) {
-        this.id = id;
-    }
+  public void setId(final String id) {
+    this.id = id;
+  }
 
-    private String firstname;
+  private String firstname;
 
-    private String middlename;
+  private String middlename;
 
-    private String lastname;
+  private String lastname;
 
-    private Timestamp created;
-    private Timestamp lastupdated;
+  private Timestamp created;
+  private Timestamp lastupdated;
 
-    /**
-     * @return the firstname
-     */
-    public String getFirstname() {
-        return firstname;
-    }
+  /**
+   * @return the firstname
+   */
+  public String getFirstname() {
+    return firstname;
+  }
 
-    /**
-     * @param firstname
-     *            the firstname to set
-     */
-    public void setFirstname(final String firstname) {
-        this.firstname = firstname;
-    }
+  /**
+   * @param firstname
+   *     the firstname to set
+   */
+  public void setFirstname(final String firstname) {
+    this.firstname = firstname;
+  }
 
-    /**
-     * @return the middlename
-     */
-    public String getMiddlename() {
-        return middlename;
-    }
+  /**
+   * @return the middlename
+   */
+  public String getMiddlename() {
+    return middlename;
+  }
 
-    /**
-     * @param middlename
-     *            the middlename to set
-     */
-    public void setMiddlename(final String middlename) {
-        this.middlename = middlename;
-    }
+  /**
+   * @param middlename
+   *     the middlename to set
+   */
+  public void setMiddlename(final String middlename) {
+    this.middlename = middlename;
+  }
 
-    /**
-     * @return the lastname
-     */
-    public String getLastname() {
-        return lastname;
-    }
+  /**
+   * @return the lastname
+   */
+  public String getLastname() {
+    return lastname;
+  }
 
-    /**
-     * @param lastname
-     *            the lastname to set
-     */
-    public void setLastname(final String lastname) {
-        this.lastname = lastname;
-    }
+  /**
+   * @param lastname
+   *     the lastname to set
+   */
+  public void setLastname(final String lastname) {
+    this.lastname = lastname;
+  }
 
-    public Timestamp getCreated() {
-        return created;
-    }
+  public Timestamp getCreated() {
+    return created;
+  }
 
-    public void setCreated(final Timestamp created) {
-        this.created = created;
-    }
+  public void setCreated(final Timestamp created) {
+    this.created = created;
+  }
 
-    public Timestamp getLastupdated() {
-        return lastupdated;
-    }
+  public Timestamp getLastupdated() {
+    return lastupdated;
+  }
 
-    public void setLastupdated(final Timestamp lastupdated) {
-        this.lastupdated = lastupdated;
-    }
+  public void setLastupdated(final Timestamp lastupdated) {
+    this.lastupdated = lastupdated;
+  }
 
 }

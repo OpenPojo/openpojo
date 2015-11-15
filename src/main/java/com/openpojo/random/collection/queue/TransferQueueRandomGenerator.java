@@ -32,27 +32,27 @@ import com.openpojo.reflection.java.load.ClassUtil;
  * @author oshoukry
  */
 public class TransferQueueRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final String TYPE = "java.util.concurrent.TransferQueue";
-    private static final String CONCRETE_TYPE = "java.util.concurrent.LinkedTransferQueue";
-    private static final TransferQueueRandomGenerator INSTANCE = new TransferQueueRandomGenerator();
+  private static final String TYPE = "java.util.concurrent.TransferQueue";
+  private static final String CONCRETE_TYPE = "java.util.concurrent.LinkedTransferQueue";
+  private static final TransferQueueRandomGenerator INSTANCE = new TransferQueueRandomGenerator();
 
-    public static TransferQueueRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static TransferQueueRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        List<Class<?>> types = new ArrayList<Class<?>>();
-        if (ClassUtil.isClassLoaded(TYPE) && ClassUtil.isClassLoaded(CONCRETE_TYPE))
-            types.add(ClassUtil.loadClass(TYPE));
-        return types;
-    }
+  public Collection<Class<?>> getTypes() {
+    List<Class<?>> types = new ArrayList<Class<?>>();
+    if (ClassUtil.isClassLoaded(TYPE) && ClassUtil.isClassLoaded(CONCRETE_TYPE))
+      types.add(ClassUtil.loadClass(TYPE));
+    return types;
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(CONCRETE_TYPE)));
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(CONCRETE_TYPE)));
+  }
 
-    private TransferQueueRandomGenerator() {
-    }
+  private TransferQueueRandomGenerator() {
+  }
 }

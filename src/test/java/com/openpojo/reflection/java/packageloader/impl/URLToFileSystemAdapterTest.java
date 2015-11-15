@@ -29,44 +29,44 @@ import org.junit.Test;
  */
 public class URLToFileSystemAdapterTest {
 
-    @Test(expected = ReflectionException.class)
-    public void whenNullURLShouldThrowException() {
-        new URLToFileSystemAdapter(null);
-    }
+  @Test(expected = ReflectionException.class)
+  public void whenNullURLShouldThrowException() {
+    new URLToFileSystemAdapter(null);
+  }
 
-    @Test
-    public void invalidURLShouldThrowException() throws MalformedURLException {
-        URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(new URL("file://Not A Parse-able URI"));
-        try {
-            urlToFileSystemAdapter.getAsURI();
-            Assert.fail("Invalid URL should've failed to transfer to URI");
-        } catch (ReflectionException ignored) {
-        }
+  @Test
+  public void invalidURLShouldThrowException() throws MalformedURLException {
+    URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(new URL("file://Not A Parse-able URI"));
+    try {
+      urlToFileSystemAdapter.getAsURI();
+      Assert.fail("Invalid URL should've failed to transfer to URI");
+    } catch (ReflectionException ignored) {
     }
+  }
 
-    @Test
-    public void whenURLendsWithPercentDoNotExcape() {
-        validateURLtoExpectedFilePath("/apps%", "file:///apps%");
-    }
+  @Test
+  public void whenURLendsWithPercentDoNotExcape() {
+    validateURLtoExpectedFilePath("/apps%", "file:///apps%");
+  }
 
-    @Test
-    public void whenURLHasPercent20TurnToSpaces() {
-        validateURLtoExpectedFilePath("/WithOne Two Spaces", "file:///WithOne%20Two%20Spaces");
-    }
+  @Test
+  public void whenURLHasPercent20TurnToSpaces() {
+    validateURLtoExpectedFilePath("/WithOne Two Spaces", "file:///WithOne%20Two%20Spaces");
+  }
 
-    @Test
-    public void whenOnWindowsMountedShouldPreserveServerAuthority() {
-        validateURLtoExpectedFilePath("/ourserver.com@ourserver.com/A Server Path", "file://ourserver.com/A%20Server%20Path/");
-    }
+  @Test
+  public void whenOnWindowsMountedShouldPreserveServerAuthority() {
+    validateURLtoExpectedFilePath("/ourserver.com@ourserver.com/A Server Path", "file://ourserver.com/A%20Server%20Path/");
+  }
 
-    private void validateURLtoExpectedFilePath(String expectedFilePath, String url) {
-        try {
-            URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(new URL(url));
-            String absolutePath = urlToFileSystemAdapter.getAsFile().getAbsolutePath();
-            Assert.assertEquals(expectedFilePath, absolutePath);
-        } catch (MalformedURLException e) {
-            Assert.fail("Exception encountered" + e);
-            e.printStackTrace();
-        }
+  private void validateURLtoExpectedFilePath(String expectedFilePath, String url) {
+    try {
+      URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(new URL(url));
+      String absolutePath = urlToFileSystemAdapter.getAsFile().getAbsolutePath();
+      Assert.assertEquals(expectedFilePath, absolutePath);
+    } catch (MalformedURLException e) {
+      Assert.fail("Exception encountered" + e);
+      e.printStackTrace();
     }
+  }
 }

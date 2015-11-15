@@ -38,44 +38,44 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestEntityTest {
-    private static final int EXPECTED_CLASS_COUNT = 2;
+  private static final int EXPECTED_CLASS_COUNT = 2;
 
-    private static final String POJO_PACKAGE = "com.openpojo.issues.issue26.pojo";
+  private static final String POJO_PACKAGE = "com.openpojo.issues.issue26.pojo";
 
-    private List<PojoClass> pojoClasses;
-    private Validator pojoValidator;
+  private List<PojoClass> pojoClasses;
+  private Validator pojoValidator;
 
-    @Before
-    public void setup() {
-        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE);
+  @Before
+  public void setup() {
+    pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE);
 
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create();
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create();
 
-        // Create Rules to validate structure for POJO_PACKAGE
-        validatorBuilder.with(new NoPublicFieldsRule());
-        validatorBuilder.with(new NoPrimitivesRule());
-        validatorBuilder.with(new NoStaticExceptFinalRule());
-        validatorBuilder.with(new GetterMustExistRule());
-        validatorBuilder.with(new NoNestedClassRule());
-        validatorBuilder.with(new BusinessKeyMustExistRule());
+    // Create Rules to validate structure for POJO_PACKAGE
+    validatorBuilder.with(new NoPublicFieldsRule());
+    validatorBuilder.with(new NoPrimitivesRule());
+    validatorBuilder.with(new NoStaticExceptFinalRule());
+    validatorBuilder.with(new GetterMustExistRule());
+    validatorBuilder.with(new NoNestedClassRule());
+    validatorBuilder.with(new BusinessKeyMustExistRule());
 
-        // Create Testers to validate behavior for POJO_PACKAGE
-        validatorBuilder.with(new SetterTester());
-        validatorBuilder.with(new GetterTester());
-        validatorBuilder.with(new BusinessIdentityTester());
+    // Create Testers to validate behavior for POJO_PACKAGE
+    validatorBuilder.with(new SetterTester());
+    validatorBuilder.with(new GetterTester());
+    validatorBuilder.with(new BusinessIdentityTester());
 
-        pojoValidator = validatorBuilder.build();
-    }
+    pojoValidator = validatorBuilder.build();
+  }
 
-    @Test
-    public void ensureExpectedPojoCount() {
-        Affirm.affirmEquals(MessageFormatter.format("Classes added / removed? [{0}]", pojoClasses), EXPECTED_CLASS_COUNT, pojoClasses
-                .size());
-    }
+  @Test
+  public void ensureExpectedPojoCount() {
+    Affirm.affirmEquals(MessageFormatter.format("Classes added / removed? [{0}]", pojoClasses), EXPECTED_CLASS_COUNT,
+        pojoClasses.size());
+  }
 
-    @Test
-    public void testPojoStructureAndBehavior() {
-        pojoValidator.validate(pojoClasses);
-    }
+  @Test
+  public void testPojoStructureAndBehavior() {
+    pojoValidator.validate(pojoClasses);
+  }
 
 }

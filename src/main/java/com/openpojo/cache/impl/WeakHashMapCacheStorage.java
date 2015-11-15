@@ -28,24 +28,23 @@ import com.openpojo.cache.CacheStorage;
  * for temporal short bursts of cache are needed and GC removal of cached items is acceptable.
  *
  * @author oshoukry
- *
  */
 public class WeakHashMapCacheStorage<T> implements CacheStorage<T> {
 
-    private final Map<String, T> repository = new WeakHashMap<String, T>();
+  private final Map<String, T> repository = new WeakHashMap<String, T>();
 
-    public void clear() {
-        repository.clear();
-    }
+  public void clear() {
+    repository.clear();
+  }
 
-    @SuppressWarnings("RedundantStringConstructorCall")
-    public void add(String name, T value) {
-        // Ensure that we don't have a "Strong" reference to the key in the map, otherwise no cleanup will occur.
-        repository.put(new String(name), value);
-    }
+  @SuppressWarnings("RedundantStringConstructorCall")
+  public void add(String name, T value) {
+    // Ensure that we don't have a "Strong" reference to the key in the map, otherwise no cleanup will occur.
+    repository.put(new String(name), value);
+  }
 
-    public T get(String name) {
-        return repository.get(name);
-    }
+  public T get(String name) {
+    return repository.get(name);
+  }
 
 }

@@ -23,7 +23,7 @@ import com.openpojo.cache.CacheStorage;
  * @author oshoukry
  */
 public class WeakRefHashMapCachStorageTest extends CacheStorageTest {
-    public CacheStorage<String> getCacheStorage() {
-        return new WeakHashMapCacheStorage<String>();
-    }
+  public CacheStorage<String> getCacheStorage() {
+    return new WeakHashMapCacheStorage<String>();
+  }
 }

@@ -30,39 +30,39 @@ import org.junit.Before;
  * @author oshoukry
  */
 public class TransferQueueRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
-    private static final String EXPECTED_TYPE_CLASS_NAME = "java.util.concurrent.TransferQueue";
-    private static final String GENERATED_TYPE_CLASS_NAME = "java.util.concurrent.LinkedTransferQueue";
+  private static final String EXPECTED_TYPE_CLASS_NAME = "java.util.concurrent.TransferQueue";
+  private static final String GENERATED_TYPE_CLASS_NAME = "java.util.concurrent.LinkedTransferQueue";
 
-    @Before
-    public void requirement() {
-        Assume.assumeTrue(EXPECTED_TYPE_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(EXPECTED_TYPE_CLASS_NAME));
-        Assume.assumeTrue(GENERATED_TYPE_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(GENERATED_TYPE_CLASS_NAME));
-    }
+  @Before
+  public void requirement() {
+    Assume.assumeTrue(EXPECTED_TYPE_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(EXPECTED_TYPE_CLASS_NAME));
+    Assume.assumeTrue(GENERATED_TYPE_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(GENERATED_TYPE_CLASS_NAME));
+  }
 
-    @Override
-    protected ParameterizableRandomGenerator getInstance() {
-        return TransferQueueRandomGenerator.getInstance();
-    }
+  @Override
+  protected ParameterizableRandomGenerator getInstance() {
+    return TransferQueueRandomGenerator.getInstance();
+  }
 
-    @Override
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return TransferQueueRandomGenerator.class;
-    }
+  @Override
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return TransferQueueRandomGenerator.class;
+  }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    protected Class<? extends Collection> getExpectedTypeClass() {
-        return (Class<? extends Collection>) ClassUtil.loadClass(EXPECTED_TYPE_CLASS_NAME);
-    }
+  @Override
+  @SuppressWarnings("unchecked")
+  protected Class<? extends Collection> getExpectedTypeClass() {
+    return (Class<? extends Collection>) ClassUtil.loadClass(EXPECTED_TYPE_CLASS_NAME);
+  }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    protected Class<? extends Collection> getGeneratedTypeClass() {
-        return (Class<? extends Collection>) ClassUtil.loadClass(GENERATED_TYPE_CLASS_NAME);
-    }
+  @Override
+  @SuppressWarnings("unchecked")
+  protected Class<? extends Collection> getGeneratedTypeClass() {
+    return (Class<? extends Collection>) ClassUtil.loadClass(GENERATED_TYPE_CLASS_NAME);
+  }
 
-    @Override
-    protected Class<?> getGenericType() {
-        return SimpleType.class;
-    }
+  @Override
+  protected Class<?> getGenericType() {
+    return SimpleType.class;
+  }
 }
