@@ -37,28 +37,28 @@ import com.openpojo.business.utils.BusinessPojoHelper;
 
 public class DefaultHashCodeGenerator implements HashCodeGenerator {
 
-    private DefaultHashCodeGenerator() {
+  private DefaultHashCodeGenerator() {
+  }
+
+  public static HashCodeGenerator getInstance() {
+    return Instance.INSTANCE;
+  }
+
+
+  public int doGenerate(final Object object) {
+    if (object == null) {
+      throw BusinessException.getInstance("null parameter passed object=[null]");
     }
 
-    public static HashCodeGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
+    final int prime = 31;
+    int result = 1;
 
+    for (BusinessKeyField businessKeyField : BusinessPojoHelper.getBusinessKeyFields(object.getClass()))
+      result = prime * result + BusinessIdentityUtils.getHashCode(businessKeyField, object, businessKeyField.isCaseSensitive());
+    return result;
+  }
 
-    public int doGenerate(final Object object) {
-        if (object == null) {
-            throw BusinessException.getInstance("null parameter passed object=[null]");
-        }
-
-        final int prime = 31;
-        int result = 1;
-
-        for (BusinessKeyField businessKeyField : BusinessPojoHelper.getBusinessKeyFields(object.getClass()))
-            result = prime * result + BusinessIdentityUtils.getHashCode(businessKeyField, object, businessKeyField.isCaseSensitive());
-        return result;
-    }
-
-    private static class Instance {
-        static final HashCodeGenerator INSTANCE = new DefaultHashCodeGenerator();
-    }
+  private static class Instance {
+    static final HashCodeGenerator INSTANCE = new DefaultHashCodeGenerator();
+  }
 }

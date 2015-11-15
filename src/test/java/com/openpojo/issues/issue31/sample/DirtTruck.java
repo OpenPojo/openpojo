@@ -22,13 +22,13 @@ package com.openpojo.issues.issue31.sample;
  */
 public class DirtTruck implements Truck {
 
-    private AluminumWheel wheel;
+  private AluminumWheel wheel;
 
-    public void setWheel(final AluminumWheel wheel) {
-        this.wheel = wheel;
-    }
+  public void setWheel(final AluminumWheel wheel) {
+    this.wheel = wheel;
+  }
 
-    public AluminumWheel getWheel() {
-        return wheel;
-    }
+  public AluminumWheel getWheel() {
+    return wheel;
+  }
 }

@@ -34,46 +34,46 @@ import com.openpojo.business.utils.BusinessPojoHelper;
  */
 public class DefaultBusinessValidator implements BusinessValidator {
 
-    private DefaultBusinessValidator() {
+  private DefaultBusinessValidator() {
 
+  }
+
+  public static BusinessValidator getInstance() {
+    return DefaultBusinessValidator.Instance.INSTANCE;
+  }
+
+  public void validate(final Object object) {
+    if (object == null) {
+      return;
     }
 
-    public static BusinessValidator getInstance() {
-        return DefaultBusinessValidator.Instance.INSTANCE;
+    boolean compositeGroupPassed = false;
+    boolean hasCompositeGroup = false;
+    boolean hasBusinessKey = false;
+    for (BusinessKeyField businessKeyField : BusinessPojoHelper.getBusinessKeyFields(object.getClass())) {
+      hasBusinessKey = true;
+      if (businessKeyField.isComposite()) {
+        if (businessKeyField.get(object) != null) {
+          compositeGroupPassed = true;
+        }
+        hasCompositeGroup = true;
+      } else {
+        if (businessKeyField.isRequired() && businessKeyField.get(object) == null) {
+          throw BusinessException.getInstance((String.format("Field required and can't be null [%s]", businessKeyField)));
+        }
+      }
+    }
+    if (!hasBusinessKey) {
+      throw BusinessException.getInstance(String.format("No business Keys defined on class=[%s]", object.getClass()));
     }
 
-    public void validate(final Object object) {
-        if (object == null) {
-            return;
-        }
-
-        boolean compositeGroupPassed = false;
-        boolean hasCompositeGroup = false;
-        boolean hasBusinessKey = false;
-        for (BusinessKeyField businessKeyField : BusinessPojoHelper.getBusinessKeyFields(object.getClass())) {
-            hasBusinessKey = true;
-            if (businessKeyField.isComposite()) {
-                if (businessKeyField.get(object) != null) {
-                    compositeGroupPassed = true;
-                }
-                hasCompositeGroup = true;
-            } else {
-                if (businessKeyField.isRequired() && businessKeyField.get(object) == null) {
-                    throw BusinessException.getInstance((String.format("Field required and can't be null [%s]", businessKeyField)));
-                }
-            }
-        }
-        if (!hasBusinessKey) {
-            throw BusinessException.getInstance(String.format("No business Keys defined on class=[%s]", object.getClass()));
-        }
-
-        if (!compositeGroupPassed && hasCompositeGroup) {
-            throw BusinessException.getInstance(String.format("Non of the fields in the composite group were populated [%s]",
-                    object.getClass()));
-        }
+    if (!compositeGroupPassed && hasCompositeGroup) {
+      throw BusinessException.getInstance(String.format("Non of the fields in the composite group were populated [%s]",
+          object.getClass()));
     }
+  }
 
-    private static class Instance {
-        static final BusinessValidator INSTANCE = new DefaultBusinessValidator();
-    }
+  private static class Instance {
+    static final BusinessValidator INSTANCE = new DefaultBusinessValidator();
+  }
 }

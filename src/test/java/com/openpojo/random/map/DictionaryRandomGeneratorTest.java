@@ -36,51 +36,51 @@ import org.junit.Test;
  */
 public class DictionaryRandomGeneratorTest {
 
-    @Test
-    public void canGenerateDictionary() {
-        Assert.assertNotNull("Should not be null", RandomFactory.getRandomValue(Dictionary.class));
+  @Test
+  public void canGenerateDictionary() {
+    Assert.assertNotNull("Should not be null", RandomFactory.getRandomValue(Dictionary.class));
+  }
+
+  @Test
+  public void dictionaryCreatedIsHashtable() {
+    Object object = RandomFactory.getRandomValue(Dictionary.class);
+    Assert.assertNotNull(object);
+    Assert.assertEquals("Should be HashTable instance", Hashtable.class, object.getClass());
+  }
+
+  @Test
+  public void shouldNotBeEmpty() {
+    Hashtable hashtable = (Hashtable) RandomFactory.getRandomValue(Dictionary.class);
+    Assert.assertNotNull(hashtable);
+    Assert.assertTrue("Should not be empty", hashtable.size() > 0);
+  }
+
+  @Test
+  public void canGenerateGenerics() {
+    Hashtable<?, ?> hashtable = (Hashtable) RandomFactory.getRandomValue(new Parameterizable() {
+      public Class<?> getType() {
+        return Dictionary.class;
+      }
+
+      public boolean isParameterized() {
+        return true;
+      }
+
+      public List<Type> getParameterTypes() {
+        List<Type> parameterTypes = new ArrayList<Type>(2);
+        parameterTypes.add(SimpleType1.class);
+        parameterTypes.add(SimpleType2.class);
+        return parameterTypes;
+      }
+    });
+    Assert.assertNotNull("Should not be null", hashtable);
+    Assert.assertTrue("Should not be empty", !hashtable.isEmpty());
+    for (Map.Entry<?, ?> entry : hashtable.entrySet()) {
+      Assert.assertNotNull("Should not be null entry", entry);
+      Assert.assertNotNull("Should not be null entry.getKey()", entry.getKey());
+      Assert.assertEquals("Should be of type SimpleType1.class", SimpleType1.class, entry.getKey().getClass());
+      Assert.assertNotNull("Should not be null entry.getValue()", entry.getValue());
+      Assert.assertEquals("Should be of type SimpleType2.class", SimpleType2.class, entry.getValue().getClass());
     }
-
-    @Test
-    public void dictionaryCreatedIsHashtable() {
-        Object object = RandomFactory.getRandomValue(Dictionary.class);
-        Assert.assertNotNull(object);
-        Assert.assertEquals("Should be HashTable instance", Hashtable.class, object.getClass());
-    }
-
-    @Test
-    public void shouldNotBeEmpty() {
-        Hashtable hashtable = (Hashtable) RandomFactory.getRandomValue(Dictionary.class);
-        Assert.assertNotNull(hashtable);
-        Assert.assertTrue("Should not be empty", hashtable.size() > 0);
-    }
-
-    @Test
-    public void canGenerateGenerics() {
-        Hashtable<?, ?> hashtable = (Hashtable) RandomFactory.getRandomValue(new Parameterizable() {
-            public Class<?> getType() {
-                return Dictionary.class;
-            }
-
-            public boolean isParameterized() {
-                return true;
-            }
-
-            public List<Type> getParameterTypes() {
-                List<Type> parameterTypes = new ArrayList<Type>(2);
-                parameterTypes.add(SimpleType1.class);
-                parameterTypes.add(SimpleType2.class);
-                return parameterTypes;
-            }
-        });
-        Assert.assertNotNull("Should not be null", hashtable);
-        Assert.assertTrue("Should not be empty", !hashtable.isEmpty());
-        for (Map.Entry<?, ?> entry : hashtable.entrySet()) {
-            Assert.assertNotNull("Should not be null entry", entry);
-            Assert.assertNotNull("Should not be null entry.getKey()", entry.getKey());
-            Assert.assertEquals("Should be of type SimpleType1.class", SimpleType1.class, entry.getKey().getClass());
-            Assert.assertNotNull("Should not be null entry.getValue()", entry.getValue());
-            Assert.assertEquals("Should be of type SimpleType2.class", SimpleType2.class, entry.getValue().getClass());
-        }
-    }
+  }
 }

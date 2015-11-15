@@ -29,32 +29,32 @@ import com.openpojo.random.util.ComparableDelayed;
  * @author oshoukry
  */
 public class DelayQueueRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
-    @Override
-    protected ParameterizableRandomGenerator getInstance() {
-        return DelayQueueRandomGenerator.getInstance();
-    }
+  @Override
+  protected ParameterizableRandomGenerator getInstance() {
+    return DelayQueueRandomGenerator.getInstance();
+  }
 
-    @Override
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return DelayQueueRandomGenerator.class;
-    }
+  @Override
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return DelayQueueRandomGenerator.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getExpectedTypeClass() {
-        return DelayQueue.class;
-    }
+  @Override
+  protected Class<? extends Collection> getExpectedTypeClass() {
+    return DelayQueue.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getGeneratedTypeClass() {
-        return getExpectedTypeClass();
-    }
+  @Override
+  protected Class<? extends Collection> getGeneratedTypeClass() {
+    return getExpectedTypeClass();
+  }
 
-    protected Class<?> getDefaultType() {
-        return ComparableDelayed.class;
-    }
+  protected Class<?> getDefaultType() {
+    return ComparableDelayed.class;
+  }
 
-    @Override
-    protected Class<?> getGenericType() {
-        return DelayedType.class;
-    }
+  @Override
+  protected Class<?> getGenericType() {
+    return DelayedType.class;
+  }
 }

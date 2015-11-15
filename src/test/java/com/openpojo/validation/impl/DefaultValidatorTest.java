@@ -31,87 +31,87 @@ import org.junit.Test;
 
 public class DefaultValidatorTest {
 
-    @Test
-    public void rulesAndTestersAreTriggeredWhenValidation() {
-        TesterSpy testerSpy = new TesterSpy();
-        List<Tester> testers = new ArrayList<Tester>();
-        testers.add(testerSpy);
+  @Test
+  public void rulesAndTestersAreTriggeredWhenValidation() {
+    TesterSpy testerSpy = new TesterSpy();
+    List<Tester> testers = new ArrayList<Tester>();
+    testers.add(testerSpy);
 
-        RuleSpy ruleSpy = new RuleSpy();
-        List<Rule> rules = new ArrayList<Rule>();
-        rules.add(ruleSpy);
+    RuleSpy ruleSpy = new RuleSpy();
+    List<Rule> rules = new ArrayList<Rule>();
+    rules.add(ruleSpy);
 
-        FilterSpy filterSpy = new FilterSpy();
+    FilterSpy filterSpy = new FilterSpy();
 
-        DefaultValidator defaultValidator = new DefaultValidator(rules, testers);
-        defaultValidator.validate(this.getClass().getPackage().getName() + ".sample", filterSpy);
+    DefaultValidator defaultValidator = new DefaultValidator(rules, testers);
+    defaultValidator.validate(this.getClass().getPackage().getName() + ".sample", filterSpy);
 
-        assertInvokedClasses(testerSpy.getInvocations(), DummyClass.class.getName());
-        assertInvokedClasses(ruleSpy.getInvocations(), DummyClass.class.getName());
-        assertInvokedClasses(filterSpy.getInvocations(), DummyClass.class.getName());
+    assertInvokedClasses(testerSpy.getInvocations(), DummyClass.class.getName());
+    assertInvokedClasses(ruleSpy.getInvocations(), DummyClass.class.getName());
+    assertInvokedClasses(filterSpy.getInvocations(), DummyClass.class.getName());
+  }
+
+  @Test
+  public void rulesAndTestersAreTriggeredWhenValidationIsRunRecursively() {
+    TesterSpy testerSpy = new TesterSpy();
+    List<Tester> testers = new ArrayList<Tester>();
+    testers.add(testerSpy);
+
+    RuleSpy ruleSpy = new RuleSpy();
+    List<Rule> rules = new ArrayList<Rule>();
+    rules.add(ruleSpy);
+
+    FilterSpy filterSpy = new FilterSpy();
+
+    DefaultValidator defaultValidator = new DefaultValidator(rules, testers);
+    defaultValidator.validateRecursively(this.getClass().getPackage().getName() + ".sample", filterSpy);
+
+    assertInvokedClasses(testerSpy.getInvocations(), DummyClass.class.getName(), AnotherDummyClass.class.getName());
+    assertInvokedClasses(ruleSpy.getInvocations(), DummyClass.class.getName(), AnotherDummyClass.class.getName());
+    assertInvokedClasses(filterSpy.getInvocations(), DummyClass.class.getName(), AnotherDummyClass.class.getName());
+  }
+
+  private void assertInvokedClasses(List<String> invocations, String... classNames) {
+    Assert.assertEquals(classNames.length, invocations.size());
+
+    for (String className : classNames)
+      Assert.assertTrue("Could not find call for class [" + className + "]", invocations.contains(className));
+  }
+
+  private static class TesterSpy implements Tester {
+    private List<String> invocations = new ArrayList<String>();
+
+    public void run(PojoClass pojoClass) {
+      invocations.add(pojoClass.getName());
     }
 
-    @Test
-    public void rulesAndTestersAreTriggeredWhenValidationIsRunRecursively() {
-        TesterSpy testerSpy = new TesterSpy();
-        List<Tester> testers = new ArrayList<Tester>();
-        testers.add(testerSpy);
+    public List<String> getInvocations() {
+      return invocations;
+    }
+  }
 
-        RuleSpy ruleSpy = new RuleSpy();
-        List<Rule> rules = new ArrayList<Rule>();
-        rules.add(ruleSpy);
+  private static class RuleSpy implements Rule {
+    private List<String> invocations = new ArrayList<String>();
 
-        FilterSpy filterSpy = new FilterSpy();
-
-        DefaultValidator defaultValidator = new DefaultValidator(rules, testers);
-        defaultValidator.validateRecursively(this.getClass().getPackage().getName() + ".sample", filterSpy);
-
-        assertInvokedClasses(testerSpy.getInvocations(), DummyClass.class.getName(), AnotherDummyClass.class.getName());
-        assertInvokedClasses(ruleSpy.getInvocations(), DummyClass.class.getName(), AnotherDummyClass.class.getName());
-        assertInvokedClasses(filterSpy.getInvocations(), DummyClass.class.getName(), AnotherDummyClass.class.getName());
+    public void evaluate(PojoClass pojoClass) {
+      invocations.add(pojoClass.getName());
     }
 
-    private void assertInvokedClasses(List<String> invocations, String... classNames) {
-        Assert.assertEquals(classNames.length, invocations.size());
+    public List<String> getInvocations() {
+      return invocations;
+    }
+  }
 
-        for (String className : classNames)
-            Assert.assertTrue("Could not find call for class [" + className + "]", invocations.contains(className));
+  private static class FilterSpy implements PojoClassFilter {
+    private List<String> invocations = new ArrayList<String>();
+
+    public boolean include(PojoClass pojoClass) {
+      invocations.add(pojoClass.getName());
+      return true;
     }
 
-    private static class TesterSpy implements Tester {
-        private List<String> invocations = new ArrayList<String>();
-
-        public void run(PojoClass pojoClass) {
-            invocations.add(pojoClass.getName());
-        }
-
-        public List<String> getInvocations() {
-            return invocations;
-        }
+    public List<String> getInvocations() {
+      return invocations;
     }
-
-    private static class RuleSpy implements Rule {
-        private List<String> invocations = new ArrayList<String>();
-
-        public void evaluate(PojoClass pojoClass) {
-            invocations.add(pojoClass.getName());
-        }
-
-        public List<String> getInvocations() {
-            return invocations;
-        }
-    }
-
-    private static class FilterSpy implements PojoClassFilter {
-        private List<String> invocations = new ArrayList<String>();
-
-        public boolean include(PojoClass pojoClass) {
-            invocations.add(pojoClass.getName());
-            return true;
-        }
-
-        public List<String> getInvocations() {
-            return invocations;
-        }
-    }
+  }
 }

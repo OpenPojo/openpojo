@@ -30,17 +30,18 @@ import org.testng.Assert;
  */
 public class DefaultBusinessKeyFieldTest {
 
-    @Test
-    public void shouldFormatToString() {
-        List<BusinessKeyField> businessKeyFieldList = BusinessPojoHelper.getBusinessKeyFields(AClassWithBusinessKeys.class);
-        Assert.assertEquals(1, businessKeyFieldList.size());
-        String expectedToString = "DefaultBusinessKeyField [isRequired=true, isComposite=false, isCaseSensitive=true, " +
-                "pojoField=PojoFieldImpl [field=private java.lang.String com.openpojo.business.cache.impl.DefaultBusinessKeyFieldTest$AClassWithBusinessKeys.name, fieldGetter=null, fieldSetter=null]]";
-        Assert.assertEquals(expectedToString, businessKeyFieldList.get(0).toString());
-    }
+  @Test
+  public void shouldFormatToString() {
+    List<BusinessKeyField> businessKeyFieldList = BusinessPojoHelper.getBusinessKeyFields(AClassWithBusinessKeys.class);
+    Assert.assertEquals(1, businessKeyFieldList.size());
+    String expectedToString = "DefaultBusinessKeyField [isRequired=true, isComposite=false, isCaseSensitive=true, " +
+        "pojoField=PojoFieldImpl [field=private java.lang.String com.openpojo.business.cache.impl" +
+        ".DefaultBusinessKeyFieldTest$AClassWithBusinessKeys.name, fieldGetter=null, fieldSetter=null]]";
+    Assert.assertEquals(expectedToString, businessKeyFieldList.get(0).toString());
+  }
 
-    private static class AClassWithBusinessKeys {
-        @BusinessKey
-        private String name;
-    }
+  private static class AClassWithBusinessKeys {
+    @BusinessKey
+    private String name;
+  }
 }

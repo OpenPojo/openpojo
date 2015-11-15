@@ -27,20 +27,20 @@ import com.openpojo.reflection.coverage.service.PojoCoverageFilterService;
  */
 public class DefaultPojoCoverageFilterService implements PojoCoverageFilterService {
 
-    private PojoClassCoverageFilter pojoClassCoverageFilter = new PojoClassCoverageFilter();
-    private PojoClassCoverageAdapter pojoClassCoverageAdapter = new PojoClassCoverageAdapter();
+  private PojoClassCoverageFilter pojoClassCoverageFilter = new PojoClassCoverageFilter();
+  private PojoClassCoverageAdapter pojoClassCoverageAdapter = new PojoClassCoverageAdapter();
 
-    public synchronized void registerCoverageDetector(CoverageDetector coverageDetector) {
-            pojoClassCoverageFilter.add(coverageDetector.getPojoClassFilter());
-            pojoClassCoverageAdapter.add(coverageDetector.getPojoClassAdapter());
-    }
+  public synchronized void registerCoverageDetector(CoverageDetector coverageDetector) {
+    pojoClassCoverageFilter.add(coverageDetector.getPojoClassFilter());
+    pojoClassCoverageAdapter.add(coverageDetector.getPojoClassAdapter());
+  }
 
-    public PojoClass adapt(PojoClass pojoClass) {
-        return pojoClassCoverageAdapter.adapt(pojoClass);
-    }
+  public PojoClass adapt(PojoClass pojoClass) {
+    return pojoClassCoverageAdapter.adapt(pojoClass);
+  }
 
-    public boolean include(PojoClass pojoClass) {
-        return pojoClassCoverageFilter.include(pojoClass);
-    }
+  public boolean include(PojoClass pojoClass) {
+    return pojoClassCoverageFilter.include(pojoClass);
+  }
 
 }

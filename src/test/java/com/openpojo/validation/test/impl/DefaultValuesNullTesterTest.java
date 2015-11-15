@@ -17,25 +17,24 @@
 
 package com.openpojo.validation.test.impl;
 
-import org.junit.Test;
-
 import com.openpojo.validation.rule.impl.CommonCode;
+import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.test.impl.sampleclasses.DefaultValueNotNullClass;
 import com.openpojo.validation.test.impl.sampleclasses.DefaultValueNullClass;
-import com.openpojo.validation.test.Tester;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class DefaultValuesNullTesterTest {
 
-    Class<?>[] failClasses = new Class<?>[]{ DefaultValueNotNullClass.class };
-    Class<?>[] passClasses = new Class<?>[]{ DefaultValueNullClass.class };
-    Tester test = new DefaultValuesNullTester();
+  Class<?>[] failClasses = new Class<?>[] { DefaultValueNotNullClass.class };
+  Class<?>[] passClasses = new Class<?>[] { DefaultValueNullClass.class };
+  Tester test = new DefaultValuesNullTester();
 
-    @Test
-    public void testEvaluate() {
-        CommonCode.shouldPassTesterValidation(test, passClasses);
-        CommonCode.shouldFailTesterValidation(test, failClasses);
-    }
+  @Test
+  public void testEvaluate() {
+    CommonCode.shouldPassTesterValidation(test, passClasses);
+    CommonCode.shouldFailTesterValidation(test, failClasses);
+  }
 }

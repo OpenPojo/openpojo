@@ -40,62 +40,62 @@ import com.openpojo.registry.ServiceRegistrar;
  */
 public class DefaultPojoClassLookupService implements Service, PojoClassLookupService {
 
-    public DefaultPojoClassLookupService() {
+  public DefaultPojoClassLookupService() {
 
+  }
+
+  public String getName() {
+    return this.getClass().getName();
+  }
+
+  public List<PojoClass> enumerateClassesByExtendingType(final String packageName, final Class<?> type,
+                                                         final PojoClassFilter pojoClassFilter) {
+
+    final FilterBasedOnInheritance inheritanceFilter = new FilterBasedOnInheritance(type);
+    final FilterChain filterChain = new FilterChain(inheritanceFilter, pojoClassFilter);
+    return getPojoClassesRecursively(packageName, filterChain);
+  }
+
+  public PojoClass getPojoClass(final Class<?> clazz) {
+    PojoClass pojoClass = PojoCache.getPojoClass(clazz.getName());
+    if (pojoClass == null) {
+      pojoClass = new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz), PojoMethodFactory.getPojoMethods(clazz));
+      PojoCache.addPojoClass(clazz.getName(), pojoClass);
     }
+    return ServiceRegistrar.getInstance().getPojoCoverageFilterService().adapt(pojoClass);
+  }
 
-    public String getName() {
-        return this.getClass().getName();
+  public List<PojoClass> getPojoClasses(final String packageName) {
+    return getPojoClasses(packageName, null);
+  }
+
+  public List<PojoClass> getPojoClasses(final String packageName, final PojoClassFilter pojoClassFilter) {
+    return PojoPackageFactory.getPojoPackage(packageName).getPojoClasses(getFinalFilterChain(pojoClassFilter));
+  }
+
+  public List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter pojoClassFilter) {
+    final List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
+
+    final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(packageName);
+    final List<PojoPackage> packages = new LinkedList<PojoPackage>();
+    packages.add(pojoPackage);
+
+    for (int counter = 0; counter < packages.size(); counter++) {
+      final PojoPackage entry = packages.get(counter);
+
+      // add newly discovered paths
+      packages.addAll(entry.getPojoSubPackages());
+
+      // add all classes in current path
+      for (final PojoClass pojoClass : entry.getPojoClasses(getFinalFilterChain(pojoClassFilter))) {
+        pojoClasses.add(pojoClass);
+      }
     }
+    return pojoClasses;
+  }
 
-    public List<PojoClass> enumerateClassesByExtendingType(final String packageName, final Class<?> type,
-                                                           final PojoClassFilter pojoClassFilter) {
-
-        final FilterBasedOnInheritance inheritanceFilter = new FilterBasedOnInheritance(type);
-        final FilterChain filterChain = new FilterChain(inheritanceFilter, pojoClassFilter);
-        return getPojoClassesRecursively(packageName, filterChain);
-    }
-
-    public PojoClass getPojoClass(final Class<?> clazz) {
-        PojoClass pojoClass = PojoCache.getPojoClass(clazz.getName());
-        if (pojoClass == null) {
-            pojoClass = new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz), PojoMethodFactory.getPojoMethods(clazz));
-            PojoCache.addPojoClass(clazz.getName(), pojoClass);
-        }
-        return ServiceRegistrar.getInstance().getPojoCoverageFilterService().adapt(pojoClass);
-    }
-
-    public List<PojoClass> getPojoClasses(final String packageName) {
-        return getPojoClasses(packageName, null);
-    }
-
-    public List<PojoClass> getPojoClasses(final String packageName, final PojoClassFilter pojoClassFilter) {
-        return PojoPackageFactory.getPojoPackage(packageName).getPojoClasses(getFinalFilterChain(pojoClassFilter));
-    }
-
-    public List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter pojoClassFilter) {
-        final List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
-
-        final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(packageName);
-        final List<PojoPackage> packages = new LinkedList<PojoPackage>();
-        packages.add(pojoPackage);
-
-        for (int counter = 0; counter < packages.size(); counter++) {
-            final PojoPackage entry = packages.get(counter);
-
-            // add newly discovered paths
-            packages.addAll(entry.getPojoSubPackages());
-
-            // add all classes in current path
-            for (final PojoClass pojoClass : entry.getPojoClasses(getFinalFilterChain(pojoClassFilter))) {
-                pojoClasses.add(pojoClass);
-            }
-        }
-        return pojoClasses;
-    }
-
-    private PojoClassFilter getFinalFilterChain(PojoClassFilter pojoClassFilter) {
-        return new FilterChain(pojoClassFilter, ServiceRegistrar.getInstance().getPojoCoverageFilterService());
-    }
+  private PojoClassFilter getFinalFilterChain(PojoClassFilter pojoClassFilter) {
+    return new FilterChain(pojoClassFilter, ServiceRegistrar.getInstance().getPojoCoverageFilterService());
+  }
 
 }

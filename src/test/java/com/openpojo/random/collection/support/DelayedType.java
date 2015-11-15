@@ -25,15 +25,15 @@ import java.util.concurrent.TimeUnit;
  */
 public class DelayedType implements Delayed {
 
-    public long getDelay(TimeUnit unit) {
-        return 0;
-    }
+  public long getDelay(TimeUnit unit) {
+    return 0;
+  }
 
-    public int compareTo(Delayed o) {
-        if (System.identityHashCode(this) > System.identityHashCode(o))
-            return 1;
-        if (System.identityHashCode(this) < System.identityHashCode(o))
-            return -1;
-        return  0;
-    }
+  public int compareTo(Delayed o) {
+    if (System.identityHashCode(this) > System.identityHashCode(o))
+      return 1;
+    if (System.identityHashCode(this) < System.identityHashCode(o))
+      return -1;
+    return 0;
+  }
 }

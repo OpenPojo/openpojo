@@ -27,41 +27,41 @@ import com.openpojo.reflection.PojoField;
  */
 public class DefaultBusinessKeyField implements BusinessKeyField {
 
-    private final boolean isComposite;
-    private final boolean isCaseSensitive;
-    private final boolean isRequired;
-    private final PojoField pojoField;
+  private final boolean isComposite;
+  private final boolean isCaseSensitive;
+  private final boolean isRequired;
+  private final PojoField pojoField;
 
-    public DefaultBusinessKeyField(PojoField pojoField) {
-        this.pojoField = pojoField;
-        BusinessKey annotation = pojoField.getAnnotation(BusinessKey.class);
-        isComposite = annotation.composite();
-        isCaseSensitive = annotation.caseSensitive();
-        isRequired = annotation.required();
-    }
+  public DefaultBusinessKeyField(PojoField pojoField) {
+    this.pojoField = pojoField;
+    BusinessKey annotation = pojoField.getAnnotation(BusinessKey.class);
+    isComposite = annotation.composite();
+    isCaseSensitive = annotation.caseSensitive();
+    isRequired = annotation.required();
+  }
 
-    public boolean isComposite() {
-        return isComposite;
-    }
+  public boolean isComposite() {
+    return isComposite;
+  }
 
-    public boolean isCaseSensitive() {
-        return isCaseSensitive;
-    }
+  public boolean isCaseSensitive() {
+    return isCaseSensitive;
+  }
 
-    public boolean isRequired() {
-        return isRequired;
-    }
+  public boolean isRequired() {
+    return isRequired;
+  }
 
-    public Object get(Object instance) {
-        return pojoField.get(instance);
-    }
+  public Object get(Object instance) {
+    return pojoField.get(instance);
+  }
 
-    public boolean isArray() {
-        return pojoField.isArray();
-    }
+  public boolean isArray() {
+    return pojoField.isArray();
+  }
 
-    public String toString() {
-        return String.format("DefaultBusinessKeyField [isRequired=%s, isComposite=%s, isCaseSensitive=%s, pojoField=%s]",
-                isRequired, isComposite, isCaseSensitive, pojoField);
-    }
+  public String toString() {
+    return String.format("DefaultBusinessKeyField [isRequired=%s, isComposite=%s, isCaseSensitive=%s, pojoField=%s]",
+        isRequired, isComposite, isCaseSensitive, pojoField);
+  }
 }

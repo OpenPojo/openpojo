@@ -32,32 +32,32 @@ import com.openpojo.reflection.Parameterizable;
  * @author oshoukry
  */
 public class DelayQueueRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { DelayQueue.class };
-    private static final DelayQueueRandomGenerator INSTANCE = new DelayQueueRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { DelayQueue.class };
+  private static final DelayQueueRandomGenerator INSTANCE = new DelayQueueRandomGenerator();
 
-    public static DelayQueueRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static DelayQueueRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection doGenerate(Class<?> type) {
-        return CollectionHelper.buildCollections(getBasicInstance(type), ComparableDelayed.class);
-    }
+  public Collection doGenerate(Class<?> type) {
+    return CollectionHelper.buildCollections(getBasicInstance(type), ComparableDelayed.class);
+  }
 
-    public Collection doGenerate(Parameterizable parameterizedType) {
-        return CollectionHelper.buildCollections(getBasicInstance(parameterizedType.getType()), parameterizedType.getParameterTypes().get
-                (0));
-    }
+  public Collection doGenerate(Parameterizable parameterizedType) {
+    return CollectionHelper.buildCollections(getBasicInstance(parameterizedType.getType()),
+        parameterizedType.getParameterTypes().get(0));
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new DelayQueue();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new DelayQueue();
+  }
 
-    private DelayQueueRandomGenerator() {
-    }
+  private DelayQueueRandomGenerator() {
+  }
 }

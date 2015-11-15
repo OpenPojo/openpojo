@@ -33,16 +33,16 @@ import org.junit.Test;
  */
 public class DirtTruckTest {
 
-    @Test
-    public void validate() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(DirtTruck.class);
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new SetterMustExistRule())
-                .with(new GetterMustExistRule())
-                .with(new GetterTester())
-                .with(new SetterTester())
-                .build();
+  @Test
+  public void validate() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(DirtTruck.class);
+    Validator pojoValidator = ValidatorBuilder.create()
+        .with(new SetterMustExistRule())
+        .with(new GetterMustExistRule())
+        .with(new GetterTester())
+        .with(new SetterTester())
+        .build();
 
-        pojoValidator.validate(pojoClass);
-    }
+    pojoValidator.validate(pojoClass);
+  }
 }

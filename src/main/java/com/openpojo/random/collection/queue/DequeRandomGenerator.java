@@ -31,26 +31,26 @@ import com.openpojo.reflection.java.load.ClassUtil;
  * @author oshoukry
  */
 public class DequeRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final String TYPE = "java.util.Deque";
-    private static final DequeRandomGenerator INSTANCE = new DequeRandomGenerator();
+  private static final String TYPE = "java.util.Deque";
+  private static final DequeRandomGenerator INSTANCE = new DequeRandomGenerator();
 
-    public static DequeRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static DequeRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        List<Class<?>> types = new ArrayList<Class<?>>();
-        if (ClassUtil.isClassLoaded(TYPE))
-            types.add(ClassUtil.loadClass(TYPE));
-        return types;
-    }
+  public Collection<Class<?>> getTypes() {
+    List<Class<?>> types = new ArrayList<Class<?>>();
+    if (ClassUtil.isClassLoaded(TYPE))
+      types.add(ClassUtil.loadClass(TYPE));
+    return types;
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new LinkedList();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new LinkedList();
+  }
 
-    private DequeRandomGenerator() {
-    }
+  private DequeRandomGenerator() {
+  }
 }

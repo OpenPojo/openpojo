@@ -34,32 +34,32 @@ import com.openpojo.validation.utils.ValidationHelper;
  * @author oshoukry
  */
 public class DefaultValidator implements Validator {
-    private final List<Rule> rules = new LinkedList<Rule>();
-    private final List<Tester> testers = new LinkedList<Tester>();
+  private final List<Rule> rules = new LinkedList<Rule>();
+  private final List<Tester> testers = new LinkedList<Tester>();
 
-    public DefaultValidator(List<Rule> rules, List<Tester> testers) {
-        this.rules.addAll(rules);
-        this.testers.addAll(testers);
-    }
+  public DefaultValidator(List<Rule> rules, List<Tester> testers) {
+    this.rules.addAll(rules);
+    this.testers.addAll(testers);
+  }
 
-    public void validate(PojoClass pojoClass) {
-        ValidationHelper.runValidation(pojoClass, this.rules, this.testers);
-    }
+  public void validate(PojoClass pojoClass) {
+    ValidationHelper.runValidation(pojoClass, this.rules, this.testers);
+  }
 
-    public void validate(List<PojoClass> pojoClasses) {
-        for (PojoClass pojoClass : pojoClasses)
-            validate(pojoClass);
-    }
+  public void validate(List<PojoClass> pojoClasses) {
+    for (PojoClass pojoClass : pojoClasses)
+      validate(pojoClass);
+  }
 
-    public void validate(String packageName, PojoClassFilter... filters) {
-        PojoClassFilter pojoClassFilter = new FilterChain(filters);
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(packageName, pojoClassFilter);
-        validate(pojoClasses);
-    }
+  public void validate(String packageName, PojoClassFilter... filters) {
+    PojoClassFilter pojoClassFilter = new FilterChain(filters);
+    List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(packageName, pojoClassFilter);
+    validate(pojoClasses);
+  }
 
-    public void validateRecursively(String packageName, PojoClassFilter... filters) {
-        PojoClassFilter pojoClassFilter = new FilterChain(filters);
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(packageName, pojoClassFilter);
-        validate(pojoClasses);
-    }
+  public void validateRecursively(String packageName, PojoClassFilter... filters) {
+    PojoClassFilter pojoClassFilter = new FilterChain(filters);
+    List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(packageName, pojoClassFilter);
+    validate(pojoClasses);
+  }
 }

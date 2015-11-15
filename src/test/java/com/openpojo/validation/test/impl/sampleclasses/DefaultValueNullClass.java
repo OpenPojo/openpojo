@@ -22,10 +22,10 @@ package com.openpojo.validation.test.impl.sampleclasses;
  */
 public final class DefaultValueNullClass {
 
-    // Okay
-    public boolean publicBooleanPrimitive = false;
-    public final String publicFinalString = "SomeValue";
+  // Okay
+  public boolean publicBooleanPrimitive = false;
+  public final String publicFinalString = "SomeValue";
 
-    // Okay
-    public String publicStringField;
+  // Okay
+  public String publicStringField;
 }

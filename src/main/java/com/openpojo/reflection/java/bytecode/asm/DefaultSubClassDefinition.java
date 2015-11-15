@@ -25,27 +25,27 @@ import org.objectweb.asm.ClassReader;
  * @author oshoukry
  */
 public class DefaultSubClassDefinition implements SubClassDefinition {
-    private final String generatedClassName;
-    private final ClassReader classReader;
+  private final String generatedClassName;
+  private final ClassReader classReader;
 
-    public DefaultSubClassDefinition(Class<?> parentClass) {
-        this(parentClass, parentClass.getName() + "__Generated_OpenPojo");
-    }
+  public DefaultSubClassDefinition(Class<?> parentClass) {
+    this(parentClass, parentClass.getName() + "__Generated_OpenPojo");
+  }
 
-    public DefaultSubClassDefinition(Class<?> parentClass, String subClassName) {
-        this.generatedClassName = subClassName;
-        this.classReader = ClassReaderFactory.getClassReader(parentClass);
-    }
+  public DefaultSubClassDefinition(Class<?> parentClass, String subClassName) {
+    this.generatedClassName = subClassName;
+    this.classReader = ClassReaderFactory.getClassReader(parentClass);
+  }
 
-    public ClassReader getClassReader() {
-        return classReader;
-    }
+  public ClassReader getClassReader() {
+    return classReader;
+  }
 
-    public String getGeneratedClassNameAsJDKPath() {
-        return generatedClassName.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
-    }
+  public String getGeneratedClassNameAsJDKPath() {
+    return generatedClassName.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
+  }
 
-    public String getGeneratedClassName() {
-        return generatedClassName;
-    }
+  public String getGeneratedClassName() {
+    return generatedClassName;
+  }
 }

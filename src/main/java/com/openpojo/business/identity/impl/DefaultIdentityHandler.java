@@ -24,30 +24,30 @@ import com.openpojo.business.identity.IdentityHandler;
  * @author oshoukry
  */
 public final class DefaultIdentityHandler implements IdentityHandler {
-    private static final IdentityHandler INSTANCE = new DefaultIdentityHandler();
+  private static final IdentityHandler INSTANCE = new DefaultIdentityHandler();
 
-    private DefaultIdentityHandler() {
+  private DefaultIdentityHandler() {
 
-    }
+  }
 
-    public static IdentityHandler getInstance() {
-        return INSTANCE;
-    }
+  public static IdentityHandler getInstance() {
+    return INSTANCE;
+  }
 
-    public boolean areEqual(final Object first, final Object second) {
-        return DefaultIdentityEvaluator.getInstance().areEqual(first, second);
-    }
+  public boolean areEqual(final Object first, final Object second) {
+    return DefaultIdentityEvaluator.getInstance().areEqual(first, second);
+  }
 
 
-    public int generateHashCode(final Object object) {
-        return DefaultHashCodeGenerator.getInstance().doGenerate(object);
-    }
+  public int generateHashCode(final Object object) {
+    return DefaultHashCodeGenerator.getInstance().doGenerate(object);
+  }
 
-    public void validate(final Object object) {
-        DefaultBusinessValidator.getInstance().validate(object);
-    }
+  public void validate(final Object object) {
+    DefaultBusinessValidator.getInstance().validate(object);
+  }
 
-    public boolean handlerFor(final Object object) {
-        return true;
-    }
+  public boolean handlerFor(final Object object) {
+    return true;
+  }
 }
