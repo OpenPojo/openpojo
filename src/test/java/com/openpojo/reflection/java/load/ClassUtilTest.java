@@ -29,30 +29,30 @@ import org.junit.Test;
  */
 public class ClassUtilTest {
 
-    @Test (expected = UnsupportedOperationException.class)
-    public void shouldNotBeAbleToConstruct() {
-        try {
-            PojoClass classUtilPojoClass = PojoClassFactory.getPojoClass(ClassUtil.class);
-            Assert.assertEquals(1, classUtilPojoClass.getPojoConstructors().size());
-            InstanceFactory.getLeastCompleteInstance(classUtilPojoClass);
-        } catch (ReflectionException re) {
-            Throwable cause = re.getCause();
-            while (cause != null) {
-                if (cause instanceof UnsupportedOperationException)
-                    throw (UnsupportedOperationException) cause;
-                cause = cause.getCause();
-            }
-        }
-        Assert.fail("Should have not been able to construct");
+  @Test(expected = UnsupportedOperationException.class)
+  public void shouldNotBeAbleToConstruct() {
+    try {
+      PojoClass classUtilPojoClass = PojoClassFactory.getPojoClass(ClassUtil.class);
+      Assert.assertEquals(1, classUtilPojoClass.getPojoConstructors().size());
+      InstanceFactory.getLeastCompleteInstance(classUtilPojoClass);
+    } catch (ReflectionException re) {
+      Throwable cause = re.getCause();
+      while (cause != null) {
+        if (cause instanceof UnsupportedOperationException)
+          throw (UnsupportedOperationException) cause;
+        cause = cause.getCause();
+      }
     }
+    Assert.fail("Should have not been able to construct");
+  }
 
-    @Test
-    public void shouldDetectTestClassLoaded() {
-        Assert.assertTrue(ClassUtil.isClassLoaded(this.getClass().getName()));
-    }
+  @Test
+  public void shouldDetectTestClassLoaded() {
+    Assert.assertTrue(ClassUtil.isClassLoaded(this.getClass().getName()));
+  }
 
-    @Test
-    public void shouldDetectInvalidClassNotLoaded() {
-        Assert.assertFalse(ClassUtil.isClassLoaded(this.getClass().getName() + "NonExistentClass"));
-    }
+  @Test
+  public void shouldDetectInvalidClassNotLoaded() {
+    Assert.assertFalse(ClassUtil.isClassLoaded(this.getClass().getName() + "NonExistentClass"));
+  }
 }

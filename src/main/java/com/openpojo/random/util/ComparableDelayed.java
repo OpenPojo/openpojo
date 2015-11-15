@@ -25,17 +25,17 @@ import java.util.concurrent.TimeUnit;
  * @author oshoukry
  */
 public class ComparableDelayed implements Delayed {
-    private final long delay = (System.currentTimeMillis() % 5) - 3;
+  private final long delay = (System.currentTimeMillis() % 5) - 3;
 
-    public long getDelay(TimeUnit unit) {
-        return delay;
-    }
+  public long getDelay(TimeUnit unit) {
+    return delay;
+  }
 
-    public int compareTo(Delayed other) {
-        if (other == null || this.hashCode() > other.hashCode())
-            return 1;
-        if (this.hashCode() == other.hashCode())
-            return 0;
-        return -1;
-    }
+  public int compareTo(Delayed other) {
+    if (other == null || this.hashCode() > other.hashCode())
+      return 1;
+    if (this.hashCode() == other.hashCode())
+      return 0;
+    return -1;
+  }
 }

@@ -28,28 +28,28 @@ import com.openpojo.random.collection.util.BaseCollectionRandomGeneratorTest;
  * @author oshoukry
  */
 public class ConcurrentLinkedQueueRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
-    @Override
-    protected ParameterizableRandomGenerator getInstance() {
-        return ConcurrentLinkedQueueRandomGenerator.getInstance();
-    }
+  @Override
+  protected ParameterizableRandomGenerator getInstance() {
+    return ConcurrentLinkedQueueRandomGenerator.getInstance();
+  }
 
-    @Override
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return ConcurrentLinkedQueueRandomGenerator.class;
-    }
+  @Override
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return ConcurrentLinkedQueueRandomGenerator.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getExpectedTypeClass() {
-        return ConcurrentLinkedQueue.class;
-    }
+  @Override
+  protected Class<? extends Collection> getExpectedTypeClass() {
+    return ConcurrentLinkedQueue.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getGeneratedTypeClass() {
-        return getExpectedTypeClass();
-    }
+  @Override
+  protected Class<? extends Collection> getGeneratedTypeClass() {
+    return getExpectedTypeClass();
+  }
 
-    @Override
-    protected Class<?> getGenericType() {
-        return SimpleType.class;
-    }
+  @Override
+  protected Class<?> getGenericType() {
+    return SimpleType.class;
+  }
 }

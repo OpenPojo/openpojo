@@ -19,13 +19,12 @@ package com.openpojo.issues.issue27.sample;
 
 /**
  * @author oshoukry
- *
  */
 public class ClassWithIntegerFieldAndPrimitiveIntReturnTypeGetter {
 
-    private Integer myInteger;
+  private Integer myInteger;
 
-    public int getMyInteger() {
-        return this.myInteger;
-    }
+  public int getMyInteger() {
+    return this.myInteger;
+  }
 }

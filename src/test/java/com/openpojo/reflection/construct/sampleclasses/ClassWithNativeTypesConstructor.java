@@ -22,10 +22,10 @@ package com.openpojo.reflection.construct.sampleclasses;
  */
 public final class ClassWithNativeTypesConstructor {
 
-    // a constuctor that has ALL native types, and one none-native.
-    public ClassWithNativeTypesConstructor(final Boolean someBoolean, final boolean someNativeBoolean,
-            final int someNativeInt, final float someNativeFloat, final double someNativeDouble,
-            final long someNativeLong, final short someNativeShort, final byte someNativeByte, final char someNativeChar) {
-    }
+  // a constuctor that has ALL native types, and one none-native.
+  public ClassWithNativeTypesConstructor(final Boolean someBoolean, final boolean someNativeBoolean, final int someNativeInt,
+                                         final float someNativeFloat, final double someNativeDouble, final long someNativeLong,
+                                         final short someNativeShort, final byte someNativeByte, final char someNativeChar) {
+  }
 
 }

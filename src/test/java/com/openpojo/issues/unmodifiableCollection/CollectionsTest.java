@@ -31,29 +31,29 @@ import org.junit.Test;
 
 public class CollectionsTest {
 
-    @Test
-    public void testUnmodifiableCollectionsGetterReturned() {
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new GetterTester())
-                .with(new SetterTester())
-                .build();
+  @Test
+  public void testUnmodifiableCollectionsGetterReturned() {
+    Validator pojoValidator = ValidatorBuilder.create()
+        .with(new GetterTester())
+        .with(new SetterTester())
+        .build();
 
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(CollectionContainingClass.class);
-        pojoValidator.validate(pojoClass);
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(CollectionContainingClass.class);
+    pojoValidator.validate(pojoClass);
+  }
+
+  private static class CollectionContainingClass {
+    private List<String> values = new ArrayList<String>();
+
+    @SuppressWarnings("unused")
+    public void setValues(List<String> values) {
+      this.values = values;
     }
 
-    private static class CollectionContainingClass {
-        private List<String> values = new ArrayList<String>();
-
-        @SuppressWarnings("unused")
-        public void setValues(List<String> values) {
-            this.values = values;
-        }
-
-        @SuppressWarnings("unused")
-        public List<String> getValues() {
-            return Collections.unmodifiableList(values);
-        }
-
+    @SuppressWarnings("unused")
+    public List<String> getValues() {
+      return Collections.unmodifiableList(values);
     }
+
+  }
 }

@@ -27,32 +27,32 @@ import com.openpojo.reflection.filters.FilterCloverClasses;
  * @author oshoukry
  */
 public class Clover4 extends AbstractCoverageDetector {
-    private static final Clover4 INSTANCE = new Clover4();
+  private static final Clover4 INSTANCE = new Clover4();
 
-    private Clover4() {
-    }
+  private Clover4() {
+  }
 
-    public static Clover4 getInstance() {
-        return INSTANCE;
-    }
+  public static Clover4 getInstance() {
+    return INSTANCE;
+  }
 
-    @Override
-    public String getName() {
-        return "Clover 4";
-    }
+  @Override
+  public String getName() {
+    return "Clover 4";
+  }
 
-    @Override
-    public String getCoverageClassName() {
-        return "com_atlassian_clover.TestNameSniffer";
-    }
+  @Override
+  public String getCoverageClassName() {
+    return "com_atlassian_clover.TestNameSniffer";
+  }
 
-    @Override
-    public PojoClassFilter getPojoClassFilter() {
-        return FilterCloverClasses.getInstance();
-    }
+  @Override
+  public PojoClassFilter getPojoClassFilter() {
+    return FilterCloverClasses.getInstance();
+  }
 
-    @Override
-    public PojoClassAdapter getPojoClassAdapter() {
-        return CloverPojoClassAdapter.getInstance();
-    }
+  @Override
+  public PojoClassAdapter getPojoClassAdapter() {
+    return CloverPojoClassAdapter.getInstance();
+  }
 }

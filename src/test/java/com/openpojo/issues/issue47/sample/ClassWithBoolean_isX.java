@@ -21,13 +21,13 @@ package com.openpojo.issues.issue47.sample;
  * @author oshoukry
  */
 public class ClassWithBoolean_isX {
-    public boolean isX() {
-        return isX;
-    }
+  public boolean isX() {
+    return isX;
+  }
 
-    public void setX(boolean isX) {
-        this.isX = isX;
-    }
+  public void setX(boolean isX) {
+    this.isX = isX;
+  }
 
-    private boolean isX;
+  private boolean isX;
 }

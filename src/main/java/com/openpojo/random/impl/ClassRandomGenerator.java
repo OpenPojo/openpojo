@@ -31,34 +31,34 @@ import com.openpojo.random.RandomGenerator;
  * @author oshoukry
  */
 public class ClassRandomGenerator implements RandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[]{ Class.class };
+  private static final Class<?>[] TYPES = new Class<?>[] { Class.class };
 
-    private ClassRandomGenerator() {
+  private ClassRandomGenerator() {
 
-    }
+  }
 
-    public static RandomGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
+  public static RandomGenerator getInstance() {
+    return Instance.INSTANCE;
+  }
 
-    public Object doGenerate(final Class<?> type) {
-        return RandomFactory.getRandomValue(RandomClass.class).getClass();
-    }
+  public Object doGenerate(final Class<?> type) {
+    return RandomFactory.getRandomValue(RandomClass.class).getClass();
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    private static class Instance {
-        private static final RandomGenerator INSTANCE = new ClassRandomGenerator();
-    }
+  private static class Instance {
+    private static final RandomGenerator INSTANCE = new ClassRandomGenerator();
+  }
 
-    /**
-     * Interface place holder used to generated dynamic Class objects.
-     *
-     * @author oshoukry
-     */
-    private interface RandomClass {
+  /**
+   * Interface place holder used to generated dynamic Class objects.
+   *
+   * @author oshoukry
+   */
+  private interface RandomClass {
 
-    }
+  }
 }

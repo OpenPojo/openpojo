@@ -27,24 +27,24 @@ import org.junit.Test;
  */
 public class Clover4Test {
 
-    @Test
-    public void shouldHaveCloverPojoClassAdapter() {
-        Assert.assertEquals(CloverPojoClassAdapter.class, Clover4.getInstance().getPojoClassAdapter().getClass());
-    }
+  @Test
+  public void shouldHaveCloverPojoClassAdapter() {
+    Assert.assertEquals(CloverPojoClassAdapter.class, Clover4.getInstance().getPojoClassAdapter().getClass());
+  }
 
-    @Test
-    public void shouldHaveFilterCloverClasses() {
-        Assert.assertEquals(FilterCloverClasses.class, Clover4.getInstance().getPojoClassFilter().getClass());
-    }
+  @Test
+  public void shouldHaveFilterCloverClasses() {
+    Assert.assertEquals(FilterCloverClasses.class, Clover4.getInstance().getPojoClassFilter().getClass());
+  }
 
-    @Test
-    public void nameIsClover4() {
-        Assert.assertEquals("Clover 4", Clover4.getInstance().getName());
-    }
+  @Test
+  public void nameIsClover4() {
+    Assert.assertEquals("Clover 4", Clover4.getInstance().getName());
+  }
 
-    @Test
-    public void coverageClassNameIs__com_atlassian_cloverDOTTestNameSniffer() {
-        Assert.assertEquals("com_atlassian_clover.TestNameSniffer", Clover4.getInstance().getCoverageClassName());
-    }
+  @Test
+  public void coverageClassNameIs__com_atlassian_cloverDOTTestNameSniffer() {
+    Assert.assertEquals("com_atlassian_clover.TestNameSniffer", Clover4.getInstance().getCoverageClassName());
+  }
 
 }

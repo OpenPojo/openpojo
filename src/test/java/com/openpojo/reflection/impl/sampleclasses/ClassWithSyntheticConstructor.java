@@ -21,12 +21,12 @@ package com.openpojo.reflection.impl.sampleclasses;
  * @author oshoukry
  */
 public class ClassWithSyntheticConstructor {
-    private ClassWithSyntheticConstructor() {
-    }
+  private ClassWithSyntheticConstructor() {
+  }
 
-    public static class Builder {
-        public static ClassWithSyntheticConstructor getInstance() {
-            return new ClassWithSyntheticConstructor();
-        }
+  public static class Builder {
+    public static ClassWithSyntheticConstructor getInstance() {
+      return new ClassWithSyntheticConstructor();
     }
+  }
 }

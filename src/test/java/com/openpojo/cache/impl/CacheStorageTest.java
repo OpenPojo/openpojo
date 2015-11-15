@@ -26,32 +26,32 @@ import org.testng.Assert;
  * @author oshoukry
  */
 public abstract class CacheStorageTest {
-    private CacheStorage<String> cache;
+  private CacheStorage<String> cache;
 
-    @Before
-    public void setup() {
-        cache = getCacheStorage();
-    }
+  @Before
+  public void setup() {
+    cache = getCacheStorage();
+  }
 
-    @Test
-    public void canAddAndGetItem() {
-        String key = "key";
-        Assert.assertNull(cache.get(key));
-        String value = "value";
+  @Test
+  public void canAddAndGetItem() {
+    String key = "key";
+    Assert.assertNull(cache.get(key));
+    String value = "value";
 
-        cache.add(key, value);
-        Assert.assertEquals(value, cache.get(key));
-    }
+    cache.add(key, value);
+    Assert.assertEquals(value, cache.get(key));
+  }
 
-    @Test
-    public void canClear() {
-        String key = "key";
-        String value = "value";
-        cache.add(key, value);
-        Assert.assertEquals(value, cache.get(key));
-        cache.clear();
-        Assert.assertNull(cache.get(key));
-    }
+  @Test
+  public void canClear() {
+    String key = "key";
+    String value = "value";
+    cache.add(key, value);
+    Assert.assertEquals(value, cache.get(key));
+    cache.clear();
+    Assert.assertNull(cache.get(key));
+  }
 
-    public abstract CacheStorage<String> getCacheStorage();
+  public abstract CacheStorage<String> getCacheStorage();
 }

@@ -42,78 +42,78 @@ import org.junit.Test;
  */
 public class CollectionRandomGeneratorTest {
 
-    @Test
-    public void shouldBeAbleToCreate() {
-        Assert.assertNotNull(CollectionRandomGenerator.getInstance());
-        Assert.assertEquals(CollectionRandomGenerator.class, CollectionRandomGenerator.getInstance().getClass());
+  @Test
+  public void shouldBeAbleToCreate() {
+    Assert.assertNotNull(CollectionRandomGenerator.getInstance());
+    Assert.assertEquals(CollectionRandomGenerator.class, CollectionRandomGenerator.getInstance().getClass());
+  }
+
+  @Test
+  public void shouldGenerateForCollectionOnly() {
+    Collection<Class<?>> types = CollectionRandomGenerator.getInstance().getTypes();
+    Assert.assertEquals(1, types.size());
+    Assert.assertEquals(Collection.class, types.iterator().next());
+  }
+
+  @Test(expected = RandomGeneratorException.class)
+  public void whenGenerateWithCollection_ThrowsException() {
+    CollectionRandomGenerator.getInstance().doGenerate(ALeafChildClass.class);
+  }
+
+  @Test
+  public void whenGenerateWithCollection_ReturnNonEmpty() {
+    Collection collection = CollectionRandomGenerator.getInstance().doGenerate(Collection.class);
+    Assert.assertNotNull("Should not be null", collection);
+    Assert.assertTrue("Should not be empty", collection.size() > 0);
+    Assert.assertTrue("Should be of type ArrayList", collection instanceof ArrayList);
+
+  }
+
+  @Test
+  @SuppressWarnings("unchecked")
+  public void whenGenerateWithGeneric_GenerateCorrectly() {
+    Parameterizable parameterizable = new Parameterizable() {
+      public Class<?> getType() {
+        return Collection.class;
+      }
+
+      public boolean isParameterized() {
+        return true;
+      }
+
+      public List<Type> getParameterTypes() {
+        return Arrays.asList(new Type[] { String.class });
+      }
+    };
+
+    Collection<String> aCollectionOfStrings;
+    aCollectionOfStrings = (Collection<String>) CollectionRandomGenerator.getInstance().doGenerate(parameterizable);
+    Assert.assertNotNull("Should not be null", aCollectionOfStrings);
+    Assert.assertTrue("Should have entries", aCollectionOfStrings.size() > 0);
+    for (Object s : aCollectionOfStrings) {
+      Assert.assertNotNull(s);
+      Assert.assertTrue("Should be String", s instanceof String);
     }
+  }
 
-    @Test
-    public void shouldGenerateForCollectionOnly() {
-        Collection<Class<?>> types = CollectionRandomGenerator.getInstance().getTypes();
-        Assert.assertEquals(1, types.size());
-        Assert.assertEquals(Collection.class, types.iterator().next());
-    }
+  @Test
+  public void testEndToEnd() {
+    Collection collection = RandomFactory.getRandomValue(Collection.class);
+    Assert.assertNotNull("Should not be null", collection);
+    Assert.assertTrue("Should not be empty", collection.size() > 0);
+    Assert.assertTrue("Should be an ArrayList", collection instanceof ArrayList);
+    collection = RandomFactory.getRandomValue(Collection.class); // double check in case.
+    Assert.assertTrue("Should be an ArrayList", collection instanceof ArrayList);
+  }
 
-    @Test (expected = RandomGeneratorException.class)
-    public void whenGenerateWithCollection_ThrowsException() {
-        CollectionRandomGenerator.getInstance().doGenerate(ALeafChildClass.class);
-    }
+  @Test
+  public void exhaustiveTest() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithExhaustiveCollection.class);
+    Validator pojoValidator = ValidatorBuilder.create()
+        .with(new SetterMustExistRule())
+        .with(new SetterTester())
+        .build();
 
-    @Test
-    public void whenGenerateWithCollection_ReturnNonEmpty() {
-        Collection collection = CollectionRandomGenerator.getInstance().doGenerate(Collection.class);
-        Assert.assertNotNull("Should not be null", collection);
-        Assert.assertTrue("Should not be empty", collection.size() > 0);
-        Assert.assertTrue("Should be of type ArrayList", collection instanceof ArrayList);
-
-    }
-
-    @Test
-    @SuppressWarnings("unchecked")
-    public void whenGenerateWithGeneric_GenerateCorrectly() {
-        Parameterizable parameterizable = new Parameterizable() {
-            public Class<?> getType() {
-                return Collection.class;
-            }
-
-            public boolean isParameterized() {
-                return true;
-            }
-
-            public List<Type> getParameterTypes() {
-                return Arrays.asList(new Type[]{ String.class });
-            }
-        };
-
-        Collection<String> aCollectionOfStrings;
-        aCollectionOfStrings = (Collection<String>) CollectionRandomGenerator.getInstance().doGenerate(parameterizable);
-        Assert.assertNotNull("Should not be null", aCollectionOfStrings);
-        Assert.assertTrue("Should have entries", aCollectionOfStrings.size() > 0);
-        for (Object s: aCollectionOfStrings) {
-            Assert.assertNotNull(s);
-            Assert.assertTrue("Should be String", s instanceof String);
-        }
-    }
-
-    @Test
-    public void testEndToEnd() {
-        Collection collection = RandomFactory.getRandomValue(Collection.class);
-        Assert.assertNotNull("Should not be null", collection);
-        Assert.assertTrue("Should not be empty", collection.size() > 0);
-        Assert.assertTrue("Should be an ArrayList", collection instanceof ArrayList);
-        collection = RandomFactory.getRandomValue(Collection.class); // double check in case.
-        Assert.assertTrue("Should be an ArrayList", collection instanceof ArrayList);
-    }
-
-    @Test
-    public void exhaustiveTest() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithExhaustiveCollection.class);
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new SetterMustExistRule())
-                .with(new SetterTester())
-                .build();
-
-        pojoValidator.validate(pojoClass);
-    }
+    pojoValidator.validate(pojoClass);
+  }
 }

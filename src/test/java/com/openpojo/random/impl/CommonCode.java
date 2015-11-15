@@ -17,51 +17,49 @@
 
 package com.openpojo.random.impl;
 
-import org.junit.Assert;
-
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Assert;
 
 /**
  * @author oshoukry
  */
 public class CommonCode {
-    /**
-     * Utility method to assist with testing all non-Primitive classes.
-     *
-     * @param type
-     *            The class type to test.
-     */
-    @SuppressWarnings("ConstantConditions")
-    public static void testDoGenerateForClass(final RandomGenerator randomGenerator, final Class<?> type) {
-        Affirm.affirmTrue(String.format("Failed to get the requested type=[%s] from [%s] recieved=[%s] instead", type,
-                randomGenerator, randomGenerator.doGenerate(type)), type.isInstance(randomGenerator.doGenerate(type)));
-        Object object = type.cast(randomGenerator.doGenerate(type));
+  /**
+   * Utility method to assist with testing all non-Primitive classes.
+   *
+   * @param type
+   *     The class type to test.
+   */
+  @SuppressWarnings("ConstantConditions")
+  public static void testDoGenerateForClass(final RandomGenerator randomGenerator, final Class<?> type) {
+    Affirm.affirmTrue(String.format("Failed to get the requested type=[%s] from [%s] recieved=[%s] instead", type,
+        randomGenerator, randomGenerator.doGenerate(type)), type.isInstance(randomGenerator.doGenerate(type)));
+    Object object = type.cast(randomGenerator.doGenerate(type));
 
-        Affirm.affirmNotNull(String.format("Request to registered type [%s] must return non-null value!!", type),
-                object);
+    Affirm.affirmNotNull(String.format("Request to registered type [%s] must return non-null value!!", type), object);
 
-        Object anotherObject = randomGenerator.doGenerate(type);
-        if (object.equals(anotherObject)) { // Just incase they are the same
-            anotherObject = randomGenerator.doGenerate(type);
-            // if Boolean, try for 20 times, since there is a 50% chance we land on the same value.
-            if (object.equals(anotherObject) && type == Boolean.class) {
-                for (int counter = 0; counter < 20; counter++) {
-                    anotherObject = randomGenerator.doGenerate(type);
-                    if (!object.equals(anotherObject)) {
-                        break;
-                    }
-                }
-            }
+    Object anotherObject = randomGenerator.doGenerate(type);
+    if (object.equals(anotherObject)) { // Just incase they are the same
+      anotherObject = randomGenerator.doGenerate(type);
+      // if Boolean, try for 20 times, since there is a 50% chance we land on the same value.
+      if (object.equals(anotherObject) && type == Boolean.class) {
+        for (int counter = 0; counter < 20; counter++) {
+          anotherObject = randomGenerator.doGenerate(type);
+          if (!object.equals(anotherObject)) {
+            break;
+          }
         }
-        Affirm.affirmFalse(String.format("[%s] generating the same values for type=[%s]", randomGenerator, type),
-                object.equals(anotherObject));
+      }
     }
+    Affirm.affirmFalse(String.format("[%s] generating the same values for type=[%s]", randomGenerator, type),
+        object.equals(anotherObject));
+  }
 
-    public static void testGetType(final RandomGenerator randomGenerator, final Class<?> type, final int expectedCount) {
-        Assert.assertEquals(String.format("[%s] added/removed Types?", randomGenerator), expectedCount, randomGenerator
-                .getTypes().size());
-        Assert.assertTrue(String.format("[%s] doesn't report responsibility for [%s]?!!", randomGenerator.getClass(),
-                type), randomGenerator.getTypes().contains(type));
-    }
+  public static void testGetType(final RandomGenerator randomGenerator, final Class<?> type, final int expectedCount) {
+    Assert.assertEquals(String.format("[%s] added/removed Types?", randomGenerator), expectedCount,
+        randomGenerator.getTypes().size());
+    Assert.assertTrue(String.format("[%s] doesn't report responsibility for [%s]?!!", randomGenerator.getClass(), type),
+        randomGenerator.getTypes().contains(type));
+  }
 }

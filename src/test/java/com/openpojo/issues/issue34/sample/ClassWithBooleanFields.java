@@ -22,42 +22,42 @@ package com.openpojo.issues.issue34.sample;
  */
 public class ClassWithBooleanFields {
 
-    boolean flagOneUsingIs;
-    boolean flagTwoUsingGet;
+  boolean flagOneUsingIs;
+  boolean flagTwoUsingGet;
 
-    Boolean flagThreeUsingIs;
-    Boolean flagFourUsingGet;
+  Boolean flagThreeUsingIs;
+  Boolean flagFourUsingGet;
 
-    public boolean isFlagOneUsingIs() {
-        return flagOneUsingIs;
-    }
+  public boolean isFlagOneUsingIs() {
+    return flagOneUsingIs;
+  }
 
-    public void setFlagOneUsingIs(boolean flagOneUsingIs) {
-        this.flagOneUsingIs = flagOneUsingIs;
-    }
+  public void setFlagOneUsingIs(boolean flagOneUsingIs) {
+    this.flagOneUsingIs = flagOneUsingIs;
+  }
 
-    public boolean getFlagTwoUsingGet() {
-        return flagTwoUsingGet;
-    }
+  public boolean getFlagTwoUsingGet() {
+    return flagTwoUsingGet;
+  }
 
-    public void setFlagTwoUsingGet(boolean flagTwoUsingGet) {
-        this.flagTwoUsingGet = flagTwoUsingGet;
-    }
+  public void setFlagTwoUsingGet(boolean flagTwoUsingGet) {
+    this.flagTwoUsingGet = flagTwoUsingGet;
+  }
 
-    public Boolean getFlagThreeUsingIs() {
-        return flagThreeUsingIs;
-    }
+  public Boolean getFlagThreeUsingIs() {
+    return flagThreeUsingIs;
+  }
 
-    public void setFlagThreeUsingIs(Boolean flagThreeUsingIs) {
-        this.flagThreeUsingIs = flagThreeUsingIs;
-    }
+  public void setFlagThreeUsingIs(Boolean flagThreeUsingIs) {
+    this.flagThreeUsingIs = flagThreeUsingIs;
+  }
 
-    public Boolean getFlagFourUsingGet() {
-        return flagFourUsingGet;
-    }
+  public Boolean getFlagFourUsingGet() {
+    return flagFourUsingGet;
+  }
 
-    public void setFlagFourUsingGet(Boolean flagFourUsingGet) {
-        this.flagFourUsingGet = flagFourUsingGet;
-    }
+  public void setFlagFourUsingGet(Boolean flagFourUsingGet) {
+    this.flagFourUsingGet = flagFourUsingGet;
+  }
 
 }

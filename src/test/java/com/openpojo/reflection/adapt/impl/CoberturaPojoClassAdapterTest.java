@@ -28,23 +28,23 @@ import org.junit.Test;
  */
 public class CoberturaPojoClassAdapterTest {
 
-    PojoClass coberturaInstrumentedPojoClass = PojoClassFactory.getPojoClass(CoberturaInstrumentedClass.class);
-    PojoClass coberturaCleanedPojoClass = CoberturaPojoClassAdapter.getInstance().adapt(coberturaInstrumentedPojoClass);
+  PojoClass coberturaInstrumentedPojoClass = PojoClassFactory.getPojoClass(CoberturaInstrumentedClass.class);
+  PojoClass coberturaCleanedPojoClass = CoberturaPojoClassAdapter.getInstance().adapt(coberturaInstrumentedPojoClass);
 
-    @Test
-    public void ensureCoberturaInstrumentedClassNotChanged() {
-        Affirm.affirmEquals("Fields added/removed?", 4, coberturaInstrumentedPojoClass.getPojoFields().size());
-        Affirm.affirmEquals("Methods added/removed?", 4, coberturaInstrumentedPojoClass.getPojoMethods().size());
-    }
+  @Test
+  public void ensureCoberturaInstrumentedClassNotChanged() {
+    Affirm.affirmEquals("Fields added/removed?", 4, coberturaInstrumentedPojoClass.getPojoFields().size());
+    Affirm.affirmEquals("Methods added/removed?", 4, coberturaInstrumentedPojoClass.getPojoMethods().size());
+  }
 
-    @Test
-    public void shouldSkipFieldsStartingWith__cobertura_() {
-        Affirm.affirmEquals("Cobertura fields not filtered?", 2, coberturaCleanedPojoClass.getPojoFields().size());
-    }
+  @Test
+  public void shouldSkipFieldsStartingWith__cobertura_() {
+    Affirm.affirmEquals("Cobertura fields not filtered?", 2, coberturaCleanedPojoClass.getPojoFields().size());
+  }
 
-    @Test
-    public void shouldSkipMethodsStartingWith__covertura_() {
-        Affirm.affirmEquals("Cobertura methods not filtered?", 3, coberturaCleanedPojoClass.getPojoMethods().size());
-    }
+  @Test
+  public void shouldSkipMethodsStartingWith__covertura_() {
+    Affirm.affirmEquals("Cobertura methods not filtered?", 3, coberturaCleanedPojoClass.getPojoMethods().size());
+  }
 
 }

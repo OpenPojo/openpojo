@@ -21,13 +21,13 @@ package com.openpojo.issues.issue33.sample;
  * @author oshoukry
  */
 public class ClassAggregatingAbstractClass {
-    private AbstractClass abstractClass;
+  private AbstractClass abstractClass;
 
-    public void setAbstractClass(AbstractClass abstractClass) {
-        this.abstractClass = abstractClass;
-    }
+  public void setAbstractClass(AbstractClass abstractClass) {
+    this.abstractClass = abstractClass;
+  }
 
-    public AbstractClass getAbstractClass() {
-        return this.abstractClass;
-    }
+  public AbstractClass getAbstractClass() {
+    return this.abstractClass;
+  }
 }

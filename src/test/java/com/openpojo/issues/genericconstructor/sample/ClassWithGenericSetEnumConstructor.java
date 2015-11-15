@@ -22,14 +22,14 @@ import java.util.Set;
 import com.openpojo.issues.genericconstructor.sample.support.DaysOfTheWeek;
 
 public class ClassWithGenericSetEnumConstructor {
-    @SuppressWarnings("unused")
-    private final Set<DaysOfTheWeek> daysOfTheWeek;
+  @SuppressWarnings("unused")
+  private final Set<DaysOfTheWeek> daysOfTheWeek;
 
-    public ClassWithGenericSetEnumConstructor(final Set<DaysOfTheWeek> daysOfTheWeekSet) {
-        this.daysOfTheWeek = daysOfTheWeekSet;
-    }
+  public ClassWithGenericSetEnumConstructor(final Set<DaysOfTheWeek> daysOfTheWeekSet) {
+    this.daysOfTheWeek = daysOfTheWeekSet;
+  }
 
-    public Set<DaysOfTheWeek> getDaysOfTheWeek() {
-        return daysOfTheWeek;
-    }
+  public Set<DaysOfTheWeek> getDaysOfTheWeek() {
+    return daysOfTheWeek;
+  }
 }

@@ -33,24 +33,24 @@ import com.openpojo.random.util.SerializableComparableObject;
  * @author oshoukry
  */
 public class ConcurrentMapRandomGenerator extends BaseMapRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { ConcurrentMap.class };
-    private static final ConcurrentMapRandomGenerator INSTANCE = new ConcurrentMapRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { ConcurrentMap.class };
+  private static final ConcurrentMapRandomGenerator INSTANCE = new ConcurrentMapRandomGenerator();
 
-    public static ConcurrentMapRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static ConcurrentMapRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Map getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return MapHelper.buildMap(new ConcurrentHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
-    }
+  @Override
+  protected Map getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return MapHelper.buildMap(new ConcurrentHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
+  }
 
-    private ConcurrentMapRandomGenerator() {
-    }
+  private ConcurrentMapRandomGenerator() {
+  }
 
 }

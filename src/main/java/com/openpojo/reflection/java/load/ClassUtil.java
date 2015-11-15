@@ -24,32 +24,32 @@ import com.openpojo.reflection.java.bytecode.asm.ClassReaderFactory;
  * @author oshoukry
  */
 public class ClassUtil {
-    private ClassUtil() {
-        throw new UnsupportedOperationException(ClassReaderFactory.class.getName() + " should not be constructed!");
-    }
+  private ClassUtil() {
+    throw new UnsupportedOperationException(ClassReaderFactory.class.getName() + " should not be constructed!");
+  }
 
-    public static boolean isClassLoaded(String className) {
-        return loadClass(className) != null;
-    }
+  public static boolean isClassLoaded(String className) {
+    return loadClass(className) != null;
+  }
 
-    public static Class<?> loadClass(String className) {
-        return loadClass(className, true);
-    }
+  public static Class<?> loadClass(String className) {
+    return loadClass(className, true);
+  }
 
-    public static Class<?> loadClass(String className, boolean initialize) {
-        return loadClass(className, initialize, getThreadClassLoader());
-    }
+  public static Class<?> loadClass(String className, boolean initialize) {
+    return loadClass(className, initialize, getThreadClassLoader());
+  }
 
-    public static Class<?> loadClass(String className, boolean initialize, ClassLoader classloader) {
-        try {
-            return Class.forName(className, initialize, classloader);
-        } catch (LinkageError linkageError) { // class depends on another that wasn't found.
-        } catch (ClassNotFoundException classNotFoundException) { // no such class found.
-        }
-        return null;
+  public static Class<?> loadClass(String className, boolean initialize, ClassLoader classloader) {
+    try {
+      return Class.forName(className, initialize, classloader);
+    } catch (LinkageError linkageError) { // class depends on another that wasn't found.
+    } catch (ClassNotFoundException classNotFoundException) { // no such class found.
     }
+    return null;
+  }
 
-    private static ClassLoader getThreadClassLoader() {
-        return Thread.currentThread().getContextClassLoader();
-    }
+  private static ClassLoader getThreadClassLoader() {
+    return Thread.currentThread().getContextClassLoader();
+  }
 }

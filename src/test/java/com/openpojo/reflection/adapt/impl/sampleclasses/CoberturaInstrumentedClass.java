@@ -22,23 +22,23 @@ package com.openpojo.reflection.adapt.impl.sampleclasses;
  */
 public class CoberturaInstrumentedClass {
 
-    public CoberturaInstrumentedClass() {
+  public CoberturaInstrumentedClass() {
 
-    }
+  }
 
-    public String normalField;
-    public String aNon__cobertura_field;
-    public int[] __cobertura_counters;
-    public String __cobertura_fieldOne;
+  public String normalField;
+  public String aNon__cobertura_field;
+  public int[] __cobertura_counters;
+  public String __cobertura_fieldOne;
 
 
-    public void __cobertura_anyMethod() {
-    }
+  public void __cobertura_anyMethod() {
+  }
 
-    public void normalMethod() {
-    }
+  public void normalMethod() {
+  }
 
-    public void aNon__cobertura_method() {
-    }
+  public void aNon__cobertura_method() {
+  }
 
 }

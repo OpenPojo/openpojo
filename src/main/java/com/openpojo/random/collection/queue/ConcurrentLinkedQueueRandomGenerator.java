@@ -29,23 +29,23 @@ import com.openpojo.random.util.Helper;
  * @author oshoukry
  */
 public class ConcurrentLinkedQueueRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { ConcurrentLinkedQueue.class };
-    private static final ConcurrentLinkedQueueRandomGenerator INSTANCE = new ConcurrentLinkedQueueRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { ConcurrentLinkedQueue.class };
+  private static final ConcurrentLinkedQueueRandomGenerator INSTANCE = new ConcurrentLinkedQueueRandomGenerator();
 
-    public static ConcurrentLinkedQueueRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static ConcurrentLinkedQueueRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new ConcurrentLinkedQueue();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new ConcurrentLinkedQueue();
+  }
 
-    private ConcurrentLinkedQueueRandomGenerator() {
-    }
+  private ConcurrentLinkedQueueRandomGenerator() {
+  }
 }

@@ -19,24 +19,23 @@ package com.openpojo.reflection.construct.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public class ClassWithLessThanGreaterThanConstructors {
-    private final Integer parameterCountUsedForConstruction;
+  private final Integer parameterCountUsedForConstruction;
 
-    public ClassWithLessThanGreaterThanConstructors(final String param1) {
-        parameterCountUsedForConstruction = 1;
-    }
+  public ClassWithLessThanGreaterThanConstructors(final String param1) {
+    parameterCountUsedForConstruction = 1;
+  }
 
-    public ClassWithLessThanGreaterThanConstructors(final String param1, final String param2) {
-        parameterCountUsedForConstruction = 2;
-    }
+  public ClassWithLessThanGreaterThanConstructors(final String param1, final String param2) {
+    parameterCountUsedForConstruction = 2;
+  }
 
-    public ClassWithLessThanGreaterThanConstructors(final String param1, final String param2, final String param3) {
-        parameterCountUsedForConstruction = 3;
-    }
+  public ClassWithLessThanGreaterThanConstructors(final String param1, final String param2, final String param3) {
+    parameterCountUsedForConstruction = 3;
+  }
 
-    public Integer getParameterCountUsedForConstruction() {
-        return parameterCountUsedForConstruction;
-    }
+  public Integer getParameterCountUsedForConstruction() {
+    return parameterCountUsedForConstruction;
+  }
 }

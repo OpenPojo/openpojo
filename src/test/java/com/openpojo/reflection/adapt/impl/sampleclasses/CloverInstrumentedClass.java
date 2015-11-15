@@ -22,20 +22,20 @@ package com.openpojo.reflection.adapt.impl.sampleclasses;
  */
 public class CloverInstrumentedClass {
 
-    public CloverInstrumentedClass() {
+  public CloverInstrumentedClass() {
 
-    }
+  }
 
-    public String normalField;
-    public String aNon__CLR3_field;
-    public String __CLR3_CloverField;
-    public Object __CLR3_2_2_TEST_NAME_SNIFFER_Injected;
+  public String normalField;
+  public String aNon__CLR3_field;
+  public String __CLR3_CloverField;
+  public Object __CLR3_2_2_TEST_NAME_SNIFFER_Injected;
 
 
-    public void __CLR3_NonCloverMethod() { //Clover doesn't inject methods.
-    }
+  public void __CLR3_NonCloverMethod() { //Clover doesn't inject methods.
+  }
 
-    public void normalMethod() {
-    }
+  public void normalMethod() {
+  }
 
 }

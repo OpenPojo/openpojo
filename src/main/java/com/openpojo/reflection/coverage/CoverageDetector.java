@@ -26,14 +26,14 @@ import com.openpojo.reflection.adapt.PojoClassAdapter;
  */
 public interface CoverageDetector {
 
-    String getName();
+  String getName();
 
-    String getCoverageClassName();
+  String getCoverageClassName();
 
-    boolean isLoaded();
+  boolean isLoaded();
 
-    PojoClassFilter getPojoClassFilter();
+  PojoClassFilter getPojoClassFilter();
 
-    PojoClassAdapter getPojoClassAdapter();
+  PojoClassAdapter getPojoClassAdapter();
 
 }

@@ -31,27 +31,26 @@ import com.openpojo.reflection.impl.PojoClassImpl;
  */
 public class CloverPojoClassAdapter implements PojoClassAdapter {
 
-    private static final String CLOVER_INJECTED = "__CLR";
+  private static final String CLOVER_INJECTED = "__CLR";
 
-    private CloverPojoClassAdapter() {
+  private CloverPojoClassAdapter() {
+  }
 
+  public static PojoClassAdapter getInstance() {
+    return Instance.INSTANCE;
+  }
+
+  public PojoClass adapt(PojoClass pojoClass) {
+    final List<PojoField> cleansedPojoFields = new ArrayList<PojoField>();
+    for (final PojoField pojoField : pojoClass.getPojoFields()) {
+      if (!pojoField.getName().startsWith(CLOVER_INJECTED)) {
+        cleansedPojoFields.add(pojoField);
+      }
     }
+    return new PojoClassImpl(pojoClass.getClazz(), cleansedPojoFields, pojoClass.getPojoMethods());
+  }
 
-    public static PojoClassAdapter getInstance() {
-        return Instance.INSTANCE;
-    }
-
-    public PojoClass adapt(PojoClass pojoClass) {
-        final List<PojoField> cleansedPojoFields = new ArrayList<PojoField>();
-        for (final PojoField pojoField : pojoClass.getPojoFields()) {
-            if (!pojoField.getName().startsWith(CLOVER_INJECTED)) {
-                cleansedPojoFields.add(pojoField);
-            }
-        }
-        return new PojoClassImpl(pojoClass.getClazz(), cleansedPojoFields, pojoClass.getPojoMethods());
-    }
-
-    private static class Instance {
-        private static final CloverPojoClassAdapter INSTANCE = new CloverPojoClassAdapter();
-    }
+  private static class Instance {
+    private static final CloverPojoClassAdapter INSTANCE = new CloverPojoClassAdapter();
+  }
 }

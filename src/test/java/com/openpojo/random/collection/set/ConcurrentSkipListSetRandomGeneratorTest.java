@@ -30,36 +30,36 @@ import org.junit.Before;
  * @author oshoukry
  */
 public class ConcurrentSkipListSetRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
-    private static final String EXPECTED_TYPE_CLASS_NAME = "java.util.concurrent.ConcurrentSkipListSet";
+  private static final String EXPECTED_TYPE_CLASS_NAME = "java.util.concurrent.ConcurrentSkipListSet";
 
-    @Before
-    public void requirement() {
-        Assume.assumeTrue(EXPECTED_TYPE_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(EXPECTED_TYPE_CLASS_NAME));
-    }
+  @Before
+  public void requirement() {
+    Assume.assumeTrue(EXPECTED_TYPE_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(EXPECTED_TYPE_CLASS_NAME));
+  }
 
-    @Override
-    protected ParameterizableRandomGenerator getInstance() {
-        return ConcurrentSkipListSetRandomGenerator.getInstance();
-    }
+  @Override
+  protected ParameterizableRandomGenerator getInstance() {
+    return ConcurrentSkipListSetRandomGenerator.getInstance();
+  }
 
-    @Override
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return ConcurrentSkipListSetRandomGenerator.class;
-    }
+  @Override
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return ConcurrentSkipListSetRandomGenerator.class;
+  }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    protected Class<? extends Collection> getExpectedTypeClass() {
-        return (Class<? extends Collection>) ClassUtil.loadClass(EXPECTED_TYPE_CLASS_NAME);
-    }
+  @Override
+  @SuppressWarnings("unchecked")
+  protected Class<? extends Collection> getExpectedTypeClass() {
+    return (Class<? extends Collection>) ClassUtil.loadClass(EXPECTED_TYPE_CLASS_NAME);
+  }
 
-    @Override
-    protected Class<? extends Collection> getGeneratedTypeClass() {
-        return getExpectedTypeClass();
-    }
+  @Override
+  protected Class<? extends Collection> getGeneratedTypeClass() {
+    return getExpectedTypeClass();
+  }
 
-    @Override
-    protected Class<?> getGenericType() {
-        return ComparableType.class;
-    }
+  @Override
+  protected Class<?> getGenericType() {
+    return ComparableType.class;
+  }
 }

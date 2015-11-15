@@ -21,7 +21,7 @@ package com.openpojo.reflection.construct.sampleclasses;
  * @author oshoukry
  */
 public class ClassWithInterfaceBasedConstructor {
-    public ClassWithInterfaceBasedConstructor(final CharSequence someString) {
+  public ClassWithInterfaceBasedConstructor(final CharSequence someString) {
 
-    }
+  }
 }

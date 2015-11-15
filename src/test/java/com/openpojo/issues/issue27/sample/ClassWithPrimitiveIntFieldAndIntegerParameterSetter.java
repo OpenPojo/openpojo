@@ -19,14 +19,13 @@ package com.openpojo.issues.issue27.sample;
 
 /**
  * @author oshoukry
- *
  */
 public class ClassWithPrimitiveIntFieldAndIntegerParameterSetter {
 
-    @SuppressWarnings("unused")
-    private int myInteger;
+  @SuppressWarnings("unused")
+  private int myInteger;
 
-    public void setMyInteger(final Integer myInteger) {
-        this.myInteger = myInteger;
-    }
+  public void setMyInteger(final Integer myInteger) {
+    this.myInteger = myInteger;
+  }
 }

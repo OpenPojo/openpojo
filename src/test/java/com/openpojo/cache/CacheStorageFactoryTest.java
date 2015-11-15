@@ -24,25 +24,25 @@ import org.testng.Assert;
  * @author oshoukry
  */
 public class CacheStorageFactoryTest {
-    @Test
-    public void shouldReturnTemporalCache() {
-        CacheStorage<String> keyValuePairCache = CacheStorageFactory.getTemporalCacheStorage();
-        String expectedKey = "SomeKey";
-        String expectedValue = "SomeValue";
-        keyValuePairCache.add(expectedKey, expectedValue);
-        Assert.assertEquals(expectedValue, keyValuePairCache.get(expectedKey));
-        System.gc();
-        Assert.assertNull(keyValuePairCache.get(expectedKey));
-    }
+  @Test
+  public void shouldReturnTemporalCache() {
+    CacheStorage<String> keyValuePairCache = CacheStorageFactory.getTemporalCacheStorage();
+    String expectedKey = "SomeKey";
+    String expectedValue = "SomeValue";
+    keyValuePairCache.add(expectedKey, expectedValue);
+    Assert.assertEquals(expectedValue, keyValuePairCache.get(expectedKey));
+    System.gc();
+    Assert.assertNull(keyValuePairCache.get(expectedKey));
+  }
 
-    @Test
-    public void shouldReturnPersistentCache() {
-        CacheStorage<String> keyValuePairCache = CacheStorageFactory.getPersistentCacheStorage();
-        String expectedKey = "SomeKey";
-        String expectedValue = "SomeValue";
-        keyValuePairCache.add(expectedKey, expectedValue);
-        Assert.assertEquals(expectedValue, keyValuePairCache.get(expectedKey));
-        System.gc();
-        Assert.assertEquals(expectedValue, keyValuePairCache.get(expectedKey));
-    }
+  @Test
+  public void shouldReturnPersistentCache() {
+    CacheStorage<String> keyValuePairCache = CacheStorageFactory.getPersistentCacheStorage();
+    String expectedKey = "SomeKey";
+    String expectedValue = "SomeValue";
+    keyValuePairCache.add(expectedKey, expectedValue);
+    Assert.assertEquals(expectedValue, keyValuePairCache.get(expectedKey));
+    System.gc();
+    Assert.assertEquals(expectedValue, keyValuePairCache.get(expectedKey));
+  }
 }

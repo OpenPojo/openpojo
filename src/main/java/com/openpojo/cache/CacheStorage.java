@@ -25,27 +25,27 @@ package com.openpojo.cache;
  */
 public interface CacheStorage<T> {
 
-    /**
-     * Add an item to the cache.
-     *
-     * @param name
-     *            The lookup key.
-     * @param value
-     *            The value to be cached.
-     */
-    void add(String name, T value);
+  /**
+   * Add an item to the cache.
+   *
+   * @param name
+   *     The lookup key.
+   * @param value
+   *     The value to be cached.
+   */
+  void add(String name, T value);
 
-    /**
-     * Get an item from the cache.
-     *
-     * @param name
-     *            The lookup key.
-     * @return returns the cached value, or null if not found.
-     */
-    T get(String name);
+  /**
+   * Get an item from the cache.
+   *
+   * @param name
+   *     The lookup key.
+   * @return returns the cached value, or null if not found.
+   */
+  T get(String name);
 
-    /**
-     * The method clears the cache.
-     */
-    void clear();
+  /**
+   * The method clears the cache.
+   */
+  void clear();
 }

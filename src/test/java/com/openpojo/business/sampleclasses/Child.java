@@ -24,42 +24,42 @@ import com.openpojo.business.annotation.BusinessKey;
  */
 public class Child extends Parent {
 
-    @BusinessKey
-    private String firstName;
+  @BusinessKey
+  private String firstName;
 
-    public Child() {
+  public Child() {
 
-    }
+  }
 
-    /**
-     * @param firstName
-     */
-    public Child(final String firstName) {
-        this.firstName = firstName;
-    }
+  /**
+   * @param firstName
+   */
+  public Child(final String firstName) {
+    this.firstName = firstName;
+  }
 
-    /**
-     * @param firstName
-     */
-    public Child(final String firstName, final String lastName, final Character sex) {
-        super(lastName);
-        this.firstName = firstName;
-        setSex(sex);
-    }
+  /**
+   * @param firstName
+   */
+  public Child(final String firstName, final String lastName, final Character sex) {
+    super(lastName);
+    this.firstName = firstName;
+    setSex(sex);
+  }
 
 
-    /**
-     * @return the firstName
-     */
-    public String getFirstName() {
-        return firstName;
-    }
+  /**
+   * @return the firstName
+   */
+  public String getFirstName() {
+    return firstName;
+  }
 
-    /**
-     * @param firstName
-     *            the firstName to set
-     */
-    public void setFirstName(final String firstName) {
-        this.firstName = firstName;
-    }
+  /**
+   * @param firstName
+   *     the firstName to set
+   */
+  public void setFirstName(final String firstName) {
+    this.firstName = firstName;
+  }
 }

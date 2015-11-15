@@ -22,11 +22,11 @@ package com.openpojo.random.collection.support;
  */
 public class ComparableType implements Comparable {
 
-    public int compareTo(Object o) {
-        if (System.identityHashCode(this) > System.identityHashCode(o))
-            return 1;
-        if (System.identityHashCode(this) < System.identityHashCode(o))
-            return -1;
-        return  0;
-    }
+  public int compareTo(Object o) {
+    if (System.identityHashCode(this) > System.identityHashCode(o))
+      return 1;
+    if (System.identityHashCode(this) < System.identityHashCode(o))
+      return -1;
+    return 0;
+  }
 }

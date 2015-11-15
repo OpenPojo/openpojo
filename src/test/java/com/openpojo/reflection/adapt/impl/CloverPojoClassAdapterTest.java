@@ -40,51 +40,52 @@ import org.junit.Test;
 public class CloverPojoClassAdapterTest {
 
 
-    private PojoClass cloverInstrumentedPojoClass;
-    private PojoClass cloverCleanedPojoClass;
-    private static PojoCoverageFilterService originalPojoCoverageFilterService;
-    private static PojoCoverageFilterService cloverPojoCoverageFilterService = PojoCoverageFilterServiceFactory
-            .createPojoCoverageFilterServiceWith(Clover3.getInstance());
+  private PojoClass cloverInstrumentedPojoClass;
+  private PojoClass cloverCleanedPojoClass;
+  private static PojoCoverageFilterService originalPojoCoverageFilterService;
+  private static PojoCoverageFilterService cloverPojoCoverageFilterService = PojoCoverageFilterServiceFactory
+      .createPojoCoverageFilterServiceWith(Clover3.getInstance());
 
-    @BeforeClass
-    public static void initialSetup() {
-        originalPojoCoverageFilterService = ServiceRegistrar.getInstance().getPojoCoverageFilterService();
-    }
+  @BeforeClass
+  public static void initialSetup() {
+    originalPojoCoverageFilterService = ServiceRegistrar.getInstance().getPojoCoverageFilterService();
+  }
 
-    @Before
-    public void setup() {
-        PojoCoverageFilterService allButClover3PojoCoverageFilterService = new DefaultPojoCoverageFilterService();
+  @Before
+  public void setup() {
+    PojoCoverageFilterService allButClover3PojoCoverageFilterService = new DefaultPojoCoverageFilterService();
 
-        allButClover3PojoCoverageFilterService.registerCoverageDetector(Cobertura.getInstance());
-        allButClover3PojoCoverageFilterService.registerCoverageDetector(Jacoco.getInstance());
+    allButClover3PojoCoverageFilterService.registerCoverageDetector(Cobertura.getInstance());
+    allButClover3PojoCoverageFilterService.registerCoverageDetector(Jacoco.getInstance());
 
-        ServiceRegistrar.getInstance().setPojoCoverageFilterService(allButClover3PojoCoverageFilterService);
-        cloverInstrumentedPojoClass = PojoClassFactory.getPojoClass(CloverInstrumentedClass.class);
-        ServiceRegistrar.getInstance().setPojoCoverageFilterService(cloverPojoCoverageFilterService);
-        cloverCleanedPojoClass = CloverPojoClassAdapter.getInstance().adapt(cloverInstrumentedPojoClass);
-    }
+    ServiceRegistrar.getInstance().setPojoCoverageFilterService(allButClover3PojoCoverageFilterService);
+    cloverInstrumentedPojoClass = PojoClassFactory.getPojoClass(CloverInstrumentedClass.class);
+    ServiceRegistrar.getInstance().setPojoCoverageFilterService(cloverPojoCoverageFilterService);
+    cloverCleanedPojoClass = CloverPojoClassAdapter.getInstance().adapt(cloverInstrumentedPojoClass);
+  }
 
-    @AfterClass
-    public static void reInstateInitialSetup() {
-        ServiceRegistrar.getInstance().setPojoCoverageFilterService(originalPojoCoverageFilterService);
-    }
+  @AfterClass
+  public static void reInstateInitialSetup() {
+    ServiceRegistrar.getInstance().setPojoCoverageFilterService(originalPojoCoverageFilterService);
+  }
 
-    @Test
-    public void ensureCloverInstrumentedClassNotChanged() {
-        int expectedFieldCount = 4;
-        if (Clover4.getInstance().isLoaded()) expectedFieldCount++;
-        Affirm.affirmEquals("Fields added/removed?", expectedFieldCount, cloverInstrumentedPojoClass.getPojoFields().size());
-        Affirm.affirmEquals("Methods added/removed?", 3, cloverInstrumentedPojoClass.getPojoMethods().size());
-    }
+  @Test
+  public void ensureCloverInstrumentedClassNotChanged() {
+    int expectedFieldCount = 4;
+    if (Clover4.getInstance().isLoaded())
+      expectedFieldCount++;
+    Affirm.affirmEquals("Fields added/removed?", expectedFieldCount, cloverInstrumentedPojoClass.getPojoFields().size());
+    Affirm.affirmEquals("Methods added/removed?", 3, cloverInstrumentedPojoClass.getPojoMethods().size());
+  }
 
-    @Test
-    public void shouldSkipFieldsStartingWith__CLR() {
-        Affirm.affirmEquals("Cobertura fields not filtered?", 2, cloverCleanedPojoClass.getPojoFields().size());
-    }
+  @Test
+  public void shouldSkipFieldsStartingWith__CLR() {
+    Affirm.affirmEquals("Cobertura fields not filtered?", 2, cloverCleanedPojoClass.getPojoFields().size());
+  }
 
-    @Test
-    public void shouldNotSkipAnyMethods() {
-        Affirm.affirmEquals("Cobertura methods not filtered?", 3, cloverCleanedPojoClass.getPojoMethods().size());
-    }
+  @Test
+  public void shouldNotSkipAnyMethods() {
+    Affirm.affirmEquals("Cobertura methods not filtered?", 3, cloverCleanedPojoClass.getPojoMethods().size());
+  }
 
 }

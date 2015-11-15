@@ -29,30 +29,30 @@ import org.junit.Test;
  */
 public class ClassReaderFactoryTest {
 
-    @Test (expected = UnsupportedOperationException.class)
-    public void shouldNotBeAbleToConstruct() {
-        try {
-            PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassReaderFactory.class);
-            org.testng.Assert.assertEquals(1, pojoClass.getPojoConstructors().size());
-            InstanceFactory.getLeastCompleteInstance(pojoClass);
-        } catch (ReflectionException re) {
-            Throwable cause = re.getCause();
-            while (cause != null) {
-                if (cause instanceof UnsupportedOperationException)
-                    throw (UnsupportedOperationException) cause;
-                cause = cause.getCause();
-            }
-        }
-        Assert.fail("Should have not been able to construct");
+  @Test(expected = UnsupportedOperationException.class)
+  public void shouldNotBeAbleToConstruct() {
+    try {
+      PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassReaderFactory.class);
+      org.testng.Assert.assertEquals(1, pojoClass.getPojoConstructors().size());
+      InstanceFactory.getLeastCompleteInstance(pojoClass);
+    } catch (ReflectionException re) {
+      Throwable cause = re.getCause();
+      while (cause != null) {
+        if (cause instanceof UnsupportedOperationException)
+          throw (UnsupportedOperationException) cause;
+        cause = cause.getCause();
+      }
     }
+    Assert.fail("Should have not been able to construct");
+  }
 
-    @Test
-    public void canCreateClassReader() {
-        Assert.assertNotNull("Should not be null", ClassReaderFactory.getClassReader(this.getClass()));
-    }
+  @Test
+  public void canCreateClassReader() {
+    Assert.assertNotNull("Should not be null", ClassReaderFactory.getClassReader(this.getClass()));
+  }
 
-    @Test (expected = ReflectionException.class)
-    public void shouldNotBeAbleToCreateClassReader() {
-        ClassReaderFactory.getClassReader(null);
-    }
+  @Test(expected = ReflectionException.class)
+  public void shouldNotBeAbleToCreateClassReader() {
+    ClassReaderFactory.getClassReader(null);
+  }
 }

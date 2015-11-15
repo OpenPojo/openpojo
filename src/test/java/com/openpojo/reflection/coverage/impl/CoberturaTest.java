@@ -26,23 +26,24 @@ import org.junit.Test;
  */
 public class CoberturaTest {
 
-    @Test
-    public void shouldHaveCoberturaPojoClassAdapter() {
-        Assert.assertEquals(CoberturaPojoClassAdapter.class, Cobertura.getInstance().getPojoClassAdapter().getClass());
-    }
+  @Test
+  public void shouldHaveCoberturaPojoClassAdapter() {
+    Assert.assertEquals(CoberturaPojoClassAdapter.class, Cobertura.getInstance().getPojoClassAdapter().getClass());
+  }
 
-    @Test
-    public void shouldHaveNoFilter() {
-        Assert.assertNull(Cobertura.getInstance().getPojoClassFilter());
-    }
+  @Test
+  public void shouldHaveNoFilter() {
+    Assert.assertNull(Cobertura.getInstance().getPojoClassFilter());
+  }
 
-    @Test
-    public void nameIsCobertura() {
-        Assert.assertEquals("Cobertura", Cobertura.getInstance().getName());
-    }
+  @Test
+  public void nameIsCobertura() {
+    Assert.assertEquals("Cobertura", Cobertura.getInstance().getName());
+  }
 
-    @Test
-    public void coverageClassNameIs__netDOTsourceforgeDOTcoberturaDOTcoveragedataDOTLightClassmapListener() {
-        Assert.assertEquals("net.sourceforge.cobertura.coveragedata.LightClassmapListener", Cobertura.getInstance().getCoverageClassName());
-    }
+  @Test
+  public void coverageClassNameIs__netDOTsourceforgeDOTcoberturaDOTcoveragedataDOTLightClassmapListener() {
+    Assert.assertEquals("net.sourceforge.cobertura.coveragedata.LightClassmapListener",
+        Cobertura.getInstance().getCoverageClassName());
+  }
 }

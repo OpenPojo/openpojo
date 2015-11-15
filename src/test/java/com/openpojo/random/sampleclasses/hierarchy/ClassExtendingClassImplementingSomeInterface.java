@@ -19,7 +19,6 @@ package com.openpojo.random.sampleclasses.hierarchy;
 
 /**
  * @author oshoukry
- *
  */
 public class ClassExtendingClassImplementingSomeInterface extends ClassImplementingSomeInterface {
 

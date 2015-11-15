@@ -27,17 +27,17 @@ import org.objectweb.asm.ClassReader;
  */
 public class ClassReaderFactory {
 
-    private ClassReaderFactory() {
-        throw new UnsupportedOperationException(ClassReaderFactory.class.getName() + " should not be constructed!");
-    }
+  private ClassReaderFactory() {
+    throw new UnsupportedOperationException(ClassReaderFactory.class.getName() + " should not be constructed!");
+  }
 
-    public static ClassReader getClassReader(Class clazz) {
-        try {
-            return new ClassReader(clazz.getResourceAsStream(Java.PATH_DELIMITER
-                    + clazz.getName().replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER) + Java.CLASS_EXTENSION));
-        } catch (Throwable t) {
-            throw ReflectionException.getInstance("Failed to create ClassReader for class [" + clazz + "]", t);
-        }
+  public static ClassReader getClassReader(Class clazz) {
+    try {
+      return new ClassReader(clazz.getResourceAsStream(Java.PATH_DELIMITER + clazz.getName().replace(Java.PACKAGE_DELIMITER,
+          Java.PATH_DELIMITER) + Java.CLASS_EXTENSION));
+    } catch (Throwable t) {
+      throw ReflectionException.getInstance("Failed to create ClassReader for class [" + clazz + "]", t);
     }
+  }
 
 }

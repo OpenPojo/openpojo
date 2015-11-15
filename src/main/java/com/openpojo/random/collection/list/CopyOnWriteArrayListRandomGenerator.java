@@ -29,23 +29,23 @@ import com.openpojo.random.util.Helper;
  * @author oshoukry
  */
 public class CopyOnWriteArrayListRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { CopyOnWriteArrayList.class };
-    private static final CopyOnWriteArrayListRandomGenerator INSTANCE = new CopyOnWriteArrayListRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { CopyOnWriteArrayList.class };
+  private static final CopyOnWriteArrayListRandomGenerator INSTANCE = new CopyOnWriteArrayListRandomGenerator();
 
-    public static CopyOnWriteArrayListRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static CopyOnWriteArrayListRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new CopyOnWriteArrayList();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new CopyOnWriteArrayList();
+  }
 
-    private CopyOnWriteArrayListRandomGenerator() {
-    }
+  private CopyOnWriteArrayListRandomGenerator() {
+  }
 }

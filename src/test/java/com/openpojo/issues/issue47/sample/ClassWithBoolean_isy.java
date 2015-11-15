@@ -21,23 +21,23 @@ package com.openpojo.issues.issue47.sample;
  * @author oshoukry
  */
 public class ClassWithBoolean_isy {
-    public boolean isIsy() {
-        return isy;
-    }
+  public boolean isIsy() {
+    return isy;
+  }
 
-    public void setIsy(boolean isy) {
-        this.isy = isy;
-    }
+  public void setIsy(boolean isy) {
+    this.isy = isy;
+  }
 
-    private boolean isy;
+  private boolean isy;
 
-    public boolean isIs_Y() {
-        return is_Y;
-    }
+  public boolean isIs_Y() {
+    return is_Y;
+  }
 
-    public void setIs_Y(boolean is_Y) {
-        this.is_Y = is_Y;
-    }
+  public void setIs_Y(boolean is_Y) {
+    this.is_Y = is_Y;
+  }
 
-    private boolean is_Y;
+  private boolean is_Y;
 }

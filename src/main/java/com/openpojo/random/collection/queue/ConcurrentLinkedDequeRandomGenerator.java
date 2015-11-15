@@ -32,26 +32,26 @@ import com.openpojo.reflection.java.load.ClassUtil;
  * @author oshoukry
  */
 public class ConcurrentLinkedDequeRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final String TYPE = "java.util.concurrent.ConcurrentLinkedDeque";
-    private static final ConcurrentLinkedDequeRandomGenerator INSTANCE = new ConcurrentLinkedDequeRandomGenerator();
+  private static final String TYPE = "java.util.concurrent.ConcurrentLinkedDeque";
+  private static final ConcurrentLinkedDequeRandomGenerator INSTANCE = new ConcurrentLinkedDequeRandomGenerator();
 
-    public static ConcurrentLinkedDequeRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static ConcurrentLinkedDequeRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        List<Class<?>> types = new ArrayList<Class<?>>();
-        if (ClassUtil.isClassLoaded(TYPE))
-            types.add(ClassUtil.loadClass(TYPE));
-        return types;
-    }
+  public Collection<Class<?>> getTypes() {
+    List<Class<?>> types = new ArrayList<Class<?>>();
+    if (ClassUtil.isClassLoaded(TYPE))
+      types.add(ClassUtil.loadClass(TYPE));
+    return types;
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(TYPE)));
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(TYPE)));
+  }
 
-    private ConcurrentLinkedDequeRandomGenerator() {
-    }
+  private ConcurrentLinkedDequeRandomGenerator() {
+  }
 }
