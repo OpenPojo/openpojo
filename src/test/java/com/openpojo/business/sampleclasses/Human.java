@@ -21,24 +21,24 @@ import com.openpojo.business.annotation.BusinessKey;
 
 /**
  * @author oshoukry
- *
  */
 public class Human {
 
-    @BusinessKey
-    private Character sex;
+  @BusinessKey
+  private Character sex;
 
-    /**
-     * @return the sex
-     */
-    public Character getSex() {
-        return sex;
-    }
+  /**
+   * @return the sex
+   */
+  public Character getSex() {
+    return sex;
+  }
 
-    /**
-     * @param sex the sex to set
-     */
-    public void setSex(final Character sex) {
-        this.sex = sex;
-    }
+  /**
+   * @param sex
+   *     the sex to set
+   */
+  public void setSex(final Character sex) {
+    this.sex = sex;
+  }
 }

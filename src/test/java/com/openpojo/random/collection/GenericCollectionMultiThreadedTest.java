@@ -45,73 +45,75 @@ import org.junit.Test;
  */
 public class GenericCollectionMultiThreadedTest {
 
-    private String samplePackage = GenericCollectionMultiThreadedTest.class.getPackage().getName() + ".sample";
+  private String samplePackage = GenericCollectionMultiThreadedTest.class.getPackage().getName() + ".sample";
 
-    @Test
-    public void shouldCreateGenericCollection() throws ExecutionException, InterruptedException {
-        List<PojoClass> pojoClasses = new ArrayList<PojoClass>(2);
-        pojoClasses.add(PojoClassFactory.getPojoClass(AClassWithGenericCollection.class));
-        pojoClasses.add(PojoClassFactory.getPojoClass(AClassWithExhaustiveCollection.class));
+  @Test
+  public void shouldCreateGenericCollection() throws ExecutionException, InterruptedException {
+    List<PojoClass> pojoClasses = new ArrayList<PojoClass>(2);
+    pojoClasses.add(PojoClassFactory.getPojoClass(AClassWithGenericCollection.class));
+    pojoClasses.add(PojoClassFactory.getPojoClass(AClassWithExhaustiveCollection.class));
 
-        Assert.assertEquals(2, pojoClasses.size());
-        int ttl_jobs = 1000;
-        int per_thread = 30;
+    Assert.assertEquals(2, pojoClasses.size());
+    int ttl_jobs = 1000;
+    int per_thread = 30;
 
-        RejectedExecutionHandlerImpl rejectionHandler = new RejectedExecutionHandlerImpl();
+    RejectedExecutionHandlerImpl rejectionHandler = new RejectedExecutionHandlerImpl();
 
-        ThreadPoolExecutor executorPool = new ThreadPoolExecutor(ttl_jobs/per_thread, ttl_jobs/per_thread, 10, TimeUnit.SECONDS, new
-                ArrayBlockingQueue<Runnable>
-                (ttl_jobs),
-                Executors.defaultThreadFactory(), rejectionHandler);
+    ThreadPoolExecutor executorPool = new ThreadPoolExecutor(ttl_jobs / per_thread, ttl_jobs / per_thread, 10,
+        TimeUnit.SECONDS,
+        new ArrayBlockingQueue<Runnable>(ttl_jobs),
+        Executors.defaultThreadFactory(), rejectionHandler);
 
-        List<Future> tasksStatus = new ArrayList<Future>(ttl_jobs);
-        for (int i = 0; i < ttl_jobs; i++) {
-            tasksStatus.add(executorPool.submit(new Verify(pojoClasses)));
-        }
-
-
-        executorPool.shutdown();
-        while (!executorPool.isTerminated()) try {
-            Thread.sleep(200);
-        } catch (InterruptedException ignored) {
-        }
-
-        Assert.assertEquals(ttl_jobs, executorPool.getCompletedTaskCount());
-        Assert.assertEquals(0, rejectionHandler.getCount());
-        for (Future f : tasksStatus) {
-            Assert.assertNull(f.get());
-        }
+    List<Future> tasksStatus = new ArrayList<Future>(ttl_jobs);
+    for (int i = 0; i < ttl_jobs; i++) {
+      tasksStatus.add(executorPool.submit(new Verify(pojoClasses)));
     }
 
-    private static class Verify implements Runnable {
-        private List<PojoClass> pojoClasses;
-        private Validator pojoValidator;
+
+    executorPool.shutdown();
+    while (!executorPool.isTerminated())
+      try {
+        Thread.sleep(200);
+      } catch (InterruptedException ignored) {
+      }
+
+    Assert.assertEquals(ttl_jobs, executorPool.getCompletedTaskCount());
+    Assert.assertEquals(0, rejectionHandler.getCount());
+    for (Future f : tasksStatus) {
+      Assert.assertNull(f.get());
+    }
+  }
+
+  private static class Verify implements Runnable {
+    private List<PojoClass> pojoClasses;
+    private Validator pojoValidator;
 
 
-        private Verify(List<PojoClass> pojoClasses) {
-            this.pojoClasses = pojoClasses;
-            pojoValidator = ValidatorBuilder.create()
-                    .with(new SetterMustExistRule())
-                    .with(new GetterMustExistRule())
-                    .with(new SetterTester())
-                    .with(new GetterTester())
-                    .build();
-        }
-
-        public void run() {
-            pojoValidator.validate(pojoClasses);
-        }
+    private Verify(List<PojoClass> pojoClasses) {
+      this.pojoClasses = pojoClasses;
+      pojoValidator = ValidatorBuilder.create()
+          .with(new SetterMustExistRule())
+          .with(new GetterMustExistRule())
+          .with(new SetterTester())
+          .with(new GetterTester())
+          .build();
     }
 
-    private static class RejectedExecutionHandlerImpl implements RejectedExecutionHandler {
-        private int count = 0;
-        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-            count++;
-        }
-
-        public int getCount() {
-            return count;
-        }
+    public void run() {
+      pojoValidator.validate(pojoClasses);
     }
+  }
+
+  private static class RejectedExecutionHandlerImpl implements RejectedExecutionHandler {
+    private int count = 0;
+
+    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+      count++;
+    }
+
+    public int getCount() {
+      return count;
+    }
+  }
 
 }

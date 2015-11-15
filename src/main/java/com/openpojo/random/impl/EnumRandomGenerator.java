@@ -32,27 +32,27 @@ import com.openpojo.random.util.SomeEnum;
  * @author oshoukry
  */
 public final class EnumRandomGenerator implements RandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { Enum.class };
+  private static final Class<?>[] TYPES = new Class<?>[] { Enum.class };
 
-    private static final Random RANDOM = new Random(new Date().getTime());
+  private static final Random RANDOM = new Random(new Date().getTime());
 
-    private EnumRandomGenerator() {
-    }
+  private EnumRandomGenerator() {
+  }
 
-    public static EnumRandomGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
+  public static EnumRandomGenerator getInstance() {
+    return Instance.INSTANCE;
+  }
 
-    public Object doGenerate(final Class<?> type) {
-        return SomeEnum.values()[RANDOM.nextInt(SomeEnum.values().length)];
-    }
+  public Object doGenerate(final Class<?> type) {
+    return SomeEnum.values()[RANDOM.nextInt(SomeEnum.values().length)];
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    private static class Instance {
-        private static final EnumRandomGenerator INSTANCE = new EnumRandomGenerator();
-    }
+  private static class Instance {
+    private static final EnumRandomGenerator INSTANCE = new EnumRandomGenerator();
+  }
 
 }

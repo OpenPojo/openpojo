@@ -28,14 +28,11 @@ import org.junit.Test;
 
 public class GetterSetterTest {
 
-    @Test
-    public void shouldPassGetterSetterTest() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(SomeBean.class);
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new SetterMustExistRule())
-                .with(new GetterMustExistRule())
-                .build();
-        pojoValidator.validate(pojoClass);
-    }
+  @Test
+  public void shouldPassGetterSetterTest() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(SomeBean.class);
+    Validator pojoValidator = ValidatorBuilder.create().with(new SetterMustExistRule()).with(new GetterMustExistRule()).build();
+    pojoValidator.validate(pojoClass);
+  }
 
 }

@@ -32,37 +32,37 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * @author oshoukry
  */
 public final class EnumRandomGenerator {
-    private static final Random RANDOM = new Random(new Date().getTime());
+  private static final Random RANDOM = new Random(new Date().getTime());
 
-    private EnumRandomGenerator() {
+  private EnumRandomGenerator() {
+  }
+
+  public static EnumRandomGenerator getInstance() {
+    return Instance.INSTANCE;
+  }
+
+  public Object doGenerate(final Class<?> type) {
+    final PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
+
+    final Enum<?>[] values = getValues(pojoClass);
+    if (values.length == 0)
+      throw RandomGeneratorException.getInstance("Can't generate random value for Enum class [" + type + "] enum doesn't " +
+          "define any values");
+    return values[RANDOM.nextInt(values.length)];
+  }
+
+  private Enum<?>[] getValues(final PojoClass enumPojoClass) {
+    Enum<?>[] values = null;
+    for (final PojoMethod pojoMethod : enumPojoClass.getPojoMethods()) {
+      if (pojoMethod.getName().equals("values") && pojoMethod.getPojoParameters().size() == 0) {
+        values = (Enum<?>[]) pojoMethod.invoke(null, (Object[]) null);
+        break;
+      }
     }
+    return values;
+  }
 
-    public static EnumRandomGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
-
-    public Object doGenerate(final Class<?> type) {
-        final PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
-
-        final Enum<?>[] values = getValues(pojoClass);
-         if  (values.length == 0)
-             throw RandomGeneratorException.getInstance("Can't generate random value for Enum class [" + type + "] enum doesn't define " +
-                     "any values");
-        return values[RANDOM.nextInt(values.length)];
-    }
-
-    private Enum<?>[] getValues(final PojoClass enumPojoClass) {
-        Enum<?>[] values = null;
-        for (final PojoMethod pojoMethod : enumPojoClass.getPojoMethods()) {
-            if (pojoMethod.getName().equals("values") && pojoMethod.getPojoParameters().size() == 0) {
-                values = (Enum<?>[]) pojoMethod.invoke(null, (Object[]) null);
-                break;
-            }
-        }
-        return values;
-    }
-
-    private static class Instance {
-        private static final EnumRandomGenerator INSTANCE = new EnumRandomGenerator();
-    }
+  private static class Instance {
+    private static final EnumRandomGenerator INSTANCE = new EnumRandomGenerator();
+  }
 }

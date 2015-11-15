@@ -27,52 +27,52 @@ import org.junit.Test;
  */
 public class FilterChainTest extends IdentitiesAreEqual {
 
-    @Test
-    public void newFilterChain_hasNoFilters() {
-        FilterChain filter = new FilterChain();
-        Assert.assertEquals(0, filter.size());
+  @Test
+  public void newFilterChain_hasNoFilters() {
+    FilterChain filter = new FilterChain();
+    Assert.assertEquals(0, filter.size());
+  }
+
+  @Test
+  public void filterChain_shouldIgonreNullFilterArray() {
+    FilterChain filter = new FilterChain((PojoClassFilter[]) null);
+    Assert.assertEquals(0, filter.size());
+  }
+
+  @Test
+  public void oneOneFilterAdded_FilterChainHasOneFilter() {
+    PojoClassFilter dummyFilter = new DummyPojoClassFilter();
+    FilterChain filter = new FilterChain(dummyFilter);
+    Assert.assertEquals(1, filter.size());
+    Assert.assertTrue(filter.getPojoClassFilters().contains(dummyFilter));
+  }
+
+  @Test
+  public void addingArrayWithNullFilters_ignored() {
+    PojoClassFilter dummyFilter = new DummyPojoClassFilter();
+    FilterChain filter = new FilterChain(dummyFilter, null);
+    Assert.assertEquals(1, filter.size());
+    Assert.assertTrue(filter.getPojoClassFilters().contains(dummyFilter));
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void retrivedFilterCollectionIsUnmodifiable() {
+    FilterChain filter = new FilterChain();
+    filter.getPojoClassFilters().add(new DummyPojoClassFilter());
+  }
+
+  @Test
+  public void shouldBeIdentityEqual() {
+    FilterChain instanceOne = new FilterChain();
+    FilterChain instanceTwo = new FilterChain();
+
+    checkEqualityAndHashCode(instanceOne, instanceTwo);
+  }
+
+  private class DummyPojoClassFilter implements PojoClassFilter {
+    public boolean include(PojoClass pojoClass) {
+      return false;
     }
 
-    @Test
-    public void filterChain_shouldIgonreNullFilterArray() {
-        FilterChain filter = new FilterChain((PojoClassFilter[])null);
-        Assert.assertEquals(0, filter.size());
-    }
-
-    @Test
-    public void oneOneFilterAdded_FilterChainHasOneFilter() {
-        PojoClassFilter dummyFilter = new DummyPojoClassFilter();
-        FilterChain filter = new FilterChain(dummyFilter);
-        Assert.assertEquals(1, filter.size());
-        Assert.assertTrue(filter.getPojoClassFilters().contains(dummyFilter));
-    }
-
-    @Test
-    public void addingArrayWithNullFilters_ignored() {
-        PojoClassFilter dummyFilter = new DummyPojoClassFilter();
-        FilterChain filter = new FilterChain(dummyFilter, null);
-        Assert.assertEquals(1, filter.size());
-        Assert.assertTrue(filter.getPojoClassFilters().contains(dummyFilter));
-    }
-
-    @Test (expected = UnsupportedOperationException.class)
-    public void retrivedFilterCollectionIsUnmodifiable() {
-        FilterChain filter = new FilterChain();
-        filter.getPojoClassFilters().add(new DummyPojoClassFilter());
-    }
-
-    @Test
-    public void shouldBeIdentityEqual() {
-        FilterChain instanceOne = new FilterChain();
-        FilterChain instanceTwo = new FilterChain();
-
-        checkEqualityAndHashCode(instanceOne, instanceTwo);
-    }
-
-    private class DummyPojoClassFilter implements PojoClassFilter {
-        public boolean include(PojoClass pojoClass) {
-            return false;
-        }
-
-    }
+  }
 }

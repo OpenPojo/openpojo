@@ -28,15 +28,15 @@ import org.junit.Test;
  */
 public class HelperTest {
 
-    @SuppressWarnings("unchecked")
-    @Test(expected = RandomGeneratorException.class)
-    public void shouldThrowExceptionWithEmptyList() {
-        Helper.assertIsAssignableTo(Object.class, Collections.EMPTY_LIST);
-    }
+  @SuppressWarnings("unchecked")
+  @Test(expected = RandomGeneratorException.class)
+  public void shouldThrowExceptionWithEmptyList() {
+    Helper.assertIsAssignableTo(Object.class, Collections.EMPTY_LIST);
+  }
 
-    @Test
-    @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
-    public void shouldNotThrowExceptionWithListHavingAssignableToItem() {
-        Helper.assertIsAssignableTo(Object.class, Arrays.<Class<?>>asList(this.getClass()));
-    }
+  @Test
+  @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
+  public void shouldNotThrowExceptionWithListHavingAssignableToItem() {
+    Helper.assertIsAssignableTo(Object.class, Arrays.<Class<?>>asList(this.getClass()));
+  }
 }

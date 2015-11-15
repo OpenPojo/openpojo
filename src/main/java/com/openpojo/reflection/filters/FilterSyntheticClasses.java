@@ -26,17 +26,17 @@ import com.openpojo.reflection.PojoClassFilter;
  */
 public class FilterSyntheticClasses implements PojoClassFilter {
 
-    public boolean include(PojoClass pojoClass) {
-        return !pojoClass.isSynthetic();
-    }
+  public boolean include(PojoClass pojoClass) {
+    return !pojoClass.isSynthetic();
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        return this == o || !(o == null || getClass() != o.getClass());
-    }
+  @Override
+  public boolean equals(Object o) {
+    return this == o || !(o == null || getClass() != o.getClass());
+  }
 
-    @Override
-    public int hashCode() {
-        return this.getClass().hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return this.getClass().hashCode();
+  }
 }

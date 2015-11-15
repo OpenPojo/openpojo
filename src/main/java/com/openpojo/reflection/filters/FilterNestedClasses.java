@@ -28,17 +28,17 @@ import com.openpojo.reflection.PojoClassFilter;
  */
 public class FilterNestedClasses implements PojoClassFilter {
 
-    public boolean include(final PojoClass pojoClass) {
-        return !pojoClass.isNestedClass();
-    }
+  public boolean include(final PojoClass pojoClass) {
+    return !pojoClass.isNestedClass();
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        return this == o || !(o == null || getClass() != o.getClass());
-    }
+  @Override
+  public boolean equals(Object o) {
+    return this == o || !(o == null || getClass() != o.getClass());
+  }
 
-    @Override
-    public int hashCode() {
-        return this.getClass().hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return this.getClass().hashCode();
+  }
 }

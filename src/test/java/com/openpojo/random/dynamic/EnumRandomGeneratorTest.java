@@ -25,12 +25,12 @@ import org.junit.Test;
  */
 public class EnumRandomGeneratorTest {
 
-    @Test(expected = RandomGeneratorException.class)
-    public void shouldThrowExceptionWhenEnumHasNoValues() {
-        EnumRandomGenerator.getInstance().doGenerate(EmptyEnum.class);
-    }
+  @Test(expected = RandomGeneratorException.class)
+  public void shouldThrowExceptionWhenEnumHasNoValues() {
+    EnumRandomGenerator.getInstance().doGenerate(EmptyEnum.class);
+  }
 
-    public enum EmptyEnum {
+  public enum EmptyEnum {
 
-    }
+  }
 }

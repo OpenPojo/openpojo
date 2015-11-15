@@ -28,46 +28,46 @@ import java.util.Random;
 
 import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
 import com.openpojo.random.collection.util.CollectionHelper;
-import com.openpojo.random.util.SomeEnum;
 import com.openpojo.random.util.Helper;
+import com.openpojo.random.util.SomeEnum;
 import com.openpojo.reflection.Parameterizable;
 
 /**
  * @author oshoukry
  */
 public class EnumSetRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Random RANDOM = new Random(new Date().getTime());
-    private static final Class<?>[] TYPES = new Class<?>[] { EnumSet.class };
-    private static final EnumSetRandomGenerator INSTANCE = new EnumSetRandomGenerator();
+  private static final Random RANDOM = new Random(new Date().getTime());
+  private static final Class<?>[] TYPES = new Class<?>[] { EnumSet.class };
+  private static final EnumSetRandomGenerator INSTANCE = new EnumSetRandomGenerator();
 
-    public static EnumSetRandomGenerator getInstance() {
-        return INSTANCE;
+  public static EnumSetRandomGenerator getInstance() {
+    return INSTANCE;
+  }
+
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
+
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    List<SomeEnum> someEnums = new ArrayList<SomeEnum>();
+    for (int i = 0; i < CollectionHelper.MAX_RANDOM_ELEMENTS; i++) {
+      someEnums.add(SomeEnum.values()[RANDOM.nextInt(SomeEnum.values().length - 1)]);
     }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+    return EnumSet.copyOf(someEnums);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        List<SomeEnum> someEnums = new ArrayList<SomeEnum>();
-        for (int i = 0; i < CollectionHelper.MAX_RANDOM_ELEMENTS; i++) {
-            someEnums.add(SomeEnum.values()[RANDOM.nextInt(SomeEnum.values().length - 1)]);
-        }
+  public Collection doGenerate(Class<?> type) {
+    return getBasicInstance(type);
+  }
 
-        return EnumSet.copyOf(someEnums);
-    }
+  public Collection doGenerate(Parameterizable parameterizedType) {
+    Helper.assertIsAssignableTo(parameterizedType.getType(), getTypes());
+    return EnumSet.allOf((Class) parameterizedType.getParameterTypes().get(0));
+  }
 
-    public Collection doGenerate(Class<?> type) {
-        return getBasicInstance(type);
-    }
-
-    public Collection doGenerate(Parameterizable parameterizedType) {
-        Helper.assertIsAssignableTo(parameterizedType.getType(), getTypes());
-        return EnumSet.allOf((Class) parameterizedType.getParameterTypes().get(0));
-    }
-
-    private EnumSetRandomGenerator() {
-    }
+  private EnumSetRandomGenerator() {
+  }
 }

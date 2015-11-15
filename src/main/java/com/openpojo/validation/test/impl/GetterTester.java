@@ -34,27 +34,27 @@ import com.openpojo.validation.utils.ValidationHelper;
  */
 public class GetterTester implements Tester {
 
-    public void run(final PojoClass pojoClass) {
-        final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
-        for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (fieldEntry.hasGetter()) {
-                Object value = fieldEntry.get(classInstance);
+  public void run(final PojoClass pojoClass) {
+    final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
+    for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
+      if (fieldEntry.hasGetter()) {
+        Object value = fieldEntry.get(classInstance);
 
-                if (!fieldEntry.isFinal()) {
-                    value = RandomFactory.getRandomValue(fieldEntry);
-                    fieldEntry.set(classInstance, value);
-                }
-
-                IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
-
-                LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]", fieldEntry, value);
-
-                Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value,
-                                    fieldEntry.invokeGetter(classInstance));
-                IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
-            } else {
-                LoggerFactory.getLogger(this.getClass()).debug("Field [{0}] has no getter skipping", fieldEntry);
-            }
+        if (!fieldEntry.isFinal()) {
+          value = RandomFactory.getRandomValue(fieldEntry);
+          fieldEntry.set(classInstance, value);
         }
+
+        IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
+
+        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]", fieldEntry, value);
+
+        Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value,
+            fieldEntry.invokeGetter(classInstance));
+        IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
+      } else {
+        LoggerFactory.getLogger(this.getClass()).debug("Field [{0}] has no getter skipping", fieldEntry);
+      }
     }
+  }
 }

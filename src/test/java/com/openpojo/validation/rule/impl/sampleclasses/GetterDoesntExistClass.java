@@ -22,11 +22,11 @@ package com.openpojo.validation.rule.impl.sampleclasses;
  */
 public final class GetterDoesntExistClass {
 
-    // Okay
-    public static final String PRIVATE_STATIC_FINAL = "Some String";
+  // Okay
+  public static final String PRIVATE_STATIC_FINAL = "Some String";
 
-    // Not Okay
-    public String privateString;
-    public static String privateStaticString = "Some String";
-    public final String privateFinalString = "Some String";
+  // Not Okay
+  public String privateString;
+  public static String privateStaticString = "Some String";
+  public final String privateFinalString = "Some String";
 }

@@ -21,19 +21,20 @@ package com.openpojo.validation.rule.impl.sampleclasses;
  * @author oshoukry
  */
 public final class GetterSetterDoesExistClass {
-    public String string;
+  public String string;
 
-    /**
-     * @return the string
-     */
-    public String getString() {
-        return string;
-    }
+  /**
+   * @return the string
+   */
+  public String getString() {
+    return string;
+  }
 
-    /**
-     * @param string the string to set
-     */
-    public void setString(final String string) {
-        this.string = string;
-    }
+  /**
+   * @param string
+   *     the string to set
+   */
+  public void setString(final String string) {
+    this.string = string;
+  }
 }

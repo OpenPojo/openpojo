@@ -28,65 +28,65 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class GetterTesterAndSetterTesterTest {
-    private static final String TESTPACKAGE = GetterTesterAndSetterTesterTest.class.getPackage().getName() + ".sampleclasses";
+  private static final String TESTPACKAGE = GetterTesterAndSetterTesterTest.class.getPackage().getName() + ".sampleclasses";
 
-    public List<PojoClass> getGoodPojoClasses() {
-        return PojoClassFactory.getPojoClasses(TESTPACKAGE, new PojoClassFilter() {
-            public boolean include(PojoClass pojoClass) {
-                return pojoClass.getClazz().getSimpleName().startsWith("Good_");
-            }
-        });
+  public List<PojoClass> getGoodPojoClasses() {
+    return PojoClassFactory.getPojoClasses(TESTPACKAGE, new PojoClassFilter() {
+      public boolean include(PojoClass pojoClass) {
+        return pojoClass.getClazz().getSimpleName().startsWith("Good_");
+      }
+    });
+  }
+
+  public List<PojoClass> getBadPojoClasses() {
+    return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
+
+      public boolean include(final PojoClass pojoClass) {
+        return pojoClass.getClazz().getSimpleName().startsWith("Bad_");
+      }
+    });
+  }
+
+  @Test
+  public void shouldPassSetterTest() {
+    List<PojoClass> goodPojoClasses = getGoodPojoClasses();
+
+    Assert.assertEquals("Classes added/removed?", 3, goodPojoClasses.size());
+    for (final PojoClass pojoClass : goodPojoClasses) {
+      invokeRun(pojoClass, new SetterTester());
+      invokeRun(pojoClass, new GetterTester());
     }
+  }
 
-    public List<PojoClass> getBadPojoClasses() {
-        return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
+  @Test
+  public void setterShouldSkipTestingAbstractMethods() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(Good_AnAbstractClassWithAbstractSetterGetter.class);
+    invokeRun(pojoClass, new SetterTester());
+  }
 
-            public boolean include(final PojoClass pojoClass) {
-                return pojoClass.getClazz().getSimpleName().startsWith("Bad_");
-            }
-        });
-    }
-
-    @Test
-    public void shouldPassSetterTest() {
-        List<PojoClass> goodPojoClasses = getGoodPojoClasses();
-
-        Assert.assertEquals("Classes added/removed?", 3, goodPojoClasses.size());
-        for (final PojoClass pojoClass : goodPojoClasses) {
-            invokeRun(pojoClass, new SetterTester());
-            invokeRun(pojoClass, new GetterTester());
-        }
-    }
-
-    @Test
-    public void setterShouldSkipTestingAbstractMethods() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(Good_AnAbstractClassWithAbstractSetterGetter.class);
+  @Test
+  public void shouldFailSetterTest() {
+    List<PojoClass> badPojoClasses = getBadPojoClasses();
+    Assert.assertEquals("Classes added/removed?", 1, badPojoClasses.size());
+    for (final PojoClass pojoClass : badPojoClasses) {
+      try {
         invokeRun(pojoClass, new SetterTester());
-    }
+        Assert.fail("Should not have passed");
+      } catch (AssertionError ignored) {
 
-    @Test
-    public void shouldFailSetterTest() {
-        List<PojoClass> badPojoClasses = getBadPojoClasses();
-        Assert.assertEquals("Classes added/removed?", 1, badPojoClasses.size());
-        for (final PojoClass pojoClass : badPojoClasses) {
-            try {
-                invokeRun(pojoClass, new SetterTester());
-                Assert.fail("Should not have passed");
-            } catch (AssertionError ignored) {
-
-            }
-        }
+      }
     }
+  }
 
-    @Test(expected = AssertionError.class)
-    public void shouldFailGetterTest() {
-        for (final PojoClass pojoClass : getBadPojoClasses()) {
-            invokeRun(pojoClass, new GetterTester());
-        }
+  @Test(expected = AssertionError.class)
+  public void shouldFailGetterTest() {
+    for (final PojoClass pojoClass : getBadPojoClasses()) {
+      invokeRun(pojoClass, new GetterTester());
     }
+  }
 
-    private void invokeRun(final PojoClass classToTest, final Tester tester) {
-        tester.run(classToTest);
-    }
+  private void invokeRun(final PojoClass classToTest, final Tester tester) {
+    tester.run(classToTest);
+  }
 
 }

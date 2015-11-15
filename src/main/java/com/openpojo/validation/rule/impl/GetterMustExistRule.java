@@ -32,11 +32,11 @@ import com.openpojo.validation.utils.ValidationHelper;
  */
 public class GetterMustExistRule implements Rule {
 
-    public void evaluate(final PojoClass pojoClass) {
-        for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (!ValidationHelper.isStaticFinal(fieldEntry) && !fieldEntry.hasGetter()) {
-                Affirm.fail(String.format("[%s] is missing a getter", fieldEntry));
-            }
-        }
+  public void evaluate(final PojoClass pojoClass) {
+    for (PojoField fieldEntry : pojoClass.getPojoFields()) {
+      if (!ValidationHelper.isStaticFinal(fieldEntry) && !fieldEntry.hasGetter()) {
+        Affirm.fail(String.format("[%s] is missing a getter", fieldEntry));
+      }
     }
+  }
 }

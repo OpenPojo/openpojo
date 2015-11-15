@@ -21,58 +21,56 @@ import java.io.Serializable;
 
 public final class Employee implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * Minimal business constructor.
-     */
-    public Employee(final String fullName, final Employee manager) {
-        this.fullName = fullName;
-        this.manager = manager;
-    }
+  /**
+   * Minimal business constructor.
+   */
+  public Employee(final String fullName, final Employee manager) {
+    this.fullName = fullName;
+    this.manager = manager;
+  }
 
-    private String fullName;
+  private String fullName;
 
-    /**
-     * This is an Object Loop, to demonstrate how the random factory would handle it.
-     */
-    private Employee manager;
+  /**
+   * This is an Object Loop, to demonstrate how the random factory would handle it.
+   */
+  private Employee manager;
 
-    /**
-     * @return the firstname
-     */
-    public String getFirstname() {
-        return fullName;
-    }
+  /**
+   * @return the firstname
+   */
+  public String getFirstname() {
+    return fullName;
+  }
 
-    /**
-     * @param firstname
-     *            the firstname to set
-     */
-    public void setFirstname(final String firstname) {
-        this.fullName = firstname;
-    }
+  /**
+   * @param firstname
+   *     the firstname to set
+   */
+  public void setFirstname(final String firstname) {
+    this.fullName = firstname;
+  }
 
-    /**
-     * @param manager
-     *            the manager to set.
-     */
-    public void setManager(final Employee manager) {
-        this.manager = manager;
-    }
+  /**
+   * @param manager
+   *     the manager to set.
+   */
+  public void setManager(final Employee manager) {
+    this.manager = manager;
+  }
 
-    /**
-     * @return
-     *         the manager of this person.
-     */
-    public Employee getManager() {
-        return manager;
-    }
+  /**
+   * @return the manager of this person.
+   */
+  public Employee getManager() {
+    return manager;
+  }
 
-    @Override
-    public String toString() {
-        return String
-                .format("Employee [fullName=%s, manager=%s]", fullName, manager);
-    }
+  @Override
+  public String toString() {
+    return String.format("Employee [fullName=%s, manager=%s]", fullName, manager);
+  }
 
 }

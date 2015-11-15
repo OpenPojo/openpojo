@@ -21,44 +21,44 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import com.openpojo.random.ParameterizableRandomGenerator;
-import com.openpojo.random.util.SomeEnum;
 import com.openpojo.random.map.support.EnumType1;
 import com.openpojo.random.map.support.SimpleType2;
 import com.openpojo.random.map.util.BaseMapRandomGeneratorTest;
+import com.openpojo.random.util.SomeEnum;
 
 /**
  * @author oshoukry
  */
 public class EnumMapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
 
-    protected EnumMapRandomGenerator getInstance() {
-        return EnumMapRandomGenerator.getInstance();
-    }
+  protected EnumMapRandomGenerator getInstance() {
+    return EnumMapRandomGenerator.getInstance();
+  }
 
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return EnumMapRandomGenerator.class;
-    }
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return EnumMapRandomGenerator.class;
+  }
 
-    protected Class<? extends Map> getExpectedTypeClass() {
-        return EnumMap.class;
-    }
+  protected Class<? extends Map> getExpectedTypeClass() {
+    return EnumMap.class;
+  }
 
-    protected Class<? extends Map> getGeneratedTypeClass() {
-        return EnumMap.class;
-    }
+  protected Class<? extends Map> getGeneratedTypeClass() {
+    return EnumMap.class;
+  }
 
-    protected Class<?> getDefaultType1() {
-        return SomeEnum.class;
-    }
+  protected Class<?> getDefaultType1() {
+    return SomeEnum.class;
+  }
 
-    @Override
-    protected Class<?> getGenericType1() {
-        return EnumType1.class;
-    }
+  @Override
+  protected Class<?> getGenericType1() {
+    return EnumType1.class;
+  }
 
-    @Override
-    protected Class<?> getGenericType2() {
-        return SimpleType2.class;
-    }
+  @Override
+  protected Class<?> getGenericType2() {
+    return SimpleType2.class;
+  }
 
 }

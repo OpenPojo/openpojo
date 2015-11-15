@@ -24,32 +24,32 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class FilterBasedOnInheritanceTest extends IdentitiesAreEqual {
-    @Test
-    public void shouldBeIdentityEqual() {
-        FilterBasedOnInheritance instanceOne = new FilterBasedOnInheritance(SomeInterface.class);
-        FilterBasedOnInheritance instanceTwo = new FilterBasedOnInheritance(SomeInterface.class);
+  @Test
+  public void shouldBeIdentityEqual() {
+    FilterBasedOnInheritance instanceOne = new FilterBasedOnInheritance(SomeInterface.class);
+    FilterBasedOnInheritance instanceTwo = new FilterBasedOnInheritance(SomeInterface.class);
 
-        checkEqualityAndHashCode(instanceOne, instanceTwo);
-    }
+    checkEqualityAndHashCode(instanceOne, instanceTwo);
+  }
 
-    @Test
-    public void givenDifferentInterfaces_shouldNotBeEqual() {
-        FilterBasedOnInheritance instanceOne = new FilterBasedOnInheritance(SomeInterface.class);
-        FilterBasedOnInheritance instanceTwo = new FilterBasedOnInheritance(SomeOtherInterface.class);
-        Assert.assertFalse(instanceOne.equals(instanceTwo));
-        Assert.assertFalse(instanceTwo.equals(instanceOne));
-        Assert.assertTrue(instanceOne.hashCode() != instanceTwo.hashCode());
+  @Test
+  public void givenDifferentInterfaces_shouldNotBeEqual() {
+    FilterBasedOnInheritance instanceOne = new FilterBasedOnInheritance(SomeInterface.class);
+    FilterBasedOnInheritance instanceTwo = new FilterBasedOnInheritance(SomeOtherInterface.class);
+    Assert.assertFalse(instanceOne.equals(instanceTwo));
+    Assert.assertFalse(instanceTwo.equals(instanceOne));
+    Assert.assertTrue(instanceOne.hashCode() != instanceTwo.hashCode());
 
-        FilterBasedOnInheritance instanceThree = new FilterBasedOnInheritance(null);
-        Assert.assertFalse(instanceOne.equals(instanceThree));
-        Assert.assertFalse(instanceThree.equals(instanceOne));
-        Assert.assertTrue(instanceOne.hashCode() != instanceThree.hashCode());
-    }
+    FilterBasedOnInheritance instanceThree = new FilterBasedOnInheritance(null);
+    Assert.assertFalse(instanceOne.equals(instanceThree));
+    Assert.assertFalse(instanceThree.equals(instanceOne));
+    Assert.assertTrue(instanceOne.hashCode() != instanceThree.hashCode());
+  }
 
-    public interface SomeInterface {
-    }
+  public interface SomeInterface {
+  }
 
-    public interface SomeOtherInterface {
+  public interface SomeOtherInterface {
 
-    }
+  }
 }

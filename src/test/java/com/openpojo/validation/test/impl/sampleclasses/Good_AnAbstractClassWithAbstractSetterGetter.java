@@ -21,10 +21,10 @@ package com.openpojo.validation.test.impl.sampleclasses;
  * @author oshoukry
  */
 public abstract class Good_AnAbstractClassWithAbstractSetterGetter {
-    protected String someString;
+  protected String someString;
 
-    public abstract String getSomeString();
+  public abstract String getSomeString();
 
-    public abstract void setSomeString(String someString);
+  public abstract void setSomeString(String someString);
 
 }

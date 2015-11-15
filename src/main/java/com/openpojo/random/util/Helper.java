@@ -27,11 +27,11 @@ import com.openpojo.random.exception.RandomGeneratorException;
  */
 public class Helper {
 
-    public static void assertIsAssignableTo(Class<?> type, Collection<Class<?>> knownTypes) {
-        for (Class<?> knownType : knownTypes) {
-            if (type.isAssignableFrom(knownType))
-                return;
-        }
-        throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+  public static void assertIsAssignableTo(Class<?> type, Collection<Class<?>> knownTypes) {
+    for (Class<?> knownType : knownTypes) {
+      if (type.isAssignableFrom(knownType))
+        return;
     }
+    throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
+  }
 }

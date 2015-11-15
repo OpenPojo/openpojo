@@ -31,34 +31,34 @@ import com.openpojo.reflection.java.load.ClassUtil;
  */
 public class EnumSetRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
 
-    @Override
-    protected ParameterizableRandomGenerator getInstance() {
-        return EnumSetRandomGenerator.getInstance();
-    }
+  @Override
+  protected ParameterizableRandomGenerator getInstance() {
+    return EnumSetRandomGenerator.getInstance();
+  }
 
-    @Override
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return EnumSetRandomGenerator.class;
-    }
+  @Override
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return EnumSetRandomGenerator.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getExpectedTypeClass() {
-        return EnumSet.class;
-    }
+  @Override
+  protected Class<? extends Collection> getExpectedTypeClass() {
+    return EnumSet.class;
+  }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    protected Class<? extends Collection> getGeneratedTypeClass() {
-        return (Class<? extends Collection>) ClassUtil.loadClass("java.util.RegularEnumSet");
-    }
+  @Override
+  @SuppressWarnings("unchecked")
+  protected Class<? extends Collection> getGeneratedTypeClass() {
+    return (Class<? extends Collection>) ClassUtil.loadClass("java.util.RegularEnumSet");
+  }
 
-    @Override
-    protected Class<?> getDefaultType() {
-        return SomeEnum.class;
-    }
+  @Override
+  protected Class<?> getDefaultType() {
+    return SomeEnum.class;
+  }
 
-    @Override
-    protected Class<?> getGenericType() {
-        return EnumType.class;
-    }
+  @Override
+  protected Class<?> getGenericType() {
+    return EnumType.class;
+  }
 }

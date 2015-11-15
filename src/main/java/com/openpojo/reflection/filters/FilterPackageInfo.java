@@ -29,18 +29,18 @@ import com.openpojo.reflection.java.Java;
  */
 public class FilterPackageInfo implements PojoClassFilter {
 
-    public boolean include(final PojoClass pojoClass) {
-        return !pojoClass.getName().endsWith(Java.PACKAGE_DELIMITER + Java.PACKAGE_INFO);
-    }
+  public boolean include(final PojoClass pojoClass) {
+    return !pojoClass.getName().endsWith(Java.PACKAGE_DELIMITER + Java.PACKAGE_INFO);
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        return this == o || !(o == null || getClass() != o.getClass());
-    }
+  @Override
+  public boolean equals(Object o) {
+    return this == o || !(o == null || getClass() != o.getClass());
+  }
 
-    @Override
-    public int hashCode() {
-        return this.getClass().hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return this.getClass().hashCode();
+  }
 
 }

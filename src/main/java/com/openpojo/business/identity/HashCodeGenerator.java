@@ -25,13 +25,12 @@ package com.openpojo.business.identity;
  */
 public interface HashCodeGenerator {
 
-    /**
-     * This method will calculate BusinessKey based hashcode.
-     *
-     * @param object
-     *          Object to generate hashCode for.
-     * @return
-     *          generated hash code.
-     */
-    int doGenerate(Object object);
+  /**
+   * This method will calculate BusinessKey based hashcode.
+   *
+   * @param object
+   *     Object to generate hashCode for.
+   * @return generated hash code.
+   */
+  int doGenerate(Object object);
 }

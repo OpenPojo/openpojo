@@ -21,5 +21,5 @@ package com.openpojo.random.map.support;
  * @author oshoukry
  */
 public enum EnumType1 {
-    VALUE1, VALUE2
+  VALUE1, VALUE2
 }

@@ -24,10 +24,10 @@ import org.junit.Test;
  */
 public class FilterPackageInfoTest extends IdentitiesAreEqual {
 
-    @Test
-    public void shouldBeIdentityEqual() {
-        FilterPackageInfo instanceOne = new FilterPackageInfo();
-        FilterPackageInfo instanceTwo = new FilterPackageInfo();
-        checkEqualityAndHashCode(instanceOne, instanceTwo);
-    }
+  @Test
+  public void shouldBeIdentityEqual() {
+    FilterPackageInfo instanceOne = new FilterPackageInfo();
+    FilterPackageInfo instanceTwo = new FilterPackageInfo();
+    checkEqualityAndHashCode(instanceOne, instanceTwo);
+  }
 }

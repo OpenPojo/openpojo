@@ -21,15 +21,15 @@ package com.openpojo.validation.test.impl.sampleclasses;
  * @author oshoukry
  */
 public abstract class Good_AnAbstractClassWithGettersAndSetters {
-    private Object someObject;
+  private Object someObject;
 
-    @SuppressWarnings("unused")
-    public Object getSomeObject() {
-        return someObject;
-    }
+  @SuppressWarnings("unused")
+  public Object getSomeObject() {
+    return someObject;
+  }
 
-    @SuppressWarnings("unused")
-    public void setSomeObject(Object someObject) {
-        this.someObject = someObject;
-    }
+  @SuppressWarnings("unused")
+  public void setSomeObject(Object someObject) {
+    this.someObject = someObject;
+  }
 }

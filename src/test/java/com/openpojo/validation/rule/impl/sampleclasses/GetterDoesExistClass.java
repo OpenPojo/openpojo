@@ -22,32 +22,32 @@ package com.openpojo.validation.rule.impl.sampleclasses;
  */
 public final class GetterDoesExistClass {
 
-    // Okay
-    public static final String PRIVATE_STATIC_FINAL = "Some String";
+  // Okay
+  public static final String PRIVATE_STATIC_FINAL = "Some String";
 
-    private final String privateFinalString = "Some String";
-    private String privateString;
-    private static String privateStaticString = "Some String";
+  private final String privateFinalString = "Some String";
+  private String privateString;
+  private static String privateStaticString = "Some String";
 
-    /**
-     * @return the privateFinalString
-     */
-    public String getPrivateFinalString() {
-        return privateFinalString;
-    }
+  /**
+   * @return the privateFinalString
+   */
+  public String getPrivateFinalString() {
+    return privateFinalString;
+  }
 
-    /**
-     * @return the privateStaticString
-     */
-    public static String getPrivateStaticString() {
-        return privateStaticString;
-    }
+  /**
+   * @return the privateStaticString
+   */
+  public static String getPrivateStaticString() {
+    return privateStaticString;
+  }
 
-    /**
-     * @return the privateString
-     */
-    public String getPrivateString() {
-        return privateString;
-    }
+  /**
+   * @return the privateString
+   */
+  public String getPrivateString() {
+    return privateString;
+  }
 
 }

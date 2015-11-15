@@ -24,11 +24,11 @@ import org.junit.Test;
  */
 public class FilterNestedClassesTest extends IdentitiesAreEqual {
 
-    @Test
-    public void shouldBeIdentityEqual() {
-        FilterNestedClasses instanceOne = new FilterNestedClasses();
-        FilterNestedClasses instanceTwo = new FilterNestedClasses();
+  @Test
+  public void shouldBeIdentityEqual() {
+    FilterNestedClasses instanceOne = new FilterNestedClasses();
+    FilterNestedClasses instanceTwo = new FilterNestedClasses();
 
-        checkEqualityAndHashCode(instanceOne, instanceTwo);
-    }
+    checkEqualityAndHashCode(instanceOne, instanceTwo);
+  }
 }

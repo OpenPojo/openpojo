@@ -28,44 +28,43 @@ import java.util.Set;
  * @author oshoukry
  */
 public class GeneratedRandomValues {
-    private static ThreadLocal<Set<Type>> threadLocal = new ThreadLocal<Set<Type>>() {
-        @Override
-        protected Set<Type> initialValue() {
-            return new HashSet<Type>();
-        }
-    };
-
-    /**
-     * Add type to the thread list of types generated.
-     *
-     * @param type
-     *            The type to add.
-     */
-    public static void add(final Type type) {
-        threadLocal.get().add(type);
+  private static ThreadLocal<Set<Type>> threadLocal = new ThreadLocal<Set<Type>>() {
+    @Override
+    protected Set<Type> initialValue() {
+      return new HashSet<Type>();
     }
+  };
 
-    /**
-     * Check if this type was added by this thread already.
-     *
-     * @param type
-     *            The type to check for.
-     * @return
-     *         Returns true if the type has been added by this thread already.
-     */
-    public static boolean contains(final Type type) {
-        Set<Type> generatedValues = threadLocal.get();
-        return generatedValues.contains(type);
-    }
+  /**
+   * Add type to the thread list of types generated.
+   *
+   * @param type
+   *     The type to add.
+   */
+  public static void add(final Type type) {
+    threadLocal.get().add(type);
+  }
 
-    /**
-     * Remove a specific type from the list.
-     *
-     * @param type
-     *            The type to remove.
-     */
-    public static void remove(final Type type) {
-        threadLocal.get().remove(type);
-    }
+  /**
+   * Check if this type was added by this thread already.
+   *
+   * @param type
+   *     The type to check for.
+   * @return Returns true if the type has been added by this thread already.
+   */
+  public static boolean contains(final Type type) {
+    Set<Type> generatedValues = threadLocal.get();
+    return generatedValues.contains(type);
+  }
+
+  /**
+   * Remove a specific type from the list.
+   *
+   * @param type
+   *     The type to remove.
+   */
+  public static void remove(final Type type) {
+    threadLocal.get().remove(type);
+  }
 
 }

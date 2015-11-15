@@ -22,5 +22,5 @@ package com.openpojo.validation.rule.impl.sampleclasses;
  */
 public final class GetterSetterDoesntExistClass {
 
-    public String string;
+  public String string;
 }

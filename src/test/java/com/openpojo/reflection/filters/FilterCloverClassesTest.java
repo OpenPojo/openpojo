@@ -23,10 +23,10 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class FilterCloverClassesTest extends IdentitiesAreEqual {
-    @Test
-    public void shouldBeIdentityEqual() {
-        FilterCloverClasses instanceOne = new FilterCloverClasses();
-        FilterCloverClasses instanceTwo = new FilterCloverClasses();
-        checkEqualityAndHashCode(instanceOne, instanceTwo);
-    }
+  @Test
+  public void shouldBeIdentityEqual() {
+    FilterCloverClasses instanceOne = new FilterCloverClasses();
+    FilterCloverClasses instanceTwo = new FilterCloverClasses();
+    checkEqualityAndHashCode(instanceOne, instanceTwo);
+  }
 }

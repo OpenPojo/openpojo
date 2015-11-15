@@ -27,28 +27,29 @@ import org.testng.Assert;
 
 /**
  * @author oshoukry
- *
  */
 public class GenericConstructorsTest {
 
-    @Test
-    public void shouldConstructClassWithGenericListIntegerConstructor() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithGenericListIntegerConstructor.class);
-        ClassWithGenericListIntegerConstructor instance = (ClassWithGenericListIntegerConstructor) InstanceFactory.getMostCompleteInstance(pojoClass);
-        Assert.assertNotNull(instance);
-        Assert.assertNotNull(instance.getIntegers());
-        Assert.assertTrue(instance.getIntegers().size() > 0);
+  @Test
+  public void shouldConstructClassWithGenericListIntegerConstructor() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithGenericListIntegerConstructor.class);
+    ClassWithGenericListIntegerConstructor instance =
+        (ClassWithGenericListIntegerConstructor) InstanceFactory.getMostCompleteInstance(pojoClass);
+    Assert.assertNotNull(instance);
+    Assert.assertNotNull(instance.getIntegers());
+    Assert.assertTrue(instance.getIntegers().size() > 0);
 
-        Assert.assertNotNull(instance.getMymap());
-        Assert.assertNotNull(instance.getString());
-    }
+    Assert.assertNotNull(instance.getMymap());
+    Assert.assertNotNull(instance.getString());
+  }
 
-    @Test
-    public void shouldConstructClassWithGenericSetEnumConstructor() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithGenericSetEnumConstructor.class);
-        ClassWithGenericSetEnumConstructor instance = (ClassWithGenericSetEnumConstructor) InstanceFactory.getMostCompleteInstance(pojoClass);
-        Assert.assertNotNull(instance);
-        Assert.assertNotNull(instance.getDaysOfTheWeek());
-    }
+  @Test
+  public void shouldConstructClassWithGenericSetEnumConstructor() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithGenericSetEnumConstructor.class);
+    ClassWithGenericSetEnumConstructor instance =
+        (ClassWithGenericSetEnumConstructor) InstanceFactory.getMostCompleteInstance(pojoClass);
+    Assert.assertNotNull(instance);
+    Assert.assertNotNull(instance.getDaysOfTheWeek());
+  }
 
 }

@@ -28,35 +28,37 @@ import com.openpojo.reflection.PojoClassFilter;
  * @author oshoukry
  */
 public class FilterBasedOnInheritance implements PojoClassFilter {
-    private final Class<?> type;
+  private final Class<?> type;
 
-    /**
-     * Constructor.
-     *
-     * @param type
-     *            The type/class to use for inclusion (i.e. the "Class" extends/implements type).
-     */
-    public FilterBasedOnInheritance(final Class<?> type) {
-        this.type = type;
-    }
+  /**
+   * Constructor.
+   *
+   * @param type
+   *     The type/class to use for inclusion (i.e. the "Class" extends/implements type).
+   */
+  public FilterBasedOnInheritance(final Class<?> type) {
+    this.type = type;
+  }
 
-    public boolean include(final PojoClass pojoClass) {
-        return !pojoClass.getName().equals(type.getName()) && pojoClass.extendz(type);
-    }
+  public boolean include(final PojoClass pojoClass) {
+    return !pojoClass.getName().equals(type.getName()) && pojoClass.extendz(type);
+  }
 
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+  @Override
+  public boolean equals(Object other) {
+    if (this == other)
+      return true;
+    if (other == null || getClass() != other.getClass())
+      return false;
 
-        FilterBasedOnInheritance that = (FilterBasedOnInheritance) other;
+    FilterBasedOnInheritance that = (FilterBasedOnInheritance) other;
 
-        return !(type != null ? !type.equals(that.type) : that.type != null);
+    return !(type != null ? !type.equals(that.type) : that.type != null);
 
-    }
+  }
 
-    @Override
-    public int hashCode() {
-        return type != null ? type.hashCode() : 0;
-    }
+  @Override
+  public int hashCode() {
+    return type != null ? type.hashCode() : 0;
+  }
 }

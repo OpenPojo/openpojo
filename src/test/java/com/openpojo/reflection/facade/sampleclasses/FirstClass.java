@@ -19,7 +19,6 @@ package com.openpojo.reflection.facade.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public class FirstClass {
 

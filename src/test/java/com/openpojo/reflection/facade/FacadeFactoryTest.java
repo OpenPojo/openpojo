@@ -28,26 +28,25 @@ import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
 
 public class FacadeFactoryTest {
-    Class<?> firstClass = FirstClass.class;
-    Class<?> secondClass = SecondClass.class;
+  Class<?> firstClass = FirstClass.class;
+  Class<?> secondClass = SecondClass.class;
 
-    @Test
-    public final void shouldGetFirstClass() {
-        checkReturnedFacade(firstClass, firstClass.getName(), secondClass.getName());
-        checkReturnedFacade(secondClass, secondClass.getName(), firstClass.getName());
-    }
+  @Test
+  public final void shouldGetFirstClass() {
+    checkReturnedFacade(firstClass, firstClass.getName(), secondClass.getName());
+    checkReturnedFacade(secondClass, secondClass.getName(), firstClass.getName());
+  }
 
-    private final void checkReturnedFacade(final Class<?> expected, final String... facades) {
-        final PojoClass facade = FacadeFactory.getLoadedFacadePojoClass(facades);
-        Affirm.affirmNotNull(String.format("Failed to load from the valid list of facades [%s]?!",
-                                           Arrays.toString(facades)), facade);
+  private final void checkReturnedFacade(final Class<?> expected, final String... facades) {
+    final PojoClass facade = FacadeFactory.getLoadedFacadePojoClass(facades);
+    Affirm.affirmNotNull(String.format("Failed to load from the valid list of facades [%s]?!", Arrays.toString(facades)), facade);
 
-        Affirm.affirmEquals("Wrong facade returned!!", expected, facade.getClazz());
+    Affirm.affirmEquals("Wrong facade returned!!", expected, facade.getClazz());
 
-    }
+  }
 
-    @Test(expected = ReflectionException.class)
-    public void shouldThrowErorr() {
-        FacadeFactory.getLoadedFacadePojoClass(new String[] { RandomFactory.getRandomValue(String.class) });
-    }
+  @Test(expected = ReflectionException.class)
+  public void shouldThrowErorr() {
+    FacadeFactory.getLoadedFacadePojoClass(new String[] { RandomFactory.getRandomValue(String.class) });
+  }
 }

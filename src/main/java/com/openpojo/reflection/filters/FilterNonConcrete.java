@@ -28,18 +28,18 @@ import com.openpojo.reflection.PojoClassFilter;
  */
 public class FilterNonConcrete implements PojoClassFilter {
 
-    public boolean include(final PojoClass pojoClass) {
-        return pojoClass.isConcrete();
-    }
+  public boolean include(final PojoClass pojoClass) {
+    return pojoClass.isConcrete();
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        return this == o || !(o == null || getClass() != o.getClass());
-    }
+  @Override
+  public boolean equals(Object o) {
+    return this == o || !(o == null || getClass() != o.getClass());
+  }
 
-    @Override
-    public int hashCode() {
-        return this.getClass().hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return this.getClass().hashCode();
+  }
 
 }

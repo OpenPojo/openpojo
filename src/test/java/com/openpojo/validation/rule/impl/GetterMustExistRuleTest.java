@@ -17,24 +17,23 @@
 
 package com.openpojo.validation.rule.impl;
 
-import org.junit.Test;
-
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.GetterDoesExistClass;
 import com.openpojo.validation.rule.impl.sampleclasses.GetterDoesntExistClass;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class GetterMustExistRuleTest {
 
-    Class<?>[] failClasses = new Class<?>[]{ GetterDoesntExistClass.class };
-    Class<?>[] passClasses = new Class<?>[]{ GetterDoesExistClass.class };
-    Rule rule = new GetterMustExistRule();
+  Class<?>[] failClasses = new Class<?>[] { GetterDoesntExistClass.class };
+  Class<?>[] passClasses = new Class<?>[] { GetterDoesExistClass.class };
+  Rule rule = new GetterMustExistRule();
 
-    @Test
-    public void testEvaluate() {
-        CommonCode.shouldPassRuleValidation(rule, passClasses);
-        CommonCode.shouldFailRuleValidation(rule, failClasses);
-    }
+  @Test
+  public void testEvaluate() {
+    CommonCode.shouldPassRuleValidation(rule, passClasses);
+    CommonCode.shouldFailRuleValidation(rule, failClasses);
+  }
 }

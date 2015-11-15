@@ -29,23 +29,23 @@ import com.openpojo.random.RandomGenerator;
  */
 @Deprecated
 public final class EnumSetRandomGenerator implements RandomGenerator {
-    private static final com.openpojo.random.collection.set.EnumSetRandomGenerator delegate = com.openpojo.random.collection.set
-            .EnumSetRandomGenerator.getInstance();
+  private static final com.openpojo.random.collection.set.EnumSetRandomGenerator delegate = com.openpojo.random.collection.set
+      .EnumSetRandomGenerator.getInstance();
 
-    public static EnumSetRandomGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
+  public static EnumSetRandomGenerator getInstance() {
+    return Instance.INSTANCE;
+  }
 
-    public Object doGenerate(final Class<?> type) {
-        return delegate.doGenerate(type);
-    }
+  public Object doGenerate(final Class<?> type) {
+    return delegate.doGenerate(type);
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return delegate.getTypes();
-    }
+  public Collection<Class<?>> getTypes() {
+    return delegate.getTypes();
+  }
 
-    private static class Instance {
-        private static final EnumSetRandomGenerator INSTANCE = new EnumSetRandomGenerator();
-    }
+  private static class Instance {
+    private static final EnumSetRandomGenerator INSTANCE = new EnumSetRandomGenerator();
+  }
 
 }

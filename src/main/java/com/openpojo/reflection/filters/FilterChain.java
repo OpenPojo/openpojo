@@ -30,47 +30,47 @@ import com.openpojo.reflection.PojoClassFilter;
  * @author oshoukry
  */
 public class FilterChain implements PojoClassFilter {
-    private final Set<PojoClassFilter> pojoClassFilters = new LinkedHashSet<PojoClassFilter>();
+  private final Set<PojoClassFilter> pojoClassFilters = new LinkedHashSet<PojoClassFilter>();
 
-    public FilterChain(final PojoClassFilter... pojoClassFilters) {
-        if (pojoClassFilters != null)
-            for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
-                if (pojoClassFilter != null) {
-                    this.pojoClassFilters.add(pojoClassFilter);
-                }
-            }
-    }
-
-    public boolean include(final PojoClass pojoClass) {
-        for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
-            if (!pojoClassFilter.include(pojoClass))
-                return false;
+  public FilterChain(final PojoClassFilter... pojoClassFilters) {
+    if (pojoClassFilters != null)
+      for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
+        if (pojoClassFilter != null) {
+          this.pojoClassFilters.add(pojoClassFilter);
         }
-        return true;
+      }
+  }
+
+  public boolean include(final PojoClass pojoClass) {
+    for (PojoClassFilter pojoClassFilter : pojoClassFilters) {
+      if (!pojoClassFilter.include(pojoClass))
+        return false;
     }
+    return true;
+  }
 
-    public Collection<PojoClassFilter> getPojoClassFilters() {
-        return Collections.unmodifiableSet(pojoClassFilters);
-    }
+  public Collection<PojoClassFilter> getPojoClassFilters() {
+    return Collections.unmodifiableSet(pojoClassFilters);
+  }
 
-    public int size() {
-        return pojoClassFilters.size();
-    }
+  public int size() {
+    return pojoClassFilters.size();
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
 
-        FilterChain that = (FilterChain) o;
+    FilterChain that = (FilterChain) o;
 
-        return pojoClassFilters.equals(that.pojoClassFilters);
-    }
+    return pojoClassFilters.equals(that.pojoClassFilters);
+  }
 
-    @Override
-    public int hashCode() {
-        return pojoClassFilters.hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return pojoClassFilters.hashCode();
+  }
 }

@@ -30,53 +30,53 @@ import org.junit.Test;
  */
 public class FilterSyntheticClassesTest {
 
-    @Test
-    public void shouldIncludeNonSyntheticPojos() {
-        PojoClass notSynthetic = PojoStubFactory.getStubPojoClass(false);
-        Assert.assertTrue(new FilterSyntheticClasses().include(notSynthetic));
+  @Test
+  public void shouldIncludeNonSyntheticPojos() {
+    PojoClass notSynthetic = PojoStubFactory.getStubPojoClass(false);
+    Assert.assertTrue(new FilterSyntheticClasses().include(notSynthetic));
+  }
+
+  @Test
+  public void shouldExcludeSyntheticPojos() {
+    PojoClass notSynthetic = PojoStubFactory.getStubPojoClass(true);
+    Assert.assertFalse(new FilterSyntheticClasses().include(notSynthetic));
+  }
+
+  @Test
+  public void twoInstancesShouldbeEqual() {
+    Assert.assertEquals(new FilterSyntheticClasses(), new FilterSyntheticClasses());
+  }
+
+  @Test
+  public void twoInstancesShouldHaveTheSameHashCode() {
+    FilterSyntheticClasses instanceOne = new FilterSyntheticClasses();
+    FilterSyntheticClasses instanceTwo = new FilterSyntheticClasses();
+
+    Assert.assertEquals(instanceOne.hashCode(), instanceTwo.hashCode());
+  }
+
+  private static class PojoStubFactory {
+
+    public static PojoClass getStubPojoClass(boolean isSynthetic) {
+      return (PojoClass) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
+          new Class<?>[] { PojoClass.class }, new StubInvocationHandler(isSynthetic));
+    }
+  }
+
+  private static class StubInvocationHandler implements InvocationHandler {
+
+    private boolean isSynthetic;
+
+    public StubInvocationHandler(boolean isSynthetic) {
+      this.isSynthetic = isSynthetic;
     }
 
-    @Test
-    public void shouldExcludeSyntheticPojos() {
-        PojoClass notSynthetic = PojoStubFactory.getStubPojoClass(true);
-        Assert.assertFalse(new FilterSyntheticClasses().include(notSynthetic));
+    public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+
+      if (method.getName().equals("isSynthetic"))
+        return isSynthetic;
+
+      throw new RuntimeException("UnImplemented!!");
     }
-
-    @Test
-    public void twoInstancesShouldbeEqual() {
-        Assert.assertEquals(new FilterSyntheticClasses(), new FilterSyntheticClasses());
-    }
-
-    @Test
-    public void twoInstancesShouldHaveTheSameHashCode() {
-        FilterSyntheticClasses instanceOne = new FilterSyntheticClasses();
-        FilterSyntheticClasses instanceTwo = new FilterSyntheticClasses();
-
-        Assert.assertEquals(instanceOne.hashCode(), instanceTwo.hashCode());
-    }
-
-    private static class PojoStubFactory {
-
-        public static PojoClass getStubPojoClass(boolean isSynthetic) {
-            return (PojoClass) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[] { PojoClass.class },
-                    new StubInvocationHandler(isSynthetic));
-        }
-    }
-
-    private static class StubInvocationHandler implements InvocationHandler {
-
-        private boolean isSynthetic;
-
-        public StubInvocationHandler(boolean isSynthetic) {
-            this.isSynthetic = isSynthetic;
-        }
-
-        public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
-
-            if (method.getName().equals("isSynthetic"))
-                return isSynthetic;
-
-            throw new RuntimeException("UnImplemented!!");
-        }
-    }
+  }
 }
