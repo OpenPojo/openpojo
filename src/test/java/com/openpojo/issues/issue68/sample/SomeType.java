@@ -22,15 +22,16 @@ package com.openpojo.issues.issue68.sample;
  * @author oshoukry
  */
 public class SomeType {
-    private String name;
-    public SomeType(String name) {
-        this.name = name;
-    }
+  private String name;
 
-    @Override
-    public String toString() {
-        return "SomeType{" +
-                "name='" + name + '\'' +
-                '}';
-    }
+  public SomeType(String name) {
+    this.name = name;
+  }
+
+  @Override
+  public String toString() {
+    return "SomeType{" +
+        "name='" + name + '\'' +
+        '}';
+  }
 }

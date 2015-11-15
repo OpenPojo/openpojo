@@ -31,22 +31,22 @@ import com.openpojo.random.util.SomeRoleUnresolved;
  * @author oshoukry
  */
 public class RoleUnresolvedListRandomGenerator implements RandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { RoleUnresolvedList.class };
-    private static final RoleUnresolvedListRandomGenerator INSTANCE = new RoleUnresolvedListRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { RoleUnresolvedList.class };
+  private static final RoleUnresolvedListRandomGenerator INSTANCE = new RoleUnresolvedListRandomGenerator();
 
-    public static RoleUnresolvedListRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static RoleUnresolvedListRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    public Collection doGenerate(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return CollectionHelper.buildCollections(new RoleUnresolvedList(), SomeRoleUnresolved.class);
-    }
+  public Collection doGenerate(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return CollectionHelper.buildCollections(new RoleUnresolvedList(), SomeRoleUnresolved.class);
+  }
 
-    private RoleUnresolvedListRandomGenerator() {
-    }
+  private RoleUnresolvedListRandomGenerator() {
+  }
 }

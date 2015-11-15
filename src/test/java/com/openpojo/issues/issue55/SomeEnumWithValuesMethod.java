@@ -21,10 +21,10 @@ package com.openpojo.issues.issue55;
  * @author oshoukry
  */
 public enum SomeEnumWithValuesMethod {
-    VALUE1, VALUE2;
+  VALUE1, VALUE2;
 
-    @SuppressWarnings("unused")
-    public static String values(Object ignored) {
-        return "Hello World";
-    }
+  @SuppressWarnings("unused")
+  public static String values(Object ignored) {
+    return "Hello World";
+  }
 }

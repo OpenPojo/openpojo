@@ -23,7 +23,7 @@ import com.openpojo.cache.CacheStorage;
  * @author oshoukry
  */
 public class StrongRefHashMapCacheStorageTest extends CacheStorageTest {
-    public CacheStorage<String> getCacheStorage() {
-        return new StrongRefHashMapCacheStorage<String>();
-    }
+  public CacheStorage<String> getCacheStorage() {
+    return new StrongRefHashMapCacheStorage<String>();
+  }
 }

@@ -25,26 +25,26 @@ import org.junit.Test;
  */
 public class SerializableComparableObjectTest {
 
-    @Test
-    public void shouldWireCompareToOverHashCodeValue() {
-        SerializableComparableObject firstInstance = new SerializableComparableObject();
-        SerializableComparableObjectStub secondInstance = new SerializableComparableObjectStub();
+  @Test
+  public void shouldWireCompareToOverHashCodeValue() {
+    SerializableComparableObject firstInstance = new SerializableComparableObject();
+    SerializableComparableObjectStub secondInstance = new SerializableComparableObjectStub();
 
-        secondInstance.hashCode = firstInstance.hashCode() - 1;
-        Affirm.affirmEquals("CompareTo should return 1", 1, firstInstance.compareTo(secondInstance));
+    secondInstance.hashCode = firstInstance.hashCode() - 1;
+    Affirm.affirmEquals("CompareTo should return 1", 1, firstInstance.compareTo(secondInstance));
 
-        secondInstance.hashCode = firstInstance.hashCode() + 1;
-        Affirm.affirmEquals("CompareTo should return -1", -1, firstInstance.compareTo(secondInstance));
+    secondInstance.hashCode = firstInstance.hashCode() + 1;
+    Affirm.affirmEquals("CompareTo should return -1", -1, firstInstance.compareTo(secondInstance));
 
-        secondInstance.hashCode = firstInstance.hashCode();
-        Affirm.affirmEquals("CompareTo should return 0", 0, firstInstance.compareTo(secondInstance));
+    secondInstance.hashCode = firstInstance.hashCode();
+    Affirm.affirmEquals("CompareTo should return 0", 0, firstInstance.compareTo(secondInstance));
+  }
+
+  private class SerializableComparableObjectStub extends SerializableComparableObject {
+    private int hashCode;
+
+    public int hashCode() {
+      return hashCode;
     }
-
-    private class SerializableComparableObjectStub extends SerializableComparableObject {
-        private int hashCode;
-
-        public int hashCode() {
-            return hashCode;
-        }
-    }
+  }
 }

@@ -34,36 +34,36 @@ import com.openpojo.reflection.java.type.impl.WildcardTypeResolver;
  * @author oshoukry
  */
 public class Resolver {
-    private static final WildcardTypeResolver WILDCARD_TYPE_RESOLVER = new WildcardTypeResolver();
-    private static final ParameterizedTypeResolver PARAMETERIZED_TYPE_RESOLVER = new ParameterizedTypeResolver();
-    private static final TypeVariableResolver TYPE_VARIABLE_RESOLVER = new TypeVariableResolver();
-    private static final GenericArrayTypeResolver GENERIC_ARRAY_TYPE_RESOLVER = new GenericArrayTypeResolver();
-    private static final NoResolveTypeResolver NO_RESOLVE_TYPE_RESOLVER = new NoResolveTypeResolver();
+  private static final WildcardTypeResolver WILDCARD_TYPE_RESOLVER = new WildcardTypeResolver();
+  private static final ParameterizedTypeResolver PARAMETERIZED_TYPE_RESOLVER = new ParameterizedTypeResolver();
+  private static final TypeVariableResolver TYPE_VARIABLE_RESOLVER = new TypeVariableResolver();
+  private static final GenericArrayTypeResolver GENERIC_ARRAY_TYPE_RESOLVER = new GenericArrayTypeResolver();
+  private static final NoResolveTypeResolver NO_RESOLVE_TYPE_RESOLVER = new NoResolveTypeResolver();
 
-    @SuppressWarnings("unchecked")
-    public static Type resolve(Type type) {
-        return getTypeResolver(type).resolveType(type);
-    }
+  @SuppressWarnings("unchecked")
+  public static Type resolve(Type type) {
+    return getTypeResolver(type).resolveType(type);
+  }
 
-    @SuppressWarnings("unchecked")
-    public static Type getEnclosingType(Type type) {
-        return getTypeResolver(type).getEnclosingType(type);
-    }
+  @SuppressWarnings("unchecked")
+  public static Type getEnclosingType(Type type) {
+    return getTypeResolver(type).getEnclosingType(type);
+  }
 
-    @SuppressWarnings("unchecked")
-    public static Type[] getParameterTypes(Type type) {
-        return getTypeResolver(type).getParameterTypes(type);
-    }
+  @SuppressWarnings("unchecked")
+  public static Type[] getParameterTypes(Type type) {
+    return getTypeResolver(type).getParameterTypes(type);
+  }
 
-    private static <T> TypeResolver getTypeResolver(T type) {
-        if (type instanceof WildcardType)
-            return WILDCARD_TYPE_RESOLVER;
-        if (type instanceof ParameterizedType)
-            return PARAMETERIZED_TYPE_RESOLVER;
-        if (type instanceof TypeVariable)
-            return TYPE_VARIABLE_RESOLVER;
-        if (type instanceof GenericArrayType)
-            return GENERIC_ARRAY_TYPE_RESOLVER;
-        return NO_RESOLVE_TYPE_RESOLVER;
-    }
+  private static <T> TypeResolver getTypeResolver(T type) {
+    if (type instanceof WildcardType)
+      return WILDCARD_TYPE_RESOLVER;
+    if (type instanceof ParameterizedType)
+      return PARAMETERIZED_TYPE_RESOLVER;
+    if (type instanceof TypeVariable)
+      return TYPE_VARIABLE_RESOLVER;
+    if (type instanceof GenericArrayType)
+      return GENERIC_ARRAY_TYPE_RESOLVER;
+    return NO_RESOLVE_TYPE_RESOLVER;
+  }
 }

@@ -26,21 +26,19 @@ import java.util.Collection;
  * @author oshoukry
  */
 public interface RandomGenerator {
-    /**
-     * This method is used to get the types that this RandomGenerator is responsible for.
-     *
-     * @return
-     *         A collection with a list of Types this Random Generator can handle.
-     */
-    Collection<Class<?>> getTypes();
+  /**
+   * This method is used to get the types that this RandomGenerator is responsible for.
+   *
+   * @return A collection with a list of Types this Random Generator can handle.
+   */
+  Collection<Class<?>> getTypes();
 
-    /**
-     * Perform random generation.
-     *
-     * @param type
-     *            The type to generate for.
-     * @return
-     *         A random Object dynamically created.
-     */
-    Object doGenerate(Class<?> type);
+  /**
+   * Perform random generation.
+   *
+   * @param type
+   *     The type to generate for.
+   * @return A random Object dynamically created.
+   */
+  Object doGenerate(Class<?> type);
 }

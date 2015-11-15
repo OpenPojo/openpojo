@@ -17,8 +17,6 @@
 
 package com.openpojo.validation.rule.impl;
 
-import org.junit.Test;
-
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDDoesntClass;
@@ -27,29 +25,23 @@ import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSeria
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotSerializableClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotStaticClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotlongClass;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class SerializableMustHaveSerialVersionUIDRuleTest {
-    Class<?>[] failClasses = new Class<?>[]{ SerializableMustHaveSerialVersionUIDDoesntClass.class,
-            SerializableMustHaveSerialVersionUIDInvalidCaseClass.class,
-            SerializableMustHaveSerialVersionUIDNotFinalClass.class,
-            SerializableMustHaveSerialVersionUIDNotStaticClass.class,
-            SerializableMustHaveSerialVersionUIDNotlongClass.class };
-    Class<?>[] passClasses = new Class<?>[]{ SerializableMustHaveSerialVersionUIDDoesClass.class,
-            SerializableMustHaveSerialVersionUIDNotSerializableClass.class };
-    Rule rule = new SerializableMustHaveSerialVersionUIDRule();
+  Class<?>[] failClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesntClass.class,
+      SerializableMustHaveSerialVersionUIDInvalidCaseClass.class, SerializableMustHaveSerialVersionUIDNotFinalClass.class,
+      SerializableMustHaveSerialVersionUIDNotStaticClass.class, SerializableMustHaveSerialVersionUIDNotlongClass.class };
+  Class<?>[] passClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesClass.class,
+      SerializableMustHaveSerialVersionUIDNotSerializableClass.class };
+  Rule rule = new SerializableMustHaveSerialVersionUIDRule();
 
-    /**
-     * Test method for
-     * {@link com.openpojo.validation.rule.impl.SerializableMustHaveSerialVersionUIDRule#evaluate(com.openpojo.reflection.PojoClass)}
-     * .
-     */
-    @Test
-    public void testEvaluate() {
-        CommonCode.shouldPassRuleValidation(rule, passClasses);
-        CommonCode.shouldFailRuleValidation(rule, failClasses);
-    }
+  @Test
+  public void testEvaluate() {
+    CommonCode.shouldPassRuleValidation(rule, passClasses);
+    CommonCode.shouldFailRuleValidation(rule, failClasses);
+  }
 
 }

@@ -19,7 +19,6 @@ package com.openpojo.reflection.filters.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public abstract class SampleAbstract {
 

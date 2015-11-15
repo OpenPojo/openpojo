@@ -31,22 +31,22 @@ import com.openpojo.random.util.SomeRole;
  * @author oshoukry
  */
 public class RoleListRandomGenerator implements RandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { RoleList.class };
-    private static final RoleListRandomGenerator INSTANCE = new RoleListRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { RoleList.class };
+  private static final RoleListRandomGenerator INSTANCE = new RoleListRandomGenerator();
 
-    public static RoleListRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static RoleListRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    public Collection doGenerate(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return CollectionHelper.buildCollections(new RoleList(), SomeRole.class);
-    }
+  public Collection doGenerate(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return CollectionHelper.buildCollections(new RoleList(), SomeRole.class);
+  }
 
-    private RoleListRandomGenerator() {
-    }
+  private RoleListRandomGenerator() {
+  }
 }

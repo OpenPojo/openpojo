@@ -21,5 +21,5 @@ package com.openpojo.issues.issue14enumset.sampleclasses;
  * @author oshoukry
  */
 public enum SomeEnum {
-    SOMEVALUE
+  SOMEVALUE
 }

@@ -30,36 +30,34 @@ import com.openpojo.reflection.Parameterizable;
 
 /**
  * @author oshoukry
- *
  */
 public final class RandomGeneratorAdapter implements RandomGenerator, ParameterizableRandomGenerator {
 
-    private final Class<?> fromType;
-    private final Class<?> toType;
-    private final RandomGenerator adaptedRandomGenerator;
-    private final static Logger LOGGER = LoggerFactory.getLogger(RandomGeneratorAdapter.class);
+  private final Class<?> fromType;
+  private final Class<?> toType;
+  private final RandomGenerator adaptedRandomGenerator;
+  private final static Logger LOGGER = LoggerFactory.getLogger(RandomGeneratorAdapter.class);
 
-    public RandomGeneratorAdapter(final Class<?> fromType, final Class<?> toType,
-            final RandomGenerator adaptedRandomGenerator) {
-        this.fromType = fromType;
-        this.toType = toType;
-        this.adaptedRandomGenerator = adaptedRandomGenerator;
-        LOGGER.debug("Mapping [{0}] to [{1}] for generator [{2}]", fromType, toType, adaptedRandomGenerator);
-    }
+  public RandomGeneratorAdapter(final Class<?> fromType, final Class<?> toType, final RandomGenerator adaptedRandomGenerator) {
+    this.fromType = fromType;
+    this.toType = toType;
+    this.adaptedRandomGenerator = adaptedRandomGenerator;
+    LOGGER.debug("Mapping [{0}] to [{1}] for generator [{2}]", fromType, toType, adaptedRandomGenerator);
+  }
 
-    public Collection<Class<?>> getTypes() {
-        throw RandomGeneratorException.getInstance(MessageFormatter.format("Illegal use of RandomGeneratorAdapter([{0}] to [{1}]",
-                                                                           fromType, toType));
-    }
+  public Collection<Class<?>> getTypes() {
+    throw RandomGeneratorException.getInstance(MessageFormatter.format("Illegal use of RandomGeneratorAdapter([{0}] to [{1}]",
+        fromType, toType));
+  }
 
-    public Object doGenerate(final Class<?> type) {
-        if (type == fromType) {
-            return adaptedRandomGenerator.doGenerate(toType);
-        }
-        throw RandomGeneratorException.getInstance(MessageFormatter.format("Unsupported type requested [{0}]", type));
+  public Object doGenerate(final Class<?> type) {
+    if (type == fromType) {
+      return adaptedRandomGenerator.doGenerate(toType);
     }
+    throw RandomGeneratorException.getInstance(MessageFormatter.format("Unsupported type requested [{0}]", type));
+  }
 
-    public Object doGenerate(Parameterizable parameterizedType) {
-        return ((ParameterizableRandomGenerator)adaptedRandomGenerator).doGenerate(parameterizedType);
-    }
+  public Object doGenerate(Parameterizable parameterizedType) {
+    return ((ParameterizableRandomGenerator) adaptedRandomGenerator).doGenerate(parameterizedType);
+  }
 }

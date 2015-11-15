@@ -43,137 +43,137 @@ import com.openpojo.reflection.service.impl.DefaultPojoClassLookupService;
  * @author oshoukry
  */
 public class ServiceRegistrar {
-    private PojoCoverageFilterService pojoCoverageFilterService;
-    private RandomGeneratorService randomGeneratorService;
-    private PojoClassLookupService pojoClassLookupService;
+  private PojoCoverageFilterService pojoCoverageFilterService;
+  private RandomGeneratorService randomGeneratorService;
+  private PojoClassLookupService pojoClassLookupService;
 
-    private ServiceRegistrar() {
-        initializePojoCoverageFilterService();
-        initializePojoClassLookupService();
-        initializeRandomGeneratorService();
-    }
+  private ServiceRegistrar() {
+    initializePojoCoverageFilterService();
+    initializePojoClassLookupService();
+    initializeRandomGeneratorService();
+  }
 
-    private void initializePojoCoverageFilterService() {
-        setPojoCoverageFilterService(PojoCoverageFilterServiceFactory.configureAndGetPojoCoverageFilterService());
-    }
+  private void initializePojoCoverageFilterService() {
+    setPojoCoverageFilterService(PojoCoverageFilterServiceFactory.configureAndGetPojoCoverageFilterService());
+  }
 
-    public void initializeRandomGeneratorService() {
+  public void initializeRandomGeneratorService() {
 
-        final RandomGeneratorService newRandomGeneratorService = new DefaultRandomGeneratorService();
+    final RandomGeneratorService newRandomGeneratorService = new DefaultRandomGeneratorService();
 
-        // TODO: This code needs to move out of the registrar.
-        // Default Generator
-        newRandomGeneratorService.setDefaultRandomGenerator(new DefaultRandomGenerator());
+    // TODO: This code needs to move out of the registrar.
+    // Default Generator
+    newRandomGeneratorService.setDefaultRandomGenerator(new DefaultRandomGenerator());
 
-        // register basic types.
-        newRandomGeneratorService.registerRandomGenerator(VoidRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ObjectRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ClassRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(BasicRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(TimestampRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(EnumRandomGenerator.getInstance());
+    // register basic types.
+    newRandomGeneratorService.registerRandomGenerator(VoidRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ObjectRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ClassRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(BasicRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(TimestampRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(EnumRandomGenerator.getInstance());
 
-        // Collection
-        newRandomGeneratorService.registerRandomGenerator(AbstractCollectionRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(CollectionRandomGenerator.getInstance());
+    // Collection
+    newRandomGeneratorService.registerRandomGenerator(AbstractCollectionRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(CollectionRandomGenerator.getInstance());
 
-        // Lists
-        newRandomGeneratorService.registerRandomGenerator(AbstractListRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(AbstractSequentialListRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(AttributeListRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ArrayListRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(CopyOnWriteArrayListRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(LinkedListRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ListRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(RoleListRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(RoleUnresolvedListRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(StackRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(VectorRandomGenerator.getInstance());
+    // Lists
+    newRandomGeneratorService.registerRandomGenerator(AbstractListRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(AbstractSequentialListRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(AttributeListRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ArrayListRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(CopyOnWriteArrayListRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(LinkedListRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ListRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(RoleListRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(RoleUnresolvedListRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(StackRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(VectorRandomGenerator.getInstance());
 
-        // Sets
-        newRandomGeneratorService.registerRandomGenerator(AbstractSetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ConcurrentSkipListSetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(CopyOnWriteArraySetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(HashSetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(JobStateReasonsRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(LinkedHashSetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(NavigableSetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(SetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(SortedSetRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(TreeSetRandomGenerator.getInstance());
+    // Sets
+    newRandomGeneratorService.registerRandomGenerator(AbstractSetRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ConcurrentSkipListSetRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(CopyOnWriteArraySetRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(EnumSetRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(HashSetRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(JobStateReasonsRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(LinkedHashSetRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(NavigableSetRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(SetRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(SortedSetRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(TreeSetRandomGenerator.getInstance());
 
-        // Queue
-        newRandomGeneratorService.registerRandomGenerator(AbstractQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ArrayBlockingQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ArrayDequeRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(BlockingDequeRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(BlockingQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ConcurrentLinkedDequeRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ConcurrentLinkedQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(DelayQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(DequeRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(LinkedBlockingDequeRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(LinkedBlockingQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(LinkedTransferQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(PriorityBlockingQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(PriorityQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(QueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(SynchronousQueueRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(TransferQueueRandomGenerator.getInstance());
+    // Queue
+    newRandomGeneratorService.registerRandomGenerator(AbstractQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ArrayBlockingQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ArrayDequeRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(BlockingDequeRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(BlockingQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ConcurrentLinkedDequeRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ConcurrentLinkedQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(DelayQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(DequeRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(LinkedBlockingDequeRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(LinkedBlockingQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(LinkedTransferQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(PriorityBlockingQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(PriorityQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(QueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(SynchronousQueueRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(TransferQueueRandomGenerator.getInstance());
 
-        // Map
-        newRandomGeneratorService.registerRandomGenerator(AbstractMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ConcurrentHashMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(ConcurrentMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(EnumMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(HashMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(HashtableRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(IdentityHashMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(LinkedHashMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(MapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(NavigableMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(SortedMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(TreeMapRandomGenerator.getInstance());
-        newRandomGeneratorService.registerRandomGenerator(WeakHashMapRandomGenerator.getInstance());
-        setRandomGeneratorService(newRandomGeneratorService);
-    }
+    // Map
+    newRandomGeneratorService.registerRandomGenerator(AbstractMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ConcurrentHashMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(ConcurrentMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(EnumMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(HashMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(HashtableRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(IdentityHashMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(LinkedHashMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(MapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(NavigableMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(SortedMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(TreeMapRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(WeakHashMapRandomGenerator.getInstance());
+    setRandomGeneratorService(newRandomGeneratorService);
+  }
 
-    public void initializePojoClassLookupService() {
-        pojoClassLookupService = new DefaultPojoClassLookupService();
-    }
+  public void initializePojoClassLookupService() {
+    pojoClassLookupService = new DefaultPojoClassLookupService();
+  }
 
-    public static ServiceRegistrar getInstance() {
-        return Instance.INSTANCE;
-    }
+  public static ServiceRegistrar getInstance() {
+    return Instance.INSTANCE;
+  }
 
-    public void setRandomGeneratorService(final RandomGeneratorService randomGeneratorService) {
-        this.randomGeneratorService = randomGeneratorService;
-    }
+  public void setRandomGeneratorService(final RandomGeneratorService randomGeneratorService) {
+    this.randomGeneratorService = randomGeneratorService;
+  }
 
-    public RandomGeneratorService getRandomGeneratorService() {
-        return randomGeneratorService;
-    }
+  public RandomGeneratorService getRandomGeneratorService() {
+    return randomGeneratorService;
+  }
 
-    public PojoClassLookupService getPojoClassLookupService() {
-        return pojoClassLookupService;
-    }
+  public PojoClassLookupService getPojoClassLookupService() {
+    return pojoClassLookupService;
+  }
 
-    public PojoCoverageFilterService getPojoCoverageFilterService() {
-        return pojoCoverageFilterService;
-    }
+  public PojoCoverageFilterService getPojoCoverageFilterService() {
+    return pojoCoverageFilterService;
+  }
 
-    public void setPojoCoverageFilterService(PojoCoverageFilterService pojoCoverageFilterService) {
-        this.pojoCoverageFilterService = pojoCoverageFilterService;
-    }
+  public void setPojoCoverageFilterService(PojoCoverageFilterService pojoCoverageFilterService) {
+    this.pojoCoverageFilterService = pojoCoverageFilterService;
+  }
 
-    @Override
-    public String toString() {
-        return BusinessIdentity.toString(this);
-    }
+  @Override
+  public String toString() {
+    return BusinessIdentity.toString(this);
+  }
 
-    private static class Instance {
-        private static final ServiceRegistrar INSTANCE = new ServiceRegistrar();
-    }
+  private static class Instance {
+    private static final ServiceRegistrar INSTANCE = new ServiceRegistrar();
+  }
 
 }

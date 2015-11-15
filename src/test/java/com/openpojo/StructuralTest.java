@@ -31,16 +31,16 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class StructuralTest {
-    private Validator validator;
+  private Validator validator;
 
-    @Before
-    public void setup() {
-        validator = ValidatorBuilder.create().with(new TestClassMustBeProperlyNamedRule()).build();
-    }
+  @Before
+  public void setup() {
+    validator = ValidatorBuilder.create().with(new TestClassMustBeProperlyNamedRule()).build();
+  }
 
-    @Test
-    public void allTestsMustEndWithTest() {
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively("com.openpojo", null);
-        validator.validate(pojoClasses);
-    }
+  @Test
+  public void allTestsMustEndWithTest() {
+    List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively("com.openpojo", null);
+    validator.validate(pojoClasses);
+  }
 }

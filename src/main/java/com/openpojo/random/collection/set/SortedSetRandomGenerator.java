@@ -30,23 +30,23 @@ import com.openpojo.random.util.Helper;
  * @author oshoukry
  */
 public class SortedSetRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { SortedSet.class };
-    private static final SortedSetRandomGenerator INSTANCE = new SortedSetRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { SortedSet.class };
+  private static final SortedSetRandomGenerator INSTANCE = new SortedSetRandomGenerator();
 
-    public static SortedSetRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static SortedSetRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new TreeSet();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new TreeSet();
+  }
 
-    private SortedSetRandomGenerator() {
-    }
+  private SortedSetRandomGenerator() {
+  }
 }

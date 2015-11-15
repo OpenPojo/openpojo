@@ -26,17 +26,17 @@ import com.openpojo.cache.CacheStorage;
  * @author oshoukry
  */
 public class StrongRefHashMapCacheStorage<T> implements CacheStorage<T> {
-    private HashMap<String, T> storage = new HashMap<String, T>();
+  private HashMap<String, T> storage = new HashMap<String, T>();
 
-    public void add(String name, T value) {
-        storage.put(name, value);
-    }
+  public void add(String name, T value) {
+    storage.put(name, value);
+  }
 
-    public T get(String name) {
-        return storage.get(name);
-    }
+  public T get(String name) {
+    return storage.get(name);
+  }
 
-    public void clear() {
-        storage.clear();
-    }
+  public void clear() {
+    storage.clear();
+  }
 }

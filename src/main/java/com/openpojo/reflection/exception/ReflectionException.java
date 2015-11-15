@@ -25,39 +25,37 @@ package com.openpojo.reflection.exception;
  */
 public class ReflectionException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * Construct an Exception with message.
-     *
-     * @param message
-     *            The description of the exception.
-     * @return
-     *         An instance of the Exception.
-     */
-    public static ReflectionException getInstance(final String message) {
-        return new ReflectionException(message);
-    }
+  /**
+   * Construct an Exception with message.
+   *
+   * @param message
+   *     The description of the exception.
+   * @return An instance of the Exception.
+   */
+  public static ReflectionException getInstance(final String message) {
+    return new ReflectionException(message);
+  }
 
-    /**
-     * Construct an Exception with message and cause.
-     *
-     * @param message
-     *            The description of the exception.
-     * @param cause
-     *            The cause of the exception.
-     * @return
-     *         An instance of the Exception.
-     */
-    public static ReflectionException getInstance(final String message, final Throwable cause) {
-        return new ReflectionException(message, cause);
-    }
+  /**
+   * Construct an Exception with message and cause.
+   *
+   * @param message
+   *     The description of the exception.
+   * @param cause
+   *     The cause of the exception.
+   * @return An instance of the Exception.
+   */
+  public static ReflectionException getInstance(final String message, final Throwable cause) {
+    return new ReflectionException(message, cause);
+  }
 
-    private ReflectionException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
+  private ReflectionException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
 
-    private ReflectionException(final String message) {
-        super(message);
-    }
+  private ReflectionException(final String message) {
+    super(message);
+  }
 }

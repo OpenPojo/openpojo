@@ -24,9 +24,9 @@ import org.objectweb.asm.ClassReader;
  * @author oshoukry
  */
 public interface SubClassDefinition {
-    ClassReader getClassReader();
+  ClassReader getClassReader();
 
-    String getGeneratedClassNameAsJDKPath();
+  String getGeneratedClassNameAsJDKPath();
 
-    String getGeneratedClassName();
+  String getGeneratedClassName();
 }

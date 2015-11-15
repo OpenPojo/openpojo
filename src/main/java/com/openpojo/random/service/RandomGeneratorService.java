@@ -28,73 +28,70 @@ import com.openpojo.registry.Service;
  * This service holds a registry for RandomGenerators.
  *
  * @author oshoukry
- *
  */
 public interface RandomGeneratorService extends Service {
 
-    /**
-     * Register a RandomGenerator. The RandomGenerator's getTypes will be invoked and all types returned will be
-     * registered against this RandomGenerator over-writing any prior registrations for given types.
-     *
-     * @param randomGenerator
-     *          The random generator to register.
-     */
-    void registerRandomGenerator(RandomGenerator randomGenerator);
+  /**
+   * Register a RandomGenerator. The RandomGenerator's getTypes will be invoked and all types returned will be
+   * registered against this RandomGenerator over-writing any prior registrations for given types.
+   *
+   * @param randomGenerator
+   *     The random generator to register.
+   */
+  void registerRandomGenerator(RandomGenerator randomGenerator);
 
-    /**
-     * Get all registered types.
-     *
-     * @return all the registered types in service.
-     */
-    Collection<Class<?>> getRegisteredTypes();
+  /**
+   * Get all registered types.
+   *
+   * @return all the registered types in service.
+   */
+  Collection<Class<?>> getRegisteredTypes();
 
-    /**
-     * This method set the RandomGenerator to use if non are registered for given type. This randomGenerator's
-     * getTypes() return will be ignored and not consulted for routing.
-     *
-     * There can only be one (1) default random generator.
-     *
-     * @param randomGenerator
-     *          The random generator to register.
-     */
-    void setDefaultRandomGenerator(RandomGenerator randomGenerator);
+  /**
+   * This method set the RandomGenerator to use if non are registered for given type. This randomGenerator's
+   * getTypes() return will be ignored and not consulted for routing.
+   * <p/>
+   * There can only be one (1) default random generator.
+   *
+   * @param randomGenerator
+   *     The random generator to register.
+   */
+  void setDefaultRandomGenerator(RandomGenerator randomGenerator);
 
-    /**
-     * Returns the default registered RandomGenerator;
-     *
-     * @return the default registered random generator.
-     */
-    RandomGenerator getDefaultRandomGenerator();
+  /**
+   * Returns the default registered RandomGenerator;
+   *
+   * @return the default registered random generator.
+   */
+  RandomGenerator getDefaultRandomGenerator();
 
-    /**
-     * This retrieves the most appropriate RandomGenerator for a given Type. If there is more than one possible random
-     * generator valid for a given type, one will randomly be selected.
-     *
-     * The only reason multiple may exist is due to inheritance, for example if you register two random generators one
-     * to handle LinkedList, and one to handle Set, and request a randomGenerator for type "Collection", either of those
-     * randomGenerators could be used. However, if there is a random generator registered for Collection, that will be
-     * the one used.
-     *
-     * @param type
-     *          The type used to lookup the most appropriate RandomGenerator.
-     * @return
-     *          The random generator to handle generating random values for requested type.
-     */
-    RandomGenerator getRandomGeneratorByType(Class<?> type);
+  /**
+   * This retrieves the most appropriate RandomGenerator for a given Type. If there is more than one possible random
+   * generator valid for a given type, one will randomly be selected.
+   * <p/>
+   * The only reason multiple may exist is due to inheritance, for example if you register two random generators one
+   * to handle LinkedList, and one to handle Set, and request a randomGenerator for type "Collection", either of those
+   * randomGenerators could be used. However, if there is a random generator registered for Collection, that will be
+   * the one used.
+   *
+   * @param type
+   *     The type used to lookup the most appropriate RandomGenerator.
+   * @return The random generator to handle generating random values for requested type.
+   */
+  RandomGenerator getRandomGeneratorByType(Class<?> type);
 
-    /**
-     * This retrieves the most appropriate ParameterizableRandomGenerator for a given Type.
-     * If there is more than one possible random generator valid for a given type, one will randomly be selected.
-     *
-     * The only reason multiple may exist is due to inheritance, for example if you register two random generators one
-     * to handle LinkedList, and one to handle Set, and request a randomGenerator for type "Collection", either of those
-     * randomGenerators could be used. However, if there is a random generator registered for Collection, that will be
-     * the one used.
-     *
-     * @param type
-     *          The parameterized type used to lookup the most appropriate RandomGenerator.
-     * @return
-     *          The parameterized random generator to handle generating random values for requested type.
-     */
-    RandomGenerator getRandomGeneratorByParameterizable(Parameterizable type);
+  /**
+   * This retrieves the most appropriate ParameterizableRandomGenerator for a given Type.
+   * If there is more than one possible random generator valid for a given type, one will randomly be selected.
+   * <p/>
+   * The only reason multiple may exist is due to inheritance, for example if you register two random generators one
+   * to handle LinkedList, and one to handle Set, and request a randomGenerator for type "Collection", either of those
+   * randomGenerators could be used. However, if there is a random generator registered for Collection, that will be
+   * the one used.
+   *
+   * @param type
+   *     The parameterized type used to lookup the most appropriate RandomGenerator.
+   * @return The parameterized random generator to handle generating random values for requested type.
+   */
+  RandomGenerator getRandomGeneratorByParameterizable(Parameterizable type);
 }

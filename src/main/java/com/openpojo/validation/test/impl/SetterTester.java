@@ -34,25 +34,26 @@ import com.openpojo.validation.utils.ValidationHelper;
  */
 public class SetterTester implements Tester {
 
-    public void run(final PojoClass pojoClass) {
-        final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
-        for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (fieldEntry.hasSetter()) {
-                final Object value;
+  public void run(final PojoClass pojoClass) {
+    final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
+    for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
+      if (fieldEntry.hasSetter()) {
+        final Object value;
 
-                value = RandomFactory.getRandomValue(fieldEntry);
+        value = RandomFactory.getRandomValue(fieldEntry);
 
-                IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
-                LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with random value [{1}]", fieldEntry, value);
+        IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
+        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with random value [{1}]", fieldEntry, value);
 
-                fieldEntry.invokeSetter(classInstance, value);
+        fieldEntry.invokeSetter(classInstance, value);
 
-                Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
-                        fieldEntry.get(classInstance));
-                IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
-            } else {
-                LoggerFactory.getLogger(this.getClass()).debug("Field [{0}] has no setter skipping", fieldEntry);
-            }
-        }
+        Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
+            fieldEntry.get(classInstance));
+
+        IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
+      } else {
+        LoggerFactory.getLogger(this.getClass()).debug("Field [{0}] has no setter skipping", fieldEntry);
+      }
     }
+  }
 }

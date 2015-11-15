@@ -36,90 +36,94 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class RandomFactoryTest {
-    private final String randomString = RandomFactory.getRandomValue(String.class);
+  private final String randomString = RandomFactory.getRandomValue(String.class);
 
-    /**
-     * Test method for {@link com.openpojo.random.RandomFactory#addRandomGenerator(com.openpojo.random.RandomGenerator)}
-     * .
-     */
-    @Test
-    public void testAddRandomGenerator() {
-        RandomFactory.addRandomGenerator(new RandomGenerator() {
+  /**
+   * Test method for {@link com.openpojo.random.RandomFactory#addRandomGenerator(com.openpojo.random.RandomGenerator)}
+   * .
+   */
+  @Test
+  public void testAddRandomGenerator() {
+    RandomFactory.addRandomGenerator(new RandomGenerator() {
 
-            public Object doGenerate(final Class<?> type) {
-                return new RegisteredDummy(randomString);
-            }
+      public Object doGenerate(final Class<?> type) {
+        return new RegisteredDummy(randomString);
+      }
 
-            public Collection<Class<?>> getTypes() {
-                return Arrays.asList(new Class<?>[]{ RegisteredDummy.class });
-            }
+      public Collection<Class<?>> getTypes() {
+        return Arrays.asList(new Class<?>[] { RegisteredDummy.class });
+      }
 
-        });
+    });
 
-        Assert.assertEquals("RandomGenerator registration failed", randomString, RandomFactory
-            .getRandomValue(RegisteredDummy.class).getValue());
+    Assert.assertEquals("RandomGenerator registration failed", randomString,
+        RandomFactory.getRandomValue(RegisteredDummy.class).getValue());
+  }
+
+  /**
+   * Test that the RandomFactory detects and breaks cyclic dependencies.
+   */
+  @Test
+  public void testRandomLoop() {
+    RandomFactory.addRandomGenerator(new RandomEmployee());
+    Assert.assertNotNull(RandomFactory.getRandomValue(Employee.class));
+    Assert.assertNotNull(RandomFactory.getRandomValue(Employee.class));
+  }
+
+  @Test
+  public void shouldDetectCyclicLoopForNonRegisteredRandomGenerator() {
+    RandomFactory.getRandomValue(NoRandomGeneratorPerson.class);
+  }
+
+  @Test
+  public void shouldGenerateAbstract() {
+    com.openpojo.random.sampleclasses.AnAbstractClass anAbstractClass =
+        RandomFactory.getRandomValue(com.openpojo.random.sampleclasses.AnAbstractClass.class);
+    Assert.assertNotNull(anAbstractClass);
+  }
+
+  @Test
+  public void generateRandomWithNoRegisteredRandomGenerator() {
+    final Class<?> clazz = AClassWithNoRegisteredRandomGenerator.class;
+
+    final Object someInstance = RandomFactory.getRandomValue(clazz);
+
+    Affirm.affirmNotNull(String.format("Null value returned for random instance of [%s]", clazz.getName()), someInstance);
+
+    Affirm.affirmFalse(String.format("Non randomized instance returned (i.e. same object) for [%s]", clazz.getName()),
+        someInstance.equals(RandomFactory.getRandomValue(clazz)));
+  }
+
+  @Test
+  public void shouldRegisterHierarchyOfTypes() {
+    RandomFactory.addRandomGenerator(SomeInterfaceRandomGenerator.getInstance());
+    final Class<?> someInterface = SomeInterface.class;
+    final Class<?> classImplementingSomeInterface = ClassImplementingSomeInterface.class;
+    final Class<?> classExtendingClassImplmentingSomeInterface = ClassExtendingClassImplementingSomeInterface.class;
+    Object instance = RandomFactory.getRandomValue(someInterface);
+
+    Affirm.affirmNotNull(String.format("RandomFactory failed to retrieve random instance for interface [%s]", someInterface),
+        instance);
+
+    Affirm.affirmEquals("RandomFactory failed to lookup proper random generator from heirarchy",
+        classExtendingClassImplmentingSomeInterface, instance.getClass());
+
+    instance = RandomFactory.getRandomValue(classImplementingSomeInterface);
+
+    Affirm.affirmEquals("RandomFactory failed to lookup proper random generator from heirarchy",
+        classExtendingClassImplmentingSomeInterface, instance.getClass());
+  }
+
+
+  private class RegisteredDummy {
+    private final String value;
+
+    public RegisteredDummy(final String value) {
+      this.value = value;
     }
 
-    /**
-     * Test that the RandomFactory detects and breaks cyclic dependencies.
-     */
-    @Test
-    public void testRandomLoop() {
-        RandomFactory.addRandomGenerator(new RandomEmployee());
-        Assert.assertNotNull(RandomFactory.getRandomValue(Employee.class));
-        Assert.assertNotNull(RandomFactory.getRandomValue(Employee.class));
+    public String getValue() {
+      return value;
     }
-
-    @Test
-    public void shouldDetectCyclicLoopForNonRegisteredRandomGenerator() {
-        RandomFactory.getRandomValue(NoRandomGeneratorPerson.class);
-    }
-
-    @Test
-    public void shouldGenerateAbstract() {
-        com.openpojo.random.sampleclasses.AnAbstractClass anAbstractClass = RandomFactory.getRandomValue(com.openpojo.random.sampleclasses
-                .AnAbstractClass.class);
-        Assert.assertNotNull(anAbstractClass);
-    }
-
-    @Test
-    public void generateRandomWithNoRegisteredRandomGenerator() {
-        final Class<?> clazz = AClassWithNoRegisteredRandomGenerator.class;
-
-        final Object someInstance = RandomFactory.getRandomValue(clazz);
-
-        Affirm.affirmNotNull(String.format("Null value returned for random instance of [%s]", clazz.getName()),
-            someInstance);
-
-        Affirm.affirmFalse(String.format("Non randomized instance returned (i.e. same object) for [%s]", clazz
-            .getName()), someInstance.equals(RandomFactory.getRandomValue(clazz)));
-    }
-
-    @Test
-    public void shouldRegisterHierarchyOfTypes() {
-        RandomFactory.addRandomGenerator(SomeInterfaceRandomGenerator.getInstance());
-        final Class<?> someInterface = SomeInterface.class;
-        final Class<?> classImplementingSomeInterface = ClassImplementingSomeInterface.class;
-        final Class<?> classExtendingClassImplmentingSomeInterface = ClassExtendingClassImplementingSomeInterface.class;
-        Object instance = RandomFactory.getRandomValue(someInterface);
-
-        Affirm.affirmNotNull(String.format("RandomFactory failed to retrieve random instance for interface [%s]", someInterface), instance);
-        Affirm.affirmEquals("RandomFactory failed to lookup proper random generator from heirarchy",classExtendingClassImplmentingSomeInterface, instance.getClass());
-
-        instance = RandomFactory.getRandomValue(classImplementingSomeInterface);
-        Affirm.affirmEquals("RandomFactory failed to lookup proper random generator from heirarchy",classExtendingClassImplmentingSomeInterface, instance.getClass());
-    }
-
-
-    private class RegisteredDummy {
-        private final String value;
-
-        public RegisteredDummy(final String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
+  }
 }

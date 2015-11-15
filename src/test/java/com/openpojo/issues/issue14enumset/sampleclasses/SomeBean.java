@@ -25,14 +25,14 @@ import java.util.EnumSet;
  */
 public class SomeBean {
 
-    private EnumSet<SomeEnum> someEnumSet;
+  private EnumSet<SomeEnum> someEnumSet;
 
-    public void setSomeEnumSet(final EnumSet<SomeEnum> someEnumSet) {
-        this.someEnumSet = someEnumSet;
-    }
+  public void setSomeEnumSet(final EnumSet<SomeEnum> someEnumSet) {
+    this.someEnumSet = someEnumSet;
+  }
 
-    public EnumSet<SomeEnum> getSomeEnumSet() {
-        return someEnumSet;
-    }
+  public EnumSet<SomeEnum> getSomeEnumSet() {
+    return someEnumSet;
+  }
 
 }

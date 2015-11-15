@@ -26,11 +26,11 @@ package com.openpojo.registry;
  */
 public interface Service {
 
-    /**
-     * The name of the service.
-     *
-     * @return the name of the service.
-     */
-    String getName();
+  /**
+   * The name of the service.
+   *
+   * @return the name of the service.
+   */
+  String getName();
 
 }

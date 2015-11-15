@@ -30,31 +30,31 @@ import com.openpojo.reflection.Parameterizable;
  * @author oshoukry
  */
 public class SynchronousQueueRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { SynchronousQueue.class };
-    private static final SynchronousQueueRandomGenerator INSTANCE = new SynchronousQueueRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { SynchronousQueue.class };
+  private static final SynchronousQueueRandomGenerator INSTANCE = new SynchronousQueueRandomGenerator();
 
-    public static SynchronousQueueRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static SynchronousQueueRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    public Collection doGenerate(Class<?> type) {
-        return getBasicInstance(type);
-    }
+  public Collection doGenerate(Class<?> type) {
+    return getBasicInstance(type);
+  }
 
-    public Collection doGenerate(Parameterizable parameterizedType) {
-        return getBasicInstance(parameterizedType.getType());
-    }
+  public Collection doGenerate(Parameterizable parameterizedType) {
+    return getBasicInstance(parameterizedType.getType());
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new SynchronousQueue();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new SynchronousQueue();
+  }
 
-    private SynchronousQueueRandomGenerator() {
-    }
+  private SynchronousQueueRandomGenerator() {
+  }
 }

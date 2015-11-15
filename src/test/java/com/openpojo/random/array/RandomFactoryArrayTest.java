@@ -19,37 +19,35 @@ package com.openpojo.random.array;
 
 import java.lang.reflect.Array;
 
-import org.junit.Test;
-
 import com.openpojo.random.RandomFactory;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Test;
 
 /**
  * @author oshoukry
- *
  */
 public class RandomFactoryArrayTest {
 
-    @Test
-    public void shouldCreateRandomArray() {
-        final Class<?> type = anyArrayType();
-        final Object firstInstance = RandomFactory.getRandomValue(type);
-        Affirm.affirmNotNull("Failed to get random array", firstInstance);
+  @Test
+  public void shouldCreateRandomArray() {
+    final Class<?> type = anyArrayType();
+    final Object firstInstance = RandomFactory.getRandomValue(type);
+    Affirm.affirmNotNull("Failed to get random array", firstInstance);
 
-        final Object secondInstance = RandomFactory.getRandomValue(type);
+    final Object secondInstance = RandomFactory.getRandomValue(type);
 
-        if (Array.getLength(firstInstance) == Array.getLength(secondInstance)) {
-            boolean equals = true;
-            for (int idx = 0; idx < Array.getLength(firstInstance); idx++) {
-                final Object firstInstanceElement = Array.get(firstInstance, idx);
-                final Object secondInstanceElement = Array.get(secondInstance, idx);
-                equals = equals
-                        && ((firstInstanceElement != null && firstInstanceElement.equals(secondInstanceElement)) || (firstInstanceElement == null && secondInstanceElement == null));
-            }
-        }
+    if (Array.getLength(firstInstance) == Array.getLength(secondInstance)) {
+      boolean equals = true;
+      for (int idx = 0; idx < Array.getLength(firstInstance); idx++) {
+        final Object firstInstanceElement = Array.get(firstInstance, idx);
+        final Object secondInstanceElement = Array.get(secondInstance, idx);
+        equals = equals && ((firstInstanceElement != null && firstInstanceElement.equals(secondInstanceElement)) ||
+            (firstInstanceElement == null && secondInstanceElement == null));
+      }
     }
+  }
 
-    private Class<?> anyArrayType() {
-        return Integer[].class;
-    }
+  private Class<?> anyArrayType() {
+    return Integer[].class;
+  }
 }

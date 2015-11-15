@@ -33,24 +33,23 @@ import com.openpojo.random.util.SerializableComparableObject;
  * @author oshoukry
  */
 public class SortedMapRandomGenerator extends BaseMapRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { SortedMap.class };
-    private static final SortedMapRandomGenerator INSTANCE = new SortedMapRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { SortedMap.class };
+  private static final SortedMapRandomGenerator INSTANCE = new SortedMapRandomGenerator();
 
-    public static SortedMapRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static SortedMapRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Map getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return MapHelper.buildMap(new TreeMap(), SerializableComparableObject.class,
-                SerializableComparableObject.class);
-    }
+  @Override
+  protected Map getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return MapHelper.buildMap(new TreeMap(), SerializableComparableObject.class, SerializableComparableObject.class);
+  }
 
-    private SortedMapRandomGenerator() {
-    }
+  private SortedMapRandomGenerator() {
+  }
 }

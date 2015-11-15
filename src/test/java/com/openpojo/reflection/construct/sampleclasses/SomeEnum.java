@@ -19,7 +19,6 @@ package com.openpojo.reflection.construct.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public enum SomeEnum {
 

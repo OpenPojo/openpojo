@@ -25,40 +25,38 @@ package com.openpojo.random.exception;
  */
 public class RandomGeneratorException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * Construct an Exception with message.
-     *
-     * @param message
-     *            The description of the exception.
-     * @return
-     *         An instance of the Exception.
-     */
-    public static RandomGeneratorException getInstance(final String message) {
-        return new RandomGeneratorException(message);
-    }
+  /**
+   * Construct an Exception with message.
+   *
+   * @param message
+   *     The description of the exception.
+   * @return An instance of the Exception.
+   */
+  public static RandomGeneratorException getInstance(final String message) {
+    return new RandomGeneratorException(message);
+  }
 
-    private RandomGeneratorException(final String message) {
-        super(message);
-    }
+  private RandomGeneratorException(final String message) {
+    super(message);
+  }
 
-    /**
-     * Construct an Exception with message and cause.
-     *
-     * @param message
-     *            The description of the exception.
-     * @param cause
-     *            The cause of the exception.
-     * @return
-     *         An instance of the Exception.
-     */
-    public static RandomGeneratorException getInstance(final String message, final Throwable cause) {
-        return new RandomGeneratorException(message, cause);
-    }
+  /**
+   * Construct an Exception with message and cause.
+   *
+   * @param message
+   *     The description of the exception.
+   * @param cause
+   *     The cause of the exception.
+   * @return An instance of the Exception.
+   */
+  public static RandomGeneratorException getInstance(final String message, final Throwable cause) {
+    return new RandomGeneratorException(message, cause);
+  }
 
-    private RandomGeneratorException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
+  private RandomGeneratorException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
 
 }

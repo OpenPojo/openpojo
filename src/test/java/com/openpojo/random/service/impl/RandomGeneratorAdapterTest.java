@@ -17,31 +17,29 @@
 
 package com.openpojo.random.service.impl;
 
-import org.junit.Test;
-
 import com.openpojo.random.exception.RandomGeneratorException;
+import org.junit.Test;
 
 /**
  * @author oshoukry
- *
  */
 public class RandomGeneratorAdapterTest {
 
-    @Test (expected = RandomGeneratorException.class)
-    public void getTypesShouldThrowException() {
-        final RandomGeneratorAdapter randomGeneratorAdapter = new RandomGeneratorAdapter(null, null, null);
-        randomGeneratorAdapter.getTypes();
-        }
+  @Test(expected = RandomGeneratorException.class)
+  public void getTypesShouldThrowException() {
+    final RandomGeneratorAdapter randomGeneratorAdapter = new RandomGeneratorAdapter(null, null, null);
+    randomGeneratorAdapter.getTypes();
+  }
 
 
-    @Test (expected = RandomGeneratorException.class)
-    public void doGenerateOnNonRegisteredTypeShouldThrowException() {
-        final RandomGeneratorAdapter randomGeneratorAdapter = new RandomGeneratorAdapter(null, null, null);
-        randomGeneratorAdapter.doGenerate(anyClass());
+  @Test(expected = RandomGeneratorException.class)
+  public void doGenerateOnNonRegisteredTypeShouldThrowException() {
+    final RandomGeneratorAdapter randomGeneratorAdapter = new RandomGeneratorAdapter(null, null, null);
+    randomGeneratorAdapter.doGenerate(anyClass());
 
-    }
+  }
 
-    private Class<?> anyClass() {
-        return this.getClass();
-    }
+  private Class<?> anyClass() {
+    return this.getClass();
+  }
 }

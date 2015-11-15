@@ -24,39 +24,38 @@ import com.openpojo.random.RandomGenerator;
 
 /**
  * @author oshoukry
- *
  */
 public class SomeInterfaceRandomGenerator implements RandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { ClassExtendingClassImplementingSomeInterface.class };
+  private static final Class<?>[] TYPES = new Class<?>[] { ClassExtendingClassImplementingSomeInterface.class };
 
-    private SomeInterfaceRandomGenerator() {
+  private SomeInterfaceRandomGenerator() {
 
-    }
+  }
 
-    public static RandomGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
+  public static RandomGenerator getInstance() {
+    return Instance.INSTANCE;
+  }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.openpojo.random.RandomGenerator#getTypes()
-     */
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  /*
+   * (non-Javadoc)
+   *
+   * @see com.openpojo.random.RandomGenerator#getTypes()
+   */
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.openpojo.random.RandomGenerator#doGenerate(java.lang.Class)
-     */
-    public Object doGenerate(Class<?> type) {
-        return new ClassExtendingClassImplementingSomeInterface();
-    }
+  /*
+   * (non-Javadoc)
+   *
+   * @see com.openpojo.random.RandomGenerator#doGenerate(java.lang.Class)
+   */
+  public Object doGenerate(Class<?> type) {
+    return new ClassExtendingClassImplementingSomeInterface();
+  }
 
-    private static class Instance {
-        private static final RandomGenerator INSTANCE = new SomeInterfaceRandomGenerator();
-    }
+  private static class Instance {
+    private static final RandomGenerator INSTANCE = new SomeInterfaceRandomGenerator();
+  }
 
 }

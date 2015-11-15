@@ -32,35 +32,33 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  */
 public class RandomInstanceFromInterfaceRandomGenerator {
 
-    public static RandomInstanceFromInterfaceRandomGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
+  public static RandomInstanceFromInterfaceRandomGenerator getInstance() {
+    return Instance.INSTANCE;
+  }
 
-    /**
-     * This method returns a random instance for a given interface.
-     * The instance will return random values upon method invocations.
-     *
-     * @param <T>
-     *            The type to generate an instance of.
-     * @param clazz
-     *            The interface to generate the implementations on.
-     * @return
-     *         An instance of the interface.
-     */
-    @SuppressWarnings("unchecked")
-    public <T> T doGenerate(final Class<T> clazz) {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
-        if (!pojoClass.isInterface()) {
-            throw ReflectionException.getInstance(String.format(
-                    "[%s] is not an interface, can't create a proxy for concrete or abstract types.", pojoClass
-                            .getName()));
-        }
-        return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{ pojoClass
-                .getClazz() }, RandomReturnInvocationHandler.getInstance());
+  /**
+   * This method returns a random instance for a given interface.
+   * The instance will return random values upon method invocations.
+   *
+   * @param <T>
+   *     The type to generate an instance of.
+   * @param clazz
+   *     The interface to generate the implementations on.
+   * @return An instance of the interface.
+   */
+  @SuppressWarnings("unchecked")
+  public <T> T doGenerate(final Class<T> clazz) {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
+    if (!pojoClass.isInterface()) {
+      throw ReflectionException.getInstance(
+          String.format("[%s] is not an interface, can't create a proxy for concrete or abstract types.", pojoClass.getName()));
     }
+    return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
+        new Class<?>[] { pojoClass.getClazz() }, RandomReturnInvocationHandler.getInstance());
+  }
 
-    private static class Instance {
-        private static final RandomInstanceFromInterfaceRandomGenerator INSTANCE = new RandomInstanceFromInterfaceRandomGenerator();
-    }
+  private static class Instance {
+    private static final RandomInstanceFromInterfaceRandomGenerator INSTANCE = new RandomInstanceFromInterfaceRandomGenerator();
+  }
 
 }

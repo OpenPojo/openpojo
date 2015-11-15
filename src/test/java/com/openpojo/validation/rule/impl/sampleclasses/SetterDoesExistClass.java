@@ -22,12 +22,12 @@ package com.openpojo.validation.rule.impl.sampleclasses;
  */
 public final class SetterDoesExistClass {
 
-    // Okay
-    public final String privateFinalString = "Some String";
-    public String privateString;
+  // Okay
+  public final String privateFinalString = "Some String";
+  public String privateString;
 
-    public void setPrivateString(final String privateString) {
-        this.privateString = privateString;
-    }
+  public void setPrivateString(final String privateString) {
+    this.privateString = privateString;
+  }
 
 }

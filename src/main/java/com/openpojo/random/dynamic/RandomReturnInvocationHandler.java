@@ -28,47 +28,47 @@ import com.openpojo.reflection.impl.ParameterizableFactory;
  * This Class is responsible for creating on the fly random instances from Interfaces.
  * These random instances will return random data on all invocations for their methods.
  * equals, hashCode &amp; toString however will behave consistently with java's default behaviour.
- * 
+ *
  * @author oshoukry
  */
 public class RandomReturnInvocationHandler implements InvocationHandler {
-    private RandomReturnInvocationHandler() {
+  private RandomReturnInvocationHandler() {
 
+  }
+
+  public static InvocationHandler getInstance() {
+    return Instance.INSTANCE;
+  }
+
+  public Object invoke(final Object proxy, final Method method, final Object[] args) {
+    if (method.getName().equals("toString")) {
+      return objectToString(proxy);
     }
 
-    public static InvocationHandler getInstance() {
-        return Instance.INSTANCE;
+    if (method.getName().equals("equals")) {
+      return objectEquals(proxy, args[0]);
     }
 
-    public Object invoke(final Object proxy, final Method method, final Object[] args) {
-        if (method.getName().equals("toString")) {
-            return objectToString(proxy);
-        }
-
-        if (method.getName().equals("equals")) {
-            return objectEquals(proxy, args[0]);
-        }
-
-        if (method.getName().equals("hashCode")) {
-            return objectHashCode(proxy);
-        }
-
-        return RandomFactory.getRandomValue(ParameterizableFactory.getInstance(method.getGenericReturnType()));
+    if (method.getName().equals("hashCode")) {
+      return objectHashCode(proxy);
     }
 
-    private String objectToString(final Object proxy) {
-        return proxy.getClass().getName() + '@' + System.identityHashCode(proxy);
-    }
+    return RandomFactory.getRandomValue(ParameterizableFactory.getInstance(method.getGenericReturnType()));
+  }
 
-    private int objectHashCode(final Object proxy) {
-        return System.identityHashCode(proxy);
-    }
+  private String objectToString(final Object proxy) {
+    return proxy.getClass().getName() + '@' + System.identityHashCode(proxy);
+  }
 
-    private boolean objectEquals(final Object proxy, final Object other) {
-        return System.identityHashCode(proxy) == System.identityHashCode(other);
-    }
+  private int objectHashCode(final Object proxy) {
+    return System.identityHashCode(proxy);
+  }
 
-    private static class Instance {
-        private static final InvocationHandler INSTANCE = new RandomReturnInvocationHandler();
-    }
+  private boolean objectEquals(final Object proxy, final Object other) {
+    return System.identityHashCode(proxy) == System.identityHashCode(other);
+  }
+
+  private static class Instance {
+    private static final InvocationHandler INSTANCE = new RandomReturnInvocationHandler();
+  }
 }

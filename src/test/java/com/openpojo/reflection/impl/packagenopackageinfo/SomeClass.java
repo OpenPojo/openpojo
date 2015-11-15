@@ -19,7 +19,6 @@ package com.openpojo.reflection.impl.packagenopackageinfo;
 
 /**
  * @author oshoukry
- *
  */
 public class SomeClass {
 

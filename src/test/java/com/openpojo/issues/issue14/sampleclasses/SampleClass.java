@@ -19,23 +19,23 @@ package com.openpojo.issues.issue14.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public class SampleClass {
 
-    private Class<SampleClass> someMemberClass;
+  private Class<SampleClass> someMemberClass;
 
-    /**
-     * @return the someMemberClass
-     */
-    public Class<SampleClass> getSomeMemberClass() {
-        return someMemberClass;
-    }
+  /**
+   * @return the someMemberClass
+   */
+  public Class<SampleClass> getSomeMemberClass() {
+    return someMemberClass;
+  }
 
-    /**
-     * @param someMemberClass the someMemberClass to set
-     */
-    public void setSomeMemberClass(final Class<SampleClass> someMemberClass) {
-        this.someMemberClass = someMemberClass;
-    }
+  /**
+   * @param someMemberClass
+   *     the someMemberClass to set
+   */
+  public void setSomeMemberClass(final Class<SampleClass> someMemberClass) {
+    this.someMemberClass = someMemberClass;
+  }
 }

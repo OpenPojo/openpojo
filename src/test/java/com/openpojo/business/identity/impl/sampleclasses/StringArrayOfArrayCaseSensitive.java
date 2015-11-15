@@ -24,21 +24,21 @@ import com.openpojo.business.annotation.BusinessKey;
  * @author oshoukry
  */
 public class StringArrayOfArrayCaseSensitive {
-    @BusinessKey
-    private String[][] fullNameInParts;
+  @BusinessKey
+  private String[][] fullNameInParts;
 
-    public StringArrayOfArrayCaseSensitive(final String[][] fullNameInParts) {
-        this.fullNameInParts = fullNameInParts;
-    }
+  public StringArrayOfArrayCaseSensitive(final String[][] fullNameInParts) {
+    this.fullNameInParts = fullNameInParts;
+  }
 
-    @Override
-    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-    public boolean equals(Object other) {
-        return BusinessIdentity.areEqual(this, other);
-    }
+  @Override
+  @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+  public boolean equals(Object other) {
+    return BusinessIdentity.areEqual(this, other);
+  }
 
-    @Override
-    public int hashCode() {
-        return BusinessIdentity.getHashCode(this);
-    }
+  @Override
+  public int hashCode() {
+    return BusinessIdentity.getHashCode(this);
+  }
 }

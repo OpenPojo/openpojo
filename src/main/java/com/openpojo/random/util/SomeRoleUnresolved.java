@@ -34,24 +34,24 @@ import com.openpojo.random.exception.RandomGeneratorException;
 public class SomeRoleUnresolved extends RoleUnresolved {
 
 
-    public SomeRoleUnresolved() {
-        super(anyString(), anyRoleValue(), anyProblemRoleStatus());
-    }
+  public SomeRoleUnresolved() {
+    super(anyString(), anyRoleValue(), anyProblemRoleStatus());
+  }
 
-    protected static String anyString() {
-        return RandomFactory.getRandomValue(String.class);
-    }
+  protected static String anyString() {
+    return RandomFactory.getRandomValue(String.class);
+  }
 
-    @SuppressWarnings("ConstantConditions")
-    private static List<ObjectName> anyRoleValue() {
-        try {
-            return Collections.singletonList(new ObjectName("*:type=" + anyString() +",name=" + anyString()));
-        } catch (MalformedObjectNameException e) {
-            throw RandomGeneratorException.getInstance("Failed to create Role", e);
-        }
+  @SuppressWarnings("ConstantConditions")
+  private static List<ObjectName> anyRoleValue() {
+    try {
+      return Collections.singletonList(new ObjectName("*:type=" + anyString() + ",name=" + anyString()));
+    } catch (MalformedObjectNameException e) {
+      throw RandomGeneratorException.getInstance("Failed to create Role", e);
     }
+  }
 
-    private static int anyProblemRoleStatus() {
-        return RoleStatus.NO_ROLE_WITH_NAME;
-    }
+  private static int anyProblemRoleStatus() {
+    return RoleStatus.NO_ROLE_WITH_NAME;
+  }
 }

@@ -32,21 +32,21 @@ import com.openpojo.random.exception.RandomGeneratorException;
  */
 public class SomeRole extends Role {
 
-    @SuppressWarnings("ConstantConditions")
-    public SomeRole() {
-        super(anyString(), anyRoleValue());
-    }
+  @SuppressWarnings("ConstantConditions")
+  public SomeRole() {
+    super(anyString(), anyRoleValue());
+  }
 
-    private static String anyString() {
-        return RandomFactory.getRandomValue(String.class);
-    }
+  private static String anyString() {
+    return RandomFactory.getRandomValue(String.class);
+  }
 
-    @SuppressWarnings("ConstantConditions")
-    private static List<ObjectName> anyRoleValue() {
-        try {
-            return Collections.singletonList(new ObjectName("*:type=" + anyString() +",name=" + anyString()));
-        } catch (MalformedObjectNameException e) {
-            throw RandomGeneratorException.getInstance("Failed to create Role", e);
-        }
+  @SuppressWarnings("ConstantConditions")
+  private static List<ObjectName> anyRoleValue() {
+    try {
+      return Collections.singletonList(new ObjectName("*:type=" + anyString() + ",name=" + anyString()));
+    } catch (MalformedObjectNameException e) {
+      throw RandomGeneratorException.getInstance("Failed to create Role", e);
     }
+  }
 }

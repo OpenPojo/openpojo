@@ -26,40 +26,40 @@ import com.openpojo.business.identity.IdentityFactory;
  */
 public class RegisterUnRegisterJob implements Runnable {
 
-    private final CountDownLatch startSignal;
-    private volatile int count;
-    private final NoOpIdentityHandler noOpIdentityHandler = new NoOpIdentityHandler();
+  private final CountDownLatch startSignal;
+  private volatile int count;
+  private final NoOpIdentityHandler noOpIdentityHandler = new NoOpIdentityHandler();
 
-    public RegisterUnRegisterJob(final CountDownLatch startSignal, final int count) {
-        this.startSignal = startSignal;
-        this.count = count;
+  public RegisterUnRegisterJob(final CountDownLatch startSignal, final int count) {
+    this.startSignal = startSignal;
+    this.count = count;
+  }
+
+  public void run() {
+    startSignal.countDown();
+    try {
+      startSignal.await();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
     }
 
-    public void run() {
-        startSignal.countDown();
-        try {
-            startSignal.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+    try {
+      while (count > 0) {
+        --count;
+        IdentityFactory.registerIdentityHandler(noOpIdentityHandler);
+        IdentityFactory.unregisterIdentityHandler(noOpIdentityHandler);
+        IdentityFactory.getIdentityHandler(new Object());
+      }
 
-        try {
-            while (count > 0) {
-                --count;
-                IdentityFactory.registerIdentityHandler(noOpIdentityHandler);
-                IdentityFactory.unregisterIdentityHandler(noOpIdentityHandler);
-                IdentityFactory.getIdentityHandler(new Object());
-            }
-
-        } catch (Throwable t) {
-            t.printStackTrace();
-        } finally {
-            IdentityFactory.unregisterIdentityHandler(noOpIdentityHandler);
-        }
+    } catch (Throwable t) {
+      t.printStackTrace();
+    } finally {
+      IdentityFactory.unregisterIdentityHandler(noOpIdentityHandler);
     }
+  }
 
-    public boolean hasCompletedSuccessfully() {
-        return count <= 0;
-    }
+  public boolean hasCompletedSuccessfully() {
+    return count <= 0;
+  }
 }
