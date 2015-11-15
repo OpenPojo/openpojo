@@ -25,11 +25,11 @@ import org.junit.Test;
  */
 public class ASMNotLoadedExceptionTest {
 
-    @Test
-    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
-    public void shouldReturnRightMessage() {
-        Assert.assertNull(ASMNotLoadedException.getInstance().getCause());
-        String message = ASMNotLoadedException.getInstance().getMessage();
-        Assert.assertEquals("ASM v5.0+ library required, please see http://asm.ow2.org/", message);
-    }
+  @Test
+  @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+  public void shouldReturnRightMessage() {
+    Assert.assertNull(ASMNotLoadedException.getInstance().getCause());
+    String message = ASMNotLoadedException.getInstance().getMessage();
+    Assert.assertEquals("ASM v5.0+ library required, please see http://asm.ow2.org/", message);
+  }
 }

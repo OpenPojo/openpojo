@@ -21,13 +21,13 @@ package com.openpojo.issues.issue46.sample;
  * @author oshoukry
  */
 public class AClassWithSythetics {
-    private AClassWithSythetics() {
-    }
+  private AClassWithSythetics() {
+  }
 
-    @SuppressWarnings("unused")
-    public static class Factory {
-        public static AClassWithSythetics getInstance() {
-            return new AClassWithSythetics();
-        }
+  @SuppressWarnings("unused")
+  public static class Factory {
+    public static AClassWithSythetics getInstance() {
+      return new AClassWithSythetics();
     }
+  }
 }

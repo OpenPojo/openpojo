@@ -25,34 +25,34 @@ import com.openpojo.business.annotation.BusinessKey;
  */
 public class ABusinessPojoNotDispatchingHashCode {
 
-    @BusinessKey
-    private String someString;
+  @BusinessKey
+  private String someString;
 
-    @Override
-    public int hashCode() {
-        return BusinessIdentity.getHashCode(this);
-    }
+  @Override
+  public int hashCode() {
+    return BusinessIdentity.getHashCode(this);
+  }
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        ABusinessPojoNotDispatchingHashCode other = (ABusinessPojoNotDispatchingHashCode) obj;
-        if (someString == null) {
-            if (other.someString != null) {
-                return false;
-            }
-        } else if (!someString.equals(other.someString)) {
-            return false;
-        }
-        return true;
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
     }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    ABusinessPojoNotDispatchingHashCode other = (ABusinessPojoNotDispatchingHashCode) obj;
+    if (someString == null) {
+      if (other.someString != null) {
+        return false;
+      }
+    } else if (!someString.equals(other.someString)) {
+      return false;
+    }
+    return true;
+  }
 
 }

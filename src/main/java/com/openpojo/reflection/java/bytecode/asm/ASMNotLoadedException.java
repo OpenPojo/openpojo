@@ -23,11 +23,11 @@ package com.openpojo.reflection.java.bytecode.asm;
  */
 public class ASMNotLoadedException extends RuntimeException {
 
-    private ASMNotLoadedException() {
-        super("ASM v5.0+ library required, please see http://asm.ow2.org/");
-    }
+  private ASMNotLoadedException() {
+    super("ASM v5.0+ library required, please see http://asm.ow2.org/");
+  }
 
-    public static ASMNotLoadedException getInstance() {
-        return new ASMNotLoadedException();
-    }
+  public static ASMNotLoadedException getInstance() {
+    return new ASMNotLoadedException();
+  }
 }

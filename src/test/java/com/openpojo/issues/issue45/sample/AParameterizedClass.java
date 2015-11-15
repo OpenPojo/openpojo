@@ -21,17 +21,17 @@ package com.openpojo.issues.issue45.sample;
  * @author oshoukry
  */
 public class AParameterizedClass<T> {
-    private T myType;
+  private T myType;
 
-    public AParameterizedClass(T myType) {
-        this.myType = myType;
-    }
+  public AParameterizedClass(T myType) {
+    this.myType = myType;
+  }
 
-    public void setMyType(T myType) {
-        this.myType = myType;
-    }
+  public void setMyType(T myType) {
+    this.myType = myType;
+  }
 
-    public T getMyType() {
-        return myType;
-    }
+  public T getMyType() {
+    return myType;
+  }
 }

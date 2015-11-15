@@ -19,15 +19,14 @@ package com.openpojo.reflection.impl.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public class AClassWithNestedClass {
 
-    public class NestedClass {
+  public class NestedClass {
 
-    }
+  }
 
-    public static class NestedStaticClass {
+  public static class NestedStaticClass {
 
-    }
+  }
 }

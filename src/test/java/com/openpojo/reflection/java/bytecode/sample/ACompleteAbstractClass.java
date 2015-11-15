@@ -23,46 +23,46 @@ import java.util.List;
  * @author oshoukry
  */
 public abstract class ACompleteAbstractClass {
-    private String name;
-    private Integer age;
-    private List<ACompleteOffspringClass> myChildren;
+  private String name;
+  private Integer age;
+  private List<ACompleteOffspringClass> myChildren;
 
-    public ACompleteAbstractClass(String name, Integer age, List<ACompleteOffspringClass> myChildren) {
-        this.name = name;
-        this.age = age;
-        this.myChildren = myChildren;
+  public ACompleteAbstractClass(String name, Integer age, List<ACompleteOffspringClass> myChildren) {
+    this.name = name;
+    this.age = age;
+    this.myChildren = myChildren;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Integer getAge() {
+    return age;
+  }
+
+  public void setAge(Integer age) {
+    this.age = age;
+  }
+
+  public List<ACompleteOffspringClass> getMyChildren() {
+    return myChildren;
+  }
+
+  public void setMyChildren(List<ACompleteOffspringClass> myChildren) {
+    this.myChildren = myChildren;
+  }
+
+  public abstract void rewardAChild(ACompleteOffspringClass toddsOffspring);
+
+  public abstract static class ACompleteOffspringClass extends ACompleteAbstractClass {
+
+    public ACompleteOffspringClass(String name, Integer age, List<ACompleteOffspringClass> myChildren) {
+      super(name, age, myChildren);
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public List<ACompleteOffspringClass> getMyChildren() {
-        return myChildren;
-    }
-
-    public void setMyChildren(List<ACompleteOffspringClass> myChildren) {
-        this.myChildren = myChildren;
-    }
-
-    public abstract void rewardAChild(ACompleteOffspringClass toddsOffspring);
-
-    public abstract static class ACompleteOffspringClass extends ACompleteAbstractClass {
-
-        public ACompleteOffspringClass(String name, Integer age, List<ACompleteOffspringClass> myChildren) {
-            super(name, age, myChildren);
-        }
-    }
+  }
 }

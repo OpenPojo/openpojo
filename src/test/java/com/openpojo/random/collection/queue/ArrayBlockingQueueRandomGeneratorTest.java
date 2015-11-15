@@ -19,7 +19,6 @@ package com.openpojo.random.collection.queue;
 
 import java.util.Collection;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 import com.openpojo.random.ParameterizableRandomGenerator;
 import com.openpojo.random.collection.support.SimpleType;
@@ -30,28 +29,28 @@ import com.openpojo.random.collection.util.BaseCollectionRandomGeneratorTest;
  */
 public class ArrayBlockingQueueRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
 
-    @Override
-    protected ParameterizableRandomGenerator getInstance() {
-        return ArrayBlockingQueueRandomGenerator.getInstance();
-    }
+  @Override
+  protected ParameterizableRandomGenerator getInstance() {
+    return ArrayBlockingQueueRandomGenerator.getInstance();
+  }
 
-    @Override
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return ArrayBlockingQueueRandomGenerator.class;
-    }
+  @Override
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return ArrayBlockingQueueRandomGenerator.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getExpectedTypeClass() {
-        return ArrayBlockingQueue.class;
-    }
+  @Override
+  protected Class<? extends Collection> getExpectedTypeClass() {
+    return ArrayBlockingQueue.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getGeneratedTypeClass() {
-        return ArrayBlockingQueue.class;
-    }
+  @Override
+  protected Class<? extends Collection> getGeneratedTypeClass() {
+    return ArrayBlockingQueue.class;
+  }
 
-    @Override
-    protected Class<?> getGenericType() {
-        return SimpleType.class;
-    }
+  @Override
+  protected Class<?> getGenericType() {
+    return SimpleType.class;
+  }
 }

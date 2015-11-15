@@ -22,7 +22,6 @@ import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 
 /**
  * @author oshoukry
- *
  */
 @SomeAnnotation
 @AnotherAnnotation

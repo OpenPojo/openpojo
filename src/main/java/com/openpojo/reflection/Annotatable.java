@@ -25,23 +25,21 @@ import java.util.List;
  * @author oshoukry
  */
 public interface Annotatable {
-    /**
-     * Get all annotations defined on element.
-     *
-     * @return
-     *         Get Annotations
-     */
-    List<? extends Annotation> getAnnotations();
+  /**
+   * Get all annotations defined on element.
+   *
+   * @return Get Annotations
+   */
+  List<? extends Annotation> getAnnotations();
 
-    /**
-     * Get specified instance of an annotation defined on element.
-     *
-     * @param <T>
-     *            Class Type of annotation.
-     * @param annotationClass
-     *            The annotation class.
-     * @return
-     *         The definition of this annotation on the PojoField.
-     */
-    <T extends Annotation> T getAnnotation(Class<T> annotationClass);
+  /**
+   * Get specified instance of an annotation defined on element.
+   *
+   * @param <T>
+   *     Class Type of annotation.
+   * @param annotationClass
+   *     The annotation class.
+   * @return The definition of this annotation on the PojoField.
+   */
+  <T extends Annotation> T getAnnotation(Class<T> annotationClass);
 }

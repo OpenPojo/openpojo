@@ -19,9 +19,8 @@ package com.openpojo.issues.issue28.sample;
 
 /**
  * @author oshoukry
- *
  */
 public class AChildOfAnotherChildClass extends AnotherChildClass {
-    @SuppressWarnings("unused")
-    private String myString;
+  @SuppressWarnings("unused")
+  private String myString;
 }

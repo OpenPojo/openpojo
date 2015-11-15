@@ -31,22 +31,22 @@ import com.openpojo.random.util.Helper;
  * @author oshoukry
  */
 public class AttributeListRandomGenerator implements RandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { AttributeList.class };
-    private static final AttributeListRandomGenerator INSTANCE = new AttributeListRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { AttributeList.class };
+  private static final AttributeListRandomGenerator INSTANCE = new AttributeListRandomGenerator();
 
-    public static AttributeListRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static AttributeListRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    public Collection doGenerate(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return CollectionHelper.buildCollections(new AttributeList(), Attribute.class);
-    }
+  public Collection doGenerate(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return CollectionHelper.buildCollections(new AttributeList(), Attribute.class);
+  }
 
-    private AttributeListRandomGenerator() {
-    }
+  private AttributeListRandomGenerator() {
+  }
 }

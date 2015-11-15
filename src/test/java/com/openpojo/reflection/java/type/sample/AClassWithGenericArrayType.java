@@ -24,13 +24,13 @@ import java.util.Set;
  * @author oshoukry
  */
 public class AClassWithGenericArrayType {
-    private Set<ArrayElementsClass> mySetOfArrayElements;
+  private Set<ArrayElementsClass> mySetOfArrayElements;
 
-    public AClassWithGenericArrayType(Set<ArrayElementsClass> mySetOfArrayElements) {
-        this.mySetOfArrayElements = mySetOfArrayElements;
-    }
+  public AClassWithGenericArrayType(Set<ArrayElementsClass> mySetOfArrayElements) {
+    this.mySetOfArrayElements = mySetOfArrayElements;
+  }
 
-    public Set<ArrayElementsClass> getMySetOfArrayElements() {
-        return mySetOfArrayElements;
-    }
+  public Set<ArrayElementsClass> getMySetOfArrayElements() {
+    return mySetOfArrayElements;
+  }
 }

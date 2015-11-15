@@ -21,36 +21,36 @@ package com.openpojo.reflection.impl.sampleclasses;
  * @author oshoukry
  */
 public class AClassWithForSetGetSetterGetter {
-    private int privateInt;
-    private String privateString;
+  private int privateInt;
+  private String privateString;
 
-    /**
-     * @return the privateInt
-     */
-    public int getPrivateInt() {
-        return privateInt;
-    }
+  /**
+   * @return the privateInt
+   */
+  public int getPrivateInt() {
+    return privateInt;
+  }
 
-    /**
-     * @param privateInt
-     *            the privateInt to set
-     */
-    public void setPrivateInt(final int privateInt) {
-        this.privateInt = privateInt;
-    }
+  /**
+   * @param privateInt
+   *     the privateInt to set
+   */
+  public void setPrivateInt(final int privateInt) {
+    this.privateInt = privateInt;
+  }
 
-    /**
-     * @return the privateString
-     */
-    public String getPrivateString() {
-        return privateString;
-    }
+  /**
+   * @return the privateString
+   */
+  public String getPrivateString() {
+    return privateString;
+  }
 
-    /**
-     * @param privateString
-     *            the privateString to set
-     */
-    public void setPrivateString(final String privateString) {
-        this.privateString = privateString;
-    }
+  /**
+   * @param privateString
+   *     the privateString to set
+   */
+  public void setPrivateString(final String privateString) {
+    this.privateString = privateString;
+  }
 }

@@ -28,12 +28,15 @@ import com.openpojo.reflection.java.load.ClassUtil;
  */
 public abstract class AbstractCoverageDetector implements CoverageDetector {
 
-    public abstract String getName();
-    public abstract String getCoverageClassName();
-    public abstract PojoClassFilter getPojoClassFilter();
-    public abstract PojoClassAdapter getPojoClassAdapter();
+  public abstract String getName();
 
-    public boolean isLoaded() {
-        return ClassUtil.isClassLoaded(getCoverageClassName());
-    }
+  public abstract String getCoverageClassName();
+
+  public abstract PojoClassFilter getPojoClassFilter();
+
+  public abstract PojoClassAdapter getPojoClassAdapter();
+
+  public boolean isLoaded() {
+    return ClassUtil.isClassLoaded(getCoverageClassName());
+  }
 }

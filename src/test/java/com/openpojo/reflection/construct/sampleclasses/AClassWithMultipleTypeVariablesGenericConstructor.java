@@ -21,25 +21,25 @@ package com.openpojo.reflection.construct.sampleclasses;
  * @author oshoukry
  */
 public class AClassWithMultipleTypeVariablesGenericConstructor<K, V, T extends CharSequence> {
-    private K myK;
-    private V myV;
-    private T myT;
+  private K myK;
+  private V myV;
+  private T myT;
 
-    public AClassWithMultipleTypeVariablesGenericConstructor(final K k, final V v, final T t) {
-        this.myK = k;
-        this.myV = v;
-        this.myT = t;
-    }
+  public AClassWithMultipleTypeVariablesGenericConstructor(final K k, final V v, final T t) {
+    this.myK = k;
+    this.myV = v;
+    this.myT = t;
+  }
 
-    public K getMyK() {
-        return myK;
-    }
+  public K getMyK() {
+    return myK;
+  }
 
-    public V getMyV() {
-        return myV;
-    }
+  public V getMyV() {
+    return myV;
+  }
 
-    public T getMyT() {
-        return myT;
-    }
+  public T getMyT() {
+    return myT;
+  }
 }

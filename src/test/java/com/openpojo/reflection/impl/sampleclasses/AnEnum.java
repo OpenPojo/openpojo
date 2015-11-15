@@ -19,8 +19,7 @@ package com.openpojo.reflection.impl.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public enum AnEnum {
-    VALUE1, VALUE2, VALUE3
+  VALUE1, VALUE2, VALUE3
 }

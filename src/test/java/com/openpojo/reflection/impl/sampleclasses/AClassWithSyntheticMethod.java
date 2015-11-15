@@ -22,13 +22,13 @@ package com.openpojo.reflection.impl.sampleclasses;
  */
 public class AClassWithSyntheticMethod {
 
-    private void doSomethingSneaky() {
+  private void doSomethingSneaky() {
 
-    }
+  }
 
-    public static class InvokerForDoSomethingSneaky {
-        public static void invokeDoSomethingSneaky() {
-            new AClassWithSyntheticMethod().doSomethingSneaky();
-        }
+  public static class InvokerForDoSomethingSneaky {
+    public static void invokeDoSomethingSneaky() {
+      new AClassWithSyntheticMethod().doSomethingSneaky();
     }
+  }
 }

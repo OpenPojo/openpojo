@@ -21,11 +21,11 @@ package com.openpojo.reflection.impl.sampleclasses;
  * @author oshoukry
  */
 public class AClassWithTwoChildClassesOneStaticAndOneNot {
-    public static class AStaticClass {
+  public static class AStaticClass {
 
-    }
+  }
 
-    public class APublicNonStaticClass {
+  public class APublicNonStaticClass {
 
-    }
+  }
 }

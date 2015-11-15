@@ -22,13 +22,13 @@ import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 
 public class AClassWithVariousAnnotatedFields {
 
-    public String nonAnnotatedField;
+  public String nonAnnotatedField;
 
-    @SomeAnnotation
-    public String singleAnnotationField;
+  @SomeAnnotation
+  public String singleAnnotationField;
 
-    @SomeAnnotation
-    @BusinessKey
-    public String multipleAnnotationField;
+  @SomeAnnotation
+  @BusinessKey
+  public String multipleAnnotationField;
 
 }

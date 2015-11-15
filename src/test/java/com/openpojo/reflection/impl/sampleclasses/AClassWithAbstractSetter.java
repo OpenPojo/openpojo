@@ -22,7 +22,7 @@ package com.openpojo.reflection.impl.sampleclasses;
  */
 @SuppressWarnings("unused")
 public abstract class AClassWithAbstractSetter {
-    private String someString;
+  private String someString;
 
-    public abstract void setSomeString(String someString);
+  public abstract void setSomeString(String someString);
 }

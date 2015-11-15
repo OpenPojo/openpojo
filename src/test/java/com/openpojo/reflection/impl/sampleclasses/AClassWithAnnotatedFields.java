@@ -24,13 +24,13 @@ import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
  */
 public class AClassWithAnnotatedFields {
 
-    @SomeAnnotation
-    private String annotatedField1;
+  @SomeAnnotation
+  private String annotatedField1;
 
-    @SomeAnnotation
-    private String annotatedField2;
+  @SomeAnnotation
+  private String annotatedField2;
 
-    private String nonAnnotatedField1;
-    private String nonAnnotatedField2;
+  private String nonAnnotatedField1;
+  private String nonAnnotatedField2;
 
 }

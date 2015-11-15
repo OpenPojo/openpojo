@@ -19,9 +19,8 @@ package com.openpojo.random.dynamic.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public abstract class AnAbstractClass {
 
-    public abstract int getAge();
+  public abstract int getAge();
 }

@@ -23,25 +23,25 @@ import java.util.List;
  * @author oshoukry
  */
 public class AClassWithGenericConstructor {
-    private final List<Child> myChildren;
+  private final List<Child> myChildren;
 
-    public AClassWithGenericConstructor(final List<Child> myChildren) {
-        this.myChildren = myChildren;
+  public AClassWithGenericConstructor(final List<Child> myChildren) {
+    this.myChildren = myChildren;
+  }
+
+  public List<Child> getMyChildren() {
+    return myChildren;
+  }
+
+  public static class Child {
+    private final String name;
+
+    public Child(final String name) {
+      this.name = name;
     }
 
-    public List<Child> getMyChildren() {
-        return myChildren;
+    public String getName() {
+      return name;
     }
-
-    public static class Child {
-        private final String name;
-
-        public Child(final String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
+  }
 }

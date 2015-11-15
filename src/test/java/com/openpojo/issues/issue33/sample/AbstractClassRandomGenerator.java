@@ -26,14 +26,14 @@ import com.openpojo.random.RandomGenerator;
  * @author oshoukry
  */
 public class AbstractClassRandomGenerator implements RandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { AbstractClass.class };
+  private static final Class<?>[] TYPES = new Class<?>[] { AbstractClass.class };
 
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    public Object doGenerate(Class<?> type) {
-        return new ClassExtendingAbstractClass();
-    }
+  public Object doGenerate(Class<?> type) {
+    return new ClassExtendingAbstractClass();
+  }
 }

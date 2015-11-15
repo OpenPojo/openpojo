@@ -24,15 +24,15 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class ASMDetectorTest {
-    ASMDetector asmDetector = ASMDetector.getInstance();
+  ASMDetector asmDetector = ASMDetector.getInstance();
 
-    @Test
-    public void canDetectASMLoaded() {
-        Affirm.affirmTrue("ASM should've been detected as loaded", asmDetector.isASMLoaded());
-    }
+  @Test
+  public void canDetectASMLoaded() {
+    Affirm.affirmTrue("ASM should've been detected as loaded", asmDetector.isASMLoaded());
+  }
 
-    @Test
-    public void canDetectASMLoadedUsingGivenClass() {
+  @Test
+  public void canDetectASMLoadedUsingGivenClass() {
 
-    }
+  }
 }

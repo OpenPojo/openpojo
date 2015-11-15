@@ -24,20 +24,20 @@ import com.openpojo.reflection.java.load.ClassUtil;
  * @author oshoukry
  */
 public class ASMDetector {
-    public String ASM_CLASS_NAME = "org.objectweb.asm.ClassWriter";
+  public String ASM_CLASS_NAME = "org.objectweb.asm.ClassWriter";
 
-    private ASMDetector() {
-    }
+  private ASMDetector() {
+  }
 
-    public static ASMDetector getInstance() {
-        return Instance.INSTANCE;
-    }
+  public static ASMDetector getInstance() {
+    return Instance.INSTANCE;
+  }
 
-    public boolean isASMLoaded() {
-        return ClassUtil.isClassLoaded(ASM_CLASS_NAME);
-    }
+  public boolean isASMLoaded() {
+    return ClassUtil.isClassLoaded(ASM_CLASS_NAME);
+  }
 
-    private static class Instance {
-        private static final ASMDetector INSTANCE = new ASMDetector();
-    }
+  private static class Instance {
+    private static final ASMDetector INSTANCE = new ASMDetector();
+  }
 }

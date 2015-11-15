@@ -19,11 +19,10 @@ package com.openpojo.random.dynamic.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public class AConcreteClass {
 
-    public void doSomething() {
+  public void doSomething() {
 
-    }
+  }
 }

@@ -22,6 +22,6 @@ package com.openpojo.reflection.impl.sampleclasses;
  */
 public class AClassWithSyntheticField {
 
-    public class SyntheticFieldContainer {
-    }
+  public class SyntheticFieldContainer {
+  }
 }

@@ -24,8 +24,8 @@ import java.util.List;
  */
 public class AClassWithGenericParameterConstructor {
 
-    @SuppressWarnings("unused")
-    public AClassWithGenericParameterConstructor(List<String> parameterizedList){
+  @SuppressWarnings("unused")
+  public AClassWithGenericParameterConstructor(List<String> parameterizedList) {
 
-    }
+  }
 }

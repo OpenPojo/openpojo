@@ -23,23 +23,23 @@ import java.util.List;
  * @author oshoukry
  */
 public class AClassWithGenericCollection {
-    private List<SomeGeneric> someGenericList;
+  private List<SomeGeneric> someGenericList;
 
-    public List<SomeGeneric> getSomeGenericList() {
-        return someGenericList;
-    }
+  public List<SomeGeneric> getSomeGenericList() {
+    return someGenericList;
+  }
 
-    public void setSomeGenericList(List<SomeGeneric> someGenericList) {
-        if (someGenericList == null || someGenericList.size() == 0)
-            throw new IllegalArgumentException("Chilren must not be empty");
-        for(SomeGeneric entry: someGenericList) {
-            if (!entry.getClass().equals(SomeGeneric.class)) {
-                throw new IllegalArgumentException("Expected Children of type [" + SomeGeneric.class.toString() + "]" + " got [" + entry
-                        .getClass().toString() + "]");
-            }
-        }
-        this.someGenericList = someGenericList;
+  public void setSomeGenericList(List<SomeGeneric> someGenericList) {
+    if (someGenericList == null || someGenericList.size() == 0)
+      throw new IllegalArgumentException("Chilren must not be empty");
+    for (SomeGeneric entry : someGenericList) {
+      if (!entry.getClass().equals(SomeGeneric.class)) {
+        throw new IllegalArgumentException("Expected Children of type [" + SomeGeneric.class.toString() + "]" + " got [" +
+            entry.getClass().toString() + "]");
+      }
     }
+    this.someGenericList = someGenericList;
+  }
 
 
 }

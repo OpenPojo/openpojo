@@ -22,13 +22,13 @@ package com.openpojo.reflection.impl.sampleclasses;
  */
 public class AClassWithSythetics {
 
-    private AClassWithSythetics() {
+  private AClassWithSythetics() {
 
-    }
+  }
 
-    public static class Factory {
-        public static AClassWithSythetics getInstance() {
-            return new AClassWithSythetics();
-        }
+  public static class Factory {
+    public static AClassWithSythetics getInstance() {
+      return new AClassWithSythetics();
     }
+  }
 }

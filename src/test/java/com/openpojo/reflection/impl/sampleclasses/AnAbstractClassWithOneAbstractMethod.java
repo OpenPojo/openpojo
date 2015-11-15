@@ -21,5 +21,5 @@ package com.openpojo.reflection.impl.sampleclasses;
  * @author oshoukry
  */
 public abstract class AnAbstractClassWithOneAbstractMethod {
-    public abstract void publicAbstractMethod();
+  public abstract void publicAbstractMethod();
 }

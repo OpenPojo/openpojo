@@ -21,22 +21,22 @@ package com.openpojo.issues.issue45.sample;
  * @author oshoukry
  */
 public class AClassWithGenericArray<T extends SomeGeneric> {
-    private T[] someGenericArray;
+  private T[] someGenericArray;
 
-    public T[] getSomeGenericArray() {
-        return someGenericArray;
-    }
+  public T[] getSomeGenericArray() {
+    return someGenericArray;
+  }
 
-    public void setSomeGenericArray(T[] someGenericArray) {
-        if (someGenericArray == null)
-            throw new IllegalArgumentException("Array must not be null");
-        for(SomeGeneric entry: someGenericArray) {
-            if (!entry.getClass().equals(SomeGeneric.class)) {
-                throw new IllegalArgumentException("Expected entries of type [" + SomeGeneric.class.toString() + "]" + " got [" + entry
-                        .getClass().toString() + "]");
-            }
-        }
-        this.someGenericArray = someGenericArray;
+  public void setSomeGenericArray(T[] someGenericArray) {
+    if (someGenericArray == null)
+      throw new IllegalArgumentException("Array must not be null");
+    for (SomeGeneric entry : someGenericArray) {
+      if (!entry.getClass().equals(SomeGeneric.class)) {
+        throw new IllegalArgumentException("Expected entries of type [" + SomeGeneric.class.toString() + "] got ["
+            + entry.getClass().toString() + "]");
+      }
     }
+    this.someGenericArray = someGenericArray;
+  }
 
 }

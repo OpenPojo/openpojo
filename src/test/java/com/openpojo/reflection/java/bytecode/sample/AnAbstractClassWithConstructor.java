@@ -23,9 +23,9 @@ import com.openpojo.random.dynamic.sampleclasses.AConcreteClass;
  * @author oshoukry
  */
 public abstract class AnAbstractClassWithConstructor {
-    private final AConcreteClass name;
+  private final AConcreteClass name;
 
-    public AnAbstractClassWithConstructor(AConcreteClass name) {
-        this.name = name;
-    }
+  public AnAbstractClassWithConstructor(AConcreteClass name) {
+    this.name = name;
+  }
 }

@@ -30,36 +30,36 @@ import org.junit.Before;
  * @author oshoukry
  */
 public class ArrayDequeRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
-    private static final String EXPECTED_TYPE_CLASS_NAME = "java.util.ArrayDeque";
+  private static final String EXPECTED_TYPE_CLASS_NAME = "java.util.ArrayDeque";
 
-    @Before
-    public void requirement() {
-        Assume.assumeTrue(EXPECTED_TYPE_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(EXPECTED_TYPE_CLASS_NAME));
-    }
+  @Before
+  public void requirement() {
+    Assume.assumeTrue(EXPECTED_TYPE_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(EXPECTED_TYPE_CLASS_NAME));
+  }
 
-    @Override
-    protected ParameterizableRandomGenerator getInstance() {
-        return ArrayDequeRandomGenerator.getInstance();
-    }
+  @Override
+  protected ParameterizableRandomGenerator getInstance() {
+    return ArrayDequeRandomGenerator.getInstance();
+  }
 
-    @Override
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return ArrayDequeRandomGenerator.class;
-    }
+  @Override
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return ArrayDequeRandomGenerator.class;
+  }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    protected Class<? extends Collection> getExpectedTypeClass() {
-        return (Class<? extends Collection>) ClassUtil.loadClass(EXPECTED_TYPE_CLASS_NAME);
-    }
+  @Override
+  @SuppressWarnings("unchecked")
+  protected Class<? extends Collection> getExpectedTypeClass() {
+    return (Class<? extends Collection>) ClassUtil.loadClass(EXPECTED_TYPE_CLASS_NAME);
+  }
 
-    @Override
-    protected Class<? extends Collection> getGeneratedTypeClass() {
-        return getExpectedTypeClass();
-    }
+  @Override
+  protected Class<? extends Collection> getGeneratedTypeClass() {
+    return getExpectedTypeClass();
+  }
 
-    @Override
-    protected Class<?> getGenericType() {
-        return SimpleType.class;
-    }
+  @Override
+  protected Class<?> getGenericType() {
+    return SimpleType.class;
+  }
 }

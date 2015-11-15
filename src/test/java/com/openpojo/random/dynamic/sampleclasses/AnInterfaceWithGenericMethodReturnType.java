@@ -23,11 +23,13 @@ import java.util.List;
  * @author oshoukry
  */
 public interface AnInterfaceWithGenericMethodReturnType {
-    public List<AConcreteClass> aListOfAConcreteClass();
-    public int[] anIntArray();
-    public String aString();
+  public List<AConcreteClass> aListOfAConcreteClass();
 
-    @SuppressWarnings("unused")
-    public void aVoid();
+  public int[] anIntArray();
+
+  public String aString();
+
+  @SuppressWarnings("unused")
+  public void aVoid();
 
 }

@@ -27,33 +27,42 @@ import com.openpojo.random.dynamic.sampleclasses.AConcreteClass;
  * @author oshoukry
  */
 public abstract class AnAbstractClassWithGenericConstructor {
-    public AnAbstractClassWithGenericConstructor(List<String> aListOfStrings, Integer number, Map<AConcreteClass, AnotherChildClass> map) {
-        if (aListOfStrings == null || aListOfStrings.isEmpty() || !listOfStrings(aListOfStrings) || number == null || map
-                .isEmpty() || !mapOfConcreteClassAndAnotherChildClass(map)) {
-            throw new IllegalArgumentException("Invalid construction parameters [" + aListOfStrings + "], [" + number + "], [" + map + "]");
-        }
+  public AnAbstractClassWithGenericConstructor(
+      List<String> aListOfStrings, Integer number, Map<AConcreteClass, AnotherChildClass> map) {
+    if (aListOfStrings == null
+        || aListOfStrings.isEmpty()
+        || !listOfStrings(aListOfStrings)
+        || number == null
+        || map.isEmpty()
+        || !mapOfConcreteClassAndAnotherChildClass(map)) {
+      throw new IllegalArgumentException("Invalid construction parameters [" + aListOfStrings + "], [" + number + "], ["
+          + map + "]");
     }
+  }
 
-    private boolean mapOfConcreteClassAndAnotherChildClass(Map<AConcreteClass, AnotherChildClass> map) {
-        if (map.isEmpty())
-            return false;
-        for(Map.Entry entry : map.entrySet()) {
-            if (entry.getKey() == null || !(entry.getKey() instanceof AConcreteClass)
-                    || entry.getValue() == null || !(entry.getValue() instanceof AnotherChildClass))
-                return false;
-        }
-        return true;
+  private boolean mapOfConcreteClassAndAnotherChildClass(Map<AConcreteClass, AnotherChildClass> map) {
+    if (map.isEmpty())
+      return false;
+    for (Map.Entry entry : map.entrySet()) {
+      if (entry.getKey() == null
+          || !(entry.getKey() instanceof AConcreteClass)
+          || entry.getValue() == null
+          || !(entry.getValue
+          () instanceof AnotherChildClass))
+        return false;
     }
+    return true;
+  }
 
-    private boolean listOfStrings(List list) {
-        if (list.isEmpty())
-            return false;
+  private boolean listOfStrings(List list) {
+    if (list.isEmpty())
+      return false;
 
-        for (Object o : list) {
-            if (!(o instanceof String)) {
-                return false;
-            }
-        }
-        return true;
+    for (Object o : list) {
+      if (!(o instanceof String)) {
+        return false;
+      }
     }
+    return true;
+  }
 }

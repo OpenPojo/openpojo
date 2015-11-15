@@ -24,14 +24,18 @@ import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
  */
 public class AClassWithAnnotatedMethods {
 
-    @SomeAnnotation
-    public void annotatedMethod1() {}
+  @SomeAnnotation
+  public void annotatedMethod1() {
+  }
 
-    @SomeAnnotation
-    public void annotatedMethod2() {}
+  @SomeAnnotation
+  public void annotatedMethod2() {
+  }
 
-    public void nonAnnotatedMethod1() {}
+  public void nonAnnotatedMethod1() {
+  }
 
-    public void nonAnnotatedMethod2() {}
+  public void nonAnnotatedMethod2() {
+  }
 
 }

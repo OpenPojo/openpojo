@@ -21,20 +21,20 @@ package com.openpojo.reflection.impl.sampleclasses;
  * @author oshoukry
  */
 public class AClassWithFieldsPrefixed {
-    private String mName;
+  private String mName;
 
-    /**
-     * @return the mName
-     */
-    public String getName() {
-        return mName;
-    }
+  /**
+   * @return the mName
+   */
+  public String getName() {
+    return mName;
+  }
 
-    /**
-     * @param name
-     *            the name to set
-     */
-    public void setName(final String name) {
-        mName = name;
-    }
+  /**
+   * @param name
+   *     the name to set
+   */
+  public void setName(final String name) {
+    mName = name;
+  }
 }

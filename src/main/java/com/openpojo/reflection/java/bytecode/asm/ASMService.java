@@ -30,52 +30,52 @@ import org.objectweb.asm.ClassWriter;
  * @author oshoukry
  */
 public class ASMService {
-    private SimpleClassLoader simpleClassLoader = new SimpleClassLoader();
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private CacheStorage<Class<?>> alreadyGeneratedClasses = CacheStorageFactory.getPersistentCacheStorage();
+  private SimpleClassLoader simpleClassLoader = new SimpleClassLoader();
+  private Logger logger = LoggerFactory.getLogger(this.getClass());
+  private CacheStorage<Class<?>> alreadyGeneratedClasses = CacheStorageFactory.getPersistentCacheStorage();
 
-    private ASMService() {
+  private ASMService() {
+  }
+
+  public static ASMService getInstance() {
+    return Instance.INSTANCE;
+  }
+
+  public <T> Class<? extends T> createSubclassFor(Class<T> clazz) {
+    SubClassDefinition subClassDefinition = new DefaultSubClassDefinition(clazz);
+    return createSubclassFor(clazz, subClassDefinition);
+  }
+
+  @SuppressWarnings("unchecked")
+  public <T> Class<? extends T> createSubclassFor(Class<T> clazz, SubClassDefinition subClassDefinition) {
+    Class<? extends T> generatedClass = (Class<? extends T>) alreadyGeneratedClasses.get(subClassDefinition.getGeneratedClassName());
+
+    if (generatedClass != null) {
+      logger.info("Reusing already generated sub-class for class [{0}]", clazz.getName());
+    } else {
+      try {
+        generatedClass = (Class<? extends T>) simpleClassLoader.loadThisClass(getSubClassByteCode(subClassDefinition),
+            subClassDefinition.getGeneratedClassName());
+        alreadyGeneratedClasses.add(subClassDefinition.getGeneratedClassName(), generatedClass);
+      } catch (Throwable throwable) {
+        throw ReflectionException.getInstance("Failed to create subclass for class: " + clazz, throwable);
+      }
     }
+    return generatedClass;
+  }
 
-    public static ASMService getInstance() {
-        return Instance.INSTANCE;
-    }
+  private byte[] getSubClassByteCode(SubClassDefinition subClassDefinition) {
 
-    public <T> Class<? extends T> createSubclassFor(Class<T> clazz) {
-        SubClassDefinition subClassDefinition = new DefaultSubClassDefinition(clazz);
-        return createSubclassFor(clazz, subClassDefinition);
-    }
+    ClassReader classReader = subClassDefinition.getClassReader();
+    ClassWriter cw = new ClassWriter(0);
 
-    @SuppressWarnings("unchecked")
-    public <T> Class<? extends T> createSubclassFor(Class<T> clazz, SubClassDefinition subClassDefinition) {
-        Class<? extends T> generatedClass = (Class<? extends T>) alreadyGeneratedClasses.get(subClassDefinition.getGeneratedClassName());
+    classReader.accept(new SubClassCreator(cw, subClassDefinition.getGeneratedClassNameAsJDKPath()), 0);
 
-        if (generatedClass != null) {
-            logger.info("Reusing already generated sub-class for class [{0}]", clazz.getName());
-        } else {
-            try {
-                generatedClass = (Class<? extends T>) simpleClassLoader.loadThisClass(getSubClassByteCode(subClassDefinition),
-                        subClassDefinition.getGeneratedClassName());
-                alreadyGeneratedClasses.add(subClassDefinition.getGeneratedClassName(), generatedClass);
-            } catch (Throwable throwable) {
-                throw ReflectionException.getInstance("Failed to create subclass for class: " + clazz, throwable);
-            }
-        }
-        return generatedClass;
-    }
+    cw.visitEnd();
+    return cw.toByteArray();
+  }
 
-    private byte[] getSubClassByteCode(SubClassDefinition subClassDefinition) {
-
-        ClassReader classReader = subClassDefinition.getClassReader();
-        ClassWriter cw = new ClassWriter(0);
-
-        classReader.accept(new SubClassCreator(cw, subClassDefinition.getGeneratedClassNameAsJDKPath()), 0);
-
-        cw.visitEnd();
-        return cw.toByteArray();
-    }
-
-    private static class Instance {
-        private static final ASMService INSTANCE = new ASMService();
-    }
+  private static class Instance {
+    private static final ASMService INSTANCE = new ASMService();
+  }
 }

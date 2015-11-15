@@ -30,23 +30,23 @@ import com.openpojo.random.util.Helper;
  * @author oshoukry
  */
 public class AbstractCollectionRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { AbstractCollection.class };
-    private static final AbstractCollectionRandomGenerator INSTANCE = new AbstractCollectionRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { AbstractCollection.class };
+  private static final AbstractCollectionRandomGenerator INSTANCE = new AbstractCollectionRandomGenerator();
 
-    public static AbstractCollectionRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static AbstractCollectionRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new ArrayList();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new ArrayList();
+  }
 
-    private AbstractCollectionRandomGenerator() {
-    }
+  private AbstractCollectionRandomGenerator() {
+  }
 }

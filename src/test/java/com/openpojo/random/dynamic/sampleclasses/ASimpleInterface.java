@@ -19,10 +19,10 @@ package com.openpojo.random.dynamic.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public interface ASimpleInterface {
 
-    public String getName();
-    public void doSomethingUseful();
+  public String getName();
+
+  public void doSomethingUseful();
 }

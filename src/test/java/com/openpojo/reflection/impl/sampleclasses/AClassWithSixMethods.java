@@ -19,20 +19,25 @@ package com.openpojo.reflection.impl.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 @SuppressWarnings("unused")
 public class AClassWithSixMethods {
 
-    public void publicVoidMethod() {}
+  public void publicVoidMethod() {
+  }
 
-    private void privateVoidMethod() {}
+  private void privateVoidMethod() {
+  }
 
-    protected void protectedVoidMethod() {}
+  protected void protectedVoidMethod() {
+  }
 
-    public static void publicStaticVoidMethod() {}
+  public static void publicStaticVoidMethod() {
+  }
 
-    private static void privateStaticVoidMethod() {}
+  private static void privateStaticVoidMethod() {
+  }
 
-    protected static void protectedStaticVoidMethod() {}
+  protected static void protectedStaticVoidMethod() {
+  }
 }

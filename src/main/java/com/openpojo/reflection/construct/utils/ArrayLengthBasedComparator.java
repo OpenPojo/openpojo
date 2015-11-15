@@ -20,12 +20,11 @@ package com.openpojo.reflection.construct.utils;
 
 /**
  * @author oshoukry
- *
  */
 public abstract class ArrayLengthBasedComparator {
-    public abstract boolean compare(final Class<?>[] leftHand, final Class<?>[] rightHand);
+  public abstract boolean compare(final Class<?>[] leftHand, final Class<?>[] rightHand);
 
-    protected int getLength(final Object[] array) {
-        return array == null ? -1 : array.length;
-    }
+  protected int getLength(final Object[] array) {
+    return array == null ? -1 : array.length;
+  }
 }

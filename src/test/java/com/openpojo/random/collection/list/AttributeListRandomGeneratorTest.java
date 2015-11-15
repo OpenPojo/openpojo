@@ -36,74 +36,74 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class AttributeListRandomGeneratorTest {
-    private final AttributeListRandomGenerator randomGenerator = AttributeListRandomGenerator.getInstance();
-    private final Class<AttributeList> expectedTypeClass = AttributeList.class;
+  private final AttributeListRandomGenerator randomGenerator = AttributeListRandomGenerator.getInstance();
+  private final Class<AttributeList> expectedTypeClass = AttributeList.class;
 
-    @Test
-    public void constructorShouldBePrivate() {
-        PojoClass randomGeneratorPojo = PojoClassFactory.getPojoClass(randomGenerator.getClass());
+  @Test
+  public void constructorShouldBePrivate() {
+    PojoClass randomGeneratorPojo = PojoClassFactory.getPojoClass(randomGenerator.getClass());
 
-        List<PojoMethod> constructors = new ArrayList<PojoMethod>();
+    List<PojoMethod> constructors = new ArrayList<PojoMethod>();
 
-        for (PojoMethod constructor : randomGeneratorPojo.getPojoConstructors()) {
-            if (!constructor.isSynthetic())
-                constructors.add(constructor);
-        }
-        Assert.assertEquals("Should only have one constructor [" + randomGeneratorPojo.getPojoConstructors() + "]", 1, constructors.size());
-
-        PojoMethod constructor = constructors.get(0);
-
-        Assert.assertTrue(constructor.isPrivate());
+    for (PojoMethod constructor : randomGeneratorPojo.getPojoConstructors()) {
+      if (!constructor.isSynthetic())
+        constructors.add(constructor);
     }
+    Assert.assertEquals("Should only have one constructor [" + randomGeneratorPojo.getPojoConstructors() + "]", 1, constructors.size());
 
-    @Test
-    public void shouldBeAbleToCreate() {
-        Assert.assertEquals(AttributeListRandomGenerator.class, randomGenerator.getClass());
-    }
+    PojoMethod constructor = constructors.get(0);
 
-    @Test
-    public void shouldOnlyReturnCollectionClassFromGetTypes() {
-        Collection<Class<?>> types = randomGenerator.getTypes();
-        Assert.assertNotNull("Should not be null", types);
-        Assert.assertEquals("Should only have one type", 1, types.size());
-        Assert.assertEquals("Should only be " + expectedTypeClass.getName(), expectedTypeClass, types.iterator().next());
-    }
+    Assert.assertTrue(constructor.isPrivate());
+  }
 
-    @Test
-    public void generatedTypeShouldBeAssignableToDeclaredType() {
-        Class<?> declaredType = randomGenerator.getTypes().iterator().next();
-        Object generatedInstance = randomGenerator.doGenerate(declaredType);
-        Assert.assertTrue("[" + declaredType.getName() + " is not assignable to " + generatedInstance.getClass().getName() + "]",
-                declaredType.isAssignableFrom(generatedInstance.getClass()));
-    }
+  @Test
+  public void shouldBeAbleToCreate() {
+    Assert.assertEquals(AttributeListRandomGenerator.class, randomGenerator.getClass());
+  }
 
-    @Test(expected = RandomGeneratorException.class)
-    public void shouldThrowExceptionForDoGenerateForOtherThanCollectionClass() {
-        randomGenerator.doGenerate(ALeafChildClass.class);
-    }
+  @Test
+  public void shouldOnlyReturnCollectionClassFromGetTypes() {
+    Collection<Class<?>> types = randomGenerator.getTypes();
+    Assert.assertNotNull("Should not be null", types);
+    Assert.assertEquals("Should only have one type", 1, types.size());
+    Assert.assertEquals("Should only be " + expectedTypeClass.getName(), expectedTypeClass, types.iterator().next());
+  }
 
-    @Test
-    public void shouldGenerateCorrectTypeCollectionForRequestedCollection() {
-        Collection someObject = randomGenerator.doGenerate(expectedTypeClass);
-        Assert.assertNotNull("Should not be null", someObject);
-        Assert.assertEquals("Should be a " + expectedTypeClass.getName(), expectedTypeClass, someObject.getClass());
-        Assert.assertTrue("Should not be Empty", someObject.size() > 0);
-    }
+  @Test
+  public void generatedTypeShouldBeAssignableToDeclaredType() {
+    Class<?> declaredType = randomGenerator.getTypes().iterator().next();
+    Object generatedInstance = randomGenerator.doGenerate(declaredType);
+    Assert.assertTrue("[" + declaredType.getName() + " is not assignable to " + generatedInstance.getClass().getName() +
+        "]", declaredType.isAssignableFrom(generatedInstance.getClass()));
+  }
 
-    @Test
-    public void endToEnd() {
-        Collection<?> generatedCollection = RandomFactory.getRandomValue(expectedTypeClass);
-        assertCollectionHasExpectedTypes(generatedCollection, Attribute.class);
-    }
+  @Test(expected = RandomGeneratorException.class)
+  public void shouldThrowExceptionForDoGenerateForOtherThanCollectionClass() {
+    randomGenerator.doGenerate(ALeafChildClass.class);
+  }
 
-    protected void assertCollectionHasExpectedTypes(Collection<?> generatedCollection, Class<?> type) {
-        Assert.assertNotNull("Should not be null", generatedCollection);
-        Assert.assertEquals( expectedTypeClass, generatedCollection.getClass());
-        Assert.assertTrue("Should not be empty", generatedCollection.size() > 0);
-        for (Object entry : generatedCollection) {
-            Assert.assertNotNull("Should not be null", entry);
-            Assert.assertEquals("Entry should be " + type.getName(), type, entry.getClass());
-        }
+  @Test
+  public void shouldGenerateCorrectTypeCollectionForRequestedCollection() {
+    Collection someObject = randomGenerator.doGenerate(expectedTypeClass);
+    Assert.assertNotNull("Should not be null", someObject);
+    Assert.assertEquals("Should be a " + expectedTypeClass.getName(), expectedTypeClass, someObject.getClass());
+    Assert.assertTrue("Should not be Empty", someObject.size() > 0);
+  }
+
+  @Test
+  public void endToEnd() {
+    Collection<?> generatedCollection = RandomFactory.getRandomValue(expectedTypeClass);
+    assertCollectionHasExpectedTypes(generatedCollection, Attribute.class);
+  }
+
+  protected void assertCollectionHasExpectedTypes(Collection<?> generatedCollection, Class<?> type) {
+    Assert.assertNotNull("Should not be null", generatedCollection);
+    Assert.assertEquals(expectedTypeClass, generatedCollection.getClass());
+    Assert.assertTrue("Should not be empty", generatedCollection.size() > 0);
+    for (Object entry : generatedCollection) {
+      Assert.assertNotNull("Should not be null", entry);
+      Assert.assertEquals("Entry should be " + type.getName(), type, entry.getClass());
     }
+  }
 
 }

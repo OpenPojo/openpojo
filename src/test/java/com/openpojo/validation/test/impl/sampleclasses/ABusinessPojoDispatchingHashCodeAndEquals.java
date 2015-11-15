@@ -25,17 +25,17 @@ import com.openpojo.business.annotation.BusinessKey;
  */
 public class ABusinessPojoDispatchingHashCodeAndEquals {
 
-    @SuppressWarnings("unused")
-    @BusinessKey
-    private String someString;
+  @SuppressWarnings("unused")
+  @BusinessKey
+  private String someString;
 
-    @Override
-    public int hashCode() {
-        return BusinessIdentity.getHashCode(this);
-    }
+  @Override
+  public int hashCode() {
+    return BusinessIdentity.getHashCode(this);
+  }
 
-    @Override
-    public boolean equals(final Object obj) {
-        return BusinessIdentity.areEqual(this, obj);
-    }
+  @Override
+  public boolean equals(final Object obj) {
+    return BusinessIdentity.areEqual(this, obj);
+  }
 }
