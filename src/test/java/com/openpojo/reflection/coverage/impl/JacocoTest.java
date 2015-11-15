@@ -26,23 +26,23 @@ import org.junit.Test;
  */
 public class JacocoTest {
 
-    @Test
-    public void shouldHaveJacocoPojoClassAdapter() {
-        Assert.assertEquals(JacocoPojoClassAdapter.class, Jacoco.getInstance().getPojoClassAdapter().getClass());
-    }
+  @Test
+  public void shouldHaveJacocoPojoClassAdapter() {
+    Assert.assertEquals(JacocoPojoClassAdapter.class, Jacoco.getInstance().getPojoClassAdapter().getClass());
+  }
 
-    @Test
-    public void shouldHaveNoClassFilter() {
-        Assert.assertNull(Jacoco.getInstance().getPojoClassFilter());
-    }
+  @Test
+  public void shouldHaveNoClassFilter() {
+    Assert.assertNull(Jacoco.getInstance().getPojoClassFilter());
+  }
 
-    @Test
-    public void nameIsJacoco() {
-        Assert.assertEquals("Jacoco", Jacoco.getInstance().getName());
-    }
-    
-    @Test
-    public void coverageClassNameIs__orgDOTjacocoDOTagentDOTrtDOTIAgent() {
-        Assert.assertEquals("org.jacoco.agent.rt.IAgent", Jacoco.getInstance().getCoverageClassName());
-    }
+  @Test
+  public void nameIsJacoco() {
+    Assert.assertEquals("Jacoco", Jacoco.getInstance().getName());
+  }
+
+  @Test
+  public void coverageClassNameIs__orgDOTjacocoDOTagentDOTrtDOTIAgent() {
+    Assert.assertEquals("org.jacoco.agent.rt.IAgent", Jacoco.getInstance().getCoverageClassName());
+  }
 }

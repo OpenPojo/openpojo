@@ -23,42 +23,42 @@ import com.openpojo.log.utils.MessageFormatter;
  * @author oshoukry
  */
 public final class LoggerVarArgsTestData {
-    private final String expected;
-    private final String message;
-    private final Object[] params;
+  private final String expected;
+  private final String message;
+  private final Object[] params;
 
-    /**
-     * Full constructor.
-     *
-     * @param message
-     *            The message to log.
-     * @param params
-     *            The parameters to log.
-     */
-    public LoggerVarArgsTestData(final String message, final Object[] params) {
-        this.message = message;
-        this.params = params;
-        expected = MessageFormatter.format(message, params);
-    }
+  /**
+   * Full constructor.
+   *
+   * @param message
+   *     The message to log.
+   * @param params
+   *     The parameters to log.
+   */
+  public LoggerVarArgsTestData(final String message, final Object[] params) {
+    this.message = message;
+    this.params = params;
+    expected = MessageFormatter.format(message, params);
+  }
 
-    /**
-     * @return the expected
-     */
-    public String getExpected() {
-        return expected;
-    }
+  /**
+   * @return the expected
+   */
+  public String getExpected() {
+    return expected;
+  }
 
-    /**
-     * @return the message
-     */
-    public String getMessage() {
-        return message;
-    }
+  /**
+   * @return the message
+   */
+  public String getMessage() {
+    return message;
+  }
 
-    /**
-     * @return the params
-     */
-    public Object[] getParams() {
-        return params;
-    }
+  /**
+   * @return the params
+   */
+  public Object[] getParams() {
+    return params;
+  }
 }

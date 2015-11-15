@@ -23,11 +23,11 @@ package com.openpojo.reflection.construct.utils;
  */
 public class LessThan extends ArrayLengthBasedComparator {
 
-    @Override
-    public boolean compare(final Class<?>[] leftHand, final Class<?>[] rightHand) {
-        int leftHandLength = getLength(leftHand);
-        int rightHandLength = getLength(rightHand);
-        return leftHandLength < rightHandLength;
-    }
+  @Override
+  public boolean compare(final Class<?>[] leftHand, final Class<?>[] rightHand) {
+    int leftHandLength = getLength(leftHand);
+    int rightHandLength = getLength(rightHand);
+    return leftHandLength < rightHandLength;
+  }
 
 }

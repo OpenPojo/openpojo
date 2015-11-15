@@ -30,14 +30,14 @@ import org.junit.Test;
  */
 public class MapWithGenericsTest {
 
-    @Test
-    public void testEndToEndMap() {
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new SetterMustExistRule())
-                .with(new SetterTester())
-                .build();
+  @Test
+  public void testEndToEndMap() {
+    Validator pojoValidator = ValidatorBuilder.create()
+        .with(new SetterMustExistRule())
+        .with(new SetterTester())
+        .build();
 
-        pojoValidator.validate(PojoClassFactory.getPojoClass(ClassWithVariousGenericMap.class));
-    }
+    pojoValidator.validate(PojoClassFactory.getPojoClass(ClassWithVariousGenericMap.class));
+  }
 
 }

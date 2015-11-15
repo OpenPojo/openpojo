@@ -23,11 +23,13 @@ import com.openpojo.utils.log.LogEvent.Priority;
 
 /**
  * @author oshoukry
- *
  */
 public interface MockAppender {
-    public void resetAppender();
-    public Integer getCountBySourceByPriority(final String source, final Priority priority);
-    public Integer getCountBySource(final String source);
-    public List<LogEvent> getLoggedEventsBySourceByPriority(final String source, final Priority priority);
+  public void resetAppender();
+
+  public Integer getCountBySourceByPriority(final String source, final Priority priority);
+
+  public Integer getCountBySource(final String source);
+
+  public List<LogEvent> getLoggedEventsBySourceByPriority(final String source, final Priority priority);
 }

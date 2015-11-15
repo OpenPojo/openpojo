@@ -32,26 +32,26 @@ import com.openpojo.reflection.java.load.ClassUtil;
  * @author oshoukry
  */
 public class LinkedTransferQueueRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final String TYPE = "java.util.concurrent.LinkedTransferQueue";
-    private static final LinkedTransferQueueRandomGenerator INSTANCE = new LinkedTransferQueueRandomGenerator();
+  private static final String TYPE = "java.util.concurrent.LinkedTransferQueue";
+  private static final LinkedTransferQueueRandomGenerator INSTANCE = new LinkedTransferQueueRandomGenerator();
 
-    public static LinkedTransferQueueRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static LinkedTransferQueueRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        List<Class<?>> types = new ArrayList<Class<?>>();
-        if (ClassUtil.isClassLoaded(TYPE))
-            types.add(ClassUtil.loadClass(TYPE));
-        return types;
-    }
+  public Collection<Class<?>> getTypes() {
+    List<Class<?>> types = new ArrayList<Class<?>>();
+    if (ClassUtil.isClassLoaded(TYPE))
+      types.add(ClassUtil.loadClass(TYPE));
+    return types;
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(TYPE)));
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(TYPE)));
+  }
 
-    private LinkedTransferQueueRandomGenerator() {
-    }
+  private LinkedTransferQueueRandomGenerator() {
+  }
 }

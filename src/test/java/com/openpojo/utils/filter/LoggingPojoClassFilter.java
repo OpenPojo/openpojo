@@ -31,23 +31,23 @@ import com.openpojo.reflection.PojoClassFilter;
  * @author oshoukry
  */
 public class LoggingPojoClassFilter implements PojoClassFilter {
-    private final List<PojoClass> pojoClassCallLogs = new LinkedList<PojoClass>();
-    private boolean returnValue;
+  private final List<PojoClass> pojoClassCallLogs = new LinkedList<PojoClass>();
+  private boolean returnValue;
 
-    public void setReturnValue(final boolean returnValue) {
-        this.returnValue = returnValue;
-    }
+  public void setReturnValue(final boolean returnValue) {
+    this.returnValue = returnValue;
+  }
 
-    public boolean getReturnValue() {
-        return returnValue;
-    }
+  public boolean getReturnValue() {
+    return returnValue;
+  }
 
-    public List<PojoClass> getPojoClassCallLogs() {
-        return Collections.unmodifiableList(pojoClassCallLogs);
-    }
+  public List<PojoClass> getPojoClassCallLogs() {
+    return Collections.unmodifiableList(pojoClassCallLogs);
+  }
 
-    public boolean include(final PojoClass pojoClass) {
-        pojoClassCallLogs.add(pojoClass);
-        return returnValue;
-    }
+  public boolean include(final PojoClass pojoClass) {
+    pojoClassCallLogs.add(pojoClass);
+    return returnValue;
+  }
 }

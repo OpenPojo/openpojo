@@ -28,13 +28,13 @@ import com.openpojo.validation.test.Tester;
  * @author oshoukry
  */
 public class LoggingTester implements Tester {
-    private final List<PojoClass> callLogs = new LinkedList<PojoClass>();
+  private final List<PojoClass> callLogs = new LinkedList<PojoClass>();
 
-    public void run(final PojoClass pojoClass) {
-        callLogs.add(pojoClass);
-    }
+  public void run(final PojoClass pojoClass) {
+    callLogs.add(pojoClass);
+  }
 
-    public List<PojoClass> getLogs() {
-        return Collections.unmodifiableList(callLogs);
-    }
+  public List<PojoClass> getLogs() {
+    return Collections.unmodifiableList(callLogs);
+  }
 }

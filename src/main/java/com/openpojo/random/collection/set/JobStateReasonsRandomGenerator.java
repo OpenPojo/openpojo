@@ -32,31 +32,32 @@ import com.openpojo.reflection.Parameterizable;
  * @author oshoukry
  */
 public class JobStateReasonsRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { JobStateReasons.class };
-    private static final JobStateReasonsRandomGenerator INSTANCE = new JobStateReasonsRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { JobStateReasons.class };
+  private static final JobStateReasonsRandomGenerator INSTANCE = new JobStateReasonsRandomGenerator();
 
-    public static JobStateReasonsRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static JobStateReasonsRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection doGenerate(Class<?> type) {
-        return CollectionHelper.buildCollections(getBasicInstance(type), JobStateReason.class);
-    }
+  public Collection doGenerate(Class<?> type) {
+    return CollectionHelper.buildCollections(getBasicInstance(type), JobStateReason.class);
+  }
 
-    public Collection doGenerate(Parameterizable parameterizedType) {
-        return CollectionHelper.buildCollections(doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes().get(0));
-    }
+  public Collection doGenerate(Parameterizable parameterizedType) {
+    return CollectionHelper.buildCollections(doGenerate(parameterizedType.getType()),
+        parameterizedType.getParameterTypes().get(0));
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new JobStateReasons();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new JobStateReasons();
+  }
 
-    private JobStateReasonsRandomGenerator() {
-    }
+  private JobStateReasonsRandomGenerator() {
+  }
 }

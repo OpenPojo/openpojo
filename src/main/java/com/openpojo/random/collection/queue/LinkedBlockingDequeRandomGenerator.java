@@ -33,27 +33,27 @@ import com.openpojo.reflection.java.load.ClassUtil;
  * @author oshoukry
  */
 public class LinkedBlockingDequeRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final String TYPE = "java.util.concurrent.LinkedBlockingDeque";
-    private static final LinkedBlockingDequeRandomGenerator INSTANCE = new LinkedBlockingDequeRandomGenerator();
+  private static final String TYPE = "java.util.concurrent.LinkedBlockingDeque";
+  private static final LinkedBlockingDequeRandomGenerator INSTANCE = new LinkedBlockingDequeRandomGenerator();
 
-    public static LinkedBlockingDequeRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static LinkedBlockingDequeRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        List<Class<?>> types = new ArrayList<Class<?>>();
-        if (ClassUtil.isClassLoaded(TYPE))
-            types.add(ClassUtil.loadClass(TYPE));
-        return types;
-    }
+  public Collection<Class<?>> getTypes() {
+    List<Class<?>> types = new ArrayList<Class<?>>();
+    if (ClassUtil.isClassLoaded(TYPE))
+      types.add(ClassUtil.loadClass(TYPE));
+    return types;
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(TYPE)), CollectionHelper
-                .MAX_RANDOM_ELEMENTS);
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(TYPE)), CollectionHelper
+        .MAX_RANDOM_ELEMENTS);
+  }
 
-    private LinkedBlockingDequeRandomGenerator() {
-    }
+  private LinkedBlockingDequeRandomGenerator() {
+  }
 }

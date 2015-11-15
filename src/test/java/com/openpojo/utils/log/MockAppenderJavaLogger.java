@@ -26,8 +26,8 @@ import com.openpojo.utils.log.LogEvent.Priority;
 
 /**
  * @author oshoukry
- *
  */
+
 /**
  * Our own JavaLogger adapter.<br>
  * The Mapping is done as follows:<br>
@@ -40,77 +40,77 @@ import com.openpojo.utils.log.LogEvent.Priority;
  */
 public class MockAppenderJavaLogger extends Handler implements MockAppender {
 
-    private Priority extractPriority(final LogRecord event) {
-        if (event.getLevel().equals(Level.FINEST)) {
-            return Priority.TRACE;
-        }
-        if (event.getLevel().equals(Level.FINER)) {
-            return Priority.DEBUG;
-        }
-        if (event.getLevel().equals(Level.FINE)) {
-            return Priority.INFO;
-        }
-        if (event.getLevel().equals(Level.WARNING)) {
-            return Priority.WARN;
-        }
-        if (event.getLevel().equals(Level.SEVERE)) {
-            return Priority.FATAL;
-        }
-        throw new IllegalArgumentException("Unknown Logged Level" + event.getLevel());
+  private Priority extractPriority(final LogRecord event) {
+    if (event.getLevel().equals(Level.FINEST)) {
+      return Priority.TRACE;
     }
+    if (event.getLevel().equals(Level.FINER)) {
+      return Priority.DEBUG;
+    }
+    if (event.getLevel().equals(Level.FINE)) {
+      return Priority.INFO;
+    }
+    if (event.getLevel().equals(Level.WARNING)) {
+      return Priority.WARN;
+    }
+    if (event.getLevel().equals(Level.SEVERE)) {
+      return Priority.FATAL;
+    }
+    throw new IllegalArgumentException("Unknown Logged Level" + event.getLevel());
+  }
 
-    @Override
-    public void close() throws SecurityException {
-    }
+  @Override
+  public void close() throws SecurityException {
+  }
 
-    @Override
-    public void flush() {
-    }
+  @Override
+  public void flush() {
+  }
 
-    @Override
-    public void publish(final LogRecord record) {
-        final LogEvent le = new LogEvent(record.getLoggerName(), extractPriority(record), record.getMessage());
-        EventLogger.registerEvent(this.getClass(), le);
-    }
+  @Override
+  public void publish(final LogRecord record) {
+    final LogEvent le = new LogEvent(record.getLoggerName(), extractPriority(record), record.getMessage());
+    EventLogger.registerEvent(this.getClass(), le);
+  }
 
-    /**
-     * This call is used for asserting on testing to see if you got the right counts for each priority.
-     *
-     * @param source
-     *            The source of the logs
-     * @param priority
-     *            The priority at which they were sent in as.
-     * @return The total count on recieved events.
-     */
-    public synchronized Integer getCountBySourceByPriority(final String source, final Priority priority) {
-        return EventLogger.getCountByAppenderBySourceByPriority(this.getClass(), source, priority);
-    }
+  /**
+   * This call is used for asserting on testing to see if you got the right counts for each priority.
+   *
+   * @param source
+   *     The source of the logs
+   * @param priority
+   *     The priority at which they were sent in as.
+   * @return The total count on recieved events.
+   */
+  public synchronized Integer getCountBySourceByPriority(final String source, final Priority priority) {
+    return EventLogger.getCountByAppenderBySourceByPriority(this.getClass(), source, priority);
+  }
 
-    /**
-     * This call is used for asserting on testing to see if you got the right counts regardless of categories.
-     *
-     * @param source
-     *            The source of the logs
-     * @return The total count on recieved events.
-     */
-    public synchronized Integer getCountBySource(final String source) {
-        return EventLogger.getCountBySource(this.getClass(), source);
-    }
+  /**
+   * This call is used for asserting on testing to see if you got the right counts regardless of categories.
+   *
+   * @param source
+   *     The source of the logs
+   * @return The total count on recieved events.
+   */
+  public synchronized Integer getCountBySource(final String source) {
+    return EventLogger.getCountBySource(this.getClass(), source);
+  }
 
-    /**
-     * Get all logged events by priority for a particular source.
-     *
-     * @param source
-     *            The source of the logs.
-     * @param priority
-     *            The priority at which they were sent in as.
-     * @return List of logged events.
-     */
-    public synchronized List<LogEvent> getLoggedEventsBySourceByPriority(final String source, final Priority priority) {
-        return EventLogger.getLoggedEventsByAppenderBySourceByPriority(this.getClass(), source, priority);
-    }
+  /**
+   * Get all logged events by priority for a particular source.
+   *
+   * @param source
+   *     The source of the logs.
+   * @param priority
+   *     The priority at which they were sent in as.
+   * @return List of logged events.
+   */
+  public synchronized List<LogEvent> getLoggedEventsBySourceByPriority(final String source, final Priority priority) {
+    return EventLogger.getLoggedEventsByAppenderBySourceByPriority(this.getClass(), source, priority);
+  }
 
-    public void resetAppender() {
-        EventLogger.resetEvents(this.getClass());
-    }
+  public void resetAppender() {
+    EventLogger.resetEvents(this.getClass());
+  }
 }

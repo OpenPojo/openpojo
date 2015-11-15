@@ -32,23 +32,23 @@ import com.openpojo.random.util.SerializableComparableObject;
  * @author oshoukry
  */
 public class LinkedHashMapRandomGenerator extends BaseMapRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { LinkedHashMap.class };
-    private static final LinkedHashMapRandomGenerator INSTANCE = new LinkedHashMapRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { LinkedHashMap.class };
+  private static final LinkedHashMapRandomGenerator INSTANCE = new LinkedHashMapRandomGenerator();
 
-    public static LinkedHashMapRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static LinkedHashMapRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Map getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return MapHelper.buildMap(new LinkedHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
-    }
+  @Override
+  protected Map getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return MapHelper.buildMap(new LinkedHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
+  }
 
-    private LinkedHashMapRandomGenerator() {
-    }
+  private LinkedHashMapRandomGenerator() {
+  }
 }

@@ -24,37 +24,36 @@ import java.util.Date;
  */
 @SuppressWarnings("unused")
 public final class MultiplePublicAndPrivateWithManyParamsConstructor {
-    private final String name;
-    private Integer age;
-    private Character gender;
-    private Boolean isAlive;
-    private Date dateOfBirth;
+  private final String name;
+  private Integer age;
+  private Character gender;
+  private Boolean isAlive;
+  private Date dateOfBirth;
 
-    public MultiplePublicAndPrivateWithManyParamsConstructor(final String name) {
-        this.name = name;
-    }
+  public MultiplePublicAndPrivateWithManyParamsConstructor(final String name) {
+    this.name = name;
+  }
 
-    public MultiplePublicAndPrivateWithManyParamsConstructor(final String name, final Integer age) {
-        this(name);
-        this.age = age;
-    }
+  public MultiplePublicAndPrivateWithManyParamsConstructor(final String name, final Integer age) {
+    this(name);
+    this.age = age;
+  }
 
-    private MultiplePublicAndPrivateWithManyParamsConstructor(final String name, final Integer age,
-            final Character gender) {
-        this(name, age);
-        this.gender = gender;
-    }
+  private MultiplePublicAndPrivateWithManyParamsConstructor(final String name, final Integer age, final Character gender) {
+    this(name, age);
+    this.gender = gender;
+  }
 
-    public MultiplePublicAndPrivateWithManyParamsConstructor(final String name, final Integer age,
-            final Character gender, final Boolean isAlive) {
-        this(name, age, gender);
-        this.isAlive = isAlive;
-    }
+  public MultiplePublicAndPrivateWithManyParamsConstructor(final String name, final Integer age, final Character gender, final
+  Boolean isAlive) {
+    this(name, age, gender);
+    this.isAlive = isAlive;
+  }
 
-    public MultiplePublicAndPrivateWithManyParamsConstructor(final String name, final Integer age,
-            final Character gender, final Date dateOfBirth) {
-        this(name, age, gender);
-        this.dateOfBirth = dateOfBirth;
-    }
+  public MultiplePublicAndPrivateWithManyParamsConstructor(final String name, final Integer age, final Character gender, final
+  Date dateOfBirth) {
+    this(name, age, gender);
+    this.dateOfBirth = dateOfBirth;
+  }
 
 }

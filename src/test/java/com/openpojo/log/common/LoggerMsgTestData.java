@@ -23,31 +23,31 @@ import com.openpojo.log.utils.MessageFormatter;
  * @author oshoukry
  */
 public class LoggerMsgTestData {
-    private final String expected;
-    private final Object message;
+  private final String expected;
+  private final Object message;
 
-    /**
-     * Full constructor
-     *
-     * @param message
-     *            The message to log.
-     */
-    public LoggerMsgTestData(final Object message) {
-        this.message = message;
-        expected = MessageFormatter.format(message);
-    }
+  /**
+   * Full constructor
+   *
+   * @param message
+   *     The message to log.
+   */
+  public LoggerMsgTestData(final Object message) {
+    this.message = message;
+    expected = MessageFormatter.format(message);
+  }
 
-    /**
-     * @return the expected
-     */
-    public String getExpected() {
-        return expected;
-    }
+  /**
+   * @return the expected
+   */
+  public String getExpected() {
+    return expected;
+  }
 
-    /**
-     * @return the message
-     */
-    public Object getMessage() {
-        return message;
-    }
+  /**
+   * @return the message
+   */
+  public Object getMessage() {
+    return message;
+  }
 }

@@ -26,32 +26,32 @@ import com.openpojo.reflection.adapt.impl.JacocoPojoClassAdapter;
  * @author oshoukry
  */
 public class Jacoco extends AbstractCoverageDetector {
-    private static final Jacoco INSTANCE = new Jacoco();
+  private static final Jacoco INSTANCE = new Jacoco();
 
-    private Jacoco() {
-    }
+  private Jacoco() {
+  }
 
-    public static Jacoco getInstance() {
-        return INSTANCE;
-    }
+  public static Jacoco getInstance() {
+    return INSTANCE;
+  }
 
-    @Override
-    public String getName() {
-        return "Jacoco";
-    }
+  @Override
+  public String getName() {
+    return "Jacoco";
+  }
 
-    @Override
-    public String getCoverageClassName() {
-        return "org.jacoco.agent.rt.IAgent";
-    }
+  @Override
+  public String getCoverageClassName() {
+    return "org.jacoco.agent.rt.IAgent";
+  }
 
-    @Override
-    public PojoClassFilter getPojoClassFilter() {
-        return null;
-    }
+  @Override
+  public PojoClassFilter getPojoClassFilter() {
+    return null;
+  }
 
-    @Override
-    public PojoClassAdapter getPojoClassAdapter() {
-        return JacocoPojoClassAdapter.getInstance();
-    }
+  @Override
+  public PojoClassAdapter getPojoClassAdapter() {
+    return JacocoPojoClassAdapter.getInstance();
+  }
 }

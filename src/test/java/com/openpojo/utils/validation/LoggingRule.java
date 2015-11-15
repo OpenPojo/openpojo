@@ -28,13 +28,13 @@ import com.openpojo.validation.rule.Rule;
  * @author oshoukry
  */
 public class LoggingRule implements Rule {
-    private transient final List<PojoClass> callLogs = new LinkedList<PojoClass>();
+  private transient final List<PojoClass> callLogs = new LinkedList<PojoClass>();
 
-    public void evaluate(final PojoClass pojoClass) {
-        callLogs.add(pojoClass);
-    }
+  public void evaluate(final PojoClass pojoClass) {
+    callLogs.add(pojoClass);
+  }
 
-    public List<PojoClass> getLogs() {
-        return Collections.unmodifiableList(callLogs);
-    }
+  public List<PojoClass> getLogs() {
+    return Collections.unmodifiableList(callLogs);
+  }
 }

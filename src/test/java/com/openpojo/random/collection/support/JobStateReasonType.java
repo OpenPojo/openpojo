@@ -25,10 +25,10 @@ import javax.print.attribute.standard.JobStateReason;
  * @author oshoukry
  */
 public class JobStateReasonType extends JobStateReason {
-    private static final Random RANDOM = new Random(new Date().getTime());
+  private static final Random RANDOM = new Random(new Date().getTime());
 
-    protected JobStateReasonType() {
-        super(RANDOM.nextInt(11));
-    }
+  protected JobStateReasonType() {
+    super(RANDOM.nextInt(11));
+  }
 
 }

@@ -26,46 +26,47 @@ import com.openpojo.reflection.java.load.ClassUtil;
  * @author oshoukry
  */
 public class JUnitAssertAffirmation extends AbstractAffirmation implements Affirmation {
-    static {
-        if (!ClassUtil.isClassLoaded("org.junit.Assert"))
-            throw ReflectionException.getInstance("org.junit.Assert class not found");
-    }
+  static {
+    if (!ClassUtil.isClassLoaded("org.junit.Assert"))
+      throw ReflectionException.getInstance("org.junit.Assert class not found");
+  }
 
-    private JUnitAssertAffirmation() {
-    }
+  private JUnitAssertAffirmation() {
+  }
 
-    public void fail(final String message) {
-        org.junit.Assert.fail(message);
-    }
+  public void fail(final String message) {
+    org.junit.Assert.fail(message);
+  }
 
-    public void affirmTrue(final String message, final boolean condition) {
-        org.junit.Assert.assertTrue(message, condition);
-    }
+  public void affirmTrue(final String message, final boolean condition) {
+    org.junit.Assert.assertTrue(message, condition);
+  }
 
-    public void affirmFalse(final String message, final boolean condition) {
-        org.junit.Assert.assertFalse(message, condition);
-    }
+  public void affirmFalse(final String message, final boolean condition) {
+    org.junit.Assert.assertFalse(message, condition);
+  }
 
-    public void affirmNotNull(final String message, final Object object) {
-        org.junit.Assert.assertNotNull(message, object);
-    }
+  public void affirmNotNull(final String message, final Object object) {
+    org.junit.Assert.assertNotNull(message, object);
+  }
 
-    public void affirmNull(final String message, final Object object) {
-        org.junit.Assert.assertNull(message, object);
-    }
+  public void affirmNull(final String message, final Object object) {
+    org.junit.Assert.assertNull(message, object);
+  }
 
-    public void affirmEquals(final String message, final Object expected, final Object actual) {
-        if (objectPointersAreTheSame(expected, actual)) return;
+  public void affirmEquals(final String message, final Object expected, final Object actual) {
+    if (objectPointersAreTheSame(expected, actual))
+      return;
 
-        if (isArray(expected)) {
-            affirmArrayEquals(message, expected, actual);
-        } else {
-            org.junit.Assert.assertEquals(message, expected, actual);
-        }
+    if (isArray(expected)) {
+      affirmArrayEquals(message, expected, actual);
+    } else {
+      org.junit.Assert.assertEquals(message, expected, actual);
     }
+  }
 
-    @Override
-    public String toString() {
-        return BusinessIdentity.toString(this);
-    }
+  @Override
+  public String toString() {
+    return BusinessIdentity.toString(this);
+  }
 }

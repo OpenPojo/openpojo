@@ -34,22 +34,23 @@ import com.openpojo.reflection.impl.ParameterizableFactory;
  */
 public class MapHelper {
 
-    private static final Random RANDOM = new Random(new Date().getTime());
-    private static final int MAX_RANDOM_ELEMENTS = 5;
+  private static final Random RANDOM = new Random(new Date().getTime());
+  private static final int MAX_RANDOM_ELEMENTS = 5;
 
-    @SuppressWarnings("unchecked")
-    public static Map buildMap(Map map, Type key, Type value) {
-        if (key == null || value == null || map == null) return map;
+  @SuppressWarnings("unchecked")
+  public static Map buildMap(Map map, Type key, Type value) {
+    if (key == null || value == null || map == null)
+      return map;
 
-        int counter = RANDOM.nextInt(MAX_RANDOM_ELEMENTS) + 1;
-        map.clear();
+    int counter = RANDOM.nextInt(MAX_RANDOM_ELEMENTS) + 1;
+    map.clear();
 
-        while (counter-- > 0) {
-            Object nextKey = RandomFactory.getRandomValue(ParameterizableFactory.getInstance(key));
-            Object nextValue = RandomFactory.getRandomValue(ParameterizableFactory.getInstance(value));
-            map.put(nextKey, nextValue);
-        }
-        return map;
-
+    while (counter-- > 0) {
+      Object nextKey = RandomFactory.getRandomValue(ParameterizableFactory.getInstance(key));
+      Object nextValue = RandomFactory.getRandomValue(ParameterizableFactory.getInstance(value));
+      map.put(nextKey, nextValue);
     }
+    return map;
+
+  }
 }

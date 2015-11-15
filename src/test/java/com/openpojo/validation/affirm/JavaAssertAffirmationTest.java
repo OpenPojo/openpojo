@@ -17,32 +17,30 @@
 
 package com.openpojo.validation.affirm;
 
-import org.junit.Assert;
-
-import org.junit.Test;
-
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class JavaAssertAffirmationTest extends AbstractAffirmationTest {
-    private final Affirmation javaAssertAffirmation = (Affirmation) InstanceFactory.getInstance(PojoClassFactory
-            .getPojoClass(JavaAssertionAffirmation.class));
+  private final Affirmation javaAssertAffirmation = (Affirmation) InstanceFactory.getInstance(PojoClassFactory.getPojoClass
+      (JavaAssertionAffirmation.class));
 
-    @Override
-    public Affirmation getAffirmation() {
-        return javaAssertAffirmation;
-    }
+  @Override
+  public Affirmation getAffirmation() {
+    return javaAssertAffirmation;
+  }
 
-    @Test
-    public void shouldTestToString() {
-        Assert.assertTrue(String.format("[%s] signature changed? expected=[%s]!!", JavaAssertionAffirmation.class
-                .getName(), "com.openpojo.validation.affirm.JavaAssertionAffirmation [@xxxxxx: ]"),
-                          javaAssertAffirmation.toString()
-                                  .startsWith("com.openpojo.validation.affirm.JavaAssertionAffirmation [@")
-                                  && javaAssertAffirmation.toString().endsWith(": ]"));
-    }
+  @Test
+  public void shouldTestToString() {
+    Assert.assertTrue(String.format("[%s] signature changed? expected=[%s]!!",
+            JavaAssertionAffirmation.class.getName(),
+            "com.openpojo.validation.affirm.JavaAssertionAffirmation [@xxxxxx: ]"),
+        javaAssertAffirmation.toString().startsWith("com.openpojo.validation.affirm.JavaAssertionAffirmation [@")
+            && javaAssertAffirmation.toString().endsWith(": ]"));
+  }
 
 }

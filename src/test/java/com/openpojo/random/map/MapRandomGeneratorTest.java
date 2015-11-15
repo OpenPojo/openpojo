@@ -30,31 +30,31 @@ import com.openpojo.random.map.util.BaseMapRandomGeneratorTest;
  */
 public class MapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
 
-    protected MapRandomGenerator getInstance() {
-        return MapRandomGenerator.getInstance();
-    }
+  protected MapRandomGenerator getInstance() {
+    return MapRandomGenerator.getInstance();
+  }
 
 
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return MapRandomGenerator.class;
-    }
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return MapRandomGenerator.class;
+  }
 
-    protected Class<? extends Map> getExpectedTypeClass() {
-        return Map.class;
-    }
+  protected Class<? extends Map> getExpectedTypeClass() {
+    return Map.class;
+  }
 
-    protected Class<? extends Map> getGeneratedTypeClass() {
-        return HashMap.class;
-    }
+  protected Class<? extends Map> getGeneratedTypeClass() {
+    return HashMap.class;
+  }
 
-    @Override
-    protected Class<?> getGenericType1() {
-        return SimpleType1.class;
-    }
+  @Override
+  protected Class<?> getGenericType1() {
+    return SimpleType1.class;
+  }
 
-    @Override
-    protected Class<?> getGenericType2() {
-        return SimpleType2.class;
-    }
+  @Override
+  protected Class<?> getGenericType2() {
+    return SimpleType2.class;
+  }
 
 }

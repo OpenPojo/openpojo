@@ -25,15 +25,15 @@ import com.openpojo.business.BusinessIdentity;
  */
 public class JavaClassWithArray {
 
-    @SuppressWarnings({ "unused", "FieldCanBeLocal" })
-    private String[][] data;
+  @SuppressWarnings({ "unused", "FieldCanBeLocal" })
+  private String[][] data;
 
-    public JavaClassWithArray(String[][] data) {
-        this.data = data;
-    }
+  public JavaClassWithArray(String[][] data) {
+    this.data = data;
+  }
 
-    @Override
-    public String toString() {
-        return BusinessIdentity.toString(this);
-    }
+  @Override
+  public String toString() {
+    return BusinessIdentity.toString(this);
+  }
 }

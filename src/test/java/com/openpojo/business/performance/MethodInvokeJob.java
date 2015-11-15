@@ -20,35 +20,35 @@ package com.openpojo.business.performance;
 import java.lang.reflect.Method;
 
 /**
-* @author oshoukry
-*/
+ * @author oshoukry
+ */
 class MethodInvokeJob implements Runnable {
 
-    private Object instance;
-    private Method methodToInvoke;
-    private Object [] parameters;
+  private Object instance;
+  private Method methodToInvoke;
+  private Object[] parameters;
 
 
-    public MethodInvokeJob(final Object instance, final Method methodToInvoke, final Object... parameters) {
-        this.instance = instance;
-        this.methodToInvoke = methodToInvoke;
-        this.parameters = parameters;
+  public MethodInvokeJob(final Object instance, final Method methodToInvoke, final Object... parameters) {
+    this.instance = instance;
+    this.methodToInvoke = methodToInvoke;
+    this.parameters = parameters;
+  }
+
+  public void run() {
+    try {
+      methodToInvoke.invoke(instance, parameters);
+    } catch (Throwable throwable) {
+      if (!threadWasInterrupted(throwable)) {
+        throw new RuntimeException(throwable);
+      }
     }
+  }
 
-    public void run() {
-        try {
-            methodToInvoke.invoke(instance, parameters);
-        } catch (Throwable throwable) {
-            if (!threadWasInterrupted(throwable)) {
-                throw new RuntimeException(throwable);
-            }
-        }
-    }
-
-    private boolean threadWasInterrupted(Throwable throwable) {
-        Throwable cause = throwable;
-        while (cause.getCause() != null)
-            cause = cause.getCause();
-        return cause.getClass().equals(InterruptedException.class);
-    }
+  private boolean threadWasInterrupted(Throwable throwable) {
+    Throwable cause = throwable;
+    while (cause.getCause() != null)
+      cause = cause.getCause();
+    return cause.getClass().equals(InterruptedException.class);
+  }
 }

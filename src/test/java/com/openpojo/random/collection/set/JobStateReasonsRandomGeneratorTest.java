@@ -30,32 +30,34 @@ import com.openpojo.random.collection.util.BaseCollectionRandomGeneratorTest;
  */
 public class JobStateReasonsRandomGeneratorTest extends BaseCollectionRandomGeneratorTest {
 
-    @Override
-    protected ParameterizableRandomGenerator getInstance() {
-        return JobStateReasonsRandomGenerator.getInstance();
-    }
+  @Override
+  protected ParameterizableRandomGenerator getInstance() {
+    return JobStateReasonsRandomGenerator.getInstance();
+  }
 
-    @Override
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return JobStateReasonsRandomGenerator.class;
-    }
+  @Override
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return JobStateReasonsRandomGenerator.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getExpectedTypeClass() {
-        return JobStateReasons.class;
-    }
+  @Override
+  protected Class<? extends Collection> getExpectedTypeClass() {
+    return JobStateReasons.class;
+  }
 
-    @Override
-    protected Class<? extends Collection> getGeneratedTypeClass() {
-        return JobStateReasons.class;
-    }
+  @Override
+  protected Class<? extends Collection> getGeneratedTypeClass() {
+    return JobStateReasons.class;
+  }
 
-    @Override
-    protected Class<?> getDefaultType() { return JobStateReason.class; }
+  @Override
+  protected Class<?> getDefaultType() {
+    return JobStateReason.class;
+  }
 
-    @Override
-    protected Class<?> getGenericType() {
-        return JobStateReasonType.class;
-    }
+  @Override
+  protected Class<?> getGenericType() {
+    return JobStateReasonType.class;
+  }
 
 }

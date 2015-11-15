@@ -19,20 +19,19 @@ package com.openpojo.utils.log;
 
 /**
  * @author oshoukry
- *
  */
 public final class MockAppenderFactory {
-    private static final MockAppender LOG4JAPPENDER = new MockAppenderLog4J();
-    private static final MockAppender JAVALOGGERAPPENDER = new MockAppenderJavaLogger();
+  private static final MockAppender LOG4JAPPENDER = new MockAppenderLog4J();
+  private static final MockAppender JAVALOGGERAPPENDER = new MockAppenderJavaLogger();
 
-    public static MockAppender getMockAppender(final String name) {
-        if (name.equals("Log4J")) {
-            return LOG4JAPPENDER;
-        }
-        if (name.equals("Java")) {
-            return JAVALOGGERAPPENDER;
-        }
-        throw new IllegalArgumentException(String.format("Unknown appender requested [%s]", name));
+  public static MockAppender getMockAppender(final String name) {
+    if (name.equals("Log4J")) {
+      return LOG4JAPPENDER;
     }
+    if (name.equals("Java")) {
+      return JAVALOGGERAPPENDER;
+    }
+    throw new IllegalArgumentException(String.format("Unknown appender requested [%s]", name));
+  }
 
 }

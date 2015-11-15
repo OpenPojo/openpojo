@@ -37,56 +37,56 @@ import com.openpojo.reflection.java.packageloader.utils.PackageNameHelper;
  */
 public final class JARPackageLoader extends PackageLoader {
 
-    public JARPackageLoader(final URL packageURL, final String packageName) {
-        super(packageURL, packageName);
-    }
+  public JARPackageLoader(final URL packageURL, final String packageName) {
+    super(packageURL, packageName);
+  }
 
-    @Override
-    public Set<Type> getTypes() {
-        Set<Type> types = new LinkedHashSet<Type>();
-        for (Type type : getAllJarTypes()) {
-            Class<?> classEntry = (Class<?>) type;
-            if (classEntry.getPackage().getName().equals(packageName)) {
-                types.add(type);
-            }
-        }
-        return types;
+  @Override
+  public Set<Type> getTypes() {
+    Set<Type> types = new LinkedHashSet<Type>();
+    for (Type type : getAllJarTypes()) {
+      Class<?> classEntry = (Class<?>) type;
+      if (classEntry.getPackage().getName().equals(packageName)) {
+        types.add(type);
+      }
     }
+    return types;
+  }
 
-    @Override
-    public Set<String> getSubPackages() {
-        Set<String> subPackages = new LinkedHashSet<String>();
+  @Override
+  public Set<String> getSubPackages() {
+    Set<String> subPackages = new LinkedHashSet<String>();
 
-        Set<Type> types = getAllJarTypes();
-        for (Type type : types) {
-            Class<?> typeClass = (Class<?>) type;
-            String typeClassPackageName = typeClass.getPackage().getName();
-            String directSubPackageName = PackageNameHelper.getDirectSubPackageName(packageName, typeClassPackageName);
-            if (directSubPackageName != null) {
-                subPackages.add(directSubPackageName);
-            }
-        }
-        return subPackages;
+    Set<Type> types = getAllJarTypes();
+    for (Type type : types) {
+      Class<?> typeClass = (Class<?>) type;
+      String typeClassPackageName = typeClass.getPackage().getName();
+      String directSubPackageName = PackageNameHelper.getDirectSubPackageName(packageName, typeClassPackageName);
+      if (directSubPackageName != null) {
+        subPackages.add(directSubPackageName);
+      }
     }
+    return subPackages;
+  }
 
-    private Set<Type> getAllJarTypes() {
-        Set<Type> types = new LinkedHashSet<Type>();
-        JarURLConnection conn;
-        JarFile jar;
-        try {
-            conn = (JarURLConnection) packageURL.openConnection();
-            jar = conn.getJarFile();
-        } catch (IOException e) {
-            throw ReflectionException.getInstance(e.getMessage(), e);
-        }
-        for (JarEntry e : Collections.list(jar.entries())) {
-            String entryName = e.getName();
-            Class<?> classEntry = getAsClass(entryName);
-            if (classEntry != null) {
-                types.add(classEntry);
-            }
-        }
-        return types;
+  private Set<Type> getAllJarTypes() {
+    Set<Type> types = new LinkedHashSet<Type>();
+    JarURLConnection conn;
+    JarFile jar;
+    try {
+      conn = (JarURLConnection) packageURL.openConnection();
+      jar = conn.getJarFile();
+    } catch (IOException e) {
+      throw ReflectionException.getInstance(e.getMessage(), e);
     }
+    for (JarEntry e : Collections.list(jar.entries())) {
+      String entryName = e.getName();
+      Class<?> classEntry = getAsClass(entryName);
+      if (classEntry != null) {
+        types.add(classEntry);
+      }
+    }
+    return types;
+  }
 
 }
