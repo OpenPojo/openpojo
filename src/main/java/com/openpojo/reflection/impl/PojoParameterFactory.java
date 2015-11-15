@@ -27,7 +27,7 @@ import com.openpojo.reflection.PojoParameter;
  * @author oshoukry
  */
 public final class PojoParameterFactory {
-    public static PojoParameter getPojoParameter(Type type, Annotation[] annotations) {
-        return new PojoParameterImpl(type, annotations);
-    }
+  public static PojoParameter getPojoParameter(Type type, Annotation[] annotations) {
+    return new PojoParameterImpl(type, annotations);
+  }
 }

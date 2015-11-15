@@ -23,67 +23,66 @@ import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 
 /**
  * @author oshoukry
- *
  */
 public final class PojoMethodClass {
 
-    @SomeAnnotation
-    public void methodWithAnnotation() {
-    }
+  @SomeAnnotation
+  public void methodWithAnnotation() {
+  }
 
-    @SomeAnnotation
-    @AnotherAnnotation
-    public void methodWithMultipleAnnotations() {
+  @SomeAnnotation
+  @AnotherAnnotation
+  public void methodWithMultipleAnnotations() {
 
-    }
+  }
 
-    public void methodWithoutAnnotation() {
+  public void methodWithoutAnnotation() {
 
-    }
+  }
 
-    public final void finalMethod() {
+  public final void finalMethod() {
 
-    }
+  }
 
-    public void nonFinalMethod() {
+  public void nonFinalMethod() {
 
-    }
+  }
 
-    @SuppressWarnings("unused")
-    private void privateMethod() {
+  @SuppressWarnings("unused")
+  private void privateMethod() {
 
-    }
+  }
 
-    public void nonPrivateMethod() {
+  public void nonPrivateMethod() {
 
-    }
+  }
 
-    protected void protectedMethod() {
+  protected void protectedMethod() {
 
-    }
+  }
 
-    void nonProtectedMethod() {
+  void nonProtectedMethod() {
 
-    }
+  }
 
-    public void publicMethod() {
+  public void publicMethod() {
 
-    }
+  }
 
-    void nonPublicMethod() {
+  void nonPublicMethod() {
 
-    }
+  }
 
 
-    public static void staticMethod() {
+  public static void staticMethod() {
 
-    }
+  }
 
-    public void nonStaticMethod() {
+  public void nonStaticMethod() {
 
-    }
+  }
 
-    public void isNotSyntheticMethod() {
+  public void isNotSyntheticMethod() {
 
-    }
+  }
 }

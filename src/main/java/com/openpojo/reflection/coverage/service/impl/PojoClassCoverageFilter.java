@@ -28,19 +28,19 @@ import com.openpojo.reflection.PojoClassFilter;
  * @author oshoukry
  */
 public class PojoClassCoverageFilter implements PojoClassFilter {
-    private Set<PojoClassFilter> filters = new HashSet<PojoClassFilter>();
+  private Set<PojoClassFilter> filters = new HashSet<PojoClassFilter>();
 
-    public void add(PojoClassFilter pojoClassFilter) {
-        if (pojoClassFilter != null) {
-            filters.add(pojoClassFilter);
-        }
+  public void add(PojoClassFilter pojoClassFilter) {
+    if (pojoClassFilter != null) {
+      filters.add(pojoClassFilter);
     }
+  }
 
-    public boolean include(PojoClass pojoClass) {
-        for (PojoClassFilter filter : filters) {
-            if (!filter.include(pojoClass))
-                return false;
-        }
-        return true;
+  public boolean include(PojoClass pojoClass) {
+    for (PojoClassFilter filter : filters) {
+      if (!filter.include(pojoClass))
+        return false;
     }
+    return true;
+  }
 }

@@ -29,11 +29,10 @@ import com.openpojo.validation.rule.Rule;
  */
 public class NoNestedClassRule implements Rule {
 
-    public void evaluate(final PojoClass pojoClass) {
-        if (pojoClass.isNestedClass()) {
-            Affirm.fail(String.format("Nested Classes not allowed please refactor out to a separate class [%s]",
-                    pojoClass));
-        }
+  public void evaluate(final PojoClass pojoClass) {
+    if (pojoClass.isNestedClass()) {
+      Affirm.fail(String.format("Nested Classes not allowed please refactor out to a separate class [%s]", pojoClass));
     }
+  }
 
 }

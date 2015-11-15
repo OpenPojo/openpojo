@@ -18,7 +18,7 @@
 package com.openpojo.reflection.impl.sampleclasses;
 
 public final class OnePublicNoParamConstructor {
-    public OnePublicNoParamConstructor() {
+  public OnePublicNoParamConstructor() {
 
-    }
+  }
 }

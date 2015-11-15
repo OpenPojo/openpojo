@@ -31,19 +31,18 @@ import com.openpojo.reflection.PojoField;
  * @author oshoukry
  */
 public final class PojoFieldFactory {
-    /**
-     * Get all PojoFields in a given Class.
-     *
-     * @param clazz
-     *            The class to Introspect.
-     * @return
-     *         List of All Fields as PojoFields in that class.
-     */
-    public static List<PojoField> getPojoFields(final Class<?> clazz) {
-        final List<PojoField> pojoFields = new LinkedList<PojoField>();
-        for (final Field field : clazz.getDeclaredFields()) {
-            pojoFields.add(new PojoFieldImpl(field));
-        }
-        return Collections.unmodifiableList(pojoFields);
+  /**
+   * Get all PojoFields in a given Class.
+   *
+   * @param clazz
+   *     The class to Introspect.
+   * @return List of All Fields as PojoFields in that class.
+   */
+  public static List<PojoField> getPojoFields(final Class<?> clazz) {
+    final List<PojoField> pojoFields = new LinkedList<PojoField>();
+    for (final Field field : clazz.getDeclaredFields()) {
+      pojoFields.add(new PojoFieldImpl(field));
     }
+    return Collections.unmodifiableList(pojoFields);
+  }
 }

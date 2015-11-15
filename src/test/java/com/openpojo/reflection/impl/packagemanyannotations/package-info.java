@@ -17,16 +17,15 @@
 
 /**
  * This package holdes the sample classes necessary for testing reflection.
- * @author oshoukry
  *
+ * @author oshoukry
+ * <p/>
  * The annotation @SomeAnnotation was thrown here because ant will automatically filter out package-info
  * out of the test classes, causing the script to fail upon checking counts of elements returned.<br>
  * <br>
  * Eclipse on the other hand will compile package-info in the class path without any problems.
  */
-@SomeAnnotation
-@AnotherAnnotation
-package com.openpojo.reflection.impl.packagemanyannotations;
+@SomeAnnotation @AnotherAnnotation package com.openpojo.reflection.impl.packagemanyannotations;
 
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;

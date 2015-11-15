@@ -24,33 +24,32 @@ import com.openpojo.business.annotation.BusinessKey;
  */
 class Parent extends Human {
 
-    @BusinessKey
-    private String lastName;
+  @BusinessKey
+  private String lastName;
 
-    public Parent() {
+  public Parent() {
+  }
 
-    }
+  /**
+   * @param lastName
+   */
+  public Parent(final String lastName) {
+    this.lastName = lastName;
+  }
 
-    /**
-     * @param lastName
-     */
-    public Parent(final String lastName) {
-        this.lastName = lastName;
-    }
+  /**
+   * @return the lastName
+   */
+  public String getLastName() {
+    return lastName;
+  }
 
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * @param lastName
-     *            the lastName to set
-     */
-    public void setLastName(final String lastName) {
-        this.lastName = lastName;
-    }
+  /**
+   * @param lastName
+   *     the lastName to set
+   */
+  public void setLastName(final String lastName) {
+    this.lastName = lastName;
+  }
 
 }

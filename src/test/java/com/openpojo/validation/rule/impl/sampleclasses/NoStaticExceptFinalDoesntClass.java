@@ -21,10 +21,10 @@ package com.openpojo.validation.rule.impl.sampleclasses;
  * @author oshoukry
  */
 public final class NoStaticExceptFinalDoesntClass {
-    // Okay
-    public static final String STATIC_FINAL_STRING = "Some String";
-    public final String finalString = "Some String";
+  // Okay
+  public static final String STATIC_FINAL_STRING = "Some String";
+  public final String finalString = "Some String";
 
-    // Not Okay
-    public static String staticString;
+  // Not Okay
+  public static String staticString;
 }

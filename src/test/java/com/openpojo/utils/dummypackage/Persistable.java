@@ -23,38 +23,38 @@ import java.sql.Timestamp;
  * @author oshoukry
  */
 public interface Persistable {
-    /**
-     * Returns the UUId of the Object as identified in the DB.
-     *
-     * @return
-     */
-    public String getId();
+  /**
+   * Returns the UUId of the Object as identified in the DB.
+   *
+   * @return
+   */
+  public String getId();
 
-    /**
-     * Set the creation date/time.
-     *
-     * @param created
-     */
-    public void setCreated(Timestamp created);
+  /**
+   * Set the creation date/time.
+   *
+   * @param created
+   */
+  public void setCreated(Timestamp created);
 
-    /**
-     * Get the date/time of creation.
-     *
-     * @return Returns the date/time this persistable was created.
-     */
-    public Timestamp getCreated();
+  /**
+   * Get the date/time of creation.
+   *
+   * @return Returns the date/time this persistable was created.
+   */
+  public Timestamp getCreated();
 
-    /**
-     * Set the last updated date/time.
-     *
-     * @param lastupdated
-     */
-    public void setLastupdated(Timestamp lastupdated);
+  /**
+   * Set the last updated date/time.
+   *
+   * @param lastupdated
+   */
+  public void setLastupdated(Timestamp lastupdated);
 
-    /**
-     * Get the last updated date/time.
-     *
-     * @return Returns the time of last date/time this persistable was updated.
-     */
-    public Timestamp getLastupdated();
+  /**
+   * Get the last updated date/time.
+   *
+   * @return Returns the time of last date/time this persistable was updated.
+   */
+  public Timestamp getLastupdated();
 }

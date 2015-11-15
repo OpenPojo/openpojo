@@ -25,7 +25,7 @@ import com.openpojo.reflection.coverage.CoverageDetector;
 /**
  * @author oshoukry
  */
-public interface PojoCoverageFilterService extends PojoClassFilter, PojoClassAdapter{
-    void registerCoverageDetector(CoverageDetector coverageDetector);
+public interface PojoCoverageFilterService extends PojoClassFilter, PojoClassAdapter {
+  void registerCoverageDetector(CoverageDetector coverageDetector);
 
 }

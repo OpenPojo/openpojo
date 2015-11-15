@@ -25,26 +25,23 @@ import java.util.List;
  * @author oshoukry
  */
 public interface Parameterizable {
-    /**
-     * Return the type encapsulated.
-     *
-     * @return
-     *         The type of the Parameterizable Object.
-     */
-    Class<?> getType();
+  /**
+   * Return the type encapsulated.
+   *
+   * @return The type of the Parameterizable Object.
+   */
+  Class<?> getType();
 
-    /**
-     * @return
-     *         True if Parameterized (i.e. List&lt;SomeClass&gt;).
-     */
-    boolean isParameterized();
+  /**
+   * @return True if Parameterized (i.e. List&lt;SomeClass&gt;).
+   */
+  boolean isParameterized();
 
-    /**
-     * Get the generics defined, returns empty list if not Parameterized.
-     *
-     * @return
-     *         Return a list of Type that are defined parameterized (i.e. will return a list
-     *         containing SomeClass for a List&lt;SomeClass&gt;, or [String, Integer] for Map&lt;String, Integer&lt;, ...etc).
-     */
-    List<Type> getParameterTypes();
+  /**
+   * Get the generics defined, returns empty list if not Parameterized.
+   *
+   * @return Return a list of Type that are defined parameterized (i.e. will return a list
+   * containing SomeClass for a List&lt;SomeClass&gt;, or [String, Integer] for Map&lt;String, Integer&lt;, ...etc).
+   */
+  List<Type> getParameterTypes();
 }

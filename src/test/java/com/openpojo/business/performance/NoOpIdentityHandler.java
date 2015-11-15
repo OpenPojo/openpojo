@@ -24,20 +24,20 @@ import com.openpojo.business.identity.IdentityHandler;
  */
 public class NoOpIdentityHandler implements IdentityHandler {
 
-    public int generateHashCode(Object object) {
-        throw new UnsupportedOperationException();
-    }
+  public int generateHashCode(Object object) {
+    throw new UnsupportedOperationException();
+  }
 
-    public boolean areEqual(Object first, Object second) {
-        throw new UnsupportedOperationException();
-    }
+  public boolean areEqual(Object first, Object second) {
+    throw new UnsupportedOperationException();
+  }
 
-    public void validate(Object object) {
-        throw new UnsupportedOperationException();
-    }
+  public void validate(Object object) {
+    throw new UnsupportedOperationException();
+  }
 
-    public boolean handlerFor(Object object) {
-        return false;
-    }
+  public boolean handlerFor(Object object) {
+    return false;
+  }
 
 }

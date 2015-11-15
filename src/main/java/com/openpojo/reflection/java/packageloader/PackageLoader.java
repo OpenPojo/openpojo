@@ -41,82 +41,81 @@ import com.openpojo.reflection.java.packageloader.impl.JARPackageLoader;
  */
 public abstract class PackageLoader {
 
-    protected final Logger logger;
+  protected final Logger logger;
 
-    @BusinessKey
-    protected final URL packageURL;
+  @BusinessKey
+  protected final URL packageURL;
 
-    @BusinessKey
-    protected final String packageName;
+  @BusinessKey
+  protected final String packageName;
 
-    public PackageLoader(final URL packageURL, final String packageName) {
-        this.packageURL = packageURL;
-        this.packageName = packageName;
-        logger = LoggerFactory.getLogger(this.getClass());
+  public PackageLoader(final URL packageURL, final String packageName) {
+    this.packageURL = packageURL;
+    this.packageName = packageName;
+    logger = LoggerFactory.getLogger(this.getClass());
+  }
+
+  public abstract Set<Type> getTypes();
+
+  public abstract Set<String> getSubPackages();
+
+  public static Set<URL> getThreadResources(final String path) {
+    String normalizedPath = fromJDKPackageToJDKPath(path);
+    Enumeration<URL> urls;
+    try {
+      urls = getThreadClassLoader().getResources(normalizedPath);
+    } catch (IOException e) {
+      throw ReflectionException.getInstance(MessageFormatter.format("Failed to getThreadResources for path[{0}]", path), e);
     }
-
-    public abstract Set<Type> getTypes();
-
-    public abstract Set<String> getSubPackages();
-
-    public static Set<URL> getThreadResources(final String path) {
-        String normalizedPath = fromJDKPackageToJDKPath(path);
-        Enumeration<URL> urls;
-        try {
-            urls = getThreadClassLoader().getResources(normalizedPath);
-        } catch (IOException e) {
-            throw ReflectionException.getInstance(MessageFormatter.format("Failed to getThreadResources for path[{0}]",
-                                                                          path), e);
-        }
-        Set<URL> returnURLs = new HashSet<URL>();
-        while (urls.hasMoreElements()) {
-            returnURLs.add(urls.nextElement());
-        }
-        return returnURLs;
+    Set<URL> returnURLs = new HashSet<URL>();
+    while (urls.hasMoreElements()) {
+      returnURLs.add(urls.nextElement());
     }
+    return returnURLs;
+  }
 
-    protected static PackageLoader getPackageLoaderByURL(final URL packageURL, final String packageName) {
-        if (packageURL.getProtocol().equalsIgnoreCase("jar")) {
-            return new JARPackageLoader(packageURL, packageName);
-        }
-        if (packageURL.getProtocol().equalsIgnoreCase("file")) {
-            return new FilePackageLoader(packageURL, packageName);
-        }
-        throw new IllegalArgumentException("Unknown package loader protocol: " + packageURL.getProtocol());
+  protected static PackageLoader getPackageLoaderByURL(final URL packageURL, final String packageName) {
+    if (packageURL.getProtocol().equalsIgnoreCase("jar")) {
+      return new JARPackageLoader(packageURL, packageName);
     }
-
-    private static ClassLoader getThreadClassLoader() {
-        return Thread.currentThread().getContextClassLoader();
+    if (packageURL.getProtocol().equalsIgnoreCase("file")) {
+      return new FilePackageLoader(packageURL, packageName);
     }
+    throw new IllegalArgumentException("Unknown package loader protocol: " + packageURL.getProtocol());
+  }
 
-    protected final Class<?> getAsClass(final String entry) {
-        if (isClass(entry)) {
-            String className = stripClassExtension(fromJDKPathToJDKPackage(entry));
-            logger.trace("loading class [{0}]", className);
+  private static ClassLoader getThreadClassLoader() {
+    return Thread.currentThread().getContextClassLoader();
+  }
 
-            return ClassUtil.loadClass(className, false);
-        }
-        return null;
+  protected final Class<?> getAsClass(final String entry) {
+    if (isClass(entry)) {
+      String className = stripClassExtension(fromJDKPathToJDKPackage(entry));
+      logger.trace("loading class [{0}]", className);
+
+      return ClassUtil.loadClass(className, false);
     }
+    return null;
+  }
 
-    protected static String fromJDKPackageToJDKPath(final String path) {
-        return path.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
-    }
+  protected static String fromJDKPackageToJDKPath(final String path) {
+    return path.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
+  }
 
-    protected static String fromJDKPathToJDKPackage(final String path) {
-        return path.replace(Java.PATH_DELIMITER, Java.PACKAGE_DELIMITER);
-    }
+  protected static String fromJDKPathToJDKPackage(final String path) {
+    return path.replace(Java.PATH_DELIMITER, Java.PACKAGE_DELIMITER);
+  }
 
-    private String stripClassExtension(final String path) {
-        return path.substring(0, path.length() - Java.CLASS_EXTENSION.length());
-    }
+  private String stripClassExtension(final String path) {
+    return path.substring(0, path.length() - Java.CLASS_EXTENSION.length());
+  }
 
-    private boolean isClass(final String path) {
-        return path.endsWith(Java.CLASS_EXTENSION);
-    }
+  private boolean isClass(final String path) {
+    return path.endsWith(Java.CLASS_EXTENSION);
+  }
 
-    @Override
-    public String toString() {
-        return BusinessIdentity.toString(this);
-    }
+  @Override
+  public String toString() {
+    return BusinessIdentity.toString(this);
+  }
 }

@@ -17,29 +17,29 @@
 
 package com.openpojo.validation.rule.impl;
 
-import org.junit.Test;
-
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsExceptStaticFinalDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsExceptStaticFinalDoesntClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsExceptStaticFinalDoesntPublicFinalClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsExceptStaticFinalDoesntPublicStaticClass;
+import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class NoPublicFieldsExceptStaticFinalRuleTest {
-    Class<?>[] failClasses = new Class<?>[] {
-            NoPublicFieldsExceptStaticFinalDoesntClass.class,
-            NoPublicFieldsExceptStaticFinalDoesntPublicStaticClass.class,
-            NoPublicFieldsExceptStaticFinalDoesntPublicFinalClass.class };
-    Class<?>[] passClasses = new Class<?>[] { NoPublicFieldsExceptStaticFinalDoesClass.class };
-    Rule rule = new NoPublicFieldsExceptStaticFinalRule();
+  Class<?>[] failClasses = new Class<?>[] {
+      NoPublicFieldsExceptStaticFinalDoesntClass.class,
+      NoPublicFieldsExceptStaticFinalDoesntPublicStaticClass.class,
+      NoPublicFieldsExceptStaticFinalDoesntPublicFinalClass.class };
 
-    @Test
-    public void testEvaluate() {
-        CommonCode.shouldPassRuleValidation(rule, passClasses);
-        CommonCode.shouldFailRuleValidation(rule, failClasses);
-    }
+  Class<?>[] passClasses = new Class<?>[] { NoPublicFieldsExceptStaticFinalDoesClass.class };
+  Rule rule = new NoPublicFieldsExceptStaticFinalRule();
+
+  @Test
+  public void testEvaluate() {
+    CommonCode.shouldPassRuleValidation(rule, passClasses);
+    CommonCode.shouldFailRuleValidation(rule, failClasses);
+  }
 
 }

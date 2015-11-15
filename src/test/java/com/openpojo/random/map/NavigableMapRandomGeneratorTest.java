@@ -32,40 +32,40 @@ import org.junit.Before;
  * @author oshoukry
  */
 public class NavigableMapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
-    private static final String NAVIGABLEMAP_CLASS_NAME = "java.util.NavigableMap";
+  private static final String NAVIGABLEMAP_CLASS_NAME = "java.util.NavigableMap";
 
-    @Before
-    public void requirement() {
-        Assume.assumeTrue(NAVIGABLEMAP_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(NAVIGABLEMAP_CLASS_NAME));
-    }
+  @Before
+  public void requirement() {
+    Assume.assumeTrue(NAVIGABLEMAP_CLASS_NAME + " is not loaded, skipping test", ClassUtil.isClassLoaded(NAVIGABLEMAP_CLASS_NAME));
+  }
 
-    protected ParameterizableRandomGenerator getInstance() {
-        return NavigableMapRandomGenerator.getInstance();
-    }
+  protected ParameterizableRandomGenerator getInstance() {
+    return NavigableMapRandomGenerator.getInstance();
+  }
 
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return NavigableMapRandomGenerator.class;
-    }
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return NavigableMapRandomGenerator.class;
+  }
 
-    @SuppressWarnings("unchecked")
-    protected Class<? extends Map> getExpectedTypeClass() {
-        return (Class<? extends Map>) ClassUtil.loadClass(NAVIGABLEMAP_CLASS_NAME);
-    }
+  @SuppressWarnings("unchecked")
+  protected Class<? extends Map> getExpectedTypeClass() {
+    return (Class<? extends Map>) ClassUtil.loadClass(NAVIGABLEMAP_CLASS_NAME);
+  }
 
-    protected Class<? extends Map> getGeneratedTypeClass() {
-        return TreeMap.class;
-    }
+  protected Class<? extends Map> getGeneratedTypeClass() {
+    return TreeMap.class;
+  }
 
-    protected Class<?> getGenericType1() {
-        return ComparableType1.class;
-    }
+  protected Class<?> getGenericType1() {
+    return ComparableType1.class;
+  }
 
-    protected Class<?> getGenericType2() {
-        return ComparableType2.class;
-    }
+  protected Class<?> getGenericType2() {
+    return ComparableType2.class;
+  }
 
-    public void constructorShouldBePrivate() {
-        super.constructorShouldBePrivate();
-    }
+  public void constructorShouldBePrivate() {
+    super.constructorShouldBePrivate();
+  }
 
 }

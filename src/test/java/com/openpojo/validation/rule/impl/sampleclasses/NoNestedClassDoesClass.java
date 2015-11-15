@@ -21,5 +21,5 @@ package com.openpojo.validation.rule.impl.sampleclasses;
  * @author oshoukry
  */
 public final class NoNestedClassDoesClass {
-    // Okay
+  // Okay
 }

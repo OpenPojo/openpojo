@@ -25,44 +25,44 @@ import com.openpojo.business.annotation.BusinessKey;
  */
 public class PojoClassWithHashCodeBusinessIdentity {
 
-    @BusinessKey
-    private String name;
+  @BusinessKey
+  private String name;
 
-    @BusinessKey
-    private Integer age;
+  @BusinessKey
+  private Integer age;
 
-    public PojoClassWithHashCodeBusinessIdentity() {
+  public PojoClassWithHashCodeBusinessIdentity() {
 
-    }
+  }
 
-    public PojoClassWithHashCodeBusinessIdentity(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+  public PojoClassWithHashCodeBusinessIdentity(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public Integer getAge() {
-        return age;
-    }
+  public Integer getAge() {
+    return age;
+  }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+  public void setAge(Integer age) {
+    this.age = age;
+  }
 
-    @Override
-    public int hashCode() {
-        return BusinessIdentity.getHashCode(this);
-    }
+  @Override
+  public int hashCode() {
+    return BusinessIdentity.getHashCode(this);
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        return BusinessIdentity.areEqual(this, o);
-    }
+  @Override
+  public boolean equals(Object o) {
+    return BusinessIdentity.areEqual(this, o);
+  }
 }

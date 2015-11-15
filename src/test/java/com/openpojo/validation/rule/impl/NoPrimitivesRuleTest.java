@@ -17,26 +17,24 @@
 
 package com.openpojo.validation.rule.impl;
 
-import org.junit.Test;
-
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPrimitivesDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPrimitivesDoesntClass;
+import org.junit.Test;
 
 /**
  * @author oshoukry
- *
  */
 public class NoPrimitivesRuleTest {
 
-    Class<?>[] failClasses = new Class<?>[]{ NoPrimitivesDoesntClass.class };
-    Class<?>[] passClasses = new Class<?>[]{ NoPrimitivesDoesClass.class };
-    Rule rule = new NoPrimitivesRule();
+  Class<?>[] failClasses = new Class<?>[] { NoPrimitivesDoesntClass.class };
+  Class<?>[] passClasses = new Class<?>[] { NoPrimitivesDoesClass.class };
+  Rule rule = new NoPrimitivesRule();
 
-    @Test
-    public void testEvaluate() {
-        CommonCode.shouldPassRuleValidation(rule, passClasses);
-        CommonCode.shouldFailRuleValidation(rule, failClasses);
-    }
+  @Test
+  public void testEvaluate() {
+    CommonCode.shouldPassRuleValidation(rule, passClasses);
+    CommonCode.shouldFailRuleValidation(rule, failClasses);
+  }
 
 }

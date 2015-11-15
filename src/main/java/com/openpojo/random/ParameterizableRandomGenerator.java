@@ -27,14 +27,13 @@ import com.openpojo.reflection.Parameterizable;
  */
 public interface ParameterizableRandomGenerator extends RandomGenerator {
 
-    /**
-     * Perform random generation.
-     *
-     * @param parameterizedType
-     *            The parameterized type to generate for.
-     * @return
-     *         A random Object dynamically created.
-     */
-    Object doGenerate(Parameterizable parameterizedType);
+  /**
+   * Perform random generation.
+   *
+   * @param parameterizedType
+   *     The parameterized type to generate for.
+   * @return A random Object dynamically created.
+   */
+  Object doGenerate(Parameterizable parameterizedType);
 
 }

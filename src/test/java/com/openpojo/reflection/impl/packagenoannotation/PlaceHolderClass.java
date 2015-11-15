@@ -19,8 +19,8 @@ package com.openpojo.reflection.impl.packagenoannotation;
 
 /**
  * @author oshoukry
- * This class is added just to ensure that Maven creates this package folder.
- * Since the package-info.java gets removed, and the package doesn't get created for tests.
+ *         This class is added just to ensure that Maven creates this package folder.
+ *         Since the package-info.java gets removed, and the package doesn't get created for tests.
  */
 public class PlaceHolderClass {
 

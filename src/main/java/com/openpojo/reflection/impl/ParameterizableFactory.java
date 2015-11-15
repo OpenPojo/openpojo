@@ -27,31 +27,31 @@ import com.openpojo.reflection.Parameterizable;
 import com.openpojo.reflection.java.type.Resolver;
 
 /**
-* @author oshoukry
-*/
+ * @author oshoukry
+ */
 public class ParameterizableFactory {
 
-    public static Parameterizable getInstance(Type type) {
-        return new ParameterizableImpl(type);
+  public static Parameterizable getInstance(Type type) {
+    return new ParameterizableImpl(type);
+  }
+
+  private static class ParameterizableImpl implements Parameterizable {
+    private final Type type;
+
+    public ParameterizableImpl(Type type) {
+      this.type = type;
     }
 
-    private static class ParameterizableImpl implements Parameterizable {
-        private final Type type;
-
-        public ParameterizableImpl(Type type) {
-            this.type = type;
-        }
-
-        public Class<?> getType() {
-            return (Class<?>) Resolver.resolve(type);
-        }
-
-        public boolean isParameterized() {
-            return type instanceof ParameterizedType;
-        }
-
-        public List<Type> getParameterTypes() {
-            return Arrays.asList(Resolver.getParameterTypes(type));
-        }
+    public Class<?> getType() {
+      return (Class<?>) Resolver.resolve(type);
     }
+
+    public boolean isParameterized() {
+      return type instanceof ParameterizedType;
+    }
+
+    public List<Type> getParameterTypes() {
+      return Arrays.asList(Resolver.getParameterTypes(type));
+    }
+  }
 }

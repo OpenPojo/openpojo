@@ -31,28 +31,28 @@ import com.openpojo.reflection.coverage.service.impl.DefaultPojoCoverageFilterSe
  * @author oshoukry
  */
 public class PojoCoverageFilterServiceFactory {
-    private static final CoverageDetector[] KNOWN_COVERAGE_DETECTORS = new CoverageDetector[] {
-            Clover3.getInstance(),
-            Clover4.getInstance(),
-            Cobertura.getInstance(),
-            Jacoco.getInstance()
+  private static final CoverageDetector[] KNOWN_COVERAGE_DETECTORS = new CoverageDetector[] {
+      Clover3.getInstance(),
+      Clover4.getInstance(),
+      Cobertura.getInstance(),
+      Jacoco.getInstance()
     };
 
-    public static PojoCoverageFilterService configureAndGetPojoCoverageFilterService() {
-        PojoCoverageFilterService pojoCoverageFilterService = new DefaultPojoCoverageFilterService();
-        for (CoverageDetector coverageDetector : KNOWN_COVERAGE_DETECTORS) {
-            if (coverageDetector.isLoaded()) {
-                Logger logger = LoggerFactory.getLogger(PojoCoverageFilterServiceFactory.class);
-                logger.info(coverageDetector.getName() + " detected, auto-configuring OpenPojo to ignore its structures.");
-                pojoCoverageFilterService.registerCoverageDetector(coverageDetector);
-            }
-        }
-        return pojoCoverageFilterService;
-    }
-
-    public static PojoCoverageFilterService createPojoCoverageFilterServiceWith(CoverageDetector coverageDetector) {
-        PojoCoverageFilterService pojoCoverageFilterService = new DefaultPojoCoverageFilterService();
+  public static PojoCoverageFilterService configureAndGetPojoCoverageFilterService() {
+    PojoCoverageFilterService pojoCoverageFilterService = new DefaultPojoCoverageFilterService();
+    for (CoverageDetector coverageDetector : KNOWN_COVERAGE_DETECTORS) {
+      if (coverageDetector.isLoaded()) {
+        Logger logger = LoggerFactory.getLogger(PojoCoverageFilterServiceFactory.class);
+        logger.info(coverageDetector.getName() + " detected, auto-configuring OpenPojo to ignore its structures.");
         pojoCoverageFilterService.registerCoverageDetector(coverageDetector);
-        return pojoCoverageFilterService;
+      }
     }
+    return pojoCoverageFilterService;
+  }
+
+  public static PojoCoverageFilterService createPojoCoverageFilterServiceWith(CoverageDetector coverageDetector) {
+    PojoCoverageFilterService pojoCoverageFilterService = new DefaultPojoCoverageFilterService();
+    pojoCoverageFilterService.registerCoverageDetector(coverageDetector);
+    return pojoCoverageFilterService;
+  }
 }

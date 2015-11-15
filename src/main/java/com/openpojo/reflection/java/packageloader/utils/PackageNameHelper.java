@@ -25,28 +25,26 @@ import com.openpojo.reflection.java.Java;
  */
 public class PackageNameHelper {
 
-    /**
-     * This method breaks up a package path into its elements returning the first sub-element only.
-     * For example, if packageName is "com" and the JAR file has only one class
-     * "com.openpojo.reflection.SomeClass.class", then the return will be set to "com.openpojo".
-     *
-     * @param parentPackageName
-     *            The reference package name.
-     * @param subPackageName
-     *            The subpackage name.
-     * @return
-     *         A first sub level bellow packageName.
-     */
-    public static String getDirectSubPackageName(final String parentPackageName, final String subPackageName) {
-        String parentPackageNameAsPath = parentPackageName + Java.PACKAGE_DELIMITER;
-        if (subPackageName.startsWith(parentPackageNameAsPath) && subPackageName.length() > parentPackageNameAsPath.length()) {
-            String[] subPackageTokens;
-            subPackageTokens = subPackageName.substring(parentPackageNameAsPath.length()).split("\\" + Java
-                    .PACKAGE_DELIMITER);
-            if (subPackageTokens.length > 0) {
-                return parentPackageName + Java.PACKAGE_DELIMITER + subPackageTokens[0];
-            }
-        }
-        return null;
+  /**
+   * This method breaks up a package path into its elements returning the first sub-element only.
+   * For example, if packageName is "com" and the JAR file has only one class
+   * "com.openpojo.reflection.SomeClass.class", then the return will be set to "com.openpojo".
+   *
+   * @param parentPackageName
+   *     The reference package name.
+   * @param subPackageName
+   *     The subpackage name.
+   * @return A first sub level bellow packageName.
+   */
+  public static String getDirectSubPackageName(final String parentPackageName, final String subPackageName) {
+    String parentPackageNameAsPath = parentPackageName + Java.PACKAGE_DELIMITER;
+    if (subPackageName.startsWith(parentPackageNameAsPath) && subPackageName.length() > parentPackageNameAsPath.length()) {
+      String[] subPackageTokens;
+      subPackageTokens = subPackageName.substring(parentPackageNameAsPath.length()).split("\\" + Java.PACKAGE_DELIMITER);
+      if (subPackageTokens.length > 0) {
+        return parentPackageName + Java.PACKAGE_DELIMITER + subPackageTokens[0];
+      }
     }
+    return null;
+  }
 }

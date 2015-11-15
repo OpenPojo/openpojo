@@ -28,39 +28,39 @@ import static org.hamcrest.CoreMatchers.nullValue;
  */
 public class PackageNameHelperTest {
 
-    @Test
-    public void whenChildSubPath_thenSubPath() {
-        String somePackage = "com.openpojo.parent";
-        String subPackage = "com.openpojo.parent.subpath";
+  @Test
+  public void whenChildSubPath_thenSubPath() {
+    String somePackage = "com.openpojo.parent";
+    String subPackage = "com.openpojo.parent.subpath";
 
-        Assert.assertThat(PackageNameHelper.getDirectSubPackageName(somePackage, subPackage), is(subPackage));
-    }
+    Assert.assertThat(PackageNameHelper.getDirectSubPackageName(somePackage, subPackage), is(subPackage));
+  }
 
-    @Test
-    public void whenNonChildPath_thenNull() {
-        String somePackage = "com.openpojo.parent";
-        String subPackage = "com.openpojo.subpath";
+  @Test
+  public void whenNonChildPath_thenNull() {
+    String somePackage = "com.openpojo.parent";
+    String subPackage = "com.openpojo.subpath";
 
-        Assert.assertThat(PackageNameHelper.getDirectSubPackageName(somePackage, subPackage), is(nullValue()));
-    }
+    Assert.assertThat(PackageNameHelper.getDirectSubPackageName(somePackage, subPackage), is(nullValue()));
+  }
 
-    @Test
-    public void whenGrandChildPath_thenChildPath() {
-        String somePackage = "com.openpojo.parent";
-        String subPackage = "com.openpojo.parent.childpath";
-        String grandChild = subPackage + ".grandChild";
+  @Test
+  public void whenGrandChildPath_thenChildPath() {
+    String somePackage = "com.openpojo.parent";
+    String subPackage = "com.openpojo.parent.childpath";
+    String grandChild = subPackage + ".grandChild";
 
-        Assert.assertThat(PackageNameHelper.getDirectSubPackageName(somePackage, grandChild), is(subPackage));
-    }
+    Assert.assertThat(PackageNameHelper.getDirectSubPackageName(somePackage, grandChild), is(subPackage));
+  }
 
-    @Test
-    public void whenNonChildPathButNameOverlap_thenNull() {
-        String somePackage = "com.openpojo.parent";
-        String subPackage = "com.openpojo.parentalso.childpath";
-        String grandChild = subPackage + ".grandChild";
+  @Test
+  public void whenNonChildPathButNameOverlap_thenNull() {
+    String somePackage = "com.openpojo.parent";
+    String subPackage = "com.openpojo.parentalso.childpath";
+    String grandChild = subPackage + ".grandChild";
 
-        Assert.assertThat(PackageNameHelper.getDirectSubPackageName(somePackage, grandChild), is(nullValue()));
-    }
+    Assert.assertThat(PackageNameHelper.getDirectSubPackageName(somePackage, grandChild), is(nullValue()));
+  }
 
 
 }

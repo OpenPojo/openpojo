@@ -33,54 +33,54 @@ import com.openpojo.validation.utils.ValidationHelper;
  * @deprecated This class is deprecated, please use {@link ValidatorBuilder} instead.
  */
 public class PojoValidator {
-    private final List<Rule> rules = new LinkedList<Rule>();
-    private final List<Tester> testers = new LinkedList<Tester>();
+  private final List<Rule> rules = new LinkedList<Rule>();
+  private final List<Tester> testers = new LinkedList<Tester>();
 
-    public PojoValidator() {
-        DeprecationWarning.getInstance();
+  public PojoValidator() {
+    DeprecationWarning.getInstance();
+  }
+
+  /**
+   * Add Rule to use for validation.
+   *
+   * @param rule
+   *     The rule to Add.
+   */
+  public void addRule(final Rule rule) {
+    rules.add(rule);
+  }
+
+  /**
+   * Add Tester to use for validation.
+   *
+   * @param tester
+   *     The Tester to Add.
+   */
+  public void addTester(final Tester tester) {
+    testers.add(tester);
+  }
+
+  /**
+   * Run the validation, this will invoke all the rule.evaluate as well as tester.run.
+   *
+   * @param pojoClass
+   *     The PojoClass to validate.
+   */
+  public void runValidation(final PojoClass pojoClass) {
+    ValidationHelper.runValidation(pojoClass, rules, testers);
+  }
+
+
+  private static class DeprecationWarning {
+    private static final DeprecationWarning INSTANCE = new DeprecationWarning();
+
+    private DeprecationWarning() {
+      Logger logger = LoggerFactory.getLogger(PojoValidator.class);
+      logger.warn("This class is deprecated, please use " + ValidatorBuilder.class.getName() + " instead.");
     }
 
-    /**
-     * Add Rule to use for validation.
-     *
-     * @param rule
-     *         The rule to Add.
-     */
-    public void addRule(final Rule rule) {
-        rules.add(rule);
+    private static DeprecationWarning getInstance() {
+      return INSTANCE;
     }
-
-    /**
-     * Add Tester to use for validation.
-     *
-     * @param tester
-     *         The Tester to Add.
-     */
-    public void addTester(final Tester tester) {
-        testers.add(tester);
-    }
-
-    /**
-     * Run the validation, this will invoke all the rule.evaluate as well as tester.run.
-     *
-     * @param pojoClass
-     *         The PojoClass to validate.
-     */
-    public void runValidation(final PojoClass pojoClass) {
-        ValidationHelper.runValidation(pojoClass, rules, testers);
-    }
-
-
-    private static class DeprecationWarning {
-        private static final DeprecationWarning INSTANCE = new DeprecationWarning();
-
-        private DeprecationWarning() {
-            Logger logger = LoggerFactory.getLogger(PojoValidator.class);
-            logger.warn("This class is deprecated, please use " + ValidatorBuilder.class.getName() + " instead.");
-        }
-
-        private static DeprecationWarning getInstance() {
-            return INSTANCE;
-        }
-    }
+  }
 }

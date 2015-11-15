@@ -22,6 +22,6 @@ package com.openpojo.validation.rule.impl.sampleclasses;
  */
 public final class NoPublicFieldsExceptStaticFinalDoesntPublicFinalClass {
 
-    // Not Okay
-    public final String publicFinalString = "Some String";
+  // Not Okay
+  public final String publicFinalString = "Some String";
 }

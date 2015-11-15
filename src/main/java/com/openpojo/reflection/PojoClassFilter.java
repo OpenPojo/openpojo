@@ -26,13 +26,12 @@ package com.openpojo.reflection;
  */
 public interface PojoClassFilter {
 
-    /**
-     * This Method determines whether to include a PojoClass or not.
-     *
-     * @param pojoClass
-     *            The pojoClass in question.
-     * @return
-     *         True if it should be included, false otherwise.
-     */
-    boolean include(final PojoClass pojoClass);
+  /**
+   * This Method determines whether to include a PojoClass or not.
+   *
+   * @param pojoClass
+   *     The pojoClass in question.
+   * @return True if it should be included, false otherwise.
+   */
+  boolean include(final PojoClass pojoClass);
 }

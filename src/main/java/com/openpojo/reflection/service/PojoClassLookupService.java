@@ -28,19 +28,19 @@ import com.openpojo.registry.Service;
  * A Service to lookup java classes.
  *
  * @author oshoukry
- *
  */
 public interface PojoClassLookupService extends Service {
 
-    List<PojoClass> enumerateClassesByExtendingType(final String packageName, final Class<?> type, final PojoClassFilter pojoClassFilter);
+  List<PojoClass> enumerateClassesByExtendingType(final String packageName, final Class<?> type, final PojoClassFilter
+      pojoClassFilter);
 
-    PojoClass getPojoClass(final Class<?> clazz);
+  PojoClass getPojoClass(final Class<?> clazz);
 
-    List<PojoClass> getPojoClasses(final String packageName);
+  List<PojoClass> getPojoClasses(final String packageName);
 
-    List<PojoClass> getPojoClasses(final String packageName, final PojoClassFilter pojoClassFilter);
+  List<PojoClass> getPojoClasses(final String packageName, final PojoClassFilter pojoClassFilter);
 
-    List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter pojoClassFilter);
+  List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter pojoClassFilter);
 
 
 }

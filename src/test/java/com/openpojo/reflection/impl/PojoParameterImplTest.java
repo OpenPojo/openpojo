@@ -41,108 +41,109 @@ import static org.hamcrest.Matchers.greaterThan;
  * @author oshoukry
  */
 public class PojoParameterImplTest {
-    @Test
-    public void isParameterized() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithParameterizedConstructors.class);
+  @Test
+  public void isParameterized() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(AClassWithParameterizedConstructors.class);
 
-        Assert.assertTrue(pojoClass.isNestedClass());
+    Assert.assertTrue(pojoClass.isNestedClass());
 
-        for (PojoMethod constructor : pojoClass.getPojoConstructors()) {
-            if (!constructor.isSynthetic()) {
-                List<PojoParameter> pojoParameters = constructor.getPojoParameters();
-                Assert.assertThat(pojoParameters.size(), is(greaterThan(1)));
-                for (int i = 1; i < pojoParameters.size(); i++) {
-                    PojoParameter parameter = pojoParameters.get(i);
-                    Assert.assertThat(parameter.isParameterized(), is(Matchers.equalTo(true)));
-                }
-            }
+    for (PojoMethod constructor : pojoClass.getPojoConstructors()) {
+      if (!constructor.isSynthetic()) {
+        List<PojoParameter> pojoParameters = constructor.getPojoParameters();
+        Assert.assertThat(pojoParameters.size(), is(greaterThan(1)));
+        for (int i = 1; i < pojoParameters.size(); i++) {
+          PojoParameter parameter = pojoParameters.get(i);
+          Assert.assertThat(parameter.isParameterized(), is(Matchers.equalTo(true)));
         }
+      }
+    }
+  }
+
+  @SuppressWarnings("unused")
+  private class AClassWithParameterizedConstructors {
+    public AClassWithParameterizedConstructors(List<? extends Collection> aWildType) {
     }
 
-    @SuppressWarnings("unused")
-    private class AClassWithParameterizedConstructors {
-        public AClassWithParameterizedConstructors(List<? extends Collection> aWildType) {
-        }
-
-        public AClassWithParameterizedConstructors(Map<? super Collection, ?> aWildType) {
-        }
-
-        public AClassWithParameterizedConstructors(ParameterizedClass<List<String>> another) {
-        }
-
-        public AClassWithParameterizedConstructors(Queue<?> aMap) {
-        }
-
-        public AClassWithParameterizedConstructors(Class<String> aClass) {
-        }
+    public AClassWithParameterizedConstructors(Map<? super Collection, ?> aWildType) {
     }
 
-    @SuppressWarnings("unused")
-    private static class ParameterizedClass<T> {
-        public ParameterizedClass(T someT) {
-        }
+    public AClassWithParameterizedConstructors(ParameterizedClass<List<String>> another) {
     }
 
-    @Test
-    public void testConstructorWithAnnotatedParameter() {
-        PojoClass aClassWithAnnotatedParameters = PojoClassFactory.getPojoClass(AClassWithAnnotatedParameters.class);
-        List<PojoMethod> constructors = aClassWithAnnotatedParameters.getPojoConstructors();
-        Assert.assertEquals(1, constructors.size());
-
-        shouldHaveOneAnnotatedParameter(constructors);
+    public AClassWithParameterizedConstructors(Queue<?> aMap) {
     }
 
-    private void shouldHaveOneAnnotatedParameter(List<PojoMethod> constructors) {
-        PojoMethod constructor = constructors.get(0);
-        List<PojoParameter> parameters = constructor.getPojoParameters();
-        Assert.assertEquals(1, parameters.size());
+    public AClassWithParameterizedConstructors(Class<String> aClass) {
+    }
+  }
 
-        PojoParameter parameter = parameters.get(0);
+  @SuppressWarnings("unused")
+  private static class ParameterizedClass<T> {
+    public ParameterizedClass(T someT) {
+    }
+  }
 
-        Assert.assertEquals(1, parameter.getAnnotations().size());
+  @Test
+  public void testConstructorWithAnnotatedParameter() {
+    PojoClass aClassWithAnnotatedParameters = PojoClassFactory.getPojoClass(AClassWithAnnotatedParameters.class);
+    List<PojoMethod> constructors = aClassWithAnnotatedParameters.getPojoConstructors();
+    Assert.assertEquals(1, constructors.size());
 
-        Assert.assertTrue("Should've been annotatated with Annotated.class but was [" + parameter.getAnnotations().get(0) + "]",
-                parameter.getAnnotations().get(0) instanceof Annotated);
+    shouldHaveOneAnnotatedParameter(constructors);
+  }
 
-        Assert.assertNull(parameter.getAnnotation(UnusedAnnotation.class));
-        Assert.assertNotNull(parameter.getAnnotation(Annotated.class));
+  private void shouldHaveOneAnnotatedParameter(List<PojoMethod> constructors) {
+    PojoMethod constructor = constructors.get(0);
+    List<PojoParameter> parameters = constructor.getPojoParameters();
+    Assert.assertEquals(1, parameters.size());
+
+    PojoParameter parameter = parameters.get(0);
+
+    Assert.assertEquals(1, parameter.getAnnotations().size());
+
+    Assert.assertTrue("Should've been annotatated with Annotated.class but was [" + parameter.getAnnotations().get(0) +
+        "]", parameter.getAnnotations().get(0) instanceof Annotated);
+
+    Assert.assertNull(parameter.getAnnotation(UnusedAnnotation.class));
+    Assert.assertNotNull(parameter.getAnnotation(Annotated.class));
+  }
+
+  @SuppressWarnings("unused")
+  private static class AClassWithAnnotatedParameters {
+    public AClassWithAnnotatedParameters(@Annotated String someParameter) {
+    }
+  }
+
+  @Test
+  public void testMethodWithAnnotatedParameter() {
+    PojoClass aClassWithMethodWithAnnotatedParemeters =
+        PojoClassFactory.getPojoClass(AClassWithMethodWithAnnotatedParemeters.class);
+    List<PojoMethod> allMethods = aClassWithMethodWithAnnotatedParemeters.getPojoMethods();
+    List<PojoMethod> methods = new ArrayList<PojoMethod>();
+
+    for (PojoMethod method : allMethods) {
+      if (!method.isConstructor())
+        methods.add(method);
     }
 
-    @SuppressWarnings("unused")
-    private static class AClassWithAnnotatedParameters {
-        public AClassWithAnnotatedParameters(@Annotated String someParameter) {
-        }
+    Assert.assertEquals(1, methods.size());
+
+    shouldHaveOneAnnotatedParameter(methods);
+  }
+
+  @SuppressWarnings("unused")
+  private static class AClassWithMethodWithAnnotatedParemeters {
+    public void someMethod(@Annotated String someParameter) {
     }
+  }
 
-    @Test
-    public void testMethodWithAnnotatedParameter() {
-        PojoClass aClassWithMethodWithAnnotatedParemeters = PojoClassFactory.getPojoClass(AClassWithMethodWithAnnotatedParemeters.class);
-        List<PojoMethod> allMethods = aClassWithMethodWithAnnotatedParemeters.getPojoMethods();
-        List<PojoMethod> methods = new ArrayList<PojoMethod>();
+  @Retention(RUNTIME)
+  @Target(PARAMETER)
+  @interface Annotated {
+  }
 
-        for (PojoMethod method : allMethods) {
-            if (!method.isConstructor())
-                methods.add(method);
-        }
-
-        Assert.assertEquals(1, methods.size());
-
-        shouldHaveOneAnnotatedParameter(methods);
-    }
-
-    @SuppressWarnings("unused")
-    private static class AClassWithMethodWithAnnotatedParemeters {
-        public void someMethod(@Annotated String someParameter) {
-        }
-    }
-
-    @Retention(RUNTIME)
-    @Target(PARAMETER)
-    @interface Annotated {
-    }
-
-    @Retention(RUNTIME)
-    @Target(PARAMETER)
-    @interface UnusedAnnotation {
-    }
+  @Retention(RUNTIME)
+  @Target(PARAMETER)
+  @interface UnusedAnnotation {
+  }
 }

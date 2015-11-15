@@ -31,80 +31,80 @@ import com.openpojo.business.annotation.BusinessKey;
  */
 public final class Package {
 
-    @BusinessKey
-    private final String packageName;
+  @BusinessKey
+  private final String packageName;
 
-    public Package(final String packageName) {
-        this.packageName = packageName;
+  public Package(final String packageName) {
+    this.packageName = packageName;
+  }
+
+  public String getPackageName() {
+    return packageName;
+  }
+
+  public boolean isValid() {
+    return getPackageLoaders().size() > 0;
+  }
+
+  public Set<Type> getTypes() {
+    Set<Type> types = new HashSet<Type>();
+    for (PackageLoader packageLoader : getPackageLoaders()) {
+      for (Type type : packageLoader.getTypes()) {
+        types.add(type);
+      }
+    }
+    return types;
+  }
+
+  public Set<Package> getSubPackages() {
+    Set<Package> subPackages = new HashSet<Package>();
+    Set<String> subPackageNames = new HashSet<String>();
+    for (PackageLoader packageLoader : getPackageLoaders()) {
+      subPackageNames.addAll(packageLoader.getSubPackages());
     }
 
-    public String getPackageName() {
-        return packageName;
+    for (String packageName : subPackageNames) {
+      subPackages.add(new Package(packageName));
     }
 
-    public boolean isValid() {
-        return getPackageLoaders().size() > 0;
+    return subPackages;
+  }
+
+  private Set<PackageLoader> getPackageLoaders() {
+    Set<PackageLoader> packageLoaders = new HashSet<PackageLoader>();
+
+    Set<URL> resources = PackageLoader.getThreadResources(packageName);
+    for (URL resource : resources) {
+      packageLoaders.add(PackageLoader.getPackageLoaderByURL(resource, packageName));
     }
+    return packageLoaders;
+  }
 
-    public Set<Type> getTypes() {
-        Set<Type> types = new HashSet<Type>();
-        for (PackageLoader packageLoader : getPackageLoaders()) {
-            for (Type type : packageLoader.getTypes()) {
-                types.add(type);
-            }
-        }
-        return types;
-    }
+  /*
+   * (non-Javadoc)
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    return BusinessIdentity.getHashCode(this);
+  }
 
-    public Set<Package> getSubPackages() {
-        Set<Package> subPackages = new HashSet<Package>();
-        Set<String> subPackageNames = new HashSet<String>();
-        for (PackageLoader packageLoader : getPackageLoaders()) {
-            subPackageNames.addAll(packageLoader.getSubPackages());
-        }
+  /*
+   * (non-Javadoc)
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    return BusinessIdentity.areEqual(this, obj);
+  }
 
-        for (String packageName : subPackageNames) {
-            subPackages.add(new Package(packageName));
-        }
-
-        return subPackages;
-    }
-
-    private Set<PackageLoader> getPackageLoaders() {
-        Set<PackageLoader> packageLoaders = new HashSet<PackageLoader>();
-
-        Set<URL> resources = PackageLoader.getThreadResources(packageName);
-        for (URL resource : resources) {
-            packageLoaders.add(PackageLoader.getPackageLoaderByURL(resource, packageName));
-        }
-        return packageLoaders;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return BusinessIdentity.getHashCode(this);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        return BusinessIdentity.areEqual(this, obj);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return BusinessIdentity.toString(this);
-    }
+  /*
+   * (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return BusinessIdentity.toString(this);
+  }
 
 }

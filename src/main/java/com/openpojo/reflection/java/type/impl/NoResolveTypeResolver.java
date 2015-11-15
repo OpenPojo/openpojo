@@ -27,15 +27,15 @@ import com.openpojo.reflection.java.type.TypeResolver;
  */
 public class NoResolveTypeResolver implements TypeResolver<Type> {
 
-    public Type getEnclosingType(Type type) {
-        return type;
-    }
+  public Type getEnclosingType(Type type) {
+    return type;
+  }
 
-    public Type resolveType(Type type) {
-        return type;
-    }
+  public Type resolveType(Type type) {
+    return type;
+  }
 
-    public Type[] getParameterTypes(Type type) {
-        return new Type[] { type };
-    }
+  public Type[] getParameterTypes(Type type) {
+    return new Type[] { type };
+  }
 }

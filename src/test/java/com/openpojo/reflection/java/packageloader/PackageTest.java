@@ -31,22 +31,23 @@ import org.junit.Test;
  */
 public class PackageTest {
 
-    @Test
-    public final void testIsValid() {
-        Package javaPackage = new Package(RandomFactory.getRandomValue(String.class));
-        Affirm.affirmFalse("Invalid package evaluated to as valid?!", javaPackage.isValid());
+  @Test
+  public final void testIsValid() {
+    Package javaPackage = new Package(RandomFactory.getRandomValue(String.class));
+    Affirm.affirmFalse("Invalid package evaluated to as valid?!", javaPackage.isValid());
 
-        javaPackage = new Package(this.getClass().getPackage().getName());
-        Affirm.affirmTrue("Valid package evaluated to as invalid?!", javaPackage.isValid());
-    }
+    javaPackage = new Package(this.getClass().getPackage().getName());
+    Affirm.affirmTrue("Valid package evaluated to as invalid?!", javaPackage.isValid());
+  }
 
-    @Test
-    public final void packageShouldDispatchEqualsAndHashCodeToBusinessIdentity() {
-        final Validator pojoValidator = ValidatorBuilder.create()
-                .with(new BusinessIdentityTester())
-                .with(new BusinessKeyMustExistRule())
-                .build();
-        pojoValidator.validate(PojoClassFactory.getPojoClass(Package.class));
-    }
+  @Test
+  public final void packageShouldDispatchEqualsAndHashCodeToBusinessIdentity() {
+    final Validator pojoValidator = ValidatorBuilder.create()
+        .with(new BusinessIdentityTester())
+        .with(new BusinessKeyMustExistRule())
+        .build();
+
+    pojoValidator.validate(PojoClassFactory.getPojoClass(Package.class));
+  }
 
 }

@@ -32,14 +32,13 @@ import com.openpojo.validation.utils.ValidationHelper;
  */
 public class NoPrimitivesRule implements Rule {
 
-    public void evaluate(final PojoClass pojoClass) {
-        for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-            if (fieldEntry.isPrimitive() && !ValidationHelper.isStaticFinal(fieldEntry)) {
-                Affirm.fail(String.format(
-                        "Primitive fields (byte, short, int, long, float, double, boolean, char) not allowed [%s]",
-                        fieldEntry));
-            }
-        }
+  public void evaluate(final PojoClass pojoClass) {
+    for (PojoField fieldEntry : pojoClass.getPojoFields()) {
+      if (fieldEntry.isPrimitive() && !ValidationHelper.isStaticFinal(fieldEntry)) {
+        Affirm.fail(String.format(
+            "Primitive fields (byte, short, int, long, float, double, boolean, char) not allowed [%s]", fieldEntry));
+      }
     }
+  }
 
 }

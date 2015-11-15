@@ -29,25 +29,25 @@ import com.openpojo.random.RandomGenerator;
  * @author oshoukry
  */
 public class ObjectRandomGenerator implements RandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[]{ Object.class };
+  private static final Class<?>[] TYPES = new Class<?>[] { Object.class };
 
-    private ObjectRandomGenerator() {
+  private ObjectRandomGenerator() {
 
-    }
+  }
 
-    public static RandomGenerator getInstance() {
-        return Instance.INSTANCE;
-    }
+  public static RandomGenerator getInstance() {
+    return Instance.INSTANCE;
+  }
 
-    public Object doGenerate(final Class<?> type) {
-        return new Object();
-    }
+  public Object doGenerate(final Class<?> type) {
+    return new Object();
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    private static class Instance {
-        private static final RandomGenerator INSTANCE = new ObjectRandomGenerator();
-    }
+  private static class Instance {
+    private static final RandomGenerator INSTANCE = new ObjectRandomGenerator();
+  }
 }

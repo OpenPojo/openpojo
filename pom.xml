@@ -17,7 +17,8 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -34,7 +35,8 @@
     <description>This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
         This project has two main aspects to it:
         * Make Testing as easy as possible.
-        * Simplifying identity management (hashCode / equals) using annotation.</description>
+        * Simplifying identity management (hashCode / equals) using annotation.
+    </description>
     <url>http://openpojo.com/</url>
 
     <inceptionYear>2010</inceptionYear>
@@ -66,8 +68,7 @@
             <organization>davidkarlsen.com</organization>
             <timezone>+1</timezone>
             <properties>
-                <contribution>Created initial pom.xml and provided guidance in how
-                    to get OpenPojo into Maven</contribution>
+                <contribution>Created initial pom.xml and provided guidance in how to get OpenPojo into Maven</contribution>
             </properties>
         </contributor>
     </contributors>

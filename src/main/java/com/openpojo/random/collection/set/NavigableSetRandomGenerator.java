@@ -31,26 +31,26 @@ import com.openpojo.reflection.java.load.ClassUtil;
  * @author oshoukry
  */
 public class NavigableSetRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final String TYPE = "java.util.NavigableSet";
-    private static final NavigableSetRandomGenerator INSTANCE = new NavigableSetRandomGenerator();
+  private static final String TYPE = "java.util.NavigableSet";
+  private static final NavigableSetRandomGenerator INSTANCE = new NavigableSetRandomGenerator();
 
-    public static NavigableSetRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static NavigableSetRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        List<Class<?>> types = new ArrayList<Class<?>>();
-        if (ClassUtil.isClassLoaded(TYPE))
-            types.add(ClassUtil.loadClass(TYPE));
-        return types;
-    }
+  public Collection<Class<?>> getTypes() {
+    List<Class<?>> types = new ArrayList<Class<?>>();
+    if (ClassUtil.isClassLoaded(TYPE))
+      types.add(ClassUtil.loadClass(TYPE));
+    return types;
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new TreeSet();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new TreeSet();
+  }
 
-    private NavigableSetRandomGenerator() {
-    }
+  private NavigableSetRandomGenerator() {
+  }
 }

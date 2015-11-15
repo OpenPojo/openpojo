@@ -19,15 +19,14 @@ package com.openpojo.random.sampleclasses;
 
 /**
  * @author oshoukry
- *
  */
 public class NoRandomGeneratorPerson {
 
-    @SuppressWarnings("unused")
-    private final NoRandomGeneratorPerson parent;
+  @SuppressWarnings("unused")
+  private final NoRandomGeneratorPerson parent;
 
-    public NoRandomGeneratorPerson(final NoRandomGeneratorPerson parent) {
-        this.parent = parent;
-    }
+  public NoRandomGeneratorPerson(final NoRandomGeneratorPerson parent) {
+    this.parent = parent;
+  }
 
 }

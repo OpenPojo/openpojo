@@ -29,23 +29,23 @@ import com.openpojo.random.util.Helper;
  * @author oshoukry
  */
 public class PriorityQueueRandomGenerator extends BaseCollectionRandomGenerator {
-    private final Class<?>[] TYPES = new Class<?>[] { PriorityQueue.class };
-    public static final PriorityQueueRandomGenerator INSTANCE = new PriorityQueueRandomGenerator();
+  private final Class<?>[] TYPES = new Class<?>[] { PriorityQueue.class };
+  public static final PriorityQueueRandomGenerator INSTANCE = new PriorityQueueRandomGenerator();
 
-    public static PriorityQueueRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static PriorityQueueRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new PriorityQueue();
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new PriorityQueue();
+  }
 
-    private PriorityQueueRandomGenerator() {
-    }
+  private PriorityQueueRandomGenerator() {
+  }
 }

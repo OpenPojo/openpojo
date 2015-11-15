@@ -25,7 +25,7 @@ import com.openpojo.reflection.PojoPackage;
  */
 public class PojoPackageFactory {
 
-    public static PojoPackage getPojoPackage(final String packageName) {
-        return new PojoPackageImpl(packageName);
-    }
+  public static PojoPackage getPojoPackage(final String packageName) {
+    return new PojoPackageImpl(packageName);
+  }
 }

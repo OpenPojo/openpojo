@@ -28,18 +28,18 @@ import com.openpojo.reflection.adapt.PojoClassAdapter;
  * @author oshoukry
  */
 public class PojoClassCoverageAdapter implements PojoClassAdapter {
-    private Set<PojoClassAdapter> adapters = new HashSet<PojoClassAdapter>();
+  private Set<PojoClassAdapter> adapters = new HashSet<PojoClassAdapter>();
 
-    public void add(PojoClassAdapter pojoClassAdapter) {
-        if (pojoClassAdapter != null) {
-            adapters.add(pojoClassAdapter);
-        }
+  public void add(PojoClassAdapter pojoClassAdapter) {
+    if (pojoClassAdapter != null) {
+      adapters.add(pojoClassAdapter);
     }
+  }
 
-    public PojoClass adapt(PojoClass pojoClass) {
-        PojoClass adaptedPojoClass = pojoClass;
-        for (PojoClassAdapter adapter : adapters)
-            adaptedPojoClass = adapter.adapt(adaptedPojoClass);
-        return adaptedPojoClass;
-    }
+  public PojoClass adapt(PojoClass pojoClass) {
+    PojoClass adaptedPojoClass = pojoClass;
+    for (PojoClassAdapter adapter : adapters)
+      adaptedPojoClass = adapter.adapt(adaptedPojoClass);
+    return adaptedPojoClass;
+  }
 }
