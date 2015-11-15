@@ -29,21 +29,21 @@ import org.junit.Test;
  */
 public class BusinessKeyFieldCacheTest {
 
-    @Test
-    public void whenCacheEmptyNullIsReturned() {
-        Assert.assertNull(BusinessKeyFieldCache.get("SomePojo"));
-    }
+  @Test
+  public void whenCacheEmptyNullIsReturned() {
+    Assert.assertNull(BusinessKeyFieldCache.get("SomePojo"));
+  }
 
-    @Test
-    public void whenGetBusinessKeyFields_FieldsAreCached() {
-        List<BusinessKeyField> businessFields = BusinessPojoHelper.getBusinessKeyFields(DummyBusinessPojo.class);
-        BusinessKeyFieldCache.add("SomePojo", businessFields);
+  @Test
+  public void whenGetBusinessKeyFields_FieldsAreCached() {
+    List<BusinessKeyField> businessFields = BusinessPojoHelper.getBusinessKeyFields(DummyBusinessPojo.class);
+    BusinessKeyFieldCache.add("SomePojo", businessFields);
 
-        Assert.assertEquals(businessFields, BusinessKeyFieldCache.get(DummyBusinessPojo.class.getName()));
-    }
+    Assert.assertEquals(businessFields, BusinessKeyFieldCache.get(DummyBusinessPojo.class.getName()));
+  }
 
-    public static class DummyBusinessPojo {
-        @BusinessKey
-        private String name;
-    }
+  public static class DummyBusinessPojo {
+    @BusinessKey
+    private String name;
+  }
 }

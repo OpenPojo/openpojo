@@ -36,33 +36,33 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  */
 public class BusinessPojoHelper {
 
-    /**
-     * Get all business keys declared on a class and the parent super classes.
-     *
-     * @param clazz
-     *            The class to introspect.
-     * @return The list of fields that are annotated with @BusinessKey, will return an empty list if none are found.
-     */
-    public static List<BusinessKeyField> getBusinessKeyFields(final Class<?> clazz) {
+  /**
+   * Get all business keys declared on a class and the parent super classes.
+   *
+   * @param clazz
+   *     The class to introspect.
+   * @return The list of fields that are annotated with @BusinessKey, will return an empty list if none are found.
+   */
+  public static List<BusinessKeyField> getBusinessKeyFields(final Class<?> clazz) {
 
-        List<BusinessKeyField> businessKeyFields = BusinessKeyFieldCache.get(clazz.getName());
-        if (businessKeyFields != null) {
-            return businessKeyFields;
-        }
-
-        businessKeyFields = new LinkedList<BusinessKeyField>();
-
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
-        while (pojoClass != null) {
-            for (PojoField pojoField : pojoClass.getPojoFieldsAnnotatedWith(BusinessKey.class)) {
-                businessKeyFields.add(new DefaultBusinessKeyField(pojoField));
-            }
-            pojoClass = pojoClass.getSuperClass();
-        }
-
-        BusinessKeyFieldCache.add(clazz.getName(), businessKeyFields);
-        return businessKeyFields;
+    List<BusinessKeyField> businessKeyFields = BusinessKeyFieldCache.get(clazz.getName());
+    if (businessKeyFields != null) {
+      return businessKeyFields;
     }
+
+    businessKeyFields = new LinkedList<BusinessKeyField>();
+
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
+    while (pojoClass != null) {
+      for (PojoField pojoField : pojoClass.getPojoFieldsAnnotatedWith(BusinessKey.class)) {
+        businessKeyFields.add(new DefaultBusinessKeyField(pojoField));
+      }
+      pojoClass = pojoClass.getSuperClass();
+    }
+
+    BusinessKeyFieldCache.add(clazz.getName(), businessKeyFields);
+    return businessKeyFields;
+  }
 
 
 }

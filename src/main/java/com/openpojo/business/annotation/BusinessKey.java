@@ -58,26 +58,26 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface BusinessKey {
-    /**
-     * Set to true if the field is of type Character or CharSequence to ignore case when comparing.
-     *
-     * @return returns the value for caseSensitive; defaults to true.
-     */
-    boolean caseSensitive() default true;
+  /**
+   * Set to true if the field is of type Character or CharSequence to ignore case when comparing.
+   *
+   * @return returns the value for caseSensitive; defaults to true.
+   */
+  boolean caseSensitive() default true;
 
-    /**
-     * Set to True to indicate field required to be populated.
-     *
-     * @return returns true if the field is required for business identity validation, defaults to true.
-     */
-    boolean required() default true;
+  /**
+   * Set to True to indicate field required to be populated.
+   *
+   * @return returns true if the field is required for business identity validation, defaults to true.
+   */
+  boolean required() default true;
 
-    /**
-     * Set to true if this key is part of a group where any one of the group needs to be not null.
-     * Setting Composite to true, shadows the "required" above, since composite is OR-ing against any that are
-     * populated.  With at least one of the composite group being non-null.
-     *
-     * @return returns weather this key is part of a group, defaults to false;
-     */
-    boolean composite() default false;
+  /**
+   * Set to true if this key is part of a group where any one of the group needs to be not null.
+   * Setting Composite to true, shadows the "required" above, since composite is OR-ing against any that are
+   * populated.  With at least one of the composite group being non-null.
+   *
+   * @return returns weather this key is part of a group, defaults to false;
+   */
+  boolean composite() default false;
 }

@@ -31,69 +31,67 @@ import com.openpojo.validation.utils.ValidationHelper;
  * This rules ensures that object.equals(Object) and object.hashCode() are dispatching their calls to BusinessIdentity.
  * Use this tester to if you are using @BusinessKey and passing on your equals and hashCode calls to
  * {@link BusinessIdentity}.
- *
+ * <p/>
  * This Tester is NOT thread safe.
  *
  * @author oshoukry
  */
 public final class BusinessIdentityTester implements Tester {
 
-    private Object firstPojoClassInstance;
-    private Object secondPojoClassInstance;
-    private final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
+  private Object firstPojoClassInstance;
+  private Object secondPojoClassInstance;
+  private final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
 
-    public void run(final PojoClass pojoClass) {
-        IdentityFactory.registerIdentityHandler(identityHandlerStub);
+  public void run(final PojoClass pojoClass) {
+    IdentityFactory.registerIdentityHandler(identityHandlerStub);
 
-        firstPojoClassInstance = ValidationHelper.getMostCompleteInstance(pojoClass);
-        secondPojoClassInstance = ValidationHelper.getMostCompleteInstance(pojoClass);
+    firstPojoClassInstance = ValidationHelper.getMostCompleteInstance(pojoClass);
+    secondPojoClassInstance = ValidationHelper.getMostCompleteInstance(pojoClass);
 
-        // check one way
-        identityHandlerStub.areEqualReturn = RandomFactory.getRandomValue(Boolean.class);
-        checkEquality();
+    // check one way
+    identityHandlerStub.areEqualReturn = RandomFactory.getRandomValue(Boolean.class);
+    checkEquality();
 
-        identityHandlerStub.areEqualReturn = !identityHandlerStub.areEqualReturn;
-        checkEquality();
+    identityHandlerStub.areEqualReturn = !identityHandlerStub.areEqualReturn;
+    checkEquality();
 
-        identityHandlerStub.doGenerateReturn = RandomFactory.getRandomValue(Integer.class);
-        checkHashCode();
+    identityHandlerStub.doGenerateReturn = RandomFactory.getRandomValue(Integer.class);
+    checkHashCode();
 
-        identityHandlerStub.doGenerateReturn = RandomFactory.getRandomValue(Integer.class);
-        checkHashCode();
+    identityHandlerStub.doGenerateReturn = RandomFactory.getRandomValue(Integer.class);
+    checkHashCode();
 
-        IdentityFactory.unregisterIdentityHandler(identityHandlerStub);
+    IdentityFactory.unregisterIdentityHandler(identityHandlerStub);
+  }
+
+  private void checkHashCode() {
+    Affirm.affirmTrue(String.format("Class=[%s] not dispatching 'hashCode()' calls to BusinessIdentity",
+        firstPojoClassInstance.getClass()), identityHandlerStub.doGenerateReturn == firstPojoClassInstance.hashCode());
+  }
+
+  private void checkEquality() {
+    Affirm.affirmTrue(String.format("Class=[%s] not dispatching 'equals()' calls to BusinessIdentity",
+        firstPojoClassInstance.getClass()), identityHandlerStub.areEqualReturn == firstPojoClassInstance.equals(secondPojoClassInstance));
+  }
+
+  private class IdentityHandlerStub implements IdentityHandler {
+    private boolean areEqualReturn;
+    private int doGenerateReturn;
+
+    public boolean areEqual(final Object first, final Object second) {
+      return areEqualReturn;
     }
 
-    private void checkHashCode() {
-        Affirm.affirmTrue(String.format("Class=[%s] not dispatching 'hashCode()' calls to BusinessIdentity",
-                                        firstPojoClassInstance.getClass()),
-                          identityHandlerStub.doGenerateReturn == firstPojoClassInstance.hashCode());
+    public void validate(final Object object) {
     }
 
-    private void checkEquality() {
-        Affirm.affirmTrue(String.format("Class=[%s] not dispatching 'equals()' calls to BusinessIdentity",
-                                        firstPojoClassInstance.getClass()),
-                          identityHandlerStub.areEqualReturn == firstPojoClassInstance.equals(secondPojoClassInstance));
+    public int generateHashCode(final Object object) {
+      return doGenerateReturn;
     }
 
-    private class IdentityHandlerStub implements IdentityHandler {
-        private boolean areEqualReturn;
-        private int doGenerateReturn;
-
-        public boolean areEqual(final Object first, final Object second) {
-            return areEqualReturn;
-        }
-
-        public void validate(final Object object) {
-        }
-
-        public int generateHashCode(final Object object) {
-            return doGenerateReturn;
-        }
-
-        public boolean handlerFor(final Object object) {
-            return object == firstPojoClassInstance || object == secondPojoClassInstance;
-        }
+    public boolean handlerFor(final Object object) {
+      return object == firstPojoClassInstance || object == secondPojoClassInstance;
     }
+  }
 
 }

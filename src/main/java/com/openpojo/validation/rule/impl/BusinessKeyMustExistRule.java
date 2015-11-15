@@ -33,13 +33,13 @@ import static com.openpojo.business.utils.BusinessPojoHelper.getBusinessKeyField
  */
 public class BusinessKeyMustExistRule implements Rule {
 
-    public void evaluate(final PojoClass pojoClass) {
-        for (BusinessKeyField businessField : getBusinessKeyFields(pojoClass.getClazz())) {
-            if (businessField.isRequired() || businessField.isComposite()) {
-                return;
-            }
-        }
-
-        Affirm.fail(String.format("[%s] doesn't declare any 'required' BusinessKeys!!", pojoClass.getClazz()));
+  public void evaluate(final PojoClass pojoClass) {
+    for (BusinessKeyField businessField : getBusinessKeyFields(pojoClass.getClazz())) {
+      if (businessField.isRequired() || businessField.isComposite()) {
+        return;
+      }
     }
+
+    Affirm.fail(String.format("[%s] doesn't declare any 'required' BusinessKeys!!", pojoClass.getClazz()));
+  }
 }

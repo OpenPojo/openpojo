@@ -17,27 +17,25 @@
 
 package com.openpojo.validation.rule.impl;
 
-import org.junit.Test;
-
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.BusinessClassWithComposite;
 import com.openpojo.validation.rule.impl.sampleclasses.BusinessClassWithNoRequired;
 import com.openpojo.validation.rule.impl.sampleclasses.BusinessClassWithRequired;
+import org.junit.Test;
 
 /**
  * @author oshoukry
- *
  */
 public class BusinessKeyMustExistRuleTest {
 
-    Class<?>[] failClasses = new Class<?>[]{ BusinessClassWithNoRequired.class };
-    Class<?>[] passClasses = new Class<?>[]{ BusinessClassWithRequired.class, BusinessClassWithComposite.class };
-    Rule rule = new BusinessKeyMustExistRule();
+  Class<?>[] failClasses = new Class<?>[] { BusinessClassWithNoRequired.class };
+  Class<?>[] passClasses = new Class<?>[] { BusinessClassWithRequired.class, BusinessClassWithComposite.class };
+  Rule rule = new BusinessKeyMustExistRule();
 
-    @Test
-    public void testEvaluate() {
-        CommonCode.shouldPassRuleValidation(rule, passClasses);
-        CommonCode.shouldFailRuleValidation(rule, failClasses);
-    }
+  @Test
+  public void testEvaluate() {
+    CommonCode.shouldPassRuleValidation(rule, passClasses);
+    CommonCode.shouldFailRuleValidation(rule, failClasses);
+  }
 
 }

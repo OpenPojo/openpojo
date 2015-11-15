@@ -21,50 +21,51 @@ import java.util.Map;
 
 /**
  * @author oshoukry
- *
  */
 public final class Bad_AGetterAndSetterClass {
-    private String attribute;
-    private final String stringAttribute = "a String that is Final";
-    public String stringNoGetterOrSetterAttribute;
+  private String attribute;
+  private final String stringAttribute = "a String that is Final";
+  public String stringNoGetterOrSetterAttribute;
 
-    @SuppressWarnings("rawtypes")
-    private Map myMap;
+  @SuppressWarnings("rawtypes")
+  private Map myMap;
 
-    /**
-     * @return the myMap
-     */
-    @SuppressWarnings("rawtypes")
-    public Map getMyMap() {
-        return myMap;
-    }
+  /**
+   * @return the myMap
+   */
+  @SuppressWarnings("rawtypes")
+  public Map getMyMap() {
+    return myMap;
+  }
 
-    /**
-     * @param myMap the myMap to set
-     */
-    public void setMyMap(@SuppressWarnings("rawtypes") final Map myMap) {
-        this.myMap = myMap;
-    }
+  /**
+   * @param myMap
+   *     the myMap to set
+   */
+  public void setMyMap(@SuppressWarnings("rawtypes") final Map myMap) {
+    this.myMap = myMap;
+  }
 
-    /**
-     * @return the stringAttribute
-     */
-    public String getStringAttribute() {
-        return stringAttribute + stringAttribute;
-    }
+  /**
+   * @return the stringAttribute
+   */
+  public String getStringAttribute() {
+    return stringAttribute + stringAttribute;
+  }
 
-    /**
-     * @return the attribute
-     */
-    public String getAttribute() {
-        return attribute + attribute;
-    }
+  /**
+   * @return the attribute
+   */
+  public String getAttribute() {
+    return attribute + attribute;
+  }
 
-    /**
-     * @param attribute the attribute to set
-     */
-    public void setAttribute(final String attribute) {
-        this.attribute = attribute + attribute;
-    }
+  /**
+   * @param attribute
+   *     the attribute to set
+   */
+  public void setAttribute(final String attribute) {
+    this.attribute = attribute + attribute;
+  }
 
 }

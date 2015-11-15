@@ -41,39 +41,39 @@ import org.junit.Test;
 
 public class BeanTest {
 
-    private List<PojoClass> pojoClasses;
-    private Validator pojoValidator;
+  private List<PojoClass> pojoClasses;
+  private Validator pojoValidator;
 
-    @Before
-    public void setup() {
-        LogHelper.initializeLoggers();
-        PojoClassFilter pojoClassFilter = new FilterChain(new FilterEnum(), new FilterPackageInfo());
-        pojoClasses = PojoClassFactory.getPojoClassesRecursively(this.getClass().getPackage().getName()
-                + ".sampleclasses", pojoClassFilter);
+  @Before
+  public void setup() {
+    LogHelper.initializeLoggers();
+    PojoClassFilter pojoClassFilter = new FilterChain(new FilterEnum(), new FilterPackageInfo());
+    pojoClasses = PojoClassFactory.getPojoClassesRecursively(this.getClass().getPackage().getName() + ".sampleclasses",
+        pojoClassFilter);
 
-        ValidatorBuilder validatorBuilder = ValidatorBuilder.create();
+    ValidatorBuilder validatorBuilder = ValidatorBuilder.create();
 
-        // Create Rules to validate structure for POJO_PACKAGE
-        validatorBuilder.with(new NoPublicFieldsRule());
-        validatorBuilder.with(new NoStaticExceptFinalRule());
-        validatorBuilder.with(new GetterMustExistRule());
-        validatorBuilder.with(new SetterMustExistRule());
+    // Create Rules to validate structure for POJO_PACKAGE
+    validatorBuilder.with(new NoPublicFieldsRule());
+    validatorBuilder.with(new NoStaticExceptFinalRule());
+    validatorBuilder.with(new GetterMustExistRule());
+    validatorBuilder.with(new SetterMustExistRule());
 
-        // Create Testers to validate behaviour for POJO_PACKAGE
-        validatorBuilder.with(new DefaultValuesNullTester());
-        validatorBuilder.with(new SetterTester());
-        validatorBuilder.with(new GetterTester());
+    // Create Testers to validate behaviour for POJO_PACKAGE
+    validatorBuilder.with(new DefaultValuesNullTester());
+    validatorBuilder.with(new SetterTester());
+    validatorBuilder.with(new GetterTester());
 
-        pojoValidator = validatorBuilder.build();
-    }
+    pojoValidator = validatorBuilder.build();
+  }
 
-    @After
-    public void restoreLogging() {
-        LogHelper.resetLoggers();
-    }
+  @After
+  public void restoreLogging() {
+    LogHelper.resetLoggers();
+  }
 
-    @Test
-    public void testPojoStructureAndBehavior() {
-        pojoValidator.validate(pojoClasses);
-    }
+  @Test
+  public void testPojoStructureAndBehavior() {
+    pojoValidator.validate(pojoClasses);
+  }
 }

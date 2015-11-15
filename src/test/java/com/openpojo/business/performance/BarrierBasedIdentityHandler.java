@@ -26,52 +26,52 @@ import com.openpojo.business.identity.IdentityHandler;
  */
 public class BarrierBasedIdentityHandler implements IdentityHandler {
 
-    private CountDownLatch latch;
+  private CountDownLatch latch;
 
-    public BarrierBasedIdentityHandler(final CountDownLatch latch) {
-        this.latch = latch;
-    }
+  public BarrierBasedIdentityHandler(final CountDownLatch latch) {
+    this.latch = latch;
+  }
 
-    public void setLatch(final CountDownLatch latch) {
-        this.latch = latch;
-    }
+  public void setLatch(final CountDownLatch latch) {
+    this.latch = latch;
+  }
 
-    public boolean handlerFor(final Object object) {
-        waitForOthers();
-        return false;
-    }
+  public boolean handlerFor(final Object object) {
+    waitForOthers();
+    return false;
+  }
 
-    @Override
-    public boolean equals(Object other) {
-        waitForOthers();
-        return false;
-    }
+  @Override
+  public boolean equals(Object other) {
+    waitForOthers();
+    return false;
+  }
 
-    @Override
-    public int hashCode() {
-        waitForOthers();
-        return System.identityHashCode(this);
-    }
+  @Override
+  public int hashCode() {
+    waitForOthers();
+    return System.identityHashCode(this);
+  }
 
-    private void waitForOthers() {
-        try {
-            latch.countDown();
-            latch.await();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+  private void waitForOthers() {
+    try {
+      latch.countDown();
+      latch.await();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public void validate(final Object object) {
-        throw new UnsupportedOperationException();
-    }
+  public void validate(final Object object) {
+    throw new UnsupportedOperationException();
+  }
 
-    public boolean areEqual(final Object first, final Object second) {
-        throw new UnsupportedOperationException();
-    }
+  public boolean areEqual(final Object first, final Object second) {
+    throw new UnsupportedOperationException();
+  }
 
-    public int generateHashCode(final Object object) {
-        throw new UnsupportedOperationException();
-    }
+  public int generateHashCode(final Object object) {
+    throw new UnsupportedOperationException();
+  }
 
 }

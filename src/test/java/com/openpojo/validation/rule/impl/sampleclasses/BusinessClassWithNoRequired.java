@@ -24,8 +24,8 @@ import com.openpojo.business.annotation.BusinessKey;
  */
 public class BusinessClassWithNoRequired {
 
-    @SuppressWarnings("unused")
-    @BusinessKey(required = false)
-    private String name;
+  @SuppressWarnings("unused")
+  @BusinessKey(required = false)
+  private String name;
 
 }

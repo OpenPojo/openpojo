@@ -29,29 +29,29 @@ import com.openpojo.cache.CacheStorageFactory;
  * @author oshoukry
  */
 public class BusinessKeyFieldCache {
-    private static CacheStorage<List<BusinessKeyField>> cache = CacheStorageFactory.getPersistentCacheStorage();
+  private static CacheStorage<List<BusinessKeyField>> cache = CacheStorageFactory.getPersistentCacheStorage();
 
-    /**
-     * Retrieve a BusinessFields list from Cache.
-     *
-     * @param name
-     *         The cache tag to use for cache lookup.
-     * @return Cached PojoReference, or null if none found.
-     */
-    public static List<BusinessKeyField> get(final String name) {
-        return cache.get(name);
-    }
+  /**
+   * Retrieve a BusinessFields list from Cache.
+   *
+   * @param name
+   *     The cache tag to use for cache lookup.
+   * @return Cached PojoReference, or null if none found.
+   */
+  public static List<BusinessKeyField> get(final String name) {
+    return cache.get(name);
+  }
 
-    /**
-     * Add a BusinessFields definition to the Cache.
-     *
-     * @param name
-     *         A tag for to use for cache lookup
-     * @param businessFields
-     *         The list of businessFields to cache
-     */
-    public static void add(final String name, final List<BusinessKeyField> businessFields) {
-        cache.add(name, businessFields);
-    }
+  /**
+   * Add a BusinessFields definition to the Cache.
+   *
+   * @param name
+   *     A tag for to use for cache lookup
+   * @param businessFields
+   *     The list of businessFields to cache
+   */
+  public static void add(final String name, final List<BusinessKeyField> businessFields) {
+    cache.add(name, businessFields);
+  }
 
 }

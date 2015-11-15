@@ -24,11 +24,11 @@ import com.openpojo.business.annotation.BusinessKey;
  */
 public class BusinessClassWithComposite {
 
-    @SuppressWarnings("unused")
-    @BusinessKey(composite=true, required=false)
-    private String firstName;
+  @SuppressWarnings("unused")
+  @BusinessKey(composite = true, required = false)
+  private String firstName;
 
-    @SuppressWarnings("unused")
-    @BusinessKey(composite=true, required=false)
-    private String lastName;
+  @SuppressWarnings("unused")
+  @BusinessKey(composite = true, required = false)
+  private String lastName;
 }

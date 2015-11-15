@@ -29,15 +29,16 @@ import com.openpojo.reflection.Parameterizable;
  */
 public abstract class BaseCollectionRandomGenerator implements ParameterizableRandomGenerator {
 
-    public Collection doGenerate(Class<?> type) {
-        return CollectionHelper.buildCollections(getBasicInstance(type), SerializableComparableObject.class);
-    }
+  public Collection doGenerate(Class<?> type) {
+    return CollectionHelper.buildCollections(getBasicInstance(type), SerializableComparableObject.class);
+  }
 
-    public Collection doGenerate(Parameterizable parameterizedType) {
-        return CollectionHelper.buildCollections(doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes().get(0));
-    }
+  public Collection doGenerate(Parameterizable parameterizedType) {
+    return CollectionHelper.buildCollections(doGenerate(parameterizedType.getType()),
+        parameterizedType.getParameterTypes().get(0));
+  }
 
-    public abstract Collection<Class<?>> getTypes();
+  public abstract Collection<Class<?>> getTypes();
 
-    protected abstract Collection getBasicInstance(Class<?> type);
+  protected abstract Collection getBasicInstance(Class<?> type);
 }

@@ -29,17 +29,17 @@ import com.openpojo.reflection.Parameterizable;
  */
 public abstract class BaseMapRandomGenerator implements ParameterizableRandomGenerator {
 
-    @SuppressWarnings("unchecked")
-    public Map doGenerate(Class<?> type) {
-        return getBasicInstance(type);
-    }
+  @SuppressWarnings("unchecked")
+  public Map doGenerate(Class<?> type) {
+    return getBasicInstance(type);
+  }
 
-    public Map doGenerate(Parameterizable parameterizedType) {
-        return MapHelper.buildMap(doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes().get(0),
-                parameterizedType.getParameterTypes().get(1));
-    }
+  public Map doGenerate(Parameterizable parameterizedType) {
+    return MapHelper.buildMap(doGenerate(parameterizedType.getType()), parameterizedType.getParameterTypes().get(0),
+        parameterizedType.getParameterTypes().get(1));
+  }
 
-    public abstract Collection<Class<?>> getTypes();
+  public abstract Collection<Class<?>> getTypes();
 
-    protected abstract Map getBasicInstance(Class<?> type);
+  protected abstract Map getBasicInstance(Class<?> type);
 }

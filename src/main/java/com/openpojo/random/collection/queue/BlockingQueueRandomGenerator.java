@@ -31,23 +31,23 @@ import com.openpojo.random.util.Helper;
  * @author oshoukry
  */
 public class BlockingQueueRandomGenerator extends BaseCollectionRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { BlockingQueue.class };
-    private static final BlockingQueueRandomGenerator INSTANCE = new BlockingQueueRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { BlockingQueue.class };
+  private static final BlockingQueueRandomGenerator INSTANCE = new BlockingQueueRandomGenerator();
 
-    public static BlockingQueueRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static BlockingQueueRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Collection getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return new ArrayBlockingQueue(CollectionHelper.MAX_RANDOM_ELEMENTS);
-    }
+  @Override
+  protected Collection getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return new ArrayBlockingQueue(CollectionHelper.MAX_RANDOM_ELEMENTS);
+  }
 
-    private BlockingQueueRandomGenerator() {
-    }
+  private BlockingQueueRandomGenerator() {
+  }
 }

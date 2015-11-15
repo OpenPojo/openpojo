@@ -22,14 +22,14 @@ package com.openpojo.business.cache;
  * @author oshoukry
  */
 public interface BusinessKeyField {
-    boolean isComposite();
+  boolean isComposite();
 
-    boolean isCaseSensitive();
+  boolean isCaseSensitive();
 
-    boolean isRequired();
+  boolean isRequired();
 
-    Object get(Object instance);
+  Object get(Object instance);
 
-    boolean isArray();
+  boolean isArray();
 
 }
