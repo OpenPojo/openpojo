@@ -35,27 +35,27 @@ import org.junit.Test;
  */
 public class IssueTest {
 
-    private Validator pojoValidator;
-    private PojoClass pojoClass;
+  private Validator pojoValidator;
+  private PojoClass pojoClass;
 
-    @Before
-    public void setUp() throws Exception {
-        pojoClass = PojoClassFactory.getPojoClass(ClassAggregatingAbstractClass.class);
-        RandomGeneratorService randomGeneratorService = ServiceRegistrar.getInstance().getRandomGeneratorService();
-        randomGeneratorService.registerRandomGenerator(new AbstractClassRandomGenerator());
-    }
+  @Before
+  public void setUp() throws Exception {
+    pojoClass = PojoClassFactory.getPojoClass(ClassAggregatingAbstractClass.class);
+    RandomGeneratorService randomGeneratorService = ServiceRegistrar.getInstance().getRandomGeneratorService();
+    randomGeneratorService.registerRandomGenerator(new AbstractClassRandomGenerator());
+  }
 
-    @Test
-    public void testGetter() {
-        pojoValidator = ValidatorBuilder.create().with(new GetterTester()).build();
-        pojoValidator.validate(pojoClass);
-    }
+  @Test
+  public void testGetter() {
+    pojoValidator = ValidatorBuilder.create().with(new GetterTester()).build();
+    pojoValidator.validate(pojoClass);
+  }
 
-    @Test
-    public void testSetter() {
-        pojoValidator = ValidatorBuilder.create().with(new SetterTester()).build();
-        pojoValidator.validate(pojoClass);
-    }
+  @Test
+  public void testSetter() {
+    pojoValidator = ValidatorBuilder.create().with(new SetterTester()).build();
+    pojoValidator.validate(pojoClass);
+  }
 
 
 }

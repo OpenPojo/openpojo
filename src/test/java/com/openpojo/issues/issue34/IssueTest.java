@@ -35,34 +35,34 @@ import org.junit.Test;
  */
 public class IssueTest {
 
-    @Test
-    public void testBooleanVariations() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithBooleanFields.class);
+  @Test
+  public void testBooleanVariations() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithBooleanFields.class);
 
-        Affirm.affirmEquals("Fields must be 4", 4, pojoClass.getPojoFields().size());
+    Affirm.affirmEquals("Fields must be 4", 4, pojoClass.getPojoFields().size());
 
-        int countOfbooleans = 0;
-        int countOfBooleans = 0;
+    int countOfbooleans = 0;
+    int countOfBooleans = 0;
 
-        for (PojoField pojoField : pojoClass.getPojoFields()) {
-            if (pojoField.isPrimitive() && pojoField.getType() == boolean.class) {
-                countOfbooleans++;
-            }
-            if (!pojoField.isPrimitive() && pojoField.getType() == Boolean.class) {
-                countOfBooleans++;
-            }
-        }
-
-        Affirm.affirmEquals("2 boolean fields must exist", 2, countOfbooleans);
-        Affirm.affirmEquals("2 Boolean fields must exist", 2, countOfBooleans);
-
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new GetterMustExistRule())
-                .with(new SetterMustExistRule())
-                .with(new GetterTester())
-                .with(new SetterTester())
-                .build();
-
-        pojoValidator.validate(pojoClass);
+    for (PojoField pojoField : pojoClass.getPojoFields()) {
+      if (pojoField.isPrimitive() && pojoField.getType() == boolean.class) {
+        countOfbooleans++;
+      }
+      if (!pojoField.isPrimitive() && pojoField.getType() == Boolean.class) {
+        countOfBooleans++;
+      }
     }
+
+    Affirm.affirmEquals("2 boolean fields must exist", 2, countOfbooleans);
+    Affirm.affirmEquals("2 Boolean fields must exist", 2, countOfBooleans);
+
+    Validator pojoValidator = ValidatorBuilder.create()
+        .with(new GetterMustExistRule())
+        .with(new SetterMustExistRule())
+        .with(new GetterTester())
+        .with(new SetterTester())
+        .build();
+
+    pojoValidator.validate(pojoClass);
+  }
 }

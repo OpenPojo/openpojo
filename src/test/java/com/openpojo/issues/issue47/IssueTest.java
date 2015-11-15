@@ -32,24 +32,28 @@ import org.junit.Test;
  */
 public class IssueTest {
 
-    @Test
-    public void whenBooleanStartsWith_isAndThirdCharacterIsUpperCase_Getter_IsX_Setter_setX() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithBoolean_isX.class);
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new GetterMustExistRule())
-                .with(new SetterMustExistRule())
-                .build();
-        pojoValidator.validate(pojoClass);
-    }
+  @Test
+  public void whenBooleanStartsWith_isAndThirdCharacterIsUpperCase_Getter_IsX_Setter_setX() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithBoolean_isX.class);
 
-    @Test
-    public void whenBooleanStartsWith_is_AndThirdCharacterIsNotUpperCase_Getter_isIsY_Setter_setIsy() {
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithBoolean_isy.class);
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new GetterMustExistRule())
-                .with(new SetterMustExistRule())
-                .build();
-        pojoValidator.validate(pojoClass);
+    Validator pojoValidator = ValidatorBuilder.create()
+        .with(new GetterMustExistRule())
+        .with(new SetterMustExistRule())
+        .build();
 
-    }
+    pojoValidator.validate(pojoClass);
+  }
+
+  @Test
+  public void whenBooleanStartsWith_is_AndThirdCharacterIsNotUpperCase_Getter_isIsY_Setter_setIsy() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithBoolean_isy.class);
+
+    Validator pojoValidator = ValidatorBuilder.create()
+        .with(new GetterMustExistRule())
+        .with(new SetterMustExistRule())
+        .build();
+
+    pojoValidator.validate(pojoClass);
+
+  }
 }

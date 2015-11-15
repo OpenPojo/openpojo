@@ -17,17 +17,16 @@
 
 package com.openpojo.issues.issue36;
 
-import org.junit.Test;
-
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
+import org.junit.Test;
 
 public class IssueTest {
-	private static final Logger LOG = LoggerFactory.getLogger(IssueTest.class);
+  private static final Logger LOG = LoggerFactory.getLogger(IssueTest.class);
 
-	@Test
-	public void test() {
-		LOG.error("SomeMessage");
-	}
+  @Test
+  public void test() {
+    LOG.error("SomeMessage");
+  }
 
 }

@@ -31,17 +31,17 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class IssueTest {
-    private List<PojoClass> pojoClasses;
-    private Validator pojoValidator;
+  private List<PojoClass> pojoClasses;
+  private Validator pojoValidator;
 
-    @Before
-    public void setup() {
-        pojoClasses = PojoClassFactory.getPojoClassesRecursively("com.openpojo.issues.issue46.sample", null);
-        pojoValidator = ValidatorBuilder.create().with(new DefaultValuesNullTester()).build();
-    }
+  @Before
+  public void setup() {
+    pojoClasses = PojoClassFactory.getPojoClassesRecursively("com.openpojo.issues.issue46.sample", null);
+    pojoValidator = ValidatorBuilder.create().with(new DefaultValuesNullTester()).build();
+  }
 
-    @Test
-    public void getAllClasses() {
-        pojoValidator.validate(pojoClasses);
-    }
+  @Test
+  public void getAllClasses() {
+    pojoValidator.validate(pojoClasses);
+  }
 }

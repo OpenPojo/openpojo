@@ -33,44 +33,44 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class IssueTest {
-    private static final String JACOCO_FIELD_NAME = "$jacocoData";
-    private static final String JACOCO_METHOD_NAME = "$jacocoInit";
+  private static final String JACOCO_FIELD_NAME = "$jacocoData";
+  private static final String JACOCO_METHOD_NAME = "$jacocoInit";
 
-    @SuppressWarnings("unused")
-    public static transient boolean[] $jacocoData;
+  @SuppressWarnings("unused")
+  public static transient boolean[] $jacocoData;
 
-    @SuppressWarnings("unused")
-    public static Class<?> $jacocoInit() {
-        return null;
+  @SuppressWarnings("unused")
+  public static Class<?> $jacocoInit() {
+    return null;
+  }
+
+
+  @Test
+  public void shouldHideJacocoFieldAndMethod() throws NoSuchFieldException, NoSuchMethodException {
+    Field field = this.getClass().getDeclaredField(JACOCO_FIELD_NAME);
+    Assert.assertNotNull("Should not be null", field);
+
+    Method method = this.getClass().getDeclaredMethod(JACOCO_METHOD_NAME);
+    Assert.assertNotNull("Should not be null", method);
+
+    PojoClassAdapter jacocoPojoClassAdapter = JacocoPojoClassAdapter.getInstance();
+    PojoClass cleansedPojoClass = jacocoPojoClassAdapter.adapt(PojoClassFactory.getPojoClass(this.getClass()));
+
+    for (PojoField pojoField : cleansedPojoClass.getPojoFields()) {
+      if (pojoField.getName().equals(JACOCO_FIELD_NAME)) {
+        Affirm.fail(JACOCO_FIELD_NAME + " field is still visible!!");
+      }
     }
 
-
-    @Test
-    public void shouldHideJacocoFieldAndMethod() throws NoSuchFieldException, NoSuchMethodException {
-        Field field = this.getClass().getDeclaredField(JACOCO_FIELD_NAME);
-        Assert.assertNotNull("Should not be null", field);
-
-        Method method = this.getClass().getDeclaredMethod(JACOCO_METHOD_NAME);
-        Assert.assertNotNull("Should not be null", method);
-
-        PojoClassAdapter jacocoPojoClassAdapter = JacocoPojoClassAdapter.getInstance();
-        PojoClass cleansedPojoClass = jacocoPojoClassAdapter.adapt(PojoClassFactory.getPojoClass(this.getClass()));
-
-        for (PojoField pojoField : cleansedPojoClass.getPojoFields()) {
-            if (pojoField.getName().equals(JACOCO_FIELD_NAME)) {
-                Affirm.fail(JACOCO_FIELD_NAME + " field is still visible!!");
-            }
-        }
-
-        for (PojoMethod pojoMethod : cleansedPojoClass.getPojoMethods()) {
-            if (pojoMethod.getName().equals(JACOCO_METHOD_NAME)) {
-                Affirm.fail(JACOCO_METHOD_NAME + " method is still visible!!");
-            }
-        }
-
-        Assert.assertNotNull(this.getClass().getDeclaredField("JACOCO_FIELD_NAME"));
-        Assert.assertNotNull(this.getClass().getDeclaredField("JACOCO_METHOD_NAME"));
-        Assert.assertNotNull(this.getClass().getDeclaredMethod("shouldHideJacocoFieldAndMethod"));
-
+    for (PojoMethod pojoMethod : cleansedPojoClass.getPojoMethods()) {
+      if (pojoMethod.getName().equals(JACOCO_METHOD_NAME)) {
+        Affirm.fail(JACOCO_METHOD_NAME + " method is still visible!!");
+      }
     }
+
+    Assert.assertNotNull(this.getClass().getDeclaredField("JACOCO_FIELD_NAME"));
+    Assert.assertNotNull(this.getClass().getDeclaredField("JACOCO_METHOD_NAME"));
+    Assert.assertNotNull(this.getClass().getDeclaredMethod("shouldHideJacocoFieldAndMethod"));
+
+  }
 }

@@ -29,14 +29,14 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class IssueTest {
-    @Test
-    public void testSetGenerator() {
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new SetterTester())
-                .build();
+  @Test
+  public void testSetGenerator() {
+    Validator pojoValidator = ValidatorBuilder.create()
+        .with(new SetterTester())
+        .build();
 
-        PojoClass pojoClass = PojoClassFactory.getPojoClass(TestClass.class);
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(TestClass.class);
 
-        pojoValidator.validate(pojoClass);
-    }
+    pojoValidator.validate(pojoClass);
+  }
 }

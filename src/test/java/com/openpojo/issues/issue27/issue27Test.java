@@ -34,34 +34,32 @@ import org.junit.Test;
  */
 public class issue27Test {
 
-    @Test(expected = AssertionError.class)
-    public void shouldFailValidationWithIntegerFieldAndPrimitiveIntParameterSetter() {
-        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithIntegerFieldAndPrimitiveIntParameterSetter
-                .class);
-        final Validator pojoValidator = ValidatorBuilder.create().with(new SetterMustExistRule()).build();
-        pojoValidator.validate(pojoClass);
-    }
+  @Test(expected = AssertionError.class)
+  public void shouldFailValidationWithIntegerFieldAndPrimitiveIntParameterSetter() {
+    final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithIntegerFieldAndPrimitiveIntParameterSetter.class);
+    final Validator pojoValidator = ValidatorBuilder.create().with(new SetterMustExistRule()).build();
+    pojoValidator.validate(pojoClass);
+  }
 
-    @Test(expected = AssertionError.class)
-    public void shouldFailValidationWithPrimitiveIntFieldAndIntegerParameterSetter() {
-        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithPrimitiveIntFieldAndIntegerParameterSetter.class);
-        final Validator pojoValidator = ValidatorBuilder.create().with(new SetterMustExistRule()).build();
-        pojoValidator.validate(pojoClass);
-    }
+  @Test(expected = AssertionError.class)
+  public void shouldFailValidationWithPrimitiveIntFieldAndIntegerParameterSetter() {
+    final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithPrimitiveIntFieldAndIntegerParameterSetter.class);
+    final Validator pojoValidator = ValidatorBuilder.create().with(new SetterMustExistRule()).build();
+    pojoValidator.validate(pojoClass);
+  }
 
-    @Test(expected = AssertionError.class)
-    public void shouldFailValidationWithIntegerFieldAndPrimitiveIntReturnTypeGetter() {
-        final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithIntegerFieldAndPrimitiveIntReturnTypeGetter.class);
-        final Validator pojoValidator = ValidatorBuilder.create().with(new GetterMustExistRule()).build();
-        pojoValidator.validate(pojoClass);
-    }
+  @Test(expected = AssertionError.class)
+  public void shouldFailValidationWithIntegerFieldAndPrimitiveIntReturnTypeGetter() {
+    final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithIntegerFieldAndPrimitiveIntReturnTypeGetter.class);
+    final Validator pojoValidator = ValidatorBuilder.create().with(new GetterMustExistRule()).build();
+    pojoValidator.validate(pojoClass);
+  }
 
-    @Test(expected = AssertionError.class)
-    public void shouldFailValidationWithPrimitiveIntFieldAndIntegerReturnTypeGetter() {
-        final PojoClass pojoClass = PojoClassFactory.getPojoClass
-                (ClassWithPrimitiveIntFieldAndIntegerReturnTypeGetter.class);
-        final Validator pojoValidator = ValidatorBuilder.create().with(new GetterMustExistRule()).build();
-        pojoValidator.validate(pojoClass);
-    }
+  @Test(expected = AssertionError.class)
+  public void shouldFailValidationWithPrimitiveIntFieldAndIntegerReturnTypeGetter() {
+    final PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithPrimitiveIntFieldAndIntegerReturnTypeGetter.class);
+    final Validator pojoValidator = ValidatorBuilder.create().with(new GetterMustExistRule()).build();
+    pojoValidator.validate(pojoClass);
+  }
 
 }

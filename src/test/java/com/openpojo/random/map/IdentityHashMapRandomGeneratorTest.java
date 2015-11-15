@@ -30,27 +30,27 @@ import com.openpojo.random.map.util.BaseMapRandomGeneratorTest;
  */
 public class IdentityHashMapRandomGeneratorTest extends BaseMapRandomGeneratorTest {
 
-    protected ParameterizableRandomGenerator getInstance() {
-        return IdentityHashMapRandomGenerator.getInstance();
-    }
+  protected ParameterizableRandomGenerator getInstance() {
+    return IdentityHashMapRandomGenerator.getInstance();
+  }
 
-    protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
-        return IdentityHashMapRandomGenerator.class;
-    }
+  protected Class<? extends ParameterizableRandomGenerator> getGeneratorClass() {
+    return IdentityHashMapRandomGenerator.class;
+  }
 
-    protected Class<? extends Map> getExpectedTypeClass() {
-        return IdentityHashMap.class;
-    }
+  protected Class<? extends Map> getExpectedTypeClass() {
+    return IdentityHashMap.class;
+  }
 
-    protected Class<? extends Map> getGeneratedTypeClass() {
-        return IdentityHashMap.class;
-    }
+  protected Class<? extends Map> getGeneratedTypeClass() {
+    return IdentityHashMap.class;
+  }
 
-    protected Class<?> getGenericType1() {
-        return SimpleType1.class;
-    }
+  protected Class<?> getGenericType1() {
+    return SimpleType1.class;
+  }
 
-    protected Class<?> getGenericType2() {
-        return SimpleType2.class;
-    }
+  protected Class<?> getGenericType2() {
+    return SimpleType2.class;
+  }
 }

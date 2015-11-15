@@ -31,30 +31,30 @@ import org.junit.Test;
  */
 public class IdentityFactoryTest {
 
-    @Test(expected = java.lang.IllegalArgumentException.class)
-    public void shouldNotAllowRegistrationOfNullHandler() {
-        IdentityFactory.registerIdentityHandler(null);
+  @Test(expected = java.lang.IllegalArgumentException.class)
+  public void shouldNotAllowRegistrationOfNullHandler() {
+    IdentityFactory.registerIdentityHandler(null);
+  }
+
+  @Test
+  public void whenNoIdentityHandlerFoundShouldThrowException() {
+    Object o = new Object();
+    List<IdentityHandler> identityHandlers = new ArrayList<IdentityHandler>();
+
+    try {
+      while (IdentityFactory.getIdentityHandler(o) != null) {
+        identityHandlers.add(IdentityFactory.getIdentityHandler(o));
+        IdentityFactory.unregisterIdentityHandler(IdentityFactory.getIdentityHandler(o));
+
+      }
+    } catch (BusinessException ignored) {
+      return;
+    } finally {
+      // restore setting;
+      for (int i = identityHandlers.size() - 1; i >= 0; i--) {
+        IdentityFactory.registerIdentityHandler(identityHandlers.get(i));
+      }
     }
-
-    @Test
-    public void whenNoIdentityHandlerFoundShouldThrowException() {
-        Object o = new Object();
-        List<IdentityHandler> identityHandlers = new ArrayList<IdentityHandler>();
-
-        try {
-            while (IdentityFactory.getIdentityHandler(o) != null) {
-                identityHandlers.add(IdentityFactory.getIdentityHandler(o));
-                IdentityFactory.unregisterIdentityHandler(IdentityFactory.getIdentityHandler(o));
-
-            }
-        } catch (BusinessException ignored) {
-            return;
-        } finally {
-            // restore setting;
-            for (int i = identityHandlers.size() - 1; i >= 0; i--) {
-                IdentityFactory.registerIdentityHandler(identityHandlers.get(i));
-            }
-        }
-        Assert.fail("BusinessException should have been thrown");
-    }
+    Assert.fail("BusinessException should have been thrown");
+  }
 }

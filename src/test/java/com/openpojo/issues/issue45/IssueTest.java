@@ -45,61 +45,62 @@ import static org.hamcrest.Matchers.is;
  */
 public class IssueTest {
 
-    private PojoClass aClassWithGenericCollectionPojo;
-    private PojoClass aParameterizedClass;
-    private Validator pojoValidator;
+  private PojoClass aClassWithGenericCollectionPojo;
+  private PojoClass aParameterizedClass;
+  private Validator pojoValidator;
 
-    @Before
-    public void setUp() throws Exception {
-        aClassWithGenericCollectionPojo = PojoClassFactory.getPojoClass(AClassWithGenericCollection.class);
-        aParameterizedClass = PojoClassFactory.getPojoClass(AParameterizedClass.class);
+  @Before
+  public void setUp() throws Exception {
+    aClassWithGenericCollectionPojo = PojoClassFactory.getPojoClass(AClassWithGenericCollection.class);
+    aParameterizedClass = PojoClassFactory.getPojoClass(AParameterizedClass.class);
 
-        pojoValidator = ValidatorBuilder.create()
-                .with(new GetterMustExistRule())
-                .with(new SetterMustExistRule())
-                .with(new SetterTester())
-                .with(new GetterTester())
-                .build();
-    }
+    pojoValidator = ValidatorBuilder.create()
+        .with(new GetterMustExistRule())
+        .with(new SetterMustExistRule())
+        .with(new SetterTester())
+        .with(new GetterTester())
+        .build();
+  }
 
-    @Test
-    @SuppressWarnings("AssertEqualsBetweenInconvertibleTypes")
-    public void ensureAClassWithGenericCollectionPojo_HasNotBeenModified() {
-        Assert.assertThat("Fields added / removed to sample class?", aClassWithGenericCollectionPojo.getPojoFields().size(), is(1));
-        PojoField pojoField = aClassWithGenericCollectionPojo.getPojoFields().get(0);
-        Assert.assertEquals(List.class, pojoField.getType());
-        Assert.assertThat("Field should have only one parameter", pojoField.getParameterTypes().size(), is(1));
-        Assert.assertEquals(SomeGeneric.class, pojoField.getParameterTypes().get(0));
-    }
+  @Test
+  @SuppressWarnings("AssertEqualsBetweenInconvertibleTypes")
+  public void ensureAClassWithGenericCollectionPojo_HasNotBeenModified() {
+    Assert.assertThat("Fields added / removed to sample class?", aClassWithGenericCollectionPojo.getPojoFields().size(), is(1));
+    PojoField pojoField = aClassWithGenericCollectionPojo.getPojoFields().get(0);
+    Assert.assertEquals(List.class, pojoField.getType());
+    Assert.assertThat("Field should have only one parameter", pojoField.getParameterTypes().size(), is(1));
+    Assert.assertEquals(SomeGeneric.class, pojoField.getParameterTypes().get(0));
+  }
 
-    @Test
-    public void ensureAParameterizedClass_HasNotBeenModified() {
-        Assert.assertThat(aParameterizedClass.getPojoFields().size(), is(1));
-        Assert.assertThat(aParameterizedClass.getClazz().getTypeParameters().length, is(1));
-        Assert.assertTrue(TypeVariable.class.isAssignableFrom(aParameterizedClass.getClazz().getTypeParameters()[0].getClass()));
-    }
+  @Test
+  public void ensureAParameterizedClass_HasNotBeenModified() {
+    Assert.assertThat(aParameterizedClass.getPojoFields().size(), is(1));
+    Assert.assertThat(aParameterizedClass.getClazz().getTypeParameters().length, is(1));
+    Assert.assertTrue(TypeVariable.class.isAssignableFrom(aParameterizedClass.getClazz().getTypeParameters()[0].getClass()));
+  }
 
-    @Test
-    public void whenAClassHasGenericCollection_RandomGeneratorShouldPopulateProperly() {
-        pojoValidator.validate(aClassWithGenericCollectionPojo);
-    }
+  @Test
+  public void whenAClassHasGenericCollection_RandomGeneratorShouldPopulateProperly() {
+    pojoValidator.validate(aClassWithGenericCollectionPojo);
+  }
 
-    @Test
-    public void testAParameterizedClass() {
-        pojoValidator.validate(aParameterizedClass);
-    }
+  @Test
+  public void testAParameterizedClass() {
+    pojoValidator.validate(aParameterizedClass);
+  }
 
-    @Test
-    public void testAClassWithGenericArray() {
-        pojoValidator.validate(PojoClassFactory.getPojoClass(AClassWithGenericArray.class));
-    }
+  @Test
+  public void testAClassWithGenericArray() {
+    pojoValidator.validate(PojoClassFactory.getPojoClass(AClassWithGenericArray.class));
+  }
 
-    @Test
-    public void testEndToEndCollections() {
-        pojoValidator = ValidatorBuilder.create().with(new SetterMustExistRule())
-                .with(new SetterTester())
-                .build();
-        pojoValidator.validate(PojoClassFactory.getPojoClass(ClassWithVariousGenericSetList.class));
-    }
+  @Test
+  public void testEndToEndCollections() {
+    pojoValidator = ValidatorBuilder.create().with(new SetterMustExistRule())
+        .with(new SetterTester())
+        .build();
+
+    pojoValidator.validate(PojoClassFactory.getPojoClass(ClassWithVariousGenericSetList.class));
+  }
 
 }

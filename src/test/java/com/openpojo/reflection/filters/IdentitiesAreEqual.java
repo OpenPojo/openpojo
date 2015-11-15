@@ -24,33 +24,33 @@ import org.testng.Assert;
  */
 public class IdentitiesAreEqual {
 
-    protected void checkEqualityAndHashCode(Object instanceOne, Object instanceTwo) {
-        twoInstancesShouldBeEqual(instanceOne, instanceTwo);
-        twoInstanceShouldHaveTheSameHashCode(instanceOne, instanceTwo);
-        sameInstanceShouldBeEqualToItself(instanceOne);
-        instanceEqualsReturnsFalseWithObject(instanceOne);
-        instanceEqualsNullIsFalse(instanceOne);
-    }
+  protected void checkEqualityAndHashCode(Object instanceOne, Object instanceTwo) {
+    twoInstancesShouldBeEqual(instanceOne, instanceTwo);
+    twoInstanceShouldHaveTheSameHashCode(instanceOne, instanceTwo);
+    sameInstanceShouldBeEqualToItself(instanceOne);
+    instanceEqualsReturnsFalseWithObject(instanceOne);
+    instanceEqualsNullIsFalse(instanceOne);
+  }
 
-    private void twoInstancesShouldBeEqual(Object instanceOne, Object instanceTwo) {
-        Assert.assertNotSame(instanceOne, instanceTwo);
-        Assert.assertEquals(instanceOne, instanceTwo);
-    }
+  private void twoInstancesShouldBeEqual(Object instanceOne, Object instanceTwo) {
+    Assert.assertNotSame(instanceOne, instanceTwo);
+    Assert.assertEquals(instanceOne, instanceTwo);
+  }
 
-    private void twoInstanceShouldHaveTheSameHashCode(Object instanceOne, Object instanceTwo) {
-        Assert.assertNotSame(instanceOne, instanceTwo);
-        Assert.assertEquals(instanceOne.hashCode(), instanceTwo.hashCode());
-    }
+  private void twoInstanceShouldHaveTheSameHashCode(Object instanceOne, Object instanceTwo) {
+    Assert.assertNotSame(instanceOne, instanceTwo);
+    Assert.assertEquals(instanceOne.hashCode(), instanceTwo.hashCode());
+  }
 
-    private void sameInstanceShouldBeEqualToItself(Object instanceOne) {
-        Assert.assertEquals(instanceOne, instanceOne);
-    }
+  private void sameInstanceShouldBeEqualToItself(Object instanceOne) {
+    Assert.assertEquals(instanceOne, instanceOne);
+  }
 
-    private void instanceEqualsReturnsFalseWithObject(Object instanceOne) {
-        Assert.assertTrue(!instanceOne.equals(new Object()));
-    }
+  private void instanceEqualsReturnsFalseWithObject(Object instanceOne) {
+    Assert.assertTrue(!instanceOne.equals(new Object()));
+  }
 
-    private void instanceEqualsNullIsFalse(Object instanceOne) {
-        Assert.assertTrue(!instanceOne.equals(instanceOne.getClass().cast(null)));
-    }
+  private void instanceEqualsNullIsFalse(Object instanceOne) {
+    Assert.assertTrue(!instanceOne.equals(instanceOne.getClass().cast(null)));
+  }
 }

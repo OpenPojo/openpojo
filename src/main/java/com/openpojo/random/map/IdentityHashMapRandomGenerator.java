@@ -32,24 +32,24 @@ import com.openpojo.random.util.SerializableComparableObject;
  * @author oshoukry
  */
 public class IdentityHashMapRandomGenerator extends BaseMapRandomGenerator {
-    private static final Class<?>[] TYPES = new Class<?>[] { IdentityHashMap.class };
-    private static final IdentityHashMapRandomGenerator INSTANCE = new IdentityHashMapRandomGenerator();
+  private static final Class<?>[] TYPES = new Class<?>[] { IdentityHashMap.class };
+  private static final IdentityHashMapRandomGenerator INSTANCE = new IdentityHashMapRandomGenerator();
 
-    public static IdentityHashMapRandomGenerator getInstance() {
-        return INSTANCE;
-    }
+  public static IdentityHashMapRandomGenerator getInstance() {
+    return INSTANCE;
+  }
 
-    public Collection<Class<?>> getTypes() {
-        return Arrays.asList(TYPES);
-    }
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
 
-    @Override
-    protected Map getBasicInstance(Class<?> type) {
-        Helper.assertIsAssignableTo(type, getTypes());
-        return MapHelper.buildMap(new IdentityHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
-    }
+  @Override
+  protected Map getBasicInstance(Class<?> type) {
+    Helper.assertIsAssignableTo(type, getTypes());
+    return MapHelper.buildMap(new IdentityHashMap(), SerializableComparableObject.class, SerializableComparableObject.class);
+  }
 
-    private IdentityHashMapRandomGenerator() {
-    }
+  private IdentityHashMapRandomGenerator() {
+  }
 
 }

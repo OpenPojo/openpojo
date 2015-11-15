@@ -30,17 +30,17 @@ import org.testng.Assert;
  */
 public class IssueTest {
 
-    @Test
-    public void shouldEscapeSpaces() throws MalformedURLException {
-        String givenURL = "file:///apps/jboss/.jenkins/workspace/Mobil%20kontroll%20-%20Trunk%20-%20Deploy%20Utv%20(mk-deploy-utv)" +
-                "/model-kund/target/test-classes/se/metria/system/mk/kund/model";
-        URL url = new URL(givenURL);
+  @Test
+  public void shouldEscapeSpaces() throws MalformedURLException {
+    String givenURL = "file:///apps/jboss/.jenkins/workspace/Mobil%20kontroll%20-%20Trunk%20-%20Deploy%20Utv%20" +
+        "(mk-deploy-utv)/model-kund/target/test-classes/se/metria/system/mk/kund/model";
+    URL url = new URL(givenURL);
 
-        File expectedFile = new File("/apps/jboss/.jenkins/workspace/Mobil kontroll - Trunk - Deploy Utv (mk-deploy-utv)" +
-                "/model-kund/target/test-classes/se/metria/system/mk/kund/model");
+    File expectedFile = new File("/apps/jboss/.jenkins/workspace/Mobil kontroll - Trunk - Deploy Utv (mk-deploy-utv)" +
+        "/model-kund/target/test-classes/se/metria/system/mk/kund/model");
 
-        URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(url);
+    URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(url);
 
-        Assert.assertEquals(expectedFile, urlToFileSystemAdapter.getAsFile());
-    }
+    Assert.assertEquals(expectedFile, urlToFileSystemAdapter.getAsFile());
+  }
 }

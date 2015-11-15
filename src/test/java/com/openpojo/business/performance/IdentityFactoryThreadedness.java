@@ -22,60 +22,60 @@ import java.util.concurrent.CountDownLatch;
 
 public class IdentityFactoryThreadedness {
 
-    private boolean multiThreaded = true;
-    private Method method;
+  private boolean multiThreaded = true;
+  private Method method;
 
-    public IdentityFactoryThreadedness(Method method) {
-        this.method = method;
+  public IdentityFactoryThreadedness(Method method) {
+    this.method = method;
+  }
+
+  void execute(int numberOfThreads) throws InterruptedException {
+    CountDownLatch latch = new CountDownLatch(numberOfThreads);
+    Thread[] threads = new Thread[numberOfThreads];
+    for (int i = 0; i < numberOfThreads; i++) {
+      BarrierBasedIdentityHandler barrierBasedIdentityHandler = new BarrierBasedIdentityHandler(latch);
+      threads[i] = new Thread(new MethodInvokeJob(null, method, barrierBasedIdentityHandler));
+      threads[i].start();
     }
 
-    void execute(int numberOfThreads) throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(numberOfThreads);
-        Thread[] threads = new Thread[numberOfThreads];
-        for (int i = 0; i < numberOfThreads; i++) {
-            BarrierBasedIdentityHandler barrierBasedIdentityHandler = new BarrierBasedIdentityHandler(latch);
-            threads[i] = new Thread(new MethodInvokeJob(null, method, barrierBasedIdentityHandler));
-            threads[i].start();
-        }
-
-        while (!threadsFinished(threads)) {
-            Thread.sleep(10);
-            if (oneWaitingAndOthersBlocked(threads)) {
-                interruptThreads(threads);
-                multiThreaded = false;
-            }
-        }
+    while (!threadsFinished(threads)) {
+      Thread.sleep(10);
+      if (oneWaitingAndOthersBlocked(threads)) {
+        interruptThreads(threads);
+        multiThreaded = false;
+      }
     }
+  }
 
-    public boolean isMultiThreaded() {
-        return multiThreaded;
-    }
+  public boolean isMultiThreaded() {
+    return multiThreaded;
+  }
 
-    private boolean threadsFinished(Thread [] threads) {
-        boolean areTerminated = true;
-        for (Thread thread : threads) {
-            areTerminated &= thread.getState() == Thread.State.TERMINATED;
-        }
-        return areTerminated;
+  private boolean threadsFinished(Thread[] threads) {
+    boolean areTerminated = true;
+    for (Thread thread : threads) {
+      areTerminated &= thread.getState() == Thread.State.TERMINATED;
     }
+    return areTerminated;
+  }
 
-    private boolean oneWaitingAndOthersBlocked(Thread [] threads) {
-        int threadsWaiting = 0;
-        int threadsBlocked = 0;
-        for (Thread thread : threads) {
-            if (thread.getState() == Thread.State.BLOCKED) {
-                threadsBlocked++;
-            }
-            if (thread.getState() == Thread.State.WAITING) {
-                threadsWaiting++;
-            }
-        }
-        return (threadsWaiting == 1 && (threadsBlocked == threads.length - 1));
+  private boolean oneWaitingAndOthersBlocked(Thread[] threads) {
+    int threadsWaiting = 0;
+    int threadsBlocked = 0;
+    for (Thread thread : threads) {
+      if (thread.getState() == Thread.State.BLOCKED) {
+        threadsBlocked++;
+      }
+      if (thread.getState() == Thread.State.WAITING) {
+        threadsWaiting++;
+      }
     }
+    return (threadsWaiting == 1 && (threadsBlocked == threads.length - 1));
+  }
 
-    private void interruptThreads(Thread[] threads) {
-        for (Thread thread : threads) {
-            thread.interrupt();
-        }
+  private void interruptThreads(Thread[] threads) {
+    for (Thread thread : threads) {
+      thread.interrupt();
     }
+  }
 }

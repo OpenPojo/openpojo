@@ -31,71 +31,71 @@ import org.junit.Test;
  */
 public class IssueTest {
 
-    @Test
-    public void identityFactoryGetHandler_MustAllowAccessWhileBeingModified() throws InterruptedException {
+  @Test
+  public void identityFactoryGetHandler_MustAllowAccessWhileBeingModified() throws InterruptedException {
 
-        int count = 50000;
-        CountDownLatch startSignal = new CountDownLatch(2);
+    int count = 50000;
+    CountDownLatch startSignal = new CountDownLatch(2);
 
-        RegisterUnRegisterJob firstJob = new RegisterUnRegisterJob(startSignal, count);
-        Thread firstWorker = new Thread(firstJob);
-        firstWorker.start();
+    RegisterUnRegisterJob firstJob = new RegisterUnRegisterJob(startSignal, count);
+    Thread firstWorker = new Thread(firstJob);
+    firstWorker.start();
 
-        RegisterUnRegisterJob secondJob = new RegisterUnRegisterJob(startSignal, count);
-        Thread secondWorker = new Thread(secondJob);
-        secondWorker.start();
+    RegisterUnRegisterJob secondJob = new RegisterUnRegisterJob(startSignal, count);
+    Thread secondWorker = new Thread(secondJob);
+    secondWorker.start();
 
-        firstWorker.join();
-        secondWorker.join();
+    firstWorker.join();
+    secondWorker.join();
 
-        boolean firstJobResult = firstJob.hasCompletedSuccessfully();
-        boolean secondJobResult = secondJob.hasCompletedSuccessfully();
-        Assert.assertTrue(String.format("Threads failed to completed [1: %s, 2: %s]",firstJobResult, secondJobResult),
-                firstJobResult && secondJobResult);
-    }
+    boolean firstJobResult = firstJob.hasCompletedSuccessfully();
+    boolean secondJobResult = secondJob.hasCompletedSuccessfully();
+    Assert.assertTrue(String.format("Threads failed to completed [1: %s, 2: %s]", firstJobResult, secondJobResult),
+        firstJobResult && secondJobResult);
+  }
 
-    @Test
-    public void identityFactoryUnRegister_MustBeMultiThreaded() throws NoSuchMethodException {
-        Method unregisterMethod = getIdentityFactoryDeclaredMethod("unregisterIdentityHandler", IdentityHandler.class);
-        verifyMethodIsSynchronized(unregisterMethod);
-    }
+  @Test
+  public void identityFactoryUnRegister_MustBeMultiThreaded() throws NoSuchMethodException {
+    Method unregisterMethod = getIdentityFactoryDeclaredMethod("unregisterIdentityHandler", IdentityHandler.class);
+    verifyMethodIsSynchronized(unregisterMethod);
+  }
 
-    @Test
-    public void identityFactoryRegister_MustBeMultiThreaded() throws NoSuchMethodException {
-        Method registerMethod = getIdentityFactoryDeclaredMethod("registerIdentityHandler", IdentityHandler.class);
-        verifyMethodIsSynchronized(registerMethod);
-    }
+  @Test
+  public void identityFactoryRegister_MustBeMultiThreaded() throws NoSuchMethodException {
+    Method registerMethod = getIdentityFactoryDeclaredMethod("registerIdentityHandler", IdentityHandler.class);
+    verifyMethodIsSynchronized(registerMethod);
+  }
 
-    private void verifyMethodIsSynchronized(Method method) {
-        Assert.assertTrue(Modifier.isSynchronized(method.getModifiers()));
-    }
+  private void verifyMethodIsSynchronized(Method method) {
+    Assert.assertTrue(Modifier.isSynchronized(method.getModifiers()));
+  }
 
-    @Test
-    public void identityFactoryGetHandler_MustBeMultiThreaded() throws InterruptedException, NoSuchMethodException {
-        CountDownLatch latch = new CountDownLatch(0);
-        BarrierBasedIdentityHandler first = new BarrierBasedIdentityHandler(latch);
-        BarrierBasedIdentityHandler second = new BarrierBasedIdentityHandler(latch);
-        IdentityFactory.registerIdentityHandler(first);
-        IdentityFactory.registerIdentityHandler(second);
+  @Test
+  public void identityFactoryGetHandler_MustBeMultiThreaded() throws InterruptedException, NoSuchMethodException {
+    CountDownLatch latch = new CountDownLatch(0);
+    BarrierBasedIdentityHandler first = new BarrierBasedIdentityHandler(latch);
+    BarrierBasedIdentityHandler second = new BarrierBasedIdentityHandler(latch);
+    IdentityFactory.registerIdentityHandler(first);
+    IdentityFactory.registerIdentityHandler(second);
 
-        int numberOfThreads = 2;
-        latch = new CountDownLatch(numberOfThreads);
-        first.setLatch(latch);
-        second.setLatch(latch);
+    int numberOfThreads = 2;
+    latch = new CountDownLatch(numberOfThreads);
+    first.setLatch(latch);
+    second.setLatch(latch);
 
-        Method getHandlerForMethod = getIdentityFactoryDeclaredMethod("getIdentityHandler", Object.class);
-        verifyMethodIsThreaded(numberOfThreads, getHandlerForMethod);
-    }
+    Method getHandlerForMethod = getIdentityFactoryDeclaredMethod("getIdentityHandler", Object.class);
+    verifyMethodIsThreaded(numberOfThreads, getHandlerForMethod);
+  }
 
-    private void verifyMethodIsThreaded(int numberOfThreads, Method method) throws InterruptedException {
-        IdentityFactoryThreadedness identityFactory = new IdentityFactoryThreadedness(method);
-        identityFactory.execute(numberOfThreads);
-        Assert.assertTrue("IdentityFactory." + method.getName() + " is not MultiThreaded!!", identityFactory.isMultiThreaded());
-    }
+  private void verifyMethodIsThreaded(int numberOfThreads, Method method) throws InterruptedException {
+    IdentityFactoryThreadedness identityFactory = new IdentityFactoryThreadedness(method);
+    identityFactory.execute(numberOfThreads);
+    Assert.assertTrue("IdentityFactory." + method.getName() + " is not MultiThreaded!!", identityFactory.isMultiThreaded());
+  }
 
-    private Method getIdentityFactoryDeclaredMethod(String methodName, Class<?>... parameters) throws NoSuchMethodException {
-        return IdentityFactory.class.getDeclaredMethod(methodName, parameters);
-    }
+  private Method getIdentityFactoryDeclaredMethod(String methodName, Class<?>... parameters) throws NoSuchMethodException {
+    return IdentityFactory.class.getDeclaredMethod(methodName, parameters);
+  }
 
 
 }

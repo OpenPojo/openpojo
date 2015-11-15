@@ -32,13 +32,15 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class IssueTest {
-    @Test
-    public void issueTest() {
-        Validator validator = ValidatorBuilder.create()
-                .with(new SetterTester())
-                .with(new GetterTester())
-                .build();
-        validator.validate(PojoClassFactory.getPojoClass(TestClass.class));
-    }
+  @Test
+  public void issueTest() {
+
+    Validator validator = ValidatorBuilder.create()
+        .with(new SetterTester())
+        .with(new GetterTester())
+        .build();
+
+    validator.validate(PojoClassFactory.getPojoClass(TestClass.class));
+  }
 
 }

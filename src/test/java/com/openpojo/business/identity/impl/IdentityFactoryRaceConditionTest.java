@@ -40,63 +40,63 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class IdentityFactoryRaceConditionTest {
-    @Test
-    public void runWithManyThreads() {
-        int numberOfThreads = 1500;
+  @Test
+  public void runWithManyThreads() {
+    int numberOfThreads = 1500;
 
-        ThreadPoolExecutor tpe = new ThreadPoolExecutor(numberOfThreads, numberOfThreads, 3 * 60, TimeUnit.SECONDS,
-                new ArrayBlockingQueue<Runnable>(numberOfThreads) );
+    ThreadPoolExecutor tpe = new ThreadPoolExecutor(numberOfThreads, numberOfThreads, 3 * 60, TimeUnit.SECONDS,
+        new ArrayBlockingQueue<Runnable>(numberOfThreads));
 
-        CyclicBarrier cb = new CyclicBarrier(numberOfThreads);
-        for (int i = 0; i < numberOfThreads; i++)
-            tpe.execute(new Worker(cb));
-        tpe.shutdown();
+    CyclicBarrier cb = new CyclicBarrier(numberOfThreads);
+    for (int i = 0; i < numberOfThreads; i++)
+      tpe.execute(new Worker(cb));
+    tpe.shutdown();
 
-        while (!tpe.isTerminated()) {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException ignored) {
+    while (!tpe.isTerminated()) {
+      try {
+        Thread.sleep(500);
+      } catch (InterruptedException ignored) {
 
-            }
-        }
-
-        Assert.assertEquals("Some threads failed to complete successfully", numberOfThreads, tpe.getCompletedTaskCount());
+      }
     }
 
-    class Worker implements Runnable {
-        private final CyclicBarrier cyclicBarrier;
+    Assert.assertEquals("Some threads failed to complete successfully", numberOfThreads, tpe.getCompletedTaskCount());
+  }
 
-        public Worker(final CyclicBarrier cyclicBarrier) {
-            this.cyclicBarrier = cyclicBarrier;
-        }
+  class Worker implements Runnable {
+    private final CyclicBarrier cyclicBarrier;
 
-        public void run() {
-            try {
-                Validator pv = ValidatorBuilder.create()
-                        .with(new BusinessKeyMustExistRule())
-                        .with(new GetterMustExistRule())
-                        .with(new NoFieldShadowingRule())
-                        .with(new NoNestedClassRule())
-                        .with(new NoPrimitivesRule())
-                        .with(new NoPublicFieldsExceptStaticFinalRule())
-                        .with(new NoPublicFieldsRule())
-                        .with(new NoStaticExceptFinalRule())
-                        .with(new SerializableMustHaveSerialVersionUIDRule())
-                        .with(new SetterMustExistRule())
-                        .with(new BusinessIdentityTester())
-                        .with(new DefaultValuesNullTester())
-                        .with(new GetterTester())
-                        .with(new SetterTester())
-                        .build();
-
-                PojoClass pojoClass = PojoClassFactory.getPojoClass(PojoClassWithHashCodeBusinessIdentity.class);
-                cyclicBarrier.await();
-                pv.validate(pojoClass);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (BrokenBarrierException e) {
-                e.printStackTrace();
-            }
-        }
+    public Worker(final CyclicBarrier cyclicBarrier) {
+      this.cyclicBarrier = cyclicBarrier;
     }
+
+    public void run() {
+      try {
+        Validator pv = ValidatorBuilder.create()
+            .with(new BusinessKeyMustExistRule())
+            .with(new GetterMustExistRule())
+            .with(new NoFieldShadowingRule())
+            .with(new NoNestedClassRule())
+            .with(new NoPrimitivesRule())
+            .with(new NoPublicFieldsExceptStaticFinalRule())
+            .with(new NoPublicFieldsRule())
+            .with(new NoStaticExceptFinalRule())
+            .with(new SerializableMustHaveSerialVersionUIDRule())
+            .with(new SetterMustExistRule())
+            .with(new BusinessIdentityTester())
+            .with(new DefaultValuesNullTester())
+            .with(new GetterTester())
+            .with(new SetterTester())
+            .build();
+
+        PojoClass pojoClass = PojoClassFactory.getPojoClass(PojoClassWithHashCodeBusinessIdentity.class);
+        cyclicBarrier.await();
+        pv.validate(pojoClass);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } catch (BrokenBarrierException e) {
+        e.printStackTrace();
+      }
+    }
+  }
 }

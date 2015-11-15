@@ -35,24 +35,27 @@ import org.junit.Test;
  */
 public class IssueTest {
 
-    @Test
-    public void testByteArrayEquality() {
+  @Test
+  public void testByteArrayEquality() {
 
-        byte [] first = new byte[] { (byte) 0xaa, (byte) 0xab, (byte) 0xac };
-        byte [] second = first.clone();
+    byte[] first = new byte[] { (byte) 0xaa, (byte) 0xab, (byte) 0xac };
+    byte[] second = first.clone();
 
-        Affirm.affirmEquals("A clone failed to be seen as equal", first, second);
-    }
+    Affirm.affirmEquals("A clone failed to be seen as equal", first, second);
+  }
 
-    @Test
-    public void testAClassWithArrayField() {
-        Affirmation jUnitAffirmation = (Affirmation) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(JUnitAssertAffirmation
-                .class));
-        AffirmationFactory.getInstance().setActiveAffirmation(jUnitAffirmation);
-        PojoClass classWithArrayField = PojoClassFactory.getPojoClass(AClassWithArrayField.class);
-        Validator pojoValidator = ValidatorBuilder.create()
-                .with(new GetterTester())
-                .build();
-        pojoValidator.validate(classWithArrayField);
-    }
+  @Test
+  public void testAClassWithArrayField() {
+    Affirmation jUnitAffirmation = (Affirmation) InstanceFactory.getInstance(
+        PojoClassFactory.getPojoClass(JUnitAssertAffirmation.class));
+
+    AffirmationFactory.getInstance().setActiveAffirmation(jUnitAffirmation);
+    PojoClass classWithArrayField = PojoClassFactory.getPojoClass(AClassWithArrayField.class);
+
+    Validator pojoValidator = ValidatorBuilder.create()
+        .with(new GetterTester())
+        .build();
+
+    pojoValidator.validate(classWithArrayField);
+  }
 }
