@@ -130,7 +130,7 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
         return true;
     }
 
-    return (isAnnotatedOrParentAnnotated(pojoClass.getSuperClass(), testAnnotation));
+    return isAnnotatedOrParentAnnotated(pojoClass.getSuperClass(), testAnnotation);
   }
 
 }

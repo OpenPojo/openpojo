@@ -44,6 +44,7 @@ public abstract class AbstractAffirmation implements Affirmation {
     return object != null && object.getClass().isArray();
   }
 
+  @SuppressWarnings("PMD.UselessParentheses")
   public boolean objectPointersAreTheSame(Object expected, Object actual) {
     return (expected == null && actual == null) || (expected == actual);
   }

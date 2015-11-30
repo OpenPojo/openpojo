@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author oshoukry
  */
+@SuppressWarnings("PMD.UselessParentheses")
 public class ComparableDelayed implements Delayed {
   private final long delay = (System.currentTimeMillis() % 5) - 3;
 

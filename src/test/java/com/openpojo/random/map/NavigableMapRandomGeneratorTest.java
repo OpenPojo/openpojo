@@ -63,9 +63,4 @@ public class NavigableMapRandomGeneratorTest extends BaseMapRandomGeneratorTest 
   protected Class<?> getGenericType2() {
     return ComparableType2.class;
   }
-
-  public void constructorShouldBePrivate() {
-    super.constructorShouldBePrivate();
-  }
-
 }

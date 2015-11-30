@@ -70,7 +70,7 @@ public class IdentityFactoryThreadedness {
         threadsWaiting++;
       }
     }
-    return (threadsWaiting == 1 && (threadsBlocked == threads.length - 1));
+    return threadsWaiting == 1 && threadsBlocked == threads.length - 1;
   }
 
   private void interruptThreads(Thread[] threads) {

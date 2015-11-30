@@ -64,18 +64,12 @@ public class GetterTesterAndSetterTesterTest {
     invokeRun(pojoClass, new SetterTester());
   }
 
-  @Test
+  @Test(expected = AssertionError.class)
   public void shouldFailSetterTest() {
     List<PojoClass> badPojoClasses = getBadPojoClasses();
     Assert.assertEquals("Classes added/removed?", 1, badPojoClasses.size());
-    for (final PojoClass pojoClass : badPojoClasses) {
-      try {
-        invokeRun(pojoClass, new SetterTester());
-        Assert.fail("Should not have passed");
-      } catch (AssertionError ignored) {
 
-      }
-    }
+    invokeRun(badPojoClasses.get(0), new SetterTester());
   }
 
   @Test(expected = AssertionError.class)

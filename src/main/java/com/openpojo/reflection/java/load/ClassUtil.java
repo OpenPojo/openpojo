@@ -43,10 +43,13 @@ public class ClassUtil {
   public static Class<?> loadClass(String className, boolean initialize, ClassLoader classloader) {
     try {
       return Class.forName(className, initialize, classloader);
-    } catch (LinkageError linkageError) { // class depends on another that wasn't found.
-    } catch (ClassNotFoundException classNotFoundException) { // no such class found.
+    } catch (LinkageError linkageError) {
+      // class depends on another that wasn't found.
+      return null;
+    } catch (ClassNotFoundException classNotFoundException) {
+      // no such class found.
+      return null;
     }
-    return null;
   }
 
   private static ClassLoader getThreadClassLoader() {

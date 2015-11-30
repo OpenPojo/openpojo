@@ -40,6 +40,7 @@ public class SerializableComparableObjectTest {
     Affirm.affirmEquals("CompareTo should return 0", 0, firstInstance.compareTo(secondInstance));
   }
 
+  @SuppressWarnings("PMD.OverrideBothEqualsAndHashcode")
   private class SerializableComparableObjectStub extends SerializableComparableObject {
     private int hashCode;
 

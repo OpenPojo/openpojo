@@ -34,14 +34,10 @@ public class URLToFileSystemAdapterTest {
     new URLToFileSystemAdapter(null);
   }
 
-  @Test
+  @Test(expected = ReflectionException.class)
   public void invalidURLShouldThrowException() throws MalformedURLException {
     URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(new URL("file://Not A Parse-able URI"));
-    try {
-      urlToFileSystemAdapter.getAsURI();
-      Assert.fail("Invalid URL should've failed to transfer to URI");
-    } catch (ReflectionException ignored) {
-    }
+    urlToFileSystemAdapter.getAsURI();
   }
 
   @Test

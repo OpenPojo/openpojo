@@ -193,7 +193,7 @@ public class InstanceFactory {
   }
 
   private static boolean isAssignableFrom(final Class<?> expectedType, final Class<?> givenType) {
-    return givenType == null || (expectedType.isAssignableFrom(givenType));
+    return givenType == null || expectedType.isAssignableFrom(givenType);
   }
 
   private static Class<?>[] getTypes(final Object... parameters) {

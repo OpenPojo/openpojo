@@ -20,6 +20,9 @@ package com.openpojo.reflection.impl.sampleclasses;
 /**
  * @author oshoukry
  */
+
+//TODO: Discuss why public class does not have hashCode implemented
+@SuppressWarnings("PMD.OverrideBothEqualsAndHashcode")
 public class AClassWithEquality {
 
   private String name;

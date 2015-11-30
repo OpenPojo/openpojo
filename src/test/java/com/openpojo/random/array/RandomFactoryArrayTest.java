@@ -28,6 +28,7 @@ import org.junit.Test;
  */
 public class RandomFactoryArrayTest {
 
+  @SuppressWarnings("PMD.UselessParentheses")
   @Test
   public void shouldCreateRandomArray() {
     final Class<?> type = anyArrayType();
