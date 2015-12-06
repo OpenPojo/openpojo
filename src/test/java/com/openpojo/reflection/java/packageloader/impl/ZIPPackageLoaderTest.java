@@ -28,6 +28,7 @@ import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.Java;
 import com.openpojo.validation.affirm.Affirm;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -35,10 +36,25 @@ import org.junit.Test;
  */
 public class ZIPPackageLoaderTest {
 
+  private boolean isWindows = false;
+
+  @Before
+  public void setup() {
+    if (System.getProperty("os.name").toLowerCase().contains("windows"))
+      isWindows = true;
+  }
+
   @Test
   public void canLoadZipFile() throws MalformedURLException, ClassNotFoundException {
 
-    String mypath = "jar:file://" + System.getProperty("user.dir") + "/test/sampleJar.zip!/";
+    String mypath = "jar:file://";
+    String userdir = System.getProperty("user.dir");
+    if (isWindows)
+      mypath += userdir.substring(2).replace("\\", "/"); // skip over the C:
+    else
+      mypath += userdir;
+
+    mypath += "/test/sampleJar.zip!/";
 
     URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] { new URL(mypath) });
 
