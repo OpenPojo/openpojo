@@ -31,21 +31,21 @@ public interface PojoMethod extends PojoElement {
   /**
    * Invokes the underlying method represented by this Method object, on the specified object with the specified
    * parameters.
-   * <p/>
+   *
    * Individual parameters are automatically unwrapped to match primitive formal parameters, and both primitive
    * and reference parameters are subject to method invocation conversions as necessary.
-   * <p/>
+   *
    * If the underlying method is static, then the specified instance argument is ignored. It may be null.
    * If the number of formal parameters required by the underlying method is 0,
    * the supplied parameters array may be of length 0 or null.
-   * <p/>
+   *
    * If the method completes normally, the value it returns is returned to the caller of invoke;
    * if the value has a primitive type, it is first appropriately wrapped in an object.
    * However, if the value has the type of an array of a primitive type, the elements of the array are not
    * wrapped in objects; in other words, an array of primitive type is returned.
-   * <p/>
+   *
    * If the underlying method return type is void, the invocation returns null.
-   * <p/>
+   *
    * note: If an exception occurs, it will be thrown as ReflectionException.
    *
    * @param instance

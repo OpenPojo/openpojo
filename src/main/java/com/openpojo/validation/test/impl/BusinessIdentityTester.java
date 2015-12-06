@@ -31,7 +31,7 @@ import com.openpojo.validation.utils.ValidationHelper;
  * This rules ensures that object.equals(Object) and object.hashCode() are dispatching their calls to BusinessIdentity.
  * Use this tester to if you are using @BusinessKey and passing on your equals and hashCode calls to
  * {@link BusinessIdentity}.
- * <p/>
+ *
  * This Tester is NOT thread safe.
  *
  * @author oshoukry

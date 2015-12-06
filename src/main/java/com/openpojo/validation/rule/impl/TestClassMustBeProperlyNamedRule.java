@@ -37,7 +37,7 @@ import com.openpojo.validation.rule.Rule;
  * <li> Test begins with Test
  * <li> Test ends with TestCase
  * </ul>
- * <p/>
+ *
  * To override the accepted list use the {@link #TestClassMustBeProperlyNamedRule(Collection prefix, Collection postfix)
  * TestClassMustBeProperlyNamedRule}
  *

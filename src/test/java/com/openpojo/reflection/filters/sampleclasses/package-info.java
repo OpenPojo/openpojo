@@ -19,7 +19,7 @@
  * This package holdes the sample classes necessary for testing reflection.
  *
  * @author oshoukry
- * <p/>
+ *
  * The annotation @SomeAnnotation was thrown here because ant will automatically filter out package-info
  * out of the test classes, causing the script to fail upon checking counts of elements returned.<br>
  * <br>

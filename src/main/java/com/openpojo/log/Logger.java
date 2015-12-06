@@ -23,14 +23,14 @@ import com.openpojo.log.utils.MessageFormatter;
 /**
  * The main logger interface that all code should use to communicate log messages. See java.text.MessageFormat <br>
  * For example:
- * <p/>
+ *
  * <pre>
  * Logger log = Logger.getLog(MyClass.class);
  * log.info(&quot;This is my {0}, message for {1}.&quot;, &quot;test&quot;, new Date());
  * </pre>
- * <p/>
+ *
  * Would log something like:
- * <p/>
+ *
  * <pre>
  *      MyClass: INFO - This is my test message for 12/01/2009.
  * </pre>

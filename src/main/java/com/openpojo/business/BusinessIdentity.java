@@ -25,7 +25,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 /**
  * This is the entry point and the main class to use for all your business evaluation, hashCode generation,
  * as well as toString rendering.
- * <p/>
+ *
  * <br>
  * This class was created to simplify the entry into the business package and is ready for use without writing any code.
  * Simply configure your POJOs with {@link com.openpojo.business.annotation.BusinessKey} annotation, and then delegate
@@ -34,7 +34,7 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * The toString method can be called even if your POJOs aren't configured with a BusinessKey, it is simply an easy way
  * to print in clean normalized way ALL contents of a Java Class.
  * <br>
- * <p/>
+ *
  * <strong>Note:</strong><br>
  * All calls to areEqual &amp; getHashCode will result in a call to {@link com.openpojo.business.identity
  * .BusinessValidator}.validate

@@ -39,7 +39,7 @@ import com.openpojo.registry.ServiceRegistrar;
  * }
  * }
  * </pre>
- * <p/>
+ *
  * And you created the random generator as follows:
  * <pre>
  * {@code
@@ -49,7 +49,7 @@ import com.openpojo.registry.ServiceRegistrar;
  * }
  * }
  * </pre>
- * <p/>
+ *
  * This would potentially cause a stack over-flow since there is a cyclic dependency of Employee on itself. So to
  * prevent stack over-flow (which would occur by trying to create a manager for every manager), this Factory has built
  * in protection (using {@link GeneratedRandomValues}) to prevent such a thing by recording for a current recursive call

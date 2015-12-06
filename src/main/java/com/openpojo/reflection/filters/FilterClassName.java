@@ -25,10 +25,10 @@ import com.openpojo.reflection.PojoClassFilter;
 
 /**
  * Filter classes based on class name regular expression
- * <p/>
+ *
  * Example: ".+Domain$" to only include classes that end in Domain "^((?!Test$).)*$" to exclude classes that end with
  * Test
- * <p/>
+ *
  * This implementation was submitted on issue 20.
  *
  * @author oshoukry

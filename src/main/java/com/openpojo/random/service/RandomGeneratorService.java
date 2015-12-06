@@ -50,7 +50,7 @@ public interface RandomGeneratorService extends Service {
   /**
    * This method set the RandomGenerator to use if non are registered for given type. This randomGenerator's
    * getTypes() return will be ignored and not consulted for routing.
-   * <p/>
+   *
    * There can only be one (1) default random generator.
    *
    * @param randomGenerator
@@ -68,7 +68,7 @@ public interface RandomGeneratorService extends Service {
   /**
    * This retrieves the most appropriate RandomGenerator for a given Type. If there is more than one possible random
    * generator valid for a given type, one will randomly be selected.
-   * <p/>
+   *
    * The only reason multiple may exist is due to inheritance, for example if you register two random generators one
    * to handle LinkedList, and one to handle Set, and request a randomGenerator for type "Collection", either of those
    * randomGenerators could be used. However, if there is a random generator registered for Collection, that will be
@@ -83,7 +83,7 @@ public interface RandomGeneratorService extends Service {
   /**
    * This retrieves the most appropriate ParameterizableRandomGenerator for a given Type.
    * If there is more than one possible random generator valid for a given type, one will randomly be selected.
-   * <p/>
+   *
    * The only reason multiple may exist is due to inheritance, for example if you register two random generators one
    * to handle LinkedList, and one to handle Set, and request a randomGenerator for type "Collection", either of those
    * randomGenerators could be used. However, if there is a random generator registered for Collection, that will be
