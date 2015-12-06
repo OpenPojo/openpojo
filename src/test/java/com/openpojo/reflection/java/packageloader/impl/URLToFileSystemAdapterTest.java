@@ -17,17 +17,33 @@
 
 package com.openpojo.reflection.java.packageloader.impl;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.openpojo.reflection.exception.ReflectionException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class URLToFileSystemAdapterTest {
+
+  private String pathSeperator = "/";
+  private String rootPrefix = "/";
+  private boolean isWindows = false;
+
+  @Before
+  public void setup() {
+    String os = System.getProperty("os.name");
+    if (os.toLowerCase().contains("windows")) {
+      isWindows = true;
+      pathSeperator = "\\";
+      rootPrefix = new File("/").getAbsolutePath();
+    }
+  }
 
   @Test(expected = ReflectionException.class)
   public void whenNullURLShouldThrowException() {
@@ -46,17 +62,20 @@ public class URLToFileSystemAdapterTest {
 
   @Test
   public void whenURLendsWithPercentDoNotExcape() {
-    validateURLtoExpectedFilePath("/apps%", "file:///apps%");
+    validateURLtoExpectedFilePath(rootPrefix + "apps%", "file:///apps%");
   }
 
   @Test
   public void whenURLHasPercent20TurnToSpaces() {
-    validateURLtoExpectedFilePath("/WithOne Two Spaces", "file:///WithOne%20Two%20Spaces");
+    validateURLtoExpectedFilePath(rootPrefix + "WithOne Two Spaces", "file:///WithOne%20Two%20Spaces");
   }
 
   @Test
   public void whenOnWindowsMountedShouldPreserveServerAuthority() {
-    validateURLtoExpectedFilePath("/ourserver.com@ourserver.com/A Server Path", "file://ourserver.com/A%20Server%20Path/");
+    String expectedFilePath = pathSeperator + "ourserver.com@ourserver.com" + pathSeperator + "A Server Path";
+    if (isWindows)
+      expectedFilePath = pathSeperator + expectedFilePath;
+    validateURLtoExpectedFilePath(expectedFilePath, "file://ourserver.com/A%20Server%20Path/");
   }
 
   private void validateURLtoExpectedFilePath(String expectedFilePath, String url) {
@@ -65,7 +84,7 @@ public class URLToFileSystemAdapterTest {
       String absolutePath = urlToFileSystemAdapter.getAsFile().getAbsolutePath();
       Assert.assertEquals(expectedFilePath, absolutePath);
     } catch (MalformedURLException e) {
-      Assert.fail("Exception encountered" + e);
+      Assert.fail("Exception encountered: " + e);
       e.printStackTrace();
     }
   }
