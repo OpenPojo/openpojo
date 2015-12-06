@@ -51,6 +51,7 @@ public class WildcardTypeResolver implements TypeResolver<WildcardType> {
     return bounds;
   }
 
+  @SuppressWarnings("PMD.UselessParentheses")
   private void ensureAValidBoundaryExists(Type[] lowerBounds, Type[] upperBounds) {
     if (lowerBounds.length > 1 || upperBounds.length > 1 || (upperBounds.length == 0 && lowerBounds.length == 0))
       throw ReflectionException.getInstance("Unable to identify proper resolution for type, " +

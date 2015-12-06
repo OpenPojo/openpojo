@@ -1,5 +1,7 @@
 .DS_Store
 target/
+.gradle
+build
 .idea
 openpojo.iml
 .clover

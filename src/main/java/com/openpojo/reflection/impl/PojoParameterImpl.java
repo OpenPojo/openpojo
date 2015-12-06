@@ -69,7 +69,7 @@ public class PojoParameterImpl implements PojoParameter {
   }
 
   public boolean isParameterized() {
-    return (type instanceof ParameterizedType);
+    return type instanceof ParameterizedType;
   }
 
   public List<Type> getParameterTypes() {

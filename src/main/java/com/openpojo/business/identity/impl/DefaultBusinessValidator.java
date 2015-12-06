@@ -59,7 +59,7 @@ public class DefaultBusinessValidator implements BusinessValidator {
         hasCompositeGroup = true;
       } else {
         if (businessKeyField.isRequired() && businessKeyField.get(object) == null) {
-          throw BusinessException.getInstance((String.format("Field required and can't be null [%s]", businessKeyField)));
+          throw BusinessException.getInstance(String.format("Field required and can't be null [%s]", businessKeyField));
         }
       }
     }

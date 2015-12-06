@@ -40,6 +40,8 @@ public final class PojoMethodClass {
 
   }
 
+  //TODO: discuss - it could be required by tests
+  @SuppressWarnings("PMD.UnnecessaryFinalModifier")
   public final void finalMethod() {
 
   }

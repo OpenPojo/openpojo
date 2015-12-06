@@ -86,36 +86,25 @@ public class BusinessIdentityTest {
     return equalityTestData;
   }
 
-  @Test
-  public void testIncompleteObject() {
-    try {
-      BusinessIdentity.areEqual(new Person(null, "MiddleName", null), new Person(null, "MiddleName", null));
-      Assert.fail("Expected Exception due to required BusinessKeys not fullfilled");
-    } catch (final BusinessException be) {
-      // expected
-    }
+  @Test(expected = BusinessException.class)
+  public void testIncompleteObjectBusinessKeysNotFulfilled() {
+    BusinessIdentity.areEqual(new Person(null, "MiddleName", null), new Person(null, "MiddleName", null));
+  }
 
-    try {
-      BusinessIdentity.areEqual(new Person(null, null, "LastName"), new Person(null, null, "LastName"));
-      Assert.fail("Expected Exception due to composite BusinessKeys not fullfilled");
-    } catch (final BusinessException be) {
-      // expected
-    }
+  @Test(expected = BusinessException.class)
+  public void testIncompleteObjectCompositeBusinessKeysNotFulfilled() {
+    BusinessIdentity.areEqual(new Person(null, null, "LastName"), new Person(null, null, "LastName"));
+  }
 
-    try {
-      //noinspection RedundantStringConstructorCall
-      BusinessIdentity.areEqual(new String("First"), new String("First"));
-      Assert.fail("Expected Exception due to no BusinessKeys defined");
-    } catch (final BusinessException be) {
-      // expected
-    }
+  @Test(expected = BusinessException.class)
+  public void testIncompleteObjectNoBusinessKeysDefined() {
+    //noinspection RedundantStringConstructorCall
+    BusinessIdentity.areEqual(new String("First"), new String("First"));
+  }
 
-    try {
-      BusinessIdentity.getHashCode(null);
-      Assert.fail("Expected Exception due to null object");
-    } catch (final BusinessException be) {
-      // expected
-    }
+  @Test(expected = BusinessException.class)
+  public void testIncompleteObjectNullObject() {
+    BusinessIdentity.getHashCode(null);
   }
 
   @Test

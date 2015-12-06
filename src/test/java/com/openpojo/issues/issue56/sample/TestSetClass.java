@@ -28,6 +28,7 @@ public class TestSetClass implements Comparable {
     return anyValidCompareToValue();
   }
 
+  @SuppressWarnings("PMD.UselessParentheses")
   private int anyValidCompareToValue() {
     return (RandomFactory.getRandomValue(char.class) % 3) - 1;
   }

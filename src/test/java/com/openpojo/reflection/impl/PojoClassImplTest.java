@@ -195,7 +195,7 @@ public class PojoClassImplTest {
   @Test(expected = ReflectionException.class)
   public void shouldFailToFindAppropriateConstructor() {
     final PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-    InstanceFactory.getInstance(pojoClass, (new Object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
+    InstanceFactory.getInstance(pojoClass, new Object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
   }
 
   @Test(expected = ReflectionException.class)
@@ -207,7 +207,7 @@ public class PojoClassImplTest {
   @Test(expected = ReflectionException.class)
   public void shouldFailToConstructBasedOnExcpetionalConstructorWithParam() {
     final PojoClass pojoClass = getPojoClassImplForClass(AClassWithExceptionalConstructors.class);
-    InstanceFactory.getInstance(pojoClass, ("OneStringParam"));
+    InstanceFactory.getInstance(pojoClass, "OneStringParam");
   }
 
   @Test
@@ -246,7 +246,7 @@ public class PojoClassImplTest {
   @Test
   public void shouldCreateInstanceOneNullParameterConstructor() {
     final PojoClass pojoClass = getPojoClassImplForClass(MultiplePublicAndPrivateWithManyParamsConstructor.class);
-    final Object instance = InstanceFactory.getInstance(pojoClass, (new Object[] { null }));
+    final Object instance = InstanceFactory.getInstance(pojoClass, new Object[] { null });
     Affirm.affirmNotNull(String.format("Failed to create a new instance using single parameter constructor for " +
         "class=[%s]", pojoClass), instance);
   }

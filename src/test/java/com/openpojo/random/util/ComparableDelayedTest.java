@@ -50,6 +50,8 @@ public class ComparableDelayedTest {
     Affirm.affirmEquals("CompareTo should return 0", 0, firstInstance.compareTo(secondInstance));
   }
 
+
+  @SuppressWarnings("PMD.OverrideBothEqualsAndHashcode")
   private class ComparableDelayedStub extends ComparableDelayed {
     private int hashCode;
 

@@ -183,6 +183,6 @@ public class BusinessIdentityUtils {
    * @return True if data is of type Character or CharSequence, false otherwise.
    */
   private static boolean isCharacterBased(final Object data) {
-    return (data instanceof Character || data instanceof CharSequence);
+    return data instanceof Character || data instanceof CharSequence;
   }
 }

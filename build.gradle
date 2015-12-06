@@ -1,0 +1,76 @@
+apply plugin: 'java'
+apply plugin: 'pmd'
+apply plugin: "jacoco"
+
+description = """This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
+        This project has two main aspects to it:
+        * Make Testing as easy as possible.
+        * Simplifying identity management (hashCode / equals) using annotation."""
+
+version = "0.8.2-SNAPSHOT"
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+apply from: "dependencies.gradle"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile libraries.log
+    compile libraries.asm
+    compile libraries.test
+}
+
+jacocoTestReport {
+    reports {
+        reports {
+            xml{
+                enabled true
+                destination "${buildDir}/reports/jacoco/xml/jacoco.xml"
+            }
+            csv.enabled false
+            html{
+                enabled true
+                destination "${buildDir}/reports/jacoco/html"
+            }
+        }
+    }
+}
+
+allprojects {
+    apply plugin: 'maven'
+    group = 'com.openpojo'
+    version = "${version}"
+
+    configure(install.repositories.mavenInstaller) {
+        pom.project {
+            inceptionYear '2010'
+            packaging 'jar'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }
+}
+
+//TODO: clarify JavaDoc "<p/>" issues and remove
+// http://stackoverflow.com/questions/26049329/javadoc-in-jdk-8-invalid-self-closing-element-not-allowed
+// http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
