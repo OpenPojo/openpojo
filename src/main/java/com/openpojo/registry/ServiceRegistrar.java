@@ -24,13 +24,8 @@ import com.openpojo.random.collection.CollectionRandomGenerator;
 import com.openpojo.random.collection.list.*;
 import com.openpojo.random.collection.queue.*;
 import com.openpojo.random.collection.set.*;
-import com.openpojo.random.impl.BasicRandomGenerator;
-import com.openpojo.random.impl.ClassRandomGenerator;
-import com.openpojo.random.impl.DefaultRandomGenerator;
-import com.openpojo.random.impl.EnumRandomGenerator;
-import com.openpojo.random.impl.ObjectRandomGenerator;
-import com.openpojo.random.impl.TimestampRandomGenerator;
-import com.openpojo.random.impl.VoidRandomGenerator;
+import com.openpojo.random.collection.set.EnumSetRandomGenerator;
+import com.openpojo.random.impl.*;
 import com.openpojo.random.map.*;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.random.service.impl.DefaultRandomGeneratorService;
@@ -72,6 +67,7 @@ public class ServiceRegistrar {
     newRandomGeneratorService.registerRandomGenerator(BasicRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(TimestampRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(EnumRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(UUIDRandomGenerator.getInstance());
 
     // Collection
     newRandomGeneratorService.registerRandomGenerator(AbstractCollectionRandomGenerator.getInstance());
