@@ -82,6 +82,7 @@ public class ServiceRegistrarTest {
             ,"java.util.SortedSet"
             ,"java.util.TreeMap"
             ,"java.util.TreeSet"
+            ,"java.net.URL"
             ,"java.util.UUID"
             ,"java.util.Vector"
             ,"java.util.WeakHashMap"

@@ -68,6 +68,7 @@ public class ServiceRegistrar {
     newRandomGeneratorService.registerRandomGenerator(TimestampRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(EnumRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(UUIDRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(URLRandomGenerator.getInstance());
 
     // Collection
     newRandomGeneratorService.registerRandomGenerator(AbstractCollectionRandomGenerator.getInstance());
