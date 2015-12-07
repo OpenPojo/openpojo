@@ -55,7 +55,7 @@ public class URLRandomGenerator implements RandomGenerator {
     try {
       return new URL(entry);
     } catch (MalformedURLException me) {
-      throw RandomGeneratorException.getInstance("Failed to create a URL with: " + entry, me);
+      throw RandomGeneratorException.getInstance("Failed to create random URL (Invalid hostPrefix set?): " + entry, me);
     }
   }
 
