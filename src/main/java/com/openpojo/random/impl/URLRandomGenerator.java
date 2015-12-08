@@ -33,7 +33,7 @@ import com.openpojo.random.exception.RandomGeneratorException;
  */
 public class URLRandomGenerator implements RandomGenerator {
   private static final Class<?>[] TYPES = new Class<?>[] { URL.class };
-  private String hostPrefix = "http://randomurl.openpojo.com/";
+  private String urlPrefix = "http://randomurl.openpojo.com/";
 
   private URLRandomGenerator() {
   }
@@ -46,16 +46,16 @@ public class URLRandomGenerator implements RandomGenerator {
     return Arrays.asList(TYPES);
   }
 
-  public void setHostPrefix(String hostPrefix) {
-    this.hostPrefix = hostPrefix;
+  public void setUrlPrefix(String hostPrefix) {
+    this.urlPrefix = hostPrefix;
   }
 
   public Object doGenerate(Class<?> type) {
-    String entry = hostPrefix + RandomFactory.getRandomValue(UUID.class) + "/";
+    String entry = urlPrefix + RandomFactory.getRandomValue(UUID.class) + "/";
     try {
       return new URL(entry);
     } catch (MalformedURLException me) {
-      throw RandomGeneratorException.getInstance("Failed to create random URL (Invalid hostPrefix set?): " + entry, me);
+      throw RandomGeneratorException.getInstance("Failed to create random URL (Invalid urlPrefix set?): " + entry, me);
     }
   }
 

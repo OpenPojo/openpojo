@@ -96,12 +96,12 @@ public class URLRandomGeneratorTest {
 
   @Test (expected = RandomGeneratorException.class)
   public void willThrowExceptionWhenHostPrefixMalformed() {
-    URLRandomGenerator.getInstance().setHostPrefix("");
+    URLRandomGenerator.getInstance().setUrlPrefix("");
     URLRandomGenerator.getInstance().doGenerate(URL.class);
   }
 
   @After
   public void tearDown() {
-    URLRandomGenerator.getInstance().setHostPrefix("http://randomurl.openpojo.com/");
+    URLRandomGenerator.getInstance().setUrlPrefix("http://randomurl.openpojo.com/");
   }
 }
