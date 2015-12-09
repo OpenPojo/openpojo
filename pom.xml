@@ -28,7 +28,7 @@
 
     <groupId>com.openpojo</groupId>
     <artifactId>openpojo</artifactId>
-    <version>0.8.3</version>
+    <version>0.8.4-SNAPSHOT</version>
     <name>${project.artifactId}</name>
 
     <description>This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
