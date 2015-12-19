@@ -34,7 +34,6 @@ import com.openpojo.reflection.java.bytecode.asm.ASMService;
 public class ByteCodeFactory {
   private static final Logger LOGGER = LoggerFactory.getLogger(ByteCodeFactory.class);
   private static boolean asm_enabled = ASMDetector.getInstance().isASMLoaded();
-  private static ASMService asmService = ASMService.getInstance();
 
   private ByteCodeFactory() {
     throw new IllegalStateException(ByteCodeFactory.class.getName() + " should not be constructed!");
@@ -51,7 +50,7 @@ public class ByteCodeFactory {
       throw ASMNotLoadedException.getInstance();
 
     LOGGER.info("Generating subclass for class [{0}]", clazz);
-    return asmService.createSubclassFor(clazz);
+    return ASMService.getInstance().createSubclassFor(clazz);
   }
 
   private static <T> boolean isNull(Class<T> clazz) {
