@@ -101,7 +101,7 @@ public final class JavaLogger extends Logger {
 
   @Override
   public void error(final Object message) {
-    // JavaLogging doesn't have error level, so we'll treat it as warning.
+    // JavaLogging doesn't have error level, so we'll treat it as severe.
     fatal(message);
   }
 
