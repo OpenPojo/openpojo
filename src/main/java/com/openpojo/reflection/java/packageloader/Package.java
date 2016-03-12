@@ -77,6 +77,7 @@ public final class Package {
     for (URL resource : resources) {
       packageLoaders.add(PackageLoader.getPackageLoaderByURL(resource, packageName));
     }
+
     return packageLoaders;
   }
 
@@ -94,6 +95,7 @@ public final class Package {
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
+  @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
   public boolean equals(final Object obj) {
     return BusinessIdentity.areEqual(this, obj);
   }
