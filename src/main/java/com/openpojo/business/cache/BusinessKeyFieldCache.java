@@ -29,7 +29,7 @@ import com.openpojo.cache.CacheStorageFactory;
  * @author oshoukry
  */
 public class BusinessKeyFieldCache {
-  private static CacheStorage<List<BusinessKeyField>> cache = CacheStorageFactory.getPersistentCacheStorage();
+  private CacheStorage<List<BusinessKeyField>> cache = CacheStorageFactory.getPersistentCacheStorage();
 
   /**
    * Retrieve a BusinessFields list from Cache.
@@ -38,7 +38,7 @@ public class BusinessKeyFieldCache {
    *     The cache tag to use for cache lookup.
    * @return Cached PojoReference, or null if none found.
    */
-  public static List<BusinessKeyField> get(final String name) {
+  public List<BusinessKeyField> get(final String name) {
     return cache.get(name);
   }
 
@@ -50,7 +50,7 @@ public class BusinessKeyFieldCache {
    * @param businessFields
    *     The list of businessFields to cache
    */
-  public static void add(final String name, final List<BusinessKeyField> businessFields) {
+  public void add(final String name, final List<BusinessKeyField> businessFields) {
     cache.add(name, businessFields);
   }
 

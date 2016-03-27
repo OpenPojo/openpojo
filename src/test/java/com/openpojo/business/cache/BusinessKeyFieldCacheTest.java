@@ -17,33 +17,37 @@
 
 package com.openpojo.business.cache;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.business.utils.BusinessPojoHelper;
+import com.openpojo.validation.affirm.Affirm;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class BusinessKeyFieldCacheTest {
+  private BusinessKeyFieldCache cache;
+
+  @Before
+  public void setup() {
+    cache = new BusinessKeyFieldCache();
+  }
 
   @Test
   public void whenCacheEmptyNullIsReturned() {
-    Assert.assertNull(BusinessKeyFieldCache.get("SomePojo"));
+    Assert.assertNull(cache.get("SomePojo"));
   }
 
   @Test
-  public void whenGetBusinessKeyFields_FieldsAreCached() {
-    List<BusinessKeyField> businessFields = BusinessPojoHelper.getBusinessKeyFields(DummyBusinessPojo.class);
-    BusinessKeyFieldCache.add("SomePojo", businessFields);
+  public void whenEntryAddedCanBeReturned() {
+    List<BusinessKeyField> someList = new ArrayList<BusinessKeyField>();
 
-    Assert.assertEquals(businessFields, BusinessKeyFieldCache.get(DummyBusinessPojo.class.getName()));
-  }
+    String anyCacheEntry = "SomeClass";
+    cache.add(anyCacheEntry, someList);
 
-  public static class DummyBusinessPojo {
-    @BusinessKey
-    private String name;
+    Affirm.affirmTrue("Should keep the same instance", someList == cache.get(anyCacheEntry));
   }
 }

@@ -35,7 +35,11 @@ import com.openpojo.reflection.impl.PojoClassFactory;
  * @author oshoukry
  */
 public class BusinessPojoHelper {
+  private static BusinessKeyFieldCache cache = new BusinessKeyFieldCache();
 
+  private BusinessPojoHelper() {
+    throw new UnsupportedOperationException("This is a utility class, do not construct");
+  }
   /**
    * Get all business keys declared on a class and the parent super classes.
    *
@@ -45,7 +49,7 @@ public class BusinessPojoHelper {
    */
   public static List<BusinessKeyField> getBusinessKeyFields(final Class<?> clazz) {
 
-    List<BusinessKeyField> businessKeyFields = BusinessKeyFieldCache.get(clazz.getName());
+    List<BusinessKeyField> businessKeyFields = cache.get(clazz.getName());
     if (businessKeyFields != null) {
       return businessKeyFields;
     }
@@ -60,7 +64,7 @@ public class BusinessPojoHelper {
       pojoClass = pojoClass.getSuperClass();
     }
 
-    BusinessKeyFieldCache.add(clazz.getName(), businessKeyFields);
+    cache.add(clazz.getName(), businessKeyFields);
     return businessKeyFields;
   }
 
