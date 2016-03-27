@@ -27,7 +27,6 @@ public final class DefaultIdentityHandler implements IdentityHandler {
   private static final IdentityHandler INSTANCE = new DefaultIdentityHandler();
 
   private DefaultIdentityHandler() {
-
   }
 
   public static IdentityHandler getInstance() {

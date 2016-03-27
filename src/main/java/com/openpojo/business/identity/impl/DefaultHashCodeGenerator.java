@@ -35,20 +35,20 @@ import com.openpojo.business.utils.BusinessPojoHelper;
  * @author oshoukry
  */
 
-public class DefaultHashCodeGenerator implements HashCodeGenerator {
+class DefaultHashCodeGenerator implements HashCodeGenerator {
+  private static final HashCodeGenerator INSTANCE = new DefaultHashCodeGenerator();
 
   private DefaultHashCodeGenerator() {
   }
 
   public static HashCodeGenerator getInstance() {
-    return Instance.INSTANCE;
+    return INSTANCE;
   }
 
 
   public int doGenerate(final Object object) {
-    if (object == null) {
+    if (object == null)
       throw BusinessException.getInstance("null parameter passed object=[null]");
-    }
 
     final int prime = 31;
     int result = 1;
@@ -58,7 +58,4 @@ public class DefaultHashCodeGenerator implements HashCodeGenerator {
     return result;
   }
 
-  private static class Instance {
-    static final HashCodeGenerator INSTANCE = new DefaultHashCodeGenerator();
-  }
 }

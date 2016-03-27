@@ -32,14 +32,14 @@ import com.openpojo.business.utils.BusinessPojoHelper;
  *
  * @author oshoukry
  */
-public class DefaultBusinessValidator implements BusinessValidator {
+class DefaultBusinessValidator implements BusinessValidator {
+  private static final BusinessValidator INSTANCE = new DefaultBusinessValidator();
 
   private DefaultBusinessValidator() {
-
   }
 
   public static BusinessValidator getInstance() {
-    return DefaultBusinessValidator.Instance.INSTANCE;
+    return INSTANCE;
   }
 
   public void validate(final Object object) {
@@ -73,7 +73,4 @@ public class DefaultBusinessValidator implements BusinessValidator {
     }
   }
 
-  private static class Instance {
-    static final BusinessValidator INSTANCE = new DefaultBusinessValidator();
-  }
 }
