@@ -40,6 +40,7 @@ public class BusinessPojoHelper {
   private BusinessPojoHelper() {
     throw new UnsupportedOperationException("This is a utility class, do not construct");
   }
+
   /**
    * Get all business keys declared on a class and the parent super classes.
    *
