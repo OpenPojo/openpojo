@@ -17,6 +17,13 @@
 
 package com.openpojo.cache;
 
+import java.util.List;
+
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
 import org.testng.Assert;
 
@@ -24,6 +31,23 @@ import org.testng.Assert;
  * @author oshoukry
  */
 public class CacheStorageFactoryTest {
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void shouldThrowExeptionIfConstructed() throws Throwable {
+    PojoClass cacheStorageFactoryPojo = PojoClassFactory.getPojoClass(CacheStorageFactory.class);
+
+    List<PojoMethod> pojoConstructors = cacheStorageFactoryPojo.getPojoConstructors();
+    Affirm.affirmEquals("Should have only one constructor", 1, pojoConstructors.size());
+    Affirm.affirmTrue("Constructor must be private", pojoConstructors.get(0).isPrivate());
+
+    try {
+      pojoConstructors.get(0).invoke(null, (Object[]) null);
+    } catch (ReflectionException re) {
+      throw re.getCause().getCause();
+    }
+
+  }
+
   @Test
   public void shouldReturnTemporalCache() {
     CacheStorage<String> keyValuePairCache = CacheStorageFactory.getTemporalCacheStorage();

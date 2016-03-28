@@ -28,6 +28,10 @@ import com.openpojo.cache.impl.WeakHashMapCacheStorage;
  */
 public class CacheStorageFactory {
 
+  private CacheStorageFactory() {
+      throw new UnsupportedOperationException("This is a utility class, do not construct");
+  }
+
   /**
    * Returns an instance of CacheStorage that will garbage collect automatically.
    *

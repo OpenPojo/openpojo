@@ -25,8 +25,10 @@ import com.openpojo.business.cache.BusinessKeyField;
 import com.openpojo.business.cache.BusinessKeyFieldCache;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.validation.affirm.Affirm;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -38,6 +40,10 @@ public class BusinessPojoHelperTest {
   @Test(expected = UnsupportedOperationException.class)
   public void shouldThrowExeptionIfConstructed() throws Throwable {
     PojoClass businessPojoHelper = PojoClassFactory.getPojoClass(BusinessPojoHelper.class);
+
+    List<PojoMethod> pojoConstructors = businessPojoHelper.getPojoConstructors();
+    Affirm.affirmEquals("Should have only one constructor", 1, pojoConstructors.size());
+    Affirm.affirmTrue("Constructor must be private", pojoConstructors.get(0).isPrivate());
 
     try {
       businessPojoHelper.getPojoConstructors().get(0).invoke(null, (Object[]) null);
