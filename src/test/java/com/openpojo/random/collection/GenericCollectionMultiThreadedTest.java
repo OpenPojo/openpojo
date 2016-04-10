@@ -44,9 +44,6 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class GenericCollectionMultiThreadedTest {
-
-  private String samplePackage = GenericCollectionMultiThreadedTest.class.getPackage().getName() + ".sample";
-
   @Test
   public void shouldCreateGenericCollection() throws ExecutionException, InterruptedException {
     List<PojoClass> pojoClasses = new ArrayList<PojoClass>(2);
