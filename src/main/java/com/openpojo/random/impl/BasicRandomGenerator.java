@@ -28,6 +28,7 @@ import java.util.Random;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
+import com.openpojo.reflection.java.type.Primitives;
 
 /**
  * This is the most basic random generator, it handles all basic java types (20 in total).<br>
@@ -61,79 +62,85 @@ public final class BasicRandomGenerator implements RandomGenerator {
   private static final int MAX_RANDOM_STRING_LENGTH = 32;
 
   private BasicRandomGenerator() {
-
   }
 
   public static RandomGenerator getInstance() {
     return Instance.INSTANCE;
   }
 
-  private static final Class<?>[] TYPES = new Class<?>[] { boolean.class, Boolean.class, int.class, Integer.class, float.class,
-      Float.class, double.class, Double.class, long.class, Long.class, short.class, Short.class, byte.class, Byte.class, char
-      .class, Character.class, String.class, Date.class, Calendar.class, BigDecimal.class, BigInteger.class };
+  private static final Class<?>[] TYPES = new Class<?>[] {
+      boolean.class, Boolean.class,
+      int.class, Integer.class,
+      float.class, Float.class,
+      double.class, Double.class,
+      long.class, Long.class,
+      short.class, Short.class,
+      byte.class, Byte.class,
+      char.class, Character.class,
+      String.class,
+      Date.class,
+      Calendar.class,
+      BigDecimal.class,
+      BigInteger.class };
 
-  private static final char[] CHARACTERS = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-      'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-      'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+  private static final char[] CHARACTERS = new char[] {
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+      'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+      'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+  };
 
   public Object doGenerate(final Class<?> type) {
-    if (type == boolean.class || type == Boolean.class) {
+    final Class<?> autoBoxedType = Primitives.getInstance().autoBox(type);
+
+    if (autoBoxedType == Boolean.class)
       return RANDOM.nextBoolean();
-    }
 
-    if (type == int.class || type == Integer.class) {
+    if (autoBoxedType == Integer.class)
       return RANDOM.nextInt();
-    }
 
-    if (type == BigInteger.class) {
+    if (autoBoxedType == BigInteger.class)
       return BigInteger.valueOf(RANDOM.nextLong());
-    }
 
-    if (type == float.class || type == Float.class) {
+    if (autoBoxedType == Float.class)
       return RANDOM.nextFloat();
-    }
 
-    if (type == double.class || type == Double.class) {
+    if (autoBoxedType == Double.class)
       return RANDOM.nextDouble();
-    }
 
-    if (type == BigDecimal.class) {
+    if (autoBoxedType == BigDecimal.class)
       return BigDecimal.valueOf(RANDOM.nextDouble());
-    }
 
-    if (type == long.class || type == Long.class) {
+    if (autoBoxedType == Long.class)
       return RANDOM.nextLong();
-    }
 
-    if (type == short.class || type == Short.class) {
+    if (autoBoxedType == Short.class)
       return (short) (RANDOM.nextInt(Short.MAX_VALUE + 1) * (RANDOM.nextBoolean() ? 1 : -1));
-    }
 
-    if (type == byte.class || type == Byte.class) {
+    if (autoBoxedType == Byte.class) {
       final byte[] randomByte = new byte[1];
       RANDOM.nextBytes(randomByte);
       return randomByte[0];
     }
 
-    if (type == char.class || type == Character.class) {
+    if (autoBoxedType == Character.class)
       return CHARACTERS[RANDOM.nextInt(CHARACTERS.length)];
-    }
 
-    if (type == String.class) {
+    if (autoBoxedType == String.class) {
       String randomString = "";
 
-            /* prevent zero length string lengths */
+      /* prevent zero length string lengths */
       for (int count = 0; count < RANDOM.nextInt(MAX_RANDOM_STRING_LENGTH + 1) + 1; count++) {
         randomString += RandomFactory.getRandomValue(Character.class);
       }
       return randomString;
     }
 
-    if (type == Date.class) {
+    if (autoBoxedType == Date.class)
       return new Date(RANDOM.nextLong());
-    }
 
-    if (type == Calendar.class) {
+    if (autoBoxedType == Calendar.class) {
       final Calendar calendar = Calendar.getInstance();
       calendar.setTimeInMillis(RANDOM.nextLong());
       return calendar;
