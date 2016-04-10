@@ -224,6 +224,9 @@ public class PojoFieldImplTest {
     PojoField pojoField = getFieldStartingWith(prefix);
     Affirm.affirmNotNull("Field not found [" + prefix + "]", pojoField);
     Affirm.affirmTrue("isPrivate() check on field=[" + pojoField + "] returned false!!", pojoField.isPrivate());
+    Affirm.affirmFalse("isPublic() check on field=[" + pojoField + "] returned true!!", pojoField.isPublic());
+    Affirm.affirmFalse("isProtected() check on field=[" + pojoField + "] returned true!!", pojoField.isProtected());
+    Affirm.affirmFalse("isPackagePrivate() check on field=[" + pojoField + "] returned true!!", pojoField.isPackagePrivate());
   }
 
   @Test
@@ -232,6 +235,9 @@ public class PojoFieldImplTest {
     PojoField pojoField = getFieldStartingWith(prefix);
     Affirm.affirmNotNull("Field not found [" + prefix + "]", pojoField);
     Affirm.affirmTrue("isPackagePrivate() check on field=[" + pojoField + "] returned false!!", pojoField.isPackagePrivate());
+    Affirm.affirmFalse("isPrivate() check on field=[" + pojoField + "] returned true!!", pojoField.isPrivate());
+    Affirm.affirmFalse("isPublic() check on field=[" + pojoField + "] returned true!!", pojoField.isPublic());
+    Affirm.affirmFalse("isProtected() check on field=[" + pojoField + "] returned true!!", pojoField.isProtected());
   }
 
   @Test
@@ -240,6 +246,9 @@ public class PojoFieldImplTest {
     PojoField pojoField = getFieldStartingWith(prefix);
     Affirm.affirmNotNull("Field not found [" + prefix + "]", pojoField);
     Affirm.affirmTrue("isProtected() check on field=[" + pojoField + "] returned false!!", pojoField.isProtected());
+    Affirm.affirmFalse("isPrivate() check on field=[" + pojoField + "] returned true!!", pojoField.isPrivate());
+    Affirm.affirmFalse("isPackagePrivate() check on field=[" + pojoField + "] returned true!!", pojoField.isPackagePrivate());
+    Affirm.affirmFalse("isPublic() check on field=[" + pojoField + "] returned true!!", pojoField.isPublic());
   }
 
   @Test
@@ -248,6 +257,9 @@ public class PojoFieldImplTest {
     PojoField pojoField = getFieldStartingWith(prefix);
     Affirm.affirmNotNull("Field not found [" + prefix + "]", pojoField);
     Affirm.affirmTrue("isPublic() check on field=[" + pojoField + "] returned false!!", pojoField.isPublic());
+    Affirm.affirmFalse("isPrivate() check on field=[" + pojoField + "] returned true!!", pojoField.isPrivate());
+    Affirm.affirmFalse("isPackagePrivate() check on field=[" + pojoField + "] returned true!!", pojoField.isPackagePrivate());
+    Affirm.affirmFalse("isProtected() check on field=[" + pojoField + "] returned true!!", pojoField.isProtected());
   }
 
   private PojoField getFieldStartingWith(String prefix) {

@@ -399,31 +399,46 @@ public class PojoClassImplTest {
 
   @Test
   public void isPublicClass() {
-    PojoClass publicClass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$PublicClass");
-    Affirm.affirmNotNull("Public class not found", publicClass);
-    Affirm.affirmTrue("Expected public class", publicClass.isPublic());
+    PojoClass pojoclass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$PublicClass");
+    Affirm.affirmNotNull("class not found", pojoclass);
+
+    Affirm.affirmTrue("isPublic() check on class=[" + pojoclass + "] returned false!!", pojoclass.isPublic());
+    Affirm.affirmFalse("isProtected() check on class=[" + pojoclass + "] returned true!!", pojoclass.isProtected());
+    Affirm.affirmFalse("isPrivate() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPrivate());
+    Affirm.affirmFalse("isPackagePrivate() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPackagePrivate());
   }
 
   @Test
   public void isProtectedClass() {
-    PojoClass protectedClass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$ProtectedClass");
-    Affirm.affirmNotNull("Protected class not found", protectedClass);
-    Affirm.affirmTrue("Expected protected class", protectedClass.isProtected());
+    PojoClass pojoclass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$ProtectedClass");
+    Affirm.affirmNotNull("class not found", pojoclass);
+
+    Affirm.affirmTrue("isProtected() check on class=[" + pojoclass + "] returned false!!", pojoclass.isProtected());
+    Affirm.affirmFalse("isPrivate() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPrivate());
+    Affirm.affirmFalse("isPackagePrivate() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPackagePrivate());
+    Affirm.affirmFalse("isPublic() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPublic());
   }
 
   @Test
   public void isPrivateClass() {
-    PojoClass privateClass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$PrivateClass");
-    Affirm.affirmNotNull("Protected class not found", privateClass);
-    Affirm.affirmTrue("Expected protected class", privateClass.isPrivate());
+    PojoClass pojoclass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$PrivateClass");
+    Affirm.affirmNotNull("class not found", pojoclass);
+
+    Affirm.affirmTrue("isPrivate() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPrivate());
+    Affirm.affirmFalse("isPackagePrivate() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPackagePrivate());
+    Affirm.affirmFalse("isProtected() check on class=[" + pojoclass + "] returned true!!", pojoclass.isProtected());
+    Affirm.affirmFalse("isPublic() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPublic());
   }
 
   @Test
   public void isPackagePrivateClass() {
-    PojoClass privateClass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$PackagePrivateClass");
-    Affirm.affirmNotNull("PackagePrivate class not found", privateClass);
-    Affirm.affirmTrue("Expected PackagePrivate class", privateClass.isPackagePrivate());
-  }
+    PojoClass pojoclass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$PackagePrivateClass");
+    Affirm.affirmNotNull("class not found", pojoclass);
+
+    Affirm.affirmTrue("isPackagePrivate() check on class=[" + pojoclass + "] returned false!!", pojoclass.isPackagePrivate());
+    Affirm.affirmFalse("isPrivate() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPrivate());
+    Affirm.affirmFalse("isProtected() check on class=[" + pojoclass + "] returned true!!", pojoclass.isProtected());
+    Affirm.affirmFalse("isPublic() check on class=[" + pojoclass + "] returned true!!", pojoclass.isPublic());  }
 
   private PojoClass getClass(String name) {
     List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(SAMPLE_CLASSES_PKG);

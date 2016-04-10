@@ -119,56 +119,48 @@ public class PojoMethodImplTest {
   public void testIsPrivate() {
     String prefix = "privateMethod";
     PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
-    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
-    Affirm.affirmTrue("isPrivate() false for [" + pojoMethod + "]", pojoMethod.isPrivate());
-  }
 
-  @Test
-  public void testIsNotPrivate() {
-    String prefix = "nonPrivateMethod";
-    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
-    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
-    Affirm.affirmFalse("isPrivate() true for [" + pojoMethod + "]", pojoMethod.isPrivate());
+    Affirm.affirmNotNull("method not found [" + prefix + "]", pojoMethod);
+    Affirm.affirmTrue("isPrivate() check on method=[" + pojoMethod + "] returned false!!", pojoMethod.isPrivate());
+    Affirm.affirmFalse("isPackagePrivate() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isPackagePrivate());
+    Affirm.affirmFalse("isProtected() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isProtected());
+    Affirm.affirmFalse("isPublic() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isPublic());
   }
 
   @Test
   public void isPackagePrivate() {
     String prefix = "packagePrivateMethod";
     PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
-    Affirm.affirmNotNull("Package Private method not found!", pojoMethod);
-    Affirm.affirmTrue("isPackagePrivate() expected true, but was false for [" + pojoMethod + "]", pojoMethod.isPackagePrivate());
+
+    Affirm.affirmNotNull("method not found [" + prefix + "]", pojoMethod);
+    Affirm.affirmTrue("isPackagePrivate() check on method=[" + pojoMethod + "] returned false!!", pojoMethod.isPackagePrivate());
+    Affirm.affirmFalse("isPrivate() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isPrivate());
+    Affirm.affirmFalse("isProtected() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isProtected());
+    Affirm.affirmFalse("isPublic() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isPublic());
   }
 
   @Test
   public void testIsProtected() {
     String prefix = "protectedMethod";
     PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
-    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
-    Affirm.affirmTrue("isProtected() false for [" + pojoMethod + "]", pojoMethod.isProtected());
-  }
 
-  @Test
-  public void testIsNotProtected() {
-    String prefix = "nonProtectedMethod";
-    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
-    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
-    Affirm.affirmFalse("isProtected() false for [" + pojoMethod + "]", pojoMethod.isProtected());
+    Affirm.affirmNotNull("method not found [" + prefix + "]", pojoMethod);
+    Affirm.affirmTrue("isProtected() check on method=[" + pojoMethod + "] returned false!!", pojoMethod.isProtected());
+    Affirm.affirmFalse("isPrivate() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isPrivate());
+    Affirm.affirmFalse("isPackagePrivate() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isPackagePrivate());
+    Affirm.affirmFalse("isPublic() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isPublic());
   }
 
   @Test
   public void testIsPublic() {
     String prefix = "publicMethod";
     PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
-    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
-    Affirm.affirmTrue("isPublic() false for [" + pojoMethod + "]", pojoMethod.isPublic());
-  }
 
-  @Test
-  public void testIsNotPublic() {
-    String prefix = "nonPublicMethod";
-    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
-    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
-    Affirm.affirmFalse("isPublic() false for [" + pojoMethod + "]", pojoMethod.isPublic());
+    Affirm.affirmNotNull("method not found [" + prefix + "]", pojoMethod);
+    Affirm.affirmTrue("isPublic() check on method=[" + pojoMethod + "] returned false!!", pojoMethod.isPublic());
+    Affirm.affirmFalse("isPrivate() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isPrivate());
+    Affirm.affirmFalse("isPackagePrivate() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isPackagePrivate());
+    Affirm.affirmFalse("isProtected() check on method=[" + pojoMethod + "] returned true!!", pojoMethod.isProtected());
   }
 
   private PojoMethod getPojoMethodStartingWith(String prefix) {

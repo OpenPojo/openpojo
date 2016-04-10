@@ -53,10 +53,6 @@ public final class PojoMethodClass {
 
   }
 
-  public void nonPrivateMethod() {
-
-  }
-
   void packagePrivateMethod() {
 
   }
@@ -65,18 +61,9 @@ public final class PojoMethodClass {
 
   }
 
-  void nonProtectedMethod() {
-
-  }
-
   public void publicMethod() {
 
   }
-
-  void nonPublicMethod() {
-
-  }
-
 
   public static void staticMethod() {
 
