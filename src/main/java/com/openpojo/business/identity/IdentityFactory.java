@@ -64,14 +64,13 @@ public final class IdentityFactory {
    *     The identityHandler to register.
    */
   public static synchronized void registerIdentityHandler(final IdentityHandler identityHandler) {
-    if (identityHandler == null) {
+    if (identityHandler == null)
       throw new IllegalArgumentException("Attempt to register null IdentityHandler");
-    }
+
     LinkedList<IdentityHandler> newList = duplicateIdentityHandlers();
     newList.remove(identityHandler);
     newList.addFirst(identityHandler);
     identityHandlers = newList;
-
   }
 
   /**
@@ -82,9 +81,8 @@ public final class IdentityFactory {
    */
   public static synchronized void unregisterIdentityHandler(final IdentityHandler identityHandler) {
     LinkedList<IdentityHandler> newList = duplicateIdentityHandlers();
-    if (newList.remove(identityHandler)) {
+    if (newList.remove(identityHandler))
       identityHandlers = newList;
-    }
   }
 
   @SuppressWarnings("unchecked")
