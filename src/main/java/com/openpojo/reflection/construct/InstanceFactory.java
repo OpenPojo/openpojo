@@ -33,6 +33,7 @@ import com.openpojo.reflection.construct.utils.LessThan;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.bytecode.ByteCodeFactory;
+import com.openpojo.reflection.java.type.Primitives;
 
 /**
  * This Factory has the ability to create an instance of any PojoClass.
@@ -107,35 +108,10 @@ public class InstanceFactory {
    */
   private static Class<?>[] upCast(final Class<?>[] parameterTypes) {
     final Class<?>[] upCastedParameters = new Class[parameterTypes.length];
-    for (int idx = 0; idx < parameterTypes.length; idx++) {
-      upCastedParameters[idx] = parameterTypes[idx];
-      if (parameterTypes[idx].isPrimitive()) {
-        if (parameterTypes[idx] == boolean.class) {
-          upCastedParameters[idx] = Boolean.class;
-        }
-        if (parameterTypes[idx] == int.class) {
-          upCastedParameters[idx] = Integer.class;
-        }
-        if (parameterTypes[idx] == float.class) {
-          upCastedParameters[idx] = Float.class;
-        }
-        if (parameterTypes[idx] == double.class) {
-          upCastedParameters[idx] = Double.class;
-        }
-        if (parameterTypes[idx] == long.class) {
-          upCastedParameters[idx] = Long.class;
-        }
-        if (parameterTypes[idx] == short.class) {
-          upCastedParameters[idx] = Short.class;
-        }
-        if (parameterTypes[idx] == byte.class) {
-          upCastedParameters[idx] = Byte.class;
-        }
-        if (parameterTypes[idx] == char.class) {
-          upCastedParameters[idx] = Character.class;
-        }
-      }
-    }
+
+    for (int idx = 0; idx < parameterTypes.length; idx++)
+      upCastedParameters[idx] = Primitives.getInstance().autoBox(parameterTypes[idx]);
+
     return upCastedParameters;
   }
 
