@@ -40,8 +40,8 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class PojoFieldImplTest {
-  PojoClass pojoClass = PojoClassFactory.getPojoClass(PojoFieldImplClass.class);
-  Object pojoClassInstance;
+  private PojoClass pojoClass = PojoClassFactory.getPojoClass(PojoFieldImplClass.class);
+  private Object pojoClassInstance;
 
   /**
    * @throws java.lang.Exception
@@ -197,18 +197,6 @@ public class PojoFieldImplTest {
     }
   }
 
-  /**
-   * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#isPrivate()}.
-   */
-  @Test
-  public void testIsPrivate() {
-    for (PojoField pojoField : pojoClass.getPojoFields()) {
-      if (pojoField.getName().startsWith("private")) {
-        Affirm.affirmTrue(String.format("isPrivate() check on field=[%s] returned false!!", pojoField), pojoField.isPrivate());
-      }
-    }
-  }
-
   @Test
   public void testIsTransient() {
     for (PojoField pojoField : pojoClass.getPojoFields()) {
@@ -230,29 +218,43 @@ public class PojoFieldImplTest {
 
   }
 
-  /**
-   * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#isProtected()}.
-   */
   @Test
-  public void testIsProtected() {
-    for (PojoField pojoField : pojoClass.getPojoFields()) {
-      if (pojoField.getName().startsWith("protected")) {
-        Affirm.affirmTrue(String.format("isProtected() check on field=[%s] returned false!!", pojoField), pojoField.isProtected
-            ());
-      }
-    }
+  public void testIsPrivate() {
+    String prefix = "private";
+    PojoField pojoField = getFieldStartingWith(prefix);
+    Affirm.affirmNotNull("Field not found [" + prefix + "]", pojoField);
+    Affirm.affirmTrue("isPrivate() check on field=[" + pojoField + "] returned false!!", pojoField.isPrivate());
   }
 
-  /**
-   * Test method for {@link com.openpojo.reflection.impl.PojoFieldImpl#isPublic()}.
-   */
+  @Test
+  public void isPackagePrivate() {
+    String prefix = "packagePrivate";
+    PojoField pojoField = getFieldStartingWith(prefix);
+    Affirm.affirmNotNull("Field not found [" + prefix + "]", pojoField);
+    Affirm.affirmTrue("isPackagePrivate() check on field=[" + pojoField + "] returned false!!", pojoField.isPackagePrivate());
+  }
+
+  @Test
+  public void testIsProtected() {
+    String prefix = "protected";
+    PojoField pojoField = getFieldStartingWith(prefix);
+    Affirm.affirmNotNull("Field not found [" + prefix + "]", pojoField);
+    Affirm.affirmTrue("isProtected() check on field=[" + pojoField + "] returned false!!", pojoField.isProtected());
+  }
+
   @Test
   public void testIsPublic() {
-    for (PojoField pojoField : pojoClass.getPojoFields()) {
-      if (pojoField.getName().startsWith("public")) {
-        Affirm.affirmTrue(String.format("isPublic() check on field=[%s] returned false!!", pojoField), pojoField.isPublic());
-      }
-    }
+    String prefix = "public";
+    PojoField pojoField = getFieldStartingWith(prefix);
+    Affirm.affirmNotNull("Field not found [" + prefix + "]", pojoField);
+    Affirm.affirmTrue("isPublic() check on field=[" + pojoField + "] returned false!!", pojoField.isPublic());
+  }
+
+  private PojoField getFieldStartingWith(String prefix) {
+    for (PojoField pojoField : pojoClass.getPojoFields())
+      if (pojoField.getName().startsWith(prefix))
+        return pojoField;
+    throw ReflectionException.getInstance("Request field with prefix [" + prefix + "} not found.");
   }
 
   @Test

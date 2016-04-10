@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author oshoukry
  */
-public interface PojoClass extends PojoElement {
+public interface PojoClass extends PojoElement, Accessible {
 
   /**
    * Check if PojoClass wraps an interface.

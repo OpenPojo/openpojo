@@ -33,6 +33,7 @@ public class PojoFieldImplClass {
   private int privateIntField;
   protected int protectedIntField;
   public int publicIntField;
+  int packagePrivateIntField;
 
   private Boolean booleanField;
 

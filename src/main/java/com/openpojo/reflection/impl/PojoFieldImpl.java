@@ -150,6 +150,14 @@ class PojoFieldImpl implements PojoField {
     return Modifier.isPrivate(field.getModifiers());
   }
 
+  public boolean isPackagePrivate() {
+    int modifiers = field.getModifiers();
+    return (Modifier.PRIVATE & modifiers
+        | Modifier.PROTECTED & modifiers
+        | Modifier.PUBLIC & modifiers) == 0;
+
+  }
+
   public boolean isProtected() {
     return Modifier.isProtected(field.getModifiers());
   }

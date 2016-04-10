@@ -209,4 +209,24 @@ public class PojoClassImpl implements PojoClass {
     PojoClassImpl otherPojoClass = (PojoClassImpl) other;
     return name.equals(otherPojoClass.name);
   }
+
+  public boolean isPrivate() {
+    return Modifier.isPrivate(clazz.getModifiers());
+  }
+
+  public boolean isPackagePrivate() {
+    int modifiers = clazz.getModifiers();
+
+    return (Modifier.PUBLIC & modifiers
+        | Modifier.PROTECTED & modifiers
+        | Modifier.PRIVATE & modifiers) == 0;
+  }
+
+  public boolean isProtected() {
+    return Modifier.isProtected(clazz.getModifiers());
+  }
+
+  public boolean isPublic() {
+    return Modifier.isPublic(clazz.getModifiers());
+  }
 }

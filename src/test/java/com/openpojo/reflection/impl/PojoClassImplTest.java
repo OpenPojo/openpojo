@@ -397,6 +397,44 @@ public class PojoClassImplTest {
     Affirm.affirmEquals("Invalid package retrieved", this.getClass().getPackage().getName(), pojoPackage.getName());
   }
 
+  @Test
+  public void isPublicClass() {
+    PojoClass publicClass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$PublicClass");
+    Affirm.affirmNotNull("Public class not found", publicClass);
+    Affirm.affirmTrue("Expected public class", publicClass.isPublic());
+  }
+
+  @Test
+  public void isProtectedClass() {
+    PojoClass protectedClass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$ProtectedClass");
+    Affirm.affirmNotNull("Protected class not found", protectedClass);
+    Affirm.affirmTrue("Expected protected class", protectedClass.isProtected());
+  }
+
+  @Test
+  public void isPrivateClass() {
+    PojoClass privateClass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$PrivateClass");
+    Affirm.affirmNotNull("Protected class not found", privateClass);
+    Affirm.affirmTrue("Expected protected class", privateClass.isPrivate());
+  }
+
+  @Test
+  public void isPackagePrivateClass() {
+    PojoClass privateClass = getClass(SAMPLE_CLASSES_PKG + ".AccessibilityClass$PackagePrivateClass");
+    Affirm.affirmNotNull("PackagePrivate class not found", privateClass);
+    Affirm.affirmTrue("Expected PackagePrivate class", privateClass.isPackagePrivate());
+  }
+
+  private PojoClass getClass(String name) {
+    List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(SAMPLE_CLASSES_PKG);
+    for (PojoClass pojoClass : pojoClasses) {
+      if (pojoClass.getName().equals(name))
+        return pojoClass;
+    }
+    throw ReflectionException.getInstance("Request class not found! [" + name + "]");
+  }
+
+
   private static PojoClass getPojoClassImplForClass(final Class<?> clazz) {
     return PojoClassFactory.getPojoClass(clazz);
   }

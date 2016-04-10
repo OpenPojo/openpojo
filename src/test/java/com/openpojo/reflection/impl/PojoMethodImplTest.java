@@ -24,6 +24,7 @@ import java.util.List;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
 import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 import com.openpojo.reflection.impl.sampleclasses.AClassWithAbstractGetter;
@@ -40,8 +41,8 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class PojoMethodImplTest {
-  PojoClass pojoClass;
-  List<PojoMethod> pojoMethods;
+  private PojoClass pojoClass;
+  private List<PojoMethod> pojoMethods;
 
   /**
    * @throws java.lang.Exception
@@ -116,68 +117,65 @@ public class PojoMethodImplTest {
 
   @Test
   public void testIsPrivate() {
-    for (PojoMethod pojoMethod : pojoMethods) {
-      if (pojoMethod.getName().equals("privateMethod")) {
-        Affirm.affirmTrue("Failed to check private method", pojoMethod.isPrivate());
-        return;
-      }
-    }
-    Affirm.fail("privateMethod missing!!");
+    String prefix = "privateMethod";
+    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
+    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
+    Affirm.affirmTrue("isPrivate() false for [" + pojoMethod + "]", pojoMethod.isPrivate());
   }
 
   @Test
   public void testIsNotPrivate() {
-    for (PojoMethod pojoMethod : pojoMethods) {
-      if (pojoMethod.getName().equals("nonPrivateMethod")) {
-        Affirm.affirmTrue("Failed to check non private method", !pojoMethod.isPrivate());
-        return;
-      }
-    }
-    Affirm.fail("nonPrivateMethod missing!!");
+    String prefix = "nonPrivateMethod";
+    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
+    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
+    Affirm.affirmFalse("isPrivate() true for [" + pojoMethod + "]", pojoMethod.isPrivate());
+  }
+
+  @Test
+  public void isPackagePrivate() {
+    String prefix = "packagePrivateMethod";
+    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
+    Affirm.affirmNotNull("Package Private method not found!", pojoMethod);
+    Affirm.affirmTrue("isPackagePrivate() expected true, but was false for [" + pojoMethod + "]", pojoMethod.isPackagePrivate());
   }
 
   @Test
   public void testIsProtected() {
-    for (PojoMethod pojoMethod : pojoMethods) {
-      if (pojoMethod.getName().equals("protectedMethod")) {
-        Affirm.affirmTrue("Failed to check protected method", pojoMethod.isProtected());
-        return;
-      }
-    }
-    Affirm.fail("protectedMethod missing!!");
+    String prefix = "protectedMethod";
+    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
+    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
+    Affirm.affirmTrue("isProtected() false for [" + pojoMethod + "]", pojoMethod.isProtected());
   }
 
   @Test
   public void testIsNotProtected() {
-    for (PojoMethod pojoMethod : pojoMethods) {
-      if (pojoMethod.getName().equals("nonProtectedMethod")) {
-        Affirm.affirmTrue("Failed to check non protected method", !pojoMethod.isProtected());
-        return;
-      }
-    }
-    Affirm.fail("nonProtectedMethod missing!!");
+    String prefix = "nonProtectedMethod";
+    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
+    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
+    Affirm.affirmFalse("isProtected() false for [" + pojoMethod + "]", pojoMethod.isProtected());
   }
 
   @Test
   public void testIsPublic() {
-    for (PojoMethod pojoMethod : pojoMethods) {
-      if (pojoMethod.getName().equals("publicMethod")) {
-        Affirm.affirmTrue("Failed to check public method", pojoMethod.isPublic());
-        return;
-      }
-    }
-    Affirm.fail("publicMethod missing!!");
+    String prefix = "publicMethod";
+    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
+    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
+    Affirm.affirmTrue("isPublic() false for [" + pojoMethod + "]", pojoMethod.isPublic());
   }
 
   @Test
   public void testIsNotPublic() {
-    for (PojoMethod pojoMethod : pojoMethods) {
-      if (pojoMethod.getName().equals("nonPublicMethod")) {
-        Affirm.affirmTrue("Failed to check non public method", !pojoMethod.isPublic());
-        return;
-      }
-    }
-    Affirm.fail("nonPublicMethod missing!!");
+    String prefix = "nonPublicMethod";
+    PojoMethod pojoMethod = getPojoMethodStartingWith(prefix);
+    Affirm.affirmNotNull(prefix + " method not found!", pojoMethod);
+    Affirm.affirmFalse("isPublic() false for [" + pojoMethod + "]", pojoMethod.isPublic());
+  }
+
+  private PojoMethod getPojoMethodStartingWith(String prefix) {
+    for (PojoMethod pojoMethod : pojoMethods)
+      if (pojoMethod.getName().startsWith(prefix))
+        return pojoMethod;
+    throw ReflectionException.getInstance("PojoMethod with prefix [" + prefix + "] not found");
   }
 
   @Test

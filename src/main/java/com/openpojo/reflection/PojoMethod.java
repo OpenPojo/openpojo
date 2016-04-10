@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author oshoukry
  */
-public interface PojoMethod extends PojoElement {
+public interface PojoMethod extends PojoElement, Accessible {
   /**
    * Invokes the underlying method represented by this Method object, on the specified object with the specified
    * parameters.
@@ -94,21 +94,6 @@ public interface PojoMethod extends PojoElement {
    * @return True if this PojoMethod is static-ly defined on the enclosing class.
    */
   boolean isStatic();
-
-  /**
-   * @return True if this PojoMethod is private-ly defined on the enclosing class.
-   */
-  boolean isPrivate();
-
-  /**
-   * @return True if this PojoMethod is protected-ly defined on the enclosing class.
-   */
-  boolean isProtected();
-
-  /**
-   * @return True if this PojoMethod is public-ly defined on the enclosing class.
-   */
-  boolean isPublic();
 
   /**
    * @return True if this method is a constructor method and returns a new instance.

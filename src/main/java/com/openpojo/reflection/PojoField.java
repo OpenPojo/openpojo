@@ -23,7 +23,7 @@ package com.openpojo.reflection;
  *
  * @author oshoukry
  */
-public interface PojoField extends PojoElement, Parameterizable {
+public interface PojoField extends PojoElement, Parameterizable, Accessible {
 
   /**
    * This method gets the value of the field.
@@ -91,21 +91,6 @@ public interface PojoField extends PojoElement, Parameterizable {
    * @return True if this PojoField is defined as static on the enclosing class.
    */
   boolean isStatic();
-
-  /**
-   * @return True if this PojoField is defined as private on the enclosing class.
-   */
-  boolean isPrivate();
-
-  /**
-   * @return True if this PojoField is defined as protected on the enclosing class.
-   */
-  boolean isProtected();
-
-  /**
-   * @return True if this PojoField is defined as public on the enclosing class.
-   */
-  boolean isPublic();
 
   /**
    * @return True if this PojoField is defined as transient on the enclosing class.

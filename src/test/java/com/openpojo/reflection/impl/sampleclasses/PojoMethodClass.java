@@ -24,6 +24,7 @@ import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
 /**
  * @author oshoukry
  */
+@SuppressWarnings("unused")
 public final class PojoMethodClass {
 
   @SomeAnnotation
@@ -48,12 +49,15 @@ public final class PojoMethodClass {
 
   }
 
-  @SuppressWarnings("unused")
   private void privateMethod() {
 
   }
 
   public void nonPrivateMethod() {
+
+  }
+
+  void packagePrivateMethod() {
 
   }
 

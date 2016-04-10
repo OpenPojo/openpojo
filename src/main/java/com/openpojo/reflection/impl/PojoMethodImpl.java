@@ -134,6 +134,13 @@ public class PojoMethodImpl implements PojoMethod {
     return Modifier.isPrivate(getModifiers());
   }
 
+  public boolean isPackagePrivate() {
+    int modifiers = getModifiers();
+    return (Modifier.PRIVATE & modifiers
+        | Modifier.PROTECTED & modifiers
+        | Modifier.PUBLIC & modifiers) == 0;
+  }
+
   public boolean isProtected() {
     return Modifier.isProtected(getModifiers());
   }
