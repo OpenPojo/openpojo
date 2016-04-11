@@ -79,9 +79,10 @@ class PojoPackageImpl implements PojoPackage {
 
   public List<PojoClass> getPojoClasses(final PojoClassFilter filter) {
     List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
+
     for (Type type : jdkPackage.getTypes()) {
       PojoClass pojoClass = PojoClassFactory.getPojoClass((Class<?>) type);
-      if (filter == null || filter.include(pojoClass)) {
+      if (pojoClass != null && (filter == null || filter.include(pojoClass))) {
         pojoClasses.add(pojoClass);
       }
     }

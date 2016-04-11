@@ -19,8 +19,8 @@ package com.openpojo.reflection.impl;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.impl.sampleclasses.AnAbstractClassEmpty;
-import com.openpojo.reflection.impl.sampleclasses.AnAbstractClassWithOneAbstractMethod;
+import com.openpojo.reflection.impl.sample.classes.AnAbstractClassEmpty;
+import com.openpojo.reflection.impl.sample.classes.AnAbstractClassWithOneAbstractMethod;
 import org.junit.Test;
 import org.testng.Assert;
 

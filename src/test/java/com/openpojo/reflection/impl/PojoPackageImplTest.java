@@ -25,8 +25,8 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
-import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
+import com.openpojo.reflection.impl.sample.annotation.AnotherAnnotation;
+import com.openpojo.reflection.impl.sample.annotation.SomeAnnotation;
 import com.openpojo.registry.ServiceRegistrar;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Assert;
@@ -47,7 +47,7 @@ public class PojoPackageImplTest {
 
   @Before
   public void setUp() {
-    packageName = this.getClass().getPackage().getName() + ".sampleclasses";
+    packageName = this.getClass().getPackage().getName() + ".sample.classes";
     expectedToString = "PojoPackageImpl [packageName=" + packageName + "]";
     pojoPackage = PojoPackageFactory.getPojoPackage(packageName);
   }

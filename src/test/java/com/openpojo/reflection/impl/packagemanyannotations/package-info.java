@@ -27,6 +27,6 @@
  */
 @SomeAnnotation @AnotherAnnotation package com.openpojo.reflection.impl.packagemanyannotations;
 
-import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
-import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
+import com.openpojo.reflection.impl.sample.annotation.AnotherAnnotation;
+import com.openpojo.reflection.impl.sample.annotation.SomeAnnotation;
 

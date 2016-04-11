@@ -30,10 +30,10 @@ import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.PojoPackage;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.impl.sampleannotation.AnotherAnnotation;
-import com.openpojo.reflection.impl.sampleannotation.SomeAnnotation;
-import com.openpojo.reflection.impl.sampleclasses.*;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithNestedClass.NestedClass;
+import com.openpojo.reflection.impl.sample.annotation.AnotherAnnotation;
+import com.openpojo.reflection.impl.sample.annotation.SomeAnnotation;
+import com.openpojo.reflection.impl.sample.classes.*;
+import com.openpojo.reflection.impl.sample.classes.AClassWithNestedClass.NestedClass;
 import com.openpojo.reflection.java.Java;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Assert;
@@ -44,7 +44,7 @@ import org.junit.Test;
  * PojoClassFactory, InstanceFactory, etc...
  */
 public class PojoClassImplTest {
-  private static final String SAMPLE_CLASSES_PKG = PojoClassImplTest.class.getPackage().getName() + ".sampleclasses";
+  private static final String SAMPLE_CLASSES_PKG = PojoClassImplTest.class.getPackage().getName() + ".sample.classes";
 
   @Test
   public void testIsInterfaceIsAbstractIsConcrete() {

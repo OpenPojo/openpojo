@@ -24,8 +24,8 @@ import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithGenericParameterConstructor;
-import com.openpojo.reflection.impl.sampleclasses.AClassWithGenericParameterMethod;
+import com.openpojo.reflection.impl.sample.classes.AClassWithGenericParameterConstructor;
+import com.openpojo.reflection.impl.sample.classes.AClassWithGenericParameterMethod;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
 
