@@ -21,7 +21,6 @@ package com.openpojo.reflection.impl;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.cache.PojoCache;
-import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sample.classes.AClassWithFieldsNotPrefixed;
 import com.openpojo.reflection.impl.sample.classes.AClassWithFieldsPrefixed;
 import com.openpojo.reflection.utils.AttributeHelper;
@@ -61,10 +60,11 @@ public class PojoFieldPrefixedFieldsTest {
     }
   }
 
-  @Test(expected = ReflectionException.class)
+  @Test
   public void shouldFailAttributeName() {
     AttributeHelper.registerFieldPrefix("mName");
-    PojoClassFactory.getPojoClass(AClassWithFieldsPrefixed.class);
+    Affirm.affirmNull("Expected null pojoClass due to attributeHelper exception",
+        PojoClassFactory.getPojoClass(AClassWithFieldsPrefixed.class));
   }
 
   @Test
