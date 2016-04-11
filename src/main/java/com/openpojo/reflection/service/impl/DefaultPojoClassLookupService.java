@@ -21,6 +21,7 @@ package com.openpojo.reflection.service.impl;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.PojoPackage;
@@ -59,10 +60,15 @@ public class DefaultPojoClassLookupService implements Service, PojoClassLookupSe
   public PojoClass getPojoClass(final Class<?> clazz) {
     PojoClass pojoClass = PojoCache.getPojoClass(clazz.getName());
     if (pojoClass == null) {
-      pojoClass = new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz), PojoMethodFactory.getPojoMethods(clazz));
+      try {
+        pojoClass = new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz), PojoMethodFactory.getPojoMethods(clazz));
+        pojoClass = ServiceRegistrar.getInstance().getPojoCoverageFilterService().adapt(pojoClass);
+      } catch (Throwable t) {
+        LoggerFactory.getLogger(this.getClass()).warn("Failed to load class [{0}], exception [{1}]", clazz, t);
+      }
       PojoCache.addPojoClass(clazz.getName(), pojoClass);
     }
-    return ServiceRegistrar.getInstance().getPojoCoverageFilterService().adapt(pojoClass);
+    return pojoClass;
   }
 
   public List<PojoClass> getPojoClasses(final String packageName) {
