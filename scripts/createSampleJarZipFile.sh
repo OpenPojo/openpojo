@@ -71,8 +71,8 @@ EOF
 
 cd tmp/
 
-javac -source 1.5 -cp . com/failtoload/*.java
-javac -source 1.5 -cp . com/openpojotest/*.java
+javac -source 1.5 -target 1.5 -cp . com/failtoload/*.java
+javac -source 1.5 -target 1.5 -cp . com/openpojotest/*.java
 
 rm -fv com/failtoload/DeleteMeClass.class
 find ./com -name "*.java" -exec rm -rvf {} \;
