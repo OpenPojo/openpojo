@@ -63,8 +63,8 @@ public class DefaultPojoClassLookupService implements Service, PojoClassLookupSe
       try {
         pojoClass = new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz), PojoMethodFactory.getPojoMethods(clazz));
         pojoClass = ServiceRegistrar.getInstance().getPojoCoverageFilterService().adapt(pojoClass);
-      } catch (Throwable t) {
-        LoggerFactory.getLogger(this.getClass()).warn("Failed to load class [{0}], exception [{1}]", clazz, t);
+      } catch (LinkageError le) {
+        LoggerFactory.getLogger(this.getClass()).warn("Failed to load class [{0}], exception [{1}]", clazz, le);
       }
       PojoCache.addPojoClass(clazz.getName(), pojoClass);
     }
