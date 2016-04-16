@@ -50,13 +50,16 @@ public class ServiceRegistrarTest {
 
             ,"java.sql.Timestamp"
 
+            ,"java.time.ZonedDateTime" // jdk8
+            ,"java.time.ZoneId" // jdk8
+
             ,"java.util.AbstractCollection"
             ,"java.util.AbstractList"
             ,"java.util.AbstractMap"
             ,"java.util.AbstractQueue"
             ,"java.util.AbstractSequentialList"
             ,"java.util.AbstractSet"
-            ,"java.util.ArrayDeque" // jdk6 only
+            ,"java.util.ArrayDeque" // jdk6
             ,"java.util.ArrayList"
             ,"java.util.Calendar"
             ,"java.util.Collection"
@@ -73,8 +76,8 @@ public class ServiceRegistrarTest {
             ,"java.util.LinkedList"
             ,"java.util.List"
             ,"java.util.Map"
-            ,"java.util.NavigableMap" // jdk6 only
-            ,"java.util.NavigableSet" // jdk6 only
+            ,"java.util.NavigableMap" // jdk6
+            ,"java.util.NavigableSet" // jdk6
             ,"java.util.PriorityQueue"
             ,"java.util.Queue"
             ,"java.util.Set"
