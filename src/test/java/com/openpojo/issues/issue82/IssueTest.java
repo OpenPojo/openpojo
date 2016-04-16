@@ -18,8 +18,16 @@
 
 package com.openpojo.issues.issue82;
 
+import com.openpojo.issues.issue82.sample.AClassWithZonedDateTime;
 import com.openpojo.random.RandomFactory;
+import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.load.ClassUtil;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
+import com.openpojo.validation.rule.impl.GetterMustExistRule;
+import com.openpojo.validation.rule.impl.SetterMustExistRule;
+import com.openpojo.validation.test.impl.GetterTester;
+import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
@@ -39,5 +47,17 @@ public class IssueTest {
   @Test
   public void canGenerateRandomZonedDateTime() {
     Assert.assertNotNull(RandomFactory.getRandomValue(ZONED_DATE_TIME_CLASS));
+  }
+
+  @Test
+  public void endToEndValidation() {
+    Validator validator = ValidatorBuilder.create()
+        .with(new GetterMustExistRule())
+        .with(new SetterMustExistRule())
+        .with(new GetterTester())
+        .with(new SetterTester())
+        .build();
+
+    validator.validate(PojoClassFactory.getPojoClass(AClassWithZonedDateTime.class));
   }
 }
