@@ -18,6 +18,8 @@
 
 package com.openpojo.reflection.java;
 
+import java.io.File;
+
 /**
  * @author oshoukry
  */
@@ -26,4 +28,5 @@ public interface Java {
   char PATH_DELIMITER = '/';
   String CLASS_EXTENSION = ".class";
   String PACKAGE_INFO = "package-info";
+  String CLASSPATH_DELIMITER = File.pathSeparator;
 }
