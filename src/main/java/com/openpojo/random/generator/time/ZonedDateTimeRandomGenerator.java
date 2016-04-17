@@ -18,6 +18,7 @@
 
 package com.openpojo.random.generator.time;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,9 +28,13 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.reflection.java.load.ClassUtil;
 
+import static com.openpojo.random.generator.time.util.ReflectionHelper.getMethod;
+import static com.openpojo.random.generator.time.util.ReflectionHelper.invokeMethod;
+
 /**
  * This class generates random ZonedDateTime.
- * The random generation period is +/- 100 years
+ * The random generation period is within +/- 100 years
+ *
  * @author oshoukry
  */
 public class ZonedDateTimeRandomGenerator implements RandomGenerator {
@@ -37,8 +42,14 @@ public class ZonedDateTimeRandomGenerator implements RandomGenerator {
   private static final String TYPE = "java.time.ZonedDateTime";
   private static final ZonedDateTimeRandomGenerator INSTANCE = new ZonedDateTimeRandomGenerator();
   private static final Long SECONDS_IN_A_DAY = 60L * 60L * 24L;
-  private static final Long ONE_HUNDRED_YEARS_IN_SECS = SECONDS_IN_A_DAY * (365L + 4L) * 100L;
+  private static final Long ONE_HUNDRED_YEARS_IN_SECS = SECONDS_IN_A_DAY * (365L + 25L /* leap years */) * 100L;
   private static final Random RANDOM = new Random(System.currentTimeMillis());
+
+  private static final String JAVA_TIME_INSTANT_CLASS = "java.time.Instant";
+  private static final String JAVA_TIME_ZONEID_CLASS = "java.time.ZoneId";
+  private final Class<?> zoneDateTimeClass;
+  private final Class<?> javaTimeInstantClass;
+  private final Class<?> javaTimeZoneIdClass;
 
   public static ZonedDateTimeRandomGenerator getInstance() {
     return INSTANCE;
@@ -46,23 +57,43 @@ public class ZonedDateTimeRandomGenerator implements RandomGenerator {
 
   public Collection<Class<?>> getTypes() {
     List<Class<?>> types = new ArrayList<Class<?>>();
-    if (ClassUtil.isClassLoaded(TYPE))
-      types.add(ClassUtil.loadClass(TYPE));
+    if (zoneDateTimeClass != null)
+      types.add(zoneDateTimeClass);
     return types;
   }
 
-  @SuppressWarnings({ "Since15", "ConstantConditions" })
   public Object doGenerate(Class<?> type) {
-    java.time.ZonedDateTime zonedDateTime = java.time.ZonedDateTime.now();
+    Object randomLocalDateTime = randomizeTimeWithin100Years(getLocalDateTime());
+    return randomizeTimeZone(randomLocalDateTime);
+  }
 
+  private Object getLocalDateTime() {
+    Method nowMethod = getMethod(zoneDateTimeClass, "now");
+    return invokeMethod(nowMethod, null);
+  }
+
+  private Object randomizeTimeWithin100Years(Object localDateTime) {
     Long offset = RANDOM.nextLong() % ONE_HUNDRED_YEARS_IN_SECS;
-    java.time.ZonedDateTime randomizedDateTime = zonedDateTime.plusSeconds(offset);
 
-    java.time.ZoneId randomZone = RandomFactory.getRandomValue(java.time.ZoneId.class);
+    Method plusSecondsMethod = getMethod(zoneDateTimeClass, "plusSeconds", long.class);
+    return invokeMethod(plusSecondsMethod, localDateTime, offset);
+  }
 
-    return java.time.ZonedDateTime.ofInstant(randomizedDateTime.toInstant(), randomZone);
+  private Object randomizeTimeZone(Object randomLocalDateTime) {
+    Object randomZone = RandomFactory.getRandomValue(javaTimeZoneIdClass);
+
+    Method ofInstantMethod = getMethod(zoneDateTimeClass, "ofInstant", javaTimeInstantClass, javaTimeZoneIdClass);
+    return invokeMethod(ofInstantMethod, randomLocalDateTime, getNowAsInstant(randomLocalDateTime), randomZone);
+  }
+
+  private Object getNowAsInstant(Object now) {
+    Method toInstantMethod = getMethod(zoneDateTimeClass, "toInstant");
+    return invokeMethod(toInstantMethod, now);
   }
 
   private ZonedDateTimeRandomGenerator() {
+    zoneDateTimeClass = ClassUtil.loadClass(TYPE);
+    javaTimeInstantClass = ClassUtil.loadClass(JAVA_TIME_INSTANT_CLASS);
+    javaTimeZoneIdClass = ClassUtil.loadClass(JAVA_TIME_ZONEID_CLASS);
   }
 }

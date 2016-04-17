@@ -18,13 +18,18 @@
 
 package com.openpojo.random.generator.time;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.reflection.java.load.ClassUtil;
+
+import static com.openpojo.random.generator.time.util.ReflectionHelper.getMethod;
+import static com.openpojo.random.generator.time.util.ReflectionHelper.invokeMethod;
 
 /**
  * @author oshoukry
@@ -33,6 +38,7 @@ public class ZoneIdRandomGenerator implements RandomGenerator {
   private static final String TYPE = "java.time.ZoneId";
   private static final ZoneIdRandomGenerator INSTANCE = new ZoneIdRandomGenerator();
   private static final Random RANDOM = new Random(System.currentTimeMillis());
+  private final Class<?> zoneIdClass;
 
   public static ZoneIdRandomGenerator getInstance() {
     return INSTANCE;
@@ -40,19 +46,29 @@ public class ZoneIdRandomGenerator implements RandomGenerator {
 
   public Collection<Class<?>> getTypes() {
     List<Class<?>> types = new ArrayList<Class<?>>();
-    if (ClassUtil.isClassLoaded(TYPE))
-      types.add(ClassUtil.loadClass(TYPE));
+    if (zoneIdClass != null)
+      types.add(zoneIdClass);
     return types;
   }
 
-  @SuppressWarnings("Since15")
   public Object doGenerate(Class<?> type) {
-    Object[] availableZoneIds = java.time.ZoneId.getAvailableZoneIds().toArray();
+    Object[] availableZoneIds = getAvailableZones();
+    return getZoneIdOf(availableZoneIds[RANDOM.nextInt(availableZoneIds.length)].toString());
+  }
 
-    return java.time.ZoneId.of(availableZoneIds[RANDOM.nextInt(availableZoneIds.length)].toString());
+  @SuppressWarnings("unchecked")
+  private Object[] getAvailableZones() {
+    Method getAvailableZoneIdsMethod = getMethod(zoneIdClass, "getAvailableZoneIds");
+    return ((Set<String>) invokeMethod(getAvailableZoneIdsMethod, null)).toArray();
+  }
+
+  private Object getZoneIdOf(String availableZone) {
+    Method ofMethod = getMethod(zoneIdClass, "of", String.class);
+    return invokeMethod(ofMethod, null, availableZone);
   }
 
   private ZoneIdRandomGenerator() {
+    zoneIdClass = ClassUtil.loadClass(TYPE);
   }
 
 }

@@ -21,6 +21,8 @@ package com.openpojo.random.generator.time;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.load.ClassUtil;
+import org.junit.Assume;
 import org.junit.Before;
 
 /**
@@ -33,6 +35,7 @@ public class ZonedDateTimeRandomGeneratorTest extends AbstractTimeTest {
 
   @Before
   public void setup() {
+    Assume.assumeTrue(ClassUtil.isClassLoaded(JAVA_TIME_ZONED_DATE_TIME));
     pojoClass = PojoClassFactory.getPojoClass(ZonedDateTimeRandomGenerator.class);
     randomGenerator = ZonedDateTimeRandomGenerator.getInstance();
   }
