@@ -39,12 +39,28 @@ import com.openpojo.validation.rule.impl.SetterMustExistRule;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class GenericCollectionMultiThreadedTest {
+  private int ttl_jobs;
+  private int per_thread;
+
+  @Before
+  public void setup() {
+    String javaVersion = System.getProperty("java.version");
+    if (javaVersion.startsWith("1.5")) {
+      ttl_jobs = 100;
+      per_thread = 17;
+    } else {
+      ttl_jobs = 1000;
+      per_thread = 30;
+    }
+  }
+
   @Test
   public void shouldCreateGenericCollection() throws ExecutionException, InterruptedException {
     List<PojoClass> pojoClasses = new ArrayList<PojoClass>(2);
@@ -52,8 +68,6 @@ public class GenericCollectionMultiThreadedTest {
     pojoClasses.add(PojoClassFactory.getPojoClass(AClassWithExhaustiveCollection.class));
 
     Assert.assertEquals(2, pojoClasses.size());
-    int ttl_jobs = 1000;
-    int per_thread = 30;
 
     RejectedExecutionHandlerImpl rejectionHandler = new RejectedExecutionHandlerImpl();
 
