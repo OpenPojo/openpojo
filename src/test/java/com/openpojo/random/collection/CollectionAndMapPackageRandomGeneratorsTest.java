@@ -65,7 +65,7 @@ public class CollectionAndMapPackageRandomGeneratorsTest {
       final Collection<Class<?>> generatorTypes = randomGenerator.getTypes();
       for (final Class<?> type : generatorTypes) {
         LoggerFactory.getLogger(this.getClass()).debug("Generating Type [" + type + "]");
-        final Object firstInstance = randomGenerator.doGenerate(type);
+        Object firstInstance = randomGenerator.doGenerate(type);
         Affirm.affirmNotNull(MessageFormatter.format("[{0}] returned null for type [{1}]",
             randomGenerator.getClass(), type), firstInstance);
 
@@ -75,12 +75,14 @@ public class CollectionAndMapPackageRandomGeneratorsTest {
         int counter = 10;
         Object secondInstance = null;
         while (counter > 0) {
+          firstInstance = randomGenerator.doGenerate(type);
           secondInstance = randomGenerator.doGenerate(type);
           if (!firstInstance.equals(secondInstance)) {
             break;
           }
           counter--;
         }
+
         Affirm.affirmFalse(MessageFormatter.format("[{0}] returned identical instances for type [{1}]",
             randomGenerator.getClass(), type), firstInstance.equals(secondInstance));
 
