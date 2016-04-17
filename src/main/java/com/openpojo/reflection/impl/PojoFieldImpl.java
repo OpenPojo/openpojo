@@ -86,6 +86,10 @@ class PojoFieldImpl implements PojoField {
     return fieldGetter != null;
   }
 
+  public PojoMethod getGetter() {
+    return fieldGetter;
+  }
+
   public Object invokeGetter(final Object instance) {
     try {
       return fieldGetter.invoke(instance, (Object[]) null);
@@ -98,6 +102,10 @@ class PojoFieldImpl implements PojoField {
 
   public boolean hasSetter() {
     return fieldSetter != null;
+  }
+
+  public PojoMethod getSetter() {
+    return fieldSetter;
   }
 
   public void invokeSetter(final Object instance, final Object value) {

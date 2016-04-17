@@ -26,6 +26,7 @@ import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.sample.annotation.SomeAnnotation;
@@ -71,6 +72,38 @@ public class PojoFieldImplTest {
     }
   }
 
+  @Test
+  public void canAccessGetter() {
+    boolean found = false;
+    for (PojoField pojoField : pojoClass.getPojoFields()) {
+      if (pojoField.hasGetter()) {
+        PojoMethod getter = pojoField.getGetter();
+        Affirm.affirmNotNull("Getter can't be retrieved", getter);
+        Object randomInstance = RandomFactory.getRandomValue(pojoField.getType());
+        pojoField.set(pojoClassInstance, randomInstance);
+        Affirm.affirmSame("Expected same object in and out", randomInstance, getter.invoke(pojoClassInstance));
+        found = true;
+      }
+    }
+    Affirm.affirmTrue("No getters were found!", found);
+  }
+
+  @Test
+  public void canAccessSetter() {
+    boolean found = false;
+    for (PojoField pojoField : pojoClass.getPojoFields()) {
+      if (pojoField.hasSetter()) {
+        PojoMethod setter = pojoField.getSetter();
+        Affirm.affirmNotNull("Setter can't be retrieved", setter);
+        Object randomInstance = RandomFactory.getRandomValue(pojoField.getType());
+        setter.invoke(pojoClassInstance, randomInstance);
+        Affirm.affirmSame("Expected same object in and out", randomInstance, pojoField.get(pojoClassInstance));
+        found = true;
+      }
+    }
+    Affirm.affirmTrue("No Setters were found!", found);
+  }
+
   private PojoField getPrivateStringField() {
     for (PojoField pojoField : pojoClass.getPojoFields()) {
       if (pojoField.getName().equals("privateString")) {
@@ -84,24 +117,28 @@ public class PojoFieldImplTest {
   @Test(expected = ReflectionException.class)
   public void shouldFailSet() {
     PojoField pojoField = getPrivateStringField();
+    assert pojoField != null;
     pojoField.set(null, RandomFactory.getRandomValue(pojoField.getType()));
   }
 
   @Test(expected = ReflectionException.class)
   public void shouldFailGet() {
     PojoField pojoField = getPrivateStringField();
+    assert pojoField != null;
     pojoField.get(null);
   }
 
   @Test(expected = ReflectionException.class)
   public void shouldFailSetter() {
     PojoField pojoField = getPrivateStringField();
+    assert pojoField != null;
     pojoField.invokeSetter(null, RandomFactory.getRandomValue(pojoField.getType()));
   }
 
   @Test(expected = ReflectionException.class)
   public void shouldFailGetter() {
     PojoField pojoField = getPrivateStringField();
+    assert pojoField != null;
     pojoField.invokeGetter(null);
   }
 
