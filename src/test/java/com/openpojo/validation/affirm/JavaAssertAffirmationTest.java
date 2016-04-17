@@ -43,5 +43,4 @@ public class JavaAssertAffirmationTest extends AbstractAffirmationTest {
         javaAssertAffirmation.toString().startsWith("com.openpojo.validation.affirm.JavaAssertionAffirmation [@")
             && javaAssertAffirmation.toString().endsWith(": ]"));
   }
-
 }
