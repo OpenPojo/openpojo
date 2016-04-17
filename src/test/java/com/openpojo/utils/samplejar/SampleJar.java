@@ -27,7 +27,8 @@ import java.net.URLClassLoader;
  */
 public class SampleJar {
   private final URLClassLoader urlClassLoader;
-  private final String path;
+  private final String jarUrlPath;
+  private final String jarFilePath;
 
   private static final SampleJar INSTANCE = new SampleJar();
 
@@ -36,29 +37,38 @@ public class SampleJar {
     return INSTANCE.urlClassLoader;
   }
 
-  public static String getPath() {
-    return INSTANCE.path;
+  public static String getJarURLPath() {
+    return INSTANCE.jarUrlPath;
   }
 
-  private SampleJar() {
-    String tmpPath = "jar:file://";
+  public static String getJarFilePath() {
+    return INSTANCE.jarFilePath;
+  }
+
+  private String buildJarFilePath() {
+    String systemPath = "";
     String userdir = System.getProperty("user.dir");
 
     boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
+
     if (isWindows)
-      tmpPath += userdir.substring(2).replace("\\", "/"); // skip over the C:
+      systemPath += userdir.substring(2).replace("\\", "/"); // skip over the letter drive (i.e. C:)
     else
-      tmpPath += userdir;
+      systemPath += userdir;
 
-    tmpPath += "/test/sampleJar.zip!/";
+    systemPath += "/test/sampleJar.zip";
+    return systemPath;
+  }
 
-    path = tmpPath;
+  private SampleJar() {
+    jarFilePath = buildJarFilePath();
+    jarUrlPath = "jar:file://" + jarFilePath + "!/" ;
     urlClassLoader = getClassLoader();
   }
 
   private URLClassLoader getClassLoader() {
     try {
-      return URLClassLoader.newInstance(new URL[] { new URL(path) });
+      return URLClassLoader.newInstance(new URL[] { new URL(jarUrlPath) });
     } catch (MalformedURLException e) {
       throw new RuntimeException(e);
     }
