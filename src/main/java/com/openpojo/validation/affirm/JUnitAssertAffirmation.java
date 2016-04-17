@@ -22,6 +22,8 @@ import com.openpojo.business.BusinessIdentity;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.load.ClassUtil;
 
+import static org.junit.Assert.*;
+
 /**
  * @author oshoukry
  */
@@ -39,19 +41,19 @@ public class JUnitAssertAffirmation extends AbstractAffirmation implements Affir
   }
 
   public void affirmTrue(final String message, final boolean condition) {
-    org.junit.Assert.assertTrue(message, condition);
+    assertTrue(message, condition);
   }
 
   public void affirmFalse(final String message, final boolean condition) {
-    org.junit.Assert.assertFalse(message, condition);
+    assertFalse(message, condition);
   }
 
   public void affirmNotNull(final String message, final Object object) {
-    org.junit.Assert.assertNotNull(message, object);
+    assertNotNull(message, object);
   }
 
   public void affirmNull(final String message, final Object object) {
-    org.junit.Assert.assertNull(message, object);
+    assertNull(message, object);
   }
 
   public void affirmEquals(final String message, final Object expected, final Object actual) {
@@ -61,8 +63,12 @@ public class JUnitAssertAffirmation extends AbstractAffirmation implements Affir
     if (isArray(expected)) {
       affirmArrayEquals(message, expected, actual);
     } else {
-      org.junit.Assert.assertEquals(message, expected, actual);
+      assertEquals(message, expected, actual);
     }
+  }
+
+  public void affirmSame(String message, Object first, Object second) {
+    assertSame(message, first, second);
   }
 
   @Override

@@ -75,6 +75,9 @@ public abstract class Affirm {
     getAffirmation().affirmEquals(message, first, second);
   }
 
+  public static void affirmSame(final String message, final Object first, final Object second) {
+    getAffirmation().affirmSame(message, first, second);
+  }
 
   public static void affirmContains(final String message, final Object expected, final Collection<?> collection) {
     for (Object entry : collection) {

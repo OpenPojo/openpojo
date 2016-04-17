@@ -121,14 +121,31 @@ public abstract class AbstractAffirmationTest {
    * {@link com.openpojo.validation.affirm.Affirm#affirmEquals(java.lang.String, java.lang.Object, java.lang.Object)}.
    */
   @Test
+  @SuppressWarnings("UnnecessaryBoxing")
   public void testAffirmEquals() {
-    Affirm.affirmEquals("Affirm.affirmEquals on equal objects failed", Integer.valueOf(5), Integer.valueOf(5));
+    Integer five = new Integer(5);
+    Integer anotherFive = new Integer(5);
+    Integer six = new Integer(6);
+
+    Affirm.affirmEquals("Affirm.affirmEquals on equal objects failed", five, anotherFive);
     try {
-      Affirm.affirmEquals("Affirm.affirmEquals on non-equal objects failed passed!!", Integer.valueOf(5), Integer.valueOf(6));
+      Affirm.affirmEquals("Affirm.affirmEquals on non-equal objects should have failed.", five, six);
     } catch (AssertionError e) {
       return;
     }
-    Assert.fail("Affirm.affirmEquals call on non-equal objects passed!!");
+    Assert.fail("Affirm.affirmEquals call on non-equal objects passed!");
+  }
+
+  @Test
+  public void testAffirmSame() {
+    Object o = new Object();
+    Affirm.affirmSame("Affirm.affirmSame on same objects failed", o, o);
+    try {
+      Affirm.affirmSame("Affirm.affirmSame on non-same objects should have failed", new Object(), new Object());
+    } catch (AssertionError e) {
+      return;
+    }
+    Assert.fail("Affirm.affirmSame call on non-same objects passed");
   }
 
   @Test

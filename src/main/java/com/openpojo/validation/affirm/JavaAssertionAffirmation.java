@@ -72,6 +72,11 @@ public class JavaAssertionAffirmation extends AbstractAffirmation implements Aff
     fail(MessageFormatter.format("{0} expected <{1}> but was <{2}>", message, expected, actual));
   }
 
+  public void affirmSame(String message, Object first, Object second) {
+    if (first != second)
+      fail(message);
+  }
+
   @Override
   public String toString() {
     return BusinessIdentity.toString(this);

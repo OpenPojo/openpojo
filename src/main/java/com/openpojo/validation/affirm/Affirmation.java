@@ -33,4 +33,6 @@ public interface Affirmation {
   void affirmNull(final String message, final Object object);
 
   void affirmEquals(final String message, final Object expected, final Object actual);
+
+  void affirmSame(final String message, final Object first, final Object second);
 }

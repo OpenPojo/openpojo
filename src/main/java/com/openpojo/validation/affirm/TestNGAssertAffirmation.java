@@ -22,6 +22,8 @@ import com.openpojo.business.BusinessIdentity;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.load.ClassUtil;
 
+import static org.testng.Assert.*;
+
 /**
  * @author oshoukry
  */
@@ -39,19 +41,19 @@ public class TestNGAssertAffirmation extends AbstractAffirmation implements Affi
   }
 
   public void affirmTrue(final String message, final boolean condition) {
-    org.testng.Assert.assertTrue(condition, message);
+    assertTrue(condition, message);
   }
 
   public void affirmFalse(final String message, final boolean condition) {
-    org.testng.Assert.assertFalse(condition, message);
+    assertFalse(condition, message);
   }
 
   public void affirmNotNull(final String message, final Object object) {
-    org.testng.Assert.assertNotNull(object, message);
+    assertNotNull(object, message);
   }
 
   public void affirmNull(final String message, final Object object) {
-    org.testng.Assert.assertNull(object, message);
+    assertNull(object, message);
   }
 
   public void affirmEquals(final String message, final Object expected, final Object actual) {
@@ -61,7 +63,11 @@ public class TestNGAssertAffirmation extends AbstractAffirmation implements Affi
     if (isArray(expected))
       affirmArrayEquals(message, expected, actual);
     else
-      org.testng.Assert.assertEquals(actual, expected, message);
+      assertEquals(actual, expected, message);
+  }
+
+  public void affirmSame(String message, Object first, Object second) {
+    assertSame(first, second, message);
   }
 
   @Override
