@@ -16,7 +16,6 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -34,8 +33,7 @@
     <description>This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
         This project has two main aspects to it:
         * Make Testing as easy as possible.
-        * Simplifying identity management (hashCode / equals) using annotation.
-    </description>
+        * Simplifying identity management (hashCode / equals) using annotation.</description>
     <url>http://openpojo.com/</url>
 
     <inceptionYear>2010</inceptionYear>
@@ -96,8 +94,8 @@
         <maven-deploy-plugin.version>2.5</maven-deploy-plugin.version>
         <maven-javadoc-plugin.version>2.7</maven-javadoc-plugin.version>
         <maven-source-plugin.version>2.1.2</maven-source-plugin.version>
-        <skipTests>false</skipTests>
         <maven.clover.skip>${skipTests}</maven.clover.skip>
+        <skipTests>false</skipTests>
         <slf4j.version>1.7.7</slf4j.version>
         <surefire.version>2.17</surefire.version>
         <testng.version>6.8.8</testng.version>
