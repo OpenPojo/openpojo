@@ -41,8 +41,6 @@ public class ZonedDateTimeRandomGenerator implements RandomGenerator {
 
   private static final String TYPE = "java.time.ZonedDateTime";
   private static final ZonedDateTimeRandomGenerator INSTANCE = new ZonedDateTimeRandomGenerator();
-  private static final Long SECONDS_IN_A_DAY = 60L * 60L * 24L;
-  private static final Long ONE_HUNDRED_YEARS_IN_SECS = SECONDS_IN_A_DAY * (365L + 25L /* leap years */) * 100L;
   private static final Random RANDOM = new Random(System.currentTimeMillis());
 
   private static final String JAVA_TIME_INSTANT_CLASS = "java.time.Instant";
@@ -73,7 +71,7 @@ public class ZonedDateTimeRandomGenerator implements RandomGenerator {
   }
 
   private Object randomizeTimeWithin100Years(Object localDateTime) {
-    Long offset = RANDOM.nextLong() % ONE_HUNDRED_YEARS_IN_SECS;
+    Long offset = RANDOM.nextLong() % Duration.ONE_HUNDRED_YEARS_IN_SECS;
 
     Method plusSecondsMethod = getMethod(zoneDateTimeClass, "plusSeconds", long.class);
     return invokeMethod(plusSecondsMethod, localDateTime, offset);
@@ -95,5 +93,14 @@ public class ZonedDateTimeRandomGenerator implements RandomGenerator {
     zoneDateTimeClass = ClassUtil.loadClass(TYPE);
     javaTimeInstantClass = ClassUtil.loadClass(JAVA_TIME_INSTANT_CLASS);
     javaTimeZoneIdClass = ClassUtil.loadClass(JAVA_TIME_ZONEID_CLASS);
+  }
+
+  private interface Duration {
+    long SECONDS_IN_A_DAY = 60 * 60 * 24;
+    long DAYS = 365;
+    long YEARS = 100;
+    long LEAP_YEARS = YEARS / 4;
+    long TOTAL_DAYS = DAYS * YEARS + LEAP_YEARS;
+    long ONE_HUNDRED_YEARS_IN_SECS = SECONDS_IN_A_DAY * TOTAL_DAYS;
   }
 }
