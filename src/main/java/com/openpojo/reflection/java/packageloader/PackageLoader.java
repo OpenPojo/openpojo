@@ -35,6 +35,7 @@ import com.openpojo.reflection.java.Java;
 import com.openpojo.reflection.java.load.ClassUtil;
 import com.openpojo.reflection.java.packageloader.impl.FilePackageLoader;
 import com.openpojo.reflection.java.packageloader.impl.JARPackageLoader;
+import com.openpojo.reflection.java.packageloader.utils.Helper;
 
 /**
  * @author oshoukry
@@ -89,8 +90,8 @@ public abstract class PackageLoader {
   }
 
   protected final Class<?> getAsClass(final String entry) {
-    if (isClass(entry)) {
-      String className = stripClassExtension(fromJDKPathToJDKPackage(entry));
+    if (Helper.isClass(entry)) {
+      String className = Helper.getFQClassName(entry);
       logger.trace("loading class [{0}]", className);
 
       return ClassUtil.loadClass(className, false);
@@ -104,14 +105,6 @@ public abstract class PackageLoader {
 
   protected static String fromJDKPathToJDKPackage(final String path) {
     return path.replace(Java.PATH_DELIMITER, Java.PACKAGE_DELIMITER);
-  }
-
-  private String stripClassExtension(final String path) {
-    return path.substring(0, path.length() - Java.CLASS_EXTENSION.length());
-  }
-
-  private boolean isClass(final String path) {
-    return path.endsWith(Java.CLASS_EXTENSION);
   }
 
   @Override

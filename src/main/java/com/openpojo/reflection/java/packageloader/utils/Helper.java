@@ -23,7 +23,16 @@ import com.openpojo.reflection.java.Java;
 /**
  * @author oshoukry
  */
-public class PackageNameHelper {
+public class Helper {
+
+  public static boolean isClass(String entry) {
+    return entry != null && entry.endsWith(Java.CLASS_EXTENSION);
+  }
+
+  public static String getFQClassName(String entry) {
+    String fullyQualifiedName = entry.substring(0, entry.length() - Java.CLASS_EXTENSION.length());
+    return fullyQualifiedName.replace(Java.PATH_DELIMITER, Java.PACKAGE_DELIMITER);
+  }
 
   /**
    * This method breaks up a package path into its elements returning the first sub-element only.

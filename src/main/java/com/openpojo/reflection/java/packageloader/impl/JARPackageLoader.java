@@ -18,75 +18,31 @@
 
 package com.openpojo.reflection.java.packageloader.impl;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.JarURLConnection;
 import java.net.URL;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
-import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.packageloader.PackageLoader;
-import com.openpojo.reflection.java.packageloader.utils.PackageNameHelper;
+import com.openpojo.reflection.java.packageloader.reader.JarFileReader;
 
 /**
  * @author oshoukry
  */
 public final class JARPackageLoader extends PackageLoader {
+  private final JarFileReader jarFileReader;
 
   public JARPackageLoader(final URL packageURL, final String packageName) {
     super(packageURL, packageName);
+    jarFileReader = JarFileReader.getInstance(packageURL);
   }
 
   @Override
   public Set<Type> getTypes() {
-    Set<Type> types = new LinkedHashSet<Type>();
-    for (Type type : getAllJarTypes()) {
-      Class<?> classEntry = (Class<?>) type;
-      if (classEntry.getPackage().getName().equals(packageName)) {
-        types.add(type);
-      }
-    }
-    return types;
+    return jarFileReader.getTypesInPackage(packageName);
   }
 
   @Override
   public Set<String> getSubPackages() {
-    Set<String> subPackages = new LinkedHashSet<String>();
-
-    Set<Type> types = getAllJarTypes();
-    for (Type type : types) {
-      Class<?> typeClass = (Class<?>) type;
-      String typeClassPackageName = typeClass.getPackage().getName();
-      String directSubPackageName = PackageNameHelper.getDirectSubPackageName(packageName, typeClassPackageName);
-      if (directSubPackageName != null) {
-        subPackages.add(directSubPackageName);
-      }
-    }
-    return subPackages;
+    return jarFileReader.getSubPackagesOfPackage(packageName);
   }
-
-  private Set<Type> getAllJarTypes() {
-    Set<Type> types = new LinkedHashSet<Type>();
-    JarURLConnection conn;
-    JarFile jar;
-    try {
-      conn = (JarURLConnection) packageURL.openConnection();
-      jar = conn.getJarFile();
-    } catch (IOException e) {
-      throw ReflectionException.getInstance(e.getMessage(), e);
-    }
-    for (JarEntry e : Collections.list(jar.entries())) {
-      String entryName = e.getName();
-      Class<?> classEntry = getAsClass(entryName);
-      if (classEntry != null) {
-        types.add(classEntry);
-      }
-    }
-    return types;
-  }
-
 }
