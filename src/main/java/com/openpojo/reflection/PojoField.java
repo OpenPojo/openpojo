@@ -53,6 +53,8 @@ public interface PojoField extends PojoElement, Parameterizable, Accessible {
 
   /**
    * Returns getter PojoMethod or null if none are set.
+   *
+   * @return Returns getter if one is set, null otherwise.
    */
   PojoMethod getGetter();
 
@@ -74,6 +76,8 @@ public interface PojoField extends PojoElement, Parameterizable, Accessible {
 
   /**
    * Returns setter PojoMethod or null if none are set.
+   *
+   * @return Returns setter if one is set, null otherwise.
    */
   PojoMethod getSetter();
 
