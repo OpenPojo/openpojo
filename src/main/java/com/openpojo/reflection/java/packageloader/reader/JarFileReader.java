@@ -28,10 +28,8 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import com.openpojo.reflection.java.Java;
-import com.openpojo.reflection.java.load.ClassUtil;
+import com.openpojo.reflection.java.packageloader.utils.Helper;
 
-import static com.openpojo.reflection.java.packageloader.utils.Helper.getDirectSubPackageName;
 import static com.openpojo.reflection.java.packageloader.utils.Helper.getFQClassName;
 import static com.openpojo.reflection.java.packageloader.utils.Helper.isClass;
 
@@ -74,7 +72,7 @@ public class JarFileReader {
     return jarFile != null;
   }
 
-  public Set<String> getAllEntries() {
+  private Set<String> getAllEntries() {
     Set<String> entries = new HashSet<String>();
 
     ArrayList<JarEntry> jarEntries = Collections.list(jarFile.entries());
@@ -85,28 +83,11 @@ public class JarFileReader {
   }
 
   public Set<Type> getTypesInPackage(String packageName) {
-    Set<Type> entries = new HashSet<Type>();
-    for (String entry : classNames) {
-      String entryPackageName = entry.substring(0, (entry.lastIndexOf(Java.PACKAGE_DELIMITER)));
-      if (entryPackageName.equals(packageName)) {
-        Type entryClass = ClassUtil.loadClass(entry, false);
-        if (entryClass != null)
-          entries.add(entryClass);
-      }
-    }
-    return entries;
+    return Helper.loadClassesFromGivenPackage(classNames, packageName);
   }
 
   public Set<String> getSubPackagesOfPackage(String packageName) {
-    Set<String> subPackages = new HashSet<String>();
-    for (String entry : classNames) {
-      String typeClassPackageName = entry.substring(0, (entry.lastIndexOf(Java.PACKAGE_DELIMITER)));
-      String directSubPackageName = getDirectSubPackageName(packageName, typeClassPackageName);
-      if (directSubPackageName != null) {
-        subPackages.add(directSubPackageName);
-      }
-    }
-    return subPackages;
+    return Helper.getSubPackagesOfPackage(classNames, packageName);
   }
 
   private void initClassNames() {

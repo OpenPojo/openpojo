@@ -18,7 +18,12 @@
 
 package com.openpojo.reflection.java.packageloader.utils;
 
+import java.lang.reflect.Type;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.openpojo.reflection.java.Java;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * @author oshoukry
@@ -34,6 +39,31 @@ public class Helper {
     return fullyQualifiedName.replace(Java.PATH_DELIMITER, Java.PACKAGE_DELIMITER);
   }
 
+  public static Set<Type> loadClassesFromGivenPackage(Set<String> classNames, String packageName) {
+    Set<Type> entries = new HashSet<Type>();
+    for (String entry : classNames) {
+      String entryPackageName = entry.substring(0, (entry.lastIndexOf(Java.PACKAGE_DELIMITER)));
+      if (entryPackageName.equals(packageName)) {
+        Type entryClass = ClassUtil.loadClass(entry, false);
+        if (entryClass != null)
+          entries.add(entryClass);
+      }
+    }
+    return entries;
+  }
+
+  public static Set<String> getSubPackagesOfPackage(Set<String> classNames, String packageName) {
+    Set<String> subPackages = new HashSet<String>();
+    for (String entry : classNames) {
+      String typeClassPackageName = entry.substring(0, (entry.lastIndexOf(Java.PACKAGE_DELIMITER)));
+      String directSubPackageName = getDirectSubPackageName(packageName, typeClassPackageName);
+      if (directSubPackageName != null) {
+        subPackages.add(directSubPackageName);
+      }
+    }
+    return subPackages;
+  }
+
   /**
    * This method breaks up a package path into its elements returning the first sub-element only.
    * For example, if packageName is "com" and the JAR file has only one class
@@ -45,7 +75,7 @@ public class Helper {
    *     The subpackage name.
    * @return A first sub level bellow packageName.
    */
-  public static String getDirectSubPackageName(final String parentPackageName, final String subPackageName) {
+  static String getDirectSubPackageName(final String parentPackageName, final String subPackageName) {
     String parentPackageNameAsPath = parentPackageName + Java.PACKAGE_DELIMITER;
     if (subPackageName.startsWith(parentPackageNameAsPath) && subPackageName.length() > parentPackageNameAsPath.length()) {
       String[] subPackageTokens;
