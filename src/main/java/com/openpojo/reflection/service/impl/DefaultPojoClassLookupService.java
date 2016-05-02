@@ -20,6 +20,8 @@ package com.openpojo.reflection.service.impl;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoClass;
@@ -42,7 +44,6 @@ import com.openpojo.registry.ServiceRegistrar;
 public class DefaultPojoClassLookupService implements Service, PojoClassLookupService {
 
   public DefaultPojoClassLookupService() {
-
   }
 
   public String getName() {
@@ -81,21 +82,17 @@ public class DefaultPojoClassLookupService implements Service, PojoClassLookupSe
 
   public List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter pojoClassFilter) {
     final List<PojoClass> pojoClasses = new LinkedList<PojoClass>();
+    final PojoClassFilter finalFilterChain = getFinalFilterChain(pojoClassFilter);
 
     final PojoPackage pojoPackage = PojoPackageFactory.getPojoPackage(packageName);
-    final List<PojoPackage> packages = new LinkedList<PojoPackage>();
-    packages.add(pojoPackage);
 
-    for (int counter = 0; counter < packages.size(); counter++) {
-      final PojoPackage entry = packages.get(counter);
+    Queue<PojoPackage> pending = new ConcurrentLinkedQueue<PojoPackage>();
+    pending.add(pojoPackage);
 
-      // add newly discovered paths
-      packages.addAll(entry.getPojoSubPackages());
-
-      // add all classes in current path
-      for (final PojoClass pojoClass : entry.getPojoClasses(getFinalFilterChain(pojoClassFilter))) {
-        pojoClasses.add(pojoClass);
-      }
+    while (!pending.isEmpty()) {
+      final PojoPackage entry = pending.remove();
+      pending.addAll(entry.getPojoSubPackages());
+      pojoClasses.addAll(entry.getPojoClasses(finalFilterChain));
     }
     return pojoClasses;
   }
@@ -103,5 +100,4 @@ public class DefaultPojoClassLookupService implements Service, PojoClassLookupSe
   private PojoClassFilter getFinalFilterChain(PojoClassFilter pojoClassFilter) {
     return new FilterChain(pojoClassFilter, ServiceRegistrar.getInstance().getPojoCoverageFilterService());
   }
-
 }
