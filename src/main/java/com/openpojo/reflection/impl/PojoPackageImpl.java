@@ -48,7 +48,7 @@ class PojoPackageImpl implements PojoPackage {
     return packageName;
   }
 
-  public PojoPackageImpl(final String packageName) {
+  PojoPackageImpl(final String packageName) {
     if (packageName == null) {
       throw new IllegalArgumentException("PackageName can not be null");
     }
@@ -56,7 +56,7 @@ class PojoPackageImpl implements PojoPackage {
     this.packageName = packageName;
 
     jdkPackage = new Package(packageName);
-    if (!isValid()) {
+    if (!jdkPackage.isValid()) {
       throw ReflectionException.getInstance(MessageFormatter.format("Package [{0}] is not valid", packageName));
     }
 
@@ -67,10 +67,6 @@ class PojoPackageImpl implements PojoPackage {
     } else {
       packageInfoPojoClass = null;
     }
-  }
-
-  private boolean isValid() {
-    return jdkPackage.isValid();
   }
 
   public List<PojoClass> getPojoClasses() {
