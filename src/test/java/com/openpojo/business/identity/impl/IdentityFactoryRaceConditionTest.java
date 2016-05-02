@@ -19,6 +19,7 @@
 package com.openpojo.business.identity.impl;
 
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -45,59 +46,83 @@ public class IdentityFactoryRaceConditionTest {
   public void runWithManyThreads() {
     int numberOfThreads = 1500;
 
-    ThreadPoolExecutor tpe = new ThreadPoolExecutor(numberOfThreads, numberOfThreads, 3 * 60, TimeUnit.SECONDS,
+    ReportingThreadExecutionPool tpe = new ReportingThreadExecutionPool(numberOfThreads, numberOfThreads, 3 * 60, TimeUnit.SECONDS,
         new ArrayBlockingQueue<Runnable>(numberOfThreads));
 
     CyclicBarrier cb = new CyclicBarrier(numberOfThreads);
-    for (int i = 0; i < numberOfThreads; i++)
-      tpe.execute(new Worker(cb));
+    Validator validator = getValidator();
+    for (int i = 0; i < numberOfThreads; i++) {
+      tpe.execute(new Worker(cb, validator));
+    }
     tpe.shutdown();
 
     while (!tpe.isTerminated()) {
       try {
-        Thread.sleep(500);
+        TimeUnit.MILLISECONDS.sleep(100);
       } catch (InterruptedException ignored) {
 
       }
     }
 
-    Assert.assertEquals("Some threads failed to complete successfully", numberOfThreads, tpe.getCompletedTaskCount());
+    Assert.assertEquals("Some threads failed to complete successfully", numberOfThreads, tpe.getCompletedSuccessfully());
   }
 
-  class Worker implements Runnable {
-    private final CyclicBarrier cyclicBarrier;
+  private Validator getValidator() {
+    return ValidatorBuilder.create()
+        .with(new BusinessKeyMustExistRule())
+        .with(new GetterMustExistRule())
+        .with(new NoFieldShadowingRule())
+        .with(new NoNestedClassRule())
+        .with(new NoPrimitivesRule())
+        .with(new NoPublicFieldsExceptStaticFinalRule())
+        .with(new NoPublicFieldsRule())
+        .with(new NoStaticExceptFinalRule())
+        .with(new SerializableMustHaveSerialVersionUIDRule())
+        .with(new SetterMustExistRule())
+        .with(new BusinessIdentityTester())
+        .with(new DefaultValuesNullTester())
+        .with(new GetterTester())
+        .with(new SetterTester())
+        .build();
+  }
 
-    public Worker(final CyclicBarrier cyclicBarrier) {
+  private class Worker implements Runnable {
+    private final CyclicBarrier cyclicBarrier;
+    private final Validator validator;
+
+    Worker(final CyclicBarrier cyclicBarrier, final Validator validator) {
       this.cyclicBarrier = cyclicBarrier;
+      this.validator = validator;
     }
 
     public void run() {
       try {
-        Validator pv = ValidatorBuilder.create()
-            .with(new BusinessKeyMustExistRule())
-            .with(new GetterMustExistRule())
-            .with(new NoFieldShadowingRule())
-            .with(new NoNestedClassRule())
-            .with(new NoPrimitivesRule())
-            .with(new NoPublicFieldsExceptStaticFinalRule())
-            .with(new NoPublicFieldsRule())
-            .with(new NoStaticExceptFinalRule())
-            .with(new SerializableMustHaveSerialVersionUIDRule())
-            .with(new SetterMustExistRule())
-            .with(new BusinessIdentityTester())
-            .with(new DefaultValuesNullTester())
-            .with(new GetterTester())
-            .with(new SetterTester())
-            .build();
-
         PojoClass pojoClass = PojoClassFactory.getPojoClass(PojoClassWithHashCodeBusinessIdentity.class);
         cyclicBarrier.await();
-        pv.validate(pojoClass);
+        validator.validate(pojoClass);
       } catch (InterruptedException e) {
         e.printStackTrace();
       } catch (BrokenBarrierException e) {
         e.printStackTrace();
       }
+    }
+  }
+
+  private class ReportingThreadExecutionPool extends ThreadPoolExecutor {
+    private int completedSuccessfully = 0;
+
+    ReportingThreadExecutionPool(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+      super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+    }
+
+    @Override
+    protected void afterExecute(Runnable r, Throwable t) {
+      if (t == null)
+        completedSuccessfully++;
+    }
+
+    int getCompletedSuccessfully() {
+      return completedSuccessfully;
     }
   }
 }

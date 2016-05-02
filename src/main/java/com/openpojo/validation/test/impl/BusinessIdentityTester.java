@@ -38,45 +38,50 @@ import com.openpojo.validation.utils.ValidationHelper;
  */
 public final class BusinessIdentityTester implements Tester {
 
-  private Object firstPojoClassInstance;
-  private Object secondPojoClassInstance;
-  private final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
-
   public void run(final PojoClass pojoClass) {
-    IdentityFactory.registerIdentityHandler(identityHandlerStub);
+    Object instance1 = ValidationHelper.getMostCompleteInstance(pojoClass);
+    Object instance2 = ValidationHelper.getMostCompleteInstance(pojoClass);
 
-    firstPojoClassInstance = ValidationHelper.getMostCompleteInstance(pojoClass);
-    secondPojoClassInstance = ValidationHelper.getMostCompleteInstance(pojoClass);
+    IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub(instance1, instance2);
+    IdentityFactory.registerIdentityHandler(identityHandlerStub);
 
     // check one way
     identityHandlerStub.areEqualReturn = RandomFactory.getRandomValue(Boolean.class);
-    checkEquality();
+    checkEquality(instance1, instance2, identityHandlerStub);
 
     identityHandlerStub.areEqualReturn = !identityHandlerStub.areEqualReturn;
-    checkEquality();
+    checkEquality(instance1, instance2, identityHandlerStub);
 
     identityHandlerStub.doGenerateReturn = RandomFactory.getRandomValue(Integer.class);
-    checkHashCode();
+    checkHashCode(instance1, identityHandlerStub);
 
     identityHandlerStub.doGenerateReturn = RandomFactory.getRandomValue(Integer.class);
-    checkHashCode();
+    checkHashCode(instance1, identityHandlerStub);
 
     IdentityFactory.unregisterIdentityHandler(identityHandlerStub);
   }
 
-  private void checkHashCode() {
+  private void checkHashCode(Object firstPojoClassInstance, IdentityHandlerStub identityHandlerStub) {
     Affirm.affirmTrue(String.format("Class=[%s] not dispatching 'hashCode()' calls to BusinessIdentity",
         firstPojoClassInstance.getClass()), identityHandlerStub.doGenerateReturn == firstPojoClassInstance.hashCode());
   }
 
-  private void checkEquality() {
+  private void checkEquality(Object instance1, Object instance2, IdentityHandlerStub identityHandlerStub) {
     Affirm.affirmTrue(String.format("Class=[%s] not dispatching 'equals()' calls to BusinessIdentity",
-        firstPojoClassInstance.getClass()), identityHandlerStub.areEqualReturn == firstPojoClassInstance.equals(secondPojoClassInstance));
+        instance1.getClass()), identityHandlerStub.areEqualReturn == instance1.equals(instance2));
   }
 
   private class IdentityHandlerStub implements IdentityHandler {
-    private boolean areEqualReturn;
-    private int doGenerateReturn;
+    private Boolean areEqualReturn;
+    private Integer doGenerateReturn;
+
+    private Object instance1;
+    private Object instance2;
+
+    private IdentityHandlerStub(Object instance1, Object instance2) {
+      this.instance1 = instance1;
+      this.instance2 = instance2;
+    }
 
     public boolean areEqual(final Object first, final Object second) {
       return areEqualReturn;
@@ -90,7 +95,7 @@ public final class BusinessIdentityTester implements Tester {
     }
 
     public boolean handlerFor(final Object object) {
-      return object == firstPojoClassInstance || object == secondPojoClassInstance;
+      return object == instance1 || object == instance2;
     }
   }
 
