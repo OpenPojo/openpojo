@@ -22,8 +22,10 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.openpojo.business.identity.impl.sampleclasses.PojoClassWithHashCodeBusinessIdentity;
 import com.openpojo.reflection.PojoClass;
@@ -42,29 +44,36 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class IdentityFactoryRaceConditionTest {
+
   @Test
   public void runWithManyThreads() {
     int numberOfThreads = 1500;
 
-    ReportingThreadExecutionPool tpe = new ReportingThreadExecutionPool(numberOfThreads, numberOfThreads, 3 * 60, TimeUnit.SECONDS,
-        new ArrayBlockingQueue<Runnable>(numberOfThreads));
-
+    ReportingThreadExecutionPool tpe = getReportingThreadExecutionPool(numberOfThreads);
     CyclicBarrier cb = new CyclicBarrier(numberOfThreads);
+
     Validator validator = getValidator();
-    for (int i = 0; i < numberOfThreads; i++) {
+
+    for (int i = 0; i < numberOfThreads; i++)
       tpe.execute(new Worker(cb, validator));
-    }
+
     tpe.shutdown();
 
-    while (!tpe.isTerminated()) {
+    while (!tpe.isTerminated())
       try {
         TimeUnit.MILLISECONDS.sleep(100);
       } catch (InterruptedException ignored) {
-
       }
-    }
 
     Assert.assertEquals("Some threads failed to complete successfully", numberOfThreads, tpe.getCompletedSuccessfully());
+  }
+
+  private ReportingThreadExecutionPool getReportingThreadExecutionPool(int numberOfThreads) {
+    return new ReportingThreadExecutionPool(
+        numberOfThreads,
+        numberOfThreads, 3 * 60,
+        TimeUnit.SECONDS,
+        new ArrayBlockingQueue<Runnable>(numberOfThreads));
   }
 
   private Validator getValidator() {
@@ -109,20 +118,25 @@ public class IdentityFactoryRaceConditionTest {
   }
 
   private class ReportingThreadExecutionPool extends ThreadPoolExecutor {
-    private int completedSuccessfully = 0;
+    private AtomicInteger completedSuccessfully = new AtomicInteger(0);
 
-    ReportingThreadExecutionPool(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
-      super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+    ReportingThreadExecutionPool(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
+                                 BlockingQueue<Runnable> workQueue) {
+      super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, new RejectedExecutionHandler() {
+        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+          throw new RuntimeException("Rejected Task - " + r);
+        }
+      });
     }
 
     @Override
     protected void afterExecute(Runnable r, Throwable t) {
       if (t == null)
-        completedSuccessfully++;
+        completedSuccessfully.incrementAndGet();
     }
 
     int getCompletedSuccessfully() {
-      return completedSuccessfully;
+      return completedSuccessfully.get();
     }
   }
 }
