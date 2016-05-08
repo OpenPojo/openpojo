@@ -19,6 +19,7 @@
 package com.openpojo.random.generator.time;
 
 import com.openpojo.random.RandomGenerator;
+import com.openpojo.random.generator.AbstractGeneratorTest;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.load.ClassUtil;
@@ -28,7 +29,7 @@ import org.junit.Before;
 /**
  * @author oshoukry
  */
-public class ZoneIdRandomGeneratorTest extends AbstractTimeTest {
+public class ZoneIdRandomGeneratorTest extends AbstractGeneratorTest {
   private static final String JAVA_TIME_ZONE_ID = "java.time.ZoneId";
   private PojoClass pojoClass;
 
@@ -38,15 +39,15 @@ public class ZoneIdRandomGeneratorTest extends AbstractTimeTest {
     pojoClass = PojoClassFactory.getPojoClass(ZoneIdRandomGenerator.class);
   }
 
-  PojoClass getPojoClass() {
+  protected PojoClass getPojoClass() {
     return pojoClass;
   }
 
-  String getTypeName() {
+  protected String getTypeName() {
     return JAVA_TIME_ZONE_ID;
   }
 
-  RandomGenerator getRandomGenerator() {
+  protected RandomGenerator getRandomGenerator() {
     return ZoneIdRandomGenerator.getInstance();
   }
 }

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.openpojo.random.generator.time;
+package com.openpojo.random.generator;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,13 +33,13 @@ import org.junit.Test;
 /**
  * @author oshoukry
  */
-public abstract class AbstractTimeTest {
+public abstract class AbstractGeneratorTest {
 
-  abstract PojoClass getPojoClass();
+  protected abstract PojoClass getPojoClass();
 
-  abstract String getTypeName();
+  protected abstract String getTypeName();
 
-  abstract RandomGenerator getRandomGenerator();
+  protected abstract RandomGenerator getRandomGenerator();
 
   @Test
   public void singlePrivateConstructor() {
@@ -63,7 +63,7 @@ public abstract class AbstractTimeTest {
 
     Collection<Class<?>> types = getRandomGenerator().getTypes();
     Assert.assertEquals("Should only declare one type", 1, types.size());
-    Assert.assertEquals(types.iterator().next().getName(), getTypeName());
+    Assert.assertEquals(getTypeName(), types.iterator().next().getName());
   }
 
   @Test
