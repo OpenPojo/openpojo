@@ -115,10 +115,12 @@ public class ServiceRegistrarTest {
             ,"javax.management.relation.RoleUnresolvedList"
 
             ,"javax.print.attribute.standard.JobStateReasons"
+
+            ,"sun.security.krb5.Credentials"
+            ,"sun.security.krb5.EncryptionKey"
+            ,"sun.security.krb5.PrincipalName"
     };
     // @formatter:on
-
-  private int expectedTypes;
 
   private Set<Class<?>> expectedDefaultTypes;
   private RandomGeneratorService randomGeneratorService;
@@ -149,12 +151,10 @@ public class ServiceRegistrarTest {
     ServiceRegistrar.getInstance().initializeRandomGeneratorService();
     randomGeneratorService = ServiceRegistrar.getInstance().getRandomGeneratorService();
 
-    if (javaVersion.startsWith("1.5")
+    if (!(javaVersion.startsWith("1.5")
         || javaVersion.startsWith("1.6")
         || javaVersion.startsWith("1.7")
-        || javaVersion.startsWith("1.8"))
-      expectedTypes = expectedDefaultTypes.size();
-    else
+        || javaVersion.startsWith("1.8")))
       throw new UnsupportedOperationException("Unknown java version found " + javaVersion + " please check " +
           "the correct number of expected registered classes and register type here - (found " + randomGeneratorService
           .getRegisteredTypes().size() + ")");
@@ -163,16 +163,15 @@ public class ServiceRegistrarTest {
   @Test
   public void defaultRandomGeneratorServicePrePopulated() {
     reportDifferences();
-    Affirm.affirmEquals("Types added / removed?", expectedTypes, randomGeneratorService.getRegisteredTypes().size());
+    Affirm.affirmEquals("Types added / removed?", expectedDefaultTypes.size(), randomGeneratorService.getRegisteredTypes().size());
   }
 
   private void reportDifferences() {
-    System.out.println("Found that many types: " + expectedDefaultTypes.size() + ", expected: " + expectedTypes);
+    System.out.println("Found that many types: " + expectedDefaultTypes.size());
     System.out.println("List of Entries in the expected List but not in the registered list:");
     for (Class<?> expectedEntry : expectedDefaultTypes) {
       if (!randomGeneratorService.getRegisteredTypes().contains(expectedEntry))
-        System.out.println("\"" + expectedEntry.getName() +
-            "\"");
+        System.out.println("\"" + expectedEntry.getName() + "\"");
     }
     System.out.println("List of Registered types but not in the expected list:");
     for (Class<?> foundEntry : randomGeneratorService.getRegisteredTypes()) {
