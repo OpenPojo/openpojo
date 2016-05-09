@@ -22,11 +22,38 @@ import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.bytecode.asm.ASMNotLoadedException;
+import com.openpojo.utils.log.LogEvent;
+import com.openpojo.utils.log.LogHelper;
+import com.openpojo.utils.log.MockAppenderLog4J;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
+import com.openpojo.validation.exception.ValidationException;
+import com.openpojo.validation.impl.DefaultValidator;
+import com.openpojo.validation.test.Tester;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class ValidationHelperTest {
+
+  @Test
+  public void shouldNotConstruct() {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(ValidationHelper.class);
+
+    try {
+      Assert.assertEquals(1, pojoClass.getPojoConstructors().size());
+      PojoMethod constructor = pojoClass.getPojoConstructors().get(0);
+      Assert.assertTrue("Constructor should be private", constructor.isPrivate());
+      constructor.invoke(null);
+      Assert.fail("Expected exception not thrown");
+    } catch (ReflectionException re) {
+      ValidationException ve = (ValidationException) re.getCause().getCause();
+      Assert.assertEquals("Utility class do not construct", ve.getMessage());
+    }
+  }
 
   @Test
   public void testIsStaticFinal() {
@@ -34,31 +61,49 @@ public class ValidationHelperTest {
     List<PojoField> pojoFields = pojoClass.getPojoFields();
     Assert.assertEquals(4, pojoFields.size());
     for (PojoField fieldEntry : pojoFields) {
-      if (fieldEntry.getName() == "staticAndNotFinal") {
+      if (fieldEntry.getName().equals("staticAndNotFinal")) {
         Assert.assertTrue("Static and not Final test failed!!",
             fieldEntry.isStatic()
                 && !fieldEntry.isFinal()
                 && !ValidationHelper.isStaticFinal(fieldEntry));
       }
-      if (fieldEntry.getName() == "notStaticAndNotFinal") {
+      if (fieldEntry.getName().equals("notStaticAndNotFinal")) {
         Assert.assertTrue("Not static OR final test failed!!",
             !fieldEntry.isStatic()
                 && !fieldEntry.isFinal()
                 && !ValidationHelper.isStaticFinal(fieldEntry));
       }
-      if (fieldEntry.getName() == "STATICANDFINAL") {
+      if (fieldEntry.getName().equals("STATIC_AND_FINAL")) {
         Assert.assertTrue("Static AND Final test failed!!!",
             fieldEntry.isStatic()
                 && fieldEntry.isFinal()
                 && ValidationHelper.isStaticFinal(fieldEntry));
       }
-      if (fieldEntry.getName() == "finalAndNotStatic") {
+      if (fieldEntry.getName().equals("finalAndNotStatic")) {
         Assert.assertTrue("Final and not Static test failed!!",
             !fieldEntry.isStatic()
                 && fieldEntry.isFinal()
                 && !ValidationHelper.isStaticFinal(fieldEntry));
       }
     }
+  }
+
+  @Test
+  public void shouldReportMissingASMProperly() {
+    Validator validator = ValidatorBuilder.create()
+        .with(new Tester() {
+          public void run(PojoClass pojoClass) {
+            throw ASMNotLoadedException.getInstance();
+          }
+        }).build();
+
+    LogHelper.initialize(MockAppenderLog4J.class);
+    validator.validate(PojoClassFactory.getPojoClass(this.getClass()));
+    List<LogEvent> warnEvents = LogHelper.getWarnEvents(MockAppenderLog4J.class, DefaultValidator.class.getName());
+    Assert.assertEquals(1, warnEvents.size());
+    String expectedMessage = "ASM not loaded while attempting to execute behavioural tests on non-constructable class["
+        + this.getClass() + "], either filter abstract classes or add asm to your classpath.";
+    Assert.assertEquals(expectedMessage, warnEvents.get(0).getMessage());
   }
 
   private static class StaticFinalData {
@@ -70,7 +115,7 @@ public class ValidationHelperTest {
     private int notStaticAndNotFinal;
 
     @SuppressWarnings("unused")
-    private static final int STATICANDFINAL = 0;
+    private static final int STATIC_AND_FINAL = 0;
 
     @SuppressWarnings("unused")
     private final int finalAndNotStatic = 0;

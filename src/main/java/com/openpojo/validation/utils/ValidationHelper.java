@@ -26,6 +26,7 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.java.bytecode.asm.ASMNotLoadedException;
+import com.openpojo.validation.exception.ValidationException;
 import com.openpojo.validation.impl.DefaultValidator;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.test.Tester;
@@ -37,6 +38,10 @@ import com.openpojo.validation.test.Tester;
  * @author oshoukry
  */
 public final class ValidationHelper {
+
+  private ValidationHelper() {
+    throw ValidationException.getInstance("Utility class do not construct");
+  }
   /**
    * Return true if the PojoField is marked as static and is final.
    *
