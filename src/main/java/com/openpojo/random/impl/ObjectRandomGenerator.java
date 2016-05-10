@@ -24,7 +24,7 @@ import java.util.Collection;
 import com.openpojo.random.RandomGenerator;
 
 /**
- * This Random generator is for facilitative purpose only so no extra logic on any app needs to be set to handle void
+ * This is the random generator responsible for generating Object instances.
  *
  * @author oshoukry
  */
@@ -32,7 +32,6 @@ public class ObjectRandomGenerator implements RandomGenerator {
   private static final Class<?>[] TYPES = new Class<?>[] { Object.class };
 
   private ObjectRandomGenerator() {
-
   }
 
   public static RandomGenerator getInstance() {
