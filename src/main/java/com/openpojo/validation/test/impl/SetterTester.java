@@ -18,6 +18,10 @@
 
 package com.openpojo.validation.test.impl;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
@@ -28,32 +32,57 @@ import com.openpojo.validation.utils.IdentityHandlerStub;
 import com.openpojo.validation.utils.ValidationHelper;
 
 /**
- * Test the setter and ensure it sets the field being tested if and only if a Setter method was defined.
+ * Test the setter and ensure it sets the field being tested if and only if a
+ * Setter method was defined.
  *
  * @author oshoukry
  */
 public class SetterTester implements Tester {
 
-  public void run(final PojoClass pojoClass) {
-    final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
-    for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
-      if (fieldEntry.hasSetter()) {
-        final Object value;
+	private Set<String> skippedFields = new HashSet<String>();
 
-        value = RandomFactory.getRandomValue(fieldEntry);
+	public void run(final PojoClass pojoClass) {
+		final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
+		for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
+			if (skippedFields.contains(fieldEntry.getName())) {
+				LoggerFactory.getLogger(this.getClass()).debug("Skipping field [{0}]", fieldEntry);
+				continue;
+			}
 
-        IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
-        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with random value [{1}]", fieldEntry, value);
+			if (fieldEntry.hasSetter()) {
+				final Object value;
 
-        fieldEntry.invokeSetter(classInstance, value);
+				value = RandomFactory.getRandomValue(fieldEntry);
 
-        Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
-            fieldEntry.get(classInstance));
+				IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
+				LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with random value [{1}]",
+						fieldEntry, value);
 
-        IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
-      } else {
-        LoggerFactory.getLogger(this.getClass()).debug("Field [{0}] has no setter skipping", fieldEntry);
-      }
-    }
-  }
+				fieldEntry.invokeSetter(classInstance, value);
+
+				Affirm.affirmEquals("Setter test failed, non equal value for field=[" + fieldEntry + "]", value,
+						fieldEntry.get(classInstance));
+
+				IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
+			} else {
+				LoggerFactory.getLogger(this.getClass()).debug("Field [{0}] has no setter skipping", fieldEntry);
+			}
+		}
+	}
+
+	/**
+	 * Instructs SetterTester to skip the field when running pojoClass
+	 * validation.
+	 * 
+	 * @param fieldToBeSkipped
+	 *            Field name (e.g. Into Person class, to skip setName, provide
+	 *            "name" as a field to be skipped.
+	 */
+	public void addField(String fieldToBeSkipped) {
+		if (fieldToBeSkipped == null || fieldToBeSkipped.trim().isEmpty()) {
+			throw new IllegalArgumentException("The argument 'fieldToBeSkipped' cannot be null or empty.");
+		}
+
+		this.skippedFields.add(fieldToBeSkipped);
+	}
 }
