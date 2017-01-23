@@ -50,6 +50,7 @@ public class ServiceRegistrarTest {
 
             ,"java.sql.Timestamp"
 
+            ,"java.time.Instant" // jdk8
             ,"java.time.ZonedDateTime" // jdk8
             ,"java.time.ZoneId" // jdk8
 
