@@ -77,8 +77,10 @@ public abstract class AbstractGeneratorTest {
     Assert.assertNotNull("Second should not be null", second);
 
     Class<?> expectedClass = ClassUtil.loadClass(getTypeName());
-    Assert.assertTrue(expectedClass.isAssignableFrom(first.getClass()));
-    Assert.assertTrue(expectedClass.isAssignableFrom(second.getClass()));
+    Assert.assertTrue("Expected an instance assignable from [" + expectedClass + "] but was [" + first.getClass() + "]",
+        expectedClass.isAssignableFrom(first.getClass()));
+    Assert.assertTrue("Expected an instance assignable from [" + expectedClass + "] but was [" + second.getClass() + "]",
+        expectedClass.isAssignableFrom(second.getClass()));
 
     if (first.equals(second)) // by chance same object, try one more time.
       second = getRandomGenerator().doGenerate(null);

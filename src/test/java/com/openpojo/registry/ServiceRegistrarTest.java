@@ -85,6 +85,7 @@ public class ServiceRegistrarTest {
             ,"java.util.SortedMap"
             ,"java.util.Stack"
             ,"java.util.SortedSet"
+            ,"java.util.TimeZone"
             ,"java.util.TreeMap"
             ,"java.util.TreeSet"
             ,"java.net.URI"
