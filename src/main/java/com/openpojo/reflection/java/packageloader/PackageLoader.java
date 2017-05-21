@@ -32,10 +32,8 @@ import com.openpojo.log.LoggerFactory;
 import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.java.Java;
-import com.openpojo.reflection.java.load.ClassUtil;
 import com.openpojo.reflection.java.packageloader.impl.FilePackageLoader;
 import com.openpojo.reflection.java.packageloader.impl.JARPackageLoader;
-import com.openpojo.reflection.java.packageloader.utils.Helper;
 
 /**
  * @author oshoukry
@@ -89,22 +87,8 @@ public abstract class PackageLoader {
     return Thread.currentThread().getContextClassLoader();
   }
 
-  protected final Class<?> getAsClass(final String entry) {
-    if (Helper.isClass(entry)) {
-      String className = Helper.getFQClassName(entry);
-      logger.trace("loading class [{0}]", className);
-
-      return ClassUtil.loadClass(className, false);
-    }
-    return null;
-  }
-
-  protected static String fromJDKPackageToJDKPath(final String path) {
+  private static String fromJDKPackageToJDKPath(final String path) {
     return path.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
-  }
-
-  protected static String fromJDKPathToJDKPackage(final String path) {
-    return path.replace(Java.PATH_DELIMITER, Java.PACKAGE_DELIMITER);
   }
 
   @Override

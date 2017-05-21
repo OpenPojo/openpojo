@@ -25,11 +25,13 @@ import java.util.Set;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.business.annotation.BusinessKey;
+import com.openpojo.reflection.java.packageloader.boot.JavaBootClassLoader;
 
 /**
  * @author oshoukry
  */
 public final class Package {
+  private static final JavaBootClassLoader JAVA_BOOT_CLASS_LOADER = JavaBootClassLoader.getInstance();
 
   @BusinessKey
   private final String packageName;
@@ -43,7 +45,7 @@ public final class Package {
   }
 
   public boolean isValid() {
-    return getPackageLoaders().size() > 0;
+    return getPackageLoaders().size() > 0 || JAVA_BOOT_CLASS_LOADER.hasPackage(packageName);
   }
 
   public Set<Type> getTypes() {
@@ -53,6 +55,8 @@ public final class Package {
         types.add(type);
       }
     }
+
+    types.addAll(JAVA_BOOT_CLASS_LOADER.getTypesInPackage(packageName));
     return types;
   }
 
@@ -62,6 +66,9 @@ public final class Package {
     for (PackageLoader packageLoader : getPackageLoaders()) {
       subPackageNames.addAll(packageLoader.getSubPackages());
     }
+
+    Set<String> subPackagesFor = JAVA_BOOT_CLASS_LOADER.getSubPackagesFor(packageName);
+    subPackageNames.addAll(subPackagesFor);
 
     for (String packageName : subPackageNames) {
       subPackages.add(new Package(packageName));
@@ -81,29 +88,17 @@ public final class Package {
     return packageLoaders;
   }
 
-  /*
-   * (non-Javadoc)
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     return BusinessIdentity.getHashCode(this);
   }
 
-  /*
-   * (non-Javadoc)
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
   public boolean equals(final Object obj) {
     return BusinessIdentity.areEqual(this, obj);
   }
 
-  /*
-   * (non-Javadoc)
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return BusinessIdentity.toString(this);

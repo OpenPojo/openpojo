@@ -18,64 +18,32 @@
 
 package com.openpojo.reflection.java.packageloader.impl;
 
-import java.io.File;
 import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Set;
 
-import com.openpojo.reflection.exception.ReflectionException;
-import com.openpojo.reflection.java.Java;
 import com.openpojo.reflection.java.packageloader.PackageLoader;
+import com.openpojo.reflection.java.packageloader.reader.FileSystemReader;
 
 /**
  * @author oshoukry
  */
 public final class FilePackageLoader extends PackageLoader {
+  private final FileSystemReader fileSystemReader;
 
   public FilePackageLoader(final URL packageURL, final String packageName) {
     super(packageURL, packageName);
+    fileSystemReader = FileSystemReader.getInstance(packageURL);
   }
 
   @Override
   public Set<Type> getTypes() {
-
-    final Set<Type> types = new HashSet<Type>();
-
-    for (final File entry : getEntries()) {
-      final String className = fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMITER + entry.getName();
-      final Class<?> classEntry = getAsClass(className);
-      if (classEntry != null) {
-        types.add(classEntry);
-      }
-    }
-    return types;
+    return fileSystemReader.getTypesInPackage(packageName);
   }
 
   @Override
   public Set<String> getSubPackages() {
-    final Set<String> subPaths = new HashSet<String>();
-    for (final File file : getEntries()) {
-      if (file.isDirectory()) {
-        subPaths.add(fromJDKPathToJDKPackage(packageName) + Java.PACKAGE_DELIMITER + file.getName());
-      }
-    }
-    return subPaths;
+    return fileSystemReader.getSubPackagesOfPackage(packageName);
   }
-
-  private File[] getEntries() {
-    // convert toURI to decode %20 for spaces, etc.
-    URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(packageURL);
-
-    File directory = urlToFileSystemAdapter.getAsFile();
-    File[] fileList = directory.listFiles();
-
-    if (fileList == null) {
-      throw ReflectionException.getInstance("Failed to retrieve entries in path: [" + directory.getAbsolutePath() + "] " +
-          "created from URI: [" + urlToFileSystemAdapter.getAsURI() + "].  Please report this issue @ http://openpojo.com");
-    }
-    return fileList;
-  }
-
 
 }

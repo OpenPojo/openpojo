@@ -42,7 +42,13 @@ public class Helper {
   public static Set<Type> loadClassesFromGivenPackage(Set<String> classNames, String packageName) {
     Set<Type> entries = new HashSet<Type>();
     for (String entry : classNames) {
-      String entryPackageName = entry.substring(0, (entry.lastIndexOf(Java.PACKAGE_DELIMITER)));
+      int endIndex = entry.lastIndexOf(Java.PACKAGE_DELIMITER);
+
+      String entryPackageName = "";
+
+      if (endIndex > 0)
+        entryPackageName = entry.substring(0, endIndex);
+
       if (entryPackageName.equals(packageName)) {
         Type entryClass = ClassUtil.loadClass(entry, false);
         if (entryClass != null)
@@ -55,10 +61,13 @@ public class Helper {
   public static Set<String> getSubPackagesOfPackage(Set<String> classNames, String packageName) {
     Set<String> subPackages = new HashSet<String>();
     for (String entry : classNames) {
-      String typeClassPackageName = entry.substring(0, (entry.lastIndexOf(Java.PACKAGE_DELIMITER)));
-      String directSubPackageName = getDirectSubPackageName(packageName, typeClassPackageName);
-      if (directSubPackageName != null) {
-        subPackages.add(directSubPackageName);
+      int endIndex = entry.lastIndexOf(Java.PACKAGE_DELIMITER);
+      String typeClassPackageName;
+      if (endIndex > 0) {
+        typeClassPackageName = entry.substring(0, endIndex);
+        String directSubPackageName = getDirectSubPackageName(packageName, typeClassPackageName);
+        if (directSubPackageName != null)
+          subPackages.add(directSubPackageName);
       }
     }
     return subPackages;
@@ -76,12 +85,16 @@ public class Helper {
    * @return A first sub level bellow packageName.
    */
   static String getDirectSubPackageName(final String parentPackageName, final String subPackageName) {
-    String parentPackageNameAsPath = parentPackageName + Java.PACKAGE_DELIMITER;
+    String parentPackageNameAsPath = "";
+
+    if (parentPackageName != null && parentPackageName.length() > 0)
+      parentPackageNameAsPath = parentPackageName + Java.PACKAGE_DELIMITER;
+
     if (subPackageName.startsWith(parentPackageNameAsPath) && subPackageName.length() > parentPackageNameAsPath.length()) {
       String[] subPackageTokens;
       subPackageTokens = subPackageName.substring(parentPackageNameAsPath.length()).split("\\" + Java.PACKAGE_DELIMITER);
       if (subPackageTokens.length > 0) {
-        return parentPackageName + Java.PACKAGE_DELIMITER + subPackageTokens[0];
+        return parentPackageNameAsPath + subPackageTokens[0];
       }
     }
     return null;
