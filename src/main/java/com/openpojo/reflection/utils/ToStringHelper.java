@@ -18,7 +18,6 @@
 
 package com.openpojo.reflection.utils;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
@@ -30,9 +29,9 @@ import com.openpojo.reflection.PojoField;
  * @author oshoukry
  */
 public final class ToStringHelper {
-  public static final String NAME_VALUE_TOKEN_FORMAT = "%s=%s";
-  public static final String LIST_TOKEN_SEPERATOR = ", ";
-  public static final String POJOCLASS_TOSTRING_FORMAT = "%s [@%s: %s]";
+  private static final String NAME_VALUE_TOKEN_FORMAT = "%s=%s";
+  private static final String LIST_TOKEN_SEPERATOR = ", ";
+  private static final String POJOCLASS_TOSTRING_FORMAT = "%s [@%s: %s]";
 
   /**
    * This method formats name value pairs into the proper string format.
@@ -44,9 +43,7 @@ public final class ToStringHelper {
    * @return String formatted, human readable name/value pair.
    */
   public static String nameValuePair(final Object name, final Object value) {
-    String valueString = "" + value;
-    if (value != null && value.getClass().isArray())
-      valueString = Arrays.deepToString((Object[]) value);
+    String valueString = ObjectToString.toString(value);
     return String.format(NAME_VALUE_TOKEN_FORMAT, name, valueString);
   }
 
@@ -59,6 +56,7 @@ public final class ToStringHelper {
    *     The instance to format.
    * @return String formatted, human readable class.
    */
+
   public static String pojoClassToString(final PojoClass pojoClass, final Object instance) {
     return String.format(POJOCLASS_TOSTRING_FORMAT,
         pojoClass.getName(),
