@@ -20,8 +20,6 @@ package com.openpojo.reflection.utils;
 
 import java.util.Arrays;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * @author oshoukry
  */
@@ -34,7 +32,6 @@ public class ObjectToString {
   private static ObjectToStringHandler getHandler(Object o) {
     if (o == null)
       return new ObjectToStringHandler() {
-        @Nullable
         public String toString(Object o) {
           return null;
         }
@@ -115,7 +112,6 @@ public class ObjectToString {
   }
 
   interface ObjectToStringHandler {
-    @Nullable
     String toString(Object o);
   }
 }
