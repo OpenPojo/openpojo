@@ -131,6 +131,9 @@ class PojoFieldImpl implements PojoField {
     List<Type> genericTypes = new LinkedList<Type>();
     if (isParameterized())
       Collections.addAll(genericTypes, Resolver.getParameterTypes(field.getGenericType()));
+    else
+      if (isArray())
+        Collections.addAll(genericTypes, getType().getComponentType());
     return genericTypes;
   }
 
