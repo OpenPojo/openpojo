@@ -28,19 +28,19 @@ import com.openpojo.validation.test.Tester;
  */
 public final class CommonCode {
 
-  public static void shouldPassRuleValidation(final Rule rule, final Class<?>[] passClasses) {
+  public static void shouldPassRuleValidation(final Rule rule, final Class<?>... passClasses) {
     for (Class<?> clazz : passClasses) {
       rule.evaluate(PojoClassFactory.getPojoClass(clazz));
     }
   }
 
-  public static void shouldPassTesterValidation(final Tester tester, final Class<?>[] passClasses) {
+  public static void shouldPassTesterValidation(final Tester tester, final Class<?>... passClasses) {
     for (Class<?> clazz : passClasses) {
       tester.run(PojoClassFactory.getPojoClass(clazz));
     }
   }
 
-  public static void shouldFailRuleValidation(final Rule rule, final Class<?>[] failClasses) {
+  public static void shouldFailRuleValidation(final Rule rule, final Class<?>... failClasses) {
     for (Class<?> clazz : failClasses) {
       try {
         rule.evaluate(PojoClassFactory.getPojoClass(clazz));
@@ -53,7 +53,7 @@ public final class CommonCode {
     }
   }
 
-  public static void shouldFailTesterValidation(final Tester tester, final Class<?>[] failClasses) {
+  public static void shouldFailTesterValidation(final Tester tester, final Class<?>... failClasses) {
     for (Class<?> clazz : failClasses) {
       try {
         tester.run(PojoClassFactory.getPojoClass(clazz));
