@@ -3,7 +3,7 @@ POJO Testing &amp; Identity Management Made Trivial
 
 Maven Group Plugin | Latest Version
 ------------------ | ---------------
-com.openpojo.openpojo | [0.8.5](https://github.com/oshoukry/openpojo/releases/tag/openpojo-0.8.5)
+com.openpojo.openpojo | [0.8.6](https://github.com/oshoukry/openpojo/releases/tag/openpojo-0.8.6)
 com.googlecode.openpojo.openpojo | [0.6.5](https://code.google.com/p/openpojo/wiki/Old) - Deprecated
 
 #### Testing Example
