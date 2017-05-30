@@ -29,6 +29,7 @@ import com.openpojo.validation.rule.Rule;
  *
  * @author oshoukry
  */
+@SuppressWarnings("WeakerAccess")
 public class EqualsAndHashCodeMatchRule implements Rule {
 
   public void evaluate(PojoClass pojoClass) {
