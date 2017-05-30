@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016 Osman Shoukry
+ * Copyright (c) 2010-2017 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -114,5 +114,4 @@ public class AttributeHelper {
   private static String camelCase(String fieldName) {
     return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1, fieldName.length());
   }
-
 }

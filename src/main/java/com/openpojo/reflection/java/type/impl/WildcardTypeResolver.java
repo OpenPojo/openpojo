@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016 Osman Shoukry
+ * Copyright (c) 2010-2017 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,6 +56,5 @@ public class WildcardTypeResolver implements TypeResolver<WildcardType> {
       throw ReflectionException.getInstance("Unable to identify proper resolution for type, " +
           "multiple UpperBounds[" + Arrays.toString(upperBounds) + "] Or LowerBounds[" + Arrays.toString(lowerBounds) + "]");
   }
-
 
 }

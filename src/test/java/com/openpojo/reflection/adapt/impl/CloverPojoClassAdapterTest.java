@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016 Osman Shoukry
+ * Copyright (c) 2010-2017 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,6 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class CloverPojoClassAdapterTest {
-
 
   private PojoClass cloverInstrumentedPojoClass;
   private PojoClass cloverCleanedPojoClass;
@@ -88,5 +87,4 @@ public class CloverPojoClassAdapterTest {
   public void shouldNotSkipAnyMethods() {
     Affirm.affirmEquals("Cobertura methods not filtered?", 3, cloverCleanedPojoClass.getPojoMethods().size());
   }
-
 }

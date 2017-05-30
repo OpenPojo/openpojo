@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016 Osman Shoukry
+ * Copyright (c) 2010-2017 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,5 +53,4 @@ public class BusinessKeyFieldCache {
   public void add(final String name, final List<BusinessKeyField> businessFields) {
     cache.add(name, businessFields);
   }
-
 }
