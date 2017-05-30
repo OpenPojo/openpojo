@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
+import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.impl.sample.DummyClass;
 import com.openpojo.validation.impl.sample.subpackage.AnotherDummyClass;
 import com.openpojo.validation.rule.Rule;
@@ -45,8 +46,11 @@ public class DefaultValidatorTest {
     FilterSpy filterSpy = new FilterSpy();
 
     DefaultValidator defaultValidator = new DefaultValidator(rules, testers);
-    defaultValidator.validate(this.getClass().getPackage().getName() + ".sample", filterSpy);
+    String packageName = this.getClass().getPackage().getName() + ".sample";
+    List<PojoClass> validatedPojoClasses = defaultValidator.validate(packageName, filterSpy);
 
+    Assert.assertEquals(1, validatedPojoClasses.size());
+    Assert.assertEquals(validatedPojoClasses.get(0), PojoClassFactory.getPojoClass(DummyClass.class));
     assertInvokedClasses(testerSpy.getInvocations(), DummyClass.class.getName());
     assertInvokedClasses(ruleSpy.getInvocations(), DummyClass.class.getName());
     assertInvokedClasses(filterSpy.getInvocations(), DummyClass.class.getName());
@@ -65,7 +69,12 @@ public class DefaultValidatorTest {
     FilterSpy filterSpy = new FilterSpy();
 
     DefaultValidator defaultValidator = new DefaultValidator(rules, testers);
-    defaultValidator.validateRecursively(this.getClass().getPackage().getName() + ".sample", filterSpy);
+    String packageName = this.getClass().getPackage().getName() + ".sample";
+    List<PojoClass> validatedPojoClasses = defaultValidator.validateRecursively(packageName, filterSpy);
+
+    Assert.assertEquals(2, validatedPojoClasses.size());
+    Assert.assertTrue(validatedPojoClasses.contains(PojoClassFactory.getPojoClass(DummyClass.class)));
+    Assert.assertTrue(validatedPojoClasses.contains(PojoClassFactory.getPojoClass(AnotherDummyClass.class)));
 
     assertInvokedClasses(testerSpy.getInvocations(), DummyClass.class.getName(), AnotherDummyClass.class.getName());
     assertInvokedClasses(ruleSpy.getInvocations(), DummyClass.class.getName(), AnotherDummyClass.class.getName());
@@ -86,7 +95,7 @@ public class DefaultValidatorTest {
       invocations.add(pojoClass.getName());
     }
 
-    public List<String> getInvocations() {
+    List<String> getInvocations() {
       return invocations;
     }
   }
@@ -98,7 +107,7 @@ public class DefaultValidatorTest {
       invocations.add(pojoClass.getName());
     }
 
-    public List<String> getInvocations() {
+    List<String> getInvocations() {
       return invocations;
     }
   }
@@ -111,7 +120,7 @@ public class DefaultValidatorTest {
       return true;
     }
 
-    public List<String> getInvocations() {
+    List<String> getInvocations() {
       return invocations;
     }
   }

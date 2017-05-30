@@ -53,8 +53,10 @@ public interface Validator {
    *     The package name to run the validation against.
    * @param filters
    *     The filter(s) to be used for filtering which classes are to be included in the validation.
+   *
+   * @return the list of PojoClasses that were validated.
    */
-  void validate(String packageName, PojoClassFilter... filters);
+  List<PojoClass> validate(String packageName, PojoClassFilter... filters);
 
   /**
    * Validate for a given package and all its sub-packages with a given filter.
@@ -63,7 +65,9 @@ public interface Validator {
    *     The package name to run the validation against.
    * @param filters
    *     The filter(s) to be used for filtering which classes are to be included in the validation.
+   *
+   * @return the list of PojoClasses that were validated.
    */
-  void validateRecursively(String packageName, PojoClassFilter... filters);
+  List<PojoClass> validateRecursively(String packageName, PojoClassFilter... filters);
 
 }

@@ -51,15 +51,17 @@ public class DefaultValidator implements Validator {
       validate(pojoClass);
   }
 
-  public void validate(String packageName, PojoClassFilter... filters) {
+  public List<PojoClass> validate(String packageName, PojoClassFilter... filters) {
     PojoClassFilter pojoClassFilter = new FilterChain(filters);
     List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(packageName, pojoClassFilter);
     validate(pojoClasses);
+    return pojoClasses;
   }
 
-  public void validateRecursively(String packageName, PojoClassFilter... filters) {
+  public List<PojoClass> validateRecursively(String packageName, PojoClassFilter... filters) {
     PojoClassFilter pojoClassFilter = new FilterChain(filters);
     List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(packageName, pojoClassFilter);
     validate(pojoClasses);
+    return pojoClasses;
   }
 }
