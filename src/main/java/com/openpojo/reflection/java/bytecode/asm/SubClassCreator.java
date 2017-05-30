@@ -87,13 +87,13 @@ class SubClassCreator extends ClassVisitor {
   }
 
   private int getParameterCount(String desc) {
-    String parameterSeperator = ";";
+    String parameterSeparator = ";";
     int parameterCount = 0;
-    int idx = desc.indexOf(parameterSeperator, 0);
+    int idx = desc.indexOf(parameterSeparator, 0);
 
     while (idx >= 0) {
       parameterCount++;
-      idx = desc.indexOf(parameterSeperator, idx + 1);
+      idx = desc.indexOf(parameterSeparator, idx + 1);
     }
 
     return parameterCount;

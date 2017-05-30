@@ -68,7 +68,7 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
    * @param prefixes
    *     the prefix list to use.
    * @param suffixes
-   *     the sufix list to use
+   *     the suffix list to use
    */
   @SuppressWarnings("unchecked")
   public TestClassMustBeProperlyNamedRule(Collection<String> prefixes, Collection<String> suffixes) {
@@ -82,7 +82,7 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
     }
 
     if (loadedAnnotations.size() == 0)
-      throw new IllegalStateException("No annotations loaded, exptected any of " + Arrays.toString(DEFAULT_ANNOTATIONS));
+      throw new IllegalStateException("No annotations loaded, expected any of " + Arrays.toString(DEFAULT_ANNOTATIONS));
   }
 
   @SuppressWarnings("unchecked")

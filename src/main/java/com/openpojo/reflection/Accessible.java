@@ -43,7 +43,7 @@ public interface Accessible {
   boolean isPublic();
 
   /**
-   * Package visibility only, often refered to default visibility when no visibility keywords are assigned.
+   * Package visibility only, often referred to default visibility when no visibility keywords are assigned.
    * @return true if default.
    */
   boolean isPackagePrivate();

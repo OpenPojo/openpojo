@@ -30,8 +30,8 @@ import com.openpojo.reflection.PojoField;
  */
 public final class ToStringHelper {
   private static final String NAME_VALUE_TOKEN_FORMAT = "%s=%s";
-  private static final String LIST_TOKEN_SEPERATOR = ", ";
-  private static final String POJOCLASS_TOSTRING_FORMAT = "%s [@%s: %s]";
+  private static final String LIST_TOKEN_SEPARATOR = ", ";
+  private static final String POJO_CLASS_TO_STRING_FORMAT = "%s [@%s: %s]";
 
   /**
    * This method formats name value pairs into the proper string format.
@@ -58,7 +58,7 @@ public final class ToStringHelper {
    */
 
   public static String pojoClassToString(final PojoClass pojoClass, final Object instance) {
-    return String.format(POJOCLASS_TOSTRING_FORMAT,
+    return String.format(POJO_CLASS_TO_STRING_FORMAT,
         pojoClass.getName(),
         Integer.toHexString(System.identityHashCode(instance)),
         PojoFieldsToString(pojoClass.getPojoFields(), instance));
@@ -78,7 +78,7 @@ public final class ToStringHelper {
     for (int index = 0; index < pojoFields.size(); index++) {
       pojoString += pojoFields.get(index).toString(instance);
       if (index < pojoFields.size() - 1) {
-        pojoString += LIST_TOKEN_SEPERATOR;
+        pojoString += LIST_TOKEN_SEPARATOR;
       }
     }
     return pojoString;
