@@ -67,7 +67,7 @@ class SubClassCreator extends ClassVisitor {
   public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
     LOGGER.debug("Method: " + name + " access:" + access + " desc:" + desc + " signature:" + signature + " exceptions:" +
         Arrays.toString(exceptions));
-    if (name.equals("<init>") && access == ACC_PUBLIC || access == ACC_PROTECTED) {
+    if (name.equals("<init>") && (access == ACC_PUBLIC || access == ACC_PROTECTED)) {
       MethodVisitor mv = cw.visitMethod(access, name, desc, signature, exceptions);
       int counter = getParameterCount(desc);
       // wire constructor method to super

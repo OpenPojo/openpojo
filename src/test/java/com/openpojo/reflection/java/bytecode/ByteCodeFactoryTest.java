@@ -20,7 +20,6 @@ package com.openpojo.reflection.java.bytecode;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
-import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.bytecode.sample.*;
@@ -33,6 +32,8 @@ import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static com.openpojo.reflection.construct.InstanceFactory.getInstance;
+
 /**
  * @author oshoukry
  */
@@ -40,7 +41,7 @@ public class ByteCodeFactoryTest {
 
   @Test(expected = ReflectionException.class)
   public void shouldNotBeAbleToCreateInstance() {
-    ByteCodeFactory byteCodeFactory = (ByteCodeFactory) InstanceFactory.getInstance(getPojoClass(ByteCodeFactory.class));
+    ByteCodeFactory byteCodeFactory = (ByteCodeFactory) getInstance(getPojoClass(ByteCodeFactory.class));
   }
 
   @Test
@@ -126,6 +127,14 @@ public class ByteCodeFactoryTest {
     assertIsSubclass(clazz, subClass2);
 
     Assert.assertEquals("Should generate the same subclass", subClass1, subClass2);
+  }
+
+  @Test
+  public void onlyValidConstructorsOverwritten() {
+    Class<?> clazz = AnAbstractClassWithProtectedMethodBeforeConstructor.class;
+    Class<?> subClass1 = getSubClass(clazz);
+
+    Assert.assertNotNull(getInstance(PojoClassFactory.getPojoClass(subClass1)));
   }
 
   @Test
