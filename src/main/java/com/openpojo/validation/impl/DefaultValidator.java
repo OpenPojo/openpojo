@@ -18,9 +18,6 @@
 
 package com.openpojo.validation.impl;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
 import com.openpojo.reflection.filters.FilterChain;
@@ -29,6 +26,9 @@ import com.openpojo.validation.Validator;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.utils.ValidationHelper;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author oshoukry
@@ -44,6 +44,11 @@ public class DefaultValidator implements Validator {
 
   public void validate(PojoClass pojoClass) {
     ValidationHelper.runValidation(pojoClass, this.rules, this.testers);
+  }
+
+  public void validate(Class<?> clazz){
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
+    validate( pojoClass );
   }
 
   public void validate(List<PojoClass> pojoClasses) {

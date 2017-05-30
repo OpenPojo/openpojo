@@ -17,14 +17,24 @@ public class PojoTest {
 
   @Test
   public void ensureExpectedPojoCount() {
-    List <PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE,
-                                                                   new FilterPackageInfo());
+    List <PojoClass> pojoClasses = Pojos.getClasses(POJO_PACKAGE, new FilterPackageInfo());
     Affirm.affirmEquals("Classes added / removed?", EXPECTED_CLASS_COUNT, pojoClasses.size());
   }
 
   @Test
+  public void testOnlyOneClass() {
+    Validator validator = Pojos.createValidatorBuilder()
+                                // Add Rules to validate structure for POJO_PACKAGE
+                                // See com.openpojo.validation.rule.impl for more ...
+                                .with(new GetterMustExistRule())
+                                .with(new SetterMustExistRule())
+                                .build();
+    validator.validate(MyClass.class);
+  }
+
+  @Test
   public void testPojoStructureAndBehavior() {
-    Validator validator = ValidatorBuilder.create()
+    Validator validator = Pojos.createValidatorBuilder()
                             // Add Rules to validate structure for POJO_PACKAGE
                             // See com.openpojo.validation.rule.impl for more ...
                             .with(new GetterMustExistRule())
