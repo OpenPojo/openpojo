@@ -25,7 +25,6 @@ import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.exception.RandomGeneratorException;
 import sun.security.krb5.PrincipalName;
-import sun.security.krb5.RealmException;
 
 /**
  * @author oshoukry
