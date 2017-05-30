@@ -3,3 +3,8 @@ target/
 .idea
 openpojo.iml
 .clover
+
+#Eclipse
+.classpath
+.project
+.settings/

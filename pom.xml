@@ -100,6 +100,8 @@
         <slf4j.version>1.7.13</slf4j.version>
         <surefire.version>2.20</surefire.version>
         <testng.version>6.8.8</testng.version>
+		<guava.version>18.0</guava.version>
+		<mockito.version>1.10.19</mockito.version>
     </properties>
 
     <dependencies>
@@ -152,6 +154,17 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
     </dependencies>
 
     <repositories>

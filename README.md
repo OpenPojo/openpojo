@@ -40,6 +40,22 @@ public class PojoTest {
 }
 ```
 
+##### Simple testing example
+```java
+public class PojoTest {
+
+    // The package to test
+    private static final String POJO_PACKAGE = "com.openpojo.sample";
+
+    @Test
+    public void testPojoStructureAndBehavior() {
+	createValidator(POJO_PACKAGE).with(new SetterTester())
+		.with(new GetterTester()).with(new GetterMustExistRule())
+		.with(new GetterMustExistRule()).valide();
+    }
+}
+```
+
 #### Identity Management Example
 ```java
 public class Person {
