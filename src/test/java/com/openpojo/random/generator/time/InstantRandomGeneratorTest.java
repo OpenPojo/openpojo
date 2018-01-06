@@ -18,8 +18,6 @@
 
 package com.openpojo.random.generator.time;
 
-import java.time.Instant;
-
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.generator.AbstractGeneratorTest;
 import com.openpojo.reflection.PojoClass;
