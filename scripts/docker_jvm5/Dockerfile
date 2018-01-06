@@ -17,7 +17,7 @@ RUN update-alternatives --install "/usr/bin/java" "java" "/java/bin/java" 1 \
 	&& update-alternatives --install "/usr/bin/javac" "javac" "/java/bin/javac" 1 \
 	&& update-alternatives --install "/usr/bin/javaws" "javaws" "/java/bin/javaws" 1
 
-ADD http://mirror.symnds.com/software/Apache/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz /maven.tar.gz
+ADD http://mirrors.ocf.berkeley.edu/apache/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz /maven.tar.gz
 
 RUN cd /opt \
 	&& tar -xzvf /maven.tar.gz \
