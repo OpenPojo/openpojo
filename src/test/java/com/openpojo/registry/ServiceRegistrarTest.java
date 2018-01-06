@@ -21,6 +21,8 @@ package com.openpojo.registry;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.validation.affirm.Affirm;
@@ -146,7 +148,7 @@ public class ServiceRegistrarTest {
       try {
         expectedDefaultTypes.add(Class.forName(type));
       } catch (final ClassNotFoundException e) {
-        System.out.println("Failed for: " + e.getMessage());
+        LoggerFactory.getLogger(this.getClass()).warn("Failed for: [{0}]", e.getMessage(), e);
       }
     }
 
@@ -169,16 +171,17 @@ public class ServiceRegistrarTest {
   }
 
   private void reportDifferences() {
-    System.out.println("Found that many types: " + expectedDefaultTypes.size());
-    System.out.println("List of Entries in the expected List but not in the registered list:");
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+    logger.info("Found that many types: [{0}]", expectedDefaultTypes.size());
+    logger.info("List of Entries in the expected List but not in the registered list:");
     for (Class<?> expectedEntry : expectedDefaultTypes) {
       if (!randomGeneratorService.getRegisteredTypes().contains(expectedEntry))
-        System.out.println("\"" + expectedEntry.getName() + "\"");
+        logger.error("\"" + expectedEntry.getName() + "\"");
     }
-    System.out.println("List of Registered types but not in the expected list:");
+    logger.info("List of Registered types but not in the expected list:");
     for (Class<?> foundEntry : randomGeneratorService.getRegisteredTypes()) {
       if (!expectedDefaultTypes.contains(foundEntry))
-        System.out.println("\"" + foundEntry.getName() + "\"");
+        logger.error("\"" + foundEntry.getName() + "\"");
     }
   }
 
