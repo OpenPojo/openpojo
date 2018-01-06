@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.openpojo.reflection.java.packageloader.boot;
+package com.openpojo.reflection.java.packageloader.env;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -32,60 +32,64 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.greaterThan;
 
 /**
  * @author oshoukry
  */
-public class JavaBootClassLoaderTest {
+public class JavaClassPathClassLoaderTest {
 
   private static final int MIN_EXPECTED_TOTAL_CLASSES = 20000;
-  private JavaBootClassLoader javaBootClassLoader;
+  private JavaClassPathClassLoader javaClassPathClassLoader;
 
 
   @Before
   public void setup() {
-    javaBootClassLoader = JavaBootClassLoader.getInstance();
+    javaClassPathClassLoader = JavaClassPathClassLoader.getInstance();
   }
 
   @Test
   public void onlyPrivateConstructors() {
-    PojoClass pojoClass = PojoClassFactory.getPojoClass(JavaBootClassLoader.class);
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(JavaClassPathClassLoader.class);
     for (PojoMethod constructor : pojoClass.getPojoConstructors())
       Assert.assertThat(constructor.isPrivate(), is(true));
   }
 
   @Test
+  public void shouldNotThrowExceptionOnInvalidClassPathProperty() {
+    JavaClassPathClassLoader instance = JavaClassPathClassLoader.getInstance("InvalidClassPathPropertyName");
+    Assert.assertThat(instance, notNullValue());
+    Assert.assertThat(instance.getClassNames().size(), is(0));
+  }
+
+  @Test
   public void canGetInstance() {
-    JavaBootClassLoader instance = JavaBootClassLoader.getInstance();
+    JavaClassPathClassLoader instance = JavaClassPathClassLoader.getInstance();
     Assert.assertThat(instance, notNullValue());
   }
 
   @Test
   public void whenPackageNameIsNullReturnEmptyClassSet() {
-    Set<Type> classes = javaBootClassLoader.getTypesInPackage(null);
+    Set<Type> classes = javaClassPathClassLoader.getTypesInPackage(null);
     Assert.assertThat(classes, notNullValue());
     Assert.assertThat(classes.size(), is(0));
   }
 
   @Test
-  public void whenPackageNameIsEmptyReturnEmptyClassSet() {
-    Set<Type> classes = javaBootClassLoader.getTypesInPackage("");
-    Assert.assertThat(classes, notNullValue());
-    Assert.assertThat(classes.size(), is(0));
-  }
+  public void defaultClassPathVars() {
+    String[] expectedClassPathKeys = { "java.library.path", "java.class.path", "java.ext.dirs", "sun.boot.class.path" };
 
-  @Test
-  public void defaultIs_sun_boot_class_path() {
-    Set<String> classPathKeys = javaBootClassLoader.getClassPathKeys();
+    Set<String> classPathKeys = javaClassPathClassLoader.getClassPathKeys();
+
     Assert.assertThat(classPathKeys, notNullValue());
-    Assert.assertThat(classPathKeys.size(), is(1));
-    Assert.assertThat(classPathKeys.iterator().next(), is("sun.boot.class.path"));
+    Assert.assertThat(classPathKeys.size(), is(expectedClassPathKeys.length));
+    Assert.assertThat(classPathKeys, containsInAnyOrder(expectedClassPathKeys));
   }
 
   @Test
   public void canGetAllClassNamesInBootClassPath() {
-    Set<String> classNames = javaBootClassLoader.getBootClassNames();
+    Set<String> classNames = javaClassPathClassLoader.getClassNames();
     Assert.assertThat(classNames, notNullValue());
     Assert.assertThat(classNames.size(), greaterThan(MIN_EXPECTED_TOTAL_CLASSES));
   }
@@ -93,23 +97,23 @@ public class JavaBootClassLoaderTest {
   @Test
   public void canLoadAllClassesInJavaUtilConcurrent() {
     String concurrentPackageName = AtomicInteger.class.getPackage().getName();
-    Set<Type> classesInPackage = javaBootClassLoader.getTypesInPackage(concurrentPackageName);
+    Set<Type> classesInPackage = javaClassPathClassLoader.getTypesInPackage(concurrentPackageName);
     Assert.assertThat(classesInPackage.size(), greaterThan(20));
   }
 
   @Test
   public void canGetPackageNamesUnderGivenPackageName() {
-    Set<String> subPackages = javaBootClassLoader.getSubPackagesFor("java");
+    Set<String> subPackages = javaClassPathClassLoader.getSubPackagesFor("java");
     Assert.assertThat(subPackages, notNullValue());
     Assert.assertThat(subPackages.size(), greaterThan(10));
   }
 
   @Test
   public void willReturnTrueForJavaPackageExists() {
-    Assert.assertThat(javaBootClassLoader.hasPackage("java"), is(true));
-    Assert.assertThat(javaBootClassLoader.hasPackage("javax"), is(true));
-    Assert.assertThat(javaBootClassLoader.hasPackage("com.sun"), is(true));
-    Assert.assertThat(javaBootClassLoader.hasPackage("com.openpojo"), is(false));
+    Assert.assertThat(javaClassPathClassLoader.hasPackage("java"), is(true));
+    Assert.assertThat(javaClassPathClassLoader.hasPackage("javax"), is(true));
+    Assert.assertThat(javaClassPathClassLoader.hasPackage("com.sun"), is(true));
+    Assert.assertThat(javaClassPathClassLoader.hasPackage("com.openpojo"), is(false));
   }
 
   @Test
@@ -142,9 +146,9 @@ public class JavaBootClassLoaderTest {
   @Test
   public void end2endLoadAllClassesInTheVM() {
     List<PojoClass> types = PojoClassFactory.getPojoClassesRecursively("", null);
-    System.out.println("Loaded " + types.size() + " classes");
     Assert.assertTrue(types.contains(PojoClassFactory.getPojoClass(this.getClass())));
-    Assert.assertThat(types.size(), greaterThan(MIN_EXPECTED_TOTAL_CLASSES));
+    final String reason = "Loaded " + types.size() + " classes instead of expected " + MIN_EXPECTED_TOTAL_CLASSES;
+    Assert.assertThat(reason, types.size(), greaterThan(MIN_EXPECTED_TOTAL_CLASSES));
     checkListOfPojoClassesContains(types, java.rmi.registry.LocateRegistry.class);
   }
 

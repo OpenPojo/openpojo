@@ -25,13 +25,13 @@ import java.util.Set;
 
 import com.openpojo.business.BusinessIdentity;
 import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.reflection.java.packageloader.boot.JavaBootClassLoader;
+import com.openpojo.reflection.java.packageloader.env.JavaClassPathClassLoader;
 
 /**
  * @author oshoukry
  */
 public final class Package {
-  private static final JavaBootClassLoader JAVA_BOOT_CLASS_LOADER = JavaBootClassLoader.getInstance();
+  private static final JavaClassPathClassLoader JAVA_CLASSPATH_CLASS_LOADER = JavaClassPathClassLoader.getInstance();
 
   @BusinessKey
   private final String packageName;
@@ -45,7 +45,7 @@ public final class Package {
   }
 
   public boolean isValid() {
-    return getPackageLoaders().size() > 0 || JAVA_BOOT_CLASS_LOADER.hasPackage(packageName);
+    return getPackageLoaders().size() > 0 || JAVA_CLASSPATH_CLASS_LOADER.hasPackage(packageName);
   }
 
   public Set<Type> getTypes() {
@@ -56,7 +56,7 @@ public final class Package {
       }
     }
 
-    types.addAll(JAVA_BOOT_CLASS_LOADER.getTypesInPackage(packageName));
+    types.addAll(JAVA_CLASSPATH_CLASS_LOADER.getTypesInPackage(packageName));
     return types;
   }
 
@@ -67,7 +67,7 @@ public final class Package {
       subPackageNames.addAll(packageLoader.getSubPackages());
     }
 
-    Set<String> subPackagesFor = JAVA_BOOT_CLASS_LOADER.getSubPackagesFor(packageName);
+    Set<String> subPackagesFor = JAVA_CLASSPATH_CLASS_LOADER.getSubPackagesFor(packageName);
     subPackageNames.addAll(subPackagesFor);
 
     for (String packageName : subPackageNames) {
