@@ -89,7 +89,6 @@ public class JarFileReaderTest {
 
   @Test
   public void isValidReturnsTrueWhenFileIsJar() throws Exception {
-    System.out.println(SampleJar.getJarFilePath());
     JarFileReader jarFileReader = JarFileReader.getInstance(SampleJar.getJarFilePath());
     Assert.assertTrue(jarFileReader.isValid());
   }
