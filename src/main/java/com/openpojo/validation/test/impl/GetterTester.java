@@ -18,6 +18,9 @@
 
 package com.openpojo.validation.test.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
@@ -34,9 +37,16 @@ import com.openpojo.validation.utils.ValidationHelper;
  */
 public class GetterTester implements Tester {
 
+  private Set<String> skippedFields = new HashSet<String>();
+	
   public void run(final PojoClass pojoClass) {
     final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
     for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
+      if (skippedFields.contains(fieldEntry.getName())) {
+        LoggerFactory.getLogger(this.getClass()).debug("Skipping field [{0}]", fieldEntry);
+        continue;
+      }
+		
       if (fieldEntry.hasGetter()) {
         Object value = fieldEntry.get(classInstance);
 
@@ -57,4 +67,20 @@ public class GetterTester implements Tester {
       }
     }
   }
+  
+  /**
+   * Instructs GetterTester to skip the field when running pojoClass
+   * validation.
+   * 
+   * @param fieldToBeSkipped
+   *            Field name (e.g. Into Person class, to skip getName, provide
+   *            "name" as a field to be skipped.
+   */
+	public void addField(String fieldToBeSkipped) {
+		if (fieldToBeSkipped == null || fieldToBeSkipped.trim().isEmpty()) {
+			throw new IllegalArgumentException("The argument 'fieldToBeSkipped' cannot be null or empty.");
+		}
+
+		this.skippedFields.add(fieldToBeSkipped);
+	}
 }
