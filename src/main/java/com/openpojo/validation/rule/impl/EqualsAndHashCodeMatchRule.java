@@ -24,7 +24,7 @@ import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
 
 /**
- * This rule ensures that equals & hashCode must either both be present or absent.
+ * This rule ensures that equals and hashCode must either both be present or absent.
  * i.e. Never implement one without the other.
  *
  * @author oshoukry
