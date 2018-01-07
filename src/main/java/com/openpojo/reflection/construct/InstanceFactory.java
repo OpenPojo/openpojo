@@ -21,10 +21,12 @@ package com.openpojo.reflection.construct;
 import java.util.Arrays;
 import java.util.List;
 
+import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.PojoParameter;
 import com.openpojo.reflection.construct.utils.ArrayLengthBasedComparator;
@@ -89,14 +91,22 @@ public class InstanceFactory {
       throw ReflectionException.getInstance(String.format("[%s] is not a concrete class, can't create new instance", pojoClass));
     }
 
+    Object instance;
     final List<PojoMethod> constructors = pojoClass.getPojoConstructors();
     for (final PojoMethod constructor : constructors) {
       if (areEquivalentParameters(upCast(constructor.getParameterTypes()), getTypes(parameters))) {
-        return constructor.invoke(null, parameters);
+        instance = constructor.invoke(null, parameters);
+        initializeBusinessKeys(pojoClass, instance);
+        return instance;
       }
     }
     throw ReflectionException.getInstance(String.format("No matching constructor for [%s] found using parameters[%s]",
         pojoClass.getClazz(), Arrays.toString(getTypes(parameters))));
+  }
+
+  private static void initializeBusinessKeys(PojoClass pojoClass, Object instance) {
+    for (PojoField field : pojoClass.getPojoFieldsAnnotatedWith(BusinessKey.class))
+      field.set(instance, RandomFactory.getRandomValue(field));
   }
 
   /**
