@@ -105,8 +105,10 @@ public class InstanceFactory {
   }
 
   private static void initializeBusinessKeys(PojoClass pojoClass, Object instance) {
-    for (PojoField field : pojoClass.getPojoFieldsAnnotatedWith(BusinessKey.class))
-      field.set(instance, RandomFactory.getRandomValue(field));
+    for (PojoField field : pojoClass.getPojoFieldsAnnotatedWith(BusinessKey.class)) {
+      if (field.get(instance) == null)
+        field.set(instance, RandomFactory.getRandomValue(field));
+    }
   }
 
   /**
