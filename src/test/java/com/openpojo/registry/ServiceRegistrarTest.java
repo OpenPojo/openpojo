@@ -120,6 +120,8 @@ public class ServiceRegistrarTest {
 
             ,"javax.print.attribute.standard.JobStateReasons"
 
+            ,"javax.xml.datatype.XMLGregorianCalendar"
+
             ,"sun.security.krb5.Credentials"
             ,"sun.security.krb5.EncryptionKey"
             ,"sun.security.krb5.PrincipalName"

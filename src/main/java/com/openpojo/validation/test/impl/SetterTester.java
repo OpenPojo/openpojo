@@ -43,7 +43,7 @@ public class SetterTester implements Tester {
         value = RandomFactory.getRandomValue(fieldEntry);
 
         IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
-        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with random value [{1}]", fieldEntry, value);
+        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]", fieldEntry, value);
 
         fieldEntry.invokeSetter(classInstance, value);
 
