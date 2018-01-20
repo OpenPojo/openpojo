@@ -87,6 +87,10 @@ public final class BusinessIdentityTester implements Tester {
       return areEqualReturn;
     }
 
+    public String toString(Object object) {
+      throw new UnsupportedOperationException();
+    }
+
     public void validate(final Object object) {
     }
 

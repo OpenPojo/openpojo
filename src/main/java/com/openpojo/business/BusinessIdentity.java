@@ -20,7 +20,6 @@ package com.openpojo.business;
 
 import com.openpojo.business.identity.IdentityFactory;
 import com.openpojo.business.utils.BusinessIdentityUtils;
-import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This is the entry point and the main class to use for all your business evaluation, hashCode generation,
@@ -77,8 +76,6 @@ public final class BusinessIdentity {
   }
 
   public static String toString(final Object instance) {
-    if (instance == null)
-      return "null";
-    return PojoClassFactory.getPojoClass(instance.getClass()).toString(instance);
+    return IdentityFactory.getIdentityHandler(instance).toString(instance);
   }
 }

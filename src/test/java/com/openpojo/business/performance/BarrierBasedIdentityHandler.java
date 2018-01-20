@@ -71,6 +71,10 @@ public class BarrierBasedIdentityHandler implements IdentityHandler {
     throw new UnsupportedOperationException();
   }
 
+  public String toString(Object object) {
+    throw new UnsupportedOperationException();
+  }
+
   public int generateHashCode(final Object object) {
     throw new UnsupportedOperationException();
   }

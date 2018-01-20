@@ -33,6 +33,10 @@ public class NoOpIdentityHandler implements IdentityHandler {
     throw new UnsupportedOperationException();
   }
 
+  public String toString(Object object) {
+    throw new UnsupportedOperationException();
+  }
+
   public void validate(Object object) {
     throw new UnsupportedOperationException();
   }

@@ -43,6 +43,14 @@ public interface IdentityHandler {
   boolean areEqual(final Object first, final Object second);
 
   /**
+   * This method is responsible for stringanizing fields in an object.
+   * @param object
+   *     The Object to be flattened into a string.
+   * @return string representation of the object being passed in, "null" if object is null.
+   */
+  String toString(Object object);
+
+  /**
    * This method validates an object to comply with the BusinessKey annotation rules.
    * If an object fails the validation, a BusinessException will be thrown.
    *

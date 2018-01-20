@@ -46,6 +46,10 @@ public class IdentityHandlerStub implements IdentityHandler {
     return first == second;
   }
 
+  public String toString(Object object) {
+    throw new UnsupportedOperationException();
+  }
+
   public void validate(final Object object) {
   }
 
