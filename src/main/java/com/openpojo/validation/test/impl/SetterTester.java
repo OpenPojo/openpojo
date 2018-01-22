@@ -27,6 +27,8 @@ import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.utils.IdentityHandlerStub;
 import com.openpojo.validation.utils.ValidationHelper;
 
+import static com.openpojo.validation.utils.ToStringHelper.safeToString;
+
 /**
  * Test the setter and ensure it sets the field being tested if and only if a Setter method was defined.
  *
@@ -43,7 +45,8 @@ public class SetterTester implements Tester {
         value = RandomFactory.getRandomValue(fieldEntry);
 
         IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
-        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]", fieldEntry, value);
+        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]",
+            fieldEntry, safeToString(value));
 
         fieldEntry.invokeSetter(classInstance, value);
 

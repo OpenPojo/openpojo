@@ -27,6 +27,8 @@ import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.utils.IdentityHandlerStub;
 import com.openpojo.validation.utils.ValidationHelper;
 
+import static com.openpojo.validation.utils.ToStringHelper.safeToString;
+
 /**
  * Test the getter and ensure it retrieves from the field being tested if and only if it has a getter defined.
  *
@@ -47,10 +49,9 @@ public class GetterTester implements Tester {
 
         IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
 
-        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]", fieldEntry, value);
+        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]", fieldEntry, safeToString(value));
 
-        Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value,
-            fieldEntry.invokeGetter(classInstance));
+        Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value, fieldEntry.invokeGetter(classInstance));
         IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
       } else {
         LoggerFactory.getLogger(this.getClass()).debug("Field [{0}] has no getter skipping", fieldEntry);
