@@ -46,8 +46,8 @@ public class IssueTest {
   @Before
   public void setup() {
     appender = new SpyAppender();
-    appender.captureForLogger(GetterTester.class);
-    appender.captureForLogger(SetterTester.class);
+    appender.startCaptureForLogger(GetterTester.class);
+    appender.startCaptureForLogger(SetterTester.class);
   }
 
   @After

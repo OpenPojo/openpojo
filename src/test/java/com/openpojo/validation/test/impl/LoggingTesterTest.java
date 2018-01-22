@@ -49,7 +49,7 @@ public abstract class LoggingTesterTest {
   public void setup() {
     spyAppender = new SpyAppender();
     tester = getTester();
-    spyAppender.captureForLogger(tester.getClass());
+    spyAppender.startCaptureForLogger(tester.getClass());
     sampleClass = AClassWithFieldThatThrowsExceptionWhenToString.class;
     validator = ValidatorBuilder
         .create()

@@ -53,11 +53,11 @@ public class SpyAppender implements Appender {
     return events;
   }
 
-  public void captureForLogger(Class<?> clazz) {
-    captureForLogger(clazz.getName());
+  public void startCaptureForLogger(Class<?> clazz) {
+    startCaptureForLogger(clazz.getName());
   }
 
-  public void captureForLogger(String loggerName) {
+  public void startCaptureForLogger(String loggerName) {
     priorLevels.put(loggerName, getLogLevel(loggerName));
     setLogLevel(loggerName, Level.ALL);
     LogManager.getLogger(loggerName).addAppender(this);
