@@ -88,10 +88,20 @@ public class NoFieldShadowingRule implements Rule {
 
   private boolean isSerializable(PojoField field, PojoClass pojoClass) {
     return field.getName().equals(SERIAL_VERSION_UID_FIELD_NAME)
-        && pojoClass.getInterfaces().contains(serializablePojoClass)
+        && isImplementingInterfaceRecursive(pojoClass)
         && field.getType().equals(SERIAL_VERSION_UID_FIELD_TYPE);
   }
 
+  private boolean isImplementingInterfaceRecursive(PojoClass pojoClass) {
+      if (pojoClass.getInterfaces().contains(serializablePojoClass)) {
+          return true;
+      }
+      if (pojoClass.getSuperClass() != null) {
+          return isImplementingInterfaceRecursive(pojoClass.getSuperClass());
+      }
+      return false;
+  }
+  
   private boolean contains(final String fieldName, final List<PojoField> pojoFields) {
     for (final PojoField pojoField : pojoFields) {
       if (pojoField.getName().equals(fieldName)) {
