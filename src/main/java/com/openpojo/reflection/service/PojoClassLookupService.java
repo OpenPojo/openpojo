@@ -42,5 +42,4 @@ public interface PojoClassLookupService extends Service {
 
   List<PojoClass> getPojoClassesRecursively(final String packageName, final PojoClassFilter pojoClassFilter);
 
-
 }
