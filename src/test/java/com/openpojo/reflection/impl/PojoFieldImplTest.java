@@ -29,6 +29,7 @@ import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.exception.ReflectionException;
+import com.openpojo.reflection.impl.sample.classes.AClassWithFields;
 import com.openpojo.reflection.impl.sample.annotation.SomeAnnotation;
 import com.openpojo.reflection.impl.sample.classes.AClassWithSyntheticField;
 import com.openpojo.reflection.impl.sample.classes.AClassWithVariousAnnotatedFields;
@@ -314,5 +315,14 @@ public class PojoFieldImplTest {
         .getPojoFields().size());
     PojoField pojoField = classWithSyntheticField.getPojoFields().get(0);
     Affirm.affirmTrue("Failed to check isSynthetic + [" + pojoField + "]", pojoField.isSynthetic());
+  }
+
+  @Test
+  public void canGetEnclosingClass() {
+    PojoClass pojoClassWithFields = PojoClassFactory.getPojoClass(AClassWithFields.class);
+    Affirm.affirmTrue("Class should have some fields", pojoClassWithFields.getPojoFields().size() > 0);
+    for (PojoField field : pojoClassWithFields.getPojoFields()) {
+      Affirm.affirmEquals("Failed to get PojoClass from field ["+ field + "]", pojoClassWithFields, field.getDeclaringPojoClass());
+    }
   }
 }

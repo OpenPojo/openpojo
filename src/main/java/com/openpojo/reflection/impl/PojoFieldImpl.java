@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.exception.ReflectionException;
@@ -108,6 +109,10 @@ class PojoFieldImpl implements PojoField {
     return fieldSetter;
   }
 
+  public PojoClass getDeclaringPojoClass() {
+    return PojoClassFactory.getPojoClass(field.getDeclaringClass());
+  }
+
   public void invokeSetter(final Object instance, final Object value) {
     try {
       fieldSetter.invoke(instance, value);
@@ -166,7 +171,6 @@ class PojoFieldImpl implements PojoField {
     return (Modifier.PRIVATE & modifiers
         | Modifier.PROTECTED & modifiers
         | Modifier.PUBLIC & modifiers) == 0;
-
   }
 
   public boolean isProtected() {

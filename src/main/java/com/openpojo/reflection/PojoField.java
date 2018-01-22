@@ -82,6 +82,11 @@ public interface PojoField extends PojoElement, Parameterizable, Accessible {
   PojoMethod getSetter();
 
   /**
+   * @return Returns the enclosing PojoClass.
+   */
+  PojoClass getDeclaringPojoClass();
+
+  /**
    * This method will invoke the setter method.
    *
    * @param instance
