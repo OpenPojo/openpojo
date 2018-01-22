@@ -52,8 +52,8 @@ public final class IdentityFactory {
         return identityHandler;
       }
     }
-    throw BusinessException.getInstance(String.format("Invalid IdentityFactory state, no IdentityHandler found for object [%s]",
-        object));
+    throw BusinessException.getInstance(
+        String.format("Invalid IdentityFactory state, no IdentityHandler found for object [%s]", object));
   }
 
   /**
