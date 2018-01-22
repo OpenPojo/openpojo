@@ -27,6 +27,8 @@ import com.openpojo.validation.Validator;
 import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.sampleclasses.NoShadowAChildWithFieldShadowing;
 import com.openpojo.validation.rule.impl.sampleclasses.NoShadowAParentClassWithOneField;
+import com.openpojo.validation.rule.impl.sampleclasses.NoShadowChildOfChildOfSerializable;
+import com.openpojo.validation.rule.impl.sampleclasses.NoShadowChildOfSerializable;
 import com.openpojo.validation.rule.impl.sampleclasses.NoShadowSerializableChild;
 import org.junit.Assert;
 import org.junit.Before;
@@ -63,7 +65,7 @@ public class NoFieldShadowingRuleTest {
     validator.validate(aClassWithSyntheticFieldShadowing);
 
   }
-  
+
   private class AClassWithSyntheticFieldShadowing extends AClassWithSyntheticField {
   }
 
@@ -132,5 +134,14 @@ public class NoFieldShadowingRuleTest {
     validator.validate(PojoClassFactory.getPojoClass(NoShadowSerializableChild.class));
   }
 
+  @Test
+  public void shouldNotAddserialVersionUIDFromChildOfSerializableWithoutInterfaceToShadowFieldList() {
+    validator.validate(PojoClassFactory.getPojoClass(NoShadowChildOfSerializable.class));
+  }
+
+  @Test
+  public void shouldNotAddserialVersionUIDFromChildOfChildOfSerializableWithoutInterfaceToShadowFieldList() {
+    validator.validate(PojoClassFactory.getPojoClass(NoShadowChildOfChildOfSerializable.class));
+  }
 
 }
