@@ -43,21 +43,21 @@ public class XMLGregorianCalendarRandomGenerator implements RandomGenerator {
     return INSTANCE;
   }
 
+  public Collection<Class<?>> getTypes() {
+    return Arrays.asList(TYPES);
+  }
+
   public Object doGenerate(final Class<?> type) {
-    GregorianCalendar c = new GregorianCalendar();
+    GregorianCalendar gregorianCalendar = new GregorianCalendar();
 
     //noinspection ConstantConditions
-    c.setTime(RandomFactory.getRandomValue(Timestamp.class));
+    gregorianCalendar.setTime(RandomFactory.getRandomValue(Timestamp.class));
 
     try {
-      return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+      return DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
     } catch (DatatypeConfigurationException e) {
       throw RandomGeneratorException.getInstance(e.getMessage(), e);
     }
-  }
-
-  public Collection<Class<?>> getTypes() {
-    return Arrays.asList(TYPES);
   }
 
 }
