@@ -22,8 +22,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.openpojo.business.annotation.BusinessKey;
-import com.openpojo.log.Logger;
-import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
@@ -45,7 +43,6 @@ import com.openpojo.reflection.java.type.Primitives;
  * @author oshoukry
  */
 public class InstanceFactory {
-  private static final Logger LOGGER = LoggerFactory.getLogger(InstanceFactory.class);
 
   private InstanceFactory() {
     throw new RuntimeException("Should not be constructed");
@@ -106,7 +103,7 @@ public class InstanceFactory {
 
   private static void initializeBusinessKeys(PojoClass pojoClass, Object instance) {
     for (PojoField field : pojoClass.getPojoFieldsAnnotatedWith(BusinessKey.class)) {
-      if (field.get(instance) == null)
+      if (field.get(instance) == null || field.isPrimitive())
         field.set(instance, RandomFactory.getRandomValue(field));
     }
   }

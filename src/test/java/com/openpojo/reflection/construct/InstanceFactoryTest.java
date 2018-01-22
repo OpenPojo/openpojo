@@ -33,7 +33,9 @@ import org.junit.Test;
 import static com.openpojo.reflection.impl.PojoClassFactory.getPojoClass;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author oshoukry
@@ -168,7 +170,7 @@ public class InstanceFactoryTest {
 
     List<AClassWithGenericConstructor.Child> children = aClassWithGenericConstructor.getMyChildren();
 
-    Assert.assertThat(children.size(), greaterThan(0));
+    assertThat(children.size(), greaterThan(0));
 
     for (AClassWithGenericConstructor.Child child : children) {
       Assert.assertNotNull(child);
@@ -180,14 +182,24 @@ public class InstanceFactoryTest {
   public void shouldInitializeBusinessKeys() {
     final PojoClass pojoClass = getPojoClass(AClassWithOneBusinessKey.class);
     AClassWithOneBusinessKey classWithOneBusinessKey = (AClassWithOneBusinessKey) InstanceFactory.getInstance(pojoClass);
-    Assert.assertThat(classWithOneBusinessKey.getName(), notNullValue());
+    assertThat(classWithOneBusinessKey.getName(), notNullValue());
   }
 
   @Test
   public void shouldNotUpdateBusinessKeysIfTheyAreNotNull() {
     final PojoClass pojoClass = getPojoClass(AClassWithFinalBusinessKey.class);
     AClassWithFinalBusinessKey instance = (AClassWithFinalBusinessKey) InstanceFactory.getLeastCompleteInstance(pojoClass);
-    Assert.assertThat("Name was modified post construction", instance.getFirstValueForName(), is(instance.getName()));
+    assertThat("Name was modified post construction", instance.getFirstValueForName(), is(instance.getName()));
+  }
+
+  @Test
+  public void shouldSetPrimitiveBusinessKeys() {
+    final PojoClass pojoClass = getPojoClass(AClassWithPrimitiveBusinessKey.class);
+    AClassWithPrimitiveBusinessKey instance = (AClassWithPrimitiveBusinessKey) InstanceFactory.getLeastCompleteInstance(pojoClass);
+    if (instance.getSomeInt() == 0) // Random chance - try again
+      instance = (AClassWithPrimitiveBusinessKey) InstanceFactory.getLeastCompleteInstance(pojoClass);
+    assertThat("Primitive value unchanged for BusinessKey", instance.getSomeInt(), not(0));
+
   }
 
   @Test
