@@ -27,11 +27,18 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class SerializableMustHaveSerialVersionUIDRuleTest {
-  private Class<?>[] failClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesntClass.class,
-      SerializableMustHaveSerialVersionUIDInvalidCaseClass.class, SerializableMustHaveSerialVersionUIDNotFinalClass.class,
-      SerializableMustHaveSerialVersionUIDNotStaticClass.class, SerializableMustHaveSerialVersionUIDNotlongClass.class };
-  private Class<?>[] passClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesClass.class,
-      SerializableMustHaveSerialVersionUIDNotSerializableClass.class, SerializableInterface.class };
+  private Class<?>[] failClasses = new Class<?>[] {
+      SerializableMustHaveSerialVersionUIDDoesntClass.class,
+      SerializableMustHaveSerialVersionUIDInvalidCaseClass.class,
+      SerializableMustHaveSerialVersionUIDNotFinalClass.class,
+      SerializableMustHaveSerialVersionUIDNotStaticClass.class,
+      SerializableMustHaveSerialVersionUIDNotlongClass.class
+  };
+  private Class<?>[] passClasses = new Class<?>[] {
+      SerializableMustHaveSerialVersionUIDDoesClass.class,
+      SerializableMustHaveSerialVersionUIDNotSerializableClass.class,
+      SerializableInterface.class
+  };
   private Rule rule = new SerializableMustHaveSerialVersionUIDRule();
 
   @Test

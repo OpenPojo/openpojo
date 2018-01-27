@@ -33,8 +33,8 @@ public class NoPublicFieldsExceptStaticFinalRuleTest {
   private Class<?>[] failClasses = new Class<?>[] {
       NoPublicFieldsExceptStaticFinalDoesntClass.class,
       NoPublicFieldsExceptStaticFinalDoesntPublicStaticClass.class,
-      NoPublicFieldsExceptStaticFinalDoesntPublicFinalClass.class };
-
+      NoPublicFieldsExceptStaticFinalDoesntPublicFinalClass.class
+  };
   private Class<?>[] passClasses = new Class<?>[] { NoPublicFieldsExceptStaticFinalDoesClass.class };
   private Rule rule = new NoPublicFieldsExceptStaticFinalRule();
 

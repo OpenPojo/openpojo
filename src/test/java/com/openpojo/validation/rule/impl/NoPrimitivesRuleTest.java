@@ -28,7 +28,6 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class NoPrimitivesRuleTest {
-
   private Class<?>[] failClasses = new Class<?>[] { NoPrimitivesDoesntClass.class };
   private Class<?>[] passClasses = new Class<?>[] { NoPrimitivesDoesClass.class };
   private Rule rule = new NoPrimitivesRule();
