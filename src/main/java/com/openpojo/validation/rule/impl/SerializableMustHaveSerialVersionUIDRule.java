@@ -34,7 +34,7 @@ public class SerializableMustHaveSerialVersionUIDRule implements Rule {
   private static final String SERIAL_VERSION_UID = "serialVersionUID";
 
   public void evaluate(final PojoClass pojoClass) {
-    if (pojoClass.extendz(Serializable.class)) {
+    if (pojoClass.extendz(Serializable.class) && !pojoClass.isInterface()) {
       for (PojoField pojoField : pojoClass.getPojoFields()) {
         if (pojoField.getName().equalsIgnoreCase(SERIAL_VERSION_UID)) {
           if (!pojoField.getName().equals(SERIAL_VERSION_UID)) {
