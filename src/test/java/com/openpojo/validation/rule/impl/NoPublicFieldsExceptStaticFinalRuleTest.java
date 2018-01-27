@@ -18,6 +18,7 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsExceptStaticFinalDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsExceptStaticFinalDoesntClass;
@@ -29,13 +30,13 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class NoPublicFieldsExceptStaticFinalRuleTest {
-  Class<?>[] failClasses = new Class<?>[] {
+  private Class<?>[] failClasses = new Class<?>[] {
       NoPublicFieldsExceptStaticFinalDoesntClass.class,
       NoPublicFieldsExceptStaticFinalDoesntPublicStaticClass.class,
       NoPublicFieldsExceptStaticFinalDoesntPublicFinalClass.class };
 
-  Class<?>[] passClasses = new Class<?>[] { NoPublicFieldsExceptStaticFinalDoesClass.class };
-  Rule rule = new NoPublicFieldsExceptStaticFinalRule();
+  private Class<?>[] passClasses = new Class<?>[] { NoPublicFieldsExceptStaticFinalDoesClass.class };
+  private Rule rule = new NoPublicFieldsExceptStaticFinalRule();
 
   @Test
   public void testEvaluate() {

@@ -18,6 +18,7 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.*;
 import org.junit.Test;
@@ -26,12 +27,12 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class SerializableMustHaveSerialVersionUIDRuleTest {
-  Class<?>[] failClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesntClass.class,
+  private Class<?>[] failClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesntClass.class,
       SerializableMustHaveSerialVersionUIDInvalidCaseClass.class, SerializableMustHaveSerialVersionUIDNotFinalClass.class,
       SerializableMustHaveSerialVersionUIDNotStaticClass.class, SerializableMustHaveSerialVersionUIDNotlongClass.class };
-  Class<?>[] passClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesClass.class,
+  private Class<?>[] passClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesClass.class,
       SerializableMustHaveSerialVersionUIDNotSerializableClass.class, SerializableInterface.class };
-  Rule rule = new SerializableMustHaveSerialVersionUIDRule();
+  private Rule rule = new SerializableMustHaveSerialVersionUIDRule();
 
   @Test
   public void testEvaluate() {

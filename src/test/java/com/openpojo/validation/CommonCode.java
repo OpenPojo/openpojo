@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.openpojo.validation.rule.impl;
+package com.openpojo.validation;
 
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;

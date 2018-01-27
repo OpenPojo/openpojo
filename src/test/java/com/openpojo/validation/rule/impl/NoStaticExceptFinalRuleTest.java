@@ -18,6 +18,7 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.NoStaticExceptFinalDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoStaticExceptFinalDoesntClass;
@@ -28,9 +29,9 @@ import org.junit.Test;
  */
 public class NoStaticExceptFinalRuleTest {
 
-  Class<?>[] failClasses = new Class<?>[] { NoStaticExceptFinalDoesntClass.class };
-  Class<?>[] passClasses = new Class<?>[] { NoStaticExceptFinalDoesClass.class };
-  Rule rule = new NoStaticExceptFinalRule();
+  private Class<?>[] failClasses = new Class<?>[] { NoStaticExceptFinalDoesntClass.class };
+  private Class<?>[] passClasses = new Class<?>[] { NoStaticExceptFinalDoesClass.class };
+  private Rule rule = new NoStaticExceptFinalRule();
 
   @Test
   public void testEvaluate() {

@@ -18,6 +18,7 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsDoesntClass;
@@ -27,9 +28,9 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class NoPublicFieldsRuleTest {
-  Class<?>[] failClasses = new Class<?>[] { NoPublicFieldsDoesntClass.class };
-  Class<?>[] passClasses = new Class<?>[] { NoPublicFieldsDoesClass.class };
-  Rule rule = new NoPublicFieldsRule();
+  private Class<?>[] failClasses = new Class<?>[] { NoPublicFieldsDoesntClass.class };
+  private Class<?>[] passClasses = new Class<?>[] { NoPublicFieldsDoesClass.class };
+  private Rule rule = new NoPublicFieldsRule();
 
   @Test
   public void testEvaluate() {

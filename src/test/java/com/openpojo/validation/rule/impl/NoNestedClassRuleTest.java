@@ -18,6 +18,7 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.NoNestedClassDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoNestedClassDoesntClass;
@@ -28,9 +29,9 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class NoNestedClassRuleTest {
-  Class<?>[] failClasses = new Class<?>[] { NoNestedClassDoesntClass.NestedClass.class };
-  Class<?>[] passClasses = new Class<?>[] { NoNestedClassDoesClass.class };
-  Rule rule = new NoNestedClassRule();
+  private Class<?>[] failClasses = new Class<?>[] { NoNestedClassDoesntClass.NestedClass.class };
+  private Class<?>[] passClasses = new Class<?>[] { NoNestedClassDoesClass.class };
+  private Rule rule = new NoNestedClassRule();
 
   @Test
   public void testEvaluate() {

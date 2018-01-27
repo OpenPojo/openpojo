@@ -18,7 +18,7 @@
 
 package com.openpojo.validation.test.impl;
 
-import com.openpojo.validation.rule.impl.CommonCode;
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.test.impl.sampleclasses.DefaultValueNotNullClass;
 import com.openpojo.validation.test.impl.sampleclasses.DefaultValueNullClass;
