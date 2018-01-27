@@ -29,7 +29,6 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class BusinessKeyMustExistRuleTest {
-
   private Class<?>[] failClasses = new Class<?>[] { BusinessClassWithNoRequired.class };
   private Class<?>[] passClasses = new Class<?>[] { BusinessClassWithRequired.class, BusinessClassWithComposite.class };
   private Rule rule = new BusinessKeyMustExistRule();

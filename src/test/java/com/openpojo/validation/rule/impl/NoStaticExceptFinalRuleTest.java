@@ -28,7 +28,6 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class NoStaticExceptFinalRuleTest {
-
   private Class<?>[] failClasses = new Class<?>[] { NoStaticExceptFinalDoesntClass.class };
   private Class<?>[] passClasses = new Class<?>[] { NoStaticExceptFinalDoesClass.class };
   private Rule rule = new NoStaticExceptFinalRule();
