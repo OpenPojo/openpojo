@@ -28,7 +28,6 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class SetterMustExistRuleTest {
-
   private Class<?>[] failClasses = new Class<?>[] { SetterDoesntExistClass.class };
   private Class<?>[] passClasses = new Class<?>[] { SetterDoesExistClass.class };
   private Rule rule = new SetterMustExistRule();
