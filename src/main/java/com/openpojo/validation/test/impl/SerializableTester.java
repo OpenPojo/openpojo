@@ -118,7 +118,6 @@ public class SerializableTester implements Tester {
       outClazz = clazz.cast(objectInputStream.readObject());
 
     } catch (Exception e) {
-      e.printStackTrace();
       throw new RuntimeException(e);
     } finally {
       CloseableHelper.closeResources(objectInputStream, inputStream);
