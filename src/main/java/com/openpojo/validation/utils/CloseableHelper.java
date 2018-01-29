@@ -29,7 +29,6 @@ public class CloseableHelper {
     throw new RuntimeException("Should not be constructed");
   }
 
-
   public static void closeResources(Closeable... closeables) {
     if (closeables != null)
       for (Closeable closeable : closeables)
