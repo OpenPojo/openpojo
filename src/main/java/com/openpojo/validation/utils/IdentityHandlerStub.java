@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,46 +18,74 @@
 
 package com.openpojo.validation.utils;
 
-import com.openpojo.business.identity.IdentityFactory;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.openpojo.business.identity.IdentityHandler;
 
 /**
  * @author oshoukry
  */
 public class IdentityHandlerStub implements IdentityHandler {
-  private Object handlerForObject;
+  private Boolean areEqualReturn;
+  private Integer hashCodeReturn;
 
-  public static void registerIdentityHandlerStubForValue(Object value) {
-    final IdentityHandlerStub identityHandlerStub = new IdentityHandlerStub();
-    identityHandlerStub.setHandlerForObject(value);
-    IdentityFactory.registerIdentityHandler(identityHandlerStub);
+  private String toStringReturn;
+
+  private Object instance1;
+
+  private Object instance2;
+  private List<Object> instances = new ArrayList<Object>();
+  public IdentityHandlerStub(Object ... instances) {
+    if (instances != null)
+      for (Object instance : instances)
+      if (instance != null)
+        this.instances.add(instance);
   }
 
-  public static void unregisterIdentityHandlerStubForValue(Object value) {
-    IdentityHandler identityHandler = IdentityFactory.getIdentityHandler(value);
-    IdentityFactory.unregisterIdentityHandler(identityHandler);
-  }
-
-  public void setHandlerForObject(final Object handlerForObject) {
-    this.handlerForObject = handlerForObject;
-  }
-
-  public boolean areEqual(final Object first, final Object second) {
-    return first == second;
-  }
-
-  public String toString(Object object) {
-    throw new UnsupportedOperationException();
+  public boolean handlerFor(final Object object) {
+    for (Object instance : instances)
+      if (object == instance)
+        return true;
+    return false;
   }
 
   public void validate(final Object object) {
   }
 
-  public int generateHashCode(final Object object) {
-    return System.identityHashCode(object);
+  public void setAreEqualReturn(final Boolean areEqualReturn) {
+    this.areEqualReturn = areEqualReturn;
   }
 
-  public boolean handlerFor(final Object object) {
-    return handlerForObject == object;
+  public Boolean getAreEqualReturn() {
+    return areEqualReturn;
+  }
+
+  public boolean areEqual(final Object first, final Object second) {
+    return areEqualReturn;
+  }
+
+  public void setHashCodeReturn(final Integer hashCodeReturn) {
+    this.hashCodeReturn = hashCodeReturn;
+  }
+
+  public Integer getHashCodeReturn() {
+    return hashCodeReturn;
+  }
+
+  public int generateHashCode(final Object object) {
+    return hashCodeReturn;
+  }
+
+  public void setToStringReturn(String toStringReturn) {
+    this.toStringReturn = toStringReturn;
+  }
+
+  public String getToStringReturn() {
+    return toStringReturn;
+  }
+
+  public String toString(final Object object) {
+    return toStringReturn;
   }
 }
