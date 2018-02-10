@@ -114,4 +114,8 @@ public class ObjectToString {
   interface ObjectToStringHandler {
     String toString(Object o);
   }
+
+  private ObjectToString() {
+    throw new UnsupportedOperationException(ObjectToString.class.getName() +  " should not be constructed!");
+  }
 }

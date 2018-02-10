@@ -97,4 +97,8 @@ public final class PojoClassFactory {
     return ServiceRegistrar.getInstance().getPojoClassLookupService().enumerateClassesByExtendingType(packageName, type,
         pojoClassFilter);
   }
+
+  private PojoClassFactory() {
+    throw new UnsupportedOperationException(PojoClassFactory.class.getName() + " should not be constructed!");
+  }
 }

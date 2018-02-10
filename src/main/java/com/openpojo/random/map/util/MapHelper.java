@@ -51,6 +51,9 @@ public class MapHelper {
       map.put(nextKey, nextValue);
     }
     return map;
+  }
 
+  private MapHelper() {
+    throw new UnsupportedOperationException(MapHelper.class.getName() + " should not be constructed!");
   }
 }

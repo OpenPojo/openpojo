@@ -34,4 +34,8 @@ public class Helper {
     }
     throw RandomGeneratorException.getInstance("Invalid type requested [" + type + "]");
   }
+
+  private Helper() {
+    throw new UnsupportedOperationException(Helper.class.getName() +  " should not be constructed!");
+  }
 }

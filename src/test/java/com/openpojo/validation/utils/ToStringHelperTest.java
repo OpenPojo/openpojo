@@ -35,13 +35,6 @@ public class ToStringHelperTest {
   public ExpectedException expectedEx = ExpectedException.none();
 
   @Test
-  public void shouldNotConstruct() {
-    expectedEx.expect(RuntimeException.class);
-    expectedEx.expectMessage("Should not be constructed");
-    new ToStringHelper();
-  }
-
-  @Test
   public void shouldReturnNullWhenNull() {
     assertThat(safeToString(null), is("null"));
   }

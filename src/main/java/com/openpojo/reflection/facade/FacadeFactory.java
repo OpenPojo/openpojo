@@ -52,4 +52,8 @@ public final class FacadeFactory {
     throw ReflectionException.getInstance(String.format("Unable to find suitable implementation among [%s]", Arrays.toString
         (facadeNames)));
   }
+
+  private FacadeFactory() {
+    throw new UnsupportedOperationException(FacadeFactory.class.getName() +  " should not be constructed!");
+  }
 }

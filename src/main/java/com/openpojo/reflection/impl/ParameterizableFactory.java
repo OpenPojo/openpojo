@@ -54,4 +54,8 @@ public class ParameterizableFactory {
       return Arrays.asList(Resolver.getParameterTypes(type));
     }
   }
+
+  private ParameterizableFactory() {
+      throw new UnsupportedOperationException(ParameterizableFactory.class.getName() + " should not be constructed!");
+  }
 }

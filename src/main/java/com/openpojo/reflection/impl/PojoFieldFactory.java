@@ -45,4 +45,8 @@ public final class PojoFieldFactory {
     }
     return Collections.unmodifiableList(pojoFields);
   }
+
+  private PojoFieldFactory() {
+      throw new UnsupportedOperationException(PojoFieldFactory.class.getName() + " should not be constructed!");
+    }
 }

@@ -83,4 +83,8 @@ public final class ToStringHelper {
     }
     return pojoString;
   }
+
+  private ToStringHelper() {
+    throw new UnsupportedOperationException(ToStringHelper.class.getName() +  " should not be constructed!");
+  }
 }

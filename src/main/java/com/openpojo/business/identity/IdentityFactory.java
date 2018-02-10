@@ -90,4 +90,8 @@ public final class IdentityFactory {
     return (LinkedList<IdentityHandler>) identityHandlers.clone();
 
   }
+
+  private IdentityFactory() {
+    throw new UnsupportedOperationException(IdentityFactory.class.getName() +  " should not be constructed!");
+  }
 }

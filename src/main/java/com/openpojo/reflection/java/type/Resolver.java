@@ -66,4 +66,8 @@ public class Resolver {
       return GENERIC_ARRAY_TYPE_RESOLVER;
     return NO_RESOLVE_TYPE_RESOLVER;
   }
+
+  private Resolver() {
+    throw new UnsupportedOperationException(Resolver.class.getName() +  " should not be constructed!");
+  }
 }

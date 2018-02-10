@@ -25,10 +25,6 @@ import java.io.Closeable;
  */
 public class CloseableHelper {
 
-  CloseableHelper() {
-    throw new RuntimeException("Should not be constructed");
-  }
-
   public static void closeResources(Closeable... closeables) {
     if (closeables != null)
       for (Closeable closeable : closeables)
@@ -37,5 +33,9 @@ public class CloseableHelper {
             closeable.close();
         } catch (Exception ignored) {
         }
+  }
+
+  private CloseableHelper() {
+    throw new UnsupportedOperationException(CloseableHelper.class.getName() +  " should not be constructed!");
   }
 }

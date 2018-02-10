@@ -22,8 +22,6 @@ import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.exception.ReflectionException;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.bytecode.asm.ASMNotLoadedException;
 import com.openpojo.utils.log.LogEvent;
@@ -31,30 +29,12 @@ import com.openpojo.utils.log.LogHelper;
 import com.openpojo.utils.log.MockAppenderLog4J;
 import com.openpojo.validation.Validator;
 import com.openpojo.validation.ValidatorBuilder;
-import com.openpojo.validation.exception.ValidationException;
 import com.openpojo.validation.impl.DefaultValidator;
 import com.openpojo.validation.test.Tester;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class ValidationHelperTest {
-
-  @Test
-  public void shouldNotConstruct() {
-    PojoClass pojoClass = PojoClassFactory.getPojoClass(ValidationHelper.class);
-
-    try {
-      Assert.assertEquals(1, pojoClass.getPojoConstructors().size());
-      PojoMethod constructor = pojoClass.getPojoConstructors().get(0);
-      Assert.assertTrue("Constructor should be private", constructor.isPrivate());
-      constructor.invoke(null);
-      Assert.fail("Expected exception not thrown");
-    } catch (ReflectionException re) {
-      ValidationException ve = (ValidationException) re.getCause().getCause();
-      Assert.assertEquals("Utility class do not construct", ve.getMessage());
-    }
-  }
-
   @Test
   public void testIsStaticFinal() {
     PojoClass pojoClass = PojoClassFactory.getPojoClass(StaticFinalData.class);

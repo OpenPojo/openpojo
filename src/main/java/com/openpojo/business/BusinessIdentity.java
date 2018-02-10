@@ -78,4 +78,8 @@ public final class BusinessIdentity {
   public static String toString(final Object instance) {
     return IdentityFactory.getIdentityHandler(instance).toString(instance);
   }
+
+  private BusinessIdentity() {
+    throw new UnsupportedOperationException(BusinessIdentity.class.getName() + " should not be constructed!");
+  }
 }

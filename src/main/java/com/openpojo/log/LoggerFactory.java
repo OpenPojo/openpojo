@@ -123,4 +123,7 @@ public final class LoggerFactory {
     getLogger(LoggerFactory.class.getName()).info("Logging subsystem initialized to [{0}]", loggerClass.getName());
   }
 
+  private LoggerFactory() {
+    throw new UnsupportedOperationException(LoggerFactory.class.getName() + " should not be constructed!");
+  }
 }

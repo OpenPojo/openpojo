@@ -178,4 +178,8 @@ public final class MessageFormatter {
     }
     return lines.toString();
   }
+
+  private MessageFormatter() {
+    throw new UnsupportedOperationException(MessageFormatter.class.getName() +  " should not be constructed!");
+  }
 }

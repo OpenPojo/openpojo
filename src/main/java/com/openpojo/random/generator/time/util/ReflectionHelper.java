@@ -42,4 +42,8 @@ public class ReflectionHelper {
       throw RandomGeneratorException.getInstance(e.getMessage(), e);
     }
   }
+
+  private ReflectionHelper() {
+    throw new UnsupportedOperationException(ReflectionHelper.class.getName() +  " should not be constructed!");
+  }
 }

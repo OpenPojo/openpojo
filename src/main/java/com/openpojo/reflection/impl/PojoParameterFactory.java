@@ -30,4 +30,8 @@ public final class PojoParameterFactory {
   public static PojoParameter getPojoParameter(Type type, Annotation[] annotations) {
     return new PojoParameterImpl(type, annotations);
   }
+
+  private PojoParameterFactory() {
+    throw new UnsupportedOperationException(PojoParameterFactory.class.getName() + " should not be constructed!");
+  }
 }

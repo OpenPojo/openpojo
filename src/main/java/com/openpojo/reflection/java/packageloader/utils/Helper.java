@@ -99,4 +99,8 @@ public class Helper {
     }
     return null;
   }
+
+  private Helper() {
+    throw new UnsupportedOperationException(Helper.class.getName() +  " should not be constructed!");
+  }
 }

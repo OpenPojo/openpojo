@@ -35,10 +35,6 @@ public class ByteCodeFactory {
   private static final Logger LOGGER = LoggerFactory.getLogger(ByteCodeFactory.class);
   private static boolean asm_enabled = ASMDetector.getInstance().isASMLoaded();
 
-  private ByteCodeFactory() {
-    throw new IllegalStateException(ByteCodeFactory.class.getName() + " should not be constructed!");
-  }
-
   public static <T> Class<? extends T> getSubClass(Class<T> clazz) {
     if (isNull(clazz) || isAnInterface(clazz) || isAnEnum(clazz) || isPrimitive(clazz) || isAnArray(clazz) || isFinal(clazz)) {
       LOGGER.error("Invalid request to generate a subclass for [{0}], argument must be [not null, not an interface, not an" +
@@ -75,5 +71,9 @@ public class ByteCodeFactory {
 
   private static <T> boolean isFinal(Class<T> clazz) {
     return Modifier.isFinal(clazz.getModifiers());
+  }
+
+  private ByteCodeFactory() {
+    throw new UnsupportedOperationException(ByteCodeFactory.class.getName() +  " should not be constructed!");
   }
 }

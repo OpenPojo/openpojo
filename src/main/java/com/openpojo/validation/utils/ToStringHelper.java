@@ -22,16 +22,15 @@ package com.openpojo.validation.utils;
  * @author oshoukry
  */
 public final class ToStringHelper {
-
-  ToStringHelper() {
-    throw new RuntimeException("Should not be constructed");
-  }
-
   public static String safeToString(Object o) {
     try {
       return "" + o;
     } catch (Exception e) {
       return "Error calling toString: '" + e.toString() + "'";
     }
+  }
+
+  private ToStringHelper() {
+    throw new UnsupportedOperationException(ToStringHelper.class.getName() +  " should not be constructed!");
   }
 }

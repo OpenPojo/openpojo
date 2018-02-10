@@ -37,13 +37,6 @@ public class CloseableHelperTest {
   public ExpectedException expectedEx = ExpectedException.none();
 
   @Test
-  public void shouldNotConstruct() {
-    expectedEx.expect(RuntimeException.class);
-    expectedEx.expectMessage("Should not be constructed");
-    new CloseableHelper();
-  }
-
-  @Test
   public void shouldNotFailIfNull() {
     CloseableHelper.closeResources((Closeable[]) null);
   }

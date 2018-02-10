@@ -28,4 +28,8 @@ public class PojoPackageFactory {
   public static PojoPackage getPojoPackage(final String packageName) {
     return new PojoPackageImpl(packageName);
   }
+
+  private PojoPackageFactory() {
+    throw new UnsupportedOperationException(PojoPackageFactory.class.getName() + " should not be constructed!");
+  }
 }

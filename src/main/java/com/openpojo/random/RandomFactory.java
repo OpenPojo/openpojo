@@ -120,4 +120,7 @@ public class RandomFactory {
     return ServiceRegistrar.getInstance().getRandomGeneratorService();
   }
 
+  private RandomFactory() {
+    throw new UnsupportedOperationException(RandomFactory.class.getName() + " should not be constructed!");
+  }
 }

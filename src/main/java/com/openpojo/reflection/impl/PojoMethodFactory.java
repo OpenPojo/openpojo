@@ -173,4 +173,7 @@ public class PojoMethodFactory {
     return prefix;
   }
 
+  private PojoMethodFactory() {
+      throw new UnsupportedOperationException(PojoMethodFactory.class.getName() + " should not be constructed!");
+    }
 }

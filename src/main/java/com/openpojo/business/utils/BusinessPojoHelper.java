@@ -37,10 +37,6 @@ import com.openpojo.reflection.impl.PojoClassFactory;
 public class BusinessPojoHelper {
   private static BusinessKeyFieldCache cache = new BusinessKeyFieldCache();
 
-  private BusinessPojoHelper() {
-    throw new UnsupportedOperationException("This is a utility class, do not construct");
-  }
-
   /**
    * Get all business keys declared on a class and the parent super classes.
    *
@@ -67,5 +63,9 @@ public class BusinessPojoHelper {
 
     cache.add(clazz.getName(), businessKeyFields);
     return businessKeyFields;
+  }
+
+  private BusinessPojoHelper() {
+    throw new UnsupportedOperationException(BusinessPojoHelper.class.getName() +  " should not be constructed!");
   }
 }

@@ -60,4 +60,8 @@ public class PojoCache {
   public static void clear() {
     pojoClassCache.clear();
   }
+
+  private PojoCache() {
+    throw new UnsupportedOperationException(PojoCache.class.getName() + " should not be constructed!");
+  }
 }

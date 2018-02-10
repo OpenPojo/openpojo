@@ -44,10 +44,6 @@ import com.openpojo.reflection.java.type.Primitives;
  */
 public class InstanceFactory {
 
-  private InstanceFactory() {
-    throw new RuntimeException("Should not be constructed");
-  }
-
   /**
    * This method returns a new instance created using default constructor.
    * It is identical to calling getInstance(PojoClass, null).
@@ -226,5 +222,9 @@ public class InstanceFactory {
         }
     }
     return constructor;
+  }
+
+  private InstanceFactory() {
+    throw new UnsupportedOperationException(InstanceFactory.class.getName() +  " should not be constructed!");
   }
 }

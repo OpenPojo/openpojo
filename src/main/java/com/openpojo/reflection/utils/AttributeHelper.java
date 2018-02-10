@@ -114,4 +114,8 @@ public class AttributeHelper {
   private static String camelCase(String fieldName) {
     return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1, fieldName.length());
   }
+
+  private AttributeHelper() {
+    throw new UnsupportedOperationException(AttributeHelper.class.getName() +  " should not be constructed!");
+  }
 }

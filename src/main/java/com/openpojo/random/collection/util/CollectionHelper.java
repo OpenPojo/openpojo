@@ -51,4 +51,8 @@ public class CollectionHelper {
     }
     return collection;
   }
+
+  private CollectionHelper() {
+    throw new UnsupportedOperationException(CollectionHelper.class.getName() + " should not be constructed!");
+  }
 }

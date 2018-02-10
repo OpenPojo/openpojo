@@ -67,4 +67,7 @@ public class GeneratedRandomValues {
     threadLocal.get().remove(type);
   }
 
+  private GeneratedRandomValues() {
+    throw new UnsupportedOperationException(GeneratedRandomValues.class.getName() +  " should not be constructed!");
+  }
 }

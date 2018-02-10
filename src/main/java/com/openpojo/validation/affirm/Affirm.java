@@ -31,7 +31,7 @@ import java.util.Collection;
  *
  * @author oshoukry
  */
-public abstract class Affirm {
+public class Affirm {
 
   private static Affirmation getAffirmation() {
     return AffirmationFactory.getInstance().getAffirmation();
@@ -93,4 +93,9 @@ public abstract class Affirm {
     }
     Affirm.fail(message + ":expected value [" + expected + "] not found");
   }
+
+  private Affirm() {
+    throw new UnsupportedOperationException(Affirm.class.getName() +  " should not be constructed!");
+  }
+
 }

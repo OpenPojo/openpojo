@@ -55,4 +55,8 @@ public class PojoCoverageFilterServiceFactory {
     pojoCoverageFilterService.registerCoverageDetector(coverageDetector);
     return pojoCoverageFilterService;
   }
+
+  private PojoCoverageFilterServiceFactory() {
+    throw new UnsupportedOperationException(PojoCoverageFilterServiceFactory.class.getName() +  " should not be constructed!");
+  }
 }
