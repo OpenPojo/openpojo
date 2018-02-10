@@ -38,6 +38,7 @@ class SubClassCreator extends ClassVisitor {
   private final ClassWriter cw;
   private String className;
   private final String generateWithName;
+  private boolean hasToString = false;
 
   public SubClassCreator(ClassWriter cw, String generateWithName) {
     super(ASM5);
@@ -83,7 +84,30 @@ class SubClassCreator extends ClassVisitor {
       }
     }
 
+    if (name.equals("toString") && (access & ACC_ABSTRACT) == 0) {
+      hasToString = true;
+    }
+
     return super.visitMethod(access, name, desc, signature, exceptions);
+  }
+
+  /**
+   * If the class has an abstract toString method, we replace it with a concrete implementation.
+   */
+  @Override
+  public void visitEnd() {
+    if (!hasToString) {
+      LOGGER.debug("Adding concrete toString implementation");
+      MethodVisitor mv;
+      mv = cw.visitMethod(ACC_PUBLIC, "toString", "()Ljava/lang/String;", null, null);
+      mv.visitCode();
+      mv.visitVarInsn(ALOAD, 0);
+      mv.visitLdcInsn(className + " synthetic concrete subclass");
+      mv.visitInsn(ARETURN);
+      mv.visitMaxs(2, 2);
+      mv.visitEnd();
+    }
+    super.visitEnd();
   }
 
   private int getParameterCount(String desc) {
