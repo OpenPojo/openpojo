@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
   ~ Copyright (c) 2010-2017 Osman Shoukry
   ~
@@ -18,237 +17,237 @@
   ~ limitations under the License.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>oss-parent</artifactId>
-        <groupId>org.sonatype.oss</groupId>
-        <version>9</version>
-    </parent>
+  <parent>
+    <artifactId>oss-parent</artifactId>
+    <groupId>org.sonatype.oss</groupId>
+    <version>9</version>
+  </parent>
 
-    <groupId>com.openpojo</groupId>
-    <artifactId>openpojo</artifactId>
-    <version>0.8.8-SNAPSHOT</version>
-    <name>${project.artifactId}</name>
+  <groupId>com.openpojo</groupId>
+  <artifactId>openpojo</artifactId>
+  <version>0.8.8-SNAPSHOT</version>
+  <name>${project.artifactId}</name>
 
-    <description>This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
+  <description>This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
         This project has two main aspects to it:
         * Make Testing as easy as possible.
         * Simplifying identity management (hashCode / equals) using annotation.</description>
-    <url>http://openpojo.com/</url>
+  <url>http://openpojo.com/</url>
 
-    <inceptionYear>2010</inceptionYear>
+  <inceptionYear>2010</inceptionYear>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
-    <developers>
-        <developer>
-            <name>Osman Shoukry</name>
-            <email>oshoukry at openpojo dot com</email>
-            <roles>
-                <role>Maintainer</role>
-                <role>Developer</role>
-            </roles>
-            <timezone>-8</timezone>
-        </developer>
-    </developers>
+  <developers>
+    <developer>
+      <name>Osman Shoukry</name>
+      <email>oshoukry at openpojo dot com</email>
+      <roles>
+        <role>Maintainer</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+  </developers>
 
-    <contributors>
-        <contributor>
-            <name>David J. M. Karlsen</name>
-            <email>davidkarlsen at gmail</email>
-            <organization>davidkarlsen.com</organization>
-            <timezone>+1</timezone>
-            <properties>
-                <contribution>Created initial pom.xml and provided guidance in how to get OpenPojo into Maven</contribution>
-            </properties>
-        </contributor>
-    </contributors>
+  <contributors>
+    <contributor>
+      <name>David J. M. Karlsen</name>
+      <email>davidkarlsen at gmail</email>
+      <organization>davidkarlsen.com</organization>
+      <timezone>+1</timezone>
+      <properties>
+        <contribution>Created initial pom.xml and provided guidance in how to get OpenPojo into Maven</contribution>
+      </properties>
+    </contributor>
+  </contributors>
 
-    <scm>
-        <connection>scm:git:git://github.com/oshoukry/openpojo.git</connection>
-        <developerConnection>scm:git:git@github.com:oshoukry/openpojo.git</developerConnection>
-        <url>https://github.com/oshoukry/openpojo</url>
-    </scm>
+  <scm>
+    <connection>scm:git:git://github.com/oshoukry/openpojo.git</connection>
+    <developerConnection>scm:git:git@github.com:oshoukry/openpojo.git</developerConnection>
+    <url>https://github.com/oshoukry/openpojo</url>
+  </scm>
 
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/oshoukry/openpojo/issues</url>
-    </issueManagement>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/oshoukry/openpojo/issues</url>
+  </issueManagement>
 
-    <properties>
-        <asm.version>5.2</asm.version>
-        <coveralls-maven-plugin.version>3.0.1</coveralls-maven-plugin.version>
-        <hamcrest-all.version>1.3</hamcrest-all.version>
-        <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
-        <jdk.sourceEncoding>UTF-8</jdk.sourceEncoding>
-        <jdk.target>1.5</jdk.target>
-        <junit.version>4.12</junit.version>
-        <log4j.version>1.2.17</log4j.version>
-        <maven-deploy-plugin.version>2.8</maven-deploy-plugin.version>
-        <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
-        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-        <skipTests>false</skipTests>
-        <slf4j.version>1.7.25</slf4j.version>
-        <surefire.version>2.20.1</surefire.version>
-        <testng.version>6.13.1</testng.version>
-    </properties>
+  <properties>
+    <asm.version>5.2</asm.version>
+    <coveralls-maven-plugin.version>3.0.1</coveralls-maven-plugin.version>
+    <hamcrest-all.version>1.3</hamcrest-all.version>
+    <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
+    <jdk.sourceEncoding>UTF-8</jdk.sourceEncoding>
+    <jdk.target>1.5</jdk.target>
+    <junit.version>4.12</junit.version>
+    <log4j.version>1.2.17</log4j.version>
+    <maven-deploy-plugin.version>2.8</maven-deploy-plugin.version>
+    <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+    <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+    <skipTests>false</skipTests>
+    <slf4j.version>1.7.25</slf4j.version>
+    <surefire.version>2.20.1</surefire.version>
+    <testng.version>6.13.1</testng.version>
+  </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>${hamcrest-all.version}</version>
-            <scope>test</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>${asm.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>${hamcrest-all.version}</version>
+      <scope>test</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm</artifactId>
+      <version>${asm.version}</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
 
-    <repositories>
-        <repository>
-            <id>JBOSS</id>
-            <name>JBoss Repository</name>
-            <url>https://repository.jboss.org/nexus/content/repositories/public/</url>
-        </repository>
-    </repositories>
+  <repositories>
+    <repository>
+      <id>JBOSS</id>
+      <name>JBoss Repository</name>
+      <url>https://repository.jboss.org/nexus/content/repositories/public/</url>
+    </repository>
+  </repositories>
 
-    <build>
-        <testResources>
-            <testResource>
-                <directory>src/test/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-        </testResources>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/java</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <arguments>-Psonatype-oss-release,openpojo-release</arguments>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <configuration>
+          <testNGArtifactName>none:none</testNGArtifactName>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.eluder.coveralls</groupId>
+        <artifactId>coveralls-maven-plugin</artifactId>
+        <version>${coveralls-maven-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>openpojo-release</id>
+      <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <arguments>-Psonatype-oss-release,openpojo-release</arguments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.version}</version>
-                <configuration>
-                    <testNGArtifactName>none:none</testNGArtifactName>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>${coveralls-maven-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>${maven-deploy-plugin.version}</version>
+            <configuration>
+              <updateReleaseInfo>true</updateReleaseInfo>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven-source-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
-    </build>
-
-    <profiles>
-        <profile>
-            <id>openpojo-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <version>${maven-deploy-plugin.version}</version>
-                        <configuration>
-                            <updateReleaseInfo>true</updateReleaseInfo>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven-source-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven-javadoc-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

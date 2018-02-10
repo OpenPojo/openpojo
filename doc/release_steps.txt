@@ -1,5 +1,5 @@
 #Keep pom.xml file clean
-mvn sortpom:sort -Dsort.nrOfIndentSpace=4 -Dsort.keepBlankLines=true -Dsort.sortProperties=true -Dsort.createBackupFile=false
+mvn sortpom:sort -Dsort.nrOfIndentSpace=2 -Dsort.keepBlankLines=true -Dsort.sortProperties=true -Dsort.createBackupFile=false
 
 # This file is for reference on the steps performed to cut a release.
 mvn clean
