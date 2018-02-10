@@ -23,6 +23,7 @@ import java.util.List;
 import com.openpojo.reflection.java.bytecode.asm.sample.AbstractClassWithAbstractNonInheritedToString;
 import com.openpojo.reflection.java.bytecode.asm.sample.AbstractClassWithAbstractToString;
 import com.openpojo.reflection.java.bytecode.asm.sample.AbstractClassWithConstructorArgs;
+import com.openpojo.reflection.java.bytecode.asm.sample.AbstractClassWithPrivateConstructor;
 import com.openpojo.reflection.java.bytecode.asm.sample.AbstractClassWithVariousAbstractMethods;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
@@ -126,6 +127,15 @@ public class ASMServiceEnd2EndTest {
     assertThat(randomValue, notNullValue());
     assertThat(randomValue.toString(),
         startsWith(type.getName() + DefaultSubClassDefinition.GENERATED_CLASS_POSTFIX + "@"));
+  }
+
+  @Test
+  public void canGenerateSubClassForPrivateConstructor() {
+    final Class<AbstractClassWithPrivateConstructor> type = AbstractClassWithPrivateConstructor.class;
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(type);
+    AbstractClassWithPrivateConstructor randomInstance = RandomFactory.getRandomValue(type);
+    assertThat(randomInstance, notNullValue());
+    assertThat(randomInstance.toString(), notNullValue());
   }
 
 }

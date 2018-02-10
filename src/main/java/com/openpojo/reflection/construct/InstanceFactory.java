@@ -217,7 +217,7 @@ public class InstanceFactory {
   private static PojoMethod getConstructorByCriteria(final PojoClass pojoClass, final ArrayLengthBasedComparator comparator) {
     PojoMethod constructor = null;
     for (final PojoMethod pojoConstructor : pojoClass.getPojoConstructors()) {
-      if (!pojoConstructor.isSynthetic())
+      if (!pojoConstructor.isSynthetic() && !(pojoClass.isAbstract() && pojoConstructor.isPrivate()))
         if (constructor == null)
           constructor = pojoConstructor;
         else {

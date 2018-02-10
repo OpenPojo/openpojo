@@ -69,7 +69,7 @@ class SubClassCreator extends ClassVisitor {
   public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
     LOGGER.debug("Method: " + name + " access:" + access + " desc:" + desc + " signature:" + signature + " exceptions:" +
         Arrays.toString(exceptions));
-    if (name.equals("<init>") || (access & ACC_ABSTRACT) != 0)
+    if (name.equals("<init>") && (access & (ACC_PUBLIC | ACC_PROTECTED)) != 0 || (access & ACC_ABSTRACT) != 0)
       return handleMethod(access, name, desc, signature, exceptions);
     return super.visitMethod(access, name, desc, signature, exceptions);
   }
