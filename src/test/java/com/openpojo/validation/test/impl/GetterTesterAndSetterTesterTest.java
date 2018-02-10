@@ -31,7 +31,7 @@ import org.junit.Test;
 public class GetterTesterAndSetterTesterTest {
   private static final String TESTPACKAGE = GetterTesterAndSetterTesterTest.class.getPackage().getName() + ".sampleclasses";
 
-  public List<PojoClass> getGoodPojoClasses() {
+  private List<PojoClass> getGoodPojoClasses() {
     return PojoClassFactory.getPojoClasses(TESTPACKAGE, new PojoClassFilter() {
       public boolean include(PojoClass pojoClass) {
         return pojoClass.getClazz().getSimpleName().startsWith("Good_");
@@ -39,7 +39,7 @@ public class GetterTesterAndSetterTesterTest {
     });
   }
 
-  public List<PojoClass> getBadPojoClasses() {
+  private List<PojoClass> getBadPojoClasses() {
     return PojoClassFactory.getPojoClassesRecursively(TESTPACKAGE, new PojoClassFilter() {
 
       public boolean include(final PojoClass pojoClass) {
@@ -52,7 +52,7 @@ public class GetterTesterAndSetterTesterTest {
   public void shouldPassSetterTest() {
     List<PojoClass> goodPojoClasses = getGoodPojoClasses();
 
-    Assert.assertEquals("Classes added/removed?", 3, goodPojoClasses.size());
+    Assert.assertEquals("Classes added/removed?", 4, goodPojoClasses.size());
     for (final PojoClass pojoClass : goodPojoClasses) {
       invokeRun(pojoClass, new SetterTester());
       invokeRun(pojoClass, new GetterTester());

@@ -67,7 +67,7 @@ public class ASMService {
   private byte[] getSubClassByteCode(SubClassDefinition subClassDefinition) {
 
     ClassReader classReader = subClassDefinition.getClassReader();
-    ClassWriter cw = new ClassWriter(0);
+    ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 
     classReader.accept(new SubClassCreator(cw, subClassDefinition.getGeneratedClassNameAsJDKPath()), 0);
 

@@ -29,7 +29,7 @@ public class DefaultSubClassDefinition implements SubClassDefinition {
   private final ClassReader classReader;
 
   public DefaultSubClassDefinition(Class<?> parentClass) {
-    this(parentClass, parentClass.getName() + "__Generated_OpenPojo");
+    this(parentClass, parentClass.getName() + SubClassDefinition.GENERATED_CLASS_POSTFIX);
   }
 
   public DefaultSubClassDefinition(Class<?> parentClass, String subClassName) {

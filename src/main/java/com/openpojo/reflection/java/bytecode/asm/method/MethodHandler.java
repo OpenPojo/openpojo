@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,21 @@
  * limitations under the License.
  */
 
-package com.openpojo.reflection.java.bytecode.asm;
+package com.openpojo.reflection.java.bytecode.asm.method;
 
-import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.MethodVisitor;
 
 /**
  * @author oshoukry
  */
-public interface SubClassDefinition {
-  String GENERATED_CLASS_POSTFIX = "__Generated_OpenPojo";
+public interface MethodHandler {
 
-  ClassReader getClassReader();
-
-  String getGeneratedClassNameAsJDKPath();
-
-  String getGeneratedClassName();
+  void generateMethod(MethodVisitor methodVisitor,
+                      String abstractClassName,
+                      String generatedClassName,
+                      int access,
+                      String name,
+                      String desc,
+                      String signature,
+                      String[] exceptions);
 }
