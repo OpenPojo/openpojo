@@ -40,13 +40,28 @@ import static org.hamcrest.Matchers.greaterThan;
  */
 public class JavaClassPathClassLoaderTest {
 
-  private static final int MIN_EXPECTED_TOTAL_CLASSES = 20000;
+  private Integer minExpectedTotalClasses;
   private JavaClassPathClassLoader javaClassPathClassLoader;
+  private int minJavaUtilConcurrentAtomicCount;
+  private int minJavaLangClasses;
+  private int minPackageCountUnderJava;
 
+  private static final String JAVA_VERSION = System.getProperty("java.version");
 
   @Before
   public void setup() {
     javaClassPathClassLoader = JavaClassPathClassLoader.getInstance();
+    if (JAVA_VERSION.startsWith("1.8")) {
+      minExpectedTotalClasses = 40000;
+      minJavaUtilConcurrentAtomicCount = 30;
+      minJavaLangClasses = 400;
+      minPackageCountUnderJava = 13;
+    } else {
+      minExpectedTotalClasses = 16000;
+      minJavaUtilConcurrentAtomicCount = 17;
+      minJavaLangClasses = 230;
+      minPackageCountUnderJava = 10;
+    }
   }
 
   @Test
@@ -91,21 +106,21 @@ public class JavaClassPathClassLoaderTest {
   public void canGetAllClassNamesInBootClassPath() {
     Set<String> classNames = javaClassPathClassLoader.getClassNames();
     Assert.assertThat(classNames, notNullValue());
-    Assert.assertThat(classNames.size(), greaterThan(MIN_EXPECTED_TOTAL_CLASSES));
+    Assert.assertThat(classNames.size(), greaterThan(minExpectedTotalClasses));
   }
 
   @Test
-  public void canLoadAllClassesInJavaUtilConcurrent() {
+  public void canLoadAllClassesInJavaUtilConcurrentAtomic() {
     String concurrentPackageName = AtomicInteger.class.getPackage().getName();
     Set<Type> classesInPackage = javaClassPathClassLoader.getTypesInPackage(concurrentPackageName);
-    Assert.assertThat(classesInPackage.size(), greaterThan(20));
+    Assert.assertThat(classesInPackage.size(), greaterThan(minJavaUtilConcurrentAtomicCount));
   }
 
   @Test
   public void canGetPackageNamesUnderGivenPackageName() {
     Set<String> subPackages = javaClassPathClassLoader.getSubPackagesFor("java");
     Assert.assertThat(subPackages, notNullValue());
-    Assert.assertThat(subPackages.size(), greaterThan(10));
+    Assert.assertThat(subPackages.size(), greaterThan(minPackageCountUnderJava));
   }
 
   @Test
@@ -114,13 +129,6 @@ public class JavaClassPathClassLoaderTest {
     Assert.assertThat(javaClassPathClassLoader.hasPackage("javax"), is(true));
     Assert.assertThat(javaClassPathClassLoader.hasPackage("com.sun"), is(true));
     Assert.assertThat(javaClassPathClassLoader.hasPackage("com.openpojo"), is(false));
-  }
-
-  @Test
-  public void end2end() {
-    String concurrentPackageName = AtomicInteger.class.getPackage().getName();
-    List<PojoClass> concurrentclasses = PojoClassFactory.getPojoClasses(concurrentPackageName);
-    Assert.assertThat(concurrentclasses.size(), greaterThan(20));
   }
 
   @Test
@@ -135,7 +143,7 @@ public class JavaClassPathClassLoaderTest {
     checkListOfPojoClassesContains(types, java.lang.Object.class);
     checkListOfPojoClassesContains(types, java.lang.Error.class);
 
-    Assert.assertThat(types.size(), greaterThan(300));
+    Assert.assertThat(types.size(), greaterThan(minJavaLangClasses));
   }
 
   private void checkListOfPojoClassesContains(List<PojoClass> types, Class<?> expectedClass) {
@@ -147,8 +155,8 @@ public class JavaClassPathClassLoaderTest {
   public void end2endLoadAllClassesInTheVM() {
     List<PojoClass> types = PojoClassFactory.getPojoClassesRecursively("", null);
     Assert.assertTrue(types.contains(PojoClassFactory.getPojoClass(this.getClass())));
-    final String reason = "Loaded " + types.size() + " classes instead of expected " + MIN_EXPECTED_TOTAL_CLASSES;
-    Assert.assertThat(reason, types.size(), greaterThan(MIN_EXPECTED_TOTAL_CLASSES));
+    final String reason = "Loaded " + types.size() + " classes instead of expected " + minExpectedTotalClasses;
+    Assert.assertThat(reason, types.size(), greaterThan(minExpectedTotalClasses));
     checkListOfPojoClassesContains(types, java.rmi.registry.LocateRegistry.class);
   }
 
