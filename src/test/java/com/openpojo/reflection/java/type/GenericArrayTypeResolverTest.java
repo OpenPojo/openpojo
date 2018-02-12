@@ -28,6 +28,8 @@ import com.openpojo.reflection.java.type.sample.ArrayElementsClass;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.endsWith;
+
 /**
  * @author oshoukry
  */
@@ -52,8 +54,8 @@ public class GenericArrayTypeResolverTest {
       genericArrayTypeResolver.getEnclosingType(createGenericArrayTypeFor(int.class));
       Assert.fail("Expected exception not thrown");
     } catch (UnsupportedOperationException uoe) {
-      Assert.assertEquals("This operation is Not Supported, if you ran into this please report this issue @ http://openpojo.com",
-          uoe.getMessage());
+      Assert.assertThat(uoe.getMessage(),
+          endsWith(") - This operation is Not Supported, if you ran into this please report this issue @ http://openpojo.com"));
     }
   }
 
@@ -63,8 +65,8 @@ public class GenericArrayTypeResolverTest {
       genericArrayTypeResolver.getParameterTypes(createGenericArrayTypeFor(int.class));
       Assert.fail("Expected exception not thrown");
     } catch (UnsupportedOperationException uoe) {
-      Assert.assertEquals("This operation is Not Supported, if you ran into this please report this issue @ http://openpojo.com",
-          uoe.getMessage());
+      Assert.assertThat(uoe.getMessage(),
+          endsWith(") - This operation is Not Supported, if you ran into this please report this issue @ http://openpojo.com"));
     }
   }
 

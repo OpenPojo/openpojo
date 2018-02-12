@@ -47,12 +47,14 @@ public class GenericArrayTypeResolver implements TypeResolver<GenericArrayType> 
   }
 
   public Type getEnclosingType(GenericArrayType type) {
-    throw new UnsupportedOperationException("This operation is Not Supported, if you ran into this please report this issue @ " +
-        "http://openpojo.com");
+    throw new UnsupportedOperationException(
+        "getEnclosingType(" + type + ")"
+            + " - This operation is Not Supported, if you ran into this please report this issue @ http://openpojo.com");
   }
 
   public Type[] getParameterTypes(GenericArrayType type) {
-    throw new UnsupportedOperationException("This operation is Not Supported, if you ran into this please report this issue @ " +
-        "http://openpojo.com");
+    throw new UnsupportedOperationException(
+        "getParameterTypes(" + type + ")"
+            + " - This operation is Not Supported, if you ran into this please report this issue @ http://openpojo.com");
   }
 }
