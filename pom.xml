@@ -95,8 +95,8 @@
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
     <skipTests>false</skipTests>
     <slf4j.version>1.7.25</slf4j.version>
-    <surefire.version>2.20.1</surefire.version>
-    <testng.version>6.13.1</testng.version>
+    <surefire.version>2.19.1</surefire.version>
+    <testng.version>6.8</testng.version>
   </properties>
 
   <dependencies>
