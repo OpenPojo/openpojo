@@ -115,7 +115,7 @@ public class ASMServiceEnd2EndTest {
     assertThat(ap, notNullValue());
   }
 
-  private void assertType(Class expected, Class actual) {
+  private void assertType(Class actual, Class expected) {
     assertTrue("Expected [" + expected + "], but was [" + actual + "]", expected.equals(actual));
   }
 
