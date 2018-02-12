@@ -48,9 +48,18 @@ public class PrincipalNameRandomGenerator implements RandomGenerator {
   public Object doGenerate(Class<?> type) {
     try {
       //noinspection ConstantConditions
-      return new PrincipalName(RandomFactory.getRandomValue(String[].class), RandomFactory.getRandomValue(String.class));
+      return new PrincipalName(getPrincipleParsableString()
+      );
     } catch (Exception e) {
       throw RandomGeneratorException.getInstance("Failed to generate " + TYPES[0].getName() + " instance.", e);
     }
+  }
+
+  private String getPrincipleParsableString() {
+    return RandomFactory.getRandomValue(String.class)
+        + "/"
+        + RandomFactory.getRandomValue(String.class)
+        + "@"
+        + RandomFactory.getRandomValue(String.class);
   }
 }
