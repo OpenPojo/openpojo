@@ -52,7 +52,7 @@ public class JavaClassPathClassLoaderTest {
   public void setup() {
     javaClassPathClassLoader = JavaClassPathClassLoader.getInstance();
     if (JAVA_VERSION.startsWith("1.8")) {
-      minExpectedTotalClasses = 40000;
+      minExpectedTotalClasses = 20000;
       minJavaUtilConcurrentAtomicCount = 30;
       minJavaLangClasses = 400;
       minPackageCountUnderJava = 13;
