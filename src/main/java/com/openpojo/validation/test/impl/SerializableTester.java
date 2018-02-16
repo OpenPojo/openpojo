@@ -18,15 +18,16 @@
 
 package com.openpojo.validation.test.impl;
 
-import java.io.*;
-
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.utils.CloseableHelper;
-import org.apache.log4j.Logger;
+
+import java.io.*;
 
 /**
  * This tester ensures that you are able to serialize and deserialize objects without any errors.
@@ -34,13 +35,12 @@ import org.apache.log4j.Logger;
  * @author oshoukry
  */
 public class SerializableTester implements Tester {
-  private final Logger logger = Logger.getLogger(this.getClass());
+  private final Logger logger = LoggerFactory.getLogger(SerializableTester.class);
 
   public void run(PojoClass pojoClass) {
     final Class<?> clazz = pojoClass.getClazz();
 
     if (Serializable.class.isAssignableFrom(clazz)) {
-
       Object instance = RandomFactory.getRandomValue(clazz);
       ensureNoFieldsAreNull(pojoClass, instance);
 
@@ -70,14 +70,10 @@ public class SerializableTester implements Tester {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     ObjectOutputStream objectOutputStream = null;
 
-
     try {
       logger.debug("Serializing [" + object + "] to byte[]");
-
       objectOutputStream = new ObjectOutputStream(outputStream);
-
       objectOutputStream.writeObject(object);
-
     } catch (NotSerializableException notSerializable) {
       final String failMessage = getFailMessage(pojoClass, notSerializable);
       Affirm.fail(failMessage);
@@ -105,18 +101,15 @@ public class SerializableTester implements Tester {
   }
 
   private <T> T deSerialize(byte[] bytes, Class<T> clazz) {
+
     final T outClazz;
-
     logger.debug("De-Serializing [" + clazz.getName() + "] from byte[]");
-
     ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
     ObjectInputStream objectInputStream = null;
 
     try {
       objectInputStream = new ObjectInputStream(inputStream);
-
       outClazz = clazz.cast(objectInputStream.readObject());
-
     } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {
