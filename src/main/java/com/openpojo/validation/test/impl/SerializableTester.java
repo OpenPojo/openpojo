@@ -18,6 +18,14 @@
 
 package com.openpojo.validation.test.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
@@ -26,8 +34,6 @@ import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.utils.CloseableHelper;
-
-import java.io.*;
 
 /**
  * This tester ensures that you are able to serialize and deserialize objects without any errors.

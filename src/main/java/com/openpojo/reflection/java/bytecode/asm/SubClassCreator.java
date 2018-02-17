@@ -83,8 +83,8 @@ class SubClassCreator extends ClassVisitor {
   }
 
   private String getReturnTypeClass(String desc) {
-      Type type = Type.getReturnType(desc);
-      return type.getClassName();
+    Type type = Type.getReturnType(desc);
+    return type.getClassName();
   }
 
 }
