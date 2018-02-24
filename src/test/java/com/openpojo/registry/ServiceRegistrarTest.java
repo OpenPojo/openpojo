@@ -124,6 +124,7 @@ public class ServiceRegistrarTest {
 
             ,"sun.security.krb5.Credentials"
             ,"sun.security.krb5.EncryptionKey"
+            ,"sun.security.krb5.internal.KerberosTime"
             ,"sun.security.krb5.PrincipalName"
     };
     // @formatter:on
@@ -160,7 +161,8 @@ public class ServiceRegistrarTest {
     if (!(javaVersion.startsWith("1.5")
         || javaVersion.startsWith("1.6")
         || javaVersion.startsWith("1.7")
-        || javaVersion.startsWith("1.8")))
+        || javaVersion.startsWith("1.8")
+        || javaVersion.startsWith("9.0")))
       throw new UnsupportedOperationException("Unknown java version found " + javaVersion + " please check " +
           "the correct number of expected registered classes and register type here - (found " + randomGeneratorService
           .getRegisteredTypes().size() + ")");
