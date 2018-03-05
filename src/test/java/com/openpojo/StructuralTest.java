@@ -76,6 +76,8 @@ public class StructuralTest {
       ,com.openpojo.reflection.java.type.Resolver.class
       ,com.openpojo.reflection.java.bytecode.ByteCodeFactory.class
       ,com.openpojo.reflection.java.load.ClassUtil.class
+      ,com.openpojo.reflection.java.version.VersionParser.class
+      ,com.openpojo.reflection.java.version.VersionFactory.class
       ,com.openpojo.random.map.util.MapHelper.class
       ,com.openpojo.random.collection.util.CollectionHelper.class
       ,com.openpojo.reflection.java.bytecode.asm.ClassReaderFactory.class

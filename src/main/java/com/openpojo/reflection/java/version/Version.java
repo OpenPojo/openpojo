@@ -16,26 +16,13 @@
  * limitations under the License.
  */
 
-package com.openpojo.reflection.java.bytecode.asm;
+package com.openpojo.reflection.java.version;
 
 /**
  * @author oshoukry
  */
-public class ASMNotLoadedException extends RuntimeException {
+public interface Version extends Comparable<Version> {
+  String getVersion();
 
-  private ASMNotLoadedException() {
-    this("ASM v5.0+ library required, please see http://asm.ow2.org/");
-  }
-
-  private ASMNotLoadedException(String message) {
-    super(message);
-  }
-
-  public static ASMNotLoadedException getInstance() {
-    return new ASMNotLoadedException();
-  }
-
-  public static ASMNotLoadedException getInstance(String message) {
-    return new ASMNotLoadedException(message);
-  }
+  Integer getPart(int idx);
 }

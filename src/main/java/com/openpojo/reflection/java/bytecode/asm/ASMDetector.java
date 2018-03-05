@@ -19,12 +19,15 @@
 package com.openpojo.reflection.java.bytecode.asm;
 
 import com.openpojo.reflection.java.load.ClassUtil;
+import com.openpojo.reflection.java.version.Version;
+
+import static com.openpojo.reflection.java.version.VersionFactory.getImplementationVersion;
 
 /**
  * @author oshoukry
  */
 public class ASMDetector {
-  public String ASM_CLASS_NAME = "org.objectweb.asm.ClassWriter";
+  public static final String ASM_CLASS_NAME = "org.objectweb.asm.ClassWriter";
 
   private ASMDetector() {
   }
@@ -35,6 +38,10 @@ public class ASMDetector {
 
   public boolean isASMLoaded() {
     return ClassUtil.isClassLoaded(ASM_CLASS_NAME);
+  }
+
+  public Version getVersion() {
+    return getImplementationVersion(ClassUtil.loadClass(ASM_CLASS_NAME));
   }
 
   private static class Instance {
