@@ -21,6 +21,7 @@ package com.openpojo.reflection.impl;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -28,7 +29,8 @@ import java.util.List;
 
 import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.PojoMethod;
-import com.openpojo.reflection.utils.AttributeHelper;
+
+import static com.openpojo.reflection.utils.AttributeHelper.getFieldNameVariations;
 
 /**
  * This factory handles various method related operations on given Class or Field.
@@ -119,14 +121,22 @@ public class PojoMethodFactory {
    */
   private static List<String> generateGetMethodNames(final Field field) {
     final List<String> prefix = new LinkedList<String>();
-    prefix.add("get" + AttributeHelper.getAttributeName(field));
+    prefix.addAll(appendFieldNamesWithPrefix("get", field));
     if (field.getType() == boolean.class || field.getType() == Boolean.class) {
-      prefix.add("is" + AttributeHelper.getAttributeName(field));
+      prefix.addAll(appendFieldNamesWithPrefix("is", field));
       String fieldName = field.getName();
       if (fieldName.length() > 2 && fieldName.startsWith("is") && Character.isUpperCase(fieldName.charAt(2)))
         prefix.add(fieldName);
     }
     return prefix;
+  }
+
+  private static List<String> appendFieldNamesWithPrefix(String prefix, Field field) {
+    List<String> appendedList = new ArrayList<String>();
+    for (String entry : getFieldNameVariations(field)) {
+      appendedList.add(prefix + entry);
+    }
+    return appendedList;
   }
 
   /**
@@ -165,7 +175,7 @@ public class PojoMethodFactory {
    */
   private static List<String> generateSetMethodNames(final Field field) {
     final List<String> prefix = new LinkedList<String>();
-    prefix.add("set" + AttributeHelper.getAttributeName(field));
+    prefix.addAll(appendFieldNamesWithPrefix("set", field));
     String fieldName = field.getName();
     if (fieldName.length() > 2 && fieldName.startsWith("is") && Character.isUpperCase(fieldName.charAt(2)))
       prefix.add("set" + fieldName.substring(2));

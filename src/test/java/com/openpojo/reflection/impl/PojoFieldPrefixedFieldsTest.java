@@ -18,6 +18,8 @@
 
 package com.openpojo.reflection.impl;
 
+import java.lang.reflect.Field;
+
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.cache.PojoCache;
@@ -62,9 +64,10 @@ public class PojoFieldPrefixedFieldsTest {
   }
 
   @Test(expected = ReflectionException.class)
-  public void shouldFailAttributeName() {
+  public void shouldFailAttributeName() throws NoSuchFieldException {
     AttributeHelper.registerFieldPrefix("mName");
-    PojoClassFactory.getPojoClass(AClassWithFieldsPrefixed.class);
+    Field mNameField = AClassWithFieldsPrefixed.class.getDeclaredField("mName");
+    AttributeHelper.getAttributeName(mNameField);
   }
 
   @Test
