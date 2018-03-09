@@ -66,11 +66,11 @@ public class VersionImp implements Version {
       if (rightPart == null)
         return 1;
 
+      if (leftPart < rightPart)
+        return -1;
+
       if (leftPart > rightPart)
         return 1;
-
-      if (rightPart > leftPart)
-        return -1;
 
     } while (true);
   }
