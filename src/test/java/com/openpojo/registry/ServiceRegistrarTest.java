@@ -34,7 +34,8 @@ public class ServiceRegistrarTest {
   private String javaVersion = System.getProperty("java.version");
   private final String[] expectedDefaultTypeNames = new String[] {
       // @formatter:off
-            "java.lang.Boolean"
+            "java.awt.image.BufferedImage"
+            ,"java.lang.Boolean"
             ,"java.lang.Byte"
             ,"java.lang.Character"
             ,"java.lang.Class"

@@ -19,6 +19,7 @@
 package com.openpojo.registry;
 
 import com.openpojo.business.BusinessIdentity;
+import com.openpojo.random.awt.BufferedImageRandomGenerator;
 import com.openpojo.random.collection.AbstractCollectionRandomGenerator;
 import com.openpojo.random.collection.CollectionRandomGenerator;
 import com.openpojo.random.collection.list.*;
@@ -78,6 +79,9 @@ public class ServiceRegistrar {
     newRandomGeneratorService.registerRandomGenerator(UUIDRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(URLRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(URIRandomGenerator.getInstance());
+
+    // AWT
+    newRandomGeneratorService.registerRandomGenerator(BufferedImageRandomGenerator.getInstance());
 
     // Time
     newRandomGeneratorService.registerRandomGenerator(ZonedDateTimeRandomGenerator.getInstance());
