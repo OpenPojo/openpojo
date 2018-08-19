@@ -78,6 +78,21 @@ public class URLToFileSystemAdapterTest {
       expectedFilePath = pathSeperator + expectedFilePath;
     validateURLtoExpectedFilePath(expectedFilePath, "file://ourserver.com/A%20Server%20Path/");
   }
+  
+    @Test
+    /**
+     * Issue where scanned JAR does not create the file path correctly (gets file: instead of file://). Example of what is found:
+     *     jar:file:/Users/userid/.m2/repository/com/someproject/mydto/1.0.2-SNAPSHOT/mydto-1.0.2-SNAPSHOT.jar!/com/someproject/dto/MyDto.class
+     * 
+     * Without the change this test will throw:
+     *  com.openpojo.reflection.exception.ReflectionException: Relative path in absolute URI:
+     *  file://sers/userid/.m2/repository/com/someproject/mydto/1.0.2-SNAPSHOT/mydto-1.0.2-SNAPSHOT.jar!/com/someproject/dto/MyDto.class
+     */
+    public void issue118_JarFilepathNotFormedCorrectly() {
+      validateURLtoExpectedFilePath(rootPrefix
+        + "Users/userid/.m2/repository/com/someproject/mydto/1.0.2-SNAPSHOT/mydto-1.0.2-SNAPSHOT.jar!/com/someproject/dto/MyDto.class",
+          "jar:file:/Users/userid/.m2/repository/com/someproject/mydto/1.0.2-SNAPSHOT/mydto-1.0.2-SNAPSHOT.jar!/com/someproject/dto/MyDto.class");
+    }
 
   private void validateURLtoExpectedFilePath(String expectedFilePath, String url) {
     try {
