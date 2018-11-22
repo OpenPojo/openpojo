@@ -40,7 +40,7 @@ public class IssueTest {
   private PojoClass pojoClass;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     pojoClass = PojoClassFactory.getPojoClass(ClassAggregatingAbstractClass.class);
     RandomGeneratorService randomGeneratorService = ServiceRegistrar.getInstance().getRandomGeneratorService();
     randomGeneratorService.registerRandomGenerator(new AbstractClassRandomGenerator());
