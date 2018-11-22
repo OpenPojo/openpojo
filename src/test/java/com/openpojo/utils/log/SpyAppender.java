@@ -69,10 +69,8 @@ public class SpyAppender implements Appender {
 
   public void stopCaptureForLogger(String loggerName) {
     final Level priorLevel = priorLevels.get(loggerName);
-    if (priorLevel != null) {
-      setLogLevel(loggerName, priorLevel);
-      LogManager.getLogger(loggerName).removeAppender(this);
-    }
+    setLogLevel(loggerName, priorLevel);
+    LogManager.getLogger(loggerName).removeAppender(this);
   }
 
   private Level getLogLevel(String loggerName) {
