@@ -36,7 +36,7 @@ import com.openpojo.reflection.java.version.VersionFactory;
 public class ByteCodeFactory {
   private static final Logger LOGGER = LoggerFactory.getLogger(ByteCodeFactory.class);
   private static final Version asm_min_version = VersionFactory.getVersion("5.0");
-  private static final Version asm_max_version = VersionFactory.getVersion("6.0");
+  private static final Version asm_max_version = VersionFactory.getVersion("7.0");
 
   private static boolean asm_enabled = ASMDetector.getInstance().isASMLoaded();
   private static Version asm_version = ASMDetector.getInstance().getVersion();
@@ -63,7 +63,7 @@ public class ByteCodeFactory {
       throw ASMNotLoadedException.getInstance("Incorrect version of ASM found, "
           + "expected versions between ["
           + asm_min_version.getVersion()
-          + " and less than"
+          + " and less than "
           + asm_max_version.getVersion()
           + "] found [" + asm_version.getVersion() + "]");
     }
