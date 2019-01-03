@@ -32,6 +32,7 @@ public class URLToFileSystemAdapter {
   private static final String FILE_PROTOCOL = "file";
   private static final String JAR_PROTOCOL = "jar";
   private static final String PROTOCOL_SEPARATOR = "://";
+  private static final String PROTOCOL_SEPARATOR_SHORT = ":";
 
   private String protocol;
   private final String authority;
@@ -68,7 +69,9 @@ public class URLToFileSystemAdapter {
   private void fixProtocolAndPath() {
     if (protocol.equals(JAR_PROTOCOL) && path.startsWith(FILE_PROTOCOL)) {
       this.protocol = FILE_PROTOCOL;
-      this.path = path.substring(FILE_PROTOCOL.length() + PROTOCOL_SEPARATOR.length());
+      int length = FILE_PROTOCOL.length() + (path.contains(PROTOCOL_SEPARATOR) ? PROTOCOL_SEPARATOR.length()
+          : PROTOCOL_SEPARATOR_SHORT.length());
+      this.path = path.substring(length);
     }
   }
 
