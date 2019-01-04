@@ -29,7 +29,6 @@ import com.openpojo.reflection.java.load.ClassUtil;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
 
-
 /**
  * There are three default accepted naming schemes for test classes.
  * <ul>
@@ -37,9 +36,9 @@ import com.openpojo.validation.rule.Rule;
  * <li> Test begins with Test
  * <li> Test ends with TestCase
  * </ul>
- *
- * To override the accepted list use the {@link #TestClassMustBeProperlyNamedRule(Collection prefix, Collection postfix)
- * TestClassMustBeProperlyNamedRule}
+ * <p>
+ * To override the accepted list use the {@link #TestClassMustBeProperlyNamedRule(Collection, Collection, Collection)}
+ * TestClassMustBeProperlyNamedRule
  *
  * @author oshoukry
  */
@@ -47,18 +46,19 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
 
   public static final String[] DEFAULT_PREFIX_TOKENS = { "Test" };
   public static final String[] DEFAULT_SUFFIX_TOKENS = { "Test", "TestCase" };
+  public static final String[] DEFAULT_ANNOTATIONS = { "org.testng.annotations.Test", "org.junit.Test",
+      "org.junit.jupiter.api.Test" };
 
   private final Collection<String> prefixes;
   private final Collection<String> suffixes;
 
-  public static final String DEFAULT_ANNOTATIONS[] = { "org.testng.annotations.Test", "org.junit.Test" };
   private final Collection<Class<? extends Annotation>> loadedAnnotations = new ArrayList<Class<? extends Annotation>>();
 
   /**
    * This constructor used the default is prefix "Test", suffixes "Test" &amp; "TestCase".
    */
   public TestClassMustBeProperlyNamedRule() {
-    this(Arrays.asList(DEFAULT_PREFIX_TOKENS), Arrays.asList(DEFAULT_SUFFIX_TOKENS));
+    this(Arrays.asList(DEFAULT_PREFIX_TOKENS), Arrays.asList(DEFAULT_SUFFIX_TOKENS), Arrays.asList(DEFAULT_ANNOTATIONS));
   }
 
   /**
@@ -71,18 +71,23 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
    *     the suffix list to use
    */
   @SuppressWarnings("unchecked")
-  public TestClassMustBeProperlyNamedRule(Collection<String> prefixes, Collection<String> suffixes) {
+  public TestClassMustBeProperlyNamedRule(Collection<String> prefixes,
+                                          Collection<String> suffixes,
+                                          Collection<String> annotations) {
     this.prefixes = prefixes;
     this.suffixes = suffixes;
-    for (String annotation : DEFAULT_ANNOTATIONS) {
+    for (String annotation : annotations) {
       Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) ClassUtil.loadClass(annotation);
       if (annotationClass != null) {
         loadedAnnotations.add(annotationClass);
       }
     }
 
-    if (loadedAnnotations.size() == 0)
-      throw new IllegalStateException("No annotations loaded, expected any of " + Arrays.toString(DEFAULT_ANNOTATIONS));
+    if (loadedAnnotations.size() == 0) {
+      ArrayList<String> namedAnnotations = new ArrayList<String>();
+      namedAnnotations.addAll(annotations);
+      throw new IllegalStateException("No annotations loaded, expected any of " + namedAnnotations);
+    }
   }
 
   @SuppressWarnings("unchecked")
