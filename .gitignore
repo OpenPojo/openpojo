@@ -4,3 +4,6 @@ target/
 openpojo.iml
 .clover
 *.out
+scripts/docker/jdk-7u80-linux-x64.tar.gz
+scripts/docker/jdk-8u152-linux-x64.tar.gz
+scripts/docker/jdk-9.0.4_linux-x64_bin.tar.gz
