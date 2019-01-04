@@ -26,6 +26,7 @@ import java.io.File;
 public interface Java {
   char PACKAGE_DELIMITER = '.';
   char PATH_DELIMITER = '/';
+  char JAR_FILE_PATH_SEPARATOR = '!';
   String CLASS_EXTENSION = ".class";
   String PACKAGE_INFO = "package-info";
   String CLASSPATH_DELIMITER = File.pathSeparator;

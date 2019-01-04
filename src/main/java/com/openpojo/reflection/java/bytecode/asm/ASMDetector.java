@@ -18,8 +18,12 @@
 
 package com.openpojo.reflection.java.bytecode.asm;
 
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.load.ClassUtil;
+import com.openpojo.reflection.java.packageloader.reader.JarFileReader;
 import com.openpojo.reflection.java.version.Version;
+import com.openpojo.reflection.java.version.VersionFactory;
 
 import static com.openpojo.reflection.java.version.VersionFactory.getImplementationVersion;
 
@@ -28,6 +32,7 @@ import static com.openpojo.reflection.java.version.VersionFactory.getImplementat
  */
 public class ASMDetector {
   public static final String ASM_CLASS_NAME = "org.objectweb.asm.ClassWriter";
+  private static final String VERSION_MANIFEST_KEY_FALLBACK = "Bundle-Version";
 
   private ASMDetector() {
   }
@@ -41,7 +46,27 @@ public class ASMDetector {
   }
 
   public Version getVersion() {
-    return getImplementationVersion(ClassUtil.loadClass(ASM_CLASS_NAME));
+    Class<?> clazz = ClassUtil.loadClass(ASM_CLASS_NAME);
+    Version implementationVersion = getImplementationVersion(clazz);
+    if (implementationVersion.getVersion() == null) {
+      implementationVersion = getBundleVersion(clazz);
+    }
+    return implementationVersion;
+  }
+
+  public Version getBundleVersion(Class<?> clazz) {
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
+    String sourcePath = pojoClass.getSourcePath();
+
+    Version bundleVersion = null;
+
+    try {
+      String jarFilePath = JarFileReader.getJarFileNameFromURLPath(sourcePath);
+      String bundleVersionManifestEntry = JarFileReader.getInstance(jarFilePath).getManifestEntry(VERSION_MANIFEST_KEY_FALLBACK);
+      bundleVersion = VersionFactory.getVersion(bundleVersionManifestEntry);
+    } catch (Exception ignored) { }
+
+    return bundleVersion;
   }
 
   private static class Instance {

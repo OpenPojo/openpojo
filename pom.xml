@@ -84,7 +84,7 @@
   </issueManagement>
 
   <properties>
-    <asm.version>5.2</asm.version>
+    <asm.version>7.0</asm.version>
     <coveralls-maven-plugin.version>3.0.1</coveralls-maven-plugin.version>
     <hamcrest-all.version>1.3</hamcrest-all.version>
     <jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>

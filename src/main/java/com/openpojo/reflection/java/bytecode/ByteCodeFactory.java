@@ -35,8 +35,8 @@ import com.openpojo.reflection.java.version.VersionFactory;
  */
 public class ByteCodeFactory {
   private static final Logger LOGGER = LoggerFactory.getLogger(ByteCodeFactory.class);
-  private static final Version asm_min_version = VersionFactory.getVersion("5.0");
-  private static final Version asm_max_version = VersionFactory.getVersion("7.0");
+  public static final Version ASM_MIN_VERSION = VersionFactory.getVersion("5.0.0");
+  public static final Version ASM_MAX_VERSION = VersionFactory.getVersion("7.0.0");
 
   private static boolean asm_enabled = ASMDetector.getInstance().isASMLoaded();
   private static Version asm_version = ASMDetector.getInstance().getVersion();
@@ -59,12 +59,12 @@ public class ByteCodeFactory {
     if (!asm_enabled)
       throw ASMNotLoadedException.getInstance();
 
-    if (asm_min_version.compareTo(asm_version) >= 0 || asm_max_version.compareTo(asm_version) < 0) {
+    if (ASM_MIN_VERSION.compareTo(asm_version) >= 0 || ASM_MAX_VERSION.compareTo(asm_version) < 0) {
       throw ASMNotLoadedException.getInstance("Incorrect version of ASM found, "
           + "expected versions between ["
-          + asm_min_version.getVersion()
-          + " and less than "
-          + asm_max_version.getVersion()
+          + ASM_MIN_VERSION.getVersion()
+          + " and not greater than "
+          + ASM_MAX_VERSION.getVersion()
           + "] found [" + asm_version.getVersion() + "]");
     }
   }
@@ -94,6 +94,6 @@ public class ByteCodeFactory {
   }
 
   private ByteCodeFactory() {
-    throw new UnsupportedOperationException(ByteCodeFactory.class.getName() +  " should not be constructed!");
+    throw new UnsupportedOperationException(ByteCodeFactory.class.getName() + " should not be constructed!");
   }
 }
