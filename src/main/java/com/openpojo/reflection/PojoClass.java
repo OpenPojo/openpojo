@@ -117,6 +117,13 @@ public interface PojoClass extends PojoElement, Accessible {
   List<PojoMethod> getPojoConstructors();
 
   /**
+   * If this is a nested class, get enclosing class.
+   *
+   * @return the enclosing class' PojoClass, or null.
+   */
+  PojoClass getEnclosingClass();
+
+  /**
    * Checks to see if class extends/implements a certain type.
    *
    * @param type

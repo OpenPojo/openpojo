@@ -119,6 +119,13 @@ public class PojoClassImpl implements PojoClass {
     return constructors;
   }
 
+  public PojoClass getEnclosingClass() {
+    if (isNestedClass())
+      return PojoClassFactory.getPojoClass(clazz.getEnclosingClass());
+
+    return null;
+  }
+
   public String getName() {
     return name;
   }
