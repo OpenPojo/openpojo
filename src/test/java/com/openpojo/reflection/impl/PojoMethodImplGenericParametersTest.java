@@ -23,10 +23,13 @@ import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
+import com.openpojo.reflection.PojoParameter;
 import com.openpojo.reflection.impl.sample.classes.AClassWithGenericParameterConstructor;
 import com.openpojo.reflection.impl.sample.classes.AClassWithGenericParameterMethod;
+import com.openpojo.reflection.impl.sample.classes.AClassWithNestedClass;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
 
@@ -84,4 +87,49 @@ public class PojoMethodImplGenericParametersTest {
 
   }
 
+  @Test
+  public void shouldHaveOneParameterForInstanceNestedClassWhenNoneDeclared() {
+    PojoClass pojoclass = PojoClassFactory.getPojoClass(AClassWithNestedClass.NestedClass.class);
+    List<PojoMethod> pojoConstructors = pojoclass.getPojoConstructors();
+    Affirm.affirmEquals("Should have only one constructor", 1, pojoConstructors.size());
+    PojoMethod constructor = pojoConstructors.get(0);
+    List<PojoParameter> pojoParameters = constructor.getPojoParameters();
+    Affirm.affirmEquals("Should have 1 parameter", 1, pojoParameters.size());
+    Affirm.affirmFalse("Should be nonParameterized parameter", pojoParameters.get(0).isParameterized());
+    Affirm.affirmEquals("Should be enclosing type", constructor.getParameterTypes()[0], pojoclass.getEnclosingClass().getClazz());
+  }
+
+  @Test
+  public void shouldHaveTwoParametersWithWhenOneParameterDeclared() {
+    PojoClass pojoclass = PojoClassFactory.getPojoClass(AClassWithNestedClass.NestedClassWithOneParamConstructor.class);
+    List<PojoMethod> pojoConstructors = pojoclass.getPojoConstructors();
+    Affirm.affirmEquals("Should have only one constructor", 1, pojoConstructors.size());
+    PojoMethod constructor = pojoConstructors.get(0);
+    List<PojoParameter> pojoParameters = constructor.getPojoParameters();
+    Affirm.affirmEquals("Should have 2 parameter", 2, pojoParameters.size());
+    Affirm.affirmFalse("Should be nonParameterized parameter", pojoParameters.get(0).isParameterized());
+    Affirm.affirmEquals("Should be enclosing type", constructor.getParameterTypes()[0], pojoclass.getEnclosingClass().getClazz());
+    Affirm.affirmEquals("Should be int type", constructor.getParameterTypes()[1], int.class);
+  }
+
+  @Test
+  public void shouldBeAbleToConstructNestedChildWithNoParameters() {
+    PojoClass pojoclass = PojoClassFactory.getPojoClass(AClassWithNestedClass.NestedClass.class);
+    Object instance = RandomFactory.getRandomValue(pojoclass.getClazz());
+    Affirm.affirmEquals("Should be same type", pojoclass.getClazz(), instance.getClass());
+  }
+
+  @Test
+  public void shouldBeAbletoConstructNestedChileWithOneParameter() {
+    PojoClass pojoclass = PojoClassFactory.getPojoClass(AClassWithNestedClass.NestedClassWithOneParamConstructor.class);
+    Object instance = RandomFactory.getRandomValue(pojoclass.getClazz());
+    Affirm.affirmEquals("Should be same type", pojoclass.getClazz(), instance.getClass());
+  }
+
+  @Test
+  public void shouldBeAbletoConstructNestedChileWithOneGenericParameter() {
+    PojoClass pojoclass = PojoClassFactory.getPojoClass(AClassWithNestedClass.NestedClassWithOneGenericParamConstructor.class);
+    Object instance = RandomFactory.getRandomValue(pojoclass.getClazz());
+    Affirm.affirmEquals("Should be same type", pojoclass.getClazz(), instance.getClass());
+  }
 }

@@ -18,16 +18,30 @@
 
 package com.openpojo.reflection.impl.sample.classes;
 
+import java.util.List;
+
 /**
  * @author oshoukry
  */
+@SuppressWarnings("unused")
 public class AClassWithNestedClass {
 
   public class NestedClass {
 
   }
 
+  public class NestedClassWithOneParamConstructor {
+    private NestedClassWithOneParamConstructor(int someParam) {
+    }
+  }
+
+  public class NestedClassWithOneGenericParamConstructor {
+    private NestedClassWithOneGenericParamConstructor(List<String> someParam) {
+    }
+  }
+
   public static class NestedStaticClass {
+
 
   }
 }
