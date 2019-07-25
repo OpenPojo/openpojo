@@ -31,6 +31,7 @@ import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
+import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.utils.CloseableHelper;
@@ -38,10 +39,22 @@ import com.openpojo.validation.utils.CloseableHelper;
 /**
  * This tester ensures that you are able to serialize and deserialize objects without any errors.
  *
+ * If used with StrictValidation, the SerializableTester will fail if a member variable is an interface
+ * and the interface doesn't explicitly extend Serializable.
+ *
  * @author oshoukry
  */
 public class SerializableTester implements Tester {
   private final Logger logger = LoggerFactory.getLogger(SerializableTester.class);
+  private final boolean useStrictValidation;
+
+  public SerializableTester() {
+    this(false);
+  }
+
+  public SerializableTester(boolean useStrictValidation) {
+    this.useStrictValidation = useStrictValidation;
+  }
 
   public void run(PojoClass pojoClass) {
     final Class<?> clazz = pojoClass.getClazz();
@@ -65,9 +78,19 @@ public class SerializableTester implements Tester {
   private void ensureNoFieldsAreNull(PojoClass pojoClass, Object instance) {
     PojoClass currentPojo = pojoClass;
     while (currentPojo != null) {
-      for (PojoField field : currentPojo.getPojoFields())
+      for (PojoField field : currentPojo.getPojoFields()) {
+        PojoClass fieldClass = PojoClassFactory.getPojoClass(field.getType());
+        if (useStrictValidation && !fieldClass.extendz(Serializable.class) && fieldClass.isInterface() && !field.isTransient()) {
+          Affirm.fail("Field ["
+                  + field.getName()
+                  + "] is an interface that allows non-Serializable types on a Serializable ["
+                  + pojoClass.getClazz()
+                  + "]"
+              );
+        }
         if (field.get(instance) == null)
           field.set(instance, RandomFactory.getRandomValue(field));
+      }
       currentPojo = currentPojo.getSuperClass();
     }
   }

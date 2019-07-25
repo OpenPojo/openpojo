@@ -18,6 +18,7 @@
 
 package com.openpojo.random.dynamic;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
 import com.openpojo.reflection.PojoClass;
@@ -53,8 +54,11 @@ public class RandomInstanceFromInterfaceRandomGenerator {
       throw ReflectionException.getInstance(
           String.format("[%s] is not an interface, can't create a proxy for concrete or abstract types.", pojoClass.getName()));
     }
+
+    InvocationHandler handler = RandomReturnInvocationHandler.getInstance();
+
     return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-        new Class<?>[] { pojoClass.getClazz() }, RandomReturnInvocationHandler.getInstance());
+        new Class<?>[] { pojoClass.getClazz() }, handler);
   }
 
   private static class Instance {
