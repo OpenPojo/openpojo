@@ -22,7 +22,7 @@ import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.generator.AbstractGeneratorTest;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import sun.security.krb5.EncryptionKey;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * @author oshoukry
@@ -34,7 +34,10 @@ public class EncryptionKeyRandomGeneratorTest extends AbstractGeneratorTest {
   }
 
   protected String getTypeName() {
-    return EncryptionKey.class.getName();
+    Class<?> encryptionKeyClass = ClassUtil.loadClass("sun.security.krb5.EncryptionKey");
+    if (encryptionKeyClass != null)
+      return encryptionKeyClass.getName();
+    return null;
   }
 
   protected RandomGenerator getRandomGenerator() {

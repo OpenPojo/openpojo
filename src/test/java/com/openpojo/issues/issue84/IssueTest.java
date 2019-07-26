@@ -21,23 +21,39 @@ package com.openpojo.issues.issue84;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.bytecode.asm.SimpleClassLoader;
+import com.openpojo.reflection.java.load.ClassUtil;
 import com.openpojo.validation.Validator;
 import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
-import sun.security.krb5.Credentials;
 
 /**
  * @author oshoukry
  */
 public class IssueTest {
+  private Class<?> classWithCredentialsDumperClass;
+  private Class<?> credentialsClass;
+
+  @Before
+  public void setup() throws Exception {
+    credentialsClass = ClassUtil.loadClass("sun.security.krb5.Credentials");
+    Assume.assumeTrue(credentialsClass != null);
+    classWithCredentialsDumperClass = getClassWithCredentialsDumperClass();
+  }
+
+  private Class<?> getClassWithCredentialsDumperClass() throws Exception {
+    return new SimpleClassLoader().loadThisClass(ClassWithCredentialsDumper.dump(), "com.openpojo.issues.issue84.ClassWithCredentials");
+  }
 
   @Test
   public void end2endTest() {
-    PojoClass pojoClass = PojoClassFactory.getPojoClass(ClassWithCredentials.class);
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(classWithCredentialsDumperClass);
     Validator validator = ValidatorBuilder.create()
         .with(new GetterTester())
         .with(new SetterTester())
@@ -47,7 +63,8 @@ public class IssueTest {
 
   @Test
   public void canGenerateCredentials() {
-    Credentials credentials = RandomFactory.getRandomValue(Credentials.class);
+    Object credentials = RandomFactory.getRandomValue(credentialsClass);
     Assert.assertThat(credentials, CoreMatchers.notNullValue());
   }
+
 }

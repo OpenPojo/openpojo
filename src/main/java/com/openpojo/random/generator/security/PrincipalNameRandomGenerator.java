@@ -18,23 +18,29 @@
 
 package com.openpojo.random.generator.security;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.exception.RandomGeneratorException;
-import sun.security.krb5.PrincipalName;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.construct.InstanceFactory;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * @author oshoukry
  */
 public class PrincipalNameRandomGenerator implements RandomGenerator {
 
-  private static final Class<?>[] TYPES = new Class<?>[] { PrincipalName.class };
+  private static final String TYPE = "sun.security.krb5.PrincipalName";
+  private final Class<?> principalNameClass;
   private static final PrincipalNameRandomGenerator INSTANCE = new PrincipalNameRandomGenerator();
 
   private PrincipalNameRandomGenerator() {
+    principalNameClass = ClassUtil.loadClass(TYPE);
   }
 
   public static RandomGenerator getInstance() {
@@ -42,16 +48,18 @@ public class PrincipalNameRandomGenerator implements RandomGenerator {
   }
 
   public Collection<Class<?>> getTypes() {
-    return Arrays.asList(TYPES);
+    List<Class<?>> supported = new ArrayList<Class<?>>();
+    if (principalNameClass != null)
+      supported.add(principalNameClass);
+    return supported;
   }
 
   public Object doGenerate(Class<?> type) {
     try {
-      //noinspection ConstantConditions
-      return new PrincipalName(getPrincipleParsableString()
-      );
+      PojoClass pojoClass = PojoClassFactory.getPojoClass(principalNameClass);
+      return InstanceFactory.getInstance(pojoClass, getPrincipleParsableString());
     } catch (Exception e) {
-      throw RandomGeneratorException.getInstance("Failed to generate " + TYPES[0].getName() + " instance.", e);
+      throw RandomGeneratorException.getInstance("Failed to generate " + TYPE + " instance.", e);
     }
   }
 

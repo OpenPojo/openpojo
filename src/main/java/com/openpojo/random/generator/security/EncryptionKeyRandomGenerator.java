@@ -18,21 +18,28 @@
 
 package com.openpojo.random.generator.security;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
-import sun.security.krb5.EncryptionKey;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.construct.InstanceFactory;
+import com.openpojo.reflection.impl.PojoClassFactory;
+
+import static com.openpojo.reflection.java.load.ClassUtil.loadClass;
 
 /**
  * @author oshoukry
  */
 public class EncryptionKeyRandomGenerator implements RandomGenerator {
-  private static final Class<?>[] TYPES = new Class<?>[] { EncryptionKey.class };
-  private static final RandomGenerator INSTANCE = new EncryptionKeyRandomGenerator();
+  private static final String TYPE = "sun.security.krb5.EncryptionKey";
+  private final Class<?> encryptionKeyClass;
+  private static final EncryptionKeyRandomGenerator INSTANCE = new EncryptionKeyRandomGenerator();
 
   private EncryptionKeyRandomGenerator() {
+    encryptionKeyClass = loadClass(TYPE);
   }
 
   public static RandomGenerator getInstance() {
@@ -40,11 +47,14 @@ public class EncryptionKeyRandomGenerator implements RandomGenerator {
   }
 
   public Collection<Class<?>> getTypes() {
-    return Arrays.asList(TYPES);
+    List<Class<?>> supported = new ArrayList<Class<?>>();
+    if (encryptionKeyClass != null)
+      supported.add(encryptionKeyClass);
+    return supported;
   }
 
   public Object doGenerate(Class<?> type) {
-    //noinspection ConstantConditions
-    return new EncryptionKey(RandomFactory.getRandomValue(byte[].class),  RandomFactory.getRandomValue(Integer.class), null);
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(encryptionKeyClass);
+    return InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(byte[].class),  RandomFactory.getRandomValue(Integer.class), null);
   }
 }

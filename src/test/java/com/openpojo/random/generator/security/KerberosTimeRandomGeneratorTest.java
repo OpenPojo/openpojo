@@ -22,7 +22,7 @@ import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.generator.AbstractGeneratorTest;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import sun.security.krb5.internal.KerberosTime;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * @author oshoukry
@@ -34,7 +34,10 @@ public class KerberosTimeRandomGeneratorTest extends AbstractGeneratorTest {
   }
 
   protected String getTypeName() {
-    return KerberosTime.class.getName();
+    Class<?> kerberosTimeClass = ClassUtil.loadClass("sun.security.krb5.internal.KerberosTime");
+    if (kerberosTimeClass != null)
+      return kerberosTimeClass.getName();
+    return null;
   }
 
   protected RandomGenerator getRandomGenerator() {

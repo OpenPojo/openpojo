@@ -18,21 +18,27 @@
 
 package com.openpojo.random.generator.security;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
 
 import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
-import sun.security.krb5.internal.KerberosTime;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.construct.InstanceFactory;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * @author oshoukry
  */
 public class KerberosTimeRandomGenerator implements RandomGenerator {
-  private static final Class<?>[] TYPES = new Class<?>[] { KerberosTime.class };
+  private static final String TYPE = "sun.security.krb5.internal.KerberosTime";
+  private final Class<?> kerberosTimeClass;
   private static final KerberosTimeRandomGenerator INSTANCE = new KerberosTimeRandomGenerator();
 
   private KerberosTimeRandomGenerator() {
+    kerberosTimeClass = ClassUtil.loadClass(TYPE);
   }
 
   public static RandomGenerator getInstance() {
@@ -40,10 +46,14 @@ public class KerberosTimeRandomGenerator implements RandomGenerator {
   }
 
   public Collection<Class<?>> getTypes() {
-    return Arrays.asList(TYPES);
+    List<Class<?>> supported = new ArrayList<Class<?>>();
+    if (kerberosTimeClass != null)
+      supported.add(kerberosTimeClass);
+    return supported;
   }
 
   public Object doGenerate(Class<?> type) {
-    return new KerberosTime(RandomFactory.getRandomValue(long.class));
+    PojoClass pojoClass = PojoClassFactory.getPojoClass(kerberosTimeClass);
+    return InstanceFactory.getInstance(pojoClass, RandomFactory.getRandomValue(long.class));
   }
 }

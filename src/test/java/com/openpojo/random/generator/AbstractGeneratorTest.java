@@ -28,6 +28,7 @@ import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.java.load.ClassUtil;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -40,6 +41,11 @@ public abstract class AbstractGeneratorTest {
   protected abstract String getTypeName();
 
   protected abstract RandomGenerator getRandomGenerator();
+
+  @Before
+  public void before() {
+    Assume.assumeTrue(getTypeName() != null);
+  }
 
   @Test
   public void singlePrivateConstructor() {
