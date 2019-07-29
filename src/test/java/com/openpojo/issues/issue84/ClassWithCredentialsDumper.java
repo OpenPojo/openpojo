@@ -41,7 +41,7 @@ import static org.objectweb.asm.Opcodes.*;
  *      this.credentials = credentials;
  *    }
  *  }
- *
+ *}
  * @author oshoukry
  */
  //@formatter:on
