@@ -84,7 +84,7 @@
 
   <properties>
     <asm.version>7.1</asm.version>
-    <coveralls-maven-plugin.version>3.0.1</coveralls-maven-plugin.version>
+    <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
     <hamcrest-all.version>1.3</hamcrest-all.version>
     <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
     <jdk.sourceEncoding>UTF-8</jdk.sourceEncoding>
