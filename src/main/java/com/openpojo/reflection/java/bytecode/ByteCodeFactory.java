@@ -36,7 +36,7 @@ import com.openpojo.reflection.java.version.VersionFactory;
 public class ByteCodeFactory {
   private static final Logger LOGGER = LoggerFactory.getLogger(ByteCodeFactory.class);
   public static final Version ASM_MIN_VERSION = VersionFactory.getVersion("5.0.0");
-  public static final Version ASM_MAX_VERSION = VersionFactory.getVersion("7.0.0");
+  public static final Version ASM_MAX_VERSION = VersionFactory.getVersion("7.1.0");
 
   private static boolean asm_enabled = ASMDetector.getInstance().isASMLoaded();
   private static Version asm_version = ASMDetector.getInstance().getVersion();
