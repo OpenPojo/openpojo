@@ -186,7 +186,7 @@
         <version>${surefire.version}</version>
         <configuration>
           <testNGArtifactName>none:none</testNGArtifactName>
-          <argLine>-Xms1024m -Xmx1024m</argLine>
+          <argLine>@{argLine} -Xms1024m -Xmx1024m</argLine>
         </configuration>
       </plugin>
       <plugin>
