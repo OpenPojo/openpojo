@@ -69,6 +69,8 @@ public class TestClassMustBeProperlyNamedRule implements Rule {
    *     the prefix list to use.
    * @param suffixes
    *     the suffix list to use
+   * @param annotations
+   *     collection of annotations considered test markers (for example @Test in JUnit)
    */
   @SuppressWarnings("unchecked")
   public TestClassMustBeProperlyNamedRule(Collection<String> prefixes,
