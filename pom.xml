@@ -27,7 +27,7 @@
 
   <groupId>com.openpojo</groupId>
   <artifactId>openpojo</artifactId>
-  <version>0.8.13</version>
+  <version>0.8.14-SNAPSHOT</version>
   <name>${project.artifactId}</name>
 
   <description>This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
@@ -75,7 +75,7 @@
     <connection>scm:git:git://github.com/oshoukry/openpojo.git</connection>
     <developerConnection>scm:git:git@github.com:oshoukry/openpojo.git</developerConnection>
     <url>https://github.com/oshoukry/openpojo</url>
-    <tag>openpojo-0.8.13</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
