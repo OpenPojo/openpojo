@@ -20,6 +20,8 @@ package com.openpojo.validation.utils;
 
 import java.util.List;
 
+import com.openpojo.log.LoggerFactory;
+import com.openpojo.log.impl.Log4JLogger;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -70,6 +72,7 @@ public class ValidationHelperTest {
 
   @Test
   public void shouldReportMissingASMProperly() {
+    LoggerFactory.setActiveLogger(Log4JLogger.class);
     Validator validator = ValidatorBuilder.create()
         .with(new Tester() {
           public void run(PojoClass pojoClass) {
