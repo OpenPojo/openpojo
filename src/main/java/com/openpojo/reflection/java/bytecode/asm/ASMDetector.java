@@ -55,16 +55,17 @@ public class ASMDetector {
   }
 
   public Version getBundleVersion(Class<?> clazz) {
-    PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
-    String sourcePath = pojoClass.getSourcePath();
-
-    Version bundleVersion = null;
+    Version bundleVersion;
 
     try {
+      PojoClass pojoClass = PojoClassFactory.getPojoClass(clazz);
+      String sourcePath = pojoClass.getSourcePath();
       String jarFilePath = JarFileReader.getJarFileNameFromURLPath(sourcePath);
       String bundleVersionManifestEntry = JarFileReader.getInstance(jarFilePath).getManifestEntry(VERSION_MANIFEST_KEY_FALLBACK);
       bundleVersion = VersionFactory.getVersion(bundleVersionManifestEntry);
-    } catch (Exception ignored) { }
+    } catch (Exception ignored) {
+      bundleVersion = VersionFactory.getVersion(null);
+    }
 
     return bundleVersion;
   }
