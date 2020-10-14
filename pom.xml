@@ -90,7 +90,7 @@
     <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
     <jdk.sourceEncoding>UTF-8</jdk.sourceEncoding>
     <jdk.target>1.5</jdk.target>
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <log4j.version>1.2.17</log4j.version>
     <maven.compiler.source>${jdk.target}</maven.compiler.source>
     <maven.compiler.target>${jdk.target}</maven.compiler.target>
