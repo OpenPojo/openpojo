@@ -19,7 +19,9 @@
 package com.openpojo.reflection.impl;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,7 +42,14 @@ public final class PojoFieldFactory {
    */
   public static List<PojoField> getPojoFields(final Class<?> clazz) {
     final List<PojoField> pojoFields = new LinkedList<PojoField>();
-    for (final Field field : clazz.getDeclaredFields()) {
+    Field[] declaredFields = clazz.getDeclaredFields();
+    Arrays.sort(declaredFields, new Comparator<Object>() {
+        @Override
+        public int compare(Object a, Object b) {
+          return a.toString().compareTo(b.toString());
+        }
+    });
+    for (final Field field : declaredFields) {
       pojoFields.add(new PojoFieldImpl(field));
     }
     return Collections.unmodifiableList(pojoFields);
