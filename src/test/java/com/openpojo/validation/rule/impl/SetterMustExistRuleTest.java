@@ -37,4 +37,13 @@ public class SetterMustExistRuleTest {
     CommonCode.shouldPassRuleValidation(rule, passClasses);
     CommonCode.shouldFailRuleValidation(rule, failClasses);
   }
+
+
+  @Test
+  public void shouldIgnoreSyntheticFields() {
+    CommonCode.shouldPassRuleValidation(rule, AClassWithSyntheticField.class);
+  }
+
+  private class AClassWithSyntheticField {
+  }
 }
