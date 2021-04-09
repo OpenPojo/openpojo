@@ -34,7 +34,7 @@ public class SetterMustExistRule implements Rule {
 
   public void evaluate(final PojoClass pojoClass) {
     for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-      if (!fieldEntry.isFinal() && !fieldEntry.hasSetter() && fieldEntry.isSynthetic()) {
+      if (!fieldEntry.isSynthetic() && !fieldEntry.isFinal() && !fieldEntry.hasSetter()) {
         Affirm.fail(String.format("[%s] is missing a setter", fieldEntry));
       }
     }
