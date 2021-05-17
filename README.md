@@ -1,4 +1,4 @@
-# OpenPojo [![Build Status](https://travis-ci.org/OpenPojo/openpojo.svg?branch=master)](https://travis-ci.org/OpenPojo/openpojo) [![Coverage Status](https://coveralls.io/repos/OpenPojo/openpojo/badge.svg?branch=master)](https://coveralls.io/r/OpenPojo/openpojo?branch=master)  [![Maven Central](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/openpojo/openpojo/maven-metadata.xml.svg?style=flat&colorB=007ec6)](http://search.maven.org/#search|ga|1|g%3Acom.openpojo%20a%3Aopenpojo)
+# OpenPojo [![Build Status](https://travis-ci.com/OpenPojo/openpojo.svg?branch=master)](https://travis-ci.com/OpenPojo/openpojo) [![Coverage Status](https://coveralls.io/repos/OpenPojo/openpojo/badge.svg?branch=master)](https://coveralls.io/r/OpenPojo/openpojo?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.openpojo/openpojo/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.openpojo/openpojo)
 POJO Testing &amp; Identity Management Made Trivial 
 
 Maven Group Plugin | Latest Version
