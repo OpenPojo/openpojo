@@ -72,8 +72,8 @@
   </contributors>
 
   <scm>
-    <connection>scm:git:git://github.com/openpojo/openpojo.git</connection>
-    <developerConnection>scm:git:git@github.com:openpojo/openpojo.git</developerConnection>
+    <connection>scm:git:https://github.com/OpenPojo/openpojo.git</connection>
+    <developerConnection>scm:git:https://github.com/OpenPojo/openpojo.git</developerConnection>
     <url>https://github.com/OpenPojo/openpojo</url>
     <tag>HEAD</tag>
   </scm>
