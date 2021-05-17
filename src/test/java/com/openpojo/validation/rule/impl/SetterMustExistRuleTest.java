@@ -18,11 +18,16 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.reflection.java.Java;
+import com.openpojo.reflection.java.bytecode.asm.SimpleClassLoader;
 import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.SetterDoesExistClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SetterDoesntExistClass;
+import com.openpojo.validation.utils.AClassWithSyntheticFieldDumper;
 import org.junit.Test;
+
+import static com.openpojo.reflection.java.bytecode.asm.SubClassDefinition.GENERATED_CLASS_POSTFIX;
 
 /**
  * @author oshoukry
@@ -36,5 +41,14 @@ public class SetterMustExistRuleTest {
   public void testEvaluate() {
     CommonCode.shouldPassRuleValidation(rule, passClasses);
     CommonCode.shouldFailRuleValidation(rule, failClasses);
+  }
+
+  @Test
+  public void shouldIgnoreSyntheticFields() throws Exception {
+    final SimpleClassLoader simpleClassLoader = new SimpleClassLoader();
+    final String className = this.getClass().getPackage().getName() + ".AClassWithSyntheticField" + GENERATED_CLASS_POSTFIX;
+    final String classNameAsPath = className.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
+
+    CommonCode.shouldPassRuleValidation(rule, simpleClassLoader.loadThisClass(AClassWithSyntheticFieldDumper.dump(classNameAsPath), className));
   }
 }
