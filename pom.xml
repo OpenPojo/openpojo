@@ -27,7 +27,7 @@
 
   <groupId>com.openpojo</groupId>
   <artifactId>openpojo</artifactId>
-  <version>0.8.14-SNAPSHOT</version>
+  <version>0.9.0-SNAPSHOT</version>
   <name>${project.artifactId}</name>
 
   <description>This project was born out of a need to validate all POJOs (Plain Old Java Object) are behaving correctly.
@@ -72,9 +72,9 @@
   </contributors>
 
   <scm>
-    <connection>scm:git:git://github.com/oshoukry/openpojo.git</connection>
-    <developerConnection>scm:git:git@github.com:oshoukry/openpojo.git</developerConnection>
-    <url>https://github.com/oshoukry/openpojo</url>
+    <connection>scm:git:git://github.com/openpojo/openpojo.git</connection>
+    <developerConnection>scm:git:git@github.com:openpojo/openpojo.git</developerConnection>
+    <url>https://github.com/OpenPojo/openpojo</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -90,7 +90,7 @@
     <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
     <jdk.sourceEncoding>UTF-8</jdk.sourceEncoding>
     <jdk.target>1.5</jdk.target>
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <log4j.version>1.2.17</log4j.version>
     <maven.compiler.source>${jdk.target}</maven.compiler.source>
     <maven.compiler.target>${jdk.target}</maven.compiler.target>
