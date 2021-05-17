@@ -50,6 +50,12 @@ public class ASMDetectorTest {
     assertLesserOrEqualToMaxExpected(currentVersion);
   }
 
+  @Test
+  public void shouldNotThrowNullPointerExceptionIfClassIsNotLoaded() {
+    Version version = asmDetector.getBundleVersion(null);
+    assertThat(version, notNullValue());
+  }
+
   private void assertGreaterOrEqualToMinimumExpected(Version version) {
     assertThat(version.compareTo(ByteCodeFactory.ASM_MIN_VERSION), greaterThanOrEqualTo(0));
   }
