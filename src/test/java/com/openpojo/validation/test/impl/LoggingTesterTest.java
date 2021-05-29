@@ -20,6 +20,8 @@ package com.openpojo.validation.test.impl;
 
 import java.util.List;
 
+import com.openpojo.log.LoggerFactory;
+import com.openpojo.log.impl.Log4JLogger;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -55,6 +57,7 @@ public abstract class LoggingTesterTest {
         .create()
         .with(tester)
         .build();
+    LoggerFactory.setActiveLogger(Log4JLogger.class);
   }
 
   protected abstract Tester getTester();

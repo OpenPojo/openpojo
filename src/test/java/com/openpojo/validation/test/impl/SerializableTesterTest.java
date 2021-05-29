@@ -20,6 +20,8 @@ package com.openpojo.validation.test.impl;
 
 import java.util.List;
 
+import com.openpojo.log.LoggerFactory;
+import com.openpojo.log.impl.Log4JLogger;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -62,6 +64,7 @@ public class SerializableTesterTest {
 
     spyAppender = new SpyAppender();
     spyAppender.startCaptureForLogger(testerClass);
+    LoggerFactory.setActiveLogger(Log4JLogger.class);
   }
 
   @After
