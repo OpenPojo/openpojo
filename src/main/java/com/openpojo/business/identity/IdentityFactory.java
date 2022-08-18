@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,8 +52,8 @@ public final class IdentityFactory {
         return identityHandler;
       }
     }
-    throw BusinessException.getInstance(String.format("Invalid IdentityFactory state, no IdentityHandler found for object [%s]",
-        object));
+    throw BusinessException.getInstance(
+        String.format("Invalid IdentityFactory state, no IdentityHandler found for object [%s]", object));
   }
 
   /**
@@ -89,5 +89,9 @@ public final class IdentityFactory {
   private static LinkedList<IdentityHandler> duplicateIdentityHandlers() {
     return (LinkedList<IdentityHandler>) identityHandlers.clone();
 
+  }
+
+  private IdentityFactory() {
+    throw new UnsupportedOperationException(IdentityFactory.class.getName() +  " should not be constructed!");
   }
 }

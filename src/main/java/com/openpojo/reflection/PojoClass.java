@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,6 +115,13 @@ public interface PojoClass extends PojoElement, Accessible {
    * @return the list of constructors.
    */
   List<PojoMethod> getPojoConstructors();
+
+  /**
+   * If this is a nested class, get enclosing class.
+   *
+   * @return the enclosing class' PojoClass, or null.
+   */
+  PojoClass getEnclosingClass();
 
   /**
    * Checks to see if class extends/implements a certain type.

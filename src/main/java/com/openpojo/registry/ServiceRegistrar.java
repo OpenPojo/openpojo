@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 package com.openpojo.registry;
 
 import com.openpojo.business.BusinessIdentity;
+import com.openpojo.random.awt.BufferedImageRandomGenerator;
 import com.openpojo.random.collection.AbstractCollectionRandomGenerator;
 import com.openpojo.random.collection.CollectionRandomGenerator;
 import com.openpojo.random.collection.list.*;
@@ -26,9 +27,11 @@ import com.openpojo.random.collection.queue.*;
 import com.openpojo.random.collection.set.*;
 import com.openpojo.random.generator.security.CredentialsRandomGenerator;
 import com.openpojo.random.generator.security.EncryptionKeyRandomGenerator;
+import com.openpojo.random.generator.security.KerberosTimeRandomGenerator;
 import com.openpojo.random.generator.security.PrincipalNameRandomGenerator;
 import com.openpojo.random.generator.time.InstantRandomGenerator;
 import com.openpojo.random.generator.time.TimeZoneRandomGenerator;
+import com.openpojo.random.generator.time.XMLGregorianCalendarRandomGenerator;
 import com.openpojo.random.generator.time.ZoneIdRandomGenerator;
 import com.openpojo.random.generator.time.ZonedDateTimeRandomGenerator;
 import com.openpojo.random.impl.*;
@@ -77,16 +80,21 @@ public class ServiceRegistrar {
     newRandomGeneratorService.registerRandomGenerator(URLRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(URIRandomGenerator.getInstance());
 
+    // AWT
+    newRandomGeneratorService.registerRandomGenerator(BufferedImageRandomGenerator.getInstance());
+
     // Time
     newRandomGeneratorService.registerRandomGenerator(ZonedDateTimeRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(ZoneIdRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(InstantRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(TimeZoneRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(XMLGregorianCalendarRandomGenerator.getInstance());
 
     // Security
     newRandomGeneratorService.registerRandomGenerator(CredentialsRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(PrincipalNameRandomGenerator.getInstance());
     newRandomGeneratorService.registerRandomGenerator(EncryptionKeyRandomGenerator.getInstance());
+    newRandomGeneratorService.registerRandomGenerator(KerberosTimeRandomGenerator.getInstance());
 
     // Collection
     newRandomGeneratorService.registerRandomGenerator(AbstractCollectionRandomGenerator.getInstance());

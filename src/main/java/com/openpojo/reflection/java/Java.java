@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import java.io.File;
 public interface Java {
   char PACKAGE_DELIMITER = '.';
   char PATH_DELIMITER = '/';
+  char JAR_FILE_PATH_SEPARATOR = '!';
   String CLASS_EXTENSION = ".class";
   String PACKAGE_INFO = "package-info";
   String CLASSPATH_DELIMITER = File.pathSeparator;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,12 @@ import java.util.Arrays;
 
 import com.openpojo.log.Logger;
 import com.openpojo.log.LoggerFactory;
-import com.openpojo.reflection.java.Java;
+import com.openpojo.reflection.java.bytecode.asm.method.MethodHandler;
+import com.openpojo.reflection.java.bytecode.asm.method.MethodHandlerFactory;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Type;
 
 import static org.objectweb.asm.Opcodes.*;
 
@@ -39,7 +41,7 @@ class SubClassCreator extends ClassVisitor {
   private String className;
   private final String generateWithName;
 
-  public SubClassCreator(ClassWriter cw, String generateWithName) {
+  SubClassCreator(ClassWriter cw, String generateWithName) {
     super(ASM5);
     this.cw = cw;
     this.generateWithName = generateWithName;
@@ -67,35 +69,22 @@ class SubClassCreator extends ClassVisitor {
   public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
     LOGGER.debug("Method: " + name + " access:" + access + " desc:" + desc + " signature:" + signature + " exceptions:" +
         Arrays.toString(exceptions));
-    if (name.equals("<init>") && (access == ACC_PUBLIC || access == ACC_PROTECTED)) {
-      MethodVisitor mv = cw.visitMethod(access, name, desc, signature, exceptions);
-      int counter = getParameterCount(desc);
-      // wire constructor method to super
-      {
-        mv.visitCode();
-        for (int idx = 0; idx <= counter; idx++) {
-          mv.visitVarInsn(ALOAD, idx);
-        }
-        mv.visitMethodInsn(INVOKESPECIAL, className.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER), "<init>", desc, false);
-        mv.visitInsn(RETURN);
-        mv.visitMaxs(counter + 1, counter + 1);
-        mv.visitEnd();
-      }
-    }
-
+    if (name.equals("<init>") && (access & (ACC_PUBLIC | ACC_PROTECTED)) != 0 || (access & ACC_ABSTRACT) != 0)
+      handleMethod(access, name, desc, signature, exceptions);
     return super.visitMethod(access, name, desc, signature, exceptions);
   }
 
-  private int getParameterCount(String desc) {
-    String parameterSeparator = ";";
-    int parameterCount = 0;
-    int idx = desc.indexOf(parameterSeparator, 0);
-
-    while (idx >= 0) {
-      parameterCount++;
-      idx = desc.indexOf(parameterSeparator, idx + 1);
-    }
-
-    return parameterCount;
+  private MethodVisitor handleMethod(int access, String name, String desc, String signature, String[] exceptions) {
+    final MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, name, desc, signature, exceptions);
+    String returnTypeClass = getReturnTypeClass(desc);
+    MethodHandler handler = MethodHandlerFactory.getInstance().getHandler(name + desc, name, returnTypeClass);
+    handler.generateMethod(mv, className, generateWithName, access, name, desc, signature, exceptions);
+    return mv;
   }
+
+  private String getReturnTypeClass(String desc) {
+    Type type = Type.getReturnType(desc);
+    return type.getClassName();
+  }
+
 }

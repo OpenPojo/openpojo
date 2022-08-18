@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import java.util.Collection;
 
 import com.openpojo.random.loop.Employee;
 import com.openpojo.random.loop.RandomEmployee;
+import com.openpojo.random.sampleclasses.AClassWithBusinessKey;
 import com.openpojo.random.sampleclasses.AClassWithNoRegisteredRandomGenerator;
 import com.openpojo.random.sampleclasses.NoRandomGeneratorPerson;
 import com.openpojo.random.sampleclasses.hierarchy.ClassExtendingClassImplementingSomeInterface;
@@ -32,6 +33,8 @@ import com.openpojo.random.sampleclasses.hierarchy.SomeInterfaceRandomGenerator;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static org.hamcrest.Matchers.notNullValue;
 
 /**
  * @author oshoukry
@@ -115,15 +118,21 @@ public class RandomFactoryTest {
         classExtendingClassImplmentingSomeInterface, instance.getClass());
   }
 
+  @Test
+  public void shouldPopulateFieldsWithBusinessKeys() {
+    AClassWithBusinessKey classWithBusinessKey = RandomFactory.getRandomValue(AClassWithBusinessKey.class);
+    Assert.assertThat(classWithBusinessKey.getSomeKey(), notNullValue());
+  }
+
 
   private class RegisteredDummy {
     private final String value;
 
-    public RegisteredDummy(final String value) {
+    RegisteredDummy(final String value) {
       this.value = value;
     }
 
-    public String getValue() {
+    String getValue() {
       return value;
     }
   }

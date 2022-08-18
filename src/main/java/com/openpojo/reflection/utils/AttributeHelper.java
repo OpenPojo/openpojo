@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@
 package com.openpojo.reflection.utils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -65,13 +67,26 @@ public class AttributeHelper {
     fieldPrefixes.clear();
   }
 
+  public static List<String> getFieldNameVariations(final Field field) {
+    List<String> fieldNameVariations = new ArrayList<String>();
+    fieldNameVariations.add(formattedFieldName(field.getName()));
+    try {
+      String withoutPrefix = getAttributeName(field);
+      if (!fieldNameVariations.contains(withoutPrefix))
+        fieldNameVariations.add(withoutPrefix);
+    } catch (ReflectionException ignored) { /* ignored */ }
+    return fieldNameVariations;
+  }
+
   /**
    * This method returns the attribute name given a field name. The field name will get stripped of prefixes
+   * @deprecated Please rewire to utilize getFieldNameVariations instead.
    *
    * @param field
    *     The field to inspect for attribute name
    * @return Normalized attribute name
    */
+  @Deprecated
   public static String getAttributeName(final Field field) {
     String normalizedFieldName = field.getName();
     normalizedFieldName = stripPrefix(normalizedFieldName);
@@ -113,5 +128,9 @@ public class AttributeHelper {
 
   private static String camelCase(String fieldName) {
     return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1, fieldName.length());
+  }
+
+  private AttributeHelper() {
+    throw new UnsupportedOperationException(AttributeHelper.class.getName() + " should not be constructed!");
   }
 }

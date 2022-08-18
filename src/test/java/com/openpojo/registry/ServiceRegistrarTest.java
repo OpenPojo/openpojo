@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ package com.openpojo.registry;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.openpojo.log.Logger;
+import com.openpojo.log.LoggerFactory;
 import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.validation.affirm.Affirm;
@@ -32,7 +34,8 @@ public class ServiceRegistrarTest {
   private String javaVersion = System.getProperty("java.version");
   private final String[] expectedDefaultTypeNames = new String[] {
       // @formatter:off
-            "java.lang.Boolean"
+            "java.awt.image.BufferedImage"
+            ,"java.lang.Boolean"
             ,"java.lang.Byte"
             ,"java.lang.Character"
             ,"java.lang.Class"
@@ -118,8 +121,11 @@ public class ServiceRegistrarTest {
 
             ,"javax.print.attribute.standard.JobStateReasons"
 
+            ,"javax.xml.datatype.XMLGregorianCalendar"
+
             ,"sun.security.krb5.Credentials"
             ,"sun.security.krb5.EncryptionKey"
+            ,"sun.security.krb5.internal.KerberosTime"
             ,"sun.security.krb5.PrincipalName"
     };
     // @formatter:on
@@ -146,7 +152,7 @@ public class ServiceRegistrarTest {
       try {
         expectedDefaultTypes.add(Class.forName(type));
       } catch (final ClassNotFoundException e) {
-        System.out.println("Failed for: " + e.getMessage());
+        LoggerFactory.getLogger(this.getClass()).warn("Failed for: [{0}]", e.getMessage(), e);
       }
     }
 
@@ -156,7 +162,8 @@ public class ServiceRegistrarTest {
     if (!(javaVersion.startsWith("1.5")
         || javaVersion.startsWith("1.6")
         || javaVersion.startsWith("1.7")
-        || javaVersion.startsWith("1.8")))
+        || javaVersion.startsWith("1.8")
+        || javaVersion.startsWith("9.0")))
       throw new UnsupportedOperationException("Unknown java version found " + javaVersion + " please check " +
           "the correct number of expected registered classes and register type here - (found " + randomGeneratorService
           .getRegisteredTypes().size() + ")");
@@ -169,16 +176,17 @@ public class ServiceRegistrarTest {
   }
 
   private void reportDifferences() {
-    System.out.println("Found that many types: " + expectedDefaultTypes.size());
-    System.out.println("List of Entries in the expected List but not in the registered list:");
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+    logger.info("Found that many types: [{0}]", expectedDefaultTypes.size());
+    logger.info("List of Entries in the expected List but not in the registered list:");
     for (Class<?> expectedEntry : expectedDefaultTypes) {
       if (!randomGeneratorService.getRegisteredTypes().contains(expectedEntry))
-        System.out.println("\"" + expectedEntry.getName() + "\"");
+        logger.error("\"" + expectedEntry.getName() + "\"");
     }
-    System.out.println("List of Registered types but not in the expected list:");
+    logger.info("List of Registered types but not in the expected list:");
     for (Class<?> foundEntry : randomGeneratorService.getRegisteredTypes()) {
       if (!expectedDefaultTypes.contains(foundEntry))
-        System.out.println("\"" + foundEntry.getName() + "\"");
+        logger.error("\"" + foundEntry.getName() + "\"");
     }
   }
 

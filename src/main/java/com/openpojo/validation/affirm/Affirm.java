@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import java.util.Collection;
  *
  * @author oshoukry
  */
-public abstract class Affirm {
+public class Affirm {
 
   private static Affirmation getAffirmation() {
     return AffirmationFactory.getInstance().getAffirmation();
@@ -93,4 +93,9 @@ public abstract class Affirm {
     }
     Affirm.fail(message + ":expected value [" + expected + "] not found");
   }
+
+  private Affirm() {
+    throw new UnsupportedOperationException(Affirm.class.getName() +  " should not be constructed!");
+  }
+
 }

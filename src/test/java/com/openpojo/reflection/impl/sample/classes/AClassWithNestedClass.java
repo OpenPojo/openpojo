@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,30 @@
 
 package com.openpojo.reflection.impl.sample.classes;
 
+import java.util.List;
+
 /**
  * @author oshoukry
  */
+@SuppressWarnings("unused")
 public class AClassWithNestedClass {
 
   public class NestedClass {
 
   }
 
+  public class NestedClassWithOneParamConstructor {
+    private NestedClassWithOneParamConstructor(int someParam) {
+    }
+  }
+
+  public class NestedClassWithOneGenericParamConstructor {
+    private NestedClassWithOneGenericParamConstructor(List<String> someParam) {
+    }
+  }
+
   public static class NestedStaticClass {
+
 
   }
 }

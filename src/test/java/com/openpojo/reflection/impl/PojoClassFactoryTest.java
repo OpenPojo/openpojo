@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,16 @@ package com.openpojo.reflection.impl;
 import java.util.List;
 
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.impl.sample.classes.AClassWithBadMethodDump;
+import com.openpojo.reflection.java.Java;
+import com.openpojo.reflection.java.bytecode.asm.SimpleClassLoader;
 import com.openpojo.utils.dummypackage.Persistable;
 import com.openpojo.utils.dummypackage.Person;
 import com.openpojo.utils.filter.LoggingPojoClassFilter;
 import com.openpojo.validation.affirm.Affirm;
 import org.junit.Test;
+
+import static com.openpojo.reflection.java.bytecode.asm.SubClassDefinition.GENERATED_CLASS_POSTFIX;
 
 /**
  * @author oshoukry
@@ -114,4 +119,26 @@ public class PojoClassFactoryTest {
     Affirm.affirmEquals(pojoClasses.toString(), 3, pojoClasses.size());
   }
 
+  @Test
+  public void shouldGenerateAppropriateLinkErrorForInvalidASMGeneratedClasses() throws Exception {
+
+    final SimpleClassLoader simpleClassLoader = new SimpleClassLoader();
+    final String className = this.getClass().getPackage().getName() + ".AClassWithBadMethod" + GENERATED_CLASS_POSTFIX;
+
+    final String classNameAsPath = className.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
+    final Class<?> clazz = simpleClassLoader.loadThisClass(AClassWithBadMethodDump.dump(classNameAsPath), className);
+
+    Affirm.affirmNotNull("Failed to generate class!", clazz);
+
+    try {
+      PojoClassFactory.getPojoClass(clazz);
+      Affirm.fail("Should have thrown RuntimeException");
+    } catch (VerifyError expected) {
+      expected.printStackTrace();
+      Affirm.affirmEquals("Invalid Message in exception",
+          "(class: " + classNameAsPath + ", " +
+              "method: badMethod signature: ()V) Wrong return type in function",
+          expected.getMessage());
+    }
+  }
 }

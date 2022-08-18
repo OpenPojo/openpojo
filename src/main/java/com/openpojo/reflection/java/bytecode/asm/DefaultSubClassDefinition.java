@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ public class DefaultSubClassDefinition implements SubClassDefinition {
   private final ClassReader classReader;
 
   public DefaultSubClassDefinition(Class<?> parentClass) {
-    this(parentClass, parentClass.getName() + "__Generated_OpenPojo");
+    this(parentClass, parentClass.getName() + SubClassDefinition.GENERATED_CLASS_POSTFIX);
   }
 
   public DefaultSubClassDefinition(Class<?> parentClass, String subClassName) {

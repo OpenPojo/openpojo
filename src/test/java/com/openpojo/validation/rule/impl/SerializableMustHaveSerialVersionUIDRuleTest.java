@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,26 +18,28 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
-import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDDoesClass;
-import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDDoesntClass;
-import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDInvalidCaseClass;
-import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotFinalClass;
-import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotSerializableClass;
-import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotStaticClass;
-import com.openpojo.validation.rule.impl.sampleclasses.SerializableMustHaveSerialVersionUIDNotlongClass;
+import com.openpojo.validation.rule.impl.sampleclasses.*;
 import org.junit.Test;
 
 /**
  * @author oshoukry
  */
 public class SerializableMustHaveSerialVersionUIDRuleTest {
-  Class<?>[] failClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesntClass.class,
-      SerializableMustHaveSerialVersionUIDInvalidCaseClass.class, SerializableMustHaveSerialVersionUIDNotFinalClass.class,
-      SerializableMustHaveSerialVersionUIDNotStaticClass.class, SerializableMustHaveSerialVersionUIDNotlongClass.class };
-  Class<?>[] passClasses = new Class<?>[] { SerializableMustHaveSerialVersionUIDDoesClass.class,
-      SerializableMustHaveSerialVersionUIDNotSerializableClass.class };
-  Rule rule = new SerializableMustHaveSerialVersionUIDRule();
+  private Class<?>[] failClasses = new Class<?>[] {
+      SerializableMustHaveSerialVersionUIDDoesntClass.class,
+      SerializableMustHaveSerialVersionUIDInvalidCaseClass.class,
+      SerializableMustHaveSerialVersionUIDNotFinalClass.class,
+      SerializableMustHaveSerialVersionUIDNotStaticClass.class,
+      SerializableMustHaveSerialVersionUIDNotlongClass.class
+  };
+  private Class<?>[] passClasses = new Class<?>[] {
+      SerializableMustHaveSerialVersionUIDDoesClass.class,
+      SerializableMustHaveSerialVersionUIDNotSerializableClass.class,
+      SerializableInterface.class
+  };
+  private Rule rule = new SerializableMustHaveSerialVersionUIDRule();
 
   @Test
   public void testEvaluate() {

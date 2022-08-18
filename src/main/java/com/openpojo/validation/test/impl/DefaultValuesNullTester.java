@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 
 package com.openpojo.validation.test.impl;
 
+import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
@@ -36,7 +37,7 @@ public class DefaultValuesNullTester implements Tester {
     final Object classInstance = ValidationHelper.getBasicInstance(pojoClass);
 
     for (final PojoField fieldEntry : pojoClass.getPojoFields()) {
-      if (!fieldEntry.isPrimitive() && !fieldEntry.isFinal()) {
+      if (!fieldEntry.isPrimitive() && !fieldEntry.isFinal() && fieldEntry.getAnnotation(BusinessKey.class) == null) {
         Affirm.affirmNull(String.format("Expected null value for for field=[%s]", fieldEntry), fieldEntry.get(classInstance));
       }
     }

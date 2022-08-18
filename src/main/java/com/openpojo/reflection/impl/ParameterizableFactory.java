@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,5 +53,9 @@ public class ParameterizableFactory {
     public List<Type> getParameterTypes() {
       return Arrays.asList(Resolver.getParameterTypes(type));
     }
+  }
+
+  private ParameterizableFactory() {
+      throw new UnsupportedOperationException(ParameterizableFactory.class.getName() + " should not be constructed!");
   }
 }

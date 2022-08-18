@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,8 @@ import com.openpojo.log.LoggerFactory;
 import com.openpojo.reflection.java.bytecode.asm.ASMDetector;
 import com.openpojo.reflection.java.bytecode.asm.ASMNotLoadedException;
 import com.openpojo.reflection.java.bytecode.asm.ASMService;
+import com.openpojo.reflection.java.version.Version;
+import com.openpojo.reflection.java.version.VersionFactory;
 
 /**
  * This factory is to be used to generate a subclass for a given PojoClass.
@@ -33,11 +35,12 @@ import com.openpojo.reflection.java.bytecode.asm.ASMService;
  */
 public class ByteCodeFactory {
   private static final Logger LOGGER = LoggerFactory.getLogger(ByteCodeFactory.class);
-  private static boolean asm_enabled = ASMDetector.getInstance().isASMLoaded();
+  public static final Version ASM_MIN_VERSION = VersionFactory.getVersion("5.0.0");
+  public static final Version ASM_MAX_VERSION = VersionFactory.getVersion("7.1.0");
 
-  private ByteCodeFactory() {
-    throw new IllegalStateException(ByteCodeFactory.class.getName() + " should not be constructed!");
-  }
+  private static boolean asm_enabled = ASMDetector.getInstance().isASMLoaded();
+  private static Version asm_version = ASMDetector.getInstance().getVersion();
+
 
   public static <T> Class<? extends T> getSubClass(Class<T> clazz) {
     if (isNull(clazz) || isAnInterface(clazz) || isAnEnum(clazz) || isPrimitive(clazz) || isAnArray(clazz) || isFinal(clazz)) {
@@ -46,11 +49,24 @@ public class ByteCodeFactory {
       return null;
     }
 
-    if (!asm_enabled)
-      throw ASMNotLoadedException.getInstance();
+    verifyASMLoadedAndMatchesRequiredVersions();
 
     LOGGER.info("Generating subclass for class [{0}]", clazz);
     return ASMService.getInstance().createSubclassFor(clazz);
+  }
+
+  private static void verifyASMLoadedAndMatchesRequiredVersions() {
+    if (!asm_enabled)
+      throw ASMNotLoadedException.getInstance();
+
+    if (ASM_MIN_VERSION.compareTo(asm_version) >= 0 || ASM_MAX_VERSION.compareTo(asm_version) < 0) {
+      throw ASMNotLoadedException.getInstance("Incorrect version of ASM found, "
+          + "expected versions between ["
+          + ASM_MIN_VERSION.getVersion()
+          + " and not greater than "
+          + ASM_MAX_VERSION.getVersion()
+          + "] found [" + asm_version.getVersion() + "]");
+    }
   }
 
   private static <T> boolean isNull(Class<T> clazz) {
@@ -75,5 +91,9 @@ public class ByteCodeFactory {
 
   private static <T> boolean isFinal(Class<T> clazz) {
     return Modifier.isFinal(clazz.getModifiers());
+  }
+
+  private ByteCodeFactory() {
+    throw new UnsupportedOperationException(ByteCodeFactory.class.getName() + " should not be constructed!");
   }
 }

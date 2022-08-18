@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.PojoParameter;
 import com.openpojo.reflection.exception.ReflectionException;
@@ -107,8 +106,8 @@ public class PojoMethodImpl implements PojoMethod {
 
     if (isConstructor()) {
       parameterAnnotations = getAsConstructor().getParameterAnnotations();
-      parameterTypes = getConstructorGenericParameterTypes(getAsConstructor());
       parameterClasses = getAsConstructor().getParameterTypes();
+      parameterTypes = getConstructorGenericParameterTypes(getAsConstructor(), parameterClasses);
     } else {
       parameterAnnotations = getAsMethod().getParameterAnnotations();
       parameterTypes = getAsMethod().getGenericParameterTypes();
@@ -186,20 +185,37 @@ public class PojoMethodImpl implements PojoMethod {
     return getAsMethod().getParameterTypes();
   }
 
-  private Type[] getConstructorGenericParameterTypes(Constructor<?> asConstructor) {
+  private Type[] getConstructorGenericParameterTypes(Constructor<?> asConstructor, Class<?>[] parameterClasses) {
     Type[] genericParameterTypes = asConstructor.getGenericParameterTypes();
 
-    //See: http://bugs.java.com/view_bug.do?bug_id=5087240
-    PojoClass pojoClass = PojoClassFactory.getPojoClass(getAsConstructor().getDeclaringClass());
-
-    if (pojoClass.isNestedClass() && !pojoClass.isStatic()) {
-      Type[] fixedGenericParameterTypes = new Type[genericParameterTypes.length + 1];
-      fixedGenericParameterTypes[0] = pojoClass.getClazz();
-      System.arraycopy(genericParameterTypes, 0, fixedGenericParameterTypes, 1, genericParameterTypes.length);
-      genericParameterTypes = fixedGenericParameterTypes;
-    }
+    Class<?> declaringClass = asConstructor.getDeclaringClass();
+    genericParameterTypes = bug_5087240_workaround(declaringClass, genericParameterTypes, parameterClasses);
 
     return genericParameterTypes;
+  }
+
+  /**
+   * See: http://bugs.java.com/view_bug.do?bug_id=5087240
+   */
+  private Type[] bug_5087240_workaround(Class<?> clazz, Type[] genericParameterTypes,
+                                        Class<?>[] parameterClasses) {
+    Type[] fixedGenericParameterType = genericParameterTypes;
+
+    if (isNestedNonStaticClass(clazz) && missingSyntheticParameter(genericParameterTypes, parameterClasses)) {
+      fixedGenericParameterType = new Type[parameterClasses.length];
+      fixedGenericParameterType[0] = parameterClasses[0];
+      System.arraycopy(genericParameterTypes, 0, fixedGenericParameterType, 1, genericParameterTypes.length);
+    }
+
+    return fixedGenericParameterType;
+  }
+
+  private boolean missingSyntheticParameter(Type[] genericParameterTypes, Class<?>[] parameterClasses) {
+    return (genericParameterTypes.length + 1) == parameterClasses.length;
+  }
+
+  private boolean isNestedNonStaticClass(Class<?> clazz) {
+    return clazz.getEnclosingClass() != null && !Modifier.isStatic(clazz.getModifiers());
   }
 
   public Class<?> getReturnType() {

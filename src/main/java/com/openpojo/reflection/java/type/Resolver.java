@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,5 +65,9 @@ public class Resolver {
     if (type instanceof GenericArrayType)
       return GENERIC_ARRAY_TYPE_RESOLVER;
     return NO_RESOLVE_TYPE_RESOLVER;
+  }
+
+  private Resolver() {
+    throw new UnsupportedOperationException(Resolver.class.getName() +  " should not be constructed!");
   }
 }

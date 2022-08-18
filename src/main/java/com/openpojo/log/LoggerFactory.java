@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,4 +123,7 @@ public final class LoggerFactory {
     getLogger(LoggerFactory.class.getName()).info("Logging subsystem initialized to [{0}]", loggerClass.getName());
   }
 
+  private LoggerFactory() {
+    throw new UnsupportedOperationException(LoggerFactory.class.getName() + " should not be constructed!");
+  }
 }

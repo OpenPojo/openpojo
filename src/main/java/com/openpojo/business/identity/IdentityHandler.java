@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,14 @@ public interface IdentityHandler {
    * @return True if both objects are equal.
    */
   boolean areEqual(final Object first, final Object second);
+
+  /**
+   * This method is responsible for stringanizing fields in an object.
+   * @param object
+   *     The Object to be flattened into a string.
+   * @return string representation of the object being passed in, "null" if object is null.
+   */
+  String toString(Object object);
 
   /**
    * This method validates an object to comply with the BusinessKey annotation rules.

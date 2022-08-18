@@ -1,10 +1,9 @@
-# OpenPojo [![Build Status](https://travis-ci.org/oshoukry/openpojo.svg?branch=master)](https://travis-ci.org/oshoukry/openpojo) [![Coverage Status](https://coveralls.io/repos/oshoukry/openpojo/badge.svg?branch=master)](https://coveralls.io/r/oshoukry/openpojo?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.openpojo/openpojo/badge.svg?style=flat)](http://search.maven.org/#search|ga|1|g%3Acom.openpojo)
+# OpenPojo [![Build Status](https://travis-ci.com/OpenPojo/openpojo.svg?branch=master)](https://travis-ci.com/OpenPojo/openpojo) [![Coverage Status](https://coveralls.io/repos/OpenPojo/openpojo/badge.svg?branch=master)](https://coveralls.io/r/OpenPojo/openpojo?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.openpojo/openpojo/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.openpojo/openpojo)
 POJO Testing &amp; Identity Management Made Trivial 
 
 Maven Group Plugin | Latest Version
 ------------------ | ---------------
-com.openpojo.openpojo | [0.8.6](https://github.com/oshoukry/openpojo/releases/tag/openpojo-0.8.6)
-com.googlecode.openpojo.openpojo | [0.6.5](https://code.google.com/p/openpojo/wiki/Old) - Deprecated
+com.openpojo.openpojo | [0.9.1](https://github.com/oshoukry/openpojo/releases/tag/openpojo-0.9.1)
 
 #### Testing Example
 ```java

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@ package com.openpojo.reflection.construct;
 import java.util.Arrays;
 import java.util.List;
 
-import com.openpojo.log.Logger;
-import com.openpojo.log.LoggerFactory;
+import com.openpojo.business.annotation.BusinessKey;
 import com.openpojo.random.RandomFactory;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.PojoParameter;
 import com.openpojo.reflection.construct.utils.ArrayLengthBasedComparator;
@@ -43,11 +43,6 @@ import com.openpojo.reflection.java.type.Primitives;
  * @author oshoukry
  */
 public class InstanceFactory {
-  private static final Logger LOGGER = LoggerFactory.getLogger(InstanceFactory.class);
-
-  private InstanceFactory() {
-    throw new RuntimeException("Should not be constructed");
-  }
 
   /**
    * This method returns a new instance created using default constructor.
@@ -80,6 +75,34 @@ public class InstanceFactory {
     return doGetInstance(pojoClass, parameters);
   }
 
+  /**
+   * This method returns a new instance using the constructor with the most parameters.
+   * The values for the constructor will come from RandomFactory.
+   *
+   * @param pojoClass
+   *     The pojoClass to instantiate.
+   * @return a newly created instance of the class represented in the pojoClass.
+   */
+  public static Object getMostCompleteInstance(final PojoClass pojoClass) {
+    final PojoMethod constructor = getConstructorByCriteria(pojoClass, new GreaterThan());
+    Object[] parameters = generateRandomValuesForParameters(pojoClass, constructor);
+    return getInstance(pojoClass, parameters);
+  }
+
+  /**
+   * This method returns a new instance using the constructor with the least parameters.
+   * The values for the constructor will come from RandomFactory.
+   *
+   * @param pojoClass
+   *     The pojoClass to instantiate.
+   * @return a newly created instance of the class represented in the pojoClass.
+   */
+  public static Object getLeastCompleteInstance(final PojoClass pojoClass) {
+    final PojoMethod constructor = getConstructorByCriteria(pojoClass, new LessThan());
+    Object[] parameters = generateRandomValuesForParameters(pojoClass, constructor);
+    return getInstance(pojoClass, parameters);
+  }
+
   private static PojoClass wrapAbstractClass(final PojoClass pojoClass) {
     return PojoClassFactory.getPojoClass(ByteCodeFactory.getSubClass(pojoClass.getClazz()));
   }
@@ -89,14 +112,24 @@ public class InstanceFactory {
       throw ReflectionException.getInstance(String.format("[%s] is not a concrete class, can't create new instance", pojoClass));
     }
 
+    Object instance;
     final List<PojoMethod> constructors = pojoClass.getPojoConstructors();
     for (final PojoMethod constructor : constructors) {
       if (areEquivalentParameters(upCast(constructor.getParameterTypes()), getTypes(parameters))) {
-        return constructor.invoke(null, parameters);
+        instance = constructor.invoke(null, parameters);
+        initializeBusinessKeys(pojoClass, instance);
+        return instance;
       }
     }
     throw ReflectionException.getInstance(String.format("No matching constructor for [%s] found using parameters[%s]",
         pojoClass.getClazz(), Arrays.toString(getTypes(parameters))));
+  }
+
+  private static void initializeBusinessKeys(PojoClass pojoClass, Object instance) {
+    for (PojoField field : pojoClass.getPojoFieldsAnnotatedWith(BusinessKey.class)) {
+      if (field.get(instance) == null || field.isPrimitive())
+        field.set(instance, RandomFactory.getRandomValue(field));
+    }
   }
 
   /**
@@ -115,31 +148,6 @@ public class InstanceFactory {
     return upCastedParameters;
   }
 
-  /**
-   * This method returns a new instance using the constructor with the most parameters.
-   * The values for the constructor will come from RandomFactory.
-   *
-   * @param pojoClass
-   *     The pojoClass to instantiate.
-   * @return a newly created instance of the class represented in the pojoClass.
-   */
-  public static Object getMostCompleteInstance(final PojoClass pojoClass) {
-    final PojoMethod constructor = getConstructorByCriteria(pojoClass, new GreaterThan());
-    return createInstance(pojoClass, constructor);
-  }
-
-  /**
-   * This method returns a new instance using the constructor with the least parameters.
-   * The values for the constructor will come from RandomFactory.
-   *
-   * @param pojoClass
-   *     The pojoClass to instantiate.
-   * @return a newly created instance of the class represented in the pojoClass.
-   */
-  public static Object getLeastCompleteInstance(final PojoClass pojoClass) {
-    final PojoMethod constructor = getConstructorByCriteria(pojoClass, new LessThan());
-    return createInstance(pojoClass, constructor);
-  }
 
   /**
    * This method evaluates if the parameters are equivalent / compatible.
@@ -187,28 +195,29 @@ public class InstanceFactory {
     return types;
   }
 
-  private static Object createInstance(final PojoClass pojoClass, final PojoMethod constructor) {
-
+  private static Object[] generateRandomValuesForParameters(final PojoClass pojoClass, final PojoMethod constructor) {
     try {
       List<PojoParameter> pojoParameterTypes = constructor.getPojoParameters();
 
       final Object[] parameters = new Object[pojoParameterTypes.size()];
-
-      for (int i = 0; i < pojoParameterTypes.size(); i++) {
+      for (int i = 0; i < pojoParameterTypes.size(); i++)
         parameters[i] = RandomFactory.getRandomValue(pojoParameterTypes.get(i));
-      }
 
-      return getInstance(pojoClass, parameters);
+      return parameters;
+
     } catch (RuntimeException re) {
-      throw ReflectionException.getInstance("Failed to create instance for class [" + pojoClass + "] using constructor [" +
-          constructor + "]", re);
+      throw ReflectionException.getInstance("Failed to create parameters to pass to constructor for class ["
+          + pojoClass.getName()
+          + "] using constructor ["
+          + constructor
+          + "]", re);
     }
   }
 
   private static PojoMethod getConstructorByCriteria(final PojoClass pojoClass, final ArrayLengthBasedComparator comparator) {
     PojoMethod constructor = null;
     for (final PojoMethod pojoConstructor : pojoClass.getPojoConstructors()) {
-      if (!pojoConstructor.isSynthetic())
+      if (!pojoConstructor.isSynthetic() && !(pojoClass.isAbstract() && pojoConstructor.isPrivate()))
         if (constructor == null)
           constructor = pojoConstructor;
         else {
@@ -217,5 +226,9 @@ public class InstanceFactory {
         }
     }
     return constructor;
+  }
+
+  private InstanceFactory() {
+    throw new UnsupportedOperationException(InstanceFactory.class.getName() +  " should not be constructed!");
   }
 }

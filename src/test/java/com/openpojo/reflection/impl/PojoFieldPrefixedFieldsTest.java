@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
  */
 
 package com.openpojo.reflection.impl;
+
+import java.lang.reflect.Field;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
@@ -62,9 +64,10 @@ public class PojoFieldPrefixedFieldsTest {
   }
 
   @Test(expected = ReflectionException.class)
-  public void shouldFailAttributeName() {
+  public void shouldFailAttributeName() throws NoSuchFieldException {
     AttributeHelper.registerFieldPrefix("mName");
-    PojoClassFactory.getPojoClass(AClassWithFieldsPrefixed.class);
+    Field mNameField = AClassWithFieldsPrefixed.class.getDeclaredField("mName");
+    AttributeHelper.getAttributeName(mNameField);
   }
 
   @Test

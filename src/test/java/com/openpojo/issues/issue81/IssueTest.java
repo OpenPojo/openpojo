@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,13 +30,14 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class IssueTest {
-
   /**
    * This is the main issue experienced.
    */
   @Test
   public void shouldNotThrowNoClassDefFoundError() {
-    List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses("org.testng");
+    final Package aPackage = org.testng.Assert.class.getPackage();
+    final String packageName = aPackage.getName();
+    List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(packageName, null);
     Assert.assertTrue("Should have found some classes", pojoClasses.size() > 0);
   }
 

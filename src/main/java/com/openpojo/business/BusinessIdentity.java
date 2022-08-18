@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ package com.openpojo.business;
 
 import com.openpojo.business.identity.IdentityFactory;
 import com.openpojo.business.utils.BusinessIdentityUtils;
-import com.openpojo.reflection.impl.PojoClassFactory;
 
 /**
  * This is the entry point and the main class to use for all your business evaluation, hashCode generation,
@@ -77,8 +76,10 @@ public final class BusinessIdentity {
   }
 
   public static String toString(final Object instance) {
-    if (instance == null)
-      return "null";
-    return PojoClassFactory.getPojoClass(instance.getClass()).toString(instance);
+    return IdentityFactory.getIdentityHandler(instance).toString(instance);
+  }
+
+  private BusinessIdentity() {
+    throw new UnsupportedOperationException(BusinessIdentity.class.getName() + " should not be constructed!");
   }
 }

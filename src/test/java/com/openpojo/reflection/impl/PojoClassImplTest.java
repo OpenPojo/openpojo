@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -450,6 +450,23 @@ public class PojoClassImplTest {
     throw ReflectionException.getInstance("Request class not found! [" + name + "]");
   }
 
+  @Test
+  public void shouldReturnNullForNonEnclosedClass() {
+    PojoClass aClassWithNested = PojoClassFactory.getPojoClass(AClassWithNestedClass.class);
+    Affirm.affirmFalse("Class should not be nested", aClassWithNested.isNestedClass());
+    Affirm.affirmNull("Should not have any enclosing classes", aClassWithNested.getEnclosingClass());
+  }
+
+  @Test
+  public void canGetEnclosingClass() {
+    PojoClass aClassWithNested = PojoClassFactory.getPojoClass(AClassWithNestedClass.class);
+    PojoClass nestedClass = PojoClassFactory.getPojoClass(AClassWithNestedClass.NestedClass.class);
+    Affirm.affirmTrue("Class should be nested", nestedClass.isNestedClass());
+
+    PojoClass enclosingClass = nestedClass.getEnclosingClass();
+    Affirm.affirmNotNull("Enclosing should not be null", enclosingClass);
+    Affirm.affirmTrue("Invalid enclosing class", enclosingClass.getClazz().equals(aClassWithNested.getClazz()));
+  }
 
   private static PojoClass getPojoClassImplForClass(final Class<?> clazz) {
     return PojoClassFactory.getPojoClass(clazz);

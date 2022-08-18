@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPrimitivesDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPrimitivesDoesntClass;
@@ -27,10 +28,9 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class NoPrimitivesRuleTest {
-
-  Class<?>[] failClasses = new Class<?>[] { NoPrimitivesDoesntClass.class };
-  Class<?>[] passClasses = new Class<?>[] { NoPrimitivesDoesClass.class };
-  Rule rule = new NoPrimitivesRule();
+  private Class<?>[] failClasses = new Class<?>[] { NoPrimitivesDoesntClass.class };
+  private Class<?>[] passClasses = new Class<?>[] { NoPrimitivesDoesClass.class };
+  private Rule rule = new NoPrimitivesRule();
 
   @Test
   public void testEvaluate() {

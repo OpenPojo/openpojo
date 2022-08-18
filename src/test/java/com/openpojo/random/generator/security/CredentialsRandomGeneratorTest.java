@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import com.openpojo.random.RandomGenerator;
 import com.openpojo.random.generator.AbstractGeneratorTest;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import sun.security.krb5.Credentials;
+import com.openpojo.reflection.java.load.ClassUtil;
 
 /**
  * @author oshoukry
@@ -34,7 +34,10 @@ public class CredentialsRandomGeneratorTest extends AbstractGeneratorTest {
   }
 
   protected String getTypeName() {
-    return Credentials.class.getName();
+    Class<?> credentialsClass = ClassUtil.loadClass("sun.security.krb5.Credentials");
+    if (credentialsClass != null)
+      return credentialsClass.getName();
+    return null;
   }
 
   protected RandomGenerator getRandomGenerator() {

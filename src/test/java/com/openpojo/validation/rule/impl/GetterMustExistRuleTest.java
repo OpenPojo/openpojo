@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,24 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.reflection.java.Java;
+import com.openpojo.reflection.java.bytecode.asm.SimpleClassLoader;
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.GetterDoesExistClass;
 import com.openpojo.validation.rule.impl.sampleclasses.GetterDoesntExistClass;
+import com.openpojo.validation.utils.AClassWithSyntheticFieldDumper;
 import org.junit.Test;
+
+import static com.openpojo.reflection.java.bytecode.asm.SubClassDefinition.GENERATED_CLASS_POSTFIX;
 
 /**
  * @author oshoukry
  */
 public class GetterMustExistRuleTest {
-
-  Class<?>[] failClasses = new Class<?>[] { GetterDoesntExistClass.class };
-  Class<?>[] passClasses = new Class<?>[] { GetterDoesExistClass.class };
-  Rule rule = new GetterMustExistRule();
+  private Class<?>[] failClasses = new Class<?>[] { GetterDoesntExistClass.class };
+  private Class<?>[] passClasses = new Class<?>[] { GetterDoesExistClass.class };
+  private Rule rule = new GetterMustExistRule();
 
   @Test
   public void testEvaluate() {
@@ -39,10 +44,11 @@ public class GetterMustExistRuleTest {
   }
 
   @Test
-  public void shouldIgnoreSyntheticFields() {
-    CommonCode.shouldPassRuleValidation(rule, AClassWithSyntheticField.class);
-  }
+  public void shouldIgnoreSyntheticFields() throws ClassNotFoundException {
+    final SimpleClassLoader simpleClassLoader = new SimpleClassLoader();
+    final String className = this.getClass().getPackage().getName() + ".AClassWithSyntheticField" + GENERATED_CLASS_POSTFIX;
+    final String classNameAsPath = className.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
 
-  private class AClassWithSyntheticField {
+    CommonCode.shouldPassRuleValidation(rule, simpleClassLoader.loadThisClass(AClassWithSyntheticFieldDumper.dump(classNameAsPath), className));
   }
 }

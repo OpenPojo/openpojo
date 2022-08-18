@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.NoNestedClassDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoNestedClassDoesntClass;
@@ -28,9 +29,9 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class NoNestedClassRuleTest {
-  Class<?>[] failClasses = new Class<?>[] { NoNestedClassDoesntClass.NestedClass.class };
-  Class<?>[] passClasses = new Class<?>[] { NoNestedClassDoesClass.class };
-  Rule rule = new NoNestedClassRule();
+  private Class<?>[] failClasses = new Class<?>[] { NoNestedClassDoesntClass.NestedClass.class };
+  private Class<?>[] passClasses = new Class<?>[] { NoNestedClassDoesClass.class };
+  private Rule rule = new NoNestedClassRule();
 
   @Test
   public void testEvaluate() {

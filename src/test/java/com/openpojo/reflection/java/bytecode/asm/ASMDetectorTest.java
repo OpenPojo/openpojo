@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,22 +18,50 @@
 
 package com.openpojo.reflection.java.bytecode.asm;
 
-import com.openpojo.validation.affirm.Affirm;
+import com.openpojo.reflection.java.bytecode.ByteCodeFactory;
+import com.openpojo.reflection.java.load.ClassUtil;
+import com.openpojo.reflection.java.version.Version;
+import com.openpojo.reflection.java.version.VersionFactory;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
 /**
  * @author oshoukry
  */
 public class ASMDetectorTest {
-  ASMDetector asmDetector = ASMDetector.getInstance();
+  private ASMDetector asmDetector = ASMDetector.getInstance();
 
   @Test
   public void canDetectASMLoaded() {
-    Affirm.affirmTrue("ASM should've been detected as loaded", asmDetector.isASMLoaded());
+    assertThat(asmDetector.isASMLoaded(), is(true));
   }
 
   @Test
-  public void canDetectASMLoadedUsingGivenClass() {
+  public void canGetBundleVersion() {
+    Version currentVersion = asmDetector.getBundleVersion(ClassUtil.loadClass(ASMDetector.ASM_CLASS_NAME));
+    assertThat(currentVersion, notNullValue());
 
+    assertGreaterOrEqualToMinimumExpected(currentVersion);
+    assertLesserOrEqualToMaxExpected(currentVersion);
+  }
+
+  @Test
+  public void shouldNotThrowNullPointerExceptionIfClassIsNotLoaded() {
+    Version version = asmDetector.getBundleVersion(null);
+    assertThat(version, notNullValue());
+  }
+
+  private void assertGreaterOrEqualToMinimumExpected(Version version) {
+    assertThat(version.compareTo(ByteCodeFactory.ASM_MIN_VERSION), greaterThanOrEqualTo(0));
+  }
+
+  private void assertLesserOrEqualToMaxExpected(Version version) {
+    System.out.println("Version compareTo Max: " + version.compareTo(ByteCodeFactory.ASM_MAX_VERSION));
+    assertThat(version.getVersion(), version.compareTo(ByteCodeFactory.ASM_MAX_VERSION), lessThanOrEqualTo(0));
   }
 }

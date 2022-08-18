@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,10 @@ import com.openpojo.random.generator.AbstractGeneratorTest;
 import com.openpojo.random.service.RandomGeneratorService;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.reflection.java.load.ClassUtil;
 import com.openpojo.registry.ServiceRegistrar;
 import org.junit.Assert;
 import org.junit.Test;
-import sun.security.krb5.PrincipalName;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -44,7 +44,10 @@ public class PrincipalNameRandomGeneratorTest extends AbstractGeneratorTest {
   }
 
   protected String getTypeName() {
-    return PrincipalName.class.getName();
+    Class<?> principalNameClass = ClassUtil.loadClass("sun.security.krb5.PrincipalName");
+    if (principalNameClass != null)
+      return principalNameClass.getName();
+    return null;
   }
 
   protected RandomGenerator getRandomGenerator() {

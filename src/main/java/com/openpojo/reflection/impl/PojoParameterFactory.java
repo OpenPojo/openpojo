@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,5 +29,9 @@ import com.openpojo.reflection.PojoParameter;
 public final class PojoParameterFactory {
   public static PojoParameter getPojoParameter(Type type, Annotation[] annotations) {
     return new PojoParameterImpl(type, annotations);
+  }
+
+  private PojoParameterFactory() {
+    throw new UnsupportedOperationException(PojoParameterFactory.class.getName() + " should not be constructed!");
   }
 }

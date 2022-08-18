@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import com.openpojo.reflection.PojoMethod;
 import com.openpojo.reflection.java.load.ClassUtil;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -40,6 +41,11 @@ public abstract class AbstractGeneratorTest {
   protected abstract String getTypeName();
 
   protected abstract RandomGenerator getRandomGenerator();
+
+  @Before
+  public void before() {
+    Assume.assumeTrue(getTypeName() != null);
+  }
 
   @Test
   public void singlePrivateConstructor() {

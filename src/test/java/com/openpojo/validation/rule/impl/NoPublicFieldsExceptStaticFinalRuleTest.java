@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsExceptStaticFinalDoesClass;
 import com.openpojo.validation.rule.impl.sampleclasses.NoPublicFieldsExceptStaticFinalDoesntClass;
@@ -29,13 +30,13 @@ import org.junit.Test;
  * @author oshoukry
  */
 public class NoPublicFieldsExceptStaticFinalRuleTest {
-  Class<?>[] failClasses = new Class<?>[] {
+  private Class<?>[] failClasses = new Class<?>[] {
       NoPublicFieldsExceptStaticFinalDoesntClass.class,
       NoPublicFieldsExceptStaticFinalDoesntPublicStaticClass.class,
-      NoPublicFieldsExceptStaticFinalDoesntPublicFinalClass.class };
-
-  Class<?>[] passClasses = new Class<?>[] { NoPublicFieldsExceptStaticFinalDoesClass.class };
-  Rule rule = new NoPublicFieldsExceptStaticFinalRule();
+      NoPublicFieldsExceptStaticFinalDoesntPublicFinalClass.class
+  };
+  private Class<?>[] passClasses = new Class<?>[] { NoPublicFieldsExceptStaticFinalDoesClass.class };
+  private Rule rule = new NoPublicFieldsExceptStaticFinalRule();
 
   @Test
   public void testEvaluate() {

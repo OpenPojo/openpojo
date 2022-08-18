@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,10 @@
 
 package com.openpojo.reflection.java.load;
 
-import com.openpojo.reflection.java.bytecode.asm.ClassReaderFactory;
-
 /**
  * @author oshoukry
  */
 public class ClassUtil {
-  private ClassUtil() {
-    throw new UnsupportedOperationException(ClassReaderFactory.class.getName() + " should not be constructed!");
-  }
 
   public static boolean isClassLoaded(String className) {
     return loadClass(className) != null;
@@ -51,5 +46,9 @@ public class ClassUtil {
 
   private static ClassLoader getThreadClassLoader() {
     return Thread.currentThread().getContextClassLoader();
+  }
+
+  private ClassUtil() {
+    throw new UnsupportedOperationException(ClassUtil.class.getName() +  " should not be constructed!");
   }
 }

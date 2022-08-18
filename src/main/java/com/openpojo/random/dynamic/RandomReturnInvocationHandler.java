@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+/*
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +19,7 @@
 
 package com.openpojo.random.dynamic;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
@@ -31,13 +33,9 @@ import com.openpojo.reflection.impl.ParameterizableFactory;
  *
  * @author oshoukry
  */
-public class RandomReturnInvocationHandler implements InvocationHandler {
+public class RandomReturnInvocationHandler implements InvocationHandler, Serializable {
+
   private RandomReturnInvocationHandler() {
-
-  }
-
-  public static InvocationHandler getInstance() {
-    return Instance.INSTANCE;
   }
 
   public Object invoke(final Object proxy, final Method method, final Object[] args) {
@@ -68,7 +66,12 @@ public class RandomReturnInvocationHandler implements InvocationHandler {
     return System.identityHashCode(proxy) == System.identityHashCode(other);
   }
 
+  public static InvocationHandler getInstance() {
+    return Instance.INSTANCE;
+  }
+
   private static class Instance {
     private static final InvocationHandler INSTANCE = new RandomReturnInvocationHandler();
   }
+
 }

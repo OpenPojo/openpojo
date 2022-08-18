@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,8 @@ import com.openpojo.reflection.service.PojoClassLookupService;
 import com.openpojo.registry.Service;
 import com.openpojo.registry.ServiceRegistrar;
 
+import static com.openpojo.reflection.java.bytecode.asm.SubClassDefinition.GENERATED_CLASS_POSTFIX;
+
 /**
  * @author oshoukry
  */
@@ -65,6 +67,8 @@ public class DefaultPojoClassLookupService implements Service, PojoClassLookupSe
         pojoClass = new PojoClassImpl(clazz, PojoFieldFactory.getPojoFields(clazz), PojoMethodFactory.getPojoMethods(clazz));
         pojoClass = ServiceRegistrar.getInstance().getPojoCoverageFilterService().adapt(pojoClass);
       } catch (LinkageError le) {
+        if (clazz.getName().endsWith(GENERATED_CLASS_POSTFIX))
+          throw le;
         LoggerFactory.getLogger(this.getClass()).warn("Failed to load class [{0}], exception [{1}]", clazz, le);
       }
       PojoCache.addPojoClass(clazz.getName(), pojoClass);

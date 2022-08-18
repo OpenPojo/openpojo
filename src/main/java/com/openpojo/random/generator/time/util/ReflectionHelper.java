@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,5 +41,9 @@ public class ReflectionHelper {
     } catch (Exception e) {
       throw RandomGeneratorException.getInstance(e.getMessage(), e);
     }
+  }
+
+  private ReflectionHelper() {
+    throw new UnsupportedOperationException(ReflectionHelper.class.getName() +  " should not be constructed!");
   }
 }

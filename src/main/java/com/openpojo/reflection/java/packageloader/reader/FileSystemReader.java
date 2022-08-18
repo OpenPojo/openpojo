@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,6 @@ package com.openpojo.reflection.java.packageloader.reader;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -110,8 +108,4 @@ public class FileSystemReader {
     return path.replace(Java.PATH_DELIMITER, Java.PACKAGE_DELIMITER);
   }
 
-  public Collection<String> getClassNames() {
-    //throw new UnsupportedOperationException("UnImplemented!");
-    return new ArrayList<String>();
-  }
 }

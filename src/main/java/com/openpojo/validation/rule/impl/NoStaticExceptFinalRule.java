@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class NoStaticExceptFinalRule implements Rule {
 
   public void evaluate(final PojoClass pojoClass) {
     for (PojoField fieldEntry : pojoClass.getPojoFields()) {
-      if (fieldEntry.isStatic() && !fieldEntry.isFinal()) {
+      if (fieldEntry.isStatic() && !fieldEntry.isFinal() && !fieldEntry.isSynthetic()) {
         Affirm.fail(String.format("Static fields=[%s] not marked final are not allowed", fieldEntry));
       }
     }

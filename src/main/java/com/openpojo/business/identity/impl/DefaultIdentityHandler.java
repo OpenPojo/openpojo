@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,9 +37,12 @@ public final class DefaultIdentityHandler implements IdentityHandler {
     return DefaultIdentityEvaluator.getInstance().areEqual(first, second);
   }
 
-
   public int generateHashCode(final Object object) {
     return DefaultHashCodeGenerator.getInstance().doGenerate(object);
+  }
+
+  public String toString(Object object) {
+    return DefaultStringanizer.getInstance().toString(object);
   }
 
   public void validate(final Object object) {

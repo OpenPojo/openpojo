@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import org.junit.Test;
  */
 public class PojoPackageImplTest {
 
-  private static final int EXPECTED_CLASSES = 57;
+  private static final int EXPECTED_CLASSES = 61;
 
   private String packageName;
   private String expectedToString;

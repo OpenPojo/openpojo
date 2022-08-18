@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.reflection.construct.InstanceFactory;
 import com.openpojo.reflection.java.bytecode.asm.ASMNotLoadedException;
-import com.openpojo.validation.exception.ValidationException;
 import com.openpojo.validation.impl.DefaultValidator;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.test.Tester;
@@ -39,9 +38,6 @@ import com.openpojo.validation.test.Tester;
  */
 public final class ValidationHelper {
 
-  private ValidationHelper() {
-    throw ValidationException.getInstance("Utility class do not construct");
-  }
   /**
    * Return true if the PojoField is marked as static and is final.
    *
@@ -109,6 +105,9 @@ public final class ValidationHelper {
       logger.warn("ASM not loaded while attempting to execute behavioural tests on non-constructable class[{0}], either " +
           "filter " + "abstract classes or add asm to your classpath.", pojoClass.getClazz());
     }
+  }
 
+  private ValidationHelper() {
+    throw new UnsupportedOperationException(ValidationHelper.class.getName() +  " should not be constructed!");
   }
 }

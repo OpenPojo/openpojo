@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 
 package com.openpojo.validation.test.impl;
 
-import com.openpojo.validation.rule.impl.CommonCode;
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.test.impl.sampleclasses.ABusinessPojoDispatchingHashCodeAndEquals;
 import com.openpojo.validation.test.impl.sampleclasses.ABusinessPojoNotDispatchingEquals;
@@ -26,9 +26,9 @@ import com.openpojo.validation.test.impl.sampleclasses.ABusinessPojoNotDispatchi
 import org.junit.Test;
 
 public class BusinessIdentityTesterTest {
-  Class<?>[] failClasses = new Class<?>[] { ABusinessPojoNotDispatchingHashCode.class, ABusinessPojoNotDispatchingEquals.class };
-  Class<?>[] passClasses = new Class<?>[] { ABusinessPojoDispatchingHashCodeAndEquals.class };
-  Tester test = new BusinessIdentityTester();
+  private Class<?>[] failClasses = new Class<?>[] { ABusinessPojoNotDispatchingHashCode.class, ABusinessPojoNotDispatchingEquals.class };
+  private Class<?>[] passClasses = new Class<?>[] { ABusinessPojoDispatchingHashCodeAndEquals.class };
+  private Tester test = new BusinessIdentityTester();
 
   @Test
   public void testEvaluate() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,23 +18,37 @@
 
 package com.openpojo.validation.rule.impl;
 
+import com.openpojo.reflection.java.Java;
+import com.openpojo.reflection.java.bytecode.asm.SimpleClassLoader;
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.rule.Rule;
 import com.openpojo.validation.rule.impl.sampleclasses.SetterDoesExistClass;
 import com.openpojo.validation.rule.impl.sampleclasses.SetterDoesntExistClass;
+import com.openpojo.validation.utils.AClassWithSyntheticFieldDumper;
 import org.junit.Test;
+
+import static com.openpojo.reflection.java.bytecode.asm.SubClassDefinition.GENERATED_CLASS_POSTFIX;
 
 /**
  * @author oshoukry
  */
 public class SetterMustExistRuleTest {
-
-  Class<?>[] failClasses = new Class<?>[] { SetterDoesntExistClass.class };
-  Class<?>[] passClasses = new Class<?>[] { SetterDoesExistClass.class };
-  Rule rule = new SetterMustExistRule();
+  private Class<?>[] failClasses = new Class<?>[] { SetterDoesntExistClass.class };
+  private Class<?>[] passClasses = new Class<?>[] { SetterDoesExistClass.class };
+  private Rule rule = new SetterMustExistRule();
 
   @Test
   public void testEvaluate() {
     CommonCode.shouldPassRuleValidation(rule, passClasses);
     CommonCode.shouldFailRuleValidation(rule, failClasses);
+  }
+
+  @Test
+  public void shouldIgnoreSyntheticFields() throws Exception {
+    final SimpleClassLoader simpleClassLoader = new SimpleClassLoader();
+    final String className = this.getClass().getPackage().getName() + ".AClassWithSyntheticField" + GENERATED_CLASS_POSTFIX;
+    final String classNameAsPath = className.replace(Java.PACKAGE_DELIMITER, Java.PATH_DELIMITER);
+
+    CommonCode.shouldPassRuleValidation(rule, simpleClassLoader.loadThisClass(AClassWithSyntheticFieldDumper.dump(classNameAsPath), className));
   }
 }

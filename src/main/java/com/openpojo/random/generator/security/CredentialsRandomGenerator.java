@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,28 +18,27 @@
 
 package com.openpojo.random.generator.security;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import com.openpojo.random.RandomFactory;
 import com.openpojo.random.RandomGenerator;
-import sun.security.krb5.Credentials;
-import sun.security.krb5.EncryptionKey;
-import sun.security.krb5.PrincipalName;
-import sun.security.krb5.internal.HostAddresses;
-import sun.security.krb5.internal.KerberosTime;
-import sun.security.krb5.internal.Ticket;
-import sun.security.krb5.internal.TicketFlags;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.construct.InstanceFactory;
+
+import java.util.*;
+
+import static com.openpojo.random.RandomFactory.getRandomValue;
+import static com.openpojo.reflection.impl.PojoClassFactory.getPojoClass;
+import static com.openpojo.reflection.java.load.ClassUtil.loadClass;
 
 /**
  * @author oshoukry
  */
 public class CredentialsRandomGenerator implements RandomGenerator {
 
-  private static final Class<?>[] TYPES = new Class<?>[] { Credentials.class };
+  private static final String TYPE = "sun.security.krb5.Credentials";
   private static final CredentialsRandomGenerator INSTANCE = new CredentialsRandomGenerator();
+  private final Class<?> credentialsClass;
 
   private CredentialsRandomGenerator() {
+    credentialsClass = loadClass(TYPE);
   }
 
   public static RandomGenerator getInstance() {
@@ -47,26 +46,30 @@ public class CredentialsRandomGenerator implements RandomGenerator {
   }
 
   public Collection<Class<?>> getTypes() {
-    return Arrays.asList(TYPES);
+    List<Class<?>> supported = new ArrayList<Class<?>>();
+    if (credentialsClass != null)
+      supported.add(credentialsClass);
+    return supported;
   }
 
   public Object doGenerate(Class<?> type) {
-    Ticket var1 = RandomFactory.getRandomValue(Ticket.class);
+    Object var1 = getRandomValue(loadClass("sun.security.krb5.internal.Ticket"));
 
-    PrincipalName var2 = RandomFactory.getRandomValue(PrincipalName.class);
-    PrincipalName var3 = RandomFactory.getRandomValue(PrincipalName.class);
+    Object var2 = getRandomValue(loadClass("sun.security.krb5.PrincipalName"));
+    Object var3 = getRandomValue(loadClass("sun.security.krb5.PrincipalName"));
 
-    EncryptionKey var4 = RandomFactory.getRandomValue(EncryptionKey.class);
+    Object var4 = getRandomValue(loadClass("sun.security.krb5.EncryptionKey"));
 
-    TicketFlags var5 = RandomFactory.getRandomValue(TicketFlags.class);
+    Object var5 = getRandomValue(loadClass("sun.security.krb5.internal.TicketFlags"));
 
-    KerberosTime var6 = RandomFactory.getRandomValue(KerberosTime.class);
-    KerberosTime var7 = RandomFactory.getRandomValue(KerberosTime.class);
-    KerberosTime var8 = RandomFactory.getRandomValue(KerberosTime.class);
-    KerberosTime var9 = RandomFactory.getRandomValue(KerberosTime.class);
+    Object var6 = getRandomValue(loadClass("sun.security.krb5.internal.KerberosTime"));
+    Object var7 = getRandomValue(loadClass("sun.security.krb5.internal.KerberosTime"));
+    Object var8 = getRandomValue(loadClass("sun.security.krb5.internal.KerberosTime"));
+    Object var9 = getRandomValue(loadClass("sun.security.krb5.internal.KerberosTime"));
 
-    HostAddresses var10 = RandomFactory.getRandomValue(HostAddresses.class);
+    Object var10 = getRandomValue(loadClass("sun.security.krb5.internal.HostAddresses"));
 
-    return new Credentials(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10);
+    PojoClass pojoClass = getPojoClass(credentialsClass);
+    return InstanceFactory.getInstance(pojoClass, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10);
   }
 }

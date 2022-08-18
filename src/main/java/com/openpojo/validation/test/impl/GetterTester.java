@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,10 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.Tester;
-import com.openpojo.validation.utils.IdentityHandlerStub;
+import com.openpojo.validation.utils.SameInstanceIdentityHandlerStub;
 import com.openpojo.validation.utils.ValidationHelper;
+
+import static com.openpojo.validation.utils.ToStringHelper.safeToString;
 
 /**
  * Test the getter and ensure it retrieves from the field being tested if and only if it has a getter defined.
@@ -45,13 +47,12 @@ public class GetterTester implements Tester {
           fieldEntry.set(classInstance, value);
         }
 
-        IdentityHandlerStub.registerIdentityHandlerStubForValue(value);
+        SameInstanceIdentityHandlerStub.registerIdentityHandlerStubForValue(value);
 
-        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]", fieldEntry, value);
+        LoggerFactory.getLogger(this.getClass()).debug("Testing Field [{0}] with value [{1}]", fieldEntry, safeToString(value));
 
-        Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value,
-            fieldEntry.invokeGetter(classInstance));
-        IdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
+        Affirm.affirmEquals("Getter returned non equal value for field=[" + fieldEntry + "]", value, fieldEntry.invokeGetter(classInstance));
+        SameInstanceIdentityHandlerStub.unregisterIdentityHandlerStubForValue(value);
       } else {
         LoggerFactory.getLogger(this.getClass()).debug("Field [{0}] has no getter skipping", fieldEntry);
       }

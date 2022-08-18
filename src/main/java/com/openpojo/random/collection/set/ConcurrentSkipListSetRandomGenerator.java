@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,10 @@ import java.util.List;
 import com.openpojo.random.collection.util.BaseCollectionRandomGenerator;
 import com.openpojo.random.util.Helper;
 import com.openpojo.reflection.construct.InstanceFactory;
-import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.reflection.java.load.ClassUtil;
+
+import static com.openpojo.reflection.impl.PojoClassFactory.getPojoClass;
+import static com.openpojo.reflection.java.load.ClassUtil.loadClass;
 
 /**
  * @author oshoukry
@@ -42,14 +44,14 @@ public class ConcurrentSkipListSetRandomGenerator extends BaseCollectionRandomGe
   public Collection<Class<?>> getTypes() {
     List<Class<?>> types = new ArrayList<Class<?>>();
     if (ClassUtil.isClassLoaded(TYPE))
-      types.add(ClassUtil.loadClass(TYPE));
+      types.add(loadClass(TYPE));
     return types;
   }
 
   @Override
   protected Collection getBasicInstance(Class<?> type) {
     Helper.assertIsAssignableTo(type, getTypes());
-    return (Collection) InstanceFactory.getInstance(PojoClassFactory.getPojoClass(ClassUtil.loadClass(TYPE)));
+    return (Collection) InstanceFactory.getInstance(getPojoClass(loadClass(TYPE)));
   }
 
   private ConcurrentSkipListSetRandomGenerator() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,11 @@
 
 package com.openpojo.validation.test.impl;
 
-import com.openpojo.validation.rule.impl.CommonCode;
+import com.openpojo.validation.CommonCode;
 import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.test.impl.sampleclasses.DefaultValueNotNullClass;
 import com.openpojo.validation.test.impl.sampleclasses.DefaultValueNullClass;
+import com.openpojo.validation.test.impl.sampleclasses.DefaultValueNullClassWithBusinessKeys;
 import org.junit.Test;
 
 /**
@@ -29,9 +30,9 @@ import org.junit.Test;
  */
 public class DefaultValuesNullTesterTest {
 
-  Class<?>[] failClasses = new Class<?>[] { DefaultValueNotNullClass.class };
-  Class<?>[] passClasses = new Class<?>[] { DefaultValueNullClass.class };
-  Tester test = new DefaultValuesNullTester();
+  private Class<?>[] failClasses = new Class<?>[] { DefaultValueNotNullClass.class };
+  private Class<?>[] passClasses = new Class<?>[] { DefaultValueNullClass.class, DefaultValueNullClassWithBusinessKeys.class };
+  private Tester test = new DefaultValuesNullTester();
 
   @Test
   public void testEvaluate() {

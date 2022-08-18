@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,10 +28,6 @@ import com.openpojo.cache.impl.WeakHashMapCacheStorage;
  */
 public class CacheStorageFactory {
 
-  private CacheStorageFactory() {
-      throw new UnsupportedOperationException("This is a utility class, do not construct");
-  }
-
   /**
    * Returns an instance of CacheStorage that will garbage collect automatically.
    *
@@ -52,5 +48,9 @@ public class CacheStorageFactory {
    */
   public static <T> CacheStorage<T> getPersistentCacheStorage() {
     return new StrongRefHashMapCacheStorage<T>();
+  }
+
+  private CacheStorageFactory() {
+    throw new UnsupportedOperationException(CacheStorageFactory.class.getName() + " should not be constructed!");
   }
 }

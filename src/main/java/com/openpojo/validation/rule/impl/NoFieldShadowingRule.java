@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import java.util.List;
 import com.openpojo.log.utils.MessageFormatter;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoField;
-import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.rule.Rule;
 
@@ -53,7 +52,6 @@ public class NoFieldShadowingRule implements Rule {
 
   private static final String SERIAL_VERSION_UID_FIELD_NAME = "serialVersionUID";
   private static final Class<?> SERIAL_VERSION_UID_FIELD_TYPE = long.class;
-  private PojoClass serializablePojoClass = PojoClassFactory.getPojoClass(Serializable.class);
   private List<String> fieldNamesToSkip;
 
   public NoFieldShadowingRule(String... fieldNamesToSkip) {
@@ -88,7 +86,7 @@ public class NoFieldShadowingRule implements Rule {
 
   private boolean isSerializable(PojoField field, PojoClass pojoClass) {
     return field.getName().equals(SERIAL_VERSION_UID_FIELD_NAME)
-        && pojoClass.getInterfaces().contains(serializablePojoClass)
+        && Serializable.class.isAssignableFrom(pojoClass.getClazz())
         && field.getType().equals(SERIAL_VERSION_UID_FIELD_TYPE);
   }
 

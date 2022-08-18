@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2017 Osman Shoukry
+ * Copyright (c) 2010-2018 Osman Shoukry
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,10 +24,18 @@ package com.openpojo.reflection.java.bytecode.asm;
 public class ASMNotLoadedException extends RuntimeException {
 
   private ASMNotLoadedException() {
-    super("ASM v5.0+ library required, please see http://asm.ow2.org/");
+    this("ASM v5.0+ library required, please see http://asm.ow2.org/");
+  }
+
+  private ASMNotLoadedException(String message) {
+    super(message);
   }
 
   public static ASMNotLoadedException getInstance() {
     return new ASMNotLoadedException();
+  }
+
+  public static ASMNotLoadedException getInstance(String message) {
+    return new ASMNotLoadedException(message);
   }
 }
